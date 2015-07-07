@@ -1,0 +1,36 @@
+ - add main page with navigation
+  - Link - "Home"
+  - Link - "Mitglieder werben Mitglieder"
+    - Link - "Signup Form"
+  - Link - "sozial Projekte zur Selbsthilfe"
+  - Impressium/Kontakt
+
+
+ - add column member.signup_datetime
+
+ - add column member.paied defining if member paied his due
+
+ - add column member.funds_level defining the vergütungs stufe
+
+ - add table transactions, listing the transactions of all members which they receive due to recruiting
+   - add column transactions.performed defining if this transactions was send to bank
+   - require column transactions.performed_successful? defining if the transaction was successful - if bank api can/will do this
+
+ - anmeldung kostet einmalig 60 euro
+
+
+
+Fragen
+======
+
+- zu welcher zeit gelte ich als offizielles mitglied
+- heißt ich melde mich an, überweise geld, das geld kommt aber erst in 3 tagen an
+- in der zwischenzeit melden melden sich 3 von mir geworbene mitglieder an?
+- bekomme ich für das dritte vergütungsstufe 2 obwohl mein geld noch nicht eingegangen ist?
+-------------------------
+
+Ich bekomme erst 15 euro von indirekten werbungen wenn ich stufe 2 bin???
+
+---------------------------
+
+- save unknown incommings to extra table?

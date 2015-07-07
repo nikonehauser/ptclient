@@ -1,0 +1,29 @@
+
+Vergütungs Stufe 1
+==================
+
+- 5 Euro / recruit
+
+- 2 recruites -> raise to Vergütungsstufe 2
+
+Vergütungs Stufe 2
+==================
+
+- 20 Euro / recruit
+
+- 15 Euro / indirect recruit of one of my recruits with "Vergütungsstufe 1"
+
+
+Annahmen
+========
+
+- Ich bekomme pro geworbenes Mitglied maximal 2 indirekte Mitglieder Werbungs vergütung
+ Dadurch geht es zwar unendlich in die tiefe aber nicht horizontal
+
+- ich bekomme KEINE vergütung für die geworbenen Mitglieder der von mir
+geworbenen Mitglieder solange ich Stufe 1 bin?
+
+
+Promoter
+=======
+Von jedem Mitglied 1 Euro

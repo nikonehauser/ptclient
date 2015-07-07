@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<config>
+  <propel>
+    <datasources default="zeyconnect">
+      <datasource id="zeyconnect">
+      <adapter>mysql</adapter>
+      <connection>
+        <classname>ZeyConnectPDO</classname> <!-- <classname>ZeyConnectDebugPDO</classname> -->
+        <dsn>mysql:host=127.0.0.1;dbname=zeyconnect</dsn>
+        <database>zeyconnect</database>
+        <user>root</user>
+        <password>isense</password>
+      </connection>
+      </datasource>
+    </datasources>
+  </propel>
+</config>
