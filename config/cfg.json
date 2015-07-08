@@ -1,4 +1,4 @@
 {
-  "baseurl": "http://localhost/pt",
+  "baseurl": "http://localhost/pt/index.php",
   "devmode": true
 }

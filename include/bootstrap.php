@@ -20,6 +20,10 @@ spl_autoload_register(function ($name) {
  throw new \ErrorException($errstr, 0, $errno, $errfile, $errline);
 });
 
+define('PROJECT_NAME', 'miltype');
+define('NS_ROOT_NAME', 'Tbmt');
+define('NS_ROOT_PART', 'Tbmt\\');
+
 define('CONFIG_DIR', BASE_DIR.'config'.DIRECTORY_SEPARATOR);
 define('LIB_DIR', BASE_DIR.'lib'.DIRECTORY_SEPARATOR);
 define('ENTITIES_DIR', BASE_DIR.'entities'.DIRECTORY_SEPARATOR);

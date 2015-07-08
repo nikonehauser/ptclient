@@ -83,7 +83,7 @@ class Localizer {
     );
 
     if ( empty($lang_variable) )
-      return $res;
+      return null;
 
     $accepted_languages = preg_split('/,\s*/', $lang_variable);
     $currentQuality = 0;

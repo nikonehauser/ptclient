@@ -41,7 +41,11 @@
                         <ul class="nav navbar-nav">
                             <?php
                               foreach ($this->navigationLinks as $link) {
-                                echo '<li><a href="'.$link[0].'">'.$link[1].'</a></li>';
+                                $className = '';
+                                if ( $link[2] )
+                                    $className = 'active';
+
+                                echo '<li class="'.$className.'"><a href="'.$link[0].'">'.$link[1].'</a></li>';
                               }
                             ?>
                         </ul>

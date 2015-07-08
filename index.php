@@ -2,10 +2,6 @@
 
 namespace Tbmt;
 
-define('PROJECT_NAME', 'miltype');
-define('NS_ROOT_NAME', 'Tbmt');
-define('NS_ROOT_PART', 'Tbmt\\');
-
 define('BASE_DIR', dirname(__FILE__).DIRECTORY_SEPARATOR);
 
 try {
@@ -23,6 +19,8 @@ try {
     Router::KEY_MODULE => [\Tbmt\TYPE_STRING, 'home'],
     Router::KEY_ACTION => [\Tbmt\TYPE_STRING, 'index'],
   ]);
+
+  define('CURRENT_MODULE', $controllerName);
 
   $controllerBody = ControllerDispatcher::dispatchAction(
     $controllerName,

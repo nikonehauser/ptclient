@@ -10,6 +10,13 @@ class Router {
   static private $url;
 
   static public function init($url) {
+    // TODO
+    // For $url to either end to valid file like:
+    //   http://localhost/pt/index.php
+    // or to be valid direcotry WITH trailing slash
+    // "http://localhost/pt/
+    //
+    // @see http://serverfault.com/questions/587002/apache2-301-redirect-when-missing-at-the-end-of-directory-in-the-url
     self::$url = $url;
   }
 

@@ -14,7 +14,8 @@ class Index extends Base {
     foreach (['member', 'projects', 'about'] as $linkName) {
       array_push($this->navigationLinks, [
         \Tbmt\Router::toModule($linkName),
-        $linkNames[$linkName]
+        $linkNames[$linkName],
+        $linkName === CURRENT_MODULE ? true : false
       ]);
     }
 
