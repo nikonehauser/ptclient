@@ -2,9 +2,9 @@
 
 namespace Tbmt;
 
-class HomeController extends BaseController {
+class MemberController extends BaseController {
 
-  const MODULE_NAME = 'home';
+  const MODULE_NAME = 'member';
 
   protected $actions = [
     'index' => true

@@ -1,7 +1,9 @@
 <?php
 
+namespace Tbmt;
+
 spl_autoload_register(function ($name) {
-  if (\substr($name, 0, 5) === 'Tbmt\\') {
+  if (\substr($name, 0, 5) === NS_ROOT_PART) {
     $name = substr($name, 5);
     $pos = strpos($name, '\\');
     if ( $pos !== false ) {
@@ -27,14 +29,22 @@ define('ASSETS_DIR', BASE_DIR.'assets'.DIRECTORY_SEPARATOR);
 define('INC_DIR', BASE_DIR.'include'.DIRECTORY_SEPARATOR);
 define('MODULES_DIR', BASE_DIR.'modules'.DIRECTORY_SEPARATOR);
 define('VIEWS_DIR', BASE_DIR.'views'.DIRECTORY_SEPARATOR);
+define('LOCALES_DIR', BASE_DIR.'locales'.DIRECTORY_SEPARATOR);
 
 require INC_DIR.'Exceptions.php';
 require INC_DIR.'Val.php';
 require INC_DIR.'Config.php';
 require INC_DIR.'Localizer.php';
+require INC_DIR.'Router.php';
 require INC_DIR.'ControllerDispatcher.php';
 
-\Tbmt\Config::load(CONFIG_DIR.'cfg.json');
+Config::load(CONFIG_DIR.'cfg.json');
+$baseUrl = Config::get('baseurl');
+if ( !$baseUrl )
+  throw new \Exception('Invalid configuration. Missing "baseurl" definition.');
+
+Localizer::load(LOCALES_DIR);
+Router::init($baseUrl);
 
 /* Setup propel
 ---------------------------------------------*/
@@ -48,9 +58,9 @@ set_include_path(
 require_once LIB_DIR.'/propel/runtime/lib/Propel.php';
 
 try {
-  Propel::init(ENTITIES_DIR.'build'.DIRECTORY_SEPARATOR.'conf'.DIRECTORY_SEPARATOR.PROJECT_NAME.'-conf.php');
-  Propel::getDB()->setCharset(Propel::getConnection(), 'UTF8');
-} catch (Exception $e) {
+  \Propel::init(ENTITIES_DIR.'build'.DIRECTORY_SEPARATOR.'conf'.DIRECTORY_SEPARATOR.PROJECT_NAME.'-conf.php');
+  \Propel::getDB()->setCharset(\Propel::getConnection(), 'UTF8');
+} catch (\Exception $e) {
   // Do NOT output stacktrace because it holds the plain pg password.
   echo $e->getMessage();
   error_log($e->__toString());

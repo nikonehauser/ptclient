@@ -2,9 +2,9 @@
 
 namespace Tbmt;
 
-class HomeController extends BaseController {
+class ProjectsController extends BaseController {
 
-  const MODULE_NAME = 'home';
+  const MODULE_NAME = 'projects';
 
   protected $actions = [
     'index' => true
