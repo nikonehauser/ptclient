@@ -52,7 +52,7 @@ class Validator {
         else {
           $filterCode = $filter;
           if ( isset($filter['filter']) )
-            $filterCode = $filter;
+            $filterCode = $filter['filter'];
 
           $locales[$key] = Localizer::get(self::$FILTER_ERROR_KEYS[$filterCode]);
         }

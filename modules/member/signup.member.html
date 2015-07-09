@@ -14,6 +14,8 @@
 
       <h3><?=$this->formLabels['contact']?></h3>
 
+      <?php echo $formBuilder->buildFieldGroup('referer_num'); ?>
+
       <div class="row">
           <div class="col-sm-4">
               <?php echo $formBuilder->buildFieldGroup('title'); ?>
@@ -27,11 +29,11 @@
       </div>
 
       <div class="row">
-          <div class="col-sm-4">
-              <?php echo $formBuilder->buildFieldGroup('age'); ?>
-          </div>
           <div class="col-sm-8">
               <?php echo $formBuilder->buildFieldGroup('email'); ?>
+          </div>
+          <div class="col-sm-4">
+              <?php echo $formBuilder->buildFieldGroup('age'); ?>
           </div>
       </div>
 

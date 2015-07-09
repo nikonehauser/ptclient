@@ -1,16 +1,3 @@
- - add main page with navigation
-  - Link - "Home"
-  - Link - "Mitglieder werben Mitglieder"
-    - Link - "Signup Form"
-  - Link - "sozial Projekte zur Selbsthilfe"
-  - Impressium/Kontakt
-
-
- - add column member.signup_datetime
-
- - add column member.paied defining if member paied his due
-
- - add column member.funds_level defining the vergütungs stufe
 
  - add table transactions, listing the transactions of all members which they receive due to recruiting
    - add column transactions.performed defining if this transactions was send to bank
@@ -23,6 +10,8 @@
 Fragen
 ======
 
+- kann ich überhaupt werben wenn
+
 - zu welcher zeit gelte ich als offizielles mitglied
 - heißt ich melde mich an, überweise geld, das geld kommt aber erst in 3 tagen an
 - in der zwischenzeit melden melden sich 3 von mir geworbene mitglieder an?
@@ -33,7 +22,16 @@ Ich bekomme erst 15 euro von indirekten werbungen wenn ich stufe 2 bin???
 
 ---------------------------
 
+signup datum, wann wird das geld überwiesen ?
+
+---------------------------
+
 - save unknown incommings to extra table?
+
+---------------------------
+
+- hochgezählt member num is gut??? kann ja einfach irgendeine nehmen
+
 
 
 

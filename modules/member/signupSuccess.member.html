@@ -1,0 +1,13 @@
+<div class="u-tc">
+  <?php
+
+  echo '<p>'.$this->locales['welcome'].'</p>';
+
+  echo '<p>'.\Tbmt\Localizer::insert($this->locales['new_member_num'], [
+    'num' => '<mark>'.\Tbmt\Localizer::encodeHtml($this->var['newMemberNum']).'</mark>'
+  ], false).'</p>';;
+
+  echo '<p>'.$this->locales['info'].'</p>';
+
+  ?>
+</div>

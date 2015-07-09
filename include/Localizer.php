@@ -20,6 +20,14 @@ class Localizer {
 
   private function __construct() {}
 
+  static public function encodeHtml($string) {
+    return \str_replace(
+      ["\r\n", "\r", "\n", "\t", '  ', '  '],
+      ['<br />', '<br />', '<br />', ' ', '&nbsp; ', ' &nbsp;'],
+      \htmlspecialchars($string, \ENT_HTML401 | \ENT_COMPAT | \ENT_SUBSTITUTE)
+    );
+  }
+
   static public function load($localesPath, $lang = null) {
     if ( $lang === null || !isset(self::$arrAccepted[$lang]) )
       $lang = self::askBrowser(self::$arrAccepted);
@@ -62,17 +70,20 @@ class Localizer {
    * @param array $arrReplace Associative array containing the placeholder variables
    * @return string If the path could not be resolved, the path will be returned instead
    */
-  static public function insert($strKey, $arrReplace) {
-    $locale = self::get($strKey);
-
+  static public function insert($locale, $arrReplace, $encode = true) {
     $arrSearch = array();
     $arrValues = array();
     foreach ($arrReplace as $key => $value) {
       $arrSearch[] = '{'.$key.'}';
-      $arrValues[] = $value;
+      $arrValues[] = $encode ? self::encodeHtml($value) : $value;
     }
 
     return str_replace($arrSearch, $arrValues, $locale);
+  }
+
+  static public function getInsert($strKey, $arrReplace, $encode = true) {
+    $locale = self::get($strKey);
+    return self::insert($locale, $arrReplace, $encode);
   }
 
   public static function askBrowser($arrAccepted) {

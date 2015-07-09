@@ -17,6 +17,7 @@ class Member extends BaseMember
 {
 
   static public $SIGNUP_FORM_FIELDS = [
+    'referer_num'          => [\Tbmt\TYPE_INT, ''],
     'title'                => \Tbmt\TYPE_STRING,
     'lastName'             => \Tbmt\TYPE_STRING,
     'firstName'            => \Tbmt\TYPE_STRING,
@@ -32,10 +33,18 @@ class Member extends BaseMember
   ];
 
   static public $SIGNUP_FORM_FILTERS = [
+    'referer_num'          => \Tbmt\Validator::FILTER_NOT_EMPTY,
     'email'                => \FILTER_VALIDATE_EMAIL,
     'lastName'             => \Tbmt\Validator::FILTER_NOT_EMPTY,
     'firstName'            => \Tbmt\Validator::FILTER_NOT_EMPTY,
-    'age'                  => \FILTER_VALIDATE_INT,
+    'age'                  => [
+      'filter' => \FILTER_VALIDATE_INT,
+      'options' => [
+        'min_range' => 18,
+        'max_range' => 110
+      ],
+      'errorLabel' => 'error.age_of_18'
+    ],
     'firstName'            => \Tbmt\Validator::FILTER_NOT_EMPTY,
 
     'city'                 => \Tbmt\Validator::FILTER_NOT_EMPTY,
@@ -58,6 +67,48 @@ class Member extends BaseMember
     if ( $data['email'] === '' )
       unset($data['email']);
 
-    return \Tbmt\Validator::getErrors($data, self::$SIGNUP_FORM_FILTERS);
+    $res = \Tbmt\Validator::getErrors($data, self::$SIGNUP_FORM_FILTERS);
+    if ( $res !== false )
+      return [false, $res];
+
+    // Validate member number exists
+    $parentMember = \MemberQuery::create()->findOneByNum($data['referer_num']);
+    if ( $parentMember == null ) {
+      return [false, ['referer_num' => \Tbmt\Localizer::get('error.referer_num')]];
+
+    } else if ( $parentMember->getPaid() == 0 ) {
+      return [false, ['referer_num' => \Tbmt\Localizer::get('error.referer_paiment_outstanding')]];
+    }
+
+    if ( !isset($data['email']) )
+      $data['email'] = '';
+
+    return [true, $data];
+  }
+
+  static function numExists($num) {
+    return \MemberQuery::create()->findOneByNum($num) !== null;
+  }
+
+  static public function createFromSignup($data) {
+    // This functions expects this parameter to be valid!
+    // E.g. the result from self::validateSignupForm()
+    $member = new Member();
+    $member
+      ->setFirstName($data['firstName'])
+      ->setLastName($data['lastName'])
+      // ->setNum() autoincrement
+      ->setEmail($data['email'])
+      ->setCity($data['city'])
+      ->setCountry($data['country'])
+      ->setAge($data['age'])
+      ->setRefererNum($data['referer_num'])
+      ->setBankRecipient($data['bank_recipient'])
+      ->setIban($data['iban'])
+      ->setBic($data['bic'])
+      ->setSignupDate(time())
+      ->save();
+
+    return $member;
   }
 }

@@ -39,7 +39,6 @@ try {
   ]);
 
 } catch (PublicException $e) {
-  error_log($e->__toString());
   echo view\PublicError::fromPublicException($e);
 } catch (\Exception $e) {
   error_log($e->__toString());

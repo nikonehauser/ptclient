@@ -5,8 +5,20 @@
     <column name="id" phpName="Id" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
     <column name="first_name" phpName="FirstName" type="VARCHAR" size="80" required="true"/>
     <column name="last_name" phpName="LastName" type="VARCHAR" size="80" required="true"/>
-    <column name="member_num" phpName="MemberNum" type="INTEGER" autoIncrement="true" required="true"/>
+    <column name="num" phpName="Num" type="INTEGER" autoIncrement="true" required="true"/>
     <column name="email" phpName="Email" type="VARCHAR" size="80" required="true"/>
-    <column name="referer_member_num" phpName="RefererMemberNum" type="INTEGER" required="true"/>
+    <column name="city" phpName="City" type="VARCHAR" size="80" required="true"/>
+    <column name="country" phpName="Country" type="VARCHAR" size="80" required="true"/>
+    <column name="age" phpName="Age" type="SMALLINT" required="true"/>
+    <column name="referer_num" phpName="RefererNum" type="INTEGER" required="false"/>
+    <column name="signup_date" phpName="SignupDate" type="TIMESTAMP" required="true"/>
+    <column name="paid" phpName="Paid" type="SMALLINT" required="true" defaultValue="0"/>
+    <column name="funds_level" phpName="FundsLevel" type="SMALLINT" required="true" defaultValue="1"/>
+    <column name="bank_recipient" phpName="BankRecipient" type="VARCHAR" size="120" required="true"/>
+    <column name="iban" phpName="Iban" type="VARCHAR" size="80" required="true"/>
+    <column name="bic" phpName="Bic" type="VARCHAR" size="80" required="true"/>
+    <unique name="member_num_UNIQUE">
+      <unique-column name="num"/>
+    </unique>
   </table>
 </database>

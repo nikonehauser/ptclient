@@ -10,6 +10,10 @@ return [
     'email'  => 'Invalid email address',
     'int'    => 'Invalid integer',
     'accept' => 'Must be accepted',
+
+    'referer_num' => 'Referer num does not exist',
+    'age_of_18' => 'Must be 18 or older',
+    'referer_paiment_outstanding' => 'The member exists but we didn´t receive the member fee yet. Unfornately you have to wait for this members full membership',
   ],
 
   'view' => [
@@ -40,6 +44,7 @@ return [
           'bank_account' => 'Bank Account',
           'confirm' => 'Confirm',
 
+          'referer_num' => 'Referer Member Number',
           'firstName' => 'First name',
           'lastName' => 'Last name',
           'title' => 'Title',
@@ -57,6 +62,12 @@ return [
 
           'submit' => 'Submit'
         ]
+      ],
+
+      'signup_success' => [
+        'welcome' => 'Welcome to "Help Yourself Association".',
+        'new_member_num' => 'Your member number is {num}. Please note this number.',
+        'info' => 'Use it to invite new members to help them and yourself.',
       ]
     ],
     'projects' => [

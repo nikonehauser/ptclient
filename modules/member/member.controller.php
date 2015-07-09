@@ -9,7 +9,8 @@ class MemberController extends BaseController {
   protected $actions = [
     'index' => true,
     'signup' => true,
-    'signup_submit' => true
+    'signup_submit' => true,
+    'signupSuccess' => true
   ];
 
   public function action_signup() {
@@ -21,14 +22,21 @@ class MemberController extends BaseController {
 
   public function action_signup_submit() {
     $formErrors = [];
-    $data = \Member::validateSignupForm($_REQUEST);
-    if ( $data !== false )
-      $formErrors = $data;
+    list($valid, $data) = \Member::validateSignupForm($_REQUEST);
+    if ( $valid !== true ) {
+      return ControllerDispatcher::renderModuleView(
+        self::MODULE_NAME,
+        'signup',
+        ['formErrors' => $data]
+      );
+    }
 
+    $member = \Member::createFromSignup($data);
+    $member->reload();
     return ControllerDispatcher::renderModuleView(
       self::MODULE_NAME,
-      'signup',
-      ['formErrors' => $formErrors]
+      'signupSuccess',
+      ['newMemberNum' => $member->getNum()]
     );
   }
 
