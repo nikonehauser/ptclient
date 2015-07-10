@@ -14,14 +14,41 @@ Vergütungs Stufe 2
 - 15 Euro / indirect recruit of one of my recruits with "Vergütungsstufe 1"
 
 
+Processes
+==========
+
+### P1 - ich bin stufe 1 und werbe ein neues Mitglied
+
+ - ich bekomme 5 euro
+ - mein Werber bekommt 15 euro
+ - das geworbene Mitglied wird meinem Werber unterstellt und damit seiner
+   Werber Hirachie angefügt
+
+### P2 - ich erreiche stufe 2
+
+ - ich werde aus der Werber Hirachie meines Werbers entfernt
+
+### P3 - ich bin stufe 2 und werbe ein neues Mitglied
+
+ - ich bekomme 20 euro
+ - ich habe keinen übergeordneten Werber mehr
+ - das geworbene Mitglied wird meiner Werber Hirachi unterstellt
+
+
 Annahmen
 ========
 
-- Ich bekomme pro geworbenes Mitglied maximal 2 indirekte Mitglieder Werbungs vergütung
- Dadurch geht es zwar unendlich in die tiefe aber nicht horizontal
+- Ich bekomme pro geworbenes Mitglied maximal 2 indirekte Mitglieder
+  (werden meiner Hirachi unterstellt), alle weiteren von diesem Mitglied
+  geworbenen werden seiner eigenen Hirachi unterstellt
 
 - ich bekomme KEINE vergütung für die geworbenen Mitglieder der von mir
-geworbenen Mitglieder solange ich Stufe 1 bin?
+  geworbenen Mitglieder solange ich Stufe 1 bin
+
+- ich bekommen nur 5 euro von den ersten beiden geworbenen mitglieder, sonst nichts.
+das heisst diese beiden geworbenen mitglieder gehören in den stammbaum von der
+person die mich geworben hat. erst ab und einschließlich meiner 3 werbung bekomme
+ich 15 euro für die werbung und weiteres geld für die werbungen dieser
 
 
 Promoter

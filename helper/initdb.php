@@ -14,6 +14,7 @@ if ( CREATE_MEMBER ) {
       ->setFirstName('firstname'.$i)
       ->setLastName('lastname'.$i)
       // ->setNum() autoincrement
+      ->setTitle('email'.$i)
       ->setEmail('email'.$i)
       ->setCity('email'.$i)
       ->setCountry('email'.$i)

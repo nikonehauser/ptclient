@@ -12,16 +12,78 @@ CREATE TABLE "tbmt_member"
     "last_name" VARCHAR(80) NOT NULL,
     "num" serial NOT NULL,
     "email" VARCHAR(80) NOT NULL,
+    "title" VARCHAR(80) NOT NULL,
     "city" VARCHAR(80) NOT NULL,
     "country" VARCHAR(80) NOT NULL,
     "age" INT2 NOT NULL,
-    "referer_num" INTEGER,
+    "referer_id" INTEGER,
+    "parent_id" INTEGER,
     "signup_date" TIMESTAMP NOT NULL,
     "paid" INT2 DEFAULT 0 NOT NULL,
     "funds_level" INT2 DEFAULT 1 NOT NULL,
     "bank_recipient" VARCHAR(120) NOT NULL,
     "iban" VARCHAR(80) NOT NULL,
     "bic" VARCHAR(80) NOT NULL,
+    "type" INT2 DEFAULT 0 NOT NULL,
+    "advertised_count" INTEGER DEFAULT 0 NOT NULL,
     PRIMARY KEY ("id"),
     CONSTRAINT "member_num_UNIQUE" UNIQUE ("num")
 );
+
+-----------------------------------------------------------------------
+-- tbmt_transaction
+-----------------------------------------------------------------------
+
+DROP TABLE IF EXISTS "tbmt_transaction" CASCADE;
+
+CREATE TABLE "tbmt_transaction"
+(
+    "id" bigserial NOT NULL,
+    "transfer_id" INTEGER NOT NULL,
+    "amount" DOUBLE PRECISION DEFAULT 0 NOT NULL,
+    "reason" INT2 DEFAULT 0 NOT NULL,
+    "date" TIMESTAMP NOT NULL,
+    PRIMARY KEY ("id")
+);
+
+-----------------------------------------------------------------------
+-- tbmt_transfer
+-----------------------------------------------------------------------
+
+DROP TABLE IF EXISTS "tbmt_transfer" CASCADE;
+
+CREATE TABLE "tbmt_transfer"
+(
+    "id" serial NOT NULL,
+    "member_id" INTEGER NOT NULL,
+    "amount" DOUBLE PRECISION DEFAULT 0 NOT NULL,
+    "state" INT2 DEFAULT 0 NOT NULL,
+    "attempts" INT2 DEFAULT 0 NOT NULL,
+    "execution_date" TIMESTAMP,
+    "processed_date" TIMESTAMP,
+    PRIMARY KEY ("id")
+);
+
+ALTER TABLE "tbmt_member" ADD CONSTRAINT "fk_member_parent"
+    FOREIGN KEY ("parent_id")
+    REFERENCES "tbmt_member" ("id")
+    ON UPDATE CASCADE
+    ON DELETE SET NULL;
+
+ALTER TABLE "tbmt_member" ADD CONSTRAINT "fk_member_referer"
+    FOREIGN KEY ("referer_id")
+    REFERENCES "tbmt_member" ("id")
+    ON UPDATE CASCADE
+    ON DELETE SET NULL;
+
+ALTER TABLE "tbmt_transaction" ADD CONSTRAINT "fk_transaction_transfer"
+    FOREIGN KEY ("transfer_id")
+    REFERENCES "tbmt_transfer" ("id")
+    ON UPDATE CASCADE
+    ON DELETE CASCADE;
+
+ALTER TABLE "tbmt_transfer" ADD CONSTRAINT "fk_transfer_member"
+    FOREIGN KEY ("member_id")
+    REFERENCES "tbmt_member" ("id")
+    ON UPDATE CASCADE
+    ON DELETE CASCADE;

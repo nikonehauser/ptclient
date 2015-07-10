@@ -7,6 +7,7 @@
       <adapter>pgsql</adapter>
       <connection>
         <dsn>pgsql:host=127.0.0.1;dbname=miltype</dsn>
+        <database>miltype</database>
         <user>miltype</user>
         <password>d3mO12$4</password>
       </connection>

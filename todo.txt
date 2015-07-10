@@ -6,6 +6,14 @@
  - anmeldung kostet einmalig 60 euro
 
 
+ - wenn kunde nicht überweist werden seine geworbenen mitglieder einfach
+ nach oben geschoben
+
+ - handle bank fehler
+
+ - add column transfer.attempts
+
+ - set transfer state 2 collect if reserved but member fee came in
 
 Fragen
 ======
@@ -32,6 +40,10 @@ signup datum, wann wird das geld überwiesen ?
 
 - hochgezählt member num is gut??? kann ja einfach irgendeine nehmen
 
+
+---------------------------
+
+64 bit - big int etc.
 
 
 

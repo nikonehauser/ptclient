@@ -7,18 +7,50 @@
     <column name="last_name" phpName="LastName" type="VARCHAR" size="80" required="true"/>
     <column name="num" phpName="Num" type="INTEGER" autoIncrement="true" required="true"/>
     <column name="email" phpName="Email" type="VARCHAR" size="80" required="true"/>
+    <column name="title" phpName="Title" type="VARCHAR" size="80" required="true"/>
     <column name="city" phpName="City" type="VARCHAR" size="80" required="true"/>
     <column name="country" phpName="Country" type="VARCHAR" size="80" required="true"/>
     <column name="age" phpName="Age" type="SMALLINT" required="true"/>
-    <column name="referer_num" phpName="RefererNum" type="INTEGER" required="false"/>
+    <column name="referer_id" phpName="RefererId" type="INTEGER" required="false"/>
+    <column name="parent_id" phpName="ParentId" type="INTEGER" required="false"/>
     <column name="signup_date" phpName="SignupDate" type="TIMESTAMP" required="true"/>
     <column name="paid" phpName="Paid" type="SMALLINT" required="true" defaultValue="0"/>
     <column name="funds_level" phpName="FundsLevel" type="SMALLINT" required="true" defaultValue="1"/>
     <column name="bank_recipient" phpName="BankRecipient" type="VARCHAR" size="120" required="true"/>
     <column name="iban" phpName="Iban" type="VARCHAR" size="80" required="true"/>
     <column name="bic" phpName="Bic" type="VARCHAR" size="80" required="true"/>
+    <column name="type" phpName="Type" type="SMALLINT" required="true" defaultValue="0"/>
+    <column name="advertised_count" phpName="AdvertisedCount" type="INTEGER" required="true" defaultValue="0"/>
+    <foreign-key foreignTable="member" name="fk_member_parent" onDelete="SET NULL" onUpdate="CASCADE">
+      <reference local="parent_id" foreign="id"/>
+    </foreign-key>
+    <foreign-key foreignTable="member" name="fk_member_referer" onDelete="SET NULL" onUpdate="CASCADE">
+      <reference local="referer_id" foreign="id"/>
+    </foreign-key>
     <unique name="member_num_UNIQUE">
       <unique-column name="num"/>
     </unique>
+  </table>
+  <table name="transaction" phpName="Transaction" idMethod="native">
+    <column name="id" phpName="Id" type="BIGINT" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="transfer_id" phpName="TransferId" type="INTEGER" required="true"/>
+    <column name="amount" phpName="Amount" type="FLOAT" required="true" defaultValue="0"/>
+    <column name="reason" phpName="Reason" type="SMALLINT" required="true" defaultValue="0"/>
+    <column name="date" phpName="Date" type="TIMESTAMP" required="true"/>
+    <foreign-key foreignTable="transfer" name="fk_transaction_transfer" onDelete="CASCADE" onUpdate="CASCADE">
+      <reference local="transfer_id" foreign="id"/>
+    </foreign-key>
+  </table>
+  <table name="transfer" phpName="Transfer" idMethod="native">
+    <column name="id" phpName="Id" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="member_id" phpName="MemberId" type="INTEGER" required="true"/>
+    <column name="amount" phpName="Amount" type="DOUBLE" required="true" defaultValue="0"/>
+    <column name="state" phpName="State" type="SMALLINT" required="true" defaultValue="0"/>
+    <column name="attempts" phpName="Attempts" type="SMALLINT" required="true" defaultValue="0"/>
+    <column name="execution_date" phpName="ExecutionDate" type="TIMESTAMP" required="false"/>
+    <column name="processed_date" phpName="ProcessedDate" type="TIMESTAMP" required="false"/>
+    <foreign-key foreignTable="member" name="fk_transfer_member" onDelete="CASCADE" onUpdate="CASCADE">
+      <reference local="member_id" foreign="id"/>
+    </foreign-key>
   </table>
 </database>

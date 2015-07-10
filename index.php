@@ -5,7 +5,7 @@ namespace Tbmt;
 define('BASE_DIR', dirname(__FILE__).DIRECTORY_SEPARATOR);
 
 try {
-  require BASE_DIR.'/include/bootstrap.php';
+  require BASE_DIR.'include'.DIRECTORY_SEPARATOR.'bootstrap.php';
 
   session_name(PROJECT_NAME);
   session_start();
