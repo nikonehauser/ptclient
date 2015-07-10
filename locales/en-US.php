@@ -3,6 +3,7 @@ return [
   'common' => [
     'brand_name' => 'Help Yourself Association',
     'brand_name_short' => 'HYA',
+
   ],
 
   'error' => [
@@ -10,8 +11,11 @@ return [
     'email'  => 'Invalid email address',
     'int'    => 'Invalid integer',
     'accept' => 'Must be accepted',
+    'password' => 'Invalid password',
+    'password_conditions' => '5 characters or more, a small letter and a digit',
+    'password_unequal' => 'Passwords were not equal',
 
-    'referer_num' => 'Referer num does not exist',
+    'referral_member_num' => 'Referer num does not exist',
     'age_of_18' => 'Must be 18 or older',
     'referer_paiment_outstanding' => 'The member exists but we didn´t receive the member fee yet. Unfornately you have to wait for this members full membership',
   ],
@@ -41,14 +45,15 @@ return [
         'form_labels' => [
           'contact' => 'Contact',
           'address' => 'Address',
+          'address' => 'Address',
           'bank_account' => 'Bank Account',
           'confirm' => 'Confirm',
 
-          'referer_num' => 'Referer Member Number',
+          'referral_member_num' => 'Referer Member Number',
           'firstName' => 'First name',
           'lastName' => 'Last name',
           'title' => 'Title',
-          'email' => 'Email',
+          'email' => 'Email (optional)',
           'age' => 'Age',
           'country' => 'Country',
           'city' => 'City',
@@ -56,11 +61,17 @@ return [
           'iban' => 'IBAN',
           'bic' => 'BIC',
           'bank_recipient' => 'Recipient',
+          'password' => 'Your password',
+          'password2' => 'Repeat password',
 
           'accept_agbs' => 'I have read and accept the terms and conditions',
-          'accept_valid_country' => 'I confirm that i am not citizen of one of following countries',
+          'accept_valid_country' => 'I confirm that i am NOT citizen of one of following countries:',
+          'not_accepted_countries' => '',
 
-          'submit' => 'Submit'
+          'submit' => 'Submit',
+
+          'bank_account_info' => 'We will never charge your bank account. But you will receive your provisions for your referalls at this account.',
+          'email_info' => 'We strongly recommend you to provide an email. It is neccessary for e.g. password reset or we will contact you if we encounter problems with your bank account. You will never receive spam or advertising emails from us.'
         ]
       ],
 

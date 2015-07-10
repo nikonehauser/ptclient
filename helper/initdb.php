@@ -22,6 +22,7 @@ if ( CREATE_MEMBER ) {
       ->setBankRecipient('email'.$i)
       ->setBic('email'.$i)
       ->setIban('email'.$i)
+      ->setPassword('demo1234')
       ->setSignupDate($now)
       ->save();
   }

@@ -31,6 +31,7 @@ class DbEntityHelper {
     'BankRecipient' => 'title',
     'Iban'          => 'title',
     'Bic'           => 'title',
+    'Password'      => 'demo1234',
   ];
 
   static private $memberSignup = [
@@ -44,14 +45,15 @@ class DbEntityHelper {
     'bank_recipient' => 'test',
     'iban'           => 'test',
     'bic'            => 'test',
+    'password'       => 'demo1234',
   ];
 
-  static public function createMember(Member $parent = null, array $data = array()) {
+  static public function createMember(Member $referralMember = null, array $data = array()) {
     $member = new Member();
 
     $member->fromArray(array_merge(self::$memberDefaults, $data));
-    if ( $parent )
-      $member->setRefererNum($parent->getNum());
+    if ( $referralMember )
+      $member->setReferralMemberId($referralMember->getId());
 
     $member->setSignupDate(time())
       ->save(self::$con);
@@ -59,7 +61,7 @@ class DbEntityHelper {
     return $member;
   }
 
-  static public function createSignupMember(Member $parent) {
-    return Member::createFromSignup(self::$memberSignup, $parent, self::$con);
+  static public function createSignupMember(Member $referralMember) {
+    return Member::createFromSignup(self::$memberSignup, $referralMember, self::$con);
   }
 }

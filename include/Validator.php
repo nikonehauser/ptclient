@@ -5,8 +5,10 @@ namespace Tbmt;
 class Validator {
 
   const FILTER_NOT_EMPTY = 'filter_not_empty';
+  const FILTER_PASSWORD = 'filter_password';
 
   static private $FILTER_ERROR_KEYS = [
+    self::FILTER_PASSWORD    => 'error.password',
     self::FILTER_NOT_EMPTY   => 'error.empty',
     \FILTER_VALIDATE_EMAIL   => 'error.email',
     \FILTER_VALIDATE_INT     => 'error.int',
@@ -68,6 +70,14 @@ class Validator {
       return false;
 
     return $v;
+  }
+
+  static public function filter_password($v) {
+    if ( !preg_match('/^.*(?=.{5,})(?=.*\d)(?=.*[a-z]).*$/', $v) )
+      return false;
+
+    return $v;
+    // return preg_match('/^.*(?=.{5,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/', $v);
   }
 
 }

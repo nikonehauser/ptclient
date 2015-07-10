@@ -22,7 +22,7 @@ class MemberController extends BaseController {
 
   public function action_signup_submit() {
     $formErrors = [];
-    list($valid, $data, $refererMember) = \Member::validateSignupForm($_REQUEST);
+    list($valid, $data, $referralMember) = \Member::validateSignupForm($_REQUEST);
     if ( $valid !== true ) {
       return ControllerDispatcher::renderModuleView(
         self::MODULE_NAME,
@@ -32,7 +32,7 @@ class MemberController extends BaseController {
     }
 
     $con = $con = \Propel::getConnection();
-    $member = \Member::createFromSignup($data, $refererMember, $con);
+    $member = \Member::createFromSignup($data, $referralMember, $con);
     $member->reload(false, $con);
 
     return ControllerDispatcher::renderModuleView(

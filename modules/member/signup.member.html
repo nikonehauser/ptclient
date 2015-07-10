@@ -14,7 +14,7 @@
 
       <h3><?=$this->formLabels['contact']?></h3>
 
-      <?php echo $formBuilder->buildFieldGroup('referer_num'); ?>
+      <?php echo $formBuilder->buildFieldGroup('referral_member_num'); ?>
 
       <div class="row">
           <div class="col-sm-4">
@@ -29,8 +29,19 @@
       </div>
 
       <div class="row">
+          <div class="col-sm-6">
+              <?php echo $formBuilder->buildFieldGroup('password', 'password'); ?>
+              <p class="help-block"><?=\Tbmt\Localizer::get('error.password_conditions')?></p>
+          </div>
+          <div class="col-sm-6">
+              <?php echo $formBuilder->buildFieldGroup('password2', 'password'); ?>
+          </div>
+      </div>
+
+      <div class="row">
           <div class="col-sm-8">
               <?php echo $formBuilder->buildFieldGroup('email'); ?>
+              <p class="help-block"><?=$this->formLabels['email_info']?></p>
           </div>
           <div class="col-sm-4">
               <?php echo $formBuilder->buildFieldGroup('age'); ?>
@@ -57,6 +68,7 @@
         *************************** -->
 
       <h3><?=$this->formLabels['bank_account']?></h3>
+      <p><?=$this->formLabels['bank_account_info']?></p>
 
               <?php echo $formBuilder->buildFieldGroup('bank_recipient'); ?>
 

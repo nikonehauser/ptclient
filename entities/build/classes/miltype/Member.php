@@ -24,7 +24,7 @@ class Member extends BaseMember
   const FUNDS_LEVEL2 = 2;
 
   static public $SIGNUP_FORM_FIELDS = [
-    'referer_num'          => [\Tbmt\TYPE_INT, ''],
+    'referral_member_num'  => [\Tbmt\TYPE_INT, ''],
     'title'                => \Tbmt\TYPE_STRING,
     'lastName'             => \Tbmt\TYPE_STRING,
     'firstName'            => \Tbmt\TYPE_STRING,
@@ -37,10 +37,12 @@ class Member extends BaseMember
     'bic'                  => \Tbmt\TYPE_STRING,
     'accept_agbs'          => \Tbmt\TYPE_STRING,
     'accept_valid_country' => \Tbmt\TYPE_STRING,
+    'password'             => \Tbmt\TYPE_STRING,
+    'password2'            => \Tbmt\TYPE_STRING,
   ];
 
   static public $SIGNUP_FORM_FILTERS = [
-    'referer_num'          => \Tbmt\Validator::FILTER_NOT_EMPTY,
+    'referral_member_num'  => \Tbmt\Validator::FILTER_NOT_EMPTY,
     'email'                => \FILTER_VALIDATE_EMAIL,
     'lastName'             => \Tbmt\Validator::FILTER_NOT_EMPTY,
     'firstName'            => \Tbmt\Validator::FILTER_NOT_EMPTY,
@@ -61,6 +63,7 @@ class Member extends BaseMember
     'bic'                  => \Tbmt\Validator::FILTER_NOT_EMPTY,
     'accept_agbs'          => \FILTER_VALIDATE_BOOLEAN,
     'accept_valid_country' => \FILTER_VALIDATE_BOOLEAN,
+    'password'             => \Tbmt\Validator::FILTER_PASSWORD,
   ];
 
   static function initSignupForm(array $data = array()) {
@@ -74,20 +77,22 @@ class Member extends BaseMember
     if ( $data['email'] === '' )
       unset($data['email']);
 
+    if ( $data['password'] !== $data['password2'] )
+      return [false, ['password' => \Tbmt\Localizer::get('error.password_unequal')], null];
+
     $res = \Tbmt\Validator::getErrors($data, self::$SIGNUP_FORM_FILTERS);
     if ( $res !== false )
       return [false, $res, null];
 
     // Validate member number exists
     $parentMember = \MemberQuery::create()
-      ->joinWith('Transfer')
-      ->findOneByNum($data['referer_num']);
+      ->findOneByNum($data['referral_member_num']);
     if ( $parentMember == null ) {
-      return [false, ['referer_num' => \Tbmt\Localizer::get('error.referer_num')], null];
+      return [false, ['referral_member_num' => \Tbmt\Localizer::get('error.referral_member_num')], null];
 
     }
     // else if ( $parentMember->getPaid() == 0 ) {
-    //   return [false, ['referer_num' => \Tbmt\Localizer::get('error.referer_paiment_outstanding')], null];
+    //   return [false, ['referral_member_num' => \Tbmt\Localizer::get('error.referer_paiment_outstanding')], null];
     // }
 
     if ( !isset($data['email']) )
@@ -116,10 +121,11 @@ class Member extends BaseMember
         ->setCity($data['city'])
         ->setCountry($data['country'])
         ->setAge($data['age'])
-        // ->setRefererNum($data['referer_num'])
+        // ->setRefererNum($data['referral_member_num'])
         ->setBankRecipient($data['bank_recipient'])
         ->setIban($data['iban'])
         ->setBic($data['bic'])
+        ->setPassword($data['password'])
         ->setSignupDate($now);
 
       $member->setRefererMember($refererMember, $now, $con);
@@ -134,6 +140,17 @@ class Member extends BaseMember
     }
 
     return $member;
+  }
+
+  /**
+   * Sets the user's password
+   *
+   * @param string $password
+   * @return User
+   */
+  public function setPassword($password) {
+    parent::setPassword(\Tbmt\Cryption::getPasswordHash($password));
+    return $this;
   }
 
   /**

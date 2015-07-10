@@ -30,6 +30,8 @@
 
     "advertised_count" int NOT NULL default 0 ,
 
+    "password" varchar not null ,
+
     PRIMARY KEY ("id") ,
     CONSTRAINT "fk_member_referer"
       FOREIGN KEY ("referer_id")

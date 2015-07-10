@@ -26,6 +26,7 @@ CREATE TABLE "tbmt_member"
     "bic" VARCHAR(80) NOT NULL,
     "type" INT2 DEFAULT 0 NOT NULL,
     "advertised_count" INTEGER DEFAULT 0 NOT NULL,
+    "password" VARCHAR NOT NULL,
     PRIMARY KEY ("id"),
     CONSTRAINT "member_num_UNIQUE" UNIQUE ("num")
 );
@@ -86,4 +87,4 @@ ALTER TABLE "tbmt_transfer" ADD CONSTRAINT "fk_transfer_member"
     FOREIGN KEY ("member_id")
     REFERENCES "tbmt_member" ("id")
     ON UPDATE CASCADE
-    ON DELETE CASCADE;
+    ON DELETE SET NULL;
