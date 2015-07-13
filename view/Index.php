@@ -11,12 +11,19 @@ class Index extends Base {
     $viewCommon = \Tbmt\Localizer::get('view.common');
     $linkNames = $viewCommon['navigation_links'];
     $this->navigationLinks = [];
-    foreach (['member', 'projects', 'about'] as $linkName) {
+    foreach (['member', 'projects', 'about', 'account'] as $linkName) {
+      $locale = $linkNames[$linkName];
+
       array_push($this->navigationLinks, [
         \Tbmt\Router::toModule($linkName),
-        $linkNames[$linkName],
+        $locale,
         $linkName === CURRENT_MODULE ? true : false
       ]);
+    }
+
+    $this->isLoggedIn = \Tbmt\Session::isLoggedIn();
+    if ( !$this->isLoggedIn ) {
+      $this->navigationLinks[count($this->navigationLinks)-1][1] = $viewCommon['member_login'];
     }
 
     $this->baseUrl = \Tbmt\Router::toBase();

@@ -35,25 +35,24 @@ class ControllerDispatcher {
 }
 
 
-// abstract class ControllerActionResult {
-//   private $data;
-//   public function __construct($data) {
-//     $this->data = $data;
-//   }
+abstract class ControllerActionResult {
+  private $data;
+  public function __construct($data) {
+    $this->data = $data;
+  }
 
-//   protected function getData() {
-//     return $this->data;
-//   }
+  protected function getData() {
+    return $this->data;
+  }
 
-//   abstract public function execute();
-// }
+  abstract public function execute();
+}
 
-// class ControllerActionRedirect extends ControllerActionResult {
+class ControllerActionRedirect extends ControllerActionResult {
 
-//   public function execute() {
-//     $data = $this->getData();
-
-//   }
-// }
+  public function execute() {
+    header('Location: '.$this->getData());
+  }
+}
 
 ?>

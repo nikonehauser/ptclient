@@ -6,6 +6,9 @@ return [
 
   ],
 
+
+    /* ERRORS
+    ---------------------------------------------*/
   'error' => [
     'empty'  => 'Can not be empty',
     'email'  => 'Invalid email address',
@@ -18,21 +21,34 @@ return [
     'referral_member_num' => 'Referer num does not exist',
     'age_of_18' => 'Must be 18 or older',
     'referer_paiment_outstanding' => 'The member exists but we didn´t receive the member fee yet. Unfornately you have to wait for this members full membership',
+
+    'login' => 'Invalid login credentials'
   ],
 
+
+    /* VIEWS
+    ---------------------------------------------*/
   'view' => [
     'common' => [
       'navigation_links' => [
         'member' => 'Become Member',
         'projects' => 'Projects',
-        'about' => 'About'
+        'about' => 'About',
+        'account' => 'Profile'
       ],
+      'member_login' => 'Member Login',
     ],
+
+    /* VIEWS - HOME
+    ---------------------------------------------*/
     'home' => [
       'text' => [
         'Der Verein wurde für Menschen gegründet'
       ]
     ],
+
+    /* VIEWS - MEMBER
+    ---------------------------------------------*/
     'member' => [
       'btn' => [
         'signup' => 'Signup now'
@@ -81,11 +97,63 @@ return [
         'info' => 'Use it to invite new members to help them and yourself.',
       ]
     ],
+
+
+    /* VIEWS - ACCOUNT
+    ---------------------------------------------*/
+    'account' => [
+      'login' => [
+        'form_labels' => [
+          'login' => 'Login',
+
+          'num' => 'Member Number',
+          'pwd' => 'Password',
+
+          'submit' => 'Submit',
+        ]
+      ],
+      'index' => [
+        'welcome' => 'Welcome {name}',
+        'navigation_links' => [
+          'index' => 'Information',
+          'invoice' => 'Invoice',
+          'tree' => 'Member Tree'
+        ],
+      ],
+      'tabs' => [
+        'index' => [
+          'account' => 'Account',
+          'your_num' => 'Your member number',
+          'warning' => 'Warning!',
+          'unpaid_text' => 'We did not receive your member fee yet!',
+          'paid_text' => 'Thank you. We received your member fee.',
+          'address' => 'Address',
+          'email' => 'Email',
+          'email_none' => '-none-',
+          'bank_account' => 'Bank account',
+          'bank_recipient' => 'Recipient Name',
+          'iban' => 'IBAN (International Bank Account Number)',
+          'bic' => 'BIC (Bank Identifier Code)'
+        ],
+        'invoice' => [
+        ],
+        'tree' => [
+        ]
+      ]
+    ],
+
+
+    /* VIEWS - PROJECTS
+    ---------------------------------------------*/
     'projects' => [
       'text' => [
         'Social projects to help yourself'
       ]
     ],
+
+
+    /* VIEWS - ABOUT
+    ---------------------------------------------*/
     'about' => [
       'text' => [
         'Contact:'

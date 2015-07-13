@@ -1,0 +1,41 @@
+
+  <?php
+    if ( !$this->member->getPaid() ) {
+      echo '<div class="alert alert-warning"><strong>'.$this->locales['warning'].'</strong> '.$this->locales['unpaid_text'].'</div>';
+    } else {
+      echo '<div class="alert alert-success">'.$this->locales['paid_text'].'</div>';
+    }
+  ?>
+
+  <h3><?=$this->locales['account']?></h3>
+  <dl class="dl-horizontal dl--largeSpaced">
+      <dt><?=$this->locales['your_num']?></dt>
+      <dd><?=$this->member->getNum()?></dd>
+
+      <dt><?=$this->locales['address']?></dt>
+      <dd>
+          <address>
+              <?=$this->member->getCity()?><br>
+              <?=$this->member->getCountry()?>
+          </address>
+      </dd>
+
+      <dt><?=$this->locales['email']?></dt>
+      <dd>
+          <?=$this->member->getEmail() ?
+          $this->member->getEmail() :
+          '<em class="text-muted">'.$this->locales['email_none'].'</em>'?>
+      </dd>
+  </dl>
+
+  <h3><?=$this->locales['bank_account']?></h3>
+  <dl class="dl-horizontal dl--largeSpaced">
+      <dt><?=$this->locales['bank_recipient']?></dt>
+      <dd><?=$this->member->getBankRecipient()?></dd>
+
+      <dt><?=$this->locales['iban']?></dt>
+      <dd><?=$this->member->getIban()?></dd>
+
+      <dt><?=$this->locales['bic']?></dt>
+      <dd><?=$this->member->getBic()?></dd>
+  </dl>

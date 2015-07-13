@@ -1,0 +1,20 @@
+<div class="panel panel-default loginPanel">
+    <div class="panel-heading"><?=$this->formLabels['login']?></div>
+
+    <div class="panel-body">
+
+        <!--<form action="<?=\Tbmt\Router::toModule('account', 'login_submit')?>" method="post">-->
+        <form action="" method="post">
+
+            <?php
+              $formBuilder = new \Tbmt\FormBuilder('loginForm', $this->formLabels, $this->formVal, $this->formErrors);
+            ?>
+
+            <?php echo $formBuilder->buildFieldGroup('num'); ?>
+            <?php echo $formBuilder->buildFieldGroup('pwd', 'password'); ?>
+
+        <input class="btn btn-success pull-right btn-lg" type="submit" value="<?=$this->formLabels['submit']?>">
+
+        </form>
+    </div>
+</div>

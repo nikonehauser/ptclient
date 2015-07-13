@@ -13,6 +13,13 @@
 
 - save unknown incommings to extra table
 
+- ganz wichtig: transactionen und geld erst mitgliedern anrechnen wenn sie bezahlt haben.
+nicht sofort
+
+- leute können bescheissen in dem sie sich auf level 2 schieben durch
+unechte signups die nie bezahlen??!
+
+
 
 
 Fragen

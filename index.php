@@ -7,8 +7,7 @@ define('BASE_DIR', dirname(__FILE__).DIRECTORY_SEPARATOR);
 try {
   require BASE_DIR.'include'.DIRECTORY_SEPARATOR.'bootstrap.php';
 
-  session_name(PROJECT_NAME);
-  session_start();
+  Session::start();
 
   /* Dispatch controller
   ---------------------------------------------*/
@@ -21,22 +20,24 @@ try {
   ]);
 
   define('CURRENT_MODULE', $controllerName);
+  define('CURRENT_MODULE_ACTION', $controllerAction);
 
-  $controllerBody = ControllerDispatcher::dispatchAction(
+  $actionResult = ControllerDispatcher::dispatchAction(
     $controllerName,
     $controllerAction
   );
 
-  // TODO we may want to check the controller result to handle specials types like
-  // ControllerResultCommand::REDIRECT etc.
-  //
-  // at the moment a controller action has to return a html string
+  Session::commit();
 
-  echo (new view\Index())->render([
-    'basePath'    => '',
-    'windowtitle' => 'TostiMiltype',
-    'controllerBody' => $controllerBody
-  ]);
+  if ( $actionResult instanceof ControllerActionResult ) {
+    $actionResult->execute();
+  } else {
+    echo (new view\Index())->render([
+      'basePath'    => '',
+      'windowtitle' => 'TostiMiltype',
+      'controllerBody' => $actionResult
+    ]);
+  }
 
 } catch (PublicException $e) {
   echo view\PublicError::fromPublicException($e);

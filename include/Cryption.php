@@ -34,9 +34,7 @@ class Cryption {
     if ( $salt === null )
       $salt = bin2hex(mcrypt_create_iv(8, MCRYPT_DEV_URANDOM)).time();
 
-    $x = json_encode(array($salt, self::encryptPassword($password, $salt)));
-    //throw new Exception($x);
-    return $x;
+    return json_encode(array($salt, self::encryptPassword($password, $salt)));
   }
 
   /**

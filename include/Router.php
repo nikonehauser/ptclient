@@ -31,4 +31,14 @@ class Router {
 
     return self::$url.'?'.http_build_query($params, null, '&');
   }
+
+  static public function toAccountTab($tabName) {
+    $params = [
+      self::KEY_MODULE => 'account',
+      self::KEY_ACTION => $tabName
+    ];
+
+    return self::$url.'?'.http_build_query($params, null, '&');
+
+  }
 }

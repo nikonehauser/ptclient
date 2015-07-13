@@ -40,13 +40,20 @@
                     <div class="collapse navbar-collapse" id="mainTopNavigation">
                         <ul class="nav navbar-nav">
                             <?php
-                              foreach ($this->navigationLinks as $link) {
+                              $last = count($this->navigationLinks) - 1;
+                              foreach ($this->navigationLinks as $i => $link) {
                                 $className = '';
                                 if ( $link[2] )
                                     $className = 'active';
 
+                                if ( $last === $i )
+                                    echo '</ul><ul class="nav navbar-nav navbar-right">';
+
                                 echo '<li class="'.$className.'"><a href="'.$link[0].'">'.$link[1].'</a></li>';
                               }
+
+                              if ( $this->isLoggedIn )
+                                echo '<li><a href="'.\Tbmt\Router::toModule('account', 'logout').'"><span class="glyphicon glyphicon-log-out"></span></a></li>';
                             ?>
                         </ul>
                     </div><!-- /.navbar-collapse -->
