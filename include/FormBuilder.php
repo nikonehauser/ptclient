@@ -24,28 +24,32 @@ class FormBuilder {
     if ( !$error )
       $error = Arr::init($this->errors, $fieldKey);
 
-    $className = 'form-group';
+    $className = '';
     if ( $error )
-      $className .= ' has-error';
+      $className .= ' validation-error';
 
-    $group = '<div class="'.$className.'">';
+    $fieldClassName = 'field';
+    if ( $type === 'checkbox' )
+      $fieldClassName .= ' checkbox';
+
+    $group = '<div class="'.$fieldClassName.'">';
     if ( $type === 'checkbox' ) {
       $checked = '';
       if ( $value )
         $checked = ' checked="checked"';
 
-      $group .= '<div class="checkbox"><label>'.
-        '<input type="'.$type.'" name="'.$fieldKey.'" value="1" '.$checked.'>'.$label.'</label></div>';
+      $group .= '<label class="'.$className.'"><input type="'.$type.'" name="'.$fieldKey.'" value="1" '.$checked.' >'.$label.'</label>';
 
     } else {
       $fieldId = $this->formName.$fieldKey;
       $group .= '<label for="'.$fieldId.'">'.$label.'</label>'.
-        '<input type="'.$type.'" class="form-control" id="'.$fieldId.'" name="'.$fieldKey.'" value="'.$value.'">';
+        '<input type="'.$type.'" class="'.$className.'" id="'.$fieldId.'" name="'.$fieldKey.'" value="'.$value.'">';
 
     }
 
-    if ( $error )
-      $group .= '<span class="help-block">'.$error.'</span>';
+    if ( $error ) {
+      $group .= '<p class="help-block text-danger">'.$error.'</p>';
+    }
 
     $group .= '</div>';
     return $group;

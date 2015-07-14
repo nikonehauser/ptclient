@@ -1,20 +1,31 @@
-<div class="panel panel-default loginPanel">
-    <div class="panel-heading"><?=$this->formLabels['login']?></div>
+<?=Tbmt\view\Factory::buildPageTitle($this->i18nView['page_title'])?>
 
-    <div class="panel-body">
+<!-- 960 Container Start -->
+<div class="container">
 
-        <!--<form action="<?=\Tbmt\Router::toModule('account', 'login_submit')?>" method="post">-->
-        <form action="" method="post">
+    <div class="five columns">&nbsp;</div>
+    <div class="six columns">
+            <!--<form action="<?=\Tbmt\Router::toModule('account', 'login_submit')?>" method="post">-->
+            <form action="" method="post">
 
-            <?php
-              $formBuilder = new \Tbmt\FormBuilder('loginForm', $this->formLabels, $this->formVal, $this->formErrors);
-            ?>
+                <?php
 
-            <?php echo $formBuilder->buildFieldGroup('num'); ?>
-            <?php echo $formBuilder->buildFieldGroup('pwd', 'password'); ?>
+                $formBuilder = new \Tbmt\FormBuilder('loginForm', $this->formLabels, $this->formVal, $this->formErrors);
 
-        <input class="btn btn-success pull-right btn-lg" type="submit" value="<?=$this->formLabels['submit']?>">
+                echo $formBuilder->buildFieldGroup('num');
+                echo $formBuilder->buildFieldGroup('pwd', 'password');
 
-        </form>
+                if ( $this->loginError ) {
+                    echo Tbmt\view\Factory::buildNotification($this->loginError, $this->i18nView['error'].'!');
+                }
+
+                ?>
+
+                <input class="button medium yellow" type="submit" value="<?=$this->formLabels['submit']?>">
+
+            </form>
     </div>
+    <div class="five columns">&nbsp;</div>
+
 </div>
+<!-- 960 Container End -->

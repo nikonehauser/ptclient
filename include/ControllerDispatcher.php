@@ -20,8 +20,8 @@ class ControllerDispatcher {
 
   static public function renderModuleView($name, $action, array $params = array()) {
     self::loadModuleView($name, $action);
-    $name = NS_ROOT_PART.'view\\'.ucfirst($name).ucfirst($action);
-    $view = new $name();
+    $className = NS_ROOT_PART.'view\\'.ucfirst($name).ucfirst($action);
+    $view = new $className($name, $action);
     return $view->render($params);
   }
 

@@ -1,4 +1,6 @@
-
+<?php
+use \Tbmt\Router;
+?>
 
 <!-- Slider -->
     <div id="full-slider-wrapper">
@@ -6,13 +8,13 @@
 
             <!-- Slide #1 -->
             <div class="ls-slide" data-ls="transition2d:1;timeshift:-400;" >
-                <img src="assets/images/girls_schools/Girls_in_school_1.jpg" class="ls-bg" alt="Slide background" style="top:50px;"/>
+                <img src="<?=Router::toImage('girls_schools/Girls_in_school_1.jpg')?>" class="ls-bg" alt="Slide background" style="top:50px;"/>
 
                 <h2 class="ls-l girlsschools" style="top:25px; left:300px; white-space: nowrap; padding:8px;"
                     data-ls="
                     offsetxin: bottom;
                     offsetxout: 0;
-                    offsetyin: 500;
+                    offsetyin: 900;
                     offsetyout: bottom;
                     fadein: false;
                     fadeout: false;
@@ -46,8 +48,8 @@
 
 
             <!-- Slide #2 -->
-            <!-- <div class="ls-slide" data-ls="transition2d:73; timeshift:0;">
-                <img src="assets/images/slider_bg_02.png" class="ls-bg" alt="Slide background"/>
+            <div class="ls-slide" data-ls="transition2d:73; timeshift:0;">
+                <img src="<?=Router::toImage('slider_bg_02.png" class="ls-bg')?>" alt="Slide background"/>
 
                 <h2 class="ls-l" style="top:115px; left:50px; white-space: nowrap; font-size: 26px; color: #fff;"
                     data-ls="
@@ -57,7 +59,7 @@
                         easingin: easeOutElastic;
                         durationout:1000;
                         ">
-                    Incredible: Responsive Theme <br> Perfect for Showing Your Products
+                    Schaffung von Wohnheimen -<br> für Waisenkinder und deren Versorgung
                 </h2>
 
 
@@ -69,7 +71,8 @@
                         easingin: easeOutElastic;
                         durationout:1000;
                         ">
-                    Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt, neque dolor.
+                    Eine verlässliche Gesamtzahl aller Waisenkinder weltweit gibt es nicht. UNICEF nennt als ungefähren Richtwert 150 Millionen Kinder, die als Waisen gelten.
+                    Ihre Bedürfnisse werden häufig ignoriert und ihre Rechte verletzt.
                 </p>
 
                 <div class="ls-l" style="top:295px; left:50px; white-space: nowrap;"
@@ -86,20 +89,61 @@
                 <div class="ls-l" style="left: 630px; top: 55px;" data-ls="
                     offsetxin: bottom;
                     offsetxout: 0;
-                    offsetyin: 500;
+                    offsetyin: 900;
                     offsetyout: bottom;
                     fadein: false;
                     fadeout: false;
                     easingin: easeOutBack;
                     easingout: easeinquart;
-                    durationin: 1000;
-                    delayin: 500;
+                    durationin: 800;
+                    delayin: 200;
                     durationout:100;
                     ">
-                    <img src="assets/images/neger-baby.jpg" />
+                    <img src="assets/images/residential_home/neger-baby.jpg" />
                 </div>
 
-            </div> -->
+            </div>
+
+            <!-- Slide #3 -->
+            <div class="ls-slide" data-ls="transition2d:73; timeshift:0;">
+                <img src="<?=Router::toImage('vocational_education/o-SCHLER-AFRIKA-facebook.jpg')?>" class="ls-bg" alt="Slide background"/>
+
+                <h2 class="ls-l" style="top:15px; left:50px; white-space: nowrap; font-size: 26px; color: #fff;"
+                    data-ls="
+                        offsetyin: 0;
+                        durationin: 2000;
+                        delayin: 0;
+                        easingin: easeOutElastic;
+                        durationout:1000;
+                        ">
+                    Aufbau von Schulen und Ausbildungsbetrieben
+                </h2>
+
+
+                <p class="ls-l" style="top:63px; left:50px; text-align: justify; width:350px; line-height: 24px; color: #404040"
+                    data-ls="
+                        offsetyin: 0;
+                        durationin: 2000;
+                        delayin:0;
+                        easingin: easeOutElastic;
+                        durationout:1000;
+                        ">
+                    Eine verlässliche Gesamtzahl aller Waisenkinder weltweit gibt es nicht. UNICEF nennt als ungefähren Richtwert 150 Millionen Kinder, die als Waisen gelten.
+                    Ihre Bedürfnisse werden häufig ignoriert und ihre Rechte verletzt.
+                </p>
+
+                <div class="ls-l" style="top:203px; left:50px; white-space: nowrap;"
+                    data-ls="
+                        offsetyin: 0;
+                        durationin: 2000;
+                        delayin: 0;
+                        easingin: easeOutElastic;
+                        durationout:1000;
+                        ">
+                    <a href="#" class="button medium black">Read More</a>
+                </div>
+
+            </div>
 
         </div>
     </div>

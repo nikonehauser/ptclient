@@ -7,11 +7,21 @@ class Base {
   protected $var;
   protected $varsDef = [];
 
-  public function __construct() {
+  protected $i18n;
+
+  protected $moduleName;
+  protected $actionName;
+
+  public function __construct($moduleName = null, $actioName = null) {
+    $this->moduleName = $moduleName;
+    $this->actioName = $actioName;
     $this->init();
   }
 
-  protected function init() {}
+  protected function init() {
+    if ( $this->moduleName && $this->actioName )
+      $this->i18nView = \Tbmt\Localizer::get("view.$this->moduleName.$this->actioName");
+  }
 
   protected function getFileExtension() {
     return '.html';

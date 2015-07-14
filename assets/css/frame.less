@@ -1,6 +1,12 @@
 @c-BgDark: #383838;
+@c-Danger: #a94442;
+@c-Gray-Muted: #777;
+@c-Organge: #f67f00;
 
 
+/* =============================================================== */
+/* general components
+================================================================ */
 .logo {
   display: block;
   height: 80px;
@@ -10,12 +16,73 @@
   }
 }
 
+#navigation ul li:hover > a {color: @c-Organge !important;}
+#navigation ul ul li:hover > a {color: @c-Organge !important;}
+#current {color: @c-Organge !important;}
+
 #layerslider h2.girlsschools {
   color: white;
   background-color: @c-BgDark;
   padding: 8px;
 }
 
-// #navigation {
-//   width: 100%;
-// }
+
+
+/* =============================================================== */
+/* forms
+================================================================ */
+.field {
+  display: block;
+  width: auto;
+  input {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  &.checkbox {
+    label {
+      vertical-align: middle;
+      margin-bottom: 20px;
+      padding: 10px;
+    }
+    input {
+      vertical-align: middle;
+      width: auto;
+      margin: auto;
+      margin-right: 20px;
+
+      height: 20px;
+      width: 20px;
+    }
+  }
+
+  label.validation-error {
+    .text-danger;
+  }
+
+  label {
+    font-weight: bold;
+  }
+
+  .help-block, +.help-block {
+    margin-top: -10px;
+    margin-bottom: 20px;
+    .text-muted;
+
+    &.text-danger {
+      .text-danger;
+    }
+  }
+}
+
+
+
+/* =============================================================== */
+/* helper classes
+================================================================ */
+.text-muted {
+  color: @c-Gray-Muted;
+}
+.text-danger {
+  color: @c-Danger;
+}

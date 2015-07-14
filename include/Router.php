@@ -8,8 +8,10 @@ class Router {
   const KEY_ACTION = 'act';
 
   static private $url;
+  static private $assetsBase;
+  static private $imagesBase;
 
-  static public function init($url) {
+  static public function init($url, $basePath = '') {
     // TODO
     // For $url to either end to valid file like:
     //   http://localhost/pt/index.php
@@ -18,6 +20,8 @@ class Router {
     //
     // @see http://serverfault.com/questions/587002/apache2-301-redirect-when-missing-at-the-end-of-directory-in-the-url
     self::$url = $url;
+    self::$assetsBase = $basePath.'assets/';
+    self::$imagesBase = $basePath.'assets/images/';
   }
 
   static public function toBase() {
@@ -40,5 +44,9 @@ class Router {
 
     return self::$url.'?'.http_build_query($params, null, '&');
 
+  }
+
+  static public function toImage($path) {
+    return self::$imagesBase.$path;
   }
 }

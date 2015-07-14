@@ -151,7 +151,7 @@ img {width: auto;max-width: 100%; border: 0;-ms-interpolation-mode: bicubic;}
 	/* Margin Right */
 	.margin-right-5 { margin-right: 5px !important; }
 
-	
+
 
 /* #Typography
 ================================================== */
@@ -160,7 +160,7 @@ img {width: auto;max-width: 100%; border: 0;-ms-interpolation-mode: bicubic;}
 		font-family: "Open Sans", sans-serif;
 		font-weight: 600;
 	}
-		
+
 	h1 a, h2 a, h3 a, h4 a, h5 a, h6 a { font-weight: inherit; }
 	h1 { font-size: 30px; line-height: 50px; }
 	h2 { font-size: 24px; line-height: 30px; }
@@ -216,9 +216,7 @@ img {width: auto;max-width: 100%; border: 0;-ms-interpolation-mode: bicubic;}
 		margin-bottom: 20px; }
 	fieldset {
 		margin-bottom: 20px; }
-	input[type="text"],
-	input[type="password"],
-	input[type="email"],
+	input,
 	textarea,
 	select {
 		border: 1px solid #d8d8d8;
@@ -239,12 +237,10 @@ img {width: auto;max-width: 100%; border: 0;-ms-interpolation-mode: bicubic;}
 		}
 	select {
 		padding: 0; }
-	input[type="text"]:focus,
-	input[type="password"]:focus,
-	input[type="email"]:focus,
+	input:focus,
 	textarea:focus {
 		border: 1px solid #c8c8c8;
- 		color: #606060; 
+ 		color: #606060;
 
 		}
 	textarea {
@@ -253,7 +249,7 @@ img {width: auto;max-width: 100%; border: 0;-ms-interpolation-mode: bicubic;}
 	legend {
 		display: block;
 		font-weight: bold;
-		font-size: 14px; 
+		font-size: 14px;
 		font-weight: normal;
 		margin-bottom: 5px;}
 	select {

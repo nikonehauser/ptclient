@@ -7,14 +7,14 @@
 /* =============================================================== */
 /* Import Section
 ================================================================ */
-@import url("base.css");				/* Default Reset, Typography, Forms, etc. */ 
-@import url("skeleton.css");			/* 960 Grid + Media Query Layouts */ 
-@import url("flexslider.css");			/* Flex Slider Styles */ 
-@import url("layerslider.css");			/* Flex Slider Styles */ 
-@import url("pricing_tables.css");		/* Pricing Table Styles */ 
-@import url("imagebox.css");			/* Responsive Lightbox */ 
-@import url("shortcodes.css");			/* Shortcode Styles */ 
-@import url("icons.css");				/* FontAwesome Icons */ 
+@import url("base.css");				/* Default Reset, Typography, Forms, etc. */
+@import url("skeleton.css");			/* 960 Grid + Media Query Layouts */
+@import url("flexslider.css");			/* Flex Slider Styles */
+@import url("layerslider.css");			/* Flex Slider Styles */
+@import url("pricing_tables.css");		/* Pricing Table Styles */
+@import url("imagebox.css");			/* Responsive Lightbox */
+@import url("shortcodes.css");			/* Shortcode Styles */
+@import url("icons.css");				/* FontAwesome Icons */
 
 @import url("http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700");
 
@@ -178,7 +178,7 @@ h5.headline {
 #navigation ul, #navigation li {list-style:none; padding:0; margin:0; display:inline; }
 #navigation ul li{float:left; position:relative;}
 
-#navigation ul li a { 
+#navigation ul li a {
 	display: inline-block;
 	color: #888;
 	padding: 31px 12px 28px 12px;
@@ -195,11 +195,11 @@ h5.headline {
 }
 
 #navigation ul ul {
-	opacity: 0; 
+	opacity: 0;
 	margin: -2px 0 0 5px;
-  	filter: alpha(opacity=0); 
+  	filter: alpha(opacity=0);
 	position: absolute;
-	top:-99999px; 
+	top:-99999px;
 	left: 0;
 	background: #fff;
 	border: 1px solid #dddddd;
@@ -222,16 +222,16 @@ h5.headline {
 	border-top: 1px solid transparent;
 }
 
-#navigation ul ul ul { 
-	position:absolute; 
-	top:-99999px; 
-	left:100%; 
+#navigation ul ul ul {
+	position:absolute;
+	top:-99999px;
+	left:100%;
 	opacity: 0;
 	margin: -3px 0 0 0;
 	z-index: 999;
 }
 
-#navigation ul ul ul li a { 
+#navigation ul ul ul li a {
 	border-bottom: 1px solid #dddddd !important;
 	border-top: 1px solid transparent;
 }
@@ -521,7 +521,7 @@ h5.headline {
 .comments-sec h5 span {color: #888;}
 
 ol.commentlist{
-	float:left; 
+	float:left;
 	width:100%;
 	margin: 0;
 }
@@ -594,7 +594,7 @@ ol li ol.childlist .comment-des {
 }
 
 .comment-by span.reply{
-	color:#777; 
+	color:#777;
 	float:right;
 }
 
@@ -608,7 +608,7 @@ ol li ol.childlist .comment-des {
 
 .comment-by span.date{
 	color:#888;
-	padding-right:7px; 
+	padding-right:7px;
 	float:right;
 }
 
@@ -692,8 +692,8 @@ ol li ol.childlist .comment-des {
 }
 
 .pagination .prev,
-.pagination .prev.off, 
-.pagination .next, 
+.pagination .prev.off,
+.pagination .next,
 .pagination .prev.off {
 	margin-top: -3px;
 }
@@ -909,16 +909,16 @@ a.current-page {
 
 .field label span {color:#ea1c1c;}
 
-.field .validation-error, 
+.field .validation-error,
 .field .validation-error:focus {
 	border:1px solid #f2c4c2;
 	background: #ffeceb;
 }
 
 .loading {
-	background:url(../images/loader.gif) no-repeat 1px; 
-	height:28px; 
-	width:28px; 
+	background:url(../images/loader.gif) no-repeat 1px;
+	height:28px;
+	width:28px;
 	display: none;
 	float: left;
 	margin: 5px;
@@ -960,7 +960,7 @@ a.current-page {
 	margin-top: -1px;
 	display: block; width: 200px;
 	height: 30px;
-}	
+}
 
 .testimonials_author {
 	color:#3f8faf;
@@ -1114,394 +1114,11 @@ a.current-page {
 .latest-post img:hover {border-color: #2da0ce;}
 
 
-/* Footer - Twitter Widget
-====================================*/
-#twitter {
-	font-size: 14px;
-	float: left;
-	display: block;
-	color: #aaa;
-}
-
-#twitter b a, #twitter b a:hover {color: #707070}
-
-#twitter li {
-    line-height: 21px;
-    margin: 2px 0px 12px 34px;
-}
-
-#twitter li:before {
-	content: "";
-	font-family: "FontAwesome";
-	position: absolute;
-	font-size: 20px;
-	color: #666;
-	margin-left: -32px;
-}
-
-#twitter li:last-child {padding: 0; margin: 0; margin-left: 34px;}
-#twitter a {color: #fff;}
-#twitter a:hover {color: #d4d4d4;}
-
-
 /* Copyright
 ==========================*/
 #footer-bottom {background: #2c2c2c; min-height: 60px;}
 #copyright {color: #777; margin: 22px 0;}
 #copyright a, #copyright span {color:#bbb;}
-
-
-/* Social Icons
-==========================*/
-/*
-Author: http://codecanyon.net/user/Vasterad
-Item: Web Font Social Icons
-Version: 1.0
-*/
-
-
-.social-icons li {
-	display: inline;
-	float: left;
-	margin-right: 4px;
-}
-
-.social-icons li a {
-	width: 42px;
-	height: 42px;
-	display: inline-block;
-	background-color: #f2f2f2;
-	-webkit-transition: all 0.3s ease-in-out;
-	-moz-transition: all 0.3s ease-in-out;
-	-o-transition: all 0.3s ease-in-out;
-	-ms-transition: all 0.3s ease-in-out;
-	transition: all 0.3s ease-in-out;
-	position: relative;
-	overflow: hidden;
-	border-radius: 3px;
-}
-
-
-/* Common Styles */
-.social-icons li a i {
-	-webkit-transition: all 0.2s ease-in-out;
-	-moz-transition: all 0.2s ease-in-out;
-	-o-transition: all 0.2s ease-in-out;
-	-ms-transition: all 0.2s ease-in-out;
-	transition: all 0.2s ease-in-out;
-	position: absolute;
-	z-index: 20;
-}
-
-.social-icons li a:hover,
-.social-icons li a i {
-	color: #fff;
-}
-
-.social-icons li a i {
-	top: -30px;
-	opacity:0;
-}
-
-.social-icons li a:hover i {
-	top: 0;
-	opacity: 1;
-}
-
-.twitter:before,
-.wordpress:before,
-.facebook:before,
-.linkedin:before,
-.steam:before,
-.tumblr:before,
-.github:before,
-.delicious:before,
-.instagram:before,
-.xing:before,
-.amazon:before,
-.dropbox:before,
-.paypal:before,
-.lastfm:before,
-.gplus:before,
-.yahoo:before,
-.pinterest:before,
-.dribbble:before,
-.flickr:before,
-.reddit:before,
-.vimeo:before,
-.spotify:before,
-.rss:before,
-.youtube:before,
-.blogger:before,
-.appstore:before,
-.digg:before,
-.evernote:before,
-.fivehundredpx:before,
-.forrst:before,
-.stumbleupon:before,
-.dribbble:before {
-	font-family: "fontello";
-	font-size: 16px;
-	line-height: 16px;
-	color: #a0a0a0;
-	-webkit-transition: all 0.15s ease-in-out;
-	-moz-transition: all 0.15s ease-in-out;
-	-o-transition: all 0.15s ease-in-out;
-	-ms-transition: all 0.15s ease-in-out;
-	transition: all 0.15s ease-in-out;
-	position: absolute;
-	z-index: 20;
-}
-
-
-/* Icon Styles */
-.twitter:before {font-size: 14px;}
-.twitter i, .twitter:before { margin: 13px 0 0 12px; }
-.twitter:before { content: "\54"; top: 0; opacity:1; }
-.twitter:hover:before { top: 30px; opacity: 0; }
-.twitter:hover { background-color: #3bc1ed; }
-
-.dribbble i, .dribbble:before { margin: 13px 0 0 13px; }
-.dribbble:before { content: "\44"; top: 0; opacity:1; }
-.dribbble:hover:before { top: 30px; opacity: 0; }
-.dribbble:hover { background-color: #ef5a92; }
-
-.facebook i, .facebook:before { margin: 13px 0 0 16px; }
-.facebook:before { content: "\66"; top: 0; opacity:1; }
-.facebook:hover:before { top: 30px; opacity: 0; }
-.facebook:hover { background-color: #4a6d9d; }
-
-.linkedin i, .linkedin:before { margin: 13px 0 0 13px; }
-.linkedin:before { content: "\4c"; top: 0; opacity:1; }
-.linkedin:hover:before { top: 30px; opacity: 0; }
-.linkedin:hover { background-color: #0b7bb5; }
-
-.delicious i, .delicious:before { margin: 13px 0 0 13px; }
-.delicious:before { content: "\23"; top: 0; opacity:1; }
-.delicious:hover:before { top: 30px; opacity: 0; }
-.delicious:hover { background-color: #3274d1; }
-
-.paypal i, .paypal:before { margin: 13px 0 0 13px; }
-.paypal:before { content: "\24"; top: 0; opacity:1; }
-.paypal:hover:before { top: 30px; opacity: 0; }
-.paypal:hover { background-color: #2e689a; }
-
-.gplus i, .gplus:before { margin: 13px 0 0 13px; }
-.gplus:before { content: "\2b"; top: 0; opacity:1; }
-.gplus:hover:before { top: 30px; opacity: 0; }
-.gplus:hover { background-color: #d53824; }
-
-.stumbleupon i, .stumbleupon:before { margin: 13px 0 0 11px; }
-.stumbleupon:before { content: "\2f"; top: 0; opacity:1; }
-.stumbleupon:hover:before { top: 30px; opacity: 0; }
-.stumbleupon:hover { background-color: #eb4924; }
-
-.fivehundredpx i, .fivehundredpx:before { margin: 13px 0 0 11px; }
-.fivehundredpx:before { content: "\30"; top: 0; opacity:1; }
-.fivehundredpx:hover:before { top: 30px; opacity: 0; }
-.fivehundredpx:hover { background-color: #444; }
-
-.pinterest i, .pinterest:before { margin: 13px 0 0 15px; }
-.pinterest:before { content: "\31"; top: 0; opacity:1; }
-.pinterest:hover:before { top: 30px; opacity: 0; }
-.pinterest:hover { background-color: #cb1f25; }
-
-.forrst i, .forrst:before { margin: 13px 0 0 15px; }
-.forrst:before { content: "\3a"; top: 0; opacity:1; }
-.forrst:hover:before { top: 30px; opacity: 0; }
-.forrst:hover { background-color: #40833e; }
-
-.digg i, .digg:before { margin: 13px 0 0 12px; }
-.digg:before { content: "\3b"; top: 0; opacity:1; }
-.digg:hover:before { top: 30px; opacity: 0; }
-.digg:hover { background-color: #205685; }
-
-.spotify i, .spotify:before { margin: 13px 0 0 13px; }
-.spotify:before { content: "\3d"; top: 0; opacity:1; }
-.spotify:hover:before { top: 30px; opacity: 0; }
-.spotify:hover { background-color: #6ca405; }
-
-.reddit i, .reddit:before { margin: 13px 0 0 12px; }
-.reddit:before { content: "\3e"; top: 0; opacity:1; }
-.reddit:hover:before { top: 30px; opacity: 0; }
-.reddit:hover { background-color: #404040; }
-
-.appstore i, .appstore:before { margin: 13px 0 0 14px; }
-.appstore:before { content: "\41"; top: 0; opacity:1; }
-.appstore:hover:before { top: 30px; opacity: 0; }
-.appstore:hover { background-color: #c0c0c0; }
-
-.blogger i, .blogger:before { margin: 13px 0 0 15px; font-size: 14px !important; }
-.blogger:before { content: "\42"; top: 0; opacity:1; }
-.blogger:hover:before { top: 30px; opacity: 0; }
-.blogger:hover { background-color: #ff6501; }
-
-.dribbble i, .dribbble:before { margin: 13px 0 0 13px; }
-.dribbble:before { content: "\44"; top: 0; opacity:1; }
-.dribbble:hover:before { top: 30px; opacity: 0; }
-.dribbble:hover { background-color: #ef5a92; }
-
-.evernote i, .evernote:before { margin: 13px 0 0 15px; }
-.evernote:before { content: "\45"; top: 0; opacity:1; }
-.evernote:hover:before { top: 30px; opacity: 0; }
-.evernote:hover { background-color: #6bb130; }
-
-.flickr i, .flickr:before { margin: 13px 0 0 13px; }
-.flickr:before { content: "\46"; top: 0; opacity:1; }
-.flickr:hover:before { top: 30px; opacity: 0; }
-.flickr:hover { background-color: #136dd5; }
-
-.rss i, .rss:before { margin: 13px 0 0 14px; font-size: 14px !important; }
-.rss:before { content: "\52"; top: 0; opacity:1; }
-.rss:hover:before { top: 30px; opacity: 0; }
-.rss:hover { background-color: #fe8f00; }
-
-.youtube i, .youtube:before { margin: 13px 0 0 14px; font-size: 18px !important; }
-.youtube:before { content: "\55"; top: 0; opacity:1; }
-.youtube:hover:before { top: 30px; opacity: 0; }
-.youtube:hover { background-color: #bf2f29; }
-
-.vimeo i, .vimeo:before { margin: 13px 0 0 13px; font-size: 14px !important; }
-.vimeo:before { content: "\56"; top: 0; opacity:1; }
-.vimeo:hover:before { top: 30px; opacity: 0; }
-.vimeo:hover { background-color: #4c8ab0; }
-
-.xing i, .xing:before { margin: 13px 0 0 14px; }
-.xing:before { content: "\58"; top: 0; opacity:1; }
-.xing:hover:before { top: 30px; opacity: 0; }
-.xing:hover { background-color: #036568; }
-
-.yahoo i, .yahoo:before { margin: 13px 0 0 11px; }
-.yahoo:before { content: "\59"; top: 0; opacity:1; }
-.yahoo:hover:before { top: 30px; opacity: 0; }
-.yahoo:hover { background-color: #9251a2; }
-
-.amazon i, .amazon:before { margin: 13px 0 0 12px; }
-.amazon:before { content: "\61"; top: 0; opacity:1; }
-.amazon:hover:before { top: 30px; opacity: 0; }
-.amazon:hover { background-color: #2f3842; }
-
-.steam i, .steam:before { margin: 13px 0 0 11px; }
-.steam:before { content: "\62"; top: 0; opacity:1; }
-.steam:hover:before { top: 30px; opacity: 0; }
-.steam:hover { background-color: #383838; }
-
-.dropbox i, .dropbox:before { margin: 13px 0 0 13px; }
-.dropbox:before { content: "\64"; top: 0; opacity:1; }
-.dropbox:hover:before { top: 30px; opacity: 0; }
-.dropbox:hover { background-color: #2c92dd; }
-
-.github i, .github:before { margin: 13px 0 0 13px; }
-.github:before { content: "\67"; top: 0; opacity:1; }
-.github:hover:before { top: 30px; opacity: 0; }
-.github:hover { background-color: #5c7381; }
-
-.lastfm i, .lastfm:before { margin: 13px 0 0 11px; }
-.lastfm:before { content: "\6c"; top: 0; opacity:1; }
-.lastfm:hover:before { top: 30px; opacity: 0; }
-.lastfm:hover { background-color: #d21309; }
-
-.tumblr i, .tumblr:before { margin: 13px 0 0 15px; }
-.tumblr:before { content: "\74"; top: 0; opacity:1; }
-.tumblr:hover:before { top: 30px; opacity: 0; }
-.tumblr:hover { background-color: #3d658d; }
-
-.wordpress i, .wordpress:before { margin: 13px 0 0 14px; }
-.wordpress:before { content: "\77"; top: 0; opacity:1; }
-.wordpress:hover:before { top: 30px; opacity: 0; }
-.wordpress:hover { background-color: #383838; }
-
-.instagram i, .instagram:before { margin: 13px 0 0 14px; }
-.instagram:before { content: "\f31f"; top: 0; opacity:1; }
-.instagram:hover:before { top: 30px; opacity: 0; }
-.instagram:hover { background-color: #3f6f94; }
-
-
-/* Web Font */
-@font-face {
-  font-family: 'fontello';
-  src: url('../font/fontello.eot?31771571');
-  src: url('../font/fontello.eot?31771571#iefix') format('embedded-opentype'),
-	   url('../font/fontello.woff?31771571') format('woff'),
-	   url('../font/fontello.ttf?31771571') format('truetype'),
-	   url('../font/fontello.svg?31771571#fontello') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-
-.social-icons li i {
-	font-family: "fontello";
-	font-style: normal;
-	font-weight: normal;
-	speak: none;
-	display: inline-block;
-	text-decoration: inherit;
-	text-align: center;
-	font-variant: normal;
-	text-transform: none;
-	line-height: 16px;
-	font-size: 16px;
-	width: auto;
-}
-
-.icon-delicious:before { content: '\23'; } /* '#' */
-.icon-paypal:before { content: '\24'; } /* '$' */
-.icon-gplus:before { content: '\2b'; } /* '+' */
-.icon-stumbleupon:before { content: '\2f'; } /* '/' */
-.icon-fivehundredpx:before { content: '\30'; } /* '0' */
-.icon-pinterest:before { content: '\31'; } /* '1' */
-.icon-forrst:before { content: '\3a'; } /* ':' */
-.icon-digg:before { content: '\3b'; } /* ';' */
-.icon-spotify:before { content: '\3d'; } /* '=' */
-.icon-reddit:before { content: '\3e'; } /* '&gt;' */
-.icon-appstore:before { content: '\41'; } /* 'A' */
-.icon-blogger:before { content: '\42'; } /* 'B' */
-.icon-dribbble:before { content: '\44'; } /* 'D' */
-.icon-evernote:before { content: '\45'; } /* 'E' */
-.icon-flickr:before { content: '\46'; } /* 'F' */
-.icon-linkedin:before { content: '\4c'; } /* 'L' */
-.icon-rss:before { content: '\52'; } /* 'R' */
-.icon-twitter:before { content: '\54'; } /* 'T' */
-.icon-youtube:before { content: '\55'; } /* 'U' */
-.icon-vimeo:before { content: '\56'; } /* 'V' */
-.icon-xing:before { content: '\58'; } /* 'X' */
-.icon-yahoo:before { content: '\59'; } /* 'Y' */
-.icon-amazon:before { content: '\61'; } /* 'a' */
-.icon-steam:before { content: '\62'; } /* 'b' */
-.icon-dropbox:before { content: '\64'; } /* 'd' */
-.icon-facebook:before { content: '\66'; } /* 'f' */
-.icon-github:before { content: '\67'; } /* 'g' */
-.icon-lastfm:before { content: '\6c'; } /* 'l' */
-.icon-tumblr:before { content: '\74'; } /* 't' */
-.icon-wordpress:before { content: '\77'; } /* 'w' */
-.icon-linkedin-rect:before { content: '\f31b'; } /* '?' */
-.icon-instagram:before { content: '\f31f'; } /* '?' */
-
-/* Social Footer Icons */
-.social-icons-footer{
-	margin: 15px 0 0 0;
-	float:right;
-}
-
-.social-icons-footer li{
-	display:inline;
-	list-style:none;
-	float:left;
-	padding: 0 5px;
-}
-
-.social-icons-footer li a i{
-	display:block;
-	padding-top:5px;
-	color: #606060;
-	font-size: 18px;
-	-webkit-transition: all 180ms ease-in-out;
-	-moz-transition: all 180ms ease-in-out;
-	-o-transition: all 180ms ease-in-out;
-	transition: all 180ms ease-in-out;
-}
-
-.social-icons-footer li a i:hover {color: #888;}
 
 
 
@@ -1569,8 +1186,8 @@ Version: 1.0
 	.mr-rotato-prev, .mr-rotato-next, .mr-rotato-disabled {margin-right: -10px;}
 	#breadcrumbs ul { float:left; margin-top: 5px; }
 }
-	
-	
+
+
 /* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
 @media only screen and (min-width: 480px) and (max-width: 767px) {
 	.client-logo img {width: 139px; height: auto;}

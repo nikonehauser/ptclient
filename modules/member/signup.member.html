@@ -1,3 +1,5 @@
+<?=Tbmt\view\Factory::buildPageTitle($this->i18nView['page_title'])?>
+
 <form action="<?=\Tbmt\Router::toModule('member', 'signup_submit')?>" method="post">
 
   <?php
@@ -6,44 +8,46 @@
 
   ?>
 
-  <div class="container-fluid">
-
       <!--
         CONTACT
         *************************** -->
 
-      <h3><?=$this->formLabels['contact']?></h3>
+      <div class="container">
+          <h4 class="headline"><?=$this->formLabels['contact']?></h4>
 
-      <?php echo $formBuilder->buildFieldGroup('referral_member_num'); ?>
+          <div class="sixteen columns">
+            <?php echo $formBuilder->buildFieldGroup('referral_member_num'); ?>
+          </div>
+      </div>
 
-      <div class="row">
-          <div class="col-sm-4">
+      <div class="container">
+          <div class="four columns">
               <?php echo $formBuilder->buildFieldGroup('title'); ?>
           </div>
-          <div class="col-sm-4">
+          <div class="six columns">
               <?php echo $formBuilder->buildFieldGroup('lastName'); ?>
           </div>
-          <div class="col-sm-4">
+          <div class="six columns">
               <?php echo $formBuilder->buildFieldGroup('firstName'); ?>
           </div>
       </div>
 
-      <div class="row">
-          <div class="col-sm-6">
+      <div class="container">
+          <div class="eight columns">
               <?php echo $formBuilder->buildFieldGroup('password', 'password'); ?>
               <p class="help-block"><?=\Tbmt\Localizer::get('error.password_conditions')?></p>
           </div>
-          <div class="col-sm-6">
+          <div class="eight columns">
               <?php echo $formBuilder->buildFieldGroup('password2', 'password'); ?>
           </div>
       </div>
 
-      <div class="row">
-          <div class="col-sm-8">
+      <div class="container">
+          <div class="twelve columns">
               <?php echo $formBuilder->buildFieldGroup('email'); ?>
               <p class="help-block"><?=$this->formLabels['email_info']?></p>
           </div>
-          <div class="col-sm-4">
+          <div class="four columns">
               <?php echo $formBuilder->buildFieldGroup('age'); ?>
           </div>
       </div>
@@ -51,14 +55,13 @@
       <!--
         ADDRESS
         *************************** -->
+      <div class="container">
+          <h4 class="headline"><?=$this->formLabels['address']?></h4>
 
-      <h3><?=$this->formLabels['address']?></h3>
-
-      <div class="row">
-          <div class="col-sm-6">
+          <div class="eight columns">
               <?php echo $formBuilder->buildFieldGroup('city'); ?>
           </div>
-          <div class="col-sm-6">
+          <div class="eight columns">
               <?php echo $formBuilder->buildFieldGroup('country'); ?>
           </div>
       </div>
@@ -66,17 +69,21 @@
       <!--
         BANK ACCOUNT
         *************************** -->
+      <div class="container">
+          <h4 class="headline"><?=$this->formLabels['bank_account']?></h4>
 
-      <h3><?=$this->formLabels['bank_account']?></h3>
-      <p><?=$this->formLabels['bank_account_info']?></p>
+          <div class="sixteen columns">
+            <p><?=$this->formLabels['bank_account_info']?></p>
+          </div>
 
+          <div class="sixteen columns">
               <?php echo $formBuilder->buildFieldGroup('bank_recipient'); ?>
+          </div>
 
-      <div class="row">
-          <div class="col-sm-7">
+          <div class="ten columns">
               <?php echo $formBuilder->buildFieldGroup('iban'); ?>
           </div>
-          <div class="col-sm-5">
+          <div class="six columns">
               <?php echo $formBuilder->buildFieldGroup('bic'); ?>
           </div>
       </div>
@@ -84,12 +91,18 @@
       <!--
         CONFIRM
         *************************** -->
+      <div class="container">
+          <h4 class="headline"><?=$this->formLabels['confirm']?></h4>
 
-      <h3><?=$this->formLabels['confirm']?></h3>
+          <div class="sixteen columns">
+              <?php echo $formBuilder->buildFieldGroup('accept_agbs', 'checkbox'); ?>
+          </div>
 
-        <?php echo $formBuilder->buildFieldGroup('accept_agbs', 'checkbox'); ?>
-        <?php echo $formBuilder->buildFieldGroup('accept_valid_country', 'checkbox'); ?>
+          <div class="sixteen columns">
+              <?php echo $formBuilder->buildFieldGroup('accept_valid_country', 'checkbox'); ?>
+          </div>
 
 
-      <input class="btn btn-success pull-right btn-lg" type="submit" value="<?=$this->formLabels['submit']?>">
+          <input class="button yellow medium" type="submit" value="<?=$this->formLabels['submit']?>">
+      </div>
 </form>

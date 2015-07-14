@@ -15,7 +15,7 @@ return [
     'int'    => 'Invalid integer',
     'accept' => 'Must be accepted',
     'password' => 'Invalid password',
-    'password_conditions' => '5 characters or more, a small letter and a digit',
+    'password_conditions' => '5 characters or more, at least one small letter and one digit',
     'password_unequal' => 'Passwords were not equal',
 
     'referral_member_num' => 'Referer num does not exist',
@@ -72,9 +72,9 @@ return [
       ],
 
       'signup' => [
+        'page_title' => 'Signup for membership',
         'form_labels' => [
           'contact' => 'Contact',
-          'address' => 'Address',
           'address' => 'Address',
           'bank_account' => 'Bank Account',
           'confirm' => 'Confirm',
@@ -117,6 +117,8 @@ return [
     ---------------------------------------------*/
     'account' => [
       'login' => [
+        'page_title' => 'Memmber Login',
+        'error' => 'Error',
         'form_labels' => [
           'login' => 'Login',
 
