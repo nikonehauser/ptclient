@@ -1,6 +1,6 @@
 
   <?php
-    if ( !$this->member->getPaid() ) {
+    if ( !$this->member->hadPaid() ) {
       echo '<div class="alert alert-warning"><strong>'.$this->locales['warning'].'</strong> '.$this->locales['unpaid_text'].'</div>';
     } else {
       echo '<div class="alert alert-success">'.$this->locales['paid_text'].'</div>';

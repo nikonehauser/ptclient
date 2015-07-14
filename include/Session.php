@@ -45,7 +45,10 @@ final class Session {
 
   static public function getLogin() {
     if ( !self::$user && self::isLoggedIn() ) {
-      self::$user = \MemberQuery::create()->findOneById($_SESSION[self::KEY_USER_ID] );
+      self::$user = \MemberQuery::create()->findOneById($_SESSION[self::KEY_USER_ID]);
+
+      if ( self::$user === null )
+        throw new \Exception('Can find user with id: '.$_SESSION[self::KEY_USER_ID]);
     }
 
     return self::$user;

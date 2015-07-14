@@ -36,7 +36,21 @@ return [
         'about' => 'About',
         'account' => 'Profile'
       ],
+      'navigation_sublinks' => [
+        'member' => [
+          'index' => 'Member advertises members',
+          'signup' => 'Signup',
+        ],
+        'projects' => [
+          'index' => 'Social projects',
+          '_prj_girls_schools'  => 'Schools for girls',
+          '_prj_residential_home'  => 'Residential home',
+          '_prj_vocational_education'  => 'Vocational education',
+          '_prj_hospitals'  => 'Hospitals',
+        ]
+      ],
       'member_login' => 'Member Login',
+      'copyright_name' => 'Help Yourself Associaton',
     ],
 
     /* VIEWS - HOME
@@ -136,6 +150,11 @@ return [
           'bic' => 'BIC (Bank Identifier Code)'
         ],
         'invoice' => [
+          'stats' => 'Statistics',
+          'oustanding_advertised_count' => 'Outstanding advertised members count',
+          'advertised_member_count' => 'Advertised members count',
+          'outstanding_total' => 'Total outstanding to be transferred',
+          'transferred_total' => 'Total transferred',
         ],
         'tree' => [
         ]

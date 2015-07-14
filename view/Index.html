@@ -1,20 +1,48 @@
-<!doctype html>
-<html class="no-js" lang="">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title><?php echo $this->var['windowtitle']; ?></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"><![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"><![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"><![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"><!--<![endif]-->
+<head>
 
-        <link rel="apple-touch-icon" href="apple-touch-icon.png">
-        <!-- Place favicon.ico in the root directory -->
+<!-- Basic Page Needs
+ ================================================== -->
+<meta charset="utf-8">
+<title><?php echo $this->var['windowtitle']; ?></title>
 
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<!-- Mobile Specific
+ ================================================== -->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-        <link media="all" rel="stylesheet/less" type="text/css" title="assets/css/frame.less" href="<?php echo $this->var['basePath']; ?>assets/frame.less" />
+<!-- CSS
+ ================================================== -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"> -->
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.1/less.min.js"></script>
+<link rel="stylesheet" type="text/css"  href="<?php echo $this->var['basePath']; ?>assets/css/style.css">
+<link media="all" rel="stylesheet/less" type="text/css" title="assets/css/frame.less" href="<?php echo $this->var['basePath']; ?>assets/css/frame.less" />
+
+
+
+<!-- Java Script
+ ================================================== -->
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script src="<?php echo $this->var['basePath']; ?>assets/js/flexslider.js"></script>
+<script src="<?php echo $this->var['basePath']; ?>assets/js/jquery.isotope.min.js"></script>
+<script src="<?php echo $this->var['basePath']; ?>assets/js/custom.js"></script>
+<script src="<?php echo $this->var['basePath']; ?>assets/js/ender.min.js"></script>
+<script src="<?php echo $this->var['basePath']; ?>assets/js/selectnav.js"></script>
+<script src="<?php echo $this->var['basePath']; ?>assets/js/imagebox.min.js"></script>
+<script src="<?php echo $this->var['basePath']; ?>assets/js/carousel.js"></script>
+<script src="<?php echo $this->var['basePath']; ?>assets/js/twitter.js"></script>
+<script src="<?php echo $this->var['basePath']; ?>assets/js/tooltip.js"></script>
+<script src="<?php echo $this->var['basePath']; ?>assets/js/popover.js"></script>
+<script src="<?php echo $this->var['basePath']; ?>assets/js/layerslider.transitions.js"></script>
+<script src="<?php echo $this->var['basePath']; ?>assets/js/layerslider.kreaturamedia.jquery.js"></script>
+<script src="<?php echo $this->var['basePath']; ?>assets/js/greensock.js"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.1/less.min.js"></script>
 
     </head>
     <body>
@@ -22,50 +50,124 @@
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <div id="navigation">
-            <nav class="navbar navbar-default">
-                <div class="container-fluid">
 
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mainTopNavigation">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="<?=$this->baseUrl?>"><?=$this->textBrandName?></a>
-                    </div>
+<!-- Header -->
+<div id="header">
 
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse" id="mainTopNavigation">
-                        <ul class="nav navbar-nav">
-                            <?php
-                              $last = count($this->navigationLinks) - 1;
-                              foreach ($this->navigationLinks as $i => $link) {
-                                $className = '';
-                                if ( $link[2] )
-                                    $className = 'active';
+    <!-- 960 Container Start -->
+    <div class="container ie-dropdown-fix">
 
-                                if ( $last === $i )
-                                    echo '</ul><ul class="nav navbar-nav navbar-right">';
-
-                                echo '<li class="'.$className.'"><a href="'.$link[0].'">'.$link[1].'</a></li>';
-                              }
-
-                              if ( $this->isLoggedIn )
-                                echo '<li><a href="'.\Tbmt\Router::toModule('account', 'logout').'"><span class="glyphicon glyphicon-log-out"></span></a></li>';
-                            ?>
-                        </ul>
-                    </div><!-- /.navbar-collapse -->
-
-                </div><!-- /.container-fluid -->
-            </nav>
+        <!-- Logo -->
+        <div class="four columns">
+            <!-- <a class="logo" href="<?=\Tbmt\Router::toBase()?>"><h2>Help Yourself Association</h2></a> -->
+            <a class="logo" href="<?=\Tbmt\Router::toBase()?>"><img src="<?php echo $this->var['basePath']; ?>assets/images/logo_pt_bold.jpg" alt=""/></a>
         </div>
 
+        <!-- Main Navigation Start -->
+        <div class="twelve columns">
+            <div id="navigation">
+                <ul id="nav">
 
-        <div id="body">
-            <?php echo $this->var['controllerBody']; ?>
+                    <?php
+                      $last = count($this->navigationLinks) - 1;
+                      foreach ($this->navigationLinks as $i => $link) {
+                        $currentId = '';
+                        if ( $link[2] )
+                            $currentId = 'id="current"';
+
+                        // if ( $last === $i )
+                        //     echo '</ul><ul class="nav navbar-nav navbar-right">';
+
+                        echo '<li class="" ><a href="'.$link[0].'" '.$currentId.'>'.$link[1].'</a>';
+                        if ( isset($link[3]) ) {
+                            echo '<ul>';
+                            foreach ($link[3] as $sublink) {
+                                echo '<li class="" ><a href="'.$sublink[0].'">'.$sublink[1].'</a></li>';
+                            }
+
+                            echo '</ul>';
+                        }
+                        echo '</li>';
+                      }
+
+                      if ( $this->isLoggedIn )
+                        echo '<li><a href="'.\Tbmt\Router::toModule('account', 'logout').'"><span class="glyphicon glyphicon-log-out"></span></a></li>';
+                    ?>
+                </ul>
+            </div>
         </div>
+        <!-- Main Navigation End -->
+
+    </div>
+    <!-- 960 Container End -->
+
+</div>
+<!-- End Header -->
+
+
+<!-- 960 Container Start -->
+<!-- <div class="container"> -->
+    <?php echo $this->var['controllerBody']; ?>
+<!-- </div> -->
+<!-- 960 Container End -->
+
+
+<!-- Footer Start -->
+<div id="footer">
+
+    <!-- 960 Container -->
+    <div class="container">
+
+        <!-- About -->
+        <div class="eight columns">
+            <h5>About Us</h5>
+            <p>Consectetur adipiscing elit aeneane lorem lipsum, condimentum ultrices consequat eu, vehicula mauris lipsum adipiscing lipsum aenean orci lorem.</p>
+            <p>Asequat lorem ipsum dolor lorem sit amet, consectetur adipiscing dolor elit. Aenean nisl orci, condimentum.</p>
+        </div>
+
+        <!-- Useful Links -->
+        <div class="eight columns">
+            <h5>Useful Links</h5>
+            <ul class="links-list">
+                <li><a href="#">Frequently Asked Questions</a></li>
+                <li><a href="#">Terms of Use</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+            </ul>
+        </div>
+
+    </div>
+    <!-- 960 Container End -->
+
+</div>
+<!-- Footer End -->
+
+<!--  Footer Copyright-->
+<div id="footer-bottom">
+
+    <!-- 960 Container -->
+    <div class="container">
+
+        <div class="eight columns">
+            <div id="copyright">© Copyright 2015 by <span><?=$this->locales['copyright_name']?></span>. All Rights Reserved.</div>
+        </div>
+
+    </div>
+    <!-- End 960 Container -->
+</div>
+<!--  Footer Copyright End -->
+
+<!-- Back To Top Button -->
+<div id="backtotop"><a href="#"></a></div>
+
+<!-- Imagebox Build -->
+<script src="js/imagebox.build.js"></script>
+
+
+
+<!--
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+-->
 
 
         <noscript>
@@ -81,8 +183,5 @@
             </div>
           </div>
         </noscript>
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     </body>
 </html>

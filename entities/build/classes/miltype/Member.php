@@ -91,7 +91,7 @@ class Member extends BaseMember
       return [false, ['referral_member_num' => \Tbmt\Localizer::get('error.referral_member_num')], null];
 
     }
-    // else if ( $parentMember->getPaid() == 0 ) {
+    // else if ( $parentMember->hadPaid() ) {
     //   return [false, ['referral_member_num' => \Tbmt\Localizer::get('error.referer_paiment_outstanding')], null];
     // }
 
@@ -128,7 +128,7 @@ class Member extends BaseMember
         ->setPassword($data['password'])
         ->setSignupDate($now);
 
-      $member->setRefererMember($refererMember, $now, $con);
+      $member->setRefererMember($refererMember, $con);
       $member->save($con);
 
       if ( !$con->commit() )
@@ -140,6 +140,10 @@ class Member extends BaseMember
     }
 
     return $member;
+  }
+
+  public function hadPaid() {
+    return $this->getPaidDate() !== null;
   }
 
   /**
@@ -158,25 +162,48 @@ class Member extends BaseMember
    * @param Member    $referer
    * @param PropelPDO $con
    */
-  public function setRefererMember(Member $referer, $when, PropelPDO $con) {
-    $this->setRefererId($referer->getId());
+  public function setRefererMember(Member $referer, PropelPDO $con) {
+    $refererId = $referer->getId();
+    $this->setRefererId($refererId);
+    $this->setParentId($refererId);
 
-    $referer->payAdvertisingFor($this, $when, $con);
-
-    // @see resources/snowball.txt - processes - P2
-    $advertisedCount = $referer->getAdvertisedCount();
-    $advertisedCount++;
-    if ( $advertisedCount == 2 ) {
-      $referer->setFundsLevel(Member::FUNDS_LEVEL2);
-      $referer->setMemberRelatedByParentId(null);
-    }
-
-    $referer->setAdvertisedCount($advertisedCount);
+    $referer->addOutstandingAdvertisedCount(1);
     $referer->save($con);
+  }
+
+  public function addOutstandingAdvertisedCount($int) {
+    $this->setOutstandingAdvertisedCount($this->getOutstandingAdvertisedCount() + $int);
+  }
+
+  public function convertOutstandingAdvertisedCount($int) {
+    $this->setOutstandingAdvertisedCount($this->getOutstandingAdvertisedCount() - $int);
+    $newAdvertisedCount = $this->getAdvertisedCount() + $int;
+    $this->setAdvertisedCount($newAdvertisedCount);
+
+    return $newAdvertisedCount;
+  }
+
+  /**
+   * Adds the given amount to this transfer.
+   * @param [type] $intAmount
+   */
+  public function addOutstandingTotal($intAmount) {
+    $this->setOutstandingTotal($this->getOutstandingTotal() + $intAmount);
+  }
+
+  public function convertOutstandingTotal($double) {
+    $this->setOutstandingTotal($this->getOutstandingTotal() - $double);
+    $newTransferedTotal = $this->getTransferedTotal() + $double;
+    $this->setTransferedTotal($newTransferedTotal);
+
+    return $newTransferedTotal;
   }
 
   /**
    * Distribute provisions for member signup.
+   *
+   * ATTENTION: This method does NOT save changes to $advertisedMember. The
+   * caller is required to save this object!
    *
    * @param  Member    $advertisedMember
    * @param  PropelPDO $con
@@ -187,6 +214,7 @@ class Member extends BaseMember
 
       // @see resources/snowball.txt - processes - P1
 
+      $this->addOutstandingTotal(Transaction::AMOUNT_ADVERTISED_LVL1);
       $transaction = $transfer->addAmount(Transaction::AMOUNT_ADVERTISED_LVL1);
       $transaction->setReason(Transaction::REASON_ADVERTISED_LVL1);
       $transaction->setDate($when);
@@ -195,6 +223,8 @@ class Member extends BaseMember
       $parent = $this->getMemberRelatedByParentId($con);
       if ( $parent ) {
         $parentTransfer = $parent->getCurrentTransferBundle($con);
+
+        $parent->addOutstandingTotal(Transaction::AMOUNT_ADVERTISED_INDIRECT);
         $parentTransaction = $parentTransfer->addAmount(Transaction::AMOUNT_ADVERTISED_INDIRECT);
         $parentTransaction->setReason(Transaction::REASON_ADVERTISED_INDIRECT);
         $parentTransaction->setDate($when);
@@ -205,6 +235,7 @@ class Member extends BaseMember
         // account of my referer
         $advertisedMember->setMemberRelatedByParentId($parent);
         $parentTransfer->save($con);
+        $parent->save($con);
       }
 
     } else { // if ( $this->getFundsLevel() === Member::FUNDS_LEVEL2 ) {
@@ -213,6 +244,7 @@ class Member extends BaseMember
 
       $advertisedMember->setMemberRelatedByParentId($this);
 
+      $this->addOutstandingTotal(Transaction::AMOUNT_ADVERTISED_LVL2);
       $transaction = $transfer->addAmount(Transaction::AMOUNT_ADVERTISED_LVL2);
       $transaction->setReason(Transaction::REASON_ADVERTISED_LVL2);
       $transaction->setDate($when);
@@ -235,6 +267,7 @@ class Member extends BaseMember
     $transfer = TransferQuery::create()
       ->filterByState([Transfer::STATE_COLLECT, Transfer::STATE_RESERVED])
       ->filterByMember($this)
+      ->joinWith('Member')
       ->orderBy(TransferPeer::STATE, Criteria::DESC)
       ->findOne($con);
 
@@ -242,7 +275,7 @@ class Member extends BaseMember
       $transfer = new Transfer();
       $transfer->setMember($this);
 
-      if ( $this->getPaid() == 0 ) {
+      if ( $this->hadPaid() ) {
         $transfer->setState(Transfer::STATE_RESERVED);
       }
     }
@@ -251,16 +284,33 @@ class Member extends BaseMember
   }
 
   /**
-   * Set user as paid.
+   * Set user as paid and spread provisions.
+   *
    * Update all current Transfers with state Transfer::STATE_RESERVED to
    * Transfer::STATE_COLLECT making them ready for processing.
    *
    */
-  public function onReceivedMemberFee() {
-    $this->setPaid(1);
+  public function onReceivedMemberFee($when, PropelPDO $con) {
+    $this->setPaidDate($when);
     TransferQuery::create()
       ->filterByState(Transfer::STATE_RESERVED)
       ->filterByMember($this)
-      ->update([TransferPeer::STATE => Transfer::STATE_COLLECT], $con);
+      ->update(['State' => Transfer::STATE_COLLECT], $con);
+
+    // @see resources/snowball.txt - processes - P2
+    $referer = $this->getMemberRelatedByParentId($con);
+    if ( $referer ) {
+      $referer->payAdvertisingFor($this, $when, $con);
+
+      $newAdvertisedCount = $referer->convertOutstandingAdvertisedCount(1);
+      if ( $newAdvertisedCount == 2 ) {
+        $referer->setFundsLevel(Member::FUNDS_LEVEL2);
+        $referer->setMemberRelatedByParentId(null);
+      }
+
+      $referer->save($con);
+    }
+
+    $this->save($con);
   }
 }

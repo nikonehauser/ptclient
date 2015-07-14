@@ -4,12 +4,7 @@
 
  - handle bank api fehler
 
- - add column transfer.attempts
-
- - set transfer state to collect if reserved but member fee came in
-
  - add link to agbs.
-
 
 - save unknown incommings to extra table
 
@@ -20,11 +15,15 @@ nicht sofort
 unechte signups die nie bezahlen??!
 
 
+- Angabe der Bankverbindung des Vereins.
 
+- zeige: bereits angemeldete benutzer
+- zeige: bereits gesammeltes geld
 
 Fragen
 ======
 
+ - problem was fee income reihenfolge angeht
 
 
 TOM
@@ -35,3 +34,31 @@ TOM
 - about content schreiben
 - agbs??
 -
+
+
+LASTENHEFT
+=========
+
+Sprache auswählbar, möglichst von allen aktuellen Ländern zuzüglich englisch
+> ggf. aus Abgrenzungsgründen nur in Englisch?
+
+Manuell Bonuszahlung zusätzlich für Mitglieder/Promoter/Orgaleiter einpflegen können
+Maske: wo ich eine person einen festbetrag zuweisen kann (aumotisch überweisen)
+
+
+Geldeingänge in Bezug auf Vergütungsstufen und sämtliche hieraus resultierenden Zahlungen automatisch berücksichtigen
+Alle Zahlungen automatisch nach jeweiligem Geldeingang wie folgt veranlassen:
+Die Abrechnung erfolgt immer am Montag
+- für die Mitglieder (VS 1 & VS 2)
+- für die Promoter (VS 2 & Bonus)
+- für die Orgaleiter (Bonus & ggf. VS 2)
+Die Abrechnung erfolgt immer Bankarbeitstag täglich
+- für den Bonus des Anwalts
+- für den jeweilige Anteil für M&C
+
+Die Software muss massenhafte zeitgleiche Registrierungen verarbeiten können.
+- Bei einer Überlastung dürfen keine Fehler produziert werden
+- und es muss eine entsprechende Meldung erscheinen, dass es derzeit aufgrund der Vielzahl der Registrierungen eine Registrierung nicht möglich ist und dass man es später noch einmal probieren soll.
+
+Automatische Vergabe einer Mitgliedsnummer
+- wenn kein Geld eingeht wird diese Nummer nach x Tagen neu vergeben

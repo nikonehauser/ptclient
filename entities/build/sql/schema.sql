@@ -19,14 +19,17 @@ CREATE TABLE "tbmt_member"
     "referer_id" INTEGER,
     "parent_id" INTEGER,
     "signup_date" TIMESTAMP NOT NULL,
-    "paid" INT2 DEFAULT 0 NOT NULL,
+    "paid_date" TIMESTAMP,
     "funds_level" INT2 DEFAULT 1 NOT NULL,
     "bank_recipient" VARCHAR(120) NOT NULL,
     "iban" VARCHAR(80) NOT NULL,
     "bic" VARCHAR(80) NOT NULL,
     "type" INT2 DEFAULT 0 NOT NULL,
     "advertised_count" INTEGER DEFAULT 0 NOT NULL,
+    "outstanding_advertised_count" INTEGER DEFAULT 0 NOT NULL,
     "password" VARCHAR NOT NULL,
+    "transferred_total" DOUBLE PRECISION DEFAULT 0 NOT NULL,
+    "outstanding_total" DOUBLE PRECISION DEFAULT 0 NOT NULL,
     PRIMARY KEY ("id"),
     CONSTRAINT "member_num_UNIQUE" UNIQUE ("num")
 );

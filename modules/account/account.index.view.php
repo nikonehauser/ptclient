@@ -30,6 +30,7 @@ class AccountIndex extends Base {
     }
 
     $name = \Tbmt\AccountController::MODULE_NAME;
+
     require MODULES_DIR.$name.DIRECTORY_SEPARATOR.$name.'.'.CURRENT_MODULE_ACTION.'.tab.view.php';
     $name = NS_ROOT_PART.'view\\'.ucfirst($name).ucfirst(CURRENT_MODULE_ACTION).'Tab';
     $contentView = new $name();

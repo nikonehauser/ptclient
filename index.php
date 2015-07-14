@@ -15,7 +15,7 @@ try {
     $controllerName,
     $controllerAction
   ) = Arr::initList($_REQUEST, [
-    Router::KEY_MODULE => [\Tbmt\TYPE_STRING, 'home'],
+    Router::KEY_MODULE => [\Tbmt\TYPE_STRING, 'projects'],
     Router::KEY_ACTION => [\Tbmt\TYPE_STRING, 'index'],
   ]);
 

@@ -10,16 +10,31 @@ class Index extends Base {
 
     $viewCommon = \Tbmt\Localizer::get('view.common');
     $linkNames = $viewCommon['navigation_links'];
+    $subLinkNames = $viewCommon['navigation_sublinks'];
     $this->navigationLinks = [];
-    foreach (['member', 'projects', 'about', 'account'] as $linkName) {
+    foreach (['projects', 'member', 'about', 'account'] as $linkName) {
       $locale = $linkNames[$linkName];
+
+      $sublinks = null;
+      if ( isset($subLinkNames[$linkName]) ) {
+        $sublinks = [];
+        foreach ($subLinkNames[$linkName] as $action => $name) {
+          array_push($sublinks, [
+            \Tbmt\Router::toModule($linkName, $action),
+            $name,
+            $action === CURRENT_MODULE_ACTION ? true : false
+          ]);
+        }
+      }
 
       array_push($this->navigationLinks, [
         \Tbmt\Router::toModule($linkName),
         $locale,
-        $linkName === CURRENT_MODULE ? true : false
+        $linkName === CURRENT_MODULE ? true : false,
+        $sublinks
       ]);
     }
+
 
     $this->isLoggedIn = \Tbmt\Session::isLoggedIn();
     if ( !$this->isLoggedIn ) {
@@ -27,6 +42,7 @@ class Index extends Base {
     }
 
     $this->baseUrl = \Tbmt\Router::toBase();
+    $this->locales = $viewCommon;
   }
 
   protected $varsDef = [

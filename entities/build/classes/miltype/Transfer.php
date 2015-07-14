@@ -27,6 +27,10 @@ class Transfer extends BaseTransfer {
   const STATE_IN_EXECUTION = 2;
   const STATE_DONE = 3;
 
+  /**
+   * Adds the given amount to this transfer.
+   * @param [type] $intAmount
+   */
   public function addAmount($intAmount) {
     $this->setAmount($this->getAmount() + $intAmount);
     $transaction = new Transaction();

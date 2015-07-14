@@ -19,7 +19,7 @@
     "referer_id" INTEGER NULL ,
     "parent_id" INTEGER NULL ,
     "signup_date" timestamp without time zone NOT NULL ,
-    "paid" smallint NOT NULL default 0 ,
+    "paid_date" timestamp without time zone NULL ,
     "funds_level" smallint NOT NULL default 1,
 
     "bank_recipient" VARCHAR(120) NOT NULL ,
@@ -29,8 +29,12 @@
     "type" smallint NOT NULL default 0 ,
 
     "advertised_count" int NOT NULL default 0 ,
+    "outstanding_advertised_count" int NOT NULL default 0 ,
 
     "password" varchar not null ,
+
+    "transferred_total" double precision NOT NULL default 0 ,
+    "outstanding_total" double precision NOT NULL default 0 ,
 
     PRIMARY KEY ("id") ,
     CONSTRAINT "fk_member_referer"
@@ -79,7 +83,7 @@
   CREATE TABLE IF NOT EXISTS  "tbmt_transaction" (
     "id" bigserial NOT NULL ,
     "transfer_id" int NOT NULL ,
-    "amount" real NOT NULL default 0 ,
+    "amount" double precision NOT NULL default 0 ,
     "reason" smallint not null default 0 ,
     "date" timestamp without time zone NOT NULL ,
     PRIMARY KEY ("id") ,

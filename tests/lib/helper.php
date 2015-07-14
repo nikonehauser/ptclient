@@ -61,7 +61,11 @@ class DbEntityHelper {
     return $member;
   }
 
-  static public function createSignupMember(Member $referralMember) {
-    return Member::createFromSignup(self::$memberSignup, $referralMember, self::$con);
+  static public function createSignupMember(Member $referralMember, $receivedPaiment = true) {
+    $member = Member::createFromSignup(self::$memberSignup, $referralMember, self::$con);
+    if ( $receivedPaiment )
+      $member->onReceivedMemberFee(time(), self::$con);
+
+    return $member;
   }
 }
