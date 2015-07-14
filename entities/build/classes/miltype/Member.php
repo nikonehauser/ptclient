@@ -291,6 +291,15 @@ class Member extends BaseMember
    *
    */
   public function onReceivedMemberFee($when, PropelPDO $con) {
+    $referer = $this->getMemberRelatedByParentId($con);
+
+    if ( $referer && !$referer->hadPaid() ) {
+      // if the parent hasnt paid yet. reserve this event until his fee is
+      // comming in or we kick him from the list.
+      $referer->reserveReceivedMemberFeeEvent($this, $when, $con);
+      return;
+    }
+
     $this->setPaidDate($when);
     TransferQuery::create()
       ->filterByState(Transfer::STATE_RESERVED)
@@ -298,8 +307,8 @@ class Member extends BaseMember
       ->update(['State' => Transfer::STATE_COLLECT], $con);
 
     // @see resources/snowball.txt - processes - P2
-    $referer = $this->getMemberRelatedByParentId($con);
     if ( $referer ) {
+
       $referer->payAdvertisingFor($this, $when, $con);
 
       $newAdvertisedCount = $referer->convertOutstandingAdvertisedCount(1);
@@ -311,6 +320,35 @@ class Member extends BaseMember
       $referer->save($con);
     }
 
+    $this->fireReservedReceivedMemberFeeEvents($con);
+
     $this->save($con);
+  }
+
+  public function reserveReceivedMemberFeeEvent($paidMember, $when, PropelPDO $con) {
+    // $this = the yet unpaid parent of $paidMember
+    $reservedPaidEvent = new ReservedPaidEvent();
+    $reservedPaidEvent->setMemberRelatedByPaidId($paidMember);
+    $reservedPaidEvent->setMemberRelatedByUnpaidId($this);
+    $reservedPaidEvent->setDate($when);
+    $reservedPaidEvent->save($con);
+  }
+
+  public function fireReservedReceivedMemberFeeEvents(PropelPDO $con) {
+    $idsStack = [$this->getId()];
+    while ( count($idsStack) > 0 ) {
+      $reservedEvents = ReservedPaidEventQuery::create()
+        // ->joinWith()
+        ->filterByUnpaidId(array_pop($idsStack))
+        ->find($con);
+
+      foreach ( $reservedEvents as $event) {
+        $paidMember = $event->getMemberRelatedByPaidId($con);
+        $paidMember->onReceivedMemberFee($event->getDate('U'), $con);
+        $idsStack[] = $paidMember->getId();
+
+        $event->delete($con);
+      }
+    }
   }
 }

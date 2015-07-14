@@ -35,6 +35,22 @@
       <unique-column name="num"/>
     </unique>
   </table>
+  <table name="reserved_fee_events" phpName="ReservedFeeEvents" idMethod="native">
+    <column name="unpaid_id" phpName="UnpaidId" type="INTEGER" primaryKey="true" required="true"/>
+    <column name="paid_id" phpName="PaidId" type="INTEGER" primaryKey="true" required="true"/>
+    <column name="date" phpName="Date" type="TIMESTAMP" required="true"/>
+  </table>
+  <table name="reserved_paid_event" phpName="ReservedPaidEvent" idMethod="native">
+    <column name="unpaid_id" phpName="UnpaidId" type="INTEGER" primaryKey="true" required="true"/>
+    <column name="paid_id" phpName="PaidId" type="INTEGER" primaryKey="true" required="true"/>
+    <column name="date" phpName="Date" type="TIMESTAMP" required="true"/>
+    <foreign-key foreignTable="member" name="fk_reserved_paid_event_paid_member" onDelete="SET NULL" onUpdate="CASCADE">
+      <reference local="paid_id" foreign="id"/>
+    </foreign-key>
+    <foreign-key foreignTable="member" name="fk_reserved_paid_event_unpaid_member" onDelete="SET NULL" onUpdate="CASCADE">
+      <reference local="unpaid_id" foreign="id"/>
+    </foreign-key>
+  </table>
   <table name="transaction" phpName="Transaction" idMethod="native">
     <column name="id" phpName="Id" type="BIGINT" primaryKey="true" autoIncrement="true" required="true"/>
     <column name="transfer_id" phpName="TransferId" type="INTEGER" required="true"/>

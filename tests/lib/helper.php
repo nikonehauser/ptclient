@@ -55,7 +55,9 @@ class DbEntityHelper {
     if ( $referralMember )
       $member->setReferralMemberId($referralMember->getId());
 
-    $member->setSignupDate(time())
+    $now = time();
+    $member->setSignupDate($now)
+      ->setPaidDate($now + 100000)
       ->save(self::$con);
 
     return $member;

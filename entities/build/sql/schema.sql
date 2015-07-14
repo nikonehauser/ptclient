@@ -35,6 +35,34 @@ CREATE TABLE "tbmt_member"
 );
 
 -----------------------------------------------------------------------
+-- tbmt_reserved_fee_events
+-----------------------------------------------------------------------
+
+DROP TABLE IF EXISTS "tbmt_reserved_fee_events" CASCADE;
+
+CREATE TABLE "tbmt_reserved_fee_events"
+(
+    "unpaid_id" INTEGER NOT NULL,
+    "paid_id" INTEGER NOT NULL,
+    "date" TIMESTAMP NOT NULL,
+    PRIMARY KEY ("unpaid_id","paid_id")
+);
+
+-----------------------------------------------------------------------
+-- tbmt_reserved_paid_event
+-----------------------------------------------------------------------
+
+DROP TABLE IF EXISTS "tbmt_reserved_paid_event" CASCADE;
+
+CREATE TABLE "tbmt_reserved_paid_event"
+(
+    "unpaid_id" INTEGER NOT NULL,
+    "paid_id" INTEGER NOT NULL,
+    "date" TIMESTAMP NOT NULL,
+    PRIMARY KEY ("unpaid_id","paid_id")
+);
+
+-----------------------------------------------------------------------
 -- tbmt_transaction
 -----------------------------------------------------------------------
 
@@ -76,6 +104,18 @@ ALTER TABLE "tbmt_member" ADD CONSTRAINT "fk_member_parent"
 
 ALTER TABLE "tbmt_member" ADD CONSTRAINT "fk_member_referer"
     FOREIGN KEY ("referer_id")
+    REFERENCES "tbmt_member" ("id")
+    ON UPDATE CASCADE
+    ON DELETE SET NULL;
+
+ALTER TABLE "tbmt_reserved_paid_event" ADD CONSTRAINT "fk_reserved_paid_event_paid_member"
+    FOREIGN KEY ("paid_id")
+    REFERENCES "tbmt_member" ("id")
+    ON UPDATE CASCADE
+    ON DELETE SET NULL;
+
+ALTER TABLE "tbmt_reserved_paid_event" ADD CONSTRAINT "fk_reserved_paid_event_unpaid_member"
+    FOREIGN KEY ("unpaid_id")
     REFERENCES "tbmt_member" ("id")
     ON UPDATE CASCADE
     ON DELETE SET NULL;

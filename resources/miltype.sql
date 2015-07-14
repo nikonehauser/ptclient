@@ -93,3 +93,25 @@
       ON DELETE CASCADE
       ON UPDATE CASCADE
   );
+
+-- -----------------------------------------------------
+-- Table "tbmt_reserved_paid_event"
+-- -----------------------------------------------------
+  DROP TABLE IF EXISTS "tbmt_reserved_paid_event" CASCADE;
+
+  CREATE TABLE IF NOT EXISTS  "tbmt_reserved_paid_event" (
+    "unpaid_id" int NOT NULL ,
+    "paid_id" int NOT NULL ,
+    "date" timestamp without time zone NOT NULL ,
+    PRIMARY KEY ("unpaid_id", "paid_id") ,
+    CONSTRAINT "fk_tbmt_reserved_paid_event_unpaid_member"
+      FOREIGN KEY ("unpaid_id")
+      REFERENCES "tbmt_member" ("id")
+      ON DELETE set null
+      ON UPDATE CASCADE ,
+    CONSTRAINT "fk_tbmt_reserved_paid_event_paid_member"
+      FOREIGN KEY ("paid_id")
+      REFERENCES "tbmt_member" ("id")
+      ON DELETE set null
+      ON UPDATE CASCADE
+  );

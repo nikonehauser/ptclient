@@ -8,7 +8,7 @@ class SnowballTest extends Tbmt_Tests_DatabaseTestCase {
 
   }
 
-  public function testSnowballModel() {
+  public function __testSnowballModel() {
     /* Setup
     ---------------------------------------------*/
     DbEntityHelper::setCon(self::$propelCon);
@@ -125,10 +125,36 @@ class SnowballTest extends Tbmt_Tests_DatabaseTestCase {
 
 
 
+  public function testSnowballModelLazyIncommingFee1() {
+    /* Setup
+    ---------------------------------------------*/
+    $now = time();
+
+    DbEntityHelper::setCon(self::$propelCon);
+    $promoter1 = DbEntityHelper::createMember();
+
+    $MYSELF = DbEntityHelper::createSignupMember($promoter1, false);
+    $this->assertEquals($MYSELF->getFundsLevel(), Member::FUNDS_LEVEL1);
+
+    /* Advertise 2 users
+    ---------------------------------------------*/
+    $far_l1_1 = DbEntityHelper::createSignupMember($MYSELF, false);
+    $bea_l1_2 = DbEntityHelper::createSignupMember($MYSELF, false);
+
+    DbEntityHelper::createSignupMember($bea_l1_2);
+    $far_l1_1->onReceivedMemberFee($now, self::$propelCon);
+    $bea_l1_2->onReceivedMemberFee($now, self::$propelCon);
+
+    $MYSELF->onReceivedMemberFee($now, self::$propelCon);
+
+    // ---- assert - ME
+    $MYSELF_transfer = $MYSELF->getCurrentTransferBundle(self::$propelCon);
+    $this->assertEquals($MYSELF_transfer->getAmount(), 25);
+  }
 
 
 
-  public function testSnowballModelLazyIncommingFee() {
+  public function ___testSnowballModelLazyIncommingFee2() {
     /* Setup
     ---------------------------------------------*/
     $now = time();
@@ -191,9 +217,9 @@ class SnowballTest extends Tbmt_Tests_DatabaseTestCase {
     $bea_l1_2->onReceivedMemberFee($now, self::$propelCon);
     $far_l1_1->onReceivedMemberFee($now, self::$propelCon);
 
-
-    return;
     // TODO: Undetermined how this should look like
+
+    $this->assertEquals(ReservedPaidEventQuery::create()->count(), 0);
 
     // ---- assert - CHRIS
     $CHRIS_transfer = $CHRIS_l1_3->getCurrentTransferBundle(self::$propelCon);
