@@ -26,7 +26,7 @@ final class Session {
   }
 
   static public function isLoggedIn() {
-    return isset($_SESSION[self::KEY_USER_ID]);
+    return isset($_SESSION[self::KEY_USER_ID]) && self::getLogin() !== null;
   }
 
   static public function login($num, $pwd) {
@@ -44,11 +44,8 @@ final class Session {
   }
 
   static public function getLogin() {
-    if ( !self::$user && self::isLoggedIn() ) {
+    if ( !self::$user && isset($_SESSION[self::KEY_USER_ID]) ) {
       self::$user = \MemberQuery::create()->findOneById($_SESSION[self::KEY_USER_ID]);
-
-      if ( self::$user === null )
-        throw new \Exception('Can find user with id: '.$_SESSION[self::KEY_USER_ID]);
     }
 
     return self::$user;

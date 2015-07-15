@@ -1,6 +1,6 @@
 CURRENT
 ======
-
+ - write test and implement the promoter orgleader etc. variants.
 
 LIST
 ====
@@ -23,6 +23,8 @@ LIST
 
 - zeige: bereits angemeldete benutzer
 - zeige: bereits gesammeltes geld
+
+- write extensive tests 10 000 000 users.
 
 Fragen
 ======
