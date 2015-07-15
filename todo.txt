@@ -1,8 +1,6 @@
 CURRENT
 ======
 
- - write test for multiple deleteAndUpdateTree() cases cause multiple people/children (propagation) does not pay
-
 
 LIST
 ====
