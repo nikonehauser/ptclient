@@ -9,7 +9,7 @@ class AccountIndexTab extends Base {
   ];
 
   protected function init() {
-    $this->locales = \Tbmt\Localizer::get('view.account.tabs.index');
+    $this->i18nView = \Tbmt\Localizer::get('view.account.tabs.index');
   }
 
   public function render(array $params = array()) {

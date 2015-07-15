@@ -35,11 +35,6 @@
       <unique-column name="num"/>
     </unique>
   </table>
-  <table name="reserved_fee_events" phpName="ReservedFeeEvents" idMethod="native">
-    <column name="unpaid_id" phpName="UnpaidId" type="INTEGER" primaryKey="true" required="true"/>
-    <column name="paid_id" phpName="PaidId" type="INTEGER" primaryKey="true" required="true"/>
-    <column name="date" phpName="Date" type="TIMESTAMP" required="true"/>
-  </table>
   <table name="reserved_paid_event" phpName="ReservedPaidEvent" idMethod="native">
     <column name="unpaid_id" phpName="UnpaidId" type="INTEGER" primaryKey="true" required="true"/>
     <column name="paid_id" phpName="PaidId" type="INTEGER" primaryKey="true" required="true"/>
@@ -56,6 +51,7 @@
     <column name="transfer_id" phpName="TransferId" type="INTEGER" required="true"/>
     <column name="amount" phpName="Amount" type="DOUBLE" required="true" defaultValue="0"/>
     <column name="reason" phpName="Reason" type="SMALLINT" required="true" defaultValue="0"/>
+    <column name="related_id" phpName="RelatedId" type="INTEGER" required="false"/>
     <column name="date" phpName="Date" type="TIMESTAMP" required="true"/>
     <foreign-key foreignTable="transfer" name="fk_transaction_transfer" onDelete="CASCADE" onUpdate="CASCADE">
       <reference local="transfer_id" foreign="id"/>

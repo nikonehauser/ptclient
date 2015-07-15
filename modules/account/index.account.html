@@ -1,10 +1,12 @@
-<h2><?=\Tbmt\Localizer::insert($this->locales['welcome'], [
-    'name' => $this->member->getTitle(). ' '.$this->member->getFirstName(). ' '.$this->member->getLastName()
-])?></h2>
+<?=Tbmt\view\Factory::buildPageTitle($this->i18nView['page_title'])?>
 
-<ul class="nav nav-tabs">
-    <?php
-      $last = count($this->navigationLinks) - 1;
+<div class="container">
+  <h2 class="headline" ><?=\Tbmt\Localizer::insert($this->i18nView['welcome'], [
+      'name' => $this->member->getTitle(). ' '.$this->member->getFirstName(). ' '.$this->member->getLastName()
+  ])?></h2>
+
+  <ul class="tabs-nav">
+      <?php
       foreach ($this->navigationLinks as $i => $link) {
         $className = '';
         if ( $link[2] )
@@ -12,7 +14,8 @@
 
         echo '<li class="'.$className.'"><a href="'.$link[0].'">'.$link[1].'</a></li>';
       }
-    ?>
-</ul>
+      ?>
+  </ul>
 
-<div class="navContent"><?=$this->tabContent?></div>
+  <div class="tabs-container" style="padding: 20px;"><?=$this->tabContent?></div>
+</div>

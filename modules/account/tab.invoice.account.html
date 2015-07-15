@@ -1,15 +1,89 @@
-  <h3><?=$this->locales['stats']?></h3>
+
+  <h4 class="headline" ><?=$this->i18nView['stats']?></h4>
+
   <dl class="dl-horizontal dl--largeSpaced">
-      <dt><?=$this->locales['oustanding_advertised_count']?></dt>
+      <dt><?=$this->i18nView['oustanding_advertised_count']?></dt>
       <dd><?=$this->member->getOutstandingAdvertisedCount()?></dd>
 
-      <dt><?=$this->locales['advertised_member_count']?></dt>
+      <dt><?=$this->i18nView['advertised_member_count']?></dt>
       <dd><?=$this->member->getAdvertisedCount()?></dd>
 
-      <dt><?=$this->locales['outstanding_total']?></dt>
+      <dt><?=$this->i18nView['outstanding_total']?></dt>
       <dd><?=$this->member->getOutstandingTotal()?></dd>
 
-      <dt><?=$this->locales['transferred_total']?></dt>
+      <dt><?=$this->i18nView['transferred_total']?></dt>
       <dd><?=$this->member->getTransferredTotal()?></dd>
 
   </dl>
+
+
+
+  <h4 class="headline" ><?=$this->i18nView['transactions']?></h4>
+  <table class="standard-table">
+    <tbody>
+        <tr>
+          <th>Amount</th>
+          <th>Reason</th>
+          <th>Date</th>
+        </tr>
+    <?php
+    $reasons = $this->i18nView['transaction_reasons'];
+    foreach ( $this->transactions as $transaction ) {
+      echo '<tr>';
+        echo '<td>'.$transaction->getAmount().'</td>';
+        echo '<td>'.$reasons[$transaction->getReason()].'</td>';
+        echo '<td>'.date($this->transDateForm, $transaction->getDate()).'</td>';
+      echo '</tr>';
+
+    }
+    ?>
+    </tbody>
+  </table>
+
+<!--
+  <table class="standard-table">
+
+        <tbody><tr>
+          <th>Header 1</th>
+          <th>Header 2</th>
+          <th>Header 3</th>
+          <th>Header 4</th>
+        </tr>
+
+        <tr>
+          <td>Item #1</td>
+          <td>Description</td>
+          <td>100 GB</td>
+          <td>100 GB</td>
+        </tr>
+
+        <tr>
+          <td>Item #2</td>
+          <td>Description</td>
+          <td>200 GB</td>
+          <td>200 GB</td>
+        </tr>
+
+        <tr>
+          <td>Item #3</td>
+          <td>Description</td>
+          <td>300 GB</td>
+          <td>300 GB</td>
+        </tr>
+
+        <tr>
+          <td>Item #4</td>
+          <td>Description</td>
+          <td>400 GB</td>
+          <td>400 GB</td>
+        </tr>
+
+        <tr>
+          <td>Item #5</td>
+          <td>Description</td>
+          <td>500 GB</td>
+          <td>500 GB</td>
+        </tr>
+
+      </tbody></table>
+      -->

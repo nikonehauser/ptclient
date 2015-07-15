@@ -35,20 +35,6 @@ CREATE TABLE "tbmt_member"
 );
 
 -----------------------------------------------------------------------
--- tbmt_reserved_fee_events
------------------------------------------------------------------------
-
-DROP TABLE IF EXISTS "tbmt_reserved_fee_events" CASCADE;
-
-CREATE TABLE "tbmt_reserved_fee_events"
-(
-    "unpaid_id" INTEGER NOT NULL,
-    "paid_id" INTEGER NOT NULL,
-    "date" TIMESTAMP NOT NULL,
-    PRIMARY KEY ("unpaid_id","paid_id")
-);
-
------------------------------------------------------------------------
 -- tbmt_reserved_paid_event
 -----------------------------------------------------------------------
 
@@ -74,6 +60,7 @@ CREATE TABLE "tbmt_transaction"
     "transfer_id" INTEGER NOT NULL,
     "amount" DOUBLE PRECISION DEFAULT 0 NOT NULL,
     "reason" INT2 DEFAULT 0 NOT NULL,
+    "related_id" INTEGER,
     "date" TIMESTAMP NOT NULL,
     PRIMARY KEY ("id")
 );

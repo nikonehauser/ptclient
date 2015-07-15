@@ -1,3 +1,14 @@
+CURRENT
+======
+
+ - write test for multiple deleteAndUpdateTree() cases cause multiple people/children (propagation) does not pay
+
+
+LIST
+====
+
+ - group tansactions by reason for displaying issues
+
  - enter list of not accepted countries
 
  - wenn kunde nicht überweist werden seine geworbenen mitglieder einfach nach oben geschoben
@@ -8,14 +19,9 @@
 
 - save unknown incommings to extra table
 
-- ganz wichtig: transactionen und geld erst mitgliedern anrechnen wenn sie bezahlt haben.
-nicht sofort
-
-- leute können bescheissen in dem sie sich auf level 2 schieben durch
-unechte signups die nie bezahlen??!
-
-
 - Angabe der Bankverbindung des Vereins.
+
+- encodeHtml account->information - statistics
 
 - zeige: bereits angemeldete benutzer
 - zeige: bereits gesammeltes geld
@@ -25,6 +31,8 @@ Fragen
 
  - problem was fee income reihenfolge angeht
 
+ - order of whom i will get my indirect provisions is dependent of the order
+ of the incomming money, NOT the signup date
 
 TOM
 ===

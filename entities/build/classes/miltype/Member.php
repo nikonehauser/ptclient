@@ -209,6 +209,7 @@ class Member extends BaseMember
    * @param  PropelPDO $con
    */
   public function payAdvertisingFor(Member $advertisedMember, $when, PropelPDO $con) {
+    $advertisedMemberId = $advertisedMember->getId();
     $transfer = $this->getCurrentTransferBundle($con);
     if ( $this->getFundsLevel() === Member::FUNDS_LEVEL1 ) {
 
@@ -217,6 +218,7 @@ class Member extends BaseMember
       $this->addOutstandingTotal(Transaction::AMOUNT_ADVERTISED_LVL1);
       $transaction = $transfer->addAmount(Transaction::AMOUNT_ADVERTISED_LVL1);
       $transaction->setReason(Transaction::REASON_ADVERTISED_LVL1);
+      $transaction->setRelatedId($advertisedMemberId);
       $transaction->setDate($when);
       $transaction->save($con);
 
@@ -227,6 +229,7 @@ class Member extends BaseMember
         $parent->addOutstandingTotal(Transaction::AMOUNT_ADVERTISED_INDIRECT);
         $parentTransaction = $parentTransfer->addAmount(Transaction::AMOUNT_ADVERTISED_INDIRECT);
         $parentTransaction->setReason(Transaction::REASON_ADVERTISED_INDIRECT);
+        $parentTransaction->setRelatedId($advertisedMemberId);
         $parentTransaction->setDate($when);
         $parentTransaction->save($con);
 
@@ -247,6 +250,7 @@ class Member extends BaseMember
       $this->addOutstandingTotal(Transaction::AMOUNT_ADVERTISED_LVL2);
       $transaction = $transfer->addAmount(Transaction::AMOUNT_ADVERTISED_LVL2);
       $transaction->setReason(Transaction::REASON_ADVERTISED_LVL2);
+      $transaction->setRelatedId($advertisedMemberId);
       $transaction->setDate($when);
       $transaction->save($con);
 
@@ -334,6 +338,10 @@ class Member extends BaseMember
     $reservedPaidEvent->save($con);
   }
 
+  /**
+   * Does not save $this member.
+   * @param  PropelPDO $con
+   */
   public function fireReservedReceivedMemberFeeEvents(PropelPDO $con) {
     $idsStack = [$this->getId()];
     while ( count($idsStack) > 0 ) {
@@ -350,5 +358,39 @@ class Member extends BaseMember
         $event->delete($con);
       }
     }
+  }
+
+  /**
+   * Delete this member and adopt his children to his referer.
+   * Calling onReceivedMemberFee.
+   *
+   * @param  PropelPDO $con
+   * @return
+   */
+  public function deleteAndUpdateTree(PropelPDO $con) {
+    $children = MemberQuery::create()
+      ->filterByRefererId($this->getId())
+      ->find($con);
+
+    $thisReferer = $this->getMemberRelatedByRefererId();
+    $thisRefererHadPaid = $thisReferer->hadPaid();
+
+    $updateCount = ReservedPaidEventQuery::create()
+      ->filterByUnpaidId($this->getId())
+      ->update(['UnpaidId' => $thisReferer->getId()], $con);
+
+    foreach ($children as $child) {
+      $child->setRefererMember($thisReferer, $con);
+      $child->save($con);
+      // if ( $thisRefererHadPaid && !$child->hadPaid() )
+      //   $child->fireReservedReceivedMemberFeeEvents($con);
+    }
+
+    if ( $updateCount > 0 ) {
+      $thisReferer->fireReservedReceivedMemberFeeEvents($con);
+      $thisReferer->save($con);
+    }
+
+    $this->delete($con);
   }
 }

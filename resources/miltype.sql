@@ -85,6 +85,7 @@
     "transfer_id" int NOT NULL ,
     "amount" double precision NOT NULL default 0 ,
     "reason" smallint not null default 0 ,
+    "related_id" int null ,
     "date" timestamp without time zone NOT NULL ,
     PRIMARY KEY ("id") ,
     CONSTRAINT "fk_transaction_transfer"

@@ -7,6 +7,15 @@ return [
   ],
 
 
+    /* DATE FORMATS
+    ---------------------------------------------*/
+  'date_format_php' => [
+    'default' => "m/d/Y",
+    'short'   => "M. d",
+    'long'    => "F d, Y",
+  ],
+
+
     /* ERRORS
     ---------------------------------------------*/
   'error' => [
@@ -47,6 +56,10 @@ return [
           '_prj_residential_home'  => 'Residential home',
           '_prj_vocational_education'  => 'Vocational education',
           '_prj_hospitals'  => 'Hospitals',
+        ],
+        'account' => [
+          'index' => 'Information',
+          'logout' => 'Logout',
         ]
       ],
       'member_login' => 'Member Login',
@@ -129,6 +142,7 @@ return [
         ]
       ],
       'index' => [
+        'page_title' => 'Profile',
         'welcome' => 'Welcome {name}',
         'navigation_links' => [
           'index' => 'Information',
@@ -141,8 +155,9 @@ return [
           'account' => 'Account',
           'your_num' => 'Your member number',
           'warning' => 'Warning!',
+          'tank_you' => 'Thank You!',
           'unpaid_text' => 'We did not receive your member fee yet!',
-          'paid_text' => 'Thank you. We received your member fee.',
+          'paid_text' => 'We received your member fee.',
           'address' => 'Address',
           'email' => 'Email',
           'email_none' => '-none-',
@@ -153,10 +168,16 @@ return [
         ],
         'invoice' => [
           'stats' => 'Statistics',
+          'transactions' => 'Transactions',
           'oustanding_advertised_count' => 'Outstanding advertised members count',
           'advertised_member_count' => 'Advertised members count',
           'outstanding_total' => 'Total outstanding to be transferred',
           'transferred_total' => 'Total transferred',
+          'transaction_reasons' => [
+            'Advertised Lvl 1',
+            'Advertised Lvl 2',
+            'Advertised Indirect'
+          ]
         ],
         'tree' => [
         ]

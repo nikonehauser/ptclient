@@ -9,7 +9,6 @@ class AccountController extends BaseController {
   protected $actions = [
     'index' => true,
     'logout' => true,
-    'info' => true,
     'invoice' => true,
     'tree' => true,
   ];

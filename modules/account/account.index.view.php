@@ -7,17 +7,13 @@ class AccountIndex extends Base {
   protected $varsDef = [
   ];
 
-  protected function init() {
-    $this->locales = \Tbmt\Localizer::get('view.account.index');
-  }
-
   public function render(array $params = array()) {
     if ( !isset($params['member']) && !($params['member'] instanceof \Member) )
       throw new \Exception('Invalid param member for account index view.');
 
     $this->member = $params['member'];
 
-    $linkNames = $this->locales['navigation_links'];
+    $linkNames = $this->i18nView['navigation_links'];
     $this->navigationLinks = [];
     foreach (['index', 'invoice', 'tree'] as $linkName) {
       $locale = $linkNames[$linkName];

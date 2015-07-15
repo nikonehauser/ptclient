@@ -10,7 +10,8 @@
   <testsuites>
     <testsuite name="FormValidation">
       <!-- <file>FormValidationTest.php</file> -->
-      <file>SnowballTest.php</file>
+      <!-- <file>SnowballTest.php</file> -->
+      <file>DeleteUnpaidTest.php</file>
     </testsuite>
   </testsuites>
 

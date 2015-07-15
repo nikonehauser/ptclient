@@ -1,18 +1,18 @@
 
   <?php
     if ( !$this->member->hadPaid() ) {
-      echo '<div class="alert alert-warning"><strong>'.$this->locales['warning'].'</strong> '.$this->locales['unpaid_text'].'</div>';
+      echo \Tbmt\view\Factory::buildNotification($this->i18nView['unpaid_text'], $this->i18nView['warning'], 'warning');
     } else {
-      echo '<div class="alert alert-success">'.$this->locales['paid_text'].'</div>';
+      echo \Tbmt\view\Factory::buildNotification($this->i18nView['paid_text'], $this->i18nView['tank_you'], 'success');
     }
   ?>
 
-  <h3><?=$this->locales['account']?></h3>
+  <h3><?=$this->i18nView['account']?></h3>
   <dl class="dl-horizontal dl--largeSpaced">
-      <dt><?=$this->locales['your_num']?></dt>
+      <dt><?=$this->i18nView['your_num']?></dt>
       <dd><?=$this->member->getNum()?></dd>
 
-      <dt><?=$this->locales['address']?></dt>
+      <dt><?=$this->i18nView['address']?></dt>
       <dd>
           <address>
               <?=$this->member->getCity()?><br>
@@ -20,22 +20,22 @@
           </address>
       </dd>
 
-      <dt><?=$this->locales['email']?></dt>
+      <dt><?=$this->i18nView['email']?></dt>
       <dd>
           <?=$this->member->getEmail() ?
           $this->member->getEmail() :
-          '<em class="text-muted">'.$this->locales['email_none'].'</em>'?>
+          '<em class="text-muted">'.$this->i18nView['email_none'].'</em>'?>
       </dd>
   </dl>
 
-  <h3><?=$this->locales['bank_account']?></h3>
+  <h3><?=$this->i18nView['bank_account']?></h3>
   <dl class="dl-horizontal dl--largeSpaced">
-      <dt><?=$this->locales['bank_recipient']?></dt>
+      <dt><?=$this->i18nView['bank_recipient']?></dt>
       <dd><?=$this->member->getBankRecipient()?></dd>
 
-      <dt><?=$this->locales['iban']?></dt>
+      <dt><?=$this->i18nView['iban']?></dt>
       <dd><?=$this->member->getIban()?></dd>
 
-      <dt><?=$this->locales['bic']?></dt>
+      <dt><?=$this->i18nView['bic']?></dt>
       <dd><?=$this->member->getBic()?></dd>
   </dl>

@@ -38,7 +38,9 @@ class Index extends Base {
 
     $this->isLoggedIn = \Tbmt\Session::isLoggedIn();
     if ( !$this->isLoggedIn ) {
-      $this->navigationLinks[count($this->navigationLinks)-1][1] = $viewCommon['member_login'];
+      $accountLinks = &$this->navigationLinks[count($this->navigationLinks)-1];
+      $accountLinks[1] = $viewCommon['member_login'];
+      unset($accountLinks[3]);
     }
 
     $this->baseUrl = \Tbmt\Router::toBase();
