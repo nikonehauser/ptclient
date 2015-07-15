@@ -163,8 +163,10 @@ return [
           'email_none' => '-none-',
           'bank_account' => 'Bank account',
           'bank_recipient' => 'Recipient Name',
-          'iban' => 'IBAN (International Bank Account Number)',
-          'bic' => 'BIC (Bank Identifier Code)'
+          // 'iban' => 'IBAN (International Bank Account Number)',
+          'iban' => 'IBAN',
+          // 'bic' => 'BIC (Bank Identifier Code)'
+          'bic' => 'BIC'
         ],
         'invoice' => [
           'stats' => 'Statistics',

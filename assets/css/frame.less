@@ -78,6 +78,61 @@
 
 
 /* =============================================================== */
+/* descriptions
+================================================================ */
+dl {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+dt,
+dd {
+  line-height: 1.42857143;
+}
+dt {
+  font-weight: bold;
+}
+dd {
+  margin-left: 0;
+}
+@media (min-width: 768px) {
+  .dl-horizontal dt {
+    float: left;
+    width: 160px;
+    overflow: hidden;
+    clear: left;
+    text-align: right;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .dl-horizontal dd {
+    margin-left: 180px;
+  }
+}
+
+.dl-largeSpaced>* {
+  margin-bottom: 18px;
+  padding: 8px;
+}
+
+.dl-prettyStyled>dt {
+  border-bottom: 1px solid transparent;
+}
+.dl-prettyStyled>dd {
+  padding-left: 18px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+
+.dl-largeTitle>dt {
+  width: 360px;
+}
+.dl-largeTitle>dd {
+  margin-left: 380px;
+}
+
+
+
+/* =============================================================== */
 /* helper classes
 ================================================================ */
 .text-muted {
