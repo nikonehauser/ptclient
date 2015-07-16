@@ -214,8 +214,13 @@ return [
       'index' => [
         'page_title' => 'Projects',
         'about_us_title' => 'About us and our idea',
-        'about_us_title2' => 'Helper yourself AND others'
+        'about_us_title2' => 'Help yourself AND others',
+        'planed_projects_title' => 'Our planeed Projects for self-help',
+        'affected_countries_title' => 'Countries we want to help',
       ],
+      'girls_schools' => [
+        'page_title' => 'Grils schools'
+      ]
     ],
 
 

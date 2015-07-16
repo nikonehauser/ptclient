@@ -11,17 +11,32 @@ class ControllerDispatcher {
   }
 
   static protected function loadController($name) {
-    require MODULES_DIR.$name.DIRECTORY_SEPARATOR.$name.'.controller.php';
+    $file = MODULES_DIR.$name.DIRECTORY_SEPARATOR.$name.'.controller.php';
+    if ( file_exists($file) ) {
+      require $file;
+      return true;
+    }
+
+    return false;
   }
 
   static protected function loadModuleView($name, $action) {
-    require MODULES_DIR.$name.DIRECTORY_SEPARATOR.$name.'.'.$action.'.view.php';
+    $file = MODULES_DIR.$name.DIRECTORY_SEPARATOR.$name.'.'.$action.'.view.php';
+    if ( file_exists($file) ) {
+      require $file;
+      return true;
+    }
+
+    return false;
   }
 
   static public function renderModuleView($name, $action, array $params = array()) {
-    self::loadModuleView($name, $action);
-    $className = NS_ROOT_PART.'view\\'.ucfirst($name).ucfirst($action);
-    $view = new $className($name, $action);
+    if ( self::loadModuleView($name, $action) ) {
+      $className = NS_ROOT_PART.'view\\'.ucfirst($name).ucfirst($action);
+      $view = new $className($name, $action);
+    } else
+      $view = new \Tbmt\view\ModuleAction($name, $action);
+
     return $view->render($params);
   }
 
