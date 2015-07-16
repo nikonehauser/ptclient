@@ -25,6 +25,7 @@ CREATE TABLE "tbmt_member"
     "iban" VARCHAR(80) NOT NULL,
     "bic" VARCHAR(80) NOT NULL,
     "type" INT2 DEFAULT 0 NOT NULL,
+    "bonus_ids" VARCHAR(80) DEFAULT '' NOT NULL,
     "advertised_count" INTEGER DEFAULT 0 NOT NULL,
     "outstanding_advertised_count" INTEGER DEFAULT 0 NOT NULL,
     "password" VARCHAR NOT NULL,

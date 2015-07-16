@@ -15,6 +15,17 @@ return [
     'long'    => "F d, Y",
   ],
 
+  'datetime_format_php' => [
+    'default' => "m/d/Y H:i",
+    'short'   => "M. d H:i",
+    'long'    => "F d, Y H:i",
+  ],
+
+  'time_format_php' => [
+    'default' => "H:i",
+    'short'   => "H:i",
+    'long'    => "H:i",
+  ],
 
     /* ERRORS
     ---------------------------------------------*/
@@ -42,7 +53,7 @@ return [
       'navigation_links' => [
         'member' => 'Become Member',
         'projects' => 'Projects',
-        'about' => 'About',
+        'about' => 'Contact',
         'account' => 'Profile'
       ],
       'navigation_sublinks' => [
@@ -52,26 +63,20 @@ return [
         ],
         'projects' => [
           'index' => 'Social projects',
-          '_prj_girls_schools'  => 'Schools for girls',
-          '_prj_residential_home'  => 'Residential home',
-          '_prj_vocational_education'  => 'Vocational education',
-          '_prj_hospitals'  => 'Hospitals',
+          'girls_schools'  => 'Schools for girls',
+          'residential_home'  => 'Residential home',
+          'vocational_education'  => 'Vocational education',
+          'hospitals'  => 'Hospitals',
         ],
         'account' => [
           'index' => 'Information',
+          'invoice' => 'Invoice',
+          'tree' => 'Member Tree',
           'logout' => 'Logout',
         ]
       ],
       'member_login' => 'Member Login',
       'copyright_name' => 'Help Yourself Associaton',
-    ],
-
-    /* VIEWS - HOME
-    ---------------------------------------------*/
-    'home' => [
-      'text' => [
-        'Der Verein wurde für Menschen gegründet'
-      ]
     ],
 
     /* VIEWS - MEMBER
@@ -82,6 +87,10 @@ return [
       ],
       'text' => [
         'Member advertises member'
+      ],
+
+      'index' => [
+        'page_title' => 'Members advertise members',
       ],
 
       'signup' => [
@@ -148,7 +157,7 @@ return [
           'index' => 'Information',
           'invoice' => 'Invoice',
           'tree' => 'Member Tree'
-        ],
+        ]
       ],
       'tabs' => [
         'index' => [
@@ -166,11 +175,19 @@ return [
           // 'iban' => 'IBAN (International Bank Account Number)',
           'iban' => 'IBAN',
           // 'bic' => 'BIC (Bank Identifier Code)'
-          'bic' => 'BIC'
+          'bic' => 'BIC',
+          'member_type' => 'Membership type',
+          'member_types' => [
+            'Member',
+            'Promoter',
+            'Organization Leader',
+            'Marketing Leader',
+            'Developer'
+          ]
         ],
         'invoice' => [
           'stats' => 'Statistics',
-          'transactions' => 'Transactions',
+          'transactions' => 'Transactions (grouped by reason)',
           'oustanding_advertised_count' => 'Outstanding advertised members count',
           'advertised_member_count' => 'Advertised members count',
           'outstanding_total' => 'Total outstanding to be transferred',
@@ -178,7 +195,11 @@ return [
           'transaction_reasons' => [
             'Advertised Lvl 1',
             'Advertised Lvl 2',
-            'Advertised Indirect'
+            'Bonus Lvl 2 Indirect',
+            'Bonus marketing leader',
+            'Bonus organization leader',
+            'Bonus promoter',
+            'Bonus IT'
           ]
         ],
         'tree' => [
@@ -190,18 +211,21 @@ return [
     /* VIEWS - PROJECTS
     ---------------------------------------------*/
     'projects' => [
-      'text' => [
-        'Social projects to help yourself'
-      ]
+      'index' => [
+        'page_title' => 'Projects',
+        'about_us_title' => 'About us and our idea',
+        'about_us_title2' => 'Helper yourself AND others'
+      ],
     ],
 
 
     /* VIEWS - ABOUT
     ---------------------------------------------*/
     'about' => [
-      'text' => [
-        'Contact:'
-      ]
+
+      'index' => [
+        'page_title' => 'Contact',
+      ],
     ]
   ]
 ];

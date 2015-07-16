@@ -12,6 +12,14 @@
           <h4 class="headline"><?=$this->i18nView['account']?></h4>
 
           <dl class="dl-horizontal dl-largeSpaced dl-prettyStyled">
+              <?php
+              if ( $this->member->getType() > \Member::TYPE_MEMBER ) {
+                echo '<dt>'.$this->i18nView['member_type'].'</dt>
+                  <dd>'.$this->i18nView['member_types'][$this->member->getType()].'</dd>';
+
+              }
+              ?>
+
               <dt><?=$this->i18nView['your_num']?></dt>
               <dd><?=$this->member->getNum()?></dd>
 

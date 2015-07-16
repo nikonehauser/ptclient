@@ -16,16 +16,20 @@ class AccountInvoiceTab extends Base {
       throw new \Exception('Invalid param "member" for account index view.');
 
     $this->member = $params['member'];
-    $this->transactions = \TransactionQuery::create()
+    $query = \TransactionQuery::create()
       ->join('Transfer')
       ->useTransferQuery()
         ->filterByMember($this->member)
       ->endUse()
-      ->orderBy('date', \Criteria::DESC)
-      ->limit(20)
-      ->find();
+      ->select(['Reason'])
+      ->withColumn('count(*)', 'Quantity')
+      ->withColumn('sum(Transaction.Amount)', 'Total')
+      ->groupBy('Transaction.Reason')
+      ->limit(100);
 
-    $this->transDateForm = \Tbmt\Localizer::get('date_format_php.long');
+    $this->transactions = $query->find();
+
+    $this->transDateForm = \Tbmt\Localizer::get('datetime_format_php.long');
 
     return $this->renderFile(
       dirname(__FILE__).DIRECTORY_SEPARATOR.'tab.invoice.account.html',

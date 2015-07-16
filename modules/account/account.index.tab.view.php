@@ -18,7 +18,6 @@ class AccountIndexTab extends Base {
 
     $this->member = $params['member'];
 
-
     return $this->renderFile(
       dirname(__FILE__).DIRECTORY_SEPARATOR.'tab.index.account.html',
       $params

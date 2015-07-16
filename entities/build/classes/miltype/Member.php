@@ -19,6 +19,22 @@ class Member extends BaseMember
   const TYPE_MEMBER = 0;
   const TYPE_PROMOTER = 1;
   const TYPE_ORGLEADER = 2;
+  const TYPE_MARKETINGLEADER = 3;
+  const TYPE_ITSPECIALIST = 4;
+
+  static public $TYPE_TO_BONUS_AMOUNT = [
+    self::TYPE_PROMOTER => Transaction::AMOUNT_PM_BONUS,
+    self::TYPE_ORGLEADER => Transaction::AMOUNT_OL_BONUS,
+    self::TYPE_MARKETINGLEADER => Transaction::AMOUNT_VL_BONUS,
+    self::TYPE_ITSPECIALIST => Transaction::AMOUNT_IT_BONUS,
+  ];
+
+  static public $TYPE_TO_BONUS_REASON = [
+    self::TYPE_PROMOTER => Transaction::REASON_PM_BONUS,
+    self::TYPE_ORGLEADER => Transaction::REASON_OL_BONUS,
+    self::TYPE_MARKETINGLEADER => Transaction::REASON_VL_BONUS,
+    self::TYPE_ITSPECIALIST => Transaction::REASON_IT_BONUS,
+  ];
 
   const FUNDS_LEVEL1 = 1;
   const FUNDS_LEVEL2 = 2;
@@ -167,6 +183,15 @@ class Member extends BaseMember
     $this->setRefererId($refererId);
     $this->setParentId($refererId);
 
+    $bonusIds = $referer->getBonusIds();
+    $refererType = $referer->getType();
+    if ( $refererType > self::TYPE_MEMBER ) {
+      $bonusIds = MemberBonusIds::populate($referer, $bonusIds);
+    }
+
+    if ( $bonusIds )
+      $this->setBonusIds($bonusIds);
+
     $referer->addOutstandingAdvertisedCount(1);
     $referer->save($con);
   }
@@ -257,12 +282,16 @@ class Member extends BaseMember
     }
 
     $transfer->save($con);
+
+    MemberBonusIds::payBonuses($advertisedMember, $when, $con);
   }
 
   /**
    * Get one Transfer::STATE_COLLECT transfer to bundle. If none exists one
    * will be created. If the users state is NOT paid the state will set
-   * to Transfer::STATE_RESERVED. This transfer wont get saved here!
+   * to Transfer::STATE_RESERVED.
+   *
+   * NOTE: This transfer wont get saved by this method!
    *
    * @param  PropelPDO $con
    * @return [type]
@@ -271,7 +300,6 @@ class Member extends BaseMember
     $transfer = TransferQuery::create()
       ->filterByState([Transfer::STATE_COLLECT, Transfer::STATE_RESERVED])
       ->filterByMember($this)
-      ->joinWith('Member')
       ->orderBy(TransferPeer::STATE, Criteria::DESC)
       ->findOne($con);
 
@@ -279,7 +307,7 @@ class Member extends BaseMember
       $transfer = new Transfer();
       $transfer->setMember($this);
 
-      if ( $this->hadPaid() ) {
+      if ( !$this->hadPaid() ) {
         $transfer->setState(Transfer::STATE_RESERVED);
       }
     }
@@ -392,5 +420,123 @@ class Member extends BaseMember
     }
 
     $this->delete($con);
+  }
+}
+
+class MemberBonusIds {
+  static public function toArray($bonusIds) {
+    return json_decode($bonusIds, true);
+  }
+
+  static public function toString($bonusIds) {
+    return json_encode($bonusIds);
+  }
+
+  static public function populate(Member $refererMember, $bonusIds) {
+    $arr = self::toArray($bonusIds);
+    $arr[$refererMember->getId()] = $refererMember->getType();
+    return self::toString($arr);
+  }
+
+  static public function payBonuses(Member $payingMember, $when, PropelPDO $con) {
+    $bonusByIds = self::toArray($payingMember->getBonusIds());
+    if ( !is_array($bonusByIds) )
+      return;
+
+    $bonusIds = array_keys($bonusByIds);
+    if ( count($bonusIds) === 0 )
+      return;
+
+    $relatedId = $payingMember->getId();
+
+    $bonusMembers = MemberQuery::create()->filterById($bonusIds, Criteria::IN)->find($con);
+
+    $spreadBonuses = [];
+    $membersByType = [];
+    $toBeSaved = [];
+    foreach ( $bonusMembers as $member ) {
+      $type = $member->getType();
+
+      $transfer = self::doPay(
+        null,
+        $member,
+        Member::$TYPE_TO_BONUS_AMOUNT[$type],
+        Member::$TYPE_TO_BONUS_REASON[$type],
+        $relatedId,
+        $when,
+        $con
+      );
+
+      // lazy save all these objects later to prevent multiple
+      // database updates cause there might get more bonuses spread.
+      $toBeSaved[] = $member;
+      $toBeSaved[] = $transfer;
+
+      $spreadBonuses[$type] = [$member, $transfer];
+    }
+
+    $inheritBonuses = [];
+    $add_OL = null;
+    $add_VL = [];
+    $vl = null;
+    if ( !isset($spreadBonuses[Member::TYPE_PROMOTER]) ) {
+      $add_OL = [Transaction::AMOUNT_PM_BONUS, Transaction::REASON_PM_BONUS];
+    }
+
+    if ( !isset($spreadBonuses[Member::TYPE_ORGLEADER]) ) {
+      $add_VL[] = [Transaction::AMOUNT_OL_BONUS, Transaction::REASON_OL_BONUS];
+      if ( $add_OL ) {
+        $add_VL[] = $add_OL;
+        $add_OL = null;
+      }
+    }
+
+    if ( !isset($spreadBonuses[Member::TYPE_MARKETINGLEADER]) ) {
+      $add_VL = [];
+    } else
+      $vl = $spreadBonuses[Member::TYPE_MARKETINGLEADER];
+
+    if ( $add_OL ) {
+      $ol = $spreadBonuses[Member::TYPE_ORGLEADER];
+      self::doPay(
+        $ol[1],
+        $ol[0],
+        $add_OL[0],
+        $add_OL[1],
+        $relatedId,
+        $when,
+        $con
+      );
+    }
+
+    foreach ( $add_VL as $params ) {
+      self::doPay(
+        $vl[1],
+        $vl[0],
+        $params[0],
+        $params[1],
+        $relatedId,
+        $when,
+        $con
+      );
+    }
+
+    foreach ( $toBeSaved as $row ) {
+      $row->save($con);
+    }
+  }
+
+  static private function doPay($transfer, Member $member, $amount, $reason, $relatedId, $when, PropelPDO $con) {
+    if ( $transfer === null )
+      $transfer = $member->getCurrentTransferBundle($con);
+
+    $member->addOutstandingTotal($amount);
+    $transaction = $transfer->addAmount($amount);
+    $transaction->setReason($reason);
+    $transaction->setRelatedId($relatedId);
+    $transaction->setDate($when);
+    $transaction->save($con);
+
+    return $transfer;
   }
 }

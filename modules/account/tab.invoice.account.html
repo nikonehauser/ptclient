@@ -22,17 +22,21 @@
   <table class="standard-table">
     <tbody>
         <tr>
-          <th>Amount</th>
+          <th>Single Amount</th>
+          <th>Quantity</th>
+          <th>Total</th>
           <th>Reason</th>
-          <th>Date</th>
         </tr>
     <?php
     $reasons = $this->i18nView['transaction_reasons'];
+    $amounts = \Transaction::$REASON_TO_AMOUNT;
     foreach ( $this->transactions as $transaction ) {
       echo '<tr>';
-        echo '<td>'.$transaction->getAmount().'</td>';
-        echo '<td>'.$reasons[$transaction->getReason()].'</td>';
-        echo '<td>'.date($this->transDateForm, $transaction->getDate()).'</td>';
+        echo '<td>'.$amounts[$transaction['Reason']].'</td>';
+        echo '<td>'.$transaction['Quantity'].'</td>';
+        echo '<td>'.$transaction['Total'].'</td>';
+        echo '<td>'.$reasons[$transaction['Reason']].'</td>';
+        // echo '<td>'.date($this->transDateForm, $transaction->getDate()).'</td>';
       echo '</tr>';
 
     }

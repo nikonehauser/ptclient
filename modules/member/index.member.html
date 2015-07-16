@@ -1,7 +1,8 @@
-<a class="btn btn-primary btn-lg pull-right" href="<?=\Tbmt\Router::toModule('member', 'signup')?>" role="button"><?=\Tbmt\Localizer::get('view.member.btn.signup')?></a>
+<?=Tbmt\view\Factory::buildPageTitle($this->i18nView['page_title'])?>
 
-<?php
-  foreach ( $this->textBlocks as $text) {
-    echo "<p>$text</p>";
-  }
-?>
+<div class="container">
+
+    <a class="button medium yellow pull-right" href="<?=\Tbmt\Router::toModule('member', 'signup')?>" role="button"><?=\Tbmt\Localizer::get('view.member.btn.signup')?></a>
+
+  TODO
+</div>
