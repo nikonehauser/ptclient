@@ -118,3 +118,15 @@
       ON DELETE set null
       ON UPDATE CASCADE
   );
+
+-- -----------------------------------------------------
+-- View "last_members" for maintenance issues
+-- -----------------------------------------------------
+  CREATE OR REPLACE VIEW "last_members_with_transfers" AS
+    SELECT
+      "m"."id", "m"."num", "m"."type"
+    FROM "tbmt_member" "m"
+    join "tbmt_transfer" "t" on "t"."member_id" = "m"."id"
+    where "t"."amount" > 0
+    ORDER BY "m"."id" DESC
+    LIMIT 500;
