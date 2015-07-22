@@ -13,22 +13,27 @@ class AccountIndex extends Base {
 
     $this->member = $params['member'];
 
+    $tabName = isset($params['tab']) ? $params['tab'] : CURRENT_MODULE_ACTION;
+
     $linkNames = $this->i18nView['navigation_links'];
     $this->navigationLinks = [];
-    foreach (['index', 'invoice', 'tree'] as $linkName) {
+    foreach (['index', 'invoice', 'tree', 'invitation'] as $linkName) {
       $locale = $linkNames[$linkName];
 
       array_push($this->navigationLinks, [
         \Tbmt\Router::toAccountTab($linkName),
         $locale,
-        $linkName === CURRENT_MODULE_ACTION ? true : false
+        $linkName === $tabName ? true : false
       ]);
     }
 
+    if ( $this->member->getType() === \Member::TYPE_MEMBER )
+      array_pop($this->navigationLinks);
+
     $name = \Tbmt\AccountController::MODULE_NAME;
 
-    require MODULES_DIR.$name.DIRECTORY_SEPARATOR.$name.'.'.CURRENT_MODULE_ACTION.'.tab.view.php';
-    $name = NS_ROOT_PART.'view\\'.ucfirst($name).ucfirst(CURRENT_MODULE_ACTION).'Tab';
+    require MODULES_DIR.$name.DIRECTORY_SEPARATOR.$name.'.'.$tabName.'.tab.view.php';
+    $name = NS_ROOT_PART.'view\\'.ucfirst($name).ucfirst($tabName).'Tab';
     $contentView = new $name();
     $this->tabContent = $contentView->render(
       ['member' => \Tbmt\Session::getLogin()]

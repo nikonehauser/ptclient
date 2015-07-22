@@ -23,30 +23,30 @@ class DbEntityHelper {
   }
 
   static private $memberDefaults = [
-    'Title'         => 'title',
-    'LastName'      => 'title',
-    'FirstName'     => 'title',
-    'Age'           => 25,
-    'Email'         => 'title',
-    'City'          => 'title',
-    'Country'       => 'title',
-    'BankRecipient' => 'title',
-    'Iban'          => 'title',
-    'Bic'           => 'title',
+    'Title'         => 'unknown',
+    'LastName'      => 'unknown',
+    'FirstName'     => 'unknown',
+    'Age'           => 99,
+    'Email'         => 'unknown',
+    'City'          => 'unknown',
+    'Country'       => 'unknown',
+    'BankRecipient' => 'unknown',
+    'Iban'          => 'unknown',
+    'Bic'           => 'unknown',
     'Password'      => 'demo1234',
   ];
 
   static private $memberSignup = [
-    'title'          => 'test',
-    'lastName'       => 'test',
-    'firstName'      => 'test',
-    'age'            => 25,
-    'email'          => 'test',
-    'city'           => 'test',
-    'country'        => 'test',
-    'bank_recipient' => 'test',
-    'iban'           => 'test',
-    'bic'            => 'test',
+    'title'          => 'unknown',
+    'lastName'       => 'unknown',
+    'firstName'      => 'unknown',
+    'age'            => 99,
+    'email'          => 'unknown',
+    'city'           => 'unknown',
+    'country'        => 'unknown',
+    'bank_recipient' => 'unknown',
+    'iban'           => 'unknown',
+    'bic'            => 'unknown',
     'password'       => 'demo1234',
   ];
 
@@ -146,9 +146,12 @@ class DbEntityHelper {
     $PM_t = 0;
     $PM = null;
     if ( $options['PM'] ) {
-      $IT_t += 1;
-      $VL_t += 1;
-      if ( $OL ) $OL_t += 22; else $VL_t += 22;
+      $IT_t += Transaction::AMOUNT_IT_BONUS;
+      $VL_t += Transaction::AMOUNT_VL_BONUS;
+      $olBonus = Transaction::AMOUNT_ADVERTISED_LVL2 +
+        Transaction::AMOUNT_OL_BONUS +
+        Transaction::AMOUNT_PM_BONUS;
+      if ( $OL ) $OL_t += $olBonus; else $VL_t += $olBonus;
 
       // TODO question:
       // kriegt der ol in diesem fall 22 oder 21 euro ?
@@ -169,11 +172,20 @@ class DbEntityHelper {
     $VS2_t = 0;
     $VS2 = null;
     if ( $options['VS2'] ) {
-      $IT_t += 3;
-      $VL_t += 3;
-      if ( $OL ) $OL_t += 3; else $VL_t += 3;
-      $PM_t += 21 + 2 * 16;
-      $VS2_t += 10;
+      $IT_t += Transaction::AMOUNT_IT_BONUS * 3;
+      $VL_t += Transaction::AMOUNT_VL_BONUS * 3;
+      if ( $OL )
+        $OL_t += Transaction::AMOUNT_OL_BONUS * 3;
+      else
+        $VL_t += Transaction::AMOUNT_OL_BONUS * 3;
+
+      $PM_t += Transaction::AMOUNT_ADVERTISED_LVL2 +
+        Transaction::AMOUNT_PM_BONUS +
+        2 * (
+          Transaction::AMOUNT_PM_BONUS + Transaction::AMOUNT_ADVERTISED_INDIRECT
+        );
+
+      $VS2_t += 2 * Transaction::AMOUNT_ADVERTISED_LVL1;
       $VS2 = DbEntityHelper::createSignupMember($currentParent);
       DbEntityHelper::createSignupMember($VS2);
       DbEntityHelper::createSignupMember($VS2);
@@ -187,11 +199,15 @@ class DbEntityHelper {
     $VS1_t = 0;
     $VS1 = null;
     if ( $options['VS1'] ) {
-      $IT_t += 1;
-      $VL_t += 1;
-      if ( $OL ) $OL_t += 1; else $VL_t += 1;
-      $PM_t += 1;
-      $VS2_t += 20;
+      $IT_t += Transaction::AMOUNT_IT_BONUS;
+      $VL_t += Transaction::AMOUNT_VL_BONUS;
+      if ( $OL )
+        $OL_t += Transaction::AMOUNT_OL_BONUS;
+      else
+        $VL_t += Transaction::AMOUNT_OL_BONUS;
+
+      $PM_t += Transaction::AMOUNT_PM_BONUS;
+      $VS2_t += Transaction::AMOUNT_ADVERTISED_LVL2;
       $VS1 = DbEntityHelper::createSignupMember($currentParent);
     }
 

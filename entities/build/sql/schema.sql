@@ -1,5 +1,42 @@
 
 -----------------------------------------------------------------------
+-- tbmt_activity
+-----------------------------------------------------------------------
+
+DROP TABLE IF EXISTS "tbmt_activity" CASCADE;
+
+CREATE TABLE "tbmt_activity"
+(
+    "id" bigserial NOT NULL,
+    "action" VARCHAR(160) NOT NULL,
+    "type" INT2 NOT NULL,
+    "date" TIMESTAMP NOT NULL,
+    "related_id" VARCHAR(64),
+    "related_member_num" INTEGER,
+    "meta" TEXT,
+    PRIMARY KEY ("id")
+);
+
+-----------------------------------------------------------------------
+-- tbmt_invitation
+-----------------------------------------------------------------------
+
+DROP TABLE IF EXISTS "tbmt_invitation" CASCADE;
+
+CREATE TABLE "tbmt_invitation"
+(
+    "id" serial NOT NULL,
+    "hash" VARCHAR(64) NOT NULL,
+    "member_id" INTEGER NOT NULL,
+    "type" INT2 NOT NULL,
+    "free_signup" INT2 NOT NULL,
+    "creation_date" TIMESTAMP NOT NULL,
+    "accepted_date" TIMESTAMP,
+    "accepted_member_id" INTEGER,
+    PRIMARY KEY ("id","hash")
+);
+
+-----------------------------------------------------------------------
 -- tbmt_member
 -----------------------------------------------------------------------
 
@@ -83,6 +120,20 @@ CREATE TABLE "tbmt_transfer"
     "processed_date" TIMESTAMP,
     PRIMARY KEY ("id")
 );
+
+CREATE INDEX "idx_transfer_state" ON "tbmt_transfer" ("state");
+
+ALTER TABLE "tbmt_invitation" ADD CONSTRAINT "fk_invitation_accepted_member"
+    FOREIGN KEY ("accepted_member_id")
+    REFERENCES "tbmt_member" ("id")
+    ON UPDATE CASCADE
+    ON DELETE SET NULL;
+
+ALTER TABLE "tbmt_invitation" ADD CONSTRAINT "fk_invitation_member"
+    FOREIGN KEY ("member_id")
+    REFERENCES "tbmt_member" ("id")
+    ON UPDATE CASCADE
+    ON DELETE SET NULL;
 
 ALTER TABLE "tbmt_member" ADD CONSTRAINT "fk_member_parent"
     FOREIGN KEY ("parent_id")

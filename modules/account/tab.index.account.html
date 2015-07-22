@@ -1,5 +1,6 @@
-
   <?php
+    use \Tbmt\Base;
+
     if ( !$this->member->hadPaid() ) {
       echo \Tbmt\view\Factory::buildNotification($this->i18nView['unpaid_text'], $this->i18nView['warning'], 'warning');
     } else {
@@ -15,7 +16,7 @@
               <?php
               if ( $this->member->getType() > \Member::TYPE_MEMBER ) {
                 echo '<dt>'.$this->i18nView['member_type'].'</dt>
-                  <dd>'.$this->i18nView['member_types'][$this->member->getType()].'</dd>';
+                  <dd>'.$this->i18nCommon['member_types'][$this->member->getType()].'</dd>';
 
               }
               ?>
@@ -26,15 +27,15 @@
               <dt><?=$this->i18nView['address']?></dt>
               <dd>
                   <address>
-                      <?=$this->member->getCity()?><br>
-                      <?=$this->member->getCountry()?>
+                      <?=Base::encodeHtml($this->member->getCity())?><br>
+                      <?=Base::encodeHtml($this->member->getCountry())?>
                   </address>
               </dd>
 
               <dt><?=$this->i18nView['email']?></dt>
               <dd>
                   <?=$this->member->getEmail() ?
-                  $this->member->getEmail() :
+                  Base::encodeHtml($this->member->getEmail()) :
                   '<em class="text-muted">'.$this->i18nView['email_none'].'</em>'?>
               </dd>
           </dl>
@@ -44,13 +45,13 @@
 
           <dl class="dl-horizontal dl-largeSpaced dl-prettyStyled">
               <dt><?=$this->i18nView['bank_recipient']?></dt>
-              <dd><?=$this->member->getBankRecipient()?></dd>
+              <dd><?=Base::encodeHtml($this->member->getBankRecipient())?></dd>
 
               <dt><?=$this->i18nView['iban']?></dt>
-              <dd><?=$this->member->getIban()?></dd>
+              <dd><?=Base::encodeHtml($this->member->getIban())?></dd>
 
               <dt><?=$this->i18nView['bic']?></dt>
-              <dd><?=$this->member->getBic()?></dd>
+              <dd><?=Base::encodeHtml($this->member->getBic())?></dd>
           </dl>
       </div>
   </div>

@@ -5,6 +5,7 @@ namespace Tbmt;
 class Cryption {
 
   const ALGORITHM = 'sha1';
+  const HASH_LENGTH = 40;
 
   static private $salt = 'oFBt9r10L623QAFGy9qo';
 
@@ -19,6 +20,29 @@ class Cryption {
    */
   static public function encryptPassword($password, $salt) {
     return hash_hmac(self::ALGORITHM, $password, $salt.':'.self::$salt);
+  }
+
+
+  static public function getInvitationHash(Member $member, $type) {
+    $id = $member->getId();
+    $num = $member->getNum();
+    $typeKey = Member::$INVITATION_BY_KEY[$type];
+    $data = $id.$num.$type.$typeKey;
+    return hash_hmac(self::ALGORITHM, $data, $typeKey.':'.self::$salt).$type;
+
+      // self::TYPE_ORGLEADER => Cryption::getInvitationHash($id.$num, self::INVITE_ORGLEADER).self::TYPE_ORGLEADER,
+      // self::TYPE_PROMOTER => Cryption::getInvitationHash($id.$num, self::INVITE_PROMOTER).self::TYPE_PROMOTER
+  }
+
+
+  static public function verifyInvitationHash(Member $member, $hash) {
+    $type = substr($hash, -1);
+    $hash = substr($hash, 0, self::HASH_LENGTH);
+
+    if ( !isset(Member::$INVITATION_BY_KEY[$type]) )
+      return false;
+
+    return $hash === self::getInvitationHash($member, $type);
   }
 
   /**

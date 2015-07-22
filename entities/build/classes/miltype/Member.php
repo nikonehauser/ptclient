@@ -20,7 +20,12 @@ class Member extends BaseMember
   const TYPE_PROMOTER = 1;
   const TYPE_ORGLEADER = 2;
   const TYPE_MARKETINGLEADER = 3;
-  const TYPE_ITSPECIALIST = 4;
+  const TYPE_CEO = 4;
+  const TYPE_ITSPECIALIST = 5;
+
+  const INVITE_MARKETINGLEADER = 'ml995e868c2d';
+  const INVITE_ORGLEADER = 'ol7423543d31';
+  const INVITE_PROMOTER = 'pmaab8b400de';
 
   static public $TYPE_TO_BONUS_AMOUNT = [
     self::TYPE_PROMOTER => Transaction::AMOUNT_PM_BONUS,
@@ -34,6 +39,12 @@ class Member extends BaseMember
     self::TYPE_ORGLEADER => Transaction::REASON_OL_BONUS,
     self::TYPE_MARKETINGLEADER => Transaction::REASON_VL_BONUS,
     self::TYPE_ITSPECIALIST => Transaction::REASON_IT_BONUS,
+  ];
+
+  static public $INVITATION_BY_KEY = [
+    self::TYPE_MARKETINGLEADER => self::INVITE_MARKETINGLEADER,
+    self::TYPE_ORGLEADER => self::INVITE_ORGLEADER,
+    self::TYPE_PROMOTER => self::INVITE_PROMOTER,
   ];
 
   const FUNDS_LEVEL1 = 1;
@@ -121,10 +132,10 @@ class Member extends BaseMember
     // This functions expects this parameter to be valid!
     // E.g. the result from self::validateSignupForm()
 
+    $now = time();
+
     if ( !$con->beginTransaction() )
       throw new Exception('Could not begin transaction');
-
-    $now = time();
 
     try {
       $member = new Member();
@@ -297,11 +308,29 @@ class Member extends BaseMember
    * @return [type]
    */
   public function getCurrentTransferBundle(PropelPDO $con) {
-    $transfer = TransferQuery::create()
-      ->filterByState([Transfer::STATE_COLLECT, Transfer::STATE_RESERVED])
-      ->filterByMember($this)
-      ->orderBy(TransferPeer::STATE, Criteria::DESC)
-      ->findOne($con);
+    // $transfer = TransferQuery::create()
+    //   ->filterByState([Transfer::STATE_COLLECT, Transfer::STATE_RESERVED])
+    //   ->filterByMember($this)
+    //   ->orderBy(TransferPeer::STATE, Criteria::DESC)
+    //   ->findOne($con);
+
+    // SELECT * FROM ... FOR UPDATE
+    // to ensure consistency through table row lock
+    $sql = "SELECT * FROM ".TransferPeer::TABLE_NAME." WHERE"
+            ." member_id = :member_id AND"
+            ." state in (".Transfer::STATE_COLLECT.", ".Transfer::STATE_RESERVED.")"
+            ." ORDER BY state desc"
+            ." FOR UPDATE";
+    $stmt = $con->prepare($sql);
+    $stmt->execute(array(':member_id' => $this->getId()));
+
+    $formatter = new PropelObjectFormatter();
+    $formatter->setClass('Transfer');
+    $transfer = $formatter->format($stmt);
+    if ( count($transfer) > 0 )
+      $transfer = $transfer[0];
+    else
+      $transfer = null;
 
     if ( !$transfer ) {
       $transfer = new Transfer();
@@ -421,6 +450,14 @@ class Member extends BaseMember
 
     $this->delete($con);
   }
+
+  public function createInviteKeys() {
+    $keys = [
+      self::TYPE_MARKETINGLEADER => Cryption::getInvitationHash($this, self::TYPE_MARKETINGLEADER),
+      self::TYPE_ORGLEADER => Cryption::getInvitationHash($this, self::TYPE_ORGLEADER),
+      self::TYPE_PROMOTER => Cryption::getInvitationHash($this, self::TYPE_PROMOTER),
+    ];
+  }
 }
 
 class MemberBonusIds {
@@ -468,7 +505,7 @@ class MemberBonusIds {
       );
 
       // lazy save all these objects later to prevent multiple
-      // database updates cause there might get more bonuses spread.
+      // database update's cause there might get more bonuses spread.
       $toBeSaved[] = $member;
       $toBeSaved[] = $transfer;
 
@@ -480,10 +517,12 @@ class MemberBonusIds {
     $add_VL = [];
     $vl = null;
     if ( !isset($spreadBonuses[Member::TYPE_PROMOTER]) ) {
+      // if promoter does not exist give org leader his bonus
       $add_OL = [Transaction::AMOUNT_PM_BONUS, Transaction::REASON_PM_BONUS];
     }
 
     if ( !isset($spreadBonuses[Member::TYPE_ORGLEADER]) ) {
+      // if org leader does not exist give marketing leader his bonus
       $add_VL[] = [Transaction::AMOUNT_OL_BONUS, Transaction::REASON_OL_BONUS];
       if ( $add_OL ) {
         $add_VL[] = $add_OL;

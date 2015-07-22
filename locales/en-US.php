@@ -4,6 +4,14 @@ return [
     'brand_name' => 'Help Yourself Association',
     'brand_name_short' => 'HYA',
 
+    'member_types' => [
+      'Member',
+      'Promoter',
+      'Organization Leader',
+      'Marketing Leader',
+      'Developer',
+      'CEO'
+    ]
   ],
 
 
@@ -156,7 +164,8 @@ return [
         'navigation_links' => [
           'index' => 'Information',
           'invoice' => 'Invoice',
-          'tree' => 'Member Tree'
+          'tree' => 'Member Tree',
+          'invitation' => 'Invitations'
         ]
       ],
       'tabs' => [
@@ -177,13 +186,6 @@ return [
           // 'bic' => 'BIC (Bank Identifier Code)'
           'bic' => 'BIC',
           'member_type' => 'Membership type',
-          'member_types' => [
-            'Member',
-            'Promoter',
-            'Organization Leader',
-            'Marketing Leader',
-            'Developer'
-          ]
         ],
         'invoice' => [
           'stats' => 'Statistics',
@@ -192,6 +194,10 @@ return [
           'advertised_member_count' => 'Advertised members count',
           'outstanding_total' => 'Total outstanding to be transferred',
           'transferred_total' => 'Total transferred',
+          'single_amount' => 'Single Amount',
+          'quantity' => 'Quantity',
+          'total' => 'Total',
+          'reason' => 'Reason',
           'transaction_reasons' => [
             'Advertised Lvl 1',
             'Advertised Lvl 2',
@@ -199,10 +205,24 @@ return [
             'Bonus marketing leader',
             'Bonus organization leader',
             'Bonus promoter',
-            'Bonus IT'
+            'Bonus IT',
+            'Bonus CEO1',
+            'Bonus CEO2',
+            'Bonus lawyer'
           ]
         ],
         'tree' => [
+        ],
+        'invitation' => [
+          'form_title' => 'Create new invitation',
+          'type' => 'Type',
+          'free_signup' => 'Free signup',
+          'submit' => 'Submit',
+
+          'list_title' => 'Invitations',
+          'hash' => 'Code',
+          'creation_date' => 'Created',
+          'accepted_date' => 'Accepted',
         ]
       ]
     ],

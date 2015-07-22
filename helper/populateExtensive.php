@@ -1,14 +1,14 @@
 <?php
 
-include './bootstrap.php';
+include dirname(__FILE__).'/bootstrap.php';
 
 $now = time();
 
-define('VL_CREATE_NUM', 100);
-define('PM_PER_VL_CREATE_NUM', 100);
+define('VL_CREATE_NUM', 10);
+define('PM_PER_VL_CREATE_NUM', 10);
 
-define('PM_PER_RUN_SELECT_NUM', VL_CREATE_NUM * PM_PER_VL_CREATE_NUM);
-define('MEMBER_PER_PM_CREATE_NUM', 100);
+define('PM_PER_RUN_SELECT_NUM', 10);
+define('MEMBER_PER_PM_CREATE_NUM', 3);
 
 $con = Propel::getConnection();
 DbEntityHelper::setCon($con);
@@ -41,7 +41,8 @@ if ( !$count ) {
       $tempPercent = intval((($currentCount * 100) / $totalCount));
       if ( $tempPercent != $currentPercent ) {
         $timeTaken = time() - $now;
-        echo "$currentPercent % - done - $currentCount / $totalCount - $timeTaken seconds\n";
+        $minutesTaken = $timeTaken / 60;
+        echo "$currentPercent % - done - $currentCount / $totalCount - $timeTaken seconds - $minutesTaken minutes\n";
         $currentPercent = $tempPercent;
       }
     }
@@ -56,21 +57,52 @@ if ( !$count ) {
   echo "creating more members:\n\n";
   echo "total objects to create (about): $totalCount\n\n";
 
+  $minId = MemberQuery::create()
+    ->filterByType([Member::TYPE_PROMOTER, Member::TYPE_MEMBER], Criteria::IN)
+    ->orderBy('Id', Criteria::ASC)
+    ->findOne($con)
+    ->getId();
+
+  $maxId = MemberQuery::create()
+    ->filterByType([Member::TYPE_PROMOTER, Member::TYPE_MEMBER], Criteria::IN)
+    ->orderBy('Id', Criteria::DESC)
+    ->findOne($con)
+    ->getId();
+
+  $numbers = range($minId, $maxId);
+  shuffle($numbers);
+  $shuffledIds = array_slice($numbers, 0, PM_PER_RUN_SELECT_NUM);
+
   $pms = MemberQuery::create()
     ->filterByType([Member::TYPE_PROMOTER, Member::TYPE_MEMBER], Criteria::IN)
+    ->filterById($shuffledIds)
     ->orderBy('Id', Criteria::DESC)
     ->limit(PM_PER_RUN_SELECT_NUM)
     ->find($con);
 
   foreach ( $pms as $pm ) {
     for ( $i = 0; $i < MEMBER_PER_PM_CREATE_NUM; $i++ ) {
-      DbEntityHelper::createSignupMember($pm);
+      if ( !$con->beginTransaction() )
+        throw new Exception('Could not begin transaction');
+
+      try {
+
+        DbEntityHelper::createSignupMember($pm);
+
+        if ( !$con->commit() )
+          throw new Exception('Could not commit transaction');
+
+      } catch (Exception $e) {
+          $con->rollBack();
+          throw $e;
+      }
 
       $currentCount++;
       $tempPercent = intval((($currentCount * 100) / $totalCount));
       if ( $tempPercent != $currentPercent ) {
         $timeTaken = time() - $now;
-        echo "$currentPercent % - done - $currentCount / $totalCount - $timeTaken seconds\n";
+        $minutesTaken = $timeTaken / 60;
+        echo "$currentPercent % - done - $currentCount / $totalCount - $timeTaken seconds - $minutesTaken minutes\n";
         $currentPercent = $tempPercent;
       }
     }

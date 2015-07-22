@@ -6,10 +6,10 @@
       <datasource id="miltype">
       <adapter>pgsql</adapter>
       <connection>
-        <dsn>pgsql:host=127.0.0.1;dbname=miltype</dsn>
-        <database>miltype</database>
+        <dsn>pgsql:host=127.0.0.1;dbname=miltypedev</dsn>
+        <database>miltypedev</database>
         <user>miltype</user>
-        <password>d3mO12$4</password>
+        <password>491768test</password>
       </connection>
       </datasource>
     </datasources>

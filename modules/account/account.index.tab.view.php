@@ -10,6 +10,7 @@ class AccountIndexTab extends Base {
 
   protected function init() {
     $this->i18nView = \Tbmt\Localizer::get('view.account.tabs.index');
+    $this->i18nCommon = \Tbmt\Localizer::plain('common');
   }
 
   public function render(array $params = array()) {

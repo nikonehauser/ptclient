@@ -1,9 +1,15 @@
 CURRENT
 ======
- - write test and implement the promoter orgleader etc. variants.
+
+- implement invitations
 
 LIST
 ====
+
+ - write test and implement the promoter orgleader etc. variants.
+
+ - add member type STARTER
+ - start may or may not pay 70 dollars
 
  - group tansactions by reason for displaying issues
 
@@ -17,6 +23,9 @@ LIST
 
 - save unknown incommings to extra table
 
+- try { } catch {} cron jobs, add activity entry for the various actions
+- send email on any error
+
 - Angabe der Bankverbindung des Vereins.
 
 - encodeHtml account->information - statistics
@@ -27,6 +36,18 @@ LIST
 - write extensive tests 10 000 000 users.
 
 - use and run postgresql analyze
+
+- bonus zahlungen ausführen
+
+-passwort vergessen anhand konto nummer
+
+-promoter kann promoter werben
+
+-ein code pro person
+
+Profiling
+=========
+EXPLAIN ANALYZE VERBOSE UPDATE tbmt_transfer SET state=0 WHERE tbmt_transfer.state=1 AND tbmt_transfer.member_id=1000004;
 
 Fragen
 ======
@@ -49,12 +70,23 @@ TOM
 -
 
 
+Quality handling
+================
+- logic is unit tested (automated tests)
+- ongoing profiling of php scripts (xdebug) and database queries
+- stress test against filled database
+- php opcode cacheing with apc
+- activity log (all activities will get logged in separated table)
+
+
+
 FAQ
 ===
 - wann starten die projekte
 - wann bekomme ich mein geld
 - was passiert wenn ich nicht überweise
--
+- error handling / reporting
+
 
 
 LASTENHEFT
@@ -85,3 +117,12 @@ Die Software muss massenhafte zeitgleiche Registrierungen verarbeiten können.
 
 Automatische Vergabe einer Mitgliedsnummer
 - wenn kein Geld eingeht wird diese Nummer nach x Tagen neu vergeben
+
+
+
+    Berücksichtung von Abweichungen von diesem Standard Model notwendig um z.b. Bonuse zu unterstützen? Heisst das:
+        Bonus Provisionsätze?
+        Bonus Provisionszahlungen (einmalig) ?
+        Wie sollen manuelle Vergütungsstufen aussehen?
+
+------- login bereich für promoter etc. um bonuszahlung an sonst wen ausführen zu können

@@ -18,8 +18,8 @@
     "age" smallint not null ,
     "referer_id" INTEGER NULL ,
     "parent_id" INTEGER NULL ,
-    "signup_date" timestamp without time zone NOT NULL ,
-    "paid_date" timestamp without time zone NULL ,
+    "signup_date" timestamp with time zone NOT NULL ,
+    "paid_date" timestamp with time zone NULL ,
     "funds_level" smallint NOT NULL default 1,
 
     "bank_recipient" VARCHAR(120) NOT NULL ,
@@ -54,7 +54,8 @@
   ALTER TABLE ONLY tbmt_member
     ADD CONSTRAINT "member_num_UNIQUE" UNIQUE (num);
 
-  SELECT setval('tbmt_member_num_seq', 1000000);
+-- member numbers start with 1 000 001 (1 million)
+  SELECT setval('tbmt_member_num_seq', 1000001);
 
 -- -----------------------------------------------------
 -- Table "transfer"
@@ -67,8 +68,8 @@
     "amount" float default 0 NOT NULL ,
     "state" smallint not null default 0 ,
     "attempts" smallint not null default 0 ,
-    "execution_date" timestamp without time zone NULL ,
-    "processed_date" timestamp without time zone NULL ,
+    "execution_date" timestamp with time zone NULL ,
+    "processed_date" timestamp with time zone NULL ,
     PRIMARY KEY ("id") ,
     CONSTRAINT "fk_transfer_member"
       FOREIGN KEY ("member_id")
@@ -76,6 +77,8 @@
       ON DELETE set null
       ON UPDATE CASCADE
   );
+
+  CREATE INDEX idx_transfer_state ON "tbmt_transfer" (state);
 
 -- -----------------------------------------------------
 -- Table "transaction"
@@ -88,7 +91,7 @@
     "amount" double precision NOT NULL default 0 ,
     "reason" smallint not null default 0 ,
     "related_id" int null ,
-    "date" timestamp without time zone NOT NULL ,
+    "date" timestamp with time zone NOT NULL ,
     PRIMARY KEY ("id") ,
     CONSTRAINT "fk_transaction_transfer"
       FOREIGN KEY ("transfer_id")
@@ -98,14 +101,14 @@
   );
 
 -- -----------------------------------------------------
--- Table "tbmt_reserved_paid_event"
+-- Table "reserved_paid_event"
 -- -----------------------------------------------------
   DROP TABLE IF EXISTS "tbmt_reserved_paid_event" CASCADE;
 
   CREATE TABLE IF NOT EXISTS  "tbmt_reserved_paid_event" (
     "unpaid_id" int NOT NULL ,
     "paid_id" int NOT NULL ,
-    "date" timestamp without time zone NOT NULL ,
+    "date" timestamp with time zone NOT NULL ,
     PRIMARY KEY ("unpaid_id", "paid_id") ,
     CONSTRAINT "fk_tbmt_reserved_paid_event_unpaid_member"
       FOREIGN KEY ("unpaid_id")
@@ -120,6 +123,49 @@
   );
 
 -- -----------------------------------------------------
+-- Table "invitation"
+-- -----------------------------------------------------
+  DROP TABLE IF EXISTS "tbmt_invitation" CASCADE;
+
+  CREATE TABLE IF NOT EXISTS  "tbmt_invitation" (
+    "id" serial NOT NULL ,
+    "hash" VARCHAR(64) NOT NULL,
+    "member_id" int NOT NULL ,
+    "type" smallint NOT NULL ,
+    "free_signup" smallint NOT NULL ,
+    "creation_date" timestamp with time zone NOT NULL ,
+    "accepted_date" timestamp with time zone NULL ,
+    "accepted_member_id" int NULL ,
+    PRIMARY KEY ("id", "hash") ,
+    CONSTRAINT "fk_invitation_member"
+      FOREIGN KEY ("member_id")
+      REFERENCES "tbmt_member" ("id")
+      ON DELETE set null
+      ON UPDATE CASCADE ,
+    CONSTRAINT "fk_invitation_accepted_member"
+      FOREIGN KEY ("accepted_member_id")
+      REFERENCES "tbmt_member" ("id")
+      ON DELETE set null
+      ON UPDATE CASCADE
+  );
+
+-- -----------------------------------------------------
+-- Table "activity"
+-- -----------------------------------------------------
+  DROP TABLE IF EXISTS "tbmt_activity" CASCADE;
+
+  CREATE TABLE IF NOT EXISTS  "tbmt_activity" (
+    "id" bigserial NOT NULL ,
+    "action" VARCHAR(160) NOT NULL,
+    "type" SMALLINT NOT NULL ,
+    "date" timestamp with time zone NOT NULL ,
+    "related_id" VARCHAR(64) NULL DEFAULT NULL,
+    "related_member_num" int NULL DEFAULT NULL,
+    "meta" TEXT NULL,
+    PRIMARY KEY ("id")
+  );
+
+-- -----------------------------------------------------
 -- View "last_members" for maintenance issues
 -- -----------------------------------------------------
   CREATE OR REPLACE VIEW "last_members_with_transfers" AS
@@ -130,3 +176,25 @@
     where "t"."amount" > 0
     ORDER BY "m"."id" DESC
     LIMIT 500;
+
+
+-- -----------------------------------------------------
+-- View "last_transactions_joined" for maintenance issues
+-- -----------------------------------------------------
+  CREATE OR REPLACE VIEW "last_transactions_joined" AS
+    select
+      ta.id,
+      ta.transfer_id,
+      ta.amount,
+      ta.reason,
+      ta.related_id,
+      ta.date,
+      tf.amount AS trfamount,
+      m.type
+    from tbmt_transaction as ta
+    join tbmt_transfer as tf on ta.transfer_id = tf.id
+    join tbmt_member as m on tf.member_id = m.id
+    LIMIT 500;
+
+
+

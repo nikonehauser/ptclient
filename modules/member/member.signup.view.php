@@ -11,8 +11,6 @@ class MemberSignup extends Base {
       isset($params['formVal']) ? $params['formVal'] : $_REQUEST
     );
 
-    $this->formVal['password2'] = '';
-
     $this->formErrors = isset($params['formErrors']) ? $params['formErrors'] : [];
 
     return $this->renderFile(

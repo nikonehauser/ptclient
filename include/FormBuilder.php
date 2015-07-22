@@ -54,6 +54,27 @@ class FormBuilder {
     $group .= '</div>';
     return $group;
   }
+
+  public function buildInvitationTypeSelectGroup($fieldKey, $offType) {
+    $label = Arr::init($this->labels, $fieldKey);
+    $value = Arr::init($this->values, $fieldKey);
+    $error = Arr::init($this->errors, $fieldKey);
+
+    $memberTypes = Localizer::get('common.member_types');
+
+    $fieldId = $this->formName.$fieldKey;
+    $offType--;
+
+    $group = '<div class="field">'.
+      '<label for="'.$fieldId.'">'.$label.'</label>'.
+      '<select name="'.$fieldKey.'">';
+    for ( $i = $offType; $i > \Member::TYPE_MEMBER; $i-- ) {
+      $group .= '<option value="'.$i.'">'.$memberTypes[$i].'</option>';
+    }
+
+    $group .= '</select></div>';
+    return $group;
+  }
 }
 
 ?>

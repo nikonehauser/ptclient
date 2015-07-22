@@ -235,8 +235,6 @@ img {width: auto;max-width: 100%; border: 0;-ms-interpolation-mode: bicubic;}
 		-moz-border-radius: 2px;
 		border-radius: 2px;
 		}
-	select {
-		padding: 0; }
 	input:focus,
 	textarea:focus {
 		border: 1px solid #c8c8c8;

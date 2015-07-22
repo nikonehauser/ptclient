@@ -3,7 +3,7 @@
 namespace Tbmt;
 
 class Base {
-  function encodeHtml($string) {
+  static public function encodeHtml($string) {
     return \str_replace(
       ["\r\n", "\r", "\n", "\t", '  ', '  '],
       ['<br />', '<br />', '<br />', ' ', '&nbsp; ', ' &nbsp;'],

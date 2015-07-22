@@ -36,12 +36,12 @@ class BonusSpreadingTest extends Tbmt_Tests_DatabaseTestCase {
 
     $new = DbEntityHelper::createSignupMember($VS1);
 
-    $trfIT += 1;
-    $trfVL += 1;
-    $trfOL += 1;
-    $trfPM += 1;
-    $trfVS2 += 15;
-    $trfVS1 += 5;
+    $trfIT += Transaction::AMOUNT_IT_BONUS;
+    $trfVL += Transaction::AMOUNT_VL_BONUS;
+    $trfOL += Transaction::AMOUNT_OL_BONUS;
+    $trfPM += Transaction::AMOUNT_PM_BONUS;
+    $trfVS2 += Transaction::AMOUNT_ADVERTISED_INDIRECT;
+    $trfVS1 += Transaction::AMOUNT_ADVERTISED_LVL1;
 
     $this->assertTransferTotal($trfIT, $IT);
     $this->assertTransferTotal($trfVL, $VL);
@@ -52,9 +52,14 @@ class BonusSpreadingTest extends Tbmt_Tests_DatabaseTestCase {
 
     // Setting up another tree should NOT change the bonuses for
     // the previous tree except of special types member like it specialist.
-    list(,list($newTrfIT)) = DbEntityHelper::setUpBonusMembers(false);
+    list(
+      list(, , , , , $newVS1),
+      list($newTrfIT)
+    ) = DbEntityHelper::setUpBonusMembers(false);
 
-    $this->assertTransferTotal($newTrfIT, $IT);
+    DbEntityHelper::createSignupMember($newVS1);
+
+    $this->assertTransferTotal($newTrfIT + Transaction::AMOUNT_IT_BONUS, $IT);
     $this->assertTransferTotal($trfVL, $VL);
     $this->assertTransferTotal($trfOL, $OL);
     $this->assertTransferTotal($trfPM, $PM);
@@ -79,11 +84,11 @@ class BonusSpreadingTest extends Tbmt_Tests_DatabaseTestCase {
 
     $new = DbEntityHelper::createSignupMember($VS2);
 
-    $trfIT += 1;
-    $trfVL += 1;
-    $trfOL += 1;
-    $trfPM += 1;
-    $trfVS2 += 20;
+    $trfIT += Transaction::AMOUNT_IT_BONUS;
+    $trfVL += Transaction::AMOUNT_VL_BONUS;
+    $trfOL += Transaction::AMOUNT_OL_BONUS;
+    $trfPM += Transaction::AMOUNT_PM_BONUS;
+    $trfVS2 += Transaction::AMOUNT_ADVERTISED_LVL2;
 
     $this->assertTransferTotal($trfIT, $IT);
     $this->assertTransferTotal($trfVL, $VL);
@@ -112,12 +117,12 @@ class BonusSpreadingTest extends Tbmt_Tests_DatabaseTestCase {
 
     $new = DbEntityHelper::createSignupMember($VS1);
 
-    $trfIT += 1;
-    $trfVL += 2;
+    $trfIT += Transaction::AMOUNT_IT_BONUS;
+    $trfVL += Transaction::AMOUNT_VL_BONUS + Transaction::AMOUNT_OL_BONUS;
     // $trfOL += 1;
-    $trfPM += 1;
-    $trfVS2 += 15;
-    $trfVS1 += 5;
+    $trfPM += Transaction::AMOUNT_PM_BONUS;
+    $trfVS2 += Transaction::AMOUNT_ADVERTISED_INDIRECT;
+    $trfVS1 += Transaction::AMOUNT_ADVERTISED_LVL1;
 
     $this->assertTransferTotal($trfIT, $IT);
     $this->assertTransferTotal($trfVL, $VL);
@@ -144,7 +149,7 @@ class BonusSpreadingTest extends Tbmt_Tests_DatabaseTestCase {
 
   private function assertTransferTotal($total, Member $member) {
     $transfer = $member->getCurrentTransferBundle(self::$propelCon);
-    $this->assertEquals($total, $transfer->getAmount());
-    $this->assertEquals($total, $member->getOutstandingTotal());
+    $this->assertEquals($total, $transfer->getAmount(), 'Incorrect transfer total');
+    $this->assertEquals($total, $member->getOutstandingTotal(), 'Incorrect outstanding total');
   }
 }

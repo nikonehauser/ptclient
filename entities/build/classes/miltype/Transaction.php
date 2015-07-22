@@ -15,6 +15,8 @@
  */
 class Transaction extends BaseTransaction {
 
+  /* TRANSACTION REASONS NUMBERS
+  ---------------------------------------------*/
   const REASON_ADVERTISED_LVL1     = 0;
   const REASON_ADVERTISED_LVL2     = 1;
   const REASON_ADVERTISED_INDIRECT = 2;
@@ -23,15 +25,25 @@ class Transaction extends BaseTransaction {
   const REASON_PM_BONUS = 5;
   const REASON_IT_BONUS = 6;
 
+  const REASON_CEO1_BONUS = 7;
+  const REASON_CEO2_BONUS = 8;
+  const REASON_LAWYER_BONUS = 9;
 
+
+  /* FIXED TRANSACTION AMOUNTS
+  ---------------------------------------------*/
   const AMOUNT_ADVERTISED_LVL1     = 5;
   const AMOUNT_ADVERTISED_LVL2     = 20;
   const AMOUNT_ADVERTISED_INDIRECT = 15;
 
   const AMOUNT_VL_BONUS = 1;
-  const AMOUNT_OL_BONUS = 1;
-  const AMOUNT_PM_BONUS = 1;
-  const AMOUNT_IT_BONUS = 1;
+  const AMOUNT_OL_BONUS = 2;
+  const AMOUNT_PM_BONUS = 3;
+  const AMOUNT_IT_BONUS = 4;
+
+  const AMOUNT_CEO1_BONUS = 4;
+  const AMOUNT_CEO2_BONUS = 4;
+  const AMOUNT_LAWYER_BONUS = 4;
 
   static public $REASON_TO_AMOUNT = [
     self::REASON_ADVERTISED_LVL1 => self::AMOUNT_ADVERTISED_LVL1,
@@ -41,5 +53,9 @@ class Transaction extends BaseTransaction {
     self::REASON_OL_BONUS => self::AMOUNT_OL_BONUS,
     self::REASON_PM_BONUS => self::AMOUNT_PM_BONUS,
     self::REASON_IT_BONUS => self::AMOUNT_IT_BONUS,
+
+    self::REASON_CEO1_BONUS => self::AMOUNT_CEO1_BONUS,
+    self::REASON_CEO2_BONUS => self::AMOUNT_CEO2_BONUS,
+    self::REASON_LAWYER_BONUS => self::AMOUNT_LAWYER_BONUS,
   ];
 }

@@ -11,6 +11,8 @@ class AccountController extends BaseController {
     'logout' => true,
     'invoice' => true,
     'tree' => true,
+    'invitation' => true,
+    'invitation_create' => true,
   ];
 
   public function dispatchAction($action, $params) {
@@ -58,6 +60,26 @@ class AccountController extends BaseController {
       self::MODULE_NAME,
       'index',
       ['member' => Session::getLogin()]
+    );
+  }
+
+  public function action_invitation() {
+    return ControllerDispatcher::renderModuleView(
+      self::MODULE_NAME,
+      'index',
+      ['member' => Session::getLogin()]
+    );
+  }
+
+  public function action_invitation_create() {
+    list($valid, $data, $referralMember) = \Member::validateSignupForm($_REQUEST);
+
+    \Invitation::create(Session::getLogin(), $_REQUEST);
+
+    return ControllerDispatcher::renderModuleView(
+      self::MODULE_NAME,
+      'index',
+      ['member' => Session::getLogin(), 'tab' => 'invitation']
     );
   }
 }
