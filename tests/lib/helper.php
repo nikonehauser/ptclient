@@ -36,7 +36,7 @@ class DbEntityHelper {
     'Password'      => 'demo1234',
   ];
 
-  static private $memberSignup = [
+  static public $memberSignup = [
     'title'          => 'unknown',
     'lastName'       => 'unknown',
     'firstName'      => 'unknown',

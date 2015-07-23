@@ -12,7 +12,8 @@
       <!-- <file>FormValidationTest.php</file> -->
       <!-- <file>SnowballTest.php</file> -->
       <!-- <file>DeleteUnpaidTest.php</file> -->
-      <file>BonusSpreadingTest.php</file>
+      <!-- <file>BonusSpreadingTest.php</file> -->
+      <file>InvitationTest.php</file>
     </testsuite>
   </testsuites>
 

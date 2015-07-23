@@ -33,7 +33,7 @@
     "advertised_count" int NOT NULL default 0 ,
     "outstanding_advertised_count" int NOT NULL default 0 ,
 
-    "password" varchar not null ,
+    "password" varchar(160) NOT NULL ,
 
     "transferred_total" double precision NOT NULL default 0 ,
     "outstanding_total" double precision NOT NULL default 0 ,

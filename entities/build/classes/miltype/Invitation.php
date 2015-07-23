@@ -25,7 +25,21 @@ class Invitation extends BaseInvitation
     return \Tbmt\Arr::initMulti($data, self::$INVITATION_FORM_FIELDS);
   }
 
-  static public function
+  static public function create(Member $login, array $data, PropelPDO $con) {
+    $formData = \Invitation::initInvitationForm($data);
 
-    $formData = \Invitation::initInvitationForm($_REQUEST);
+    $invitationsCount = InvitationQuery::create()->count();
+    $hash = \Tbmt\Cryption::getInvitationHash($login, $formData['type'], $invitationsCount);
+
+    $invitation = new Invitation();
+    $invitation
+      ->setHash($hash)
+      ->setMemberId($login->getId())
+      ->setType($formData['type'])
+      ->setFreeSignup($formData['free_signup'] ? 1 : 0)
+      ->setCreationDate(time())
+      ->save($con);
+
+    return $invitation;
+  }
 }

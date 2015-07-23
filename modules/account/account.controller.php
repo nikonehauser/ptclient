@@ -74,7 +74,11 @@ class AccountController extends BaseController {
   public function action_invitation_create() {
     list($valid, $data, $referralMember) = \Member::validateSignupForm($_REQUEST);
 
-    \Invitation::create(Session::getLogin(), $_REQUEST);
+    \Invitation::create(
+      Session::getLogin(),
+      $_REQUEST,
+      \Propel::getConnection()
+    );
 
     return ControllerDispatcher::renderModuleView(
       self::MODULE_NAME,

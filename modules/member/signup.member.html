@@ -15,8 +15,11 @@
       <div class="container">
           <h4 class="headline"><?=$this->formLabels['contact']?></h4>
 
-          <div class="sixteen columns">
+          <div class="eight columns">
             <?php echo $formBuilder->buildFieldGroup('referral_member_num'); ?>
+          </div>
+          <div class="eight columns">
+            <?php echo $formBuilder->buildFieldGroup('invitation_code'); ?>
           </div>
       </div>
 

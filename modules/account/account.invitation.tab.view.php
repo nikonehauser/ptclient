@@ -25,7 +25,11 @@ class AccountInvitationTab extends Base {
 
     $this->invitations = \InvitationQuery::create()
       ->filterByMemberId($this->member->getId())
+      ->orderBy('AcceptedDate', \Criteria::DESC)
+      ->orderBy('CreationDate', \Criteria::DESC)
       ->find();
+
+    $this->invitationDateFormat = \Tbmt\Localizer::get('datetime_format_php.long');
 
     return $this->renderFile(
       dirname(__FILE__).DIRECTORY_SEPARATOR.'tab.invitation.account.html',

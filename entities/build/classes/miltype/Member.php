@@ -53,6 +53,7 @@ class Member extends BaseMember
   static public $SIGNUP_FORM_FIELDS = [
     'referral_member_num'  => [\Tbmt\TYPE_INT, ''],
     'title'                => \Tbmt\TYPE_STRING,
+    'invitation_code'      => \Tbmt\TYPE_STRING,
     'lastName'             => \Tbmt\TYPE_STRING,
     'firstName'            => \Tbmt\TYPE_STRING,
     'age'                  => \Tbmt\TYPE_STRING,
@@ -93,11 +94,11 @@ class Member extends BaseMember
     'password'             => \Tbmt\Validator::FILTER_PASSWORD,
   ];
 
-  static function initSignupForm(array $data = array()) {
+  static public function initSignupForm(array $data = array()) {
     return \Tbmt\Arr::initMulti($data, self::$SIGNUP_FORM_FIELDS);
   }
 
-  static function validateSignupForm(array $data = array()) {
+  static public function validateSignupForm(array $data = array()) {
     $data = self::initSignupForm($data);
 
     // Email is not required
@@ -105,30 +106,43 @@ class Member extends BaseMember
       unset($data['email']);
 
     if ( $data['password'] !== $data['password2'] )
-      return [false, ['password' => \Tbmt\Localizer::get('error.password_unequal')], null];
+      return [false, ['password' => \Tbmt\Localizer::get('error.password_unequal')], null, null];
 
     $res = \Tbmt\Validator::getErrors($data, self::$SIGNUP_FORM_FILTERS);
     if ( $res !== false )
-      return [false, $res, null];
+      return [false, $res, null, null];
 
     // Validate member number exists
     $parentMember = \MemberQuery::create()
       ->findOneByNum($data['referral_member_num']);
     if ( $parentMember == null ) {
-      return [false, ['referral_member_num' => \Tbmt\Localizer::get('error.referral_member_num')], null];
+      return [false, ['referral_member_num' => \Tbmt\Localizer::get('error.referral_member_num')], null, null];
 
     }
     // else if ( $parentMember->hadPaid() ) {
     //   return [false, ['referral_member_num' => \Tbmt\Localizer::get('error.referer_paiment_outstanding')], null];
     // }
 
+    $invitation = null;
+    if ( $data['invitation_code'] !== '' ) {
+      $invitation = \InvitationQuery::create()->findOneByHash($data['invitation_code']);
+      if ( $parentMember == null )
+        return [false, ['invitation_code' => \Tbmt\Localizer::get('error.invitation_code_inexisting')], null, null];
+
+      if ( $invitation->getMemberId() !== $parentMember->getId() )
+        return [false, ['invitation_code' => \Tbmt\Localizer::get('error.invitation_code_invalid')], null, null];
+
+      if ( $invitation->getAcceptedMemberId() )
+        return [false, ['invitation_code' => \Tbmt\Localizer::get('error.invitation_code_used')], null, null];
+    }
+
     if ( !isset($data['email']) )
       $data['email'] = '';
 
-    return [true, $data, $parentMember];
+    return [true, $data, $parentMember, $invitation];
   }
 
-  static public function createFromSignup($data, $refererMember, PropelPDO $con) {
+  static public function createFromSignup($data, $refererMember, Invitation $invitation = null, PropelPDO $con) {
     // This functions expects this parameter to be valid!
     // E.g. the result from self::validateSignupForm()
 
@@ -155,8 +169,21 @@ class Member extends BaseMember
         ->setPassword($data['password'])
         ->setSignupDate($now);
 
+      if ( $invitation ) {
+        $member->setType($invitation->getType());
+        if ( $invitation->getFreeSignup() )
+          $member->setPaidDate($now);
+
+        $invitation->setAcceptedDate($now);
+      }
+
       $member->setRefererMember($refererMember, $con);
       $member->save($con);
+
+      if ( $invitation ) {
+        $invitation->setAcceptedMemberId($member->getId());
+        $invitation->save($con);
+      }
 
       if ( !$con->commit() )
         throw new Exception('Could not commit transaction');

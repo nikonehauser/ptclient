@@ -49,6 +49,9 @@ return [
     'referral_member_num' => 'Referer num does not exist',
     'age_of_18' => 'Must be 18 or older',
     'referer_paiment_outstanding' => 'The member exists but we didn´t receive the member fee yet. Unfornately you have to wait for this members full membership',
+    'invitation_code_inexisting' => 'Invitation Code does not exist',
+    'invitation_code_invalid' => 'Invalid invitation code',
+    'invitation_code_used' => 'Invitation code already used',
 
     'login' => 'Invalid login credentials'
   ],
@@ -110,6 +113,7 @@ return [
           'confirm' => 'Confirm',
 
           'referral_member_num' => 'Referer Member Number',
+          'invitation_code' => 'Invitation Code (optional)',
           'firstName' => 'First name',
           'lastName' => 'Last name',
           'title' => 'Title',

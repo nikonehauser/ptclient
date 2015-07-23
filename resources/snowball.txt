@@ -17,22 +17,29 @@ Vergütungs Stufe 2
 Processes
 ==========
 
-### P1 - ich bin stufe 1 und werbe ein neues Mitglied
+###P1 - ich bin stufe 1 und werbe ein neues Mitglied
+ ####E1 - Geldeingang
 
  - ich bekomme 5 euro
  - mein Werber bekommt 15 euro
  - das geworbene Mitglied wird meinem Werber unterstellt und damit seiner
    Werber Hirachie angefügt
 
-### P2 - ich erreiche stufe 2
+###P2 - ich erreiche stufe 2
 
  - ich werde aus der Werber Hirachie meines Werbers entfernt
 
-### P3 - ich bin stufe 2 und werbe ein neues Mitglied
+###P3 - ich bin stufe 2 und werbe ein neues Mitglied
 
  - ich bekomme 20 euro
  - ich habe keinen übergeordneten Werber mehr
  - das geworbene Mitglied wird meiner Werber Hirachi unterstellt
+
+
+
+### P3 - wenn ein mitglied entfernt nach x wochen wegen fehlender zahlung
+
+ -
 
 
 Annahmen

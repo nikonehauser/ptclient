@@ -46,8 +46,11 @@
         $memberTypes = \Tbmt\Localizer::get('common.member_types');
         foreach ( $this->invitations as $invitation ) {
           echo '<tr>';
-            echo '<td>'.$memberTypes[$invitation['type']].'</td>';
-            // echo '<td>'.date($this->transDateForm, $transaction->getDate()).'</td>';
+            echo '<td>'.$invitation->getHash().'</td>';
+            echo '<td>'.$memberTypes[$invitation->getType()].'</td>';
+            echo '<td>'.($invitation->getFreeSignup() ? '<i class="fa fa-check" />' : '<i class="fa fa-remove" />').'</td>';
+            echo '<td>'.date($this->invitationDateFormat, $invitation->getCreationDate('U')).'</td>';
+            echo '<td>'.($invitation->getAcceptedDate() ? '<i class="fa fa-check" />' : '<i class="fa fa-remove" />').'</td>';
           echo '</tr>';
 
         }
