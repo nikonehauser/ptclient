@@ -8,7 +8,5 @@ class FormValidationTest extends PHPUnit_Framework_TestCase {
     ], [
       'email' => ['filter' => FILTER_VALIDATE_INT]
     ], false);
-
-    var_dump($res);
   }
 }

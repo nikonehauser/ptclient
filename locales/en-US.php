@@ -69,7 +69,7 @@ return [
       ],
       'navigation_sublinks' => [
         'member' => [
-          'index' => 'Member advertises members',
+          'index' => 'Member recruit members',
           'signup' => 'Signup',
         ],
         'projects' => [
@@ -139,7 +139,8 @@ return [
         ]
       ],
 
-      'signup_success' => [
+      'signupSuccess' => [
+        'page_title' => 'Successfully signed up',
         'welcome' => 'Welcome to "Help Yourself Association".',
         'new_member_num' => 'Your member number is {num}. Please note this number.',
         'info' => 'Use it to invite new members to help them and yourself.',

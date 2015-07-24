@@ -1,13 +1,15 @@
-<div class="u-tc">
+<?=Tbmt\view\Factory::buildPageTitle($this->i18nView['page_title'])?>
+
+<div class="container align-center">
   <?php
 
-  echo '<p>'.$this->locales['welcome'].'</p>';
+  echo '<p>'.$this->i18nView['welcome'].'</p>';
 
-  echo '<p>'.\Tbmt\Localizer::insert($this->locales['new_member_num'], [
+  echo '<p>'.\Tbmt\Localizer::insert($this->i18nView['new_member_num'], [
     'num' => '<mark>'.\Tbmt\Localizer::encodeHtml($this->var['newMemberNum']).'</mark>'
   ], false).'</p>';;
 
-  echo '<p>'.$this->locales['info'].'</p>';
+  echo '<p>'.$this->i18nView['info'].'</p>';
 
   ?>
 </div>

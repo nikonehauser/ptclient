@@ -101,10 +101,13 @@ class DbEntityHelper {
           'Type' => Member::TYPE_ITSPECIALIST,
           'FundsLevel' => Member::FUNDS_LEVEL2,
         ]);
+
       } else {
         $IT = self::$it_member;
         $IT_t = self::$it_member->getOutstandingTotal();
       }
+
+      $currentBonusIds = MemberBonusIds::populate($IT, '[]');
     }
 
 
@@ -113,14 +116,13 @@ class DbEntityHelper {
     $VL_t = 0;
     $VL = null;
     if ( $options['VL'] ) {
-      $currentBonusIds = MemberBonusIds::populate($IT, '[]');
-
       $VL = DbEntityHelper::createMember($currentParent, [
         'Type' => Member::TYPE_MARKETINGLEADER,
         'FundsLevel' => Member::FUNDS_LEVEL2,
         'BonusIds' => $currentBonusIds
       ]);
 
+      $currentBonusIds = MemberBonusIds::populate($VL, $VL->getBonusIds());
       $currentParent = $VL;
     }
 
@@ -130,13 +132,13 @@ class DbEntityHelper {
     $OL_t = 0;
     $OL = null;
     if ( $options['OL'] ) {
-      $currentBonusIds = MemberBonusIds::populate($VL, $VL->getBonusIds());
       $OL = DbEntityHelper::createMember($currentParent, [
         'Type' => Member::TYPE_ORGLEADER,
         'FundsLevel' => Member::FUNDS_LEVEL2,
         'BonusIds' => $currentBonusIds
       ]);
 
+      $currentBonusIds = MemberBonusIds::populate($OL, $OL->getBonusIds());
       $currentParent = $OL;
     }
 
@@ -148,17 +150,31 @@ class DbEntityHelper {
     if ( $options['PM'] ) {
       $IT_t += Transaction::AMOUNT_IT_BONUS;
       $VL_t += Transaction::AMOUNT_VL_BONUS;
-      $olBonus = Transaction::AMOUNT_ADVERTISED_LVL2 +
+
+      if ( !$OL ) $OL_t = &$VL_t;
+      $OL_t += Transaction::AMOUNT_ADVERTISED_LVL2 +
         Transaction::AMOUNT_OL_BONUS +
         Transaction::AMOUNT_PM_BONUS;
-      if ( $OL ) $OL_t += $olBonus; else $VL_t += $olBonus;
 
       // TODO question:
       // kriegt der ol in diesem fall 22 oder 21 euro ?
       // 22 weil der ja den bonus der promoters kriegt wenn er jemand
       // wirbt ohne das ein promoter dazwischen ist?
 
-      $PM = DbEntityHelper::createSignupMember($currentParent);
+      if ( $currentParent ) {
+        $PM = DbEntityHelper::createSignupMember($currentParent);
+
+      } else {
+        $PM = DbEntityHelper::createMember($currentParent, [
+          'BonusIds' => $currentBonusIds
+        ]);
+        $IT_t -= Transaction::AMOUNT_IT_BONUS;
+        $VL_t -= Transaction::AMOUNT_VL_BONUS;
+        $OL_t -= Transaction::AMOUNT_ADVERTISED_LVL2 +
+          Transaction::AMOUNT_OL_BONUS +
+          Transaction::AMOUNT_PM_BONUS;
+      }
+
       $PM->setType(Member::TYPE_PROMOTER)
         ->setFundsLevel(Member::FUNDS_LEVEL2)
         ->save(self::$con);
@@ -174,11 +190,11 @@ class DbEntityHelper {
     if ( $options['VS2'] ) {
       $IT_t += Transaction::AMOUNT_IT_BONUS * 3;
       $VL_t += Transaction::AMOUNT_VL_BONUS * 3;
-      if ( $OL )
-        $OL_t += Transaction::AMOUNT_OL_BONUS * 3;
-      else
-        $VL_t += Transaction::AMOUNT_OL_BONUS * 3;
 
+      if ( !$OL ) $OL_t = &$VL_t;
+      $OL_t += Transaction::AMOUNT_OL_BONUS * 3;
+
+      if ( !$PM ) $PM_t = &$OL_t;
       $PM_t += Transaction::AMOUNT_ADVERTISED_LVL2 +
         Transaction::AMOUNT_PM_BONUS +
         2 * (
@@ -201,13 +217,16 @@ class DbEntityHelper {
     if ( $options['VS1'] ) {
       $IT_t += Transaction::AMOUNT_IT_BONUS;
       $VL_t += Transaction::AMOUNT_VL_BONUS;
-      if ( $OL )
-        $OL_t += Transaction::AMOUNT_OL_BONUS;
-      else
-        $VL_t += Transaction::AMOUNT_OL_BONUS;
 
+      if ( !$OL ) $OL_t = &$VL_t;
+      $OL_t += Transaction::AMOUNT_OL_BONUS;
+
+      if ( !$PM ) $PM_t = &$OL_t;
       $PM_t += Transaction::AMOUNT_PM_BONUS;
+
+      if ( !$VS2 ) $VS2_t = &$PM_t;
       $VS2_t += Transaction::AMOUNT_ADVERTISED_LVL2;
+
       $VS1 = DbEntityHelper::createSignupMember($currentParent);
     }
 

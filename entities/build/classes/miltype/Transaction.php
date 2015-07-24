@@ -41,9 +41,9 @@ class Transaction extends BaseTransaction {
   const AMOUNT_PM_BONUS = 3;
   const AMOUNT_IT_BONUS = 4;
 
-  const AMOUNT_CEO1_BONUS = 4;
-  const AMOUNT_CEO2_BONUS = 4;
-  const AMOUNT_LAWYER_BONUS = 4;
+  const AMOUNT_CEO1_BONUS = 5;
+  const AMOUNT_CEO2_BONUS = 6;
+  const AMOUNT_LAWYER_BONUS = 7;
 
   static public $REASON_TO_AMOUNT = [
     self::REASON_ADVERTISED_LVL1 => self::AMOUNT_ADVERTISED_LVL1,

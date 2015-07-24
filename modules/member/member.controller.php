@@ -38,7 +38,7 @@ class MemberController extends BaseController {
     return ControllerDispatcher::renderModuleView(
       self::MODULE_NAME,
       'signupSuccess',
-      ['newMemberNum' => $member->getNum()]
+      ['newMemberNum' => '12415215215'] // $member->getNum()]
     );
   }
 

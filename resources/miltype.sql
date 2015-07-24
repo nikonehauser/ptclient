@@ -152,6 +152,22 @@
   );
 
 -- -----------------------------------------------------
+-- Table "unknow_income"
+-- -----------------------------------------------------
+  DROP TABLE IF EXISTS "tbmt_unknow_income" CASCADE;
+
+  CREATE TABLE IF NOT EXISTS  "tbmt_unknow_income" (
+    "id" bigserial NOT NULL ,
+    "action" VARCHAR(160) NOT NULL,
+    "type" SMALLINT NOT NULL ,
+    "date" timestamp with time zone NOT NULL ,
+    "related_id" VARCHAR(64) NULL DEFAULT NULL,
+    "related_member_num" int NULL DEFAULT NULL,
+    "meta" TEXT NULL,
+    PRIMARY KEY ("id")
+  );
+
+-- -----------------------------------------------------
 -- Table "activity"
 -- -----------------------------------------------------
   DROP TABLE IF EXISTS "tbmt_activity" CASCADE;

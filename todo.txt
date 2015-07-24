@@ -1,25 +1,31 @@
 CURRENT
 ======
 
+ - add form to apply individual bonuses for CEO members
+
+
 LIST
 ====
 
- - write test and implement the promoter orgleader etc. variants.
+- website content auffüllen
+
+-passwort vergessen anhand konto nummer
+
+-promoter kann promoter werben
+
+-ein code pro person
+
+- save unknown incommings to extra table
 
  - add member type STARTER
- - start may or may not pay 70 dollars
 
- - group tansactions by reason for displaying issues
+ - starter may or may not pay 70 dollars
 
  - enter list of not accepted countries
-
- - wenn kunde nicht überweist werden seine geworbenen mitglieder einfach nach oben geschoben
 
  - handle bank api fehler
 
  - add link to agbs.
-
-- save unknown incommings to extra table
 
 - try { } catch {} cron jobs, add activity entry for the various actions
 - send email on any error
@@ -34,14 +40,6 @@ LIST
 - write extensive tests 10 000 000 users.
 
 - use and run postgresql analyze
-
-- bonus zahlungen ausführen
-
--passwort vergessen anhand konto nummer
-
--promoter kann promoter werben
-
--ein code pro person
 
 Profiling
 =========
@@ -79,6 +77,7 @@ FAQ
 - wann bekomme ich mein geld
 - was passiert wenn ich nicht überweise
 - error handling / reporting
+- why email
 
 
 
