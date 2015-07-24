@@ -30,7 +30,9 @@ final class Session {
   }
 
   static public function login($num, $pwd) {
-    $member = \MemberQuery::create()->findOneByNum($num);
+    $member = \MemberQuery::create()
+      ->filterByDeletionDate(null, Criteria::ISNULL)
+      ->findOneByNum($num);
     if ( !$member )
       return false;
 

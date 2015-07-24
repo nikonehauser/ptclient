@@ -38,6 +38,8 @@
     "transferred_total" double precision NOT NULL default 0 ,
     "outstanding_total" double precision NOT NULL default 0 ,
 
+    "deletion_date" timestamp with time zone NULL ,
+
     PRIMARY KEY ("id") ,
     CONSTRAINT "fk_member_referer"
       FOREIGN KEY ("referer_id")

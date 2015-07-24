@@ -66,7 +66,7 @@ class DbEntityHelper {
   }
 
   static public function createSignupMember(Member $referralMember, $receivedPaiment = true) {
-    $member = Member::createFromSignup(self::$memberSignup, $referralMember, self::$con);
+    $member = Member::createFromSignup(self::$memberSignup, $referralMember, null, self::$con);
     if ( $receivedPaiment )
       $member->onReceivedMemberFee(time(), self::$con);
 

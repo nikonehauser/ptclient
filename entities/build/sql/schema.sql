@@ -65,9 +65,10 @@ CREATE TABLE "tbmt_member"
     "bonus_ids" VARCHAR(80) DEFAULT '' NOT NULL,
     "advertised_count" INTEGER DEFAULT 0 NOT NULL,
     "outstanding_advertised_count" INTEGER DEFAULT 0 NOT NULL,
-    "password" VARCHAR NOT NULL,
+    "password" VARCHAR(160) NOT NULL,
     "transferred_total" DOUBLE PRECISION DEFAULT 0 NOT NULL,
     "outstanding_total" DOUBLE PRECISION DEFAULT 0 NOT NULL,
+    "deletion_date" TIMESTAMP,
     PRIMARY KEY ("id"),
     CONSTRAINT "member_num_UNIQUE" UNIQUE ("num")
 );

@@ -94,6 +94,10 @@ class Member extends BaseMember
     'password'             => \Tbmt\Validator::FILTER_PASSWORD,
   ];
 
+  static public function getValidMember() {
+
+  }
+
   static public function initSignupForm(array $data = array()) {
     return \Tbmt\Arr::initMulti($data, self::$SIGNUP_FORM_FIELDS);
   }
@@ -114,6 +118,7 @@ class Member extends BaseMember
 
     // Validate member number exists
     $parentMember = \MemberQuery::create()
+      ->filterByDeletionDate(null, Criteria::ISNULL)
       ->findOneByNum($data['referral_member_num']);
     if ( $parentMember == null ) {
       return [false, ['referral_member_num' => \Tbmt\Localizer::get('error.referral_member_num')], null, null];
@@ -466,8 +471,6 @@ class Member extends BaseMember
     foreach ($children as $child) {
       $child->setRefererMember($thisReferer, $con);
       $child->save($con);
-      // if ( $thisRefererHadPaid && !$child->hadPaid() )
-      //   $child->fireReservedReceivedMemberFeeEvents($con);
     }
 
     if ( $updateCount > 0 ) {
@@ -475,7 +478,8 @@ class Member extends BaseMember
       $thisReferer->save($con);
     }
 
-    $this->delete($con);
+    $this->setDeletionDate(time());
+    $this->save($con);
   }
 
   public function createInviteKeys() {
@@ -513,7 +517,9 @@ class MemberBonusIds {
 
     $relatedId = $payingMember->getId();
 
-    $bonusMembers = MemberQuery::create()->filterById($bonusIds, Criteria::IN)->find($con);
+    $bonusMembers = MemberQuery::create()
+      ->filterByDeletionDate(null, Criteria::ISNULL)
+      ->filterById($bonusIds, Criteria::IN)->find($con);
 
     $spreadBonuses = [];
     $membersByType = [];

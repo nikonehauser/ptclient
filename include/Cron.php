@@ -16,10 +16,14 @@ class Cron {
 
     try {
       $unpaidMembers = MemberQuery::create()
-        ->filterByPaidDate(null, Criteria::IS_NULL)
+        ->filterByPaidDate(null, Criteria::ISNULL)
         ->filterBySignupDate($twoWeeksAgo, Criteria::LESS_THAN)
+        ->filterByDeletionDate(null, Criteria::ISNULL)
         ->find($con);
 
+      foreach ( $unpaidMembers as $member ) {
+        $member->deleteAndUpdateTree($con);
+      }
 
       if ( !$con->commit() )
         throw new Exception('Could not commit transaction');

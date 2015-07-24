@@ -48,9 +48,10 @@
     <column name="bonus_ids" phpName="BonusIds" type="VARCHAR" size="80" required="true" defaultValue=""/>
     <column name="advertised_count" phpName="AdvertisedCount" type="INTEGER" required="true" defaultValue="0"/>
     <column name="outstanding_advertised_count" phpName="OutstandingAdvertisedCount" type="INTEGER" required="true" defaultValue="0"/>
-    <column name="password" phpName="Password" type="VARCHAR" required="true"/>
+    <column name="password" phpName="Password" type="VARCHAR" size="160" required="true"/>
     <column name="transferred_total" phpName="TransferredTotal" type="DOUBLE" required="true" defaultValue="0"/>
     <column name="outstanding_total" phpName="OutstandingTotal" type="DOUBLE" required="true" defaultValue="0"/>
+    <column name="deletion_date" phpName="DeletionDate" type="TIMESTAMP" required="false"/>
     <foreign-key foreignTable="member" name="fk_member_parent" onDelete="SET NULL" onUpdate="CASCADE">
       <reference local="parent_id" foreign="id"/>
     </foreign-key>

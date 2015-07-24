@@ -1,12 +1,8 @@
 CURRENT
 ======
 
-- implement invitations
-
 LIST
 ====
-
- - member nicht entfernen sondern archivieren
 
  - write test and implement the promoter orgleader etc. variants.
 
