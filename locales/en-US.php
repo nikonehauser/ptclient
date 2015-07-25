@@ -58,6 +58,7 @@ return [
     /* ERRORS
     ---------------------------------------------*/
   'error' => [
+    'greater_zero' => 'Must be greater zero',
     'empty'  => 'Can not be empty',
     'email'  => 'Invalid email address',
     'int'    => 'Invalid integer',
@@ -66,7 +67,9 @@ return [
     'password_conditions' => '5 characters or more, at least one small letter and one digit',
     'password_unequal' => 'Passwords were not equal',
 
-    'referral_member_num' => 'Referer num does not exist',
+    'referral_member_num' => 'Referer number does not exist',
+    'member_num' => 'Member number does not exist',
+    'member_num_unpaid' => 'Member had not paid yet',
     'age_of_18' => 'Must be 18 or older',
     'referer_paiment_outstanding' => 'The member exists but we didn´t receive the member fee yet. Unfornately you have to wait for this members full membership',
     'invitation_code_inexisting' => 'Invitation Code does not exist',
@@ -286,7 +289,8 @@ return [
           'index' => 'Information',
           'invoice' => 'Invoice',
           'tree' => 'Member Tree',
-          'invitation' => 'Invitations'
+          'invitation' => 'Invitations',
+          'bonus_payments' => 'Bonus Payments'
         ]
       ],
       'tabs' => [
@@ -342,6 +346,26 @@ return [
 
           'list_title' => 'Invitations',
           'hash' => 'Code',
+          'creation_date' => 'Created',
+          'accepted_date' => 'Accepted',
+        ],
+        'bonus_payments' => [
+          'form_title' => 'Create bonus payment for a member',
+          'recipient_num' => 'Member number who receives this bonus',
+          'amount' => 'Amount',
+          'purpose' => 'Purpose',
+          'validate_form' => 'Validate form',
+          'submit' => 'Submit',
+
+          'recipient_details' => 'Recipient details',
+          'member_type' => 'Membership type',
+          'member_num' => 'Member number',
+          'address' => 'Address',
+          'email' => 'Email',
+          'email_none' => '-none-',
+
+          'list_title' => 'Bonus payments',
+          'recipient_num_th' => 'Received member number',
           'creation_date' => 'Created',
           'accepted_date' => 'Accepted',
         ]

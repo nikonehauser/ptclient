@@ -94,10 +94,6 @@ class Member extends BaseMember
     'password'             => \Tbmt\Validator::FILTER_PASSWORD,
   ];
 
-  static public function getValidMember() {
-
-  }
-
   static public function initSignupForm(array $data = array()) {
     return \Tbmt\Arr::initMulti($data, self::$SIGNUP_FORM_FIELDS);
   }

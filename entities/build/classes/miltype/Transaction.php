@@ -29,6 +29,8 @@ class Transaction extends BaseTransaction {
   const REASON_CEO2_BONUS = 8;
   const REASON_LAWYER_BONUS = 9;
 
+  const REASON_CUSTOM_BONUS = 1001;
+
 
   /* FIXED TRANSACTION AMOUNTS
   ---------------------------------------------*/

@@ -81,6 +81,17 @@ END;
 END;
   }
 
+  static function echoTableRows($arrTableRows) {
+    foreach ($arrTableRows as $row) {
+      echo '<tr>';
+      foreach ($row as $value) {
+        echo "<td>$value</td>";
+      }
+
+      echo '</tr>';
+    }
+  }
+
 }
 
 ?>

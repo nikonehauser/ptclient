@@ -13,6 +13,8 @@ class AccountController extends BaseController {
     'tree' => true,
     'invitation' => true,
     'invitation_create' => true,
+    'bonus_payments' => true,
+    'bonus_payments_signup' => true,
   ];
 
   public function dispatchAction($action, $params) {
@@ -34,6 +36,11 @@ class AccountController extends BaseController {
           ['formVal' => ['num' => $num]]
         );
       }
+    }
+
+    if ( !Session::getLogin() ) {
+      Session::terminate();
+      return new ControllerActionRedirect(Router::toBase());
     }
 
     return parent::dispatchAction($action, $params);
@@ -72,16 +79,14 @@ class AccountController extends BaseController {
   }
 
   public function action_invitation_create() {
-    list($valid, $data, $referralMember) = \Member::validateSignupForm($_REQUEST);
-
     $login = Session::getLogin();
-    $type = $data['type'];
-    if ( $login <= $type || $type <= \Member::TYPE_MEMBER || $type >= \Member::TYPE_CEO )
+    $type = Arr::init($_REQUEST, 'type', TYPE_INT);
+    if ( $login->getType() <= $type || $type <= \Member::TYPE_MEMBER || $type >= \Member::TYPE_CEO )
       throw new PermissionDeniedException();
 
     \Invitation::create(
       $login,
-      $data,
+      $_REQUEST,
       \Propel::getConnection()
     );
 
@@ -91,6 +96,52 @@ class AccountController extends BaseController {
       ['member' => Session::getLogin(), 'tab' => 'invitation']
     );
   }
+
+  public function action_bonus_payments() {
+    return ControllerDispatcher::renderModuleView(
+      self::MODULE_NAME,
+      'index',
+      ['member' => Session::getLogin()]
+    );
+  }
+
+  public function action_bonus_payments_signup() {
+    $login = Session::getLogin();
+    if ( $login->getType() !== \Member::TYPE_CEO )
+      throw new PermissionDeniedException();
+
+    list($valid, $data, $recipient) = \BonusTransaction::validateForm($_REQUEST);
+    if ( $valid !== true ) {
+      return ControllerDispatcher::renderModuleView(
+        self::MODULE_NAME,
+        'index',
+        ['member' => $login, 'tab' => 'bonus_payments', 'formErrors' => $data, 'recipient' => $recipient]
+      );
+    }
+
+    if ( $data['recipient_id'] === '' ) {
+      $data['recipient_id'] = $recipient->getId();
+      return ControllerDispatcher::renderModuleView(
+        self::MODULE_NAME,
+        'index',
+        ['member' => $login, 'tab' => 'bonus_payments', 'formVal' => $data, 'recipient' => $recipient]
+      );
+    }
+
+    \BonusTransaction::create(
+      $login,
+      $recipient,
+      $data,
+      \Propel::getConnection()
+    );
+
+    return ControllerDispatcher::renderModuleView(
+      self::MODULE_NAME,
+      'index',
+      ['member' => $login, 'tab' => 'bonus_payments', 'formVal' => []]
+    );
+  }
+
 }
 
 ?>

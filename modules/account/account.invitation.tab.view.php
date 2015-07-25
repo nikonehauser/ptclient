@@ -27,6 +27,7 @@ class AccountInvitationTab extends Base {
       ->filterByMemberId($this->member->getId())
       ->orderBy('AcceptedDate', \Criteria::DESC)
       ->orderBy('CreationDate', \Criteria::DESC)
+      ->limit(100)
       ->find();
 
     $this->invitationDateFormat = \Tbmt\Localizer::get('datetime_format_php.long');

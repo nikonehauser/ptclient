@@ -17,7 +17,16 @@ class AccountIndex extends Base {
 
     $linkNames = $this->i18nView['navigation_links'];
     $this->navigationLinks = [];
-    foreach (['index', 'invoice', 'tree', 'invitation'] as $linkName) {
+    $arr = ['index', 'invoice', 'tree'];
+
+    $memberType = $this->member->getType();
+    if ( $memberType > \Member::TYPE_MEMBER )
+      $arr[] = 'invitation';
+
+    if ( $memberType >= \Member::TYPE_CEO )
+      $arr[] = 'bonus_payments';
+
+    foreach ($arr as $linkName) {
       $locale = $linkNames[$linkName];
 
       array_push($this->navigationLinks, [
@@ -27,17 +36,12 @@ class AccountIndex extends Base {
       ]);
     }
 
-    if ( $this->member->getType() === \Member::TYPE_MEMBER )
-      array_pop($this->navigationLinks);
-
     $name = \Tbmt\AccountController::MODULE_NAME;
 
     require MODULES_DIR.$name.DIRECTORY_SEPARATOR.$name.'.'.$tabName.'.tab.view.php';
     $name = NS_ROOT_PART.'view\\'.ucfirst($name).ucfirst($tabName).'Tab';
     $contentView = new $name();
-    $this->tabContent = $contentView->render(
-      ['member' => \Tbmt\Session::getLogin()]
-    );
+    $this->tabContent = $contentView->render($params);
 
     return $this->renderFile(
       dirname(__FILE__).DIRECTORY_SEPARATOR.'index.account.html',

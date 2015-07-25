@@ -94,12 +94,34 @@
     "reason" smallint not null default 0 ,
     "related_id" int null ,
     "date" timestamp with time zone NOT NULL ,
-    "purpose" VARCHAR(255) not null ,
     PRIMARY KEY ("id") ,
     CONSTRAINT "fk_transaction_transfer"
       FOREIGN KEY ("transfer_id")
       REFERENCES "tbmt_transfer" ("id")
       ON DELETE CASCADE
+      ON UPDATE CASCADE
+  );
+
+-- -----------------------------------------------------
+-- Table "bonus_transaction"
+-- -----------------------------------------------------
+  DROP TABLE IF EXISTS "tbmt_bonus_transaction" CASCADE;
+
+  CREATE TABLE IF NOT EXISTS  "tbmt_bonus_transaction" (
+    "id" bigserial NOT NULL ,
+    "member_id" int not null ,
+    "transaction_id" int NOT NULL ,
+    "purpose" VARCHAR(255) not null ,
+    PRIMARY KEY ("id") ,
+    CONSTRAINT "fk_tbmt_bonus_transaction_member"
+      FOREIGN KEY ("member_id")
+      REFERENCES "tbmt_member" ("id")
+      ON DELETE set null
+      ON UPDATE CASCADE ,
+    CONSTRAINT "fk_tbmt_bonus_transaction_transaction"
+      FOREIGN KEY ("transaction_id")
+      REFERENCES "tbmt_transaction" ("id")
+      ON DELETE set null
       ON UPDATE CASCADE
   );
 
