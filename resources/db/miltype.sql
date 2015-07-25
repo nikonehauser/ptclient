@@ -94,6 +94,7 @@
     "reason" smallint not null default 0 ,
     "related_id" int null ,
     "date" timestamp with time zone NOT NULL ,
+    "purpose" VARCHAR(255) not null ,
     PRIMARY KEY ("id") ,
     CONSTRAINT "fk_transaction_transfer"
       FOREIGN KEY ("transfer_id")

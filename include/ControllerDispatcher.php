@@ -41,7 +41,9 @@ class ControllerDispatcher {
   }
 
   static public function dispatchAction($name, $action, array $params = array()) {
-    self::loadController($name);
+    if ( !self::loadController($name) )
+      throw new PageNotFoundException();
+
     $name = NS_ROOT_PART.ucfirst($name).'Controller';
 
     $controller = new $name();

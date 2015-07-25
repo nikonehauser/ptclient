@@ -70,12 +70,19 @@ class Localizer {
    * @param array $arrReplace Associative array containing the placeholder variables
    * @return string If the path could not be resolved, the path will be returned instead
    */
-  static public function insert($locale, $arrReplace, $encode = true) {
+  static public function insert($locale, $arrReplace, $encode = true, $encloseMarkup = null) {
     $arrSearch = array();
     $arrValues = array();
     foreach ($arrReplace as $key => $value) {
+      if ( $encode )
+        $value = self::encodeHtml($value);
+
+      if ( $encloseMarkup ) {
+        $value = str_replace('{_val_}', $value, $encloseMarkup);
+      }
+
       $arrSearch[] = '{'.$key.'}';
-      $arrValues[] = $encode ? self::encodeHtml($value) : $value;
+      $arrValues[] = $value;
     }
 
     return str_replace($arrSearch, $arrValues, $locale);

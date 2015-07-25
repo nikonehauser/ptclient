@@ -74,9 +74,14 @@ class AccountController extends BaseController {
   public function action_invitation_create() {
     list($valid, $data, $referralMember) = \Member::validateSignupForm($_REQUEST);
 
+    $login = Session::getLogin();
+    $type = $data['type'];
+    if ( $login <= $type || $type <= \Member::TYPE_MEMBER || $type >= \Member::TYPE_CEO )
+      throw new PermissionDeniedException();
+
     \Invitation::create(
-      Session::getLogin(),
-      $_REQUEST,
+      $login,
+      $data,
       \Propel::getConnection()
     );
 

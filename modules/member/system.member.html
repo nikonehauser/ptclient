@@ -1,0 +1,77 @@
+<?=Tbmt\view\Factory::buildPageTitle($this->i18nView['page_title'])?>
+
+<div class="container">
+  <!--
+    INTO
+    *************************** -->
+    <h4 class="headline"><?=$this->i18nView['intro']?></h4>
+
+  <?php
+    $name_You = $this->i18nView['you'];
+    $name_Bernd = 'Bernd';
+    $name_Anna = 'Anna';
+  ?>
+  <!--
+    1
+    *************************** -->
+    <div class="eight columns">
+        <h4 class="headline">1.</h4>
+        <p><?=$this->i18nView['1']?></p>
+    </div>
+    <div class="eight columns">
+        <h4 class="headline">&nbsp;</h4>
+
+        <table style="margin:auto;">
+          <tr>
+            <td></td>
+            <td></td>
+            <td class="msBox"><?=$this->i18nView['1_1']?></td>
+            <td class="msPadding"><?=$this->i18nView['vs1']?></td>
+          </tr>
+
+        </table>
+
+    </div>
+
+</div>
+
+  <!--
+    2
+    *************************** -->
+<div class="container">
+    <div class="eight columns">
+        <h4 class="headline">2.</h4>
+
+        <table style="margin:auto;">
+          <tr>
+            <td></td>
+            <td class="msBox"><?=$name_You?></td>
+            <td></td>
+            <td class="msPadding"><?=$this->i18nView['vs1']?></td>
+          </tr>
+
+          <tr>
+            <td class="msConnect45"></td>
+            <td></td>
+            <td class="msConnect135"></td>
+            <td></td>
+          </tr>
+
+          <tr>
+            <td class="msBox"><?=$name_Anna?></td>
+            <td></td>
+            <td class="msBox"><?=$name_Bernd?></td>
+            <td></td>
+          </tr>
+
+        </table>
+    </div>
+    <div class="eight columns">
+        <h4 class="headline">&nbsp;</h4>
+
+        <p><?=$this->i18nView['2']?></p>
+    </div>
+
+
+
+</div>

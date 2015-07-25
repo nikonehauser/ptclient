@@ -2,7 +2,10 @@
 @c-Danger: #a94442;
 @c-Gray-Muted: #777;
 @c-Organge: #f67f00;
+@c-Gray: #999;
 
+
+@import "common.less";
 
 /* =============================================================== */
 /* general components
@@ -165,4 +168,65 @@ dd {
   margin: 0;
   padding-left: 10px;
   padding-right: 10px;
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
+.text-mark {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+
+
+/* =============================================================== */
+/* lists
+================================================================ */
+.list-horizontal li {
+  float: left;
+  display: inline;
+  margin-top: 7px !important;
+  margin-right: 14px;
+}
+
+
+
+/* =============================================================== */
+/* marketing system diagramms
+================================================================ */
+.msBox {
+  border: 1px solid @c-Gray;
+  padding: 8px 18px;
+}
+
+.msPadding {
+  padding: 8px 18px;
+}
+
+.msConnect45, .msConnect135 {
+  height: 36px;
+  &:before {
+    content: "";
+    display: block;
+    height: 100%;
+    margin-top: -26px;
+
+    border-right: 1px solid @c-Gray;
+    .transform(rotate(45deg));
+
+  }
+  &:after {
+    content: "";
+  }
+}
+
+.msConnect135 {
+  &:before {
+    border: 0px;
+    border-left: 1px solid @c-Gray;
+    .transform(rotate(-45deg));
+
+  }
 }

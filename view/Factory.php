@@ -48,6 +48,39 @@ END;
 
   }
 
+  static function buildFeature($title, $text, $icon, $iconColor = 'gray') {
+    return <<<END
+<div class="feature">
+  <div class="feature-circle $iconColor"><i class="fa fa-$icon"></i></div>
+  <div class="feature-description">
+    <h4>$title</h4>
+    <p>$text</p>
+  </div>
+</div>
+END;
+  }
+
+  static function buildListItems($items) {
+    $r = '';
+    foreach ($items as $item) {
+      $r .= '<li>'.$item.'</li>';
+    }
+    return $r;
+  }
+
+  static function buildInfoBox($title, $text, $content = '') {
+    return <<<END
+<div class="info-box">
+  <div class="info-content">
+    <h4>$title</h4>
+    <p>$text</p>
+  </div>
+  $content
+  <div class="clearfix"></div>
+</div>
+END;
+  }
+
 }
 
 ?>

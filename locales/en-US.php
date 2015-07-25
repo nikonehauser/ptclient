@@ -11,7 +11,27 @@ return [
       'Marketing Leader',
       'Developer',
       'CEO'
-    ]
+    ],
+
+    'forbidden_countries' => [
+      'Norway',
+      'Sweden',
+      'Finland',
+      'Denmark',
+      'Ireland',
+      'Iceland',
+      'Great Britain',
+      'Belgium',
+      'Netherlands',
+      'Luxembourg',
+      'France',
+      'Monaco',
+      'Switzerland',
+      'Germany',
+      'Austria',
+      'Canada',
+      'USA',
+    ],
   ],
 
 
@@ -62,7 +82,7 @@ return [
   'view' => [
     'common' => [
       'navigation_links' => [
-        'member' => 'Become Member',
+        'member' => 'The Idea',
         'projects' => 'Projects',
         'about' => 'Contact',
         'account' => 'Profile'
@@ -70,6 +90,7 @@ return [
       'navigation_sublinks' => [
         'member' => [
           'index' => 'Member recruit members',
+          'system' => 'Our marketing system',
           'signup' => 'Signup',
         ],
         'projects' => [
@@ -100,8 +121,103 @@ return [
         'Member advertises member'
       ],
 
+      'system' => [
+        'page_title' => 'Marketing System',
+        'vs1' => 'Payment level 1',
+        'vs2' => 'Payment level 2',
+
+        'intro' => 'This page will explain our marketing system in detail with the help of an example.',
+        'you' => 'You',
+        '1' => 'You become a member through registering and paying the contribution of $70. In our marketing system, you are automatically on payment level 1.',
+        '1_1' => 'You = Member',
+
+        '2' => 'Now you recruit your first two new members, Anna and Bernd.',
+        '3' => 'Thereby you earn $5 each on level 1, hence altogether you earn $10.',
+        '4' => 'As you have recruited two new members successfully, you automatically rise to payment level 2.',
+        '5' => 'Now you recruit your third new member, Chris.',
+        '6' => 'Thereby you earn a payment of $20 on level 2.',
+        '7' => 'For every additional member that you recruit in the future, you would also earn $20 each.',
+        '8' => 'Since Chris is now a member, he automatically is on payment level 1.',
+        '9' => 'You now recruit – for example, because of a severe disease or because of an accident – no more members.',
+        '10' => 'But Chris recruits, as you have done before, his first two new members, Dean and Emi.',
+        '11' => 'Chris thereby earns a $5 payment for each recruited member on level 1, thus altogether $10.',
+        '12' => 'You earn a payment of $15 for each recruited member in this case, thus altogether $30.',
+        '13' => 'At this point you already earn payments without becoming active yourself!',
+        '14' => 'Already now – after just one week – you have earned $60 and almost entirely balanced your membership contribution!',
+        '15' => 'Chris rises automatically to payment level 2 after his first two successful recruitings.',
+        '16' => 'As you and Chris now have the same payment level, you do not earn anything anymore when Chris recruits new members.',
+        '17' => 'However, now Dean and Emi are placed into your tree.',
+        '18' => 'This happens to each of our members. The first two new recruited members are assigned to the member that has once recruited the recruiting member.',
+        '19' => 'After Dean and Emi have paid their membership fee, they both are on payment level 1.',
+        '20' => 'Now Dean and Emi each recruit their first two new members, Frank, Gisele, Heinz and Ida.',
+        '21' => 'Thereby Dean and Emi earn $5 for each recruited member and you earn $15 each, thus altogether you earn $60.',
+        '22' => 'Now Dean and Emi rise to level 2 after their first two successful recruitings.',
+        '23' => 'From now on, you do not earn anything when Dean and Emi recruit new members.',
+        '24' => 'However, now Frank, Gisele, Heinz and Ida are placed into your tree. As they have already paid their contribution, they are all on payment level 1.',
+        '25' => 'Now Frank, Gisele, Heinz and Ida recruited their first two members each.',
+        '26' => 'Thereby Frank, Gisele, Heinz and ida earn $5 for each member and you earn $15 each, thus altogether you earn $120.',
+        '27' => 'Now you have already not only balanced your membership fee and returned your investment, but also earned something on top of that.',
+        '28' => 'And how long did it take?',
+        '29' => 'From experience, it takes one day on average, until a member recruits a new member successfully.',
+        '30' => 'Therefore, this example would take 10 to 14 days, for example.',
+        '31' => 'If every future member only recruits two new members, but only needs one week on average, your earnings develop as follows:',
+        '32' => 'After approximately ten weeks you therefore already earned more than $60,000 and have helped yourself according to our club motto “Help Yourself”.',
+        '33' => 'Of course this will not work indefinitely, because the number of people are naturally limited. There were and are, however, marketing systems worldwide and in different economic fields that have created a sheer endless number of prosperous people and are still creating new ones.',
+        '34' => 'With us, members who have decided to recruit new members, especially  early on, will earn lots and lots of money.',
+        '35' => 'Trustworthy mathematical calculations project that members who became active in the first 12 months after starting the marketing system and at least recruit three new members, will earn altogether $100,000 to $300,000 in the first 12 months.',
+        '36' => 'There are no limits on the very top. If only one member recruits e.g. 10, 15 or 20 or even more members, naturally considerably higher earnings are possible.',
+        '37' => 'However, we will also have members, who with mediocre effort will just earn a meager amount, for example a few thousand dollars.',
+        '38' => 'Then we will also have members who will only earn very few, for example only few hundreds of dollars.',
+        '39' => 'And of course in the future, probably in a few years, we will also have cases of members which will not earn anything. They have through their contribution facilitated the earnings of the other members and the development of several social projects and thus sponsored their $70 directly for the goods of their fellow people.',
+        '40' => 'The specific development of your personal profits can hardly be predicted. However, the possibilities result from each member’s personal effort.',
+        '41' => '',
+      ],
+
       'index' => [
         'page_title' => 'Members advertise members',
+
+        'basic_idea' => 'Basic idea',
+        'basic_idea_title' => [
+          'Basics',
+          'Passive income',
+          'For those who deserve',
+        ],
+        'basic_idea_text' => [
+          'Basically every human can become a member of the Help Yourself Association. The {onetime} contribution is only $70.',
+          'Every member can recruit new members for the Help Yourself Association within the “Members recruit new members” marketing system, and thereby achieve a constant and, above all, {passive_income}.',
+          'Citizens living in rich countries are not allowed to become a member of the Help Yourself Association.',
+        ],
+        'basic_idea_highlights' => [
+          ['onetime' => 'one-time'],
+          ['passive_income' => 'passive income'],
+          null
+        ],
+
+        'forbidden_countries' => 'Forbidden countries',
+        'why_forbidden_countries' => 'Why forbid these countries',
+        'forbidden_countries_text' => 'Each citizen of those countries has sufficient access to education, jobs, medical treatments and social welfare, thus we do not offer these citizens access to our self-help club.',
+
+        'become_member_title' => 'I want to be member',
+        'become_member_text' => 'If you also want to become a member, then please register here on our homepage and pay the membership fee of $70 within 10 days. Then you are a member of the Help Yourself Association and you can use our fantastic marketing system to achieve a permanent and {passive_income}.',
+        'become_member_highlights' => ['passive_income' => 'passive income'],
+
+
+        'member_starting' => 'What will i get as member',
+        'member_starting_title' => [
+          'Payment Level 1',
+          'Marketing System',
+          'Immediately start recruiting',
+        ],
+        'member_starting_text' => [
+          'In our “Members recruit new members” marketing system you are automatically integrated on payment level 1.',
+          'We want to show you in the following explanation of our marketing system what this means for you.',
+          'Directly after you have finished your registration, you can recruit new members for the Help Yourself Association via this homepage.',
+        ],
+        'member_starting_button' => [
+          'What is payment level 1?',
+          'Explain this marketing system!',
+          'Yes, I want to signup!',
+        ]
       ],
 
       'signup' => [
@@ -152,7 +268,7 @@ return [
     ---------------------------------------------*/
     'account' => [
       'login' => [
-        'page_title' => 'Memmber Login',
+        'page_title' => 'Mem ber Login',
         'error' => 'Error',
         'form_labels' => [
           'login' => 'Login',
