@@ -1,6 +1,9 @@
 CURRENT
 ======
 
+- add currency support
+
+- track remaining money of member fee to know how much to give to the treu händler
 
 LIST
 ====
@@ -18,8 +21,6 @@ LIST
  - add member type STARTER
 
  - starter may or may not pay 70 dollars
-
- - enter list of not accepted countries
 
  - handle bank api fehler
 
@@ -45,8 +46,13 @@ EXPLAIN ANALYZE VERBOSE UPDATE tbmt_transfer SET state=0 WHERE tbmt_transfer.sta
 
 Fragen
 ======
- - werden promoter etc. sofort mit funds level 2 eingetragen? (die ersten 10 000?)
- - type starter nochmal klären
+ - werden promoter etc. sofort mit funds level 2 eingetragen? (die ersten 10 000?) -> ja
+
+ - type starter = member mit wahlweise keine gebühr
+
+ - unter promoter - wird noch geklärt
+
+
 
  - trennung von den systemen:
    - Projekte werden gelistet auf beiden seiten? oder was wird auf der hya seite gelistet, nix?
@@ -113,4 +119,24 @@ Die Software muss massenhafte zeitgleiche Registrierungen verarbeiten können.
 
 Automatische Vergabe einer Mitgliedsnummer
 - wenn kein Geld eingeht wird diese Nummer nach x Tagen neu vergeben
+
+
+
+============================
+============================
+============================
+============================
+
+ - doppelte member von init it , anwalt etc.#
+
+
+
+ - Seite 1: HYA
+ konto für spenden angeben#
+ projekte
+
+
+ - vertriebsseite pro land
+  - muss eigene währung unterstützen
+
 

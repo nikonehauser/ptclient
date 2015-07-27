@@ -301,7 +301,7 @@ return [
     ---------------------------------------------*/
     'account' => [
       'login' => [
-        'page_title' => 'Mem ber Login',
+        'page_title' => 'Member Login',
         'error' => 'Error',
         'form_labels' => [
           'login' => 'Login',

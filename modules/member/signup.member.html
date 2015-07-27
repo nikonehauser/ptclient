@@ -103,6 +103,10 @@
 
           <div class="sixteen columns">
               <?php echo $formBuilder->buildFieldGroup('accept_valid_country', 'checkbox'); ?>
+              <ul class="list-2 list-horizontal" style="padding: 15px; margin-top: -30px;">
+                  <?=\Tbmt\view\Factory::buildListItems(\Tbmt\Localizer::get('common.forbidden_countries'))?>
+                  <br class="clear" />
+              </ul>
           </div>
 
 

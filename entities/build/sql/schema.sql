@@ -33,6 +33,22 @@ CREATE TABLE "tbmt_bonus_transaction"
 );
 
 -----------------------------------------------------------------------
+-- tbmt_currency
+-----------------------------------------------------------------------
+
+DROP TABLE IF EXISTS "tbmt_currency" CASCADE;
+
+CREATE TABLE "tbmt_currency"
+(
+    "name" VARCHAR(128) NOT NULL,
+    "alphabetic_code" VARCHAR(3) NOT NULL,
+    "numeric_code" VARCHAR(3) NOT NULL,
+    "minor_unit" INT2 NOT NULL,
+    PRIMARY KEY ("alphabetic_code"),
+    CONSTRAINT "currency_numeric_code_UNIQUE" UNIQUE ("numeric_code")
+);
+
+-----------------------------------------------------------------------
 -- tbmt_invitation
 -----------------------------------------------------------------------
 

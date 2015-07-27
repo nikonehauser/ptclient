@@ -22,6 +22,15 @@
       <reference local="transaction_id" foreign="id"/>
     </foreign-key>
   </table>
+  <table name="currency" phpName="Currency" idMethod="native">
+    <column name="name" phpName="Name" type="VARCHAR" size="128" required="true"/>
+    <column name="alphabetic_code" phpName="AlphabeticCode" type="VARCHAR" size="3" primaryKey="true" required="true"/>
+    <column name="numeric_code" phpName="NumericCode" type="VARCHAR" size="3" required="true"/>
+    <column name="minor_unit" phpName="MinorUnit" type="SMALLINT" required="true"/>
+    <unique name="currency_numeric_code_UNIQUE">
+      <unique-column name="numeric_code"/>
+    </unique>
+  </table>
   <table name="invitation" phpName="Invitation" idMethod="native">
     <column name="id" phpName="Id" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
     <column name="hash" phpName="Hash" type="VARCHAR" size="64" primaryKey="true" required="true"/>
