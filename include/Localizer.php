@@ -18,6 +18,10 @@ class Localizer {
 
   static private $loadedLang;
 
+  static private $decPoint;
+  static private $thousandsSep;
+  static private $decimalsCount;
+
   private function __construct() {}
 
   static public function encodeHtml($string) {
@@ -35,6 +39,11 @@ class Localizer {
     $lang = self::$loadedLang = $lang ? $lang[0] : self::FALLBACK;
 
     self::$arrData = include $localesPath.$lang.'-'.self::$arrAccepted[$lang].'.php';
+
+    $format = self::$arrData['currency_format'];
+    self::$decPoint = $format['dec_point'];
+    self::$thousandsSep = $format['thousands_sep'];
+    self::$decimalsCount = $format['decimals_count'];
   }
 
   static public function plain($strKey) {
@@ -93,7 +102,7 @@ class Localizer {
     return self::insert($locale, $arrReplace, $encode);
   }
 
-  public static function askBrowser($arrAccepted) {
+  static public function askBrowser($arrAccepted) {
     $lang_variable = (
       isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])
       ? $_SERVER['HTTP_ACCEPT_LANGUAGE']
@@ -129,6 +138,30 @@ class Localizer {
     return $currentLang;
   }
 
+  static public function currencyFormat($num, $decimals = false) {
+    return number_format($num, $decimals !== false ? $decimals : self::$decimalsCount, self::$decPoint, self::$thousandsSep);
+  }
+}
+
+class IncrementalTextTranslation {
+  private $i = 1;
+  private $texts;
+  public function __construct($texts) {
+    $this->texts = $texts;
+  }
+  public function next() {
+    $text = $this->texts[''.$this->i];
+    if ( isset($this->texts[''.$this->i.'h']) ) {
+      $text = \Tbmt\Localizer::insert(
+        $text,
+        $this->texts[''.$this->i.'h'],
+        false,
+        '<strong class="text-mark">{_val_}</strong>'
+      );
+    }
+    $this->i++;
+    return $text;
+  }
 }
 
 ?>

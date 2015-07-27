@@ -81,6 +81,16 @@ END;
 END;
   }
 
+  static function buildLargeNotice($title, $text, $content = '') {
+    return <<<END
+<div class="large-notice">
+  <h2>$title</h2>
+  <p>$text</p>
+  $content
+</div>
+END;
+  }
+
   static function echoTableRows($arrTableRows) {
     foreach ($arrTableRows as $row) {
       echo '<tr>';

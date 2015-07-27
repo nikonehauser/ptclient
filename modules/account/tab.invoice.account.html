@@ -29,13 +29,23 @@
         </tr>
     <?php
     $reasons = $this->i18nView['transaction_reasons'];
+    $customText = $this->i18nView['custom'];
     $amounts = \Transaction::$REASON_TO_AMOUNT;
     foreach ( $this->transactions as $transaction ) {
+      $reason = $transaction['Reason'];
+      if ( $reason == 1001 ) {
+        $reason = $this->i18nView['transactino_custom_reason'];
+        $amount = '<span class="text-muted text-italic">'.$customText.'</span>';
+      } else {
+        $reason = $reasons[$reason];
+        $amount = $amounts[$reason];
+      }
+
       echo '<tr>';
-        echo '<td>'.$amounts[$transaction['Reason']].'</td>';
+        echo '<td>'.$amount.'</td>';
         echo '<td>'.$transaction['Quantity'].'</td>';
         echo '<td>'.$transaction['Total'].'</td>';
-        echo '<td>'.$reasons[$transaction['Reason']].'</td>';
+        echo '<td>'.$reason.'</td>';
         // echo '<td>'.date($this->transDateForm, $transaction->getDate()).'</td>';
       echo '</tr>';
 

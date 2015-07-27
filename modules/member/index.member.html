@@ -70,13 +70,8 @@
     $texts = $this->i18nView['member_starting_text'];
     $buttonsTexts = $this->i18nView['member_starting_button'];
     $buttonsRoutes = [
-      \Tbmt\Router::toModule('member', 'marketing_system'),
-      \Tbmt\Router::toModule('member', 'marketing_system'),
-      \Tbmt\Router::toModule('member', 'signup')
-    ];
-    $buttonsColors = [
-      \Tbmt\Router::toModule('member', 'marketing_system'),
-      \Tbmt\Router::toModule('member', 'marketing_system'),
+      \Tbmt\Router::toModule('member', 'system'),
+      \Tbmt\Router::toModule('member', 'system'),
       \Tbmt\Router::toModule('member', 'signup')
     ];
     foreach ( $titles as $i => $title ) {

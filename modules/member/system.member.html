@@ -10,13 +10,23 @@
     $name_You = $this->i18nView['you'];
     $name_Bernd = 'Bernd';
     $name_Anna = 'Anna';
+    $name_Chris = 'Chris';
+    $name_Dean = 'Dean';
+    $name_Emi = 'Emi';
+    $name_Frank = 'Frank';
+    $name_Gisele = 'Gisele';
+    $name_Heinz = 'Heinz';
+    $name_Ida = 'Idala';
+
+    $texts = new \Tbmt\IncrementalTextTranslation($this->i18nView);
   ?>
-  <!--
-    1
-    *************************** -->
+
+<!--
+  1
+  *************************** -->
     <div class="eight columns">
         <h4 class="headline">1.</h4>
-        <p><?=$this->i18nView['1']?></p>
+        <p><?=$texts->next()?></p>
     </div>
     <div class="eight columns">
         <h4 class="headline">&nbsp;</h4>
@@ -35,13 +45,18 @@
 
 </div>
 
-  <!--
-    2
-    *************************** -->
+<!--
+  2
+  *************************** -->
 <div class="container">
     <div class="eight columns">
         <h4 class="headline">2.</h4>
 
+        <p><?=$texts->next()?></p>
+        <p><?=$texts->next()?></p>
+    </div>
+    <div class="eight columns">
+        <h4 class="headline">&nbsp;</h4>
         <table style="margin:auto;">
           <tr>
             <td></td>
@@ -51,9 +66,9 @@
           </tr>
 
           <tr>
-            <td class="msConnect45"></td>
+            <td class="msConnect msC45"></td>
             <td></td>
-            <td class="msConnect135"></td>
+            <td class="msConnect msC135"></td>
             <td></td>
           </tr>
 
@@ -66,12 +81,558 @@
 
         </table>
     </div>
+</div>
+
+<!--
+  3
+  *************************** -->
+<div class="container">
+    <div class="eight columns">
+        <h4 class="headline">3.</h4>
+        <p><?=$texts->next()?></p>
+    </div>
     <div class="eight columns">
         <h4 class="headline">&nbsp;</h4>
 
-        <p><?=$this->i18nView['2']?></p>
+        <table style="margin:auto;">
+          <tr>
+            <td class="msBox"><?=$name_You?></td>
+            <td class="msPadding"><?=$this->i18nView['vs2']?></td>
+          </tr>
+
+        </table>
     </div>
+</div>
 
+<!--
+  4
+  *************************** -->
+<div class="container">
+    <div class="eight columns">
+        <h4 class="headline">4.</h4>
+        <p><?=$texts->next()?></p>
+        <p><?=$texts->next()?></p>
+        <p><?=$texts->next()?></p>
+    </div>
+    <div class="eight columns">
+        <h4 class="headline">&nbsp;</h4>
 
+        <table style="margin:auto;">
+          <tr>
+            <td class="msBox"><?=$name_You?></td>
+            <td class="msPadding"><?=$this->i18nView['vs2']?></td>
+          </tr>
 
+          <tr>
+            <td class="msConnect msC0"></td>
+          </tr>
+
+          <tr>
+            <td class="msBox"><?=$name_Chris?></td>
+          </tr>
+
+        </table>
+    </div>
+</div>
+
+<!--
+  5
+  *************************** -->
+<div class="container">
+    <div class="eight columns">
+        <h4 class="headline">5.</h4>
+        <p><?=$texts->next()?></p>
+    </div>
+    <div class="eight columns">
+        <h4 class="headline">&nbsp;</h4>
+
+        <table style="margin:auto;">
+          <tr>
+            <td class="msBox"><?=$name_You?></td>
+            <td class="msPadding"><?=$this->i18nView['vs2']?></td>
+          </tr>
+
+          <tr>
+            <td class="msConnect msC0"></td>
+          </tr>
+
+          <tr>
+            <td class="msBox"><?=$name_Chris?></td>
+            <td class="msPadding"><?=$this->i18nView['vs1']?></td>
+          </tr>
+
+        </table>
+    </div>
+</div>
+
+<!--
+  6
+  *************************** -->
+<div class="container">
+    <div class="eight columns">
+        <h4 class="headline">6.</h4>
+        <p><?=$texts->next()?></p>
+        <p><?=$texts->next()?></p>
+        <p><?=$texts->next()?></p>
+        <p><?=$texts->next()?></p>
+        <p><?=$texts->next()?></p>
+    </div>
+    <div class="eight columns">
+        <h4 class="headline">&nbsp;</h4>
+
+        <table style="margin:auto;">
+          <tr>
+            <td></td>
+            <td class="msBox"><?=$name_You?></td>
+            <td></td>
+            <td class="msPadding"><?=$this->i18nView['vs2']?></td>
+          </tr>
+
+          <tr>
+            <td></td>
+            <td class="msConnect msC0"></td>
+          </tr>
+
+          <tr>
+            <td></td>
+            <td class="msBox"><?=$name_Chris?></td>
+            <td></td>
+            <td class="msPadding"><?=$this->i18nView['vs1']?></td>
+          </tr>
+
+          <tr>
+            <td class="msConnect msC45"></td>
+            <td></td>
+            <td class="msConnect msC135"></td>
+            <td></td>
+          </tr>
+
+          <tr>
+            <td class="msBox"><?=$name_Dean?></td>
+            <td></td>
+            <td class="msBox"><?=$name_Emi?></td>
+            <td></td>
+          </tr>
+
+        </table>
+    </div>
+</div>
+
+<!--
+  7
+  *************************** -->
+<div class="container">
+    <div class="sixteen columns">
+        <h4 class="headline">7.</h4>
+        <p><?=$texts->next()?></p>
+    </div>
+</div>
+
+<!--
+  8
+  *************************** -->
+<div class="container">
+    <div class="eight columns">
+        <h4 class="headline">8.</h4>
+        <p><?=$texts->next()?></p>
+        <p><?=$texts->next()?></p>
+    </div>
+    <div class="eight columns">
+        <h4 class="headline">&nbsp;</h4>
+
+        <table style="margin:auto;">
+          <tr>
+            <td class="msBox"><?=$name_You?></td>
+            <td class="msConnect msC90"></td>
+            <td class="msBox"><?=$name_Chris?></td>
+            <td class="msPadding"><?=$this->i18nView['vs2']?></td>
+          </tr>
+
+        </table>
+
+    </div>
+</div>
+
+<!--
+  9
+  *************************** -->
+<div class="container">
+    <div class="eight columns">
+        <h4 class="headline">9.</h4>
+        <p><?=$texts->next()?></p>
+        <p><?=$texts->next()?></p>
+        <p><?=$texts->next()?></p>
+    </div>
+    <div class="eight columns">
+        <h4 class="headline">&nbsp;</h4>
+
+        <table style="margin:auto;">
+          <tr>
+            <td></td>
+            <td class="msBox"><?=$name_You?></td>
+            <td></td>
+            <td></td>
+            <td class="msPadding"><?=$this->i18nView['vs2']?></td>
+          </tr>
+
+          <tr>
+            <td class="msConnect msC45"></td>
+            <td></td>
+            <td class="msConnect msC135"></td>
+            <td></td>
+          </tr>
+
+          <tr>
+            <td class="msBox"><?=$name_Dean?></td>
+            <td></td>
+            <td class="msBox"><?=$name_Emi?></td>
+            <td></td>
+            <td class="msPadding"><?=$this->i18nView['vs1']?></td>
+          </tr>
+
+        </table>
+
+    </div>
+</div>
+
+<!--
+  10
+  *************************** -->
+<div class="container">
+    <div class="eight columns">
+        <h4 class="headline">10.</h4>
+        <p><?=$texts->next()?></p>
+        <p><?=$texts->next()?></p>
+    </div>
+    <div class="eight columns">
+        <h4 class="headline">&nbsp;</h4>
+
+        <table style="margin:auto;">
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="msBox"><?=$name_You?></td>
+            <td></td>
+            <td></td>
+            <td class="msPadding"><?=$this->i18nView['vs2']?></td>
+          </tr>
+
+          <tr>
+            <td></td>
+            <td></td>
+            <td class="msConnect msC45"></td>
+            <td></td>
+            <td class="msConnect msC135"></td>
+            <td></td>
+          </tr>
+
+          <tr>
+            <td></td>
+            <td></td>
+            <td class="msBox"><?=$name_Dean?></td>
+            <td></td>
+            <td class="msBox"><?=$name_Emi?></td>
+            <td></td>
+            <td class="msPadding"><?=$this->i18nView['vs1']?></td>
+          </tr>
+
+          <tr>
+            <td class="msConnect msC45"></td>
+            <td></td>
+            <td class="msConnect msC0"></td>
+            <td></td>
+            <td class="msConnect msC0"></td>
+            <td></td>
+            <td class="msConnect msC135"></td>
+            <td></td>
+          </tr>
+
+          <tr>
+            <td class="msBox"><?=$name_Frank?></td>
+            <td class="msSpace"></td>
+            <td class="msBox"><?=$name_Gisele?></td>
+            <td></td>
+            <td class="msBox"><?=$name_Heinz?></td>
+            <td class="msSpace"></td>
+            <td><div class="msBox msBox-inline"><?=$name_Ida?></div></td>
+          </tr>
+
+        </table>
+
+    </div>
+</div>
+
+<!--
+  11
+  *************************** -->
+<div class="container">
+    <div class="eight columns">
+        <h4 class="headline">11.</h4>
+        <p><?=$texts->next()?></p>
+        <p><?=$texts->next()?></p>
+    </div>
+    <div class="eight columns">
+        <h4 class="headline">&nbsp;</h4>
+
+        <table style="margin:auto;">
+          <tr>
+            <td class="msBox"><?=$name_You?></td>
+            <td class="msConnect msC90"></td>
+            <td class="msBox"><?=$name_Dean?></td>
+            <td class="msConnect msC90"></td>
+            <td class="msBox"><?=$name_Emi?></td>
+            <td class="msPadding"><?=$this->i18nView['vs2']?></td>
+          </tr>
+
+        </table>
+
+    </div>
+</div>
+
+<!--
+  12
+  *************************** -->
+<div class="container">
+    <div class="eight columns">
+        <h4 class="headline">12.</h4>
+        <p><?=$texts->next()?></p>
+    </div>
+    <div class="eight columns">
+        <h4 class="headline">&nbsp;</h4>
+
+        <table style="margin:auto;">
+          <tr>
+            <td></td>
+            <td></td>
+            <td colspan="3" class="msBox"><?=$name_You?></td>
+            <td></td>
+            <td></td>
+            <td class="msPadding"><?=$this->i18nView['vs2']?></td>
+          </tr>
+
+          <tr>
+            <td class="msConnect msC45"></td>
+            <td></td>
+            <td class="msConnect msC0"></td>
+            <td></td>
+            <td class="msConnect msC0"></td>
+            <td></td>
+            <td class="msConnect msC135"></td>
+            <td></td>
+          </tr>
+
+          <tr>
+            <td class="msBox"><?=$name_Frank?></td>
+            <td class="msSpace"></td>
+            <td class="msBox"><?=$name_Gisele?></td>
+            <td class="msSpace"></td>
+            <td class="msBox"><?=$name_Heinz?></td>
+            <td class="msSpace"></td>
+            <td class="msBox"><?=$name_Ida?></td>
+            <td class="msPadding"><?=$this->i18nView['vs1']?></td>
+          </tr>
+
+        </table>
+
+    </div>
+</div>
+
+<!--
+  13
+  *************************** -->
+<div class="container">
+    <div class="eight columns">
+        <h4 class="headline">13.</h4>
+        <p><?=$texts->next()?></p>
+        <p><?=$texts->next()?></p>
+    </div>
+    <div class="eight columns">
+        <h4 class="headline">&nbsp;</h4>
+
+        <table style="margin:auto;">
+          <tr>
+            <td></td>
+            <td></td>
+            <td colspan="3" class="msBox"><?=$name_You?></td>
+            <td></td>
+            <td></td>
+            <td class="msPadding"><?=$this->i18nView['vs2']?></td>
+          </tr>
+
+          <tr>
+            <td class="msConnect msC45"></td>
+            <td></td>
+            <td class="msConnect msC0"></td>
+            <td></td>
+            <td class="msConnect msC0"></td>
+            <td></td>
+            <td class="msConnect msC135"></td>
+            <td></td>
+          </tr>
+
+          <tr>
+            <td class="msBox"><?=$name_Frank?></td>
+            <td class="msSpace"></td>
+            <td class="msBox"><?=$name_Gisele?></td>
+            <td class="msSpace"></td>
+            <td class="msBox"><?=$name_Heinz?></td>
+            <td class="msSpace"></td>
+            <td class="msBox"><?=$name_Ida?></td>
+            <td class="msPadding"><?=$this->i18nView['vs1']?></td>
+          </tr>
+
+          <tr>
+            <td class="mxBoxConSmilies"></td>
+            <td class="msSpace"></td>
+            <td class="mxBoxConSmilies"></td>
+            <td class="msSpace"></td>
+            <td class="mxBoxConSmilies"></td>
+            <td class="msSpace"></td>
+            <td class="mxBoxConSmilies"></td>
+          </tr>
+
+          <tr>
+            <td class="mxBoxSmilies fa">&nbsp;</td>
+            <td class="msSpace"></td>
+            <td class="mxBoxSmilies fa">&nbsp;</td>
+            <td class="msSpace"></td>
+            <td class="mxBoxSmilies fa">&nbsp;</td>
+            <td class="msSpace"></td>
+            <td class="mxBoxSmilies fa">&nbsp;</td>
+          </tr>
+
+        </table>
+
+    </div>
+</div>
+
+<!--
+  14
+  *************************** -->
+<div class="container">
+    <div class="sixteen columns">
+        <h4 class="headline">14.</h4>
+        <p><?=$texts->next()?></p>
+        <p><?=$texts->next()?></p>
+        <p><?=$texts->next()?></p>
+        <p><?=$texts->next()?></p>
+    </div>
+</div>
+
+<!--
+  15
+  *************************** -->
+<div class="container">
+    <div class="eight columns">
+        <h4 class="headline">15.</h4>
+        <p><?=$texts->next()?></p>
+        <p><?=$texts->next()?></p>
+    </div>
+    <div class="eight columns">
+        <h4 class="headline">&nbsp;</h4>
+
+        <?php $name_Week = $this->i18nView['31_week'];?>
+
+        <table style="margin:auto;" class="previewWeeksMoney">
+          <tr>
+            <td>1. <?=$name_Week?></td>
+            <td>$</td>
+            <td><?=\Tbmt\Localizer::currencyFormat(240)?></td>
+          </tr>
+          <tr>
+            <td>2. <?=$name_Week?></td>
+            <td>$</td>
+            <td><?=\Tbmt\Localizer::currencyFormat(480)?></td>
+          </tr>
+          <tr>
+            <td>3. <?=$name_Week?></td>
+            <td>$</td>
+            <td><?=\Tbmt\Localizer::currencyFormat(960)?></td>
+          </tr>
+          <tr>
+            <td>4. <?=$name_Week?></td>
+            <td>$</td>
+            <td><?=\Tbmt\Localizer::currencyFormat(1920)?></td>
+          </tr>
+          <tr>
+            <td>5. <?=$name_Week?></td>
+            <td>$</td>
+            <td><?=\Tbmt\Localizer::currencyFormat(3940)?></td>
+          </tr>
+          <tr>
+            <td>6. <?=$name_Week?></td>
+            <td>$</td>
+            <td><?=\Tbmt\Localizer::currencyFormat(7680)?></td>
+          </tr>
+          <tr>
+            <td>7. <?=$name_Week?></td>
+            <td>$</td>
+            <td><?=\Tbmt\Localizer::currencyFormat(15360)?></td>
+          </tr>
+          <tr>
+            <td>8. <?=$name_Week?></td>
+            <td>$</td>
+            <td><?=\Tbmt\Localizer::currencyFormat(30720)?></td>
+          </tr>
+          <tr>
+            <td><?=$this->i18nView['etc']?></td>
+          </tr>
+        </table>
+    </div>
+</div>
+
+<!--
+  16
+  *************************** -->
+<div class="container">
+    <div class="sixteen columns">
+        <h4 class="headline">16.</h4>
+        <p><?=$texts->next()?></p>
+    </div>
+</div>
+
+<!--
+  17
+  *************************** -->
+<div class="container">
+    <div class="sixteen columns">
+        <h4 class="headline">17.</h4>
+        <p><?=$texts->next()?></p>
+        <?=\Tbmt\view\Factory::buildNotification($texts->next(), 'Notice!', 'notice')?>
+        <p><?=$texts->next()?></p>
+        <p><?=$texts->next()?></p>
+        <p><?=$texts->next()?></p>
+        <p><?=$texts->next()?></p>
+    </div>
+</div>
+
+<!--
+  18
+  *************************** -->
+<div class="container">
+    <div class="sixteen columns">
+        <h4 class="headline">18.</h4>
+        <p><?=$texts->next()?></p>
+
+        <p><strong><?=$texts->next()?></strong></p>
+        <ul class="list-2">
+          <li><strong><?=$texts->next()?></strong></li>
+          <li><strong><?=$texts->next()?></strong></li>
+          <li><strong><?=$texts->next()?></strong></li>
+        </ul>
+
+        <p>&nbsp;</p>
+
+        <p><?=$texts->next()?></p>
+        <p><?=$texts->next()?></p>
+        <p><?=$texts->next()?></p>
+        <p><?=$texts->next()?></p>
+
+        <?=\Tbmt\view\Factory::buildLargeNotice(
+          $texts->next(),
+          $texts->next(),
+          '<a class="button small yellow" href="'.\Tbmt\Router::toModule('member', 'signup').'" role="button">'.$this->i18nView['signup_now'].'</a>'
+        )?>
+    </div>
 </div>

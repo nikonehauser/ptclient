@@ -153,6 +153,9 @@ dd {
 .text-muted {
   color: @c-Gray-Muted;
 }
+.text-italic {
+  font-style: italic;
+}
 .text-danger {
   color: @c-Danger;
 }
@@ -199,34 +202,124 @@ dd {
 .msBox {
   border: 1px solid @c-Gray;
   padding: 8px 18px;
+  text-align: center;
+}
+
+.msBox-inline {
+  display: inline-block;
 }
 
 .msPadding {
   padding: 8px 18px;
 }
 
-.msConnect45, .msConnect135 {
-  height: 36px;
+.msSpace {
+  width: 8px;
+}
+
+.mxBoxSmilies {
+  display: table-cell;
+  padding: 0px 8px;
+  font-size: 24px;
+  &:before {
+    content: "\f118";
+  }
+  &:after {
+    content: "\f118";
+    display: block;
+    float: right;
+  }
+
+}
+
+.mxBoxConSmilies {
+  &:before {
+    margin: 4px 16px;
+    height: 12px;
+    width: auto;
+    display: block;
+    content: "";
+    border: 1px solid @c-Gray;
+    border-top: 0px;
+    border-bottom: 0px;
+  }
+}
+
+@msConnect-Height: 36px;
+.msConnect {
+  position: relative;
+  height: @msConnect-Height;
   &:before {
     content: "";
     display: block;
     height: 100%;
-    margin-top: -26px;
-
-    border-right: 1px solid @c-Gray;
-    .transform(rotate(45deg));
-
+    width: 1px;
+    position: absolute;
   }
   &:after {
     content: "";
   }
+
 }
 
-.msConnect135 {
+.msC0 {
   &:before {
-    border: 0px;
+    top: 4px;
+    bottom: 4px;
+    height: auto;
+    width: 100%;
+    border-right: 1px solid @c-Gray;
+    .transform(translateX(-50%));
+  }
+
+}
+
+.msC90 {
+  width: 50px;
+  &:before {
+    width: 100%;
+    position: absolute;
+    border-bottom: 2px dashed @c-Gray;
+    .transform(translateY(-50%));
+  }
+
+}
+
+.msC45 {
+  &:before {
+    right: 0;
+    border-right: 1px solid @c-Gray;
+    .transform(rotate(45deg));
+  }
+}
+
+.msC135 {
+  &:before {
     border-left: 1px solid @c-Gray;
     .transform(rotate(-45deg));
 
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .msPadding, .msBox {
+    padding: 1px 2px;
+  }
+
+  .msC45, .msC135, .msC0 {
+    height: 24px;
+  }
+}
+
+.previewWeeksMoney {
+  td {
+    padding: 6px 18px;
+  }
+  td:nth-child(2) {
+    padding-right: 0px;
+    padding-left: 48px;
+  }
+  td:nth-child(3) {
+    text-align: right;
   }
 }
