@@ -18,7 +18,55 @@
     $name_Heinz = 'Heinz';
     $name_Ida = 'Idala';
 
-    $texts = new \Tbmt\IncrementalTextTranslation($this->i18nView);
+
+    use \Tbmt\Localizer as LL;
+    use \Transaction as Ta;
+    $currencySymbol = LL::get('currency_symbols.'.Ta::$BASE_CURRENCY);
+
+    $lvl1 = Ta::getAmountForReason(Ta::REASON_ADVERTISED_LVL1);
+    $indirect = Ta::getAmountForReason(Ta::REASON_ADVERTISED_INDIRECT);
+    $lvl2 = Ta::getAmountForReason(Ta::REASON_ADVERTISED_LVL2);
+
+    // Replace the money strings
+    $texts = $this->i18nView;
+    $texts['1h'][0] = LL::currencyFormat(Ta::$MEMBER_FEE, $currencySymbol);
+
+    $texts['3h'][0] = LL::currencyFormat($lvl1 * 2, $currencySymbol);
+    $texts['6h'][0] = LL::currencyFormat($lvl2, $currencySymbol);
+    $texts['7h'][0] = LL::currencyFormat($lvl2, $currencySymbol);
+
+    $texts['11r'][0] = LL::currencyFormat($lvl1, $currencySymbol);
+    $texts['11r'][1] = LL::currencyFormat($lvl1 * 2, $currencySymbol);
+
+    $texts['12h'][0] = LL::currencyFormat($indirect, $currencySymbol);
+    $texts['12h'][1] = LL::currencyFormat($indirect * 2, $currencySymbol);
+
+    $afterOneWeek = ($lvl1 * 2) + $lvl2 + ($indirect * 2);
+    $texts['14h'][1] = LL::currencyFormat($afterOneWeek, $currencySymbol);
+
+    $texts21 = &$texts['21h'];
+    $texts21[0] = LL::currencyFormat($lvl1, $currencySymbol);
+    $texts21[1] = LL::currencyFormat($indirect, $currencySymbol);
+    $texts21[2] = LL::currencyFormat($indirect * 4, $currencySymbol);
+
+    $texts26 = &$texts['26h'];
+    $texts26[0] = LL::currencyFormat($lvl1, $currencySymbol);
+    $texts26[1] = LL::currencyFormat($indirect, $currencySymbol);
+    $texts26[2] = LL::currencyFormat($indirect * 8, $currencySymbol);
+
+    $earnPerWeek = [];
+    $earnPerWeekCurrent = 0;
+    $earnPerWeekTotal = 0;
+    $earnPerWeekPot = 16;
+    for ($i = 0; $i < 8; $i++) {
+      $earnPerWeek[] = $earnPerWeekCurrent = ($earnPerWeekPot * $indirect);
+      $earnPerWeekTotal += $earnPerWeekCurrent;
+      $earnPerWeekPot *= 2;
+    }
+
+    $texts['32h'][2] = LL::currencyFormat($earnPerWeekTotal, $currencySymbol);
+
+    $texts = new \Tbmt\IncrementalTextTranslation($texts);
   ?>
 
 <!--
@@ -535,49 +583,15 @@
         <?php $name_Week = $this->i18nView['31_week'];?>
 
         <table style="margin:auto;" class="previewWeeksMoney">
-          <tr>
-            <td>1. <?=$name_Week?></td>
-            <td>$</td>
-            <td><?=\Tbmt\Localizer::currencyFormat(240)?></td>
-          </tr>
-          <tr>
-            <td>2. <?=$name_Week?></td>
-            <td>$</td>
-            <td><?=\Tbmt\Localizer::currencyFormat(480)?></td>
-          </tr>
-          <tr>
-            <td>3. <?=$name_Week?></td>
-            <td>$</td>
-            <td><?=\Tbmt\Localizer::currencyFormat(960)?></td>
-          </tr>
-          <tr>
-            <td>4. <?=$name_Week?></td>
-            <td>$</td>
-            <td><?=\Tbmt\Localizer::currencyFormat(1920)?></td>
-          </tr>
-          <tr>
-            <td>5. <?=$name_Week?></td>
-            <td>$</td>
-            <td><?=\Tbmt\Localizer::currencyFormat(3940)?></td>
-          </tr>
-          <tr>
-            <td>6. <?=$name_Week?></td>
-            <td>$</td>
-            <td><?=\Tbmt\Localizer::currencyFormat(7680)?></td>
-          </tr>
-          <tr>
-            <td>7. <?=$name_Week?></td>
-            <td>$</td>
-            <td><?=\Tbmt\Localizer::currencyFormat(15360)?></td>
-          </tr>
-          <tr>
-            <td>8. <?=$name_Week?></td>
-            <td>$</td>
-            <td><?=\Tbmt\Localizer::currencyFormat(30720)?></td>
-          </tr>
-          <tr>
-            <td><?=$this->i18nView['etc']?></td>
-          </tr>
+            <?php foreach ( $earnPerWeek as $i => $week ) { ?>
+
+            <tr>
+              <td><?=$i+1?>. <?=$name_Week?></td>
+              <td><?=$currencySymbol?></td>
+              <td><?=\Tbmt\Localizer::numFormat($week)?></td>
+            </tr>
+
+            <?php } ?>
         </table>
     </div>
 </div>

@@ -38,4 +38,14 @@ class Transfer extends BaseTransfer {
     $transaction->setAmount($intAmount);
     return $transaction;
   }
+
+  public function createTransactionForReason(Member $transferOwner, $reason, $advertisedMemberId, $when, PropelPDO $con) {
+    $amount = Transaction::getAmountForReason($reason);
+    $transferOwner->addOutstandingTotal($amount);
+    $transaction = $this->addAmount($amount);
+    $transaction->setReason($reason);
+    $transaction->setRelatedId($advertisedMemberId);
+    $transaction->setDate($when);
+    $transaction->save($con);
+  }
 }

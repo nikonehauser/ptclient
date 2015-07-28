@@ -68,6 +68,7 @@
     "id" serial NOT NULL ,
     "member_id" int NOT NULL ,
     "amount" float default 0 NOT NULL ,
+    "currency" varchar(3) not null ,
     "state" smallint not null default 0 ,
     "attempts" smallint not null default 0 ,
     "execution_date" timestamp with time zone NULL ,
@@ -81,6 +82,7 @@
   );
 
   CREATE INDEX idx_transfer_state ON "tbmt_transfer" (state);
+  CREATE INDEX idx_transfer_currency ON "tbmt_transfer" (currency);
 
 -- -----------------------------------------------------
 -- Table "transaction"
@@ -133,6 +135,7 @@
   CREATE TABLE IF NOT EXISTS  "tbmt_reserved_paid_event" (
     "unpaid_id" int NOT NULL ,
     "paid_id" int NOT NULL ,
+    "currency" varchar(3) not null ,
     "date" timestamp with time zone NOT NULL ,
     PRIMARY KEY ("unpaid_id", "paid_id") ,
     CONSTRAINT "fk_tbmt_reserved_paid_event_unpaid_member"
@@ -177,18 +180,18 @@
 -- -----------------------------------------------------
 -- Table "unknow_income"
 -- -----------------------------------------------------
-  DROP TABLE IF EXISTS "tbmt_unknow_income" CASCADE;
+  -- DROP TABLE IF EXISTS "tbmt_unknow_income" CASCADE;
 
-  CREATE TABLE IF NOT EXISTS  "tbmt_unknow_income" (
-    "id" bigserial NOT NULL ,
-    "action" VARCHAR(160) NOT NULL,
-    "type" SMALLINT NOT NULL ,
-    "date" timestamp with time zone NOT NULL ,
-    "related_id" VARCHAR(64) NULL DEFAULT NULL,
-    "related_member_num" int NULL DEFAULT NULL,
-    "meta" TEXT NULL,
-    PRIMARY KEY ("id")
-  );
+  -- CREATE TABLE IF NOT EXISTS  "tbmt_unknow_income" (
+  --   "id" bigserial NOT NULL ,
+  --   "action" VARCHAR(160) NOT NULL,
+  --   "type" SMALLINT NOT NULL ,
+  --   "date" timestamp with time zone NOT NULL ,
+  --   "related_id" VARCHAR(64) NULL DEFAULT NULL,
+  --   "related_member_num" int NULL DEFAULT NULL,
+  --   "meta" TEXT NULL,
+  --   PRIMARY KEY ("id")
+  -- );
 
 -- -----------------------------------------------------
 -- Table "currency"

@@ -4,9 +4,11 @@ class DbEntityHelper {
   /**
    * @var PropelPDO
    */
-  static protected $con = null;
+  static public $con = null;
 
   static private $it_member = null;
+
+  static public $currency = 'USD';
 
   static public function setCon(PropelPDO $con) {
     self::$con = $con;
@@ -68,9 +70,17 @@ class DbEntityHelper {
   static public function createSignupMember(Member $referralMember, $receivedPaiment = true) {
     $member = Member::createFromSignup(self::$memberSignup, $referralMember, null, self::$con);
     if ( $receivedPaiment )
-      $member->onReceivedMemberFee(time(), self::$con);
+      $member->onReceivedMemberFee(self::$currency, time(), self::$con);
 
     return $member;
+  }
+
+  static public function getCurrentTransferBundle(Member $member) {
+    return $member->getCurrentTransferBundle(self::$currency, self::$con);
+  }
+
+  static public function fireReceivedMemberFee(Member $member, $now) {
+    $member->onReceivedMemberFee(self::$currency, $now, self::$con);
   }
 
   static public function resetBonusMembers() {
@@ -148,13 +158,13 @@ class DbEntityHelper {
     $PM_t = 0;
     $PM = null;
     if ( $options['PM'] ) {
-      $IT_t += Transaction::AMOUNT_IT_BONUS;
-      $VL_t += Transaction::AMOUNT_VL_BONUS;
+      $IT_t += Transaction::getAmountForReason(Transaction::REASON_IT_BONUS);
+      $VL_t += Transaction::getAmountForReason(Transaction::REASON_VL_BONUS);
 
       if ( !$OL ) $OL_t = &$VL_t;
-      $OL_t += Transaction::AMOUNT_ADVERTISED_LVL2 +
-        Transaction::AMOUNT_OL_BONUS +
-        Transaction::AMOUNT_PM_BONUS;
+      $OL_t += Transaction::getAmountForReason(Transaction::REASON_ADVERTISED_LVL2) +
+        Transaction::getAmountForReason(Transaction::REASON_OL_BONUS) +
+        Transaction::getAmountForReason(Transaction::REASON_PM_BONUS);
 
       // TODO question:
       // kriegt der ol in diesem fall 22 oder 21 euro ?
@@ -168,11 +178,11 @@ class DbEntityHelper {
         $PM = DbEntityHelper::createMember($currentParent, [
           'BonusIds' => $currentBonusIds
         ]);
-        $IT_t -= Transaction::AMOUNT_IT_BONUS;
-        $VL_t -= Transaction::AMOUNT_VL_BONUS;
-        $OL_t -= Transaction::AMOUNT_ADVERTISED_LVL2 +
-          Transaction::AMOUNT_OL_BONUS +
-          Transaction::AMOUNT_PM_BONUS;
+        $IT_t -= Transaction::getAmountForReason(Transaction::REASON_IT_BONUS);
+        $VL_t -= Transaction::getAmountForReason(Transaction::REASON_VL_BONUS);
+        $OL_t -= Transaction::getAmountForReason(Transaction::REASON_ADVERTISED_LVL2) +
+          Transaction::getAmountForReason(Transaction::REASON_OL_BONUS) +
+          Transaction::getAmountForReason(Transaction::REASON_PM_BONUS);
       }
 
       $PM->setType(Member::TYPE_PROMOTER)
@@ -188,20 +198,20 @@ class DbEntityHelper {
     $VS2_t = 0;
     $VS2 = null;
     if ( $options['VS2'] ) {
-      $IT_t += Transaction::AMOUNT_IT_BONUS * 3;
-      $VL_t += Transaction::AMOUNT_VL_BONUS * 3;
+      $IT_t += Transaction::getAmountForReason(Transaction::REASON_IT_BONUS) * 3;
+      $VL_t += Transaction::getAmountForReason(Transaction::REASON_VL_BONUS) * 3;
 
       if ( !$OL ) $OL_t = &$VL_t;
-      $OL_t += Transaction::AMOUNT_OL_BONUS * 3;
+      $OL_t += Transaction::getAmountForReason(Transaction::REASON_OL_BONUS) * 3;
 
       if ( !$PM ) $PM_t = &$OL_t;
-      $PM_t += Transaction::AMOUNT_ADVERTISED_LVL2 +
-        Transaction::AMOUNT_PM_BONUS +
+      $PM_t += Transaction::getAmountForReason(Transaction::REASON_ADVERTISED_LVL2) +
+        Transaction::getAmountForReason(Transaction::REASON_PM_BONUS) +
         2 * (
-          Transaction::AMOUNT_PM_BONUS + Transaction::AMOUNT_ADVERTISED_INDIRECT
+          Transaction::getAmountForReason(Transaction::REASON_PM_BONUS) + Transaction::getAmountForReason(Transaction::REASON_ADVERTISED_INDIRECT)
         );
 
-      $VS2_t += 2 * Transaction::AMOUNT_ADVERTISED_LVL1;
+      $VS2_t += 2 * Transaction::getAmountForReason(Transaction::REASON_ADVERTISED_LVL1);
       $VS2 = DbEntityHelper::createSignupMember($currentParent);
       DbEntityHelper::createSignupMember($VS2);
       DbEntityHelper::createSignupMember($VS2);
@@ -215,17 +225,17 @@ class DbEntityHelper {
     $VS1_t = 0;
     $VS1 = null;
     if ( $options['VS1'] ) {
-      $IT_t += Transaction::AMOUNT_IT_BONUS;
-      $VL_t += Transaction::AMOUNT_VL_BONUS;
+      $IT_t += Transaction::getAmountForReason(Transaction::REASON_IT_BONUS);
+      $VL_t += Transaction::getAmountForReason(Transaction::REASON_VL_BONUS);
 
       if ( !$OL ) $OL_t = &$VL_t;
-      $OL_t += Transaction::AMOUNT_OL_BONUS;
+      $OL_t += Transaction::getAmountForReason(Transaction::REASON_OL_BONUS);
 
       if ( !$PM ) $PM_t = &$OL_t;
-      $PM_t += Transaction::AMOUNT_PM_BONUS;
+      $PM_t += Transaction::getAmountForReason(Transaction::REASON_PM_BONUS);
 
       if ( !$VS2 ) $VS2_t = &$PM_t;
-      $VS2_t += Transaction::AMOUNT_ADVERTISED_LVL2;
+      $VS2_t += Transaction::getAmountForReason(Transaction::REASON_ADVERTISED_LVL2);
 
       $VS1 = DbEntityHelper::createSignupMember($currentParent);
     }
@@ -234,5 +244,35 @@ class DbEntityHelper {
       [$IT, $VL, $OL, $PM, $VS2, $VS1],
       [$IT_t, $VL_t, $OL_t, $PM_t, $VS2_t, $VS1_t],
     ];
+  }
+}
+
+class TransactionTotalsAssertions {
+  private $member;
+  private $testCase;
+  private $total = 0;
+  public function __construct(Member $member, PHPUnit_Framework_TestCase $testCase) {
+    $this->member = $member;
+    $this->testCase = $testCase;
+    $this->transfer = DbEntityHelper::getCurrentTransferBundle($member);
+  }
+
+  public function add($reason, $quantity = 1) {
+    $this->total += Transaction::getAmountForReason($reason) * $quantity;
+    return $this;
+  }
+
+  public function out() {
+    print_r('<pre>');
+    print_r($this->total);
+    print_r('</pre>');
+
+  }
+
+  public function assertTotals() {
+    $this->transfer->reload(DbEntityHelper::$con);
+    $this->member->reload(DbEntityHelper::$con);
+    $this->testCase->assertEquals($this->total, $this->transfer->getAmount());
+    $this->testCase->assertEquals($this->total, $this->member->getOutstandingTotal());
   }
 }

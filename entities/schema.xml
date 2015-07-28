@@ -86,6 +86,7 @@
   <table name="reserved_paid_event" phpName="ReservedPaidEvent" idMethod="native">
     <column name="unpaid_id" phpName="UnpaidId" type="INTEGER" primaryKey="true" required="true"/>
     <column name="paid_id" phpName="PaidId" type="INTEGER" primaryKey="true" required="true"/>
+    <column name="currency" phpName="Currency" type="VARCHAR" size="3" required="true"/>
     <column name="date" phpName="Date" type="TIMESTAMP" required="true"/>
     <foreign-key foreignTable="member" name="fk_reserved_paid_event_paid_member" onDelete="SET NULL" onUpdate="CASCADE">
       <reference local="paid_id" foreign="id"/>
@@ -109,6 +110,7 @@
     <column name="id" phpName="Id" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
     <column name="member_id" phpName="MemberId" type="INTEGER" required="true"/>
     <column name="amount" phpName="Amount" type="DOUBLE" required="true" defaultValue="0"/>
+    <column name="currency" phpName="Currency" type="VARCHAR" size="3" required="true"/>
     <column name="state" phpName="State" type="SMALLINT" required="true" defaultValue="0"/>
     <column name="attempts" phpName="Attempts" type="SMALLINT" required="true" defaultValue="0"/>
     <column name="execution_date" phpName="ExecutionDate" type="TIMESTAMP" required="false"/>
@@ -116,6 +118,9 @@
     <foreign-key foreignTable="member" name="fk_transfer_member" onDelete="SET NULL" onUpdate="CASCADE">
       <reference local="member_id" foreign="id"/>
     </foreign-key>
+    <index name="idx_transfer_currency">
+      <index-column name="currency"/>
+    </index>
     <index name="idx_transfer_state">
       <index-column name="state"/>
     </index>

@@ -138,8 +138,15 @@ class Localizer {
     return $currentLang;
   }
 
-  static public function currencyFormat($num, $decimals = false) {
+  static public function numFormat($num, $decimals = false) {
     return number_format($num, $decimals !== false ? $decimals : self::$decimalsCount, self::$decPoint, self::$thousandsSep);
+  }
+
+  static public function currencyFormat($num, $currency = null, $decimals = false) {
+    if ( !$currency )
+      $currency = self::$arrData['currency_symbols'][$currency];
+
+    return $currency.self::numFormat($num, $decimals !== false ? $decimals : self::$decimalsCount, self::$decPoint, self::$thousandsSep);
   }
 }
 
@@ -159,6 +166,15 @@ class IncrementalTextTranslation {
         '<strong class="text-mark">{_val_}</strong>'
       );
     }
+
+    if ( isset($this->texts[''.$this->i.'r']) ) {
+      $text = \Tbmt\Localizer::insert(
+        $text,
+        $this->texts[''.$this->i.'r'],
+        false
+      );
+    }
+
     $this->i++;
     return $text;
   }

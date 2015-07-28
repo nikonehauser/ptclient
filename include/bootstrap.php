@@ -64,6 +64,13 @@ require_once LIB_DIR.'/propel/runtime/lib/Propel.php';
 try {
   \Propel::init(ENTITIES_DIR.'build'.DIRECTORY_SEPARATOR.'conf'.DIRECTORY_SEPARATOR.PROJECT_NAME.'-conf.php');
   \Propel::getDB()->setCharset(\Propel::getConnection(), 'UTF8');
+
+  \Transaction::initAmounts(
+    Config::get('amounts', TYPE_ARRAY),
+    Config::get('member_fee', TYPE_FLOAT),
+    Config::get('base_currency')
+  );
+
 } catch (\Exception $e) {
   // Do NOT output stacktrace because it holds the plain pg password.
   echo $e->getMessage();

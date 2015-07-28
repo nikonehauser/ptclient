@@ -27,13 +27,6 @@ class Member extends BaseMember
   const INVITE_ORGLEADER = 'ol7423543d31';
   const INVITE_PROMOTER = 'pmaab8b400de';
 
-  static public $TYPE_TO_BONUS_AMOUNT = [
-    self::TYPE_PROMOTER => Transaction::AMOUNT_PM_BONUS,
-    self::TYPE_ORGLEADER => Transaction::AMOUNT_OL_BONUS,
-    self::TYPE_MARKETINGLEADER => Transaction::AMOUNT_VL_BONUS,
-    self::TYPE_ITSPECIALIST => Transaction::AMOUNT_IT_BONUS,
-  ];
-
   static public $TYPE_TO_BONUS_REASON = [
     self::TYPE_PROMOTER => Transaction::REASON_PM_BONUS,
     self::TYPE_ORGLEADER => Transaction::REASON_OL_BONUS,
@@ -272,30 +265,31 @@ class Member extends BaseMember
    * @param  Member    $advertisedMember
    * @param  PropelPDO $con
    */
-  public function payAdvertisingFor(Member $advertisedMember, $when, PropelPDO $con) {
+  public function payAdvertisingFor(Member $advertisedMember, $currency, $when, PropelPDO $con) {
     $advertisedMemberId = $advertisedMember->getId();
-    $transfer = $this->getCurrentTransferBundle($con);
+    $transfer = $this->getCurrentTransferBundle($currency, $con);
     if ( $this->getFundsLevel() === Member::FUNDS_LEVEL1 ) {
 
       // @see resources/snowball.txt - processes - P1
-
-      $this->addOutstandingTotal(Transaction::AMOUNT_ADVERTISED_LVL1);
-      $transaction = $transfer->addAmount(Transaction::AMOUNT_ADVERTISED_LVL1);
-      $transaction->setReason(Transaction::REASON_ADVERTISED_LVL1);
-      $transaction->setRelatedId($advertisedMemberId);
-      $transaction->setDate($when);
-      $transaction->save($con);
+      $transfer->createTransactionForReason(
+        $this,
+        Transaction::REASON_ADVERTISED_LVL1,
+        $advertisedMemberId,
+        $when,
+        $con
+      );
 
       $parent = $this->getMemberRelatedByParentId($con);
       if ( $parent ) {
-        $parentTransfer = $parent->getCurrentTransferBundle($con);
+        $parentTransfer = $parent->getCurrentTransferBundle($currency, $con);
 
-        $parent->addOutstandingTotal(Transaction::AMOUNT_ADVERTISED_INDIRECT);
-        $parentTransaction = $parentTransfer->addAmount(Transaction::AMOUNT_ADVERTISED_INDIRECT);
-        $parentTransaction->setReason(Transaction::REASON_ADVERTISED_INDIRECT);
-        $parentTransaction->setRelatedId($advertisedMemberId);
-        $parentTransaction->setDate($when);
-        $parentTransaction->save($con);
+        $parentTransfer->createTransactionForReason(
+          $parent,
+          Transaction::REASON_ADVERTISED_INDIRECT,
+          $advertisedMemberId,
+          $when,
+          $con
+        );
 
         // As long as i am level 1 i wont receive more from them than just
         // the 5 euro. All further advertised members etc. will go on to the
@@ -311,18 +305,18 @@ class Member extends BaseMember
 
       $advertisedMember->setMemberRelatedByParentId($this);
 
-      $this->addOutstandingTotal(Transaction::AMOUNT_ADVERTISED_LVL2);
-      $transaction = $transfer->addAmount(Transaction::AMOUNT_ADVERTISED_LVL2);
-      $transaction->setReason(Transaction::REASON_ADVERTISED_LVL2);
-      $transaction->setRelatedId($advertisedMemberId);
-      $transaction->setDate($when);
-      $transaction->save($con);
-
+      $transfer->createTransactionForReason(
+        $this,
+        Transaction::REASON_ADVERTISED_LVL2,
+        $advertisedMemberId,
+        $when,
+        $con
+      );
     }
 
     $transfer->save($con);
 
-    MemberBonusIds::payBonuses($advertisedMember, $when, $con);
+    MemberBonusIds::payBonuses($advertisedMember, $currency, $when, $con);
   }
 
   /**
@@ -335,7 +329,7 @@ class Member extends BaseMember
    * @param  PropelPDO $con
    * @return [type]
    */
-  public function getCurrentTransferBundle(PropelPDO $con) {
+  public function getCurrentTransferBundle($currency, PropelPDO $con) {
     // $transfer = TransferQuery::create()
     //   ->filterByState([Transfer::STATE_COLLECT, Transfer::STATE_RESERVED])
     //   ->filterByMember($this)
@@ -346,11 +340,15 @@ class Member extends BaseMember
     // to ensure consistency through table row lock
     $sql = "SELECT * FROM ".TransferPeer::TABLE_NAME." WHERE"
             ." member_id = :member_id AND"
+            ." currency = :currency AND"
             ." state in (".Transfer::STATE_COLLECT.", ".Transfer::STATE_RESERVED.")"
             ." ORDER BY state desc"
             ." FOR UPDATE";
     $stmt = $con->prepare($sql);
-    $stmt->execute(array(':member_id' => $this->getId()));
+    $stmt->execute(array(
+      ':member_id' => $this->getId(),
+      ':currency' => $currency
+    ));
 
     $formatter = new PropelObjectFormatter();
     $formatter->setClass('Transfer');
@@ -363,6 +361,7 @@ class Member extends BaseMember
     if ( !$transfer ) {
       $transfer = new Transfer();
       $transfer->setMember($this);
+      $transfer->setCurrency($currency);
 
       if ( !$this->hadPaid() ) {
         $transfer->setState(Transfer::STATE_RESERVED);
@@ -379,13 +378,13 @@ class Member extends BaseMember
    * Transfer::STATE_COLLECT making them ready for processing.
    *
    */
-  public function onReceivedMemberFee($when, PropelPDO $con) {
+  public function onReceivedMemberFee($currency, $when, PropelPDO $con) {
     $referer = $this->getMemberRelatedByParentId($con);
 
     if ( $referer && !$referer->hadPaid() ) {
       // if the parent hasnt paid yet. reserve this event until his fee is
       // comming in or we kick him from the list.
-      $referer->reserveReceivedMemberFeeEvent($this, $when, $con);
+      $referer->reserveReceivedMemberFeeEvent($this, $currency, $when, $con);
       return;
     }
 
@@ -398,7 +397,7 @@ class Member extends BaseMember
     // @see resources/snowball.txt - processes - P2
     if ( $referer ) {
 
-      $referer->payAdvertisingFor($this, $when, $con);
+      $referer->payAdvertisingFor($this, $currency, $when, $con);
 
       $newAdvertisedCount = $referer->convertOutstandingAdvertisedCount(1);
       if ( $newAdvertisedCount == 2 ) {
@@ -414,11 +413,12 @@ class Member extends BaseMember
     $this->save($con);
   }
 
-  public function reserveReceivedMemberFeeEvent($paidMember, $when, PropelPDO $con) {
+  public function reserveReceivedMemberFeeEvent($paidMember, $currency, $when, PropelPDO $con) {
     // $this = the yet unpaid parent of $paidMember
     $reservedPaidEvent = new ReservedPaidEvent();
     $reservedPaidEvent->setMemberRelatedByPaidId($paidMember);
     $reservedPaidEvent->setMemberRelatedByUnpaidId($this);
+    $reservedPaidEvent->setCurrency($currency);
     $reservedPaidEvent->setDate($when);
     $reservedPaidEvent->save($con);
   }
@@ -437,7 +437,7 @@ class Member extends BaseMember
 
       foreach ( $reservedEvents as $event) {
         $paidMember = $event->getMemberRelatedByPaidId($con);
-        $paidMember->onReceivedMemberFee($event->getDate('U'), $con);
+        $paidMember->onReceivedMemberFee($event->getCurrency(), $event->getDate('U'), $con);
         $idsStack[] = $paidMember->getId();
 
         $event->delete($con);
@@ -502,7 +502,7 @@ class MemberBonusIds {
     return self::toString($arr);
   }
 
-  static public function payBonuses(Member $payingMember, $when, PropelPDO $con) {
+  static public function payBonuses(Member $payingMember, $currency, $when, PropelPDO $con) {
     $bonusByIds = self::toArray($payingMember->getBonusIds());
     if ( !is_array($bonusByIds) )
       return;
@@ -526,9 +526,9 @@ class MemberBonusIds {
       $transfer = self::doPay(
         null,
         $member,
-        Member::$TYPE_TO_BONUS_AMOUNT[$type],
         Member::$TYPE_TO_BONUS_REASON[$type],
         $relatedId,
+        $currency,
         $when,
         $con
       );
@@ -547,12 +547,12 @@ class MemberBonusIds {
     $vl = null;
     if ( !isset($spreadBonuses[Member::TYPE_PROMOTER]) ) {
       // if promoter does not exist give org leader his bonus
-      $add_OL = [Transaction::AMOUNT_PM_BONUS, Transaction::REASON_PM_BONUS];
+      $add_OL = Transaction::REASON_PM_BONUS;
     }
 
     if ( !isset($spreadBonuses[Member::TYPE_ORGLEADER]) ) {
       // if org leader does not exist give marketing leader his bonus
-      $add_VL[] = [Transaction::AMOUNT_OL_BONUS, Transaction::REASON_OL_BONUS];
+      $add_VL[] = Transaction::REASON_OL_BONUS;
       if ( $add_OL ) {
         $add_VL[] = $add_OL;
         $add_OL = null;
@@ -569,9 +569,9 @@ class MemberBonusIds {
       self::doPay(
         $ol[1],
         $ol[0],
-        $add_OL[0],
-        $add_OL[1],
+        $add_OL,
         $relatedId,
+        $currency,
         $when,
         $con
       );
@@ -581,9 +581,9 @@ class MemberBonusIds {
       self::doPay(
         $vl[1],
         $vl[0],
-        $params[0],
-        $params[1],
+        $params,
         $relatedId,
+        $currency,
         $when,
         $con
       );
@@ -594,16 +594,17 @@ class MemberBonusIds {
     }
   }
 
-  static private function doPay($transfer, Member $member, $amount, $reason, $relatedId, $when, PropelPDO $con) {
-    if ( $transfer === null )
-      $transfer = $member->getCurrentTransferBundle($con);
+  static private function doPay($transfer, Member $member, $reason, $relatedId, $currency, $when, PropelPDO $con)
+{    if ( $transfer === null )
+      $transfer = $member->getCurrentTransferBundle($currency, $con);
 
-    $member->addOutstandingTotal($amount);
-    $transaction = $transfer->addAmount($amount);
-    $transaction->setReason($reason);
-    $transaction->setRelatedId($relatedId);
-    $transaction->setDate($when);
-    $transaction->save($con);
+    $transfer->createTransactionForReason(
+      $member,
+      $reason,
+      $relatedId,
+      $when,
+      $con
+    );
 
     return $transfer;
   }

@@ -39,12 +39,12 @@ class BonusSpreadingTest extends Tbmt_Tests_DatabaseTestCase {
 
     $new = DbEntityHelper::createSignupMember($VS1);
 
-    $trfIT += Transaction::AMOUNT_IT_BONUS;
-    $trfVL += Transaction::AMOUNT_VL_BONUS;
-    $trfOL += Transaction::AMOUNT_OL_BONUS;
-    $trfPM += Transaction::AMOUNT_PM_BONUS;
-    $trfVS2 += Transaction::AMOUNT_ADVERTISED_INDIRECT;
-    $trfVS1 += Transaction::AMOUNT_ADVERTISED_LVL1;
+    $trfIT += Transaction::getAmountForReason(Transaction::REASON_IT_BONUS);
+    $trfVL += Transaction::getAmountForReason(Transaction::REASON_VL_BONUS);
+    $trfOL += Transaction::getAmountForReason(Transaction::REASON_OL_BONUS);
+    $trfPM += Transaction::getAmountForReason(Transaction::REASON_PM_BONUS);
+    $trfVS2 += Transaction::getAmountForReason(Transaction::REASON_ADVERTISED_INDIRECT);
+    $trfVS1 += Transaction::getAmountForReason(Transaction::REASON_ADVERTISED_LVL1);
 
     $this->assertTransferTotal($trfIT, $IT);
     $this->assertTransferTotal($trfVL, $VL);
@@ -62,7 +62,7 @@ class BonusSpreadingTest extends Tbmt_Tests_DatabaseTestCase {
 
     DbEntityHelper::createSignupMember($newVS1);
 
-    $this->assertTransferTotal($newTrfIT + Transaction::AMOUNT_IT_BONUS, $IT);
+    $this->assertTransferTotal($newTrfIT + Transaction::getAmountForReason(Transaction::REASON_IT_BONUS), $IT);
     $this->assertTransferTotal($trfVL, $VL);
     $this->assertTransferTotal($trfOL, $OL);
     $this->assertTransferTotal($trfPM, $PM);
@@ -87,11 +87,11 @@ class BonusSpreadingTest extends Tbmt_Tests_DatabaseTestCase {
 
     $new = DbEntityHelper::createSignupMember($VS2);
 
-    $trfIT += Transaction::AMOUNT_IT_BONUS;
-    $trfVL += Transaction::AMOUNT_VL_BONUS;
-    $trfOL += Transaction::AMOUNT_OL_BONUS;
-    $trfPM += Transaction::AMOUNT_PM_BONUS;
-    $trfVS2 += Transaction::AMOUNT_ADVERTISED_LVL2;
+    $trfIT += Transaction::getAmountForReason(Transaction::REASON_IT_BONUS);
+    $trfVL += Transaction::getAmountForReason(Transaction::REASON_VL_BONUS);
+    $trfOL += Transaction::getAmountForReason(Transaction::REASON_OL_BONUS);
+    $trfPM += Transaction::getAmountForReason(Transaction::REASON_PM_BONUS);
+    $trfVS2 += Transaction::getAmountForReason(Transaction::REASON_ADVERTISED_LVL2);
 
     $this->assertTransferTotal($trfIT, $IT);
     $this->assertTransferTotal($trfVL, $VL);
@@ -120,12 +120,13 @@ class BonusSpreadingTest extends Tbmt_Tests_DatabaseTestCase {
 
     $new = DbEntityHelper::createSignupMember($VS1);
 
-    $trfIT += Transaction::AMOUNT_IT_BONUS;
-    $trfVL += Transaction::AMOUNT_VL_BONUS + Transaction::AMOUNT_OL_BONUS;
+    $trfIT += Transaction::getAmountForReason(Transaction::REASON_IT_BONUS);
+    $trfVL += Transaction::getAmountForReason(Transaction::REASON_VL_BONUS) +
+      Transaction::getAmountForReason(Transaction::REASON_OL_BONUS);
     // $trfOL += 1;
-    $trfPM += Transaction::AMOUNT_PM_BONUS;
-    $trfVS2 += Transaction::AMOUNT_ADVERTISED_INDIRECT;
-    $trfVS1 += Transaction::AMOUNT_ADVERTISED_LVL1;
+    $trfPM += Transaction::getAmountForReason(Transaction::REASON_PM_BONUS);
+    $trfVS2 += Transaction::getAmountForReason(Transaction::REASON_ADVERTISED_INDIRECT);
+    $trfVS1 += Transaction::getAmountForReason(Transaction::REASON_ADVERTISED_LVL1);
 
     $this->assertTransferTotal($trfIT, $IT);
     $this->assertTransferTotal($trfVL, $VL);
@@ -155,14 +156,14 @@ class BonusSpreadingTest extends Tbmt_Tests_DatabaseTestCase {
 
     $new = DbEntityHelper::createSignupMember($VS1);
 
-    $trfIT += Transaction::AMOUNT_IT_BONUS;
-    $trfVL += Transaction::AMOUNT_VL_BONUS
-      + Transaction::AMOUNT_OL_BONUS
-      + Transaction::AMOUNT_PM_BONUS;
+    $trfIT += Transaction::getAmountForReason(Transaction::REASON_IT_BONUS);
+    $trfVL += Transaction::getAmountForReason(Transaction::REASON_VL_BONUS)
+      + Transaction::getAmountForReason(Transaction::REASON_OL_BONUS)
+      + Transaction::getAmountForReason(Transaction::REASON_PM_BONUS);
     // $trfOL += 1;
-    // $trfPM += Transaction::AMOUNT_PM_BONUS;
-    $trfVS2 += Transaction::AMOUNT_ADVERTISED_INDIRECT;
-    $trfVS1 += Transaction::AMOUNT_ADVERTISED_LVL1;
+    // $trfPM += Transaction::getAmountForReason(Transaction::REASON_PM_BONUS);
+    $trfVS2 += Transaction::getAmountForReason(Transaction::REASON_ADVERTISED_INDIRECT);
+    $trfVS1 += Transaction::getAmountForReason(Transaction::REASON_ADVERTISED_LVL1);
 
     $this->assertTransferTotal($trfIT, $IT);
     $this->assertTransferTotal($trfVL, $VL);
@@ -192,12 +193,13 @@ class BonusSpreadingTest extends Tbmt_Tests_DatabaseTestCase {
 
     $new = DbEntityHelper::createSignupMember($VS1);
 
-    $trfIT += Transaction::AMOUNT_IT_BONUS;
-    $trfVL += Transaction::AMOUNT_VL_BONUS;
-    $trfOL += Transaction::AMOUNT_OL_BONUS + Transaction::AMOUNT_PM_BONUS;
-    // $trfPM += Transaction::AMOUNT_PM_BONUS;
-    $trfVS2 += Transaction::AMOUNT_ADVERTISED_INDIRECT;
-    $trfVS1 += Transaction::AMOUNT_ADVERTISED_LVL1;
+    $trfIT += Transaction::getAmountForReason(Transaction::REASON_IT_BONUS);
+    $trfVL += Transaction::getAmountForReason(Transaction::REASON_VL_BONUS);
+    $trfOL += Transaction::getAmountForReason(Transaction::REASON_OL_BONUS) +
+      Transaction::getAmountForReason(Transaction::REASON_PM_BONUS);
+    // $trfPM += Transaction::getAmountForReason(Transaction::REASON_PM_BONUS);
+    $trfVS2 += Transaction::getAmountForReason(Transaction::REASON_ADVERTISED_INDIRECT);
+    $trfVS1 += Transaction::getAmountForReason(Transaction::REASON_ADVERTISED_LVL1);
 
     $this->assertTransferTotal($trfIT, $IT);
     $this->assertTransferTotal($trfVL, $VL);
@@ -229,15 +231,15 @@ class BonusSpreadingTest extends Tbmt_Tests_DatabaseTestCase {
 
     $new = DbEntityHelper::createSignupMember($VS1);
 
-    $trfIT += Transaction::AMOUNT_IT_BONUS;
-    $trfVL += Transaction::AMOUNT_VL_BONUS
-      + Transaction::AMOUNT_OL_BONUS
-      + Transaction::AMOUNT_PM_BONUS
-      + Transaction::AMOUNT_ADVERTISED_INDIRECT;
+    $trfIT += Transaction::getAmountForReason(Transaction::REASON_IT_BONUS);
+    $trfVL += Transaction::getAmountForReason(Transaction::REASON_VL_BONUS)
+      + Transaction::getAmountForReason(Transaction::REASON_OL_BONUS)
+      + Transaction::getAmountForReason(Transaction::REASON_PM_BONUS)
+      + Transaction::getAmountForReason(Transaction::REASON_ADVERTISED_INDIRECT);
     // $trfOL += 1;
-    // $trfPM += Transaction::AMOUNT_PM_BONUS;
-    // $trfVS2 += Transaction::AMOUNT_ADVERTISED_INDIRECT;
-    $trfVS1 += Transaction::AMOUNT_ADVERTISED_LVL1;
+    // $trfPM += Transaction::getAmountForReason(Transaction::REASON_PM_BONUS);
+    // $trfVS2 += Transaction::getAmountForReason(Transaction::REASON_ADVERTISED_INDIRECT);
+    $trfVS1 += Transaction::getAmountForReason(Transaction::REASON_ADVERTISED_LVL1);
 
     $this->assertTransferTotal($trfIT, $IT);
     $this->assertTransferTotal($trfVL, $VL);
@@ -268,14 +270,14 @@ class BonusSpreadingTest extends Tbmt_Tests_DatabaseTestCase {
 
     $new = DbEntityHelper::createSignupMember($VS1);
 
-    $trfIT += Transaction::AMOUNT_IT_BONUS;
-    $trfVL += Transaction::AMOUNT_VL_BONUS;
-    $trfOL += Transaction::AMOUNT_OL_BONUS
-      + Transaction::AMOUNT_PM_BONUS
-      + Transaction::AMOUNT_ADVERTISED_INDIRECT;
-    // $trfPM += Transaction::AMOUNT_PM_BONUS;
-    // $trfVS2 += Transaction::AMOUNT_ADVERTISED_INDIRECT;
-    $trfVS1 += Transaction::AMOUNT_ADVERTISED_LVL1;
+    $trfIT += Transaction::getAmountForReason(Transaction::REASON_IT_BONUS);
+    $trfVL += Transaction::getAmountForReason(Transaction::REASON_VL_BONUS);
+    $trfOL += Transaction::getAmountForReason(Transaction::REASON_OL_BONUS)
+      + Transaction::getAmountForReason(Transaction::REASON_PM_BONUS)
+      + Transaction::getAmountForReason(Transaction::REASON_ADVERTISED_INDIRECT);
+    // $trfPM += Transaction::getAmountForReason(Transaction::REASON_PM_BONUS);
+    // $trfVS2 += Transaction::getAmountForReason(Transaction::REASON_ADVERTISED_INDIRECT);
+    $trfVS1 += Transaction::getAmountForReason(Transaction::REASON_ADVERTISED_LVL1);
 
     $this->assertTransferTotal($trfIT, $IT);
     $this->assertTransferTotal($trfVL, $VL);
@@ -306,12 +308,12 @@ class BonusSpreadingTest extends Tbmt_Tests_DatabaseTestCase {
 
     $new = DbEntityHelper::createSignupMember($VS1);
 
-    $trfIT += Transaction::AMOUNT_IT_BONUS;
-    // $trfVL += Transaction::AMOUNT_VL_BONUS;
-    // $trfOL += Transaction::AMOUNT_OL_BONUS;
-    $trfPM += Transaction::AMOUNT_PM_BONUS;
-    $trfVS2 += Transaction::AMOUNT_ADVERTISED_INDIRECT;
-    $trfVS1 += Transaction::AMOUNT_ADVERTISED_LVL1;
+    $trfIT += Transaction::getAmountForReason(Transaction::REASON_IT_BONUS);
+    // $trfVL += Transaction::getAmountForReason(Transaction::REASON_VL_BONUS);
+    // $trfOL += Transaction::getAmountForReason(Transaction::REASON_OL_BONUS);
+    $trfPM += Transaction::getAmountForReason(Transaction::REASON_PM_BONUS);
+    $trfVS2 += Transaction::getAmountForReason(Transaction::REASON_ADVERTISED_INDIRECT);
+    $trfVS1 += Transaction::getAmountForReason(Transaction::REASON_ADVERTISED_LVL1);
 
     $this->assertTransferTotal($trfIT, $IT);
     // $this->assertTransferTotal($trfVL, $VL);
@@ -343,13 +345,13 @@ class BonusSpreadingTest extends Tbmt_Tests_DatabaseTestCase {
 
     $new = DbEntityHelper::createSignupMember($VS1);
 
-    $trfIT += Transaction::AMOUNT_IT_BONUS;
-    // $trfVL += Transaction::AMOUNT_VL_BONUS;
-    // $trfOL += Transaction::AMOUNT_OL_BONUS;
-    $trfPM += Transaction::AMOUNT_PM_BONUS +
-      Transaction::AMOUNT_ADVERTISED_INDIRECT;
-    // $trfVS2 += Transaction::AMOUNT_ADVERTISED_INDIRECT;
-    $trfVS1 += Transaction::AMOUNT_ADVERTISED_LVL1;
+    $trfIT += Transaction::getAmountForReason(Transaction::REASON_IT_BONUS);
+    // $trfVL += Transaction::getAmountForReason(Transaction::REASON_VL_BONUS);
+    // $trfOL += Transaction::getAmountForReason(Transaction::REASON_OL_BONUS);
+    $trfPM += Transaction::getAmountForReason(Transaction::REASON_PM_BONUS) +
+      Transaction::getAmountForReason(Transaction::REASON_ADVERTISED_INDIRECT);
+    // $trfVS2 += Transaction::getAmountForReason(Transaction::REASON_ADVERTISED_INDIRECT);
+    $trfVS1 += Transaction::getAmountForReason(Transaction::REASON_ADVERTISED_LVL1);
 
     $this->assertTransferTotal($trfIT, $IT);
     // $this->assertTransferTotal($trfVL, $VL);
@@ -380,13 +382,13 @@ class BonusSpreadingTest extends Tbmt_Tests_DatabaseTestCase {
 
     $new = DbEntityHelper::createSignupMember($PM);
 
-    $trfIT += Transaction::AMOUNT_IT_BONUS;
-    // $trfVL += Transaction::AMOUNT_VL_BONUS;
-    // $trfOL += Transaction::AMOUNT_OL_BONUS;
-    $trfPM += Transaction::AMOUNT_PM_BONUS +
-      Transaction::AMOUNT_ADVERTISED_LVL2;
-    // $trfVS2 += Transaction::AMOUNT_ADVERTISED_INDIRECT;
-    // $trfVS1 += Transaction::AMOUNT_ADVERTISED_LVL1;
+    $trfIT += Transaction::getAmountForReason(Transaction::REASON_IT_BONUS);
+    // $trfVL += Transaction::getAmountForReason(Transaction::REASON_VL_BONUS);
+    // $trfOL += Transaction::getAmountForReason(Transaction::REASON_OL_BONUS);
+    $trfPM += Transaction::getAmountForReason(Transaction::REASON_PM_BONUS) +
+      Transaction::getAmountForReason(Transaction::REASON_ADVERTISED_LVL2);
+    // $trfVS2 += Transaction::getAmountForReason(Transaction::REASON_ADVERTISED_INDIRECT);
+    // $trfVS1 += Transaction::getAmountForReason(Transaction::REASON_ADVERTISED_LVL1);
 
     $this->assertTransferTotal($trfIT, $IT);
     // $this->assertTransferTotal($trfVL, $VL);
@@ -415,15 +417,15 @@ class BonusSpreadingTest extends Tbmt_Tests_DatabaseTestCase {
 
     $new = DbEntityHelper::createSignupMember($VL);
 
-    $trfIT += Transaction::AMOUNT_IT_BONUS;
-    $trfVL += Transaction::AMOUNT_VL_BONUS +
-      Transaction::AMOUNT_OL_BONUS +
-      Transaction::AMOUNT_PM_BONUS +
-      Transaction::AMOUNT_ADVERTISED_LVL2;
-    // $trfOL += Transaction::AMOUNT_OL_BONUS;
-    // $trfPM += Transaction::AMOUNT_PM_BONUS;
-    // $trfVS2 += Transaction::AMOUNT_ADVERTISED_INDIRECT;
-    // $trfVS1 += Transaction::AMOUNT_ADVERTISED_LVL1;
+    $trfIT += Transaction::getAmountForReason(Transaction::REASON_IT_BONUS);
+    $trfVL += Transaction::getAmountForReason(Transaction::REASON_VL_BONUS) +
+      Transaction::getAmountForReason(Transaction::REASON_OL_BONUS) +
+      Transaction::getAmountForReason(Transaction::REASON_PM_BONUS) +
+      Transaction::getAmountForReason(Transaction::REASON_ADVERTISED_LVL2);
+    // $trfOL += Transaction::getAmountForReason(Transaction::REASON_OL_BONUS);
+    // $trfPM += Transaction::getAmountForReason(Transaction::REASON_PM_BONUS);
+    // $trfVS2 += Transaction::getAmountForReason(Transaction::REASON_ADVERTISED_INDIRECT);
+    // $trfVS1 += Transaction::getAmountForReason(Transaction::REASON_ADVERTISED_LVL1);
 
     $this->assertTransferTotal($trfIT, $IT);
     $this->assertTransferTotal($trfVL, $VL);
@@ -453,14 +455,14 @@ class BonusSpreadingTest extends Tbmt_Tests_DatabaseTestCase {
 
     $new = DbEntityHelper::createSignupMember($OL);
 
-    $trfIT += Transaction::AMOUNT_IT_BONUS;
-    // $trfVL += Transaction::AMOUNT_VL_BONUS;
-    $trfOL += Transaction::AMOUNT_OL_BONUS +
-      Transaction::AMOUNT_PM_BONUS +
-      Transaction::AMOUNT_ADVERTISED_LVL2;
-    // $trfPM += Transaction::AMOUNT_PM_BONUS;
-    // $trfVS2 += Transaction::AMOUNT_ADVERTISED_INDIRECT;
-    // $trfVS1 += Transaction::AMOUNT_ADVERTISED_LVL1;
+    $trfIT += Transaction::getAmountForReason(Transaction::REASON_IT_BONUS);
+    // $trfVL += Transaction::getAmountForReason(Transaction::REASON_VL_BONUS);
+    $trfOL += Transaction::getAmountForReason(Transaction::REASON_OL_BONUS) +
+      Transaction::getAmountForReason(Transaction::REASON_PM_BONUS) +
+      Transaction::getAmountForReason(Transaction::REASON_ADVERTISED_LVL2);
+    // $trfPM += Transaction::getAmountForReason(Transaction::REASON_PM_BONUS);
+    // $trfVS2 += Transaction::getAmountForReason(Transaction::REASON_ADVERTISED_INDIRECT);
+    // $trfVS1 += Transaction::getAmountForReason(Transaction::REASON_ADVERTISED_LVL1);
 
     $this->assertTransferTotal($trfIT, $IT);
     // $this->assertTransferTotal($trfVL, $VL);
@@ -472,7 +474,7 @@ class BonusSpreadingTest extends Tbmt_Tests_DatabaseTestCase {
   }
 
   private function assertTransferTotal($total, Member $member) {
-    $transfer = $member->getCurrentTransferBundle(self::$propelCon);
+    $transfer = DbEntityHelper::getCurrentTransferBundle($member);
     $this->assertEquals($total, $transfer->getAmount(), 'Incorrect transfer total');
     $this->assertEquals($total, $member->getOutstandingTotal(), 'Incorrect outstanding total');
   }

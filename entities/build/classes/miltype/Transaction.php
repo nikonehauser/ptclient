@@ -31,33 +31,17 @@ class Transaction extends BaseTransaction {
 
   const REASON_CUSTOM_BONUS = 1001;
 
+  static public $MEMBER_FEE;
+  static public $BASE_CURRENCY;
+  static public $REASON_TO_AMOUNT = [];
 
-  /* FIXED TRANSACTION AMOUNTS
-  ---------------------------------------------*/
-  const AMOUNT_ADVERTISED_LVL1     = 5;
-  const AMOUNT_ADVERTISED_LVL2     = 20;
-  const AMOUNT_ADVERTISED_INDIRECT = 15;
+  static public function getAmountForReason($reason) {
+    return self::$REASON_TO_AMOUNT[$reason];
+  }
 
-  const AMOUNT_VL_BONUS = 1;
-  const AMOUNT_OL_BONUS = 2;
-  const AMOUNT_PM_BONUS = 3;
-  const AMOUNT_IT_BONUS = 4;
-
-  const AMOUNT_CEO1_BONUS = 5;
-  const AMOUNT_CEO2_BONUS = 6;
-  const AMOUNT_LAWYER_BONUS = 7;
-
-  static public $REASON_TO_AMOUNT = [
-    self::REASON_ADVERTISED_LVL1 => self::AMOUNT_ADVERTISED_LVL1,
-    self::REASON_ADVERTISED_LVL2 => self::AMOUNT_ADVERTISED_LVL2,
-    self::REASON_ADVERTISED_INDIRECT => self::AMOUNT_ADVERTISED_INDIRECT,
-    self::REASON_VL_BONUS => self::AMOUNT_VL_BONUS,
-    self::REASON_OL_BONUS => self::AMOUNT_OL_BONUS,
-    self::REASON_PM_BONUS => self::AMOUNT_PM_BONUS,
-    self::REASON_IT_BONUS => self::AMOUNT_IT_BONUS,
-
-    self::REASON_CEO1_BONUS => self::AMOUNT_CEO1_BONUS,
-    self::REASON_CEO2_BONUS => self::AMOUNT_CEO2_BONUS,
-    self::REASON_LAWYER_BONUS => self::AMOUNT_LAWYER_BONUS,
-  ];
+  static public function initAmounts(array $amountsByReasons, $memberFee, $baseCurrency) {
+    self::$REASON_TO_AMOUNT = $amountsByReasons;
+    self::$MEMBER_FEE = $memberFee;
+    self::$BASE_CURRENCY = $baseCurrency;
+  }
 }

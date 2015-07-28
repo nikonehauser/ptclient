@@ -1,9 +1,9 @@
 CURRENT
 ======
 
-- add currency support
+- track remaining money of member fee to know how much to give to the treuhand händler
 
-- track remaining money of member fee to know how much to give to the treu händler
+- translations with specific currencies
 
 LIST
 ====

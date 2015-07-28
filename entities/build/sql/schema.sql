@@ -114,6 +114,7 @@ CREATE TABLE "tbmt_reserved_paid_event"
 (
     "unpaid_id" INTEGER NOT NULL,
     "paid_id" INTEGER NOT NULL,
+    "currency" VARCHAR(3) NOT NULL,
     "date" TIMESTAMP NOT NULL,
     PRIMARY KEY ("unpaid_id","paid_id")
 );
@@ -146,12 +147,15 @@ CREATE TABLE "tbmt_transfer"
     "id" serial NOT NULL,
     "member_id" INTEGER NOT NULL,
     "amount" DOUBLE PRECISION DEFAULT 0 NOT NULL,
+    "currency" VARCHAR(3) NOT NULL,
     "state" INT2 DEFAULT 0 NOT NULL,
     "attempts" INT2 DEFAULT 0 NOT NULL,
     "execution_date" TIMESTAMP,
     "processed_date" TIMESTAMP,
     PRIMARY KEY ("id")
 );
+
+CREATE INDEX "idx_transfer_currency" ON "tbmt_transfer" ("currency");
 
 CREATE INDEX "idx_transfer_state" ON "tbmt_transfer" ("state");
 

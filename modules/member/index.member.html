@@ -9,10 +9,16 @@
       BASIC IDEA
       *************************** -->
     <?php
+    use \Tbmt\Localizer as LL;
+    use \Transaction as Ta;
+    $currencySymbol = LL::get('currency_symbols.'.Ta::$BASE_CURRENCY);
+
+    $this->i18nView['become_member_highlights']['member_fee'] = LL::currencyFormat(Ta::$MEMBER_FEE, $currencySymbol);
 
     $titles = $this->i18nView['basic_idea_title'];
     $texts = $this->i18nView['basic_idea_text'];
     $highlights = $this->i18nView['basic_idea_highlights'];
+    $highlights[0]['member_fee'] = LL::currencyFormat(Ta::$MEMBER_FEE, $currencySymbol);
     $icons = [
       'check',
       'money',
