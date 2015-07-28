@@ -117,7 +117,8 @@ return [
         'account' => [
           'index' => 'Information',
           'invoice' => 'Invoice',
-          'tree' => 'Member Tree',
+          'rtree' => 'Referral Tree',
+          'htree' => 'Hierarchy Tree',
           'logout' => 'Logout',
         ]
       ],
@@ -328,7 +329,8 @@ return [
         'navigation_links' => [
           'index' => 'Information',
           'invoice' => 'Invoice',
-          'tree' => 'Member Tree',
+          'rtree' => 'Referral Tree',
+          'htree' => 'Hierarchy Tree',
           'invitation' => 'Invitations',
           'bonus_payments' => 'Bonus Payments'
         ]

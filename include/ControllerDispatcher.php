@@ -72,4 +72,12 @@ class ControllerActionRedirect extends ControllerActionResult {
   }
 }
 
+class ControllerActionAjax extends ControllerActionResult {
+
+  public function execute() {
+    header('Content-Type: application/json');
+    echo json_encode($this->getData());
+  }
+}
+
 ?>

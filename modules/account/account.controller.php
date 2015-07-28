@@ -10,11 +10,13 @@ class AccountController extends BaseController {
     'index' => true,
     'logout' => true,
     'invoice' => true,
-    'tree' => true,
+    'rtree' => true,
+    'htree' => true,
     'invitation' => true,
     'invitation_create' => true,
     'bonus_payments' => true,
     'bonus_payments_signup' => true,
+    'ajax_tree' => true,
   ];
 
   public function dispatchAction($action, $params) {
@@ -62,7 +64,15 @@ class AccountController extends BaseController {
     );
   }
 
-  public function action_tree() {
+  public function action_rtree() {
+    return ControllerDispatcher::renderModuleView(
+      self::MODULE_NAME,
+      'index',
+      ['member' => Session::getLogin()]
+    );
+  }
+
+  public function action_htree() {
     return ControllerDispatcher::renderModuleView(
       self::MODULE_NAME,
       'index',
@@ -140,6 +150,33 @@ class AccountController extends BaseController {
       'index',
       ['member' => $login, 'tab' => 'bonus_payments', 'formVal' => []]
     );
+  }
+
+  public function action_ajax_tree(array $params = array()) {
+    $ids = Arr::init($_REQUEST, 'ids', TYPE_ARRAY);
+    $rowCount = Arr::init($_REQUEST, 'count', TYPE_INT, 5);
+    $byColumn = Arr::init($_REQUEST, 'column', TYPE_STRING, 'ParentId');
+
+    $filterByColumn = "filterBy$byColumn";
+
+    $rows = [];
+    for ( $i = 0; $i < $rowCount; $i++ ) {
+      $members = \MemberQuery::create()
+        ->$filterByColumn($ids, \Criteria::IN)
+        ->find();
+
+      if ( count($members) === 0 )
+        break;
+
+      $rows[] = $members->toArray();
+      $newIds = [];
+      foreach ($members as $member) {
+        $newIds[] = $member->getId();
+      }
+      $ids = $newIds;
+    }
+
+    return new ControllerActionAjax($rows);
   }
 
 }

@@ -4,6 +4,8 @@
 @c-Organge: #f67f00;
 @c-Gray: #999;
 
+@imagePath: '../images/';
+
 
 @import "common.less";
 
@@ -323,3 +325,76 @@ dd {
     text-align: right;
   }
 }
+
+
+
+/* =============================================================== */
+/* marketing system trees
+================================================================ */
+ol.tree {
+
+}
+  ol.tree li
+  {
+    position: relative;
+    list-style: none;
+  }
+
+  ol.tree li input
+  {
+    position: absolute;
+    left: 0;
+    margin-left: 0;
+    opacity: 0;
+    z-index: 2;
+    cursor: pointer;
+    height: 1em;
+    width: 1em;
+    top: 0;
+  }
+
+    ol.tree li input + ol:before {
+      display: inline-block;
+      font: normal normal normal 14px/1 FontAwesome;
+      font-size: inherit;
+      text-rendering: auto;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      font-size: 18px;
+      content: "\f0fe";
+      position: absolute;
+      top: 10px;
+      left: 10px;
+
+    }
+    ol.tree li input + ol > li {
+      display: none;
+      margin-left: -14px !important;
+      padding-left: 1px;
+    }
+
+  ol.tree li label {
+    cursor: pointer;
+    display: inline-block;
+    padding: 8px 18px;
+    padding-left: 37px;
+
+    background-image: linear-gradient(bottom, #F7F7F7 0%, #FFFFFF 100%);
+    background-image: -o-linear-gradient(bottom, #F7F7F7 0%, #FFFFFF 100%);
+    background-image: -moz-linear-gradient(bottom, #F7F7F7 0%, #FFFFFF 100%);
+    background-image: -webkit-linear-gradient(bottom, #F7F7F7 0%, #FFFFFF 100%);
+    background-image: -ms-linear-gradient(bottom, #F7F7F7 0%, #FFFFFF 100%);
+    background-color: #F9F9F9;
+    border: 1px solid #ddd;
+  }
+
+  ol.tree li input:checked + ol {
+    margin-left: 140px;
+    height: auto;
+  }
+
+  ol.tree li input:checked + ol:before{
+    content: "\f146";
+  }
+
+    ol.tree li input:checked + ol > li { display: block; }

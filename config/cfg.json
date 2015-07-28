@@ -1,6 +1,8 @@
 {
   "baseurl": "http://localhost/pt/index.php",
-  "base_currency": "EUR",
+
+  "baseAssetsPath": "",
+
   "devmode": true,
 
   "base_currency": "USD",

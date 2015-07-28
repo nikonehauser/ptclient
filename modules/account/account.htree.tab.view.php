@@ -2,7 +2,7 @@
 
 namespace Tbmt\view;
 
-class AccountTreeTab extends Base {
+class AccountHtreeTab extends Base {
 
   protected $varsDef = [
   ];
@@ -15,11 +15,10 @@ class AccountTreeTab extends Base {
     if ( !isset($params['member']) && !($params['member'] instanceof \Member) )
       throw new \Exception('Invalid param member for account index view.');
 
-    $this->member = $params['member'];
-
+    $this->member = $params['member']->toArray();
 
     return $this->renderFile(
-      dirname(__FILE__).DIRECTORY_SEPARATOR.'tab.tree.account.html',
+      dirname(__FILE__).DIRECTORY_SEPARATOR.'tab.htree.account.html',
       $params
     );
   }

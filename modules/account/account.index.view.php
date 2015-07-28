@@ -17,7 +17,7 @@ class AccountIndex extends Base {
 
     $linkNames = $this->i18nView['navigation_links'];
     $this->navigationLinks = [];
-    $arr = ['index', 'invoice', 'tree'];
+    $arr = ['index', 'invoice', 'rtree', 'htree'];
 
     $memberType = $this->member->getType();
     if ( $memberType > \Member::TYPE_MEMBER )

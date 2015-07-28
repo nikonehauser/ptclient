@@ -14,13 +14,16 @@ class DbEntityHelper {
     self::$con = $con;
   }
 
-  static public function truncateDatabase(PropelPDO $con) {
+  static public function truncateDatabase(PropelPDO $con = null) {
     self::truncateTables([
       MemberPeer::TABLE_NAME
-    ], $con);
+    ], $con ? $con : self::$con);
   }
 
-  static public function truncateTables(array $tables, PropelPDO $con) {
+  static public function truncateTables(array $tables, PropelPDO $con = null) {
+    if ( !$con )
+      $con = self::$con;
+
     $con->exec('TRUNCATE TABLE '.implode(',', $tables). ' RESTART IDENTITY CASCADE');
   }
 
