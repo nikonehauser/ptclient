@@ -178,6 +178,21 @@
   );
 
 -- -----------------------------------------------------
+-- Table "system_stats"
+-- -----------------------------------------------------
+  DROP TABLE IF EXISTS "tbmt_system_stats" CASCADE;
+
+  CREATE TABLE IF NOT EXISTS  "tbmt_system_stats" (
+    "id" serial NOT NULL ,
+    "member_count" int NOT NULL default 0,
+    "starter_count" int NOT NULL default 0,
+    "pm_count" int NOT NULL default 0,
+    "ol_count" int NOT NULL default 0,
+    "vl_count" int NOT NULL default 0,
+    PRIMARY KEY ("id")
+  );
+
+-- -----------------------------------------------------
 -- Table "unknow_income"
 -- -----------------------------------------------------
   -- DROP TABLE IF EXISTS "tbmt_unknow_income" CASCADE;

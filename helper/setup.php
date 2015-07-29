@@ -47,13 +47,27 @@ $con = Propel::getConnection();
 Setup::setCon($con);
 
 
-/* Setup - markus
+$memberNum = 100;
+
+
+/* Setup - SYSTEM
 ---------------------------------------------*/
 Setup::createMember(null, [
-  'LastName'  => 'ceo1',
-  'FirstName' => 'ceo1',
+  'LastName'  => 'system',
+  'FirstName' => 'handler',
   'Email'     => IT_SPECIALIST_EMAIL,
-  'Num'       => 101,
+  'Num'       => $memberNum++,
+  'Type'      => \Member::TYPE_SYSTEM
+]);
+
+
+/* Setup - CEO1
+---------------------------------------------*/
+Setup::createMember(null, [
+  'LastName'  => 'system',
+  'FirstName' => 'ceo',
+  'Email'     => IT_SPECIALIST_EMAIL,
+  'Num'       => $memberNum++,
   'Type'      => \Member::TYPE_CEO
 ]);
 

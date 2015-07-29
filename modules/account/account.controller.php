@@ -91,7 +91,7 @@ class AccountController extends BaseController {
   public function action_invitation_create() {
     $login = Session::getLogin();
     $type = Arr::init($_REQUEST, 'type', TYPE_INT);
-    if ( $login->getType() <= $type || $type <= \Member::TYPE_MEMBER || $type >= \Member::TYPE_CEO )
+    if ( $login->getType() <= $type || $type < \Member::TYPE_MEMBER || $type >= \Member::TYPE_CEO )
       throw new PermissionDeniedException();
 
     \Invitation::create(

@@ -29,7 +29,11 @@ class Invitation extends BaseInvitation
     $formData = \Invitation::initInvitationForm($data);
 
     $invitationsCount = InvitationQuery::create()->count();
-    $hash = \Tbmt\Cryption::getInvitationHash($login, $formData['type'], $invitationsCount);
+    $hash = \Tbmt\Cryption::getInvitationHash(
+      $login,
+      $formData['type'],
+      $invitationsCount.time()
+    );
 
     $invitation = new Invitation();
     $invitation

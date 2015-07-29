@@ -68,7 +68,7 @@ class FormBuilder {
     $group = '<div class="field">'.
       '<label for="'.$fieldId.'">'.$label.'</label>'.
       '<select name="'.$fieldKey.'">';
-    for ( $i = $offType; $i > \Member::TYPE_MEMBER; $i-- ) {
+    for ( $i = $offType; $i >= \Member::TYPE_MEMBER; $i-- ) {
       $group .= '<option value="'.$i.'">'.$memberTypes[$i].'</option>';
     }
 

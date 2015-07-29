@@ -16,6 +16,11 @@
 class Member extends BaseMember
 {
 
+  /**
+   * The order of these number does matter!
+   * Greater type number means more permissions.
+   */
+  const TYPE_SYSTEM = -1;
   const TYPE_MEMBER = 0;
   const TYPE_PROMOTER = 1;
   const TYPE_ORGLEADER = 2;
@@ -23,9 +28,10 @@ class Member extends BaseMember
   const TYPE_CEO = 4;
   const TYPE_ITSPECIALIST = 5;
 
-  const INVITE_MARKETINGLEADER = 'ml995e868c2d';
-  const INVITE_ORGLEADER = 'ol7423543d31';
-  const INVITE_PROMOTER = 'pmaab8b400de';
+  const INVITE_MARKETINGLEADER = 'ml880d914385a632784ce6b3a220ce5364';
+  const INVITE_ORGLEADER = 'ol23bfe2e3a018ec8a833d7a1e6c562162';
+  const INVITE_PROMOTER = 'pmc16758bfb94b6cfa38e8f9c30a6802ef';
+  const INVITE_MEMBER = 'me562dcf56bd9d2730c02d0e211e029201';
 
   static public $TYPE_TO_BONUS_REASON = [
     self::TYPE_PROMOTER => Transaction::REASON_PM_BONUS,
@@ -38,6 +44,7 @@ class Member extends BaseMember
     self::TYPE_MARKETINGLEADER => self::INVITE_MARKETINGLEADER,
     self::TYPE_ORGLEADER => self::INVITE_ORGLEADER,
     self::TYPE_PROMOTER => self::INVITE_PROMOTER,
+    self::TYPE_MEMBER => self::INVITE_MEMBER,
   ];
 
   const FUNDS_LEVEL1 = 1;

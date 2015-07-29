@@ -18,10 +18,6 @@ LIST
 
 - save unknown incommings to extra table
 
- - add member type STARTER
-
- - starter may or may not pay 70 dollars
-
  - handle bank api fehler
 
  - add link to agbs.
@@ -48,11 +44,7 @@ Fragen
 ======
  - werden promoter etc. sofort mit funds level 2 eingetragen? (die ersten 10 000?) -> ja
 
- - type starter = member mit wahlweise keine gebühr
-
  - unter promoter - wird noch geklärt
-
-
 
  - trennung von den systemen:
    - Projekte werden gelistet auf beiden seiten? oder was wird auf der hya seite gelistet, nix?
@@ -65,9 +57,6 @@ Fragen
 
 TOM
 ===
-
-- mitglieder werben mitglieder übersetzen
-
 - about content schreiben
 - agbs??
 -
