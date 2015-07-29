@@ -33,6 +33,9 @@ class Member extends BaseMember
   const INVITE_PROMOTER = 'pmc16758bfb94b6cfa38e8f9c30a6802ef';
   const INVITE_MEMBER = 'me562dcf56bd9d2730c02d0e211e029201';
 
+  const FUNDS_LEVEL1 = 1;
+  const FUNDS_LEVEL2 = 2;
+
   static public $TYPE_TO_BONUS_REASON = [
     self::TYPE_PROMOTER => Transaction::REASON_PM_BONUS,
     self::TYPE_ORGLEADER => Transaction::REASON_OL_BONUS,
@@ -46,9 +49,6 @@ class Member extends BaseMember
     self::TYPE_PROMOTER => self::INVITE_PROMOTER,
     self::TYPE_MEMBER => self::INVITE_MEMBER,
   ];
-
-  const FUNDS_LEVEL1 = 1;
-  const FUNDS_LEVEL2 = 2;
 
   static public $SIGNUP_FORM_FIELDS = [
     'referral_member_num'  => [\Tbmt\TYPE_INT, ''],
@@ -93,6 +93,17 @@ class Member extends BaseMember
     'accept_valid_country' => \FILTER_VALIDATE_BOOLEAN,
     'password'             => \Tbmt\Validator::FILTER_PASSWORD,
   ];
+
+  static public $ROOT_ACCOUNT_BONUS_REASON = [
+    Transaction::REASON_IT_BONUS => true,
+    Transaction::REASON_CEO1_BONUS => true,
+    Transaction::REASON_CEO2_BONUS => true,
+    Transaction::REASON_LAWYER_BONUS => true,
+  ];
+
+  static public function isRootAccountBonusReason($reason) {
+    return isset(self::$ROOT_ACCOUNT_BONUS_REASON[$reason]);
+  }
 
   static public function initSignupForm(array $data = array()) {
     return \Tbmt\Arr::initMulti($data, self::$SIGNUP_FORM_FIELDS);
@@ -197,6 +208,17 @@ class Member extends BaseMember
     return $member;
   }
 
+  static public function getByNum($num) {
+    $member = MemberQuery::create()
+      ->filterByDeletionDate(null, Criteria::ISNULL)
+      ->findOneByNum($num);
+
+    if ( !$member )
+      throw new Exception('Coud not find member: '.$num);
+
+    return $member;
+  }
+
   public function hadPaid() {
     return $this->getPaidDate() !== null;
   }
@@ -272,31 +294,33 @@ class Member extends BaseMember
    * @param  Member    $advertisedMember
    * @param  PropelPDO $con
    */
-  public function payAdvertisingFor(Member $advertisedMember, $currency, $when, PropelPDO $con) {
+  public function payAdvertisingFor(\Tbmt\MemberFee $memberFee, Member $advertisedMember, $currency, $when, PropelPDO $con) {
     $advertisedMemberId = $advertisedMember->getId();
     $transfer = $this->getCurrentTransferBundle($currency, $con);
     if ( $this->getFundsLevel() === Member::FUNDS_LEVEL1 ) {
 
       // @see resources/snowball.txt - processes - P1
-      $transfer->createTransactionForReason(
+      $transaction = $transfer->createTransactionForReason(
         $this,
         Transaction::REASON_ADVERTISED_LVL1,
         $advertisedMemberId,
         $when,
         $con
       );
+      $memberFee->subtract($transaction->getAmount(), Transaction::REASON_ADVERTISED_LVL1);
 
       $parent = $this->getMemberRelatedByParentId($con);
       if ( $parent ) {
         $parentTransfer = $parent->getCurrentTransferBundle($currency, $con);
 
-        $parentTransfer->createTransactionForReason(
+        $parentTransaction = $parentTransfer->createTransactionForReason(
           $parent,
           Transaction::REASON_ADVERTISED_INDIRECT,
           $advertisedMemberId,
           $when,
           $con
         );
+        $memberFee->subtract($parentTransaction->getAmount(), Transaction::REASON_ADVERTISED_INDIRECT);
 
         // As long as i am level 1 i wont receive more from them than just
         // the 5 euro. All further advertised members etc. will go on to the
@@ -312,18 +336,19 @@ class Member extends BaseMember
 
       $advertisedMember->setMemberRelatedByParentId($this);
 
-      $transfer->createTransactionForReason(
+      $transaction = $transfer->createTransactionForReason(
         $this,
         Transaction::REASON_ADVERTISED_LVL2,
         $advertisedMemberId,
         $when,
         $con
       );
+      $memberFee->subtract($transaction->getAmount(), Transaction::REASON_ADVERTISED_LVL2);
     }
 
     $transfer->save($con);
 
-    MemberBonusIds::payBonuses($advertisedMember, $currency, $when, $con);
+    MemberBonusIds::payBonuses($memberFee, $advertisedMember, $currency, $when, $con);
   }
 
   /**
@@ -401,10 +426,13 @@ class Member extends BaseMember
       ->filterByMember($this)
       ->update(['State' => Transfer::STATE_COLLECT], $con);
 
+    // TODO - replace config value with real received value from bank transaction
+    $memberFee = new \Tbmt\MemberFee(\Tbmt\Config::get('member_fee'), $this, $currency);
+
     // @see resources/snowball.txt - processes - P2
     if ( $referer ) {
 
-      $referer->payAdvertisingFor($this, $currency, $when, $con);
+      $referer->payAdvertisingFor($memberFee, $this, $currency, $when, $con);
 
       $newAdvertisedCount = $referer->convertOutstandingAdvertisedCount(1);
       if ( $newAdvertisedCount == 2 ) {
@@ -414,6 +442,8 @@ class Member extends BaseMember
 
       $referer->save($con);
     }
+
+    $memberFee->addRemainingToAccounts($when, $con);
 
     $this->fireReservedReceivedMemberFeeEvents($con);
 
@@ -484,14 +514,6 @@ class Member extends BaseMember
     $this->setDeletionDate(time());
     $this->save($con);
   }
-
-  public function createInviteKeys() {
-    $keys = [
-      self::TYPE_MARKETINGLEADER => Cryption::getInvitationHash($this, self::TYPE_MARKETINGLEADER),
-      self::TYPE_ORGLEADER => Cryption::getInvitationHash($this, self::TYPE_ORGLEADER),
-      self::TYPE_PROMOTER => Cryption::getInvitationHash($this, self::TYPE_PROMOTER),
-    ];
-  }
 }
 
 class MemberBonusIds {
@@ -509,7 +531,7 @@ class MemberBonusIds {
     return self::toString($arr);
   }
 
-  static public function payBonuses(Member $payingMember, $currency, $when, PropelPDO $con) {
+  static public function payBonuses(\Tbmt\MemberFee $memberFee, Member $payingMember, $currency, $when, PropelPDO $con) {
     $bonusByIds = self::toArray($payingMember->getBonusIds());
     if ( !is_array($bonusByIds) )
       return;
@@ -522,7 +544,8 @@ class MemberBonusIds {
 
     $bonusMembers = MemberQuery::create()
       ->filterByDeletionDate(null, Criteria::ISNULL)
-      ->filterById($bonusIds, Criteria::IN)->find($con);
+      ->filterById($bonusIds, Criteria::IN)
+      ->find($con);
 
     $spreadBonuses = [];
     $membersByType = [];
@@ -531,6 +554,7 @@ class MemberBonusIds {
       $type = $member->getType();
 
       $transfer = self::doPay(
+        $memberFee,
         null,
         $member,
         Member::$TYPE_TO_BONUS_REASON[$type],
@@ -574,6 +598,7 @@ class MemberBonusIds {
     if ( $add_OL ) {
       $ol = $spreadBonuses[Member::TYPE_ORGLEADER];
       self::doPay(
+        $memberFee,
         $ol[1],
         $ol[0],
         $add_OL,
@@ -586,6 +611,7 @@ class MemberBonusIds {
 
     foreach ( $add_VL as $params ) {
       self::doPay(
+        $memberFee,
         $vl[1],
         $vl[0],
         $params,
@@ -601,17 +627,18 @@ class MemberBonusIds {
     }
   }
 
-  static private function doPay($transfer, Member $member, $reason, $relatedId, $currency, $when, PropelPDO $con)
-{    if ( $transfer === null )
+  static private function doPay(\Tbmt\MemberFee $memberFee, $transfer, Member $member, $reason, $relatedId, $currency, $when, PropelPDO $con) {
+    if ( $transfer === null )
       $transfer = $member->getCurrentTransferBundle($currency, $con);
 
-    $transfer->createTransactionForReason(
+    $transaction = $transfer->createTransactionForReason(
       $member,
       $reason,
       $relatedId,
       $when,
       $con
     );
+    $memberFee->subtract($transaction->getAmount(), $reason);
 
     return $transfer;
   }

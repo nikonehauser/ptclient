@@ -33,8 +33,14 @@
     $amounts = \Transaction::$REASON_TO_AMOUNT;
     foreach ( $this->transactions as $transaction ) {
       $reason = $transaction['Reason'];
-      if ( $reason == 1001 ) {
-        $reason = $this->i18nView['transactino_custom_reason'];
+      if ( $reason == \Transaction::REASON_CUSTOM_BONUS ) {
+        $reason = $this->i18nView['transaction_custom_reason'];
+        $amount = '<span class="text-muted text-italic">'.$customText.'</span>';
+      } else if ( $reason == \Transaction::REASON_REMAINING_MEMBER_FEE ) {
+        $reason = $this->i18nView['transaction_remaining_fee_reason'];
+        $amount = '<span class="text-muted text-italic">'.$customText.'</span>';
+      } else if ( $reason == \Transaction::REASON_TRANSFER_TO_ROOT ) {
+        $reason = $this->i18nView['transaction_transfer_to_root'];
         $amount = '<span class="text-muted text-italic">'.$customText.'</span>';
       } else {
         $reason = $reasons[$reason];

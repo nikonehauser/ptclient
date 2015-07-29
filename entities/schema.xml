@@ -95,6 +95,15 @@
       <reference local="unpaid_id" foreign="id"/>
     </foreign-key>
   </table>
+  <table name="system_stats" phpName="SystemStats" idMethod="native">
+    <column name="id" phpName="Id" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="signup_count" phpName="SignupCount" type="INTEGER" required="true" defaultValue="0"/>
+    <column name="member_count" phpName="MemberCount" type="INTEGER" required="true" defaultValue="0"/>
+    <column name="starter_count" phpName="StarterCount" type="INTEGER" required="true" defaultValue="0"/>
+    <column name="pm_count" phpName="PmCount" type="INTEGER" required="true" defaultValue="0"/>
+    <column name="ol_count" phpName="OlCount" type="INTEGER" required="true" defaultValue="0"/>
+    <column name="vl_count" phpName="VlCount" type="INTEGER" required="true" defaultValue="0"/>
+  </table>
   <table name="transaction" phpName="Transaction" idMethod="native">
     <column name="id" phpName="Id" type="BIGINT" primaryKey="true" autoIncrement="true" required="true"/>
     <column name="transfer_id" phpName="TransferId" type="INTEGER" required="true"/>

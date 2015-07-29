@@ -39,6 +39,16 @@ class Transfer extends BaseTransfer {
     return $transaction;
   }
 
+  public function createTransaction(Member $transferOwner, $amount, $reason, $relatedId, $when, PropelPDO $con) {
+    $transferOwner->addOutstandingTotal($amount);
+    $transaction = $this->addAmount($amount);
+    $transaction->setReason($reason);
+    $transaction->setRelatedId($relatedId);
+    $transaction->setDate($when);
+    $transaction->save($con);
+    return $transaction;
+  }
+
   public function createTransactionForReason(Member $transferOwner, $reason, $advertisedMemberId, $when, PropelPDO $con) {
     $amount = Transaction::getAmountForReason($reason);
     $transferOwner->addOutstandingTotal($amount);
@@ -47,5 +57,6 @@ class Transfer extends BaseTransfer {
     $transaction->setRelatedId($advertisedMemberId);
     $transaction->setDate($when);
     $transaction->save($con);
+    return $transaction;
   }
 }

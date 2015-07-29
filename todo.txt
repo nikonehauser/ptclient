@@ -1,6 +1,8 @@
 CURRENT
 ======
 
+- show notice that we received the member fee but waiting for parent income
+
 - track remaining money of member fee to know how much to give to the treuhand händler
 
 - translations with specific currencies
@@ -80,6 +82,12 @@ FAQ
 - error handling / reporting
 - why email
 - i want to know more - where can i get help
+
+
+
+SYSTEM
+======
+- Wenn ein Promoter gelöscht wird wird sein Bonus verteilt als hätte es ihn nie gegeben.
 
 
 

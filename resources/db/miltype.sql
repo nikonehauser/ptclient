@@ -184,6 +184,7 @@
 
   CREATE TABLE IF NOT EXISTS  "tbmt_system_stats" (
     "id" serial NOT NULL ,
+    "signup_count" int NOT NULL default 0,
     "member_count" int NOT NULL default 0,
     "starter_count" int NOT NULL default 0,
     "pm_count" int NOT NULL default 0,

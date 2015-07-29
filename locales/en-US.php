@@ -378,7 +378,9 @@ return [
             'Bonus CEO2',
             'Bonus lawyer',
           ],
-          'transactino_custom_reason' => 'Custom bonus payment'
+          'transaction_custom_reason' => 'Custom bonus payment',
+          'transaction_remaining_fee_reason' => 'Remaining member fee',
+          'transaction_transfer_to_root' => 'Transfer to root system',
         ],
         'tree' => [
         ],

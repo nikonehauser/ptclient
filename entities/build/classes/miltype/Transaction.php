@@ -30,6 +30,8 @@ class Transaction extends BaseTransaction {
   const REASON_LAWYER_BONUS = 9;
 
   const REASON_CUSTOM_BONUS = 1001;
+  const REASON_REMAINING_MEMBER_FEE = 1002;
+  const REASON_TRANSFER_TO_ROOT = 1003;
 
   static public $MEMBER_FEE;
   static public $BASE_CURRENCY;

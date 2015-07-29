@@ -120,6 +120,24 @@ CREATE TABLE "tbmt_reserved_paid_event"
 );
 
 -----------------------------------------------------------------------
+-- tbmt_system_stats
+-----------------------------------------------------------------------
+
+DROP TABLE IF EXISTS "tbmt_system_stats" CASCADE;
+
+CREATE TABLE "tbmt_system_stats"
+(
+    "id" serial NOT NULL,
+    "signup_count" INTEGER DEFAULT 0 NOT NULL,
+    "member_count" INTEGER DEFAULT 0 NOT NULL,
+    "starter_count" INTEGER DEFAULT 0 NOT NULL,
+    "pm_count" INTEGER DEFAULT 0 NOT NULL,
+    "ol_count" INTEGER DEFAULT 0 NOT NULL,
+    "vl_count" INTEGER DEFAULT 0 NOT NULL,
+    PRIMARY KEY ("id")
+);
+
+-----------------------------------------------------------------------
 -- tbmt_transaction
 -----------------------------------------------------------------------
 

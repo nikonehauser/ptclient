@@ -2,16 +2,11 @@
 
 class SnowballTest extends Tbmt_Tests_DatabaseTestCase {
 
-  static public function setUpBeforeClass() {
-    $con = Propel::getConnection();
-    DbEntityHelper::truncateDatabase($con);
-
-  }
-
   public function testSnowballModel() {
     /* Setup
     ---------------------------------------------*/
-    DbEntityHelper::setCon(self::$propelCon);
+    $systemAccount = SystemStats::getSystemAccount();
+    $systemTransfer = new TransactionTotalsAssertions($systemAccount, $this);
     $promoter1 = DbEntityHelper::createMember();
 
     $MYSELF = DbEntityHelper::createSignupMember($promoter1);
@@ -26,7 +21,6 @@ class SnowballTest extends Tbmt_Tests_DatabaseTestCase {
     $MYSELF_total = new TransactionTotalsAssertions($MYSELF, $this);
     $MYSELF_total->add(Transaction::REASON_ADVERTISED_LVL1, 2);
     $MYSELF_total->assertTotals();
-
 
 
     /* Advertise 1 more user - chris
@@ -140,7 +134,6 @@ class SnowballTest extends Tbmt_Tests_DatabaseTestCase {
     ---------------------------------------------*/
     $now = time();
 
-    DbEntityHelper::setCon(self::$propelCon);
     $promoter1 = DbEntityHelper::createMember();
 
     // i am get advertised and remaining in state unpaid
@@ -200,7 +193,6 @@ class SnowballTest extends Tbmt_Tests_DatabaseTestCase {
     ---------------------------------------------*/
     $now = time();
 
-    DbEntityHelper::setCon(self::$propelCon);
     $promoter1 = DbEntityHelper::createMember();
 
     $MYSELF = DbEntityHelper::createSignupMember($promoter1);
@@ -288,7 +280,6 @@ class SnowballTest extends Tbmt_Tests_DatabaseTestCase {
 
     // ---- assert - ME
     $MYSELF_total->assertTotals();
-
   }
 
 }

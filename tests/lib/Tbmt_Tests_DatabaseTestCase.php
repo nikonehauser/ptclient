@@ -11,6 +11,19 @@ abstract class Tbmt_Tests_DatabaseTestCase extends PHPUnit_Extensions_Database_T
      */
     static private $testCon = null;
 
+    static public function setUpBeforeClass() {
+        $con = Propel::getConnection();
+        DbEntityHelper::setCon($con);
+    }
+
+
+    public function setUp() {
+        parent::setUp();
+
+        \Tbmt\SystemSetup::setCon(self::$propelCon);
+        \Tbmt\SystemSetup::doSetup();
+    }
+
     /**
      * @return PHPUnit_Extensions_Database_DB_IDatabaseConnection
      */
