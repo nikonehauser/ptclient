@@ -23,8 +23,8 @@ class Transaction extends BaseTransaction {
   const REASON_VL_BONUS = 3;
   const REASON_OL_BONUS = 4;
   const REASON_PM_BONUS = 5;
-  const REASON_IT_BONUS = 6;
 
+  const REASON_IT_BONUS = 6;
   const REASON_CEO1_BONUS = 7;
   const REASON_CEO2_BONUS = 8;
   const REASON_LAWYER_BONUS = 9;

@@ -58,13 +58,11 @@ if ( !$count ) {
   echo "total objects to create (about): $totalCount\n\n";
 
   $minId = MemberQuery::create()
-    ->filterByType([Member::TYPE_PROMOTER, Member::TYPE_MEMBER], Criteria::IN)
     ->orderBy('Id', Criteria::ASC)
     ->findOne($con)
     ->getId();
 
   $maxId = MemberQuery::create()
-    ->filterByType([Member::TYPE_PROMOTER, Member::TYPE_MEMBER], Criteria::IN)
     ->orderBy('Id', Criteria::DESC)
     ->findOne($con)
     ->getId();
@@ -74,7 +72,6 @@ if ( !$count ) {
   $shuffledIds = array_slice($numbers, 0, PM_PER_RUN_SELECT_NUM);
 
   $pms = MemberQuery::create()
-    ->filterByType([Member::TYPE_PROMOTER, Member::TYPE_MEMBER], Criteria::IN)
     ->filterById($shuffledIds)
     ->orderBy('Id', Criteria::DESC)
     ->limit(PM_PER_RUN_SELECT_NUM)

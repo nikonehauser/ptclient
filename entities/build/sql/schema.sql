@@ -177,24 +177,6 @@ CREATE INDEX "idx_transfer_currency" ON "tbmt_transfer" ("currency");
 
 CREATE INDEX "idx_transfer_state" ON "tbmt_transfer" ("state");
 
------------------------------------------------------------------------
--- tbmt_unknow_income
------------------------------------------------------------------------
-
-DROP TABLE IF EXISTS "tbmt_unknow_income" CASCADE;
-
-CREATE TABLE "tbmt_unknow_income"
-(
-    "id" bigserial NOT NULL,
-    "action" VARCHAR(160) NOT NULL,
-    "type" INT2 NOT NULL,
-    "date" TIMESTAMP NOT NULL,
-    "related_id" VARCHAR(64),
-    "related_member_num" INTEGER,
-    "meta" TEXT,
-    PRIMARY KEY ("id")
-);
-
 ALTER TABLE "tbmt_bonus_transaction" ADD CONSTRAINT "fk_bonus_transaction_member"
     FOREIGN KEY ("member_id")
     REFERENCES "tbmt_member" ("id")

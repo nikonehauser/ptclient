@@ -21,9 +21,10 @@ class AccountInvoiceTab extends Base {
       ->useTransferQuery()
         ->filterByMember($this->member)
       ->endUse()
-      ->select(['Reason'])
+      ->select(['Reason', 'Transfer.Currency'])
       ->withColumn('count(*)', 'Quantity')
       ->withColumn('sum(Transaction.Amount)', 'Total')
+      ->groupBy('Transfer.Currency')
       ->groupBy('Transaction.Reason')
       ->limit(100);
 

@@ -1,5 +1,5 @@
 {
-  "baseurl": "http://localhost/pt/index.php",
+  "baseurl": "http://localhost/ptclient/index.php",
 
   "baseAssetsPath": "",
 
@@ -20,5 +20,9 @@
     "7": 5.3,
     "8": 6.2,
     "9": 7.1
-  }
+  },
+
+  "main_system_url": "http://localhost/ptmain/",
+
+  "secret_salt": "APc7a5vhCiyNfYn6KvkLfs0oMDwLZtatdIlfFE7ObcP4quxevQrVq0vLXeKPalKz"
 }

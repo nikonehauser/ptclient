@@ -39,6 +39,12 @@ class Transfer extends BaseTransfer {
     return $transaction;
   }
 
+  public function executeTransfer(Member $transferOwner) {
+    $amount = $this->getAmount();
+    $transferOwner->transferOutstandingTotal($amount);
+    $this->setState(self::STATE_DONE);
+  }
+
   public function createTransaction(Member $transferOwner, $amount, $reason, $relatedId, $when, PropelPDO $con) {
     $transferOwner->addOutstandingTotal($amount);
     $transaction = $this->addAmount($amount);

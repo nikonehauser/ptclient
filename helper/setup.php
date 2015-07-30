@@ -1,8 +1,10 @@
 <?php
 
+namespace Tbmt;
+
 include dirname(__FILE__).'/bootstrap.php';
 
-$con = Propel::getConnection();
+$con = \Propel::getConnection();
 SystemSetup::setCon($con);
 SystemSetup::doSetup();
 

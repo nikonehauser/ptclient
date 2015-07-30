@@ -40,7 +40,13 @@ class Member extends BaseMember
     self::TYPE_PROMOTER => Transaction::REASON_PM_BONUS,
     self::TYPE_ORGLEADER => Transaction::REASON_OL_BONUS,
     self::TYPE_MARKETINGLEADER => Transaction::REASON_VL_BONUS,
-    self::TYPE_ITSPECIALIST => Transaction::REASON_IT_BONUS,
+  ];
+
+  static public $NUM_TO_BONUS_REASON = [
+    SystemStats::ACCOUNT_NUM_CEO1 => Transaction::REASON_CEO1_BONUS,
+    SystemStats::ACCOUNT_NUM_CEO2 => Transaction::REASON_CEO2_BONUS,
+    SystemStats::ACCOUNT_NUM_IT   => Transaction::REASON_IT_BONUS,
+    SystemStats::ACCOUNT_NUM_LAWYER => Transaction::REASON_LAWYER_BONUS,
   ];
 
   static public $INVITATION_BY_KEY = [
@@ -126,6 +132,7 @@ class Member extends BaseMember
     // Validate member number exists
     $parentMember = \MemberQuery::create()
       ->filterByDeletionDate(null, Criteria::ISNULL)
+      ->filterByType(self::TYPE_SYSTEM, Criteria::NOT_EQUAL)
       ->findOneByNum($data['referral_member_num']);
     if ( $parentMember == null ) {
       return [false, ['referral_member_num' => \Tbmt\Localizer::get('error.referral_member_num')], null, null];
@@ -219,6 +226,14 @@ class Member extends BaseMember
     return $member;
   }
 
+  public function getBonusReason() {
+    $num = $this->getNum();
+    if ( isset(self::$NUM_TO_BONUS_REASON[$num]) )
+      return self::$NUM_TO_BONUS_REASON[$num];
+
+    return self::$TYPE_TO_BONUS_REASON[$this->getType()];
+  }
+
   public function hadPaid() {
     return $this->getPaidDate() !== null;
   }
@@ -273,16 +288,16 @@ class Member extends BaseMember
    * Adds the given amount to this transfer.
    * @param [type] $intAmount
    */
-  public function addOutstandingTotal($intAmount) {
-    $this->setOutstandingTotal($this->getOutstandingTotal() + $intAmount);
+  public function addOutstandingTotal($doubleAmount) {
+    $this->setOutstandingTotal($this->getOutstandingTotal() + $doubleAmount);
   }
 
-  public function convertOutstandingTotal($double) {
-    $this->setOutstandingTotal($this->getOutstandingTotal() - $double);
-    $newTransferedTotal = $this->getTransferedTotal() + $double;
-    $this->setTransferedTotal($newTransferedTotal);
+  public function transferOutstandingTotal($doubleAmount) {
+    $this->setOutstandingTotal($this->getOutstandingTotal() - $doubleAmount);
+    $newTransferredTotal = $this->getTransferredTotal() + $doubleAmount;
+    $this->setTransferredTotal($newTransferredTotal);
 
-    return $newTransferedTotal;
+    return $newTransferredTotal;
   }
 
   /**
@@ -401,6 +416,22 @@ class Member extends BaseMember
     }
 
     return $transfer;
+  }
+
+  public function getOpenCollectingTransfers(PropelPDO $con) {
+    $sql = "SELECT * FROM ".TransferPeer::TABLE_NAME." WHERE"
+            ." member_id = :member_id AND"
+            ." state = :state"
+            ." FOR UPDATE";
+    $stmt = $con->prepare($sql);
+    $stmt->execute(array(
+      ':member_id' => $this->getId(),
+      ':state' => Transfer::STATE_COLLECT
+    ));
+
+    $formatter = new PropelObjectFormatter();
+    $formatter->setClass('Transfer');
+    return $formatter->format($stmt);
   }
 
   /**
@@ -557,7 +588,7 @@ class MemberBonusIds {
         $memberFee,
         null,
         $member,
-        Member::$TYPE_TO_BONUS_REASON[$type],
+        $member->getBonusReason(),
         $relatedId,
         $currency,
         $when,

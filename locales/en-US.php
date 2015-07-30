@@ -366,6 +366,7 @@ return [
           'quantity' => 'Quantity',
           'total' => 'Total',
           'reason' => 'Reason',
+          'currency' => 'Currency',
           'transaction_reasons' => [
             'Advertised Lvl 1',
             'Advertised Lvl 2',

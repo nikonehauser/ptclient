@@ -8,6 +8,7 @@ class Cryption {
   const HASH_LENGTH = 40;
 
   static private $salt = 'oFBt9r10L623QAFGy9qo';
+  static private $apiSalt = 'nWEon32mJOtk7OX3VnE4gXQorxR2YK4iHbJb7roZ';
 
   /**
    * Returns the password hash encrypted using the specified salt.
@@ -62,12 +63,20 @@ class Cryption {
   static public function verifyPassword($password, $passwordHash) {
     $hashData = json_decode($passwordHash, true);
     if ( !isset($hashData[0], $hashData[1]) or !is_array($hashData) )
-      throw new Exception('Invalid password hash found in database.');
+      throw new \Exception('Invalid password hash found in database.');
 
     $salt     = $hashData[0];
     $expected = $hashData[1];
 
     return ( self::encryptPassword($password, $salt) === $expected );
+  }
+
+  static public function getApiToken() {
+    return md5(Config::get('secret_salt').self::$apiSalt);
+  }
+
+  static public function validateApiToken($strToken) {
+    return self::getApiToken() == $strToken;
   }
 }
 
