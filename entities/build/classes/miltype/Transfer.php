@@ -41,12 +41,12 @@ class Transfer extends BaseTransfer {
 
   public function executeTransfer(Member $transferOwner) {
     $amount = $this->getAmount();
-    $transferOwner->transferOutstandingTotal($amount);
+    $transferOwner->transferOutstandingTotal($amount, $this->getCurrency());
     $this->setState(self::STATE_DONE);
   }
 
   public function createTransaction(Member $transferOwner, $amount, $reason, $relatedId, $when, PropelPDO $con) {
-    $transferOwner->addOutstandingTotal($amount);
+    $transferOwner->addOutstandingTotal($amount, $this->getCurrency());
     $transaction = $this->addAmount($amount);
     $transaction->setReason($reason);
     $transaction->setRelatedId($relatedId);
@@ -57,7 +57,7 @@ class Transfer extends BaseTransfer {
 
   public function createTransactionForReason(Member $transferOwner, $reason, $advertisedMemberId, $when, PropelPDO $con) {
     $amount = Transaction::getAmountForReason($reason);
-    $transferOwner->addOutstandingTotal($amount);
+    $transferOwner->addOutstandingTotal($amount, $this->getCurrency());
     $transaction = $this->addAmount($amount);
     $transaction->setReason($reason);
     $transaction->setRelatedId($advertisedMemberId);

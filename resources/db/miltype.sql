@@ -33,10 +33,10 @@
     "advertised_count" int NOT NULL default 0 ,
     "outstanding_advertised_count" int NOT NULL default 0 ,
 
-    "password" varchar(160) NOT NULL ,
+    "password" varchar(80) NOT NULL ,
 
-    "transferred_total" double precision NOT NULL default 0 ,
-    "outstanding_total" double precision NOT NULL default 0 ,
+    "transferred_total" varchar(255) NOT NULL default '[]' ,
+    "outstanding_total" varchar(255) NOT NULL default '[]' ,
 
     "deletion_date" timestamp with time zone NULL ,
 
@@ -94,7 +94,7 @@
     "transfer_id" int NOT NULL ,
     "amount" double precision NOT NULL default 0 ,
     "reason" smallint not null default 0 ,
-    "purpose" VARCHAR(255) not null ,
+    "purpose" VARCHAR(255) not null default '',
     "related_id" int null ,
     "date" timestamp with time zone NOT NULL ,
     PRIMARY KEY ("id") ,

@@ -91,16 +91,15 @@ class Transaction extends BaseTransaction {
   }
 
   static public function createBonusTransaction(Member $login, Member $recipient, array $data, PropelPDO $con) {
-    $currentTransfer = $recipient->getCurrentTransferBundle($con);
+    $currentTransfer = $recipient->getCurrentTransferBundle(self::$BASE_CURRENCY, $con);
     $when = time();
 
     if ( !$con->beginTransaction() )
       throw new Exception('Could not begin transaction');
 
     try {
-
       $amount = $data['amount'];
-      $recipient->addOutstandingTotal($amount);
+      $recipient->addOutstandingTotal($amount, self::$BASE_CURRENCY);
       $transaction = $currentTransfer->addAmount($amount)
         ->setReason(Transaction::REASON_CUSTOM_BONUS)
         ->setPurpose($data['purpose'])

@@ -125,6 +125,13 @@ abstract class RestServer {
       case 'object':
         return is_object($value) ? $value : null;
 
+      case 'json':
+        $res = json_decode($value, true);
+        if ( json_last_error() !== JSON_ERROR_NONE )
+          throw new \Exception('Can not parse JSON: '.json_last_error_msg()." \n".$value);
+
+        return $res;
+
       case false:
         return $value;
 
@@ -266,7 +273,7 @@ abstract class RestServer {
    */
   public function run($command) {
     if ( !$this->auth() )
-      throw new PageNotFoundException();
+      throw new \Exception('Authentication required.');
 
     $this->runJSON($command);
   }

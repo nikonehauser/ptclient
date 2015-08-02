@@ -276,6 +276,6 @@ class TransactionTotalsAssertions {
     $this->transfer->reload(DbEntityHelper::$con);
     $this->member->reload(DbEntityHelper::$con);
     $this->testCase->assertEquals($this->total, $this->transfer->getAmount());
-    $this->testCase->assertEquals($this->total, $this->member->getOutstandingTotal());
+    $this->testCase->assertEquals($this->total, $this->member->getOutstandingTotal()[DbEntityHelper::$currency]);
   }
 }

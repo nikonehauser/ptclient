@@ -21,7 +21,7 @@
 
     use \Tbmt\Localizer as LL;
     use \Transaction as Ta;
-    $currencySymbol = LL::get('currency_symbols.'.Ta::$BASE_CURRENCY);
+    $currencySymbol = LL::get('currency_symbol.'.Ta::$BASE_CURRENCY);
 
     $lvl1 = Ta::getAmountForReason(Ta::REASON_ADVERTISED_LVL1);
     $indirect = Ta::getAmountForReason(Ta::REASON_ADVERTISED_INDIRECT);

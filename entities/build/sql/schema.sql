@@ -81,9 +81,9 @@ CREATE TABLE "tbmt_member"
     "bonus_ids" VARCHAR(80) DEFAULT '' NOT NULL,
     "advertised_count" INTEGER DEFAULT 0 NOT NULL,
     "outstanding_advertised_count" INTEGER DEFAULT 0 NOT NULL,
-    "password" VARCHAR(160) NOT NULL,
-    "transferred_total" DOUBLE PRECISION DEFAULT 0 NOT NULL,
-    "outstanding_total" DOUBLE PRECISION DEFAULT 0 NOT NULL,
+    "password" VARCHAR(80) NOT NULL,
+    "transferred_total" VARCHAR(255) DEFAULT '[]' NOT NULL,
+    "outstanding_total" VARCHAR(255) DEFAULT '[]' NOT NULL,
     "deletion_date" TIMESTAMP,
     PRIMARY KEY ("id"),
     CONSTRAINT "member_num_UNIQUE" UNIQUE ("num")
@@ -134,7 +134,7 @@ CREATE TABLE "tbmt_transaction"
     "transfer_id" INTEGER NOT NULL,
     "amount" DOUBLE PRECISION DEFAULT 0 NOT NULL,
     "reason" INT2 DEFAULT 0 NOT NULL,
-    "purpose" VARCHAR(255) NOT NULL,
+    "purpose" VARCHAR(255) DEFAULT '' NOT NULL,
     "related_id" INTEGER,
     "date" TIMESTAMP NOT NULL,
     PRIMARY KEY ("id")

@@ -9,10 +9,10 @@
       <dd><?=$this->member->getAdvertisedCount()?></dd>
 
       <dt><?=$this->i18nView['outstanding_total']?></dt>
-      <dd><?=$this->member->getOutstandingTotal()?></dd>
+      <dd><?=\Tbmt\view\Factory::currencyArrToString($this->member->getOutstandingTotal())?></dd>
 
       <dt><?=$this->i18nView['transferred_total']?></dt>
-      <dd><?=$this->member->getTransferredTotal()?></dd>
+      <dd><?=\Tbmt\view\Factory::currencyArrToString($this->member->getTransferredTotal())?></dd>
 
   </dl>
 
@@ -22,7 +22,6 @@
   <table class="standard-table">
     <tbody>
         <tr>
-          <th><?=$this->i18nView['single_amount']?></th>
           <th><?=$this->i18nView['quantity']?></th>
           <th><?=$this->i18nView['total']?></th>
           <th><?=$this->i18nView['currency']?></th>
@@ -31,29 +30,12 @@
     <?php
     $reasons = $this->i18nView['transaction_reasons'];
     $customText = $this->i18nView['custom'];
-    $amounts = \Transaction::$REASON_TO_AMOUNT;
     foreach ( $this->transactions as $transaction ) {
-      $reason = $transaction['Reason'];
-      if ( $reason == \Transaction::REASON_CUSTOM_BONUS ) {
-        $reason = $this->i18nView['transaction_custom_reason'];
-        $amount = '<span class="text-muted text-italic">'.$customText.'</span>';
-      } else if ( $reason == \Transaction::REASON_REMAINING_MEMBER_FEE ) {
-        $reason = $this->i18nView['transaction_remaining_fee_reason'];
-        $amount = '<span class="text-muted text-italic">'.$customText.'</span>';
-      } else if ( $reason == \Transaction::REASON_TRANSFER_TO_ROOT ) {
-        $reason = $this->i18nView['transaction_transfer_to_root'];
-        $amount = '<span class="text-muted text-italic">'.$customText.'</span>';
-      } else {
-        $amount = $amounts[$reason];
-        $reason = $reasons[$reason];
-      }
-
       echo '<tr>';
-        echo '<td>'.$amount.'</td>';
         echo '<td>'.$transaction['Quantity'].'</td>';
         echo '<td>'.$transaction['Total'].'</td>';
         echo '<td>'.$transaction['Transfer.Currency'].'</td>';
-        echo '<td>'.$reason.'</td>';
+        echo '<td>'.$reasons[$transaction['Reason']].'</td>';
         // echo '<td>'.date($this->transDateForm, $transaction->getDate()).'</td>';
       echo '</tr>';
 

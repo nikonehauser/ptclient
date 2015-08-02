@@ -5,7 +5,7 @@
 
   "devmode": true,
 
-  "base_currency": "USD",
+  "base_currency": "INR",
   "member_fee": 75.3,
 
   "amounts": {
@@ -22,7 +22,7 @@
     "9": 7.1
   },
 
-  "main_system_url": "http://localhost/ptmain/",
+  "main_system_url": "http://localhost/ptclient/",
 
   "client_name": "india",
 

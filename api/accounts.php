@@ -12,7 +12,7 @@ class AccountsApi extends RestServer {
 
 
   public function do_pushRootAccounts($arrAccounts) {
-    if ( is_array($arrAccounts) ) {
+    if ( !is_array($arrAccounts) ) {
       throw new \Exception('Invalid data param.');
     }
     $con = \Propel::getConnection();
@@ -25,7 +25,7 @@ class AccountsApi extends RestServer {
     try {
 
       foreach ($arrAccounts as $account) {
-        $objAccount = Member::getByNum($account['Num']);
+        $objAccount = \Member::getByNum($account['Num']);
 
         $transfers = isset($account['Transfers']) ? $account['Transfers'] : [];
         foreach ( $transfers as $transfer ) {

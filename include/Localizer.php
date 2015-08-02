@@ -144,9 +144,9 @@ class Localizer {
 
   static public function currencyFormat($num, $currency = null, $decimals = false) {
     if ( !$currency )
-      $currency = self::$arrData['currency_symbols'][$currency];
+      $currency = self::$arrData['currency_symbol'][$currency];
 
-    return $currency.self::numFormat($num, $decimals !== false ? $decimals : self::$decimalsCount, self::$decPoint, self::$thousandsSep);
+    return $currency.' '.self::numFormat($num, $decimals !== false ? $decimals : self::$decimalsCount, self::$decPoint, self::$thousandsSep);
   }
 }
 

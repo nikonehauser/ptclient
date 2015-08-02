@@ -36,11 +36,8 @@ class MemberController extends BaseController {
     $member = \Member::createFromSignup($data, $referralMember, $invitation, $con);
     $member->reload(false, $con);
 
-    return ControllerDispatcher::renderModuleView(
-      self::MODULE_NAME,
-      'signupSuccess',
-      ['newMemberNum' => '12415215215'] // $member->getNum()]
-    );
+    Session::setLogin($member);
+    return new ControllerActionRedirect(Router::toModule('account'));
   }
 
   public function action_index() {

@@ -11,7 +11,7 @@
     <?php
     use \Tbmt\Localizer as LL;
     use \Transaction as Ta;
-    $currencySymbol = LL::get('currency_symbols.'.Ta::$BASE_CURRENCY);
+    $currencySymbol = LL::get('currency_symbol.'.Ta::$BASE_CURRENCY);
 
     $this->i18nView['become_member_highlights']['member_fee'] = LL::currencyFormat(Ta::$MEMBER_FEE, $currencySymbol);
 

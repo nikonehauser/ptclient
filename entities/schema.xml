@@ -57,9 +57,9 @@
     <column name="bonus_ids" phpName="BonusIds" type="VARCHAR" size="80" required="true" defaultValue=""/>
     <column name="advertised_count" phpName="AdvertisedCount" type="INTEGER" required="true" defaultValue="0"/>
     <column name="outstanding_advertised_count" phpName="OutstandingAdvertisedCount" type="INTEGER" required="true" defaultValue="0"/>
-    <column name="password" phpName="Password" type="VARCHAR" size="160" required="true"/>
-    <column name="transferred_total" phpName="TransferredTotal" type="DOUBLE" required="true" defaultValue="0"/>
-    <column name="outstanding_total" phpName="OutstandingTotal" type="DOUBLE" required="true" defaultValue="0"/>
+    <column name="password" phpName="Password" type="VARCHAR" size="80" required="true"/>
+    <column name="transferred_total" phpName="TransferredTotal" type="VARCHAR" size="255" required="true" defaultValue="[]"/>
+    <column name="outstanding_total" phpName="OutstandingTotal" type="VARCHAR" size="255" required="true" defaultValue="[]"/>
     <column name="deletion_date" phpName="DeletionDate" type="TIMESTAMP" required="false"/>
     <foreign-key foreignTable="member" name="fk_member_parent" onDelete="SET NULL" onUpdate="CASCADE">
       <reference local="parent_id" foreign="id"/>
@@ -97,7 +97,7 @@
     <column name="transfer_id" phpName="TransferId" type="INTEGER" required="true"/>
     <column name="amount" phpName="Amount" type="DOUBLE" required="true" defaultValue="0"/>
     <column name="reason" phpName="Reason" type="SMALLINT" required="true" defaultValue="0"/>
-    <column name="purpose" phpName="Purpose" type="VARCHAR" size="255" required="true"/>
+    <column name="purpose" phpName="Purpose" type="VARCHAR" size="255" required="true" defaultValue=""/>
     <column name="related_id" phpName="RelatedId" type="INTEGER" required="false"/>
     <column name="date" phpName="Date" type="TIMESTAMP" required="true"/>
     <foreign-key foreignTable="transfer" name="fk_transaction_transfer" onDelete="CASCADE" onUpdate="CASCADE">

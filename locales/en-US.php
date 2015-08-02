@@ -61,9 +61,10 @@ return [
     'decimals_count' => 2,
   ],
 
-  'currency_symbols' => [
+  'currency_symbol' => [
     'EUR' => '€',
     'USD' => '$',
+    'INR' => '₹',
   ],
 
   'currency_name' => [
@@ -370,23 +371,25 @@ return [
           'custom' => '--custom--',
           'single_amount' => 'Single Amount',
           'quantity' => 'Quantity',
+          'currency' => 'Currency',
           'total' => 'Total',
           'reason' => 'Reason',
           'transaction_reasons' => [
-            'Advertised Lvl 1',
-            'Advertised Lvl 2',
-            'Bonus Lvl 2 Indirect',
-            'Bonus marketing leader',
-            'Bonus organization leader',
-            'Bonus promoter',
-            'Bonus IT',
-            'Bonus CEO1',
-            'Bonus CEO2',
-            'Bonus lawyer',
-          ],
-          'transaction_custom_reason' => 'Custom bonus payment',
-          'transaction_remaining_fee_reason' => 'Remaining member fee',
-          'transaction_transfer_to_root' => 'Transfer to root system',
+            0 => 'Advertised Lvl 1',
+            1 => 'Advertised Lvl 2',
+            2 => 'Bonus Lvl 2 Indirect',
+            3 => 'Bonus marketing leader',
+            4 => 'Bonus organization leader',
+            5 => 'Bonus promoter',
+            6 => 'Bonus IT',
+            7 => 'Bonus CEO1',
+            8 => 'Bonus CEO2',
+            9 => 'Bonus lawyer',
+
+            1001 => 'Custom bonus payment',
+            1002 => 'Remaining member fee',
+            1003 => 'Transfer to root system',
+          ]
         ],
         'tree' => [
         ],

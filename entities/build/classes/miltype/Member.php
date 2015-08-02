@@ -249,6 +249,23 @@ class Member extends BaseMember
     return $this;
   }
 
+  public function getOutstandingTotal() {
+    return json_decode(parent::getOutstandingTotal(), true);
+  }
+
+  public function setOutstandingTotal($v) {
+    parent::setOutstandingTotal(json_encode($v));
+  }
+
+  public function getTransferredTotal() {
+    return json_decode(parent::getTransferredTotal(), true);
+  }
+
+  public function setTransferredTotal($v) {
+    parent::setTransferredTotal(json_encode($v));
+    return $this;
+  }
+
   /**
    *
    * @param Member    $referer
@@ -288,14 +305,29 @@ class Member extends BaseMember
    * Adds the given amount to this transfer.
    * @param [type] $intAmount
    */
-  public function addOutstandingTotal($doubleAmount) {
-    $this->setOutstandingTotal($this->getOutstandingTotal() + $doubleAmount);
+  public function addOutstandingTotal($doubleAmount, $currency) {
+    $v = $this->getOutstandingTotal();
+    if ( !isset($v[$currency]) )
+      $v[$currency] = 0;
+
+    $v[$currency] += $doubleAmount;
+    $this->setOutstandingTotal($v);
   }
 
-  public function transferOutstandingTotal($doubleAmount) {
-    $this->setOutstandingTotal($this->getOutstandingTotal() - $doubleAmount);
-    $newTransferredTotal = $this->getTransferredTotal() + $doubleAmount;
-    $this->setTransferredTotal($newTransferredTotal);
+  public function transferOutstandingTotal($doubleAmount, $currency) {
+    $v = $this->getOutstandingTotal();
+    if ( !isset($v[$currency]) || $v[$currency] < $doubleAmount )
+      throw new \Exception('Can not transfer non existing amount.');
+
+    $v[$currency] -= $doubleAmount;
+    $this->setOutstandingTotal($v);
+
+    $v = $this->getTransferredTotal();
+    if ( !isset($v[$currency]) )
+      $v[$currency] = 0;
+
+    $newTransferredTotal = $v[$currency] += $doubleAmount;
+    $this->setTransferredTotal($v);
 
     return $newTransferredTotal;
   }

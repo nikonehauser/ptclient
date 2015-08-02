@@ -102,6 +102,18 @@ END;
     }
   }
 
+  static function currencyArrToString($arrCurrencies) {
+    if ( empty($arrCurrencies) )
+      return ' - ' ;
+
+    $arr = [];
+    foreach ($arrCurrencies as $currency => $amount) {
+      $arr[] = \Tbmt\Localizer::currencyFormat($amount, $currency);
+    }
+
+    return implode(', ', $arr);
+  }
+
 }
 
 ?>

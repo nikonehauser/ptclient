@@ -45,6 +45,10 @@ final class Session {
     return $member;
   }
 
+  static public function setLogin(\Member $member) {
+    self::set(self::KEY_USER_ID, $member->getId());
+  }
+
   static public function getLogin() {
     if ( !self::$user && isset($_SESSION[self::KEY_USER_ID]) ) {
       self::$user = \MemberQuery::create()->findOneById($_SESSION[self::KEY_USER_ID]);
