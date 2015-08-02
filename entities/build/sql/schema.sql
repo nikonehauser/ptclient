@@ -18,6 +18,21 @@ CREATE TABLE "tbmt_activity"
 );
 
 -----------------------------------------------------------------------
+-- tbmt_bonus_transaction
+-----------------------------------------------------------------------
+
+DROP TABLE IF EXISTS "tbmt_bonus_transaction" CASCADE;
+
+CREATE TABLE "tbmt_bonus_transaction"
+(
+    "id" bigserial NOT NULL,
+    "member_id" INTEGER NOT NULL,
+    "transaction_id" INTEGER NOT NULL,
+    "purpose" VARCHAR(255) NOT NULL,
+    PRIMARY KEY ("id")
+);
+
+-----------------------------------------------------------------------
 -- tbmt_currency
 -----------------------------------------------------------------------
 
@@ -164,6 +179,24 @@ CREATE TABLE "tbmt_transfer"
 CREATE INDEX "idx_transfer_currency" ON "tbmt_transfer" ("currency");
 
 CREATE INDEX "idx_transfer_state" ON "tbmt_transfer" ("state");
+
+-----------------------------------------------------------------------
+-- tbmt_unknow_income
+-----------------------------------------------------------------------
+
+DROP TABLE IF EXISTS "tbmt_unknow_income" CASCADE;
+
+CREATE TABLE "tbmt_unknow_income"
+(
+    "id" bigserial NOT NULL,
+    "action" VARCHAR(160) NOT NULL,
+    "type" INT2 NOT NULL,
+    "date" TIMESTAMP NOT NULL,
+    "related_id" VARCHAR(64),
+    "related_member_num" INTEGER,
+    "meta" TEXT,
+    PRIMARY KEY ("id")
+);
 
 ALTER TABLE "tbmt_invitation" ADD CONSTRAINT "fk_invitation_accepted_member"
     FOREIGN KEY ("accepted_member_id")

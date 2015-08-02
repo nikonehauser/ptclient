@@ -30,6 +30,15 @@ class AccountsApi extends RestServer {
         $transfers = isset($account['Transfers']) ? $account['Transfers'] : [];
         foreach ( $transfers as $transfer ) {
           $objTransfer = $objAccount->getCurrentTransferBundle($transfer['Currency'], $con);
+
+          $objTransfer->createTransaction(
+            $objAccount,
+            $transfer['Amount'],
+            \Transaction::REASON_TRANSFER_TO_ROOT,
+            null,
+            $now,
+            $con
+          );
         }
       }
 
