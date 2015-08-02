@@ -60,6 +60,9 @@ class Cron {
           $arrTransfers[] = $transfer->toArray();
         }
 
+        if ( count($arrTransfers) === 0 )
+          continue;
+
         $account->save($con);
 
         $arrRootAccounts[] = $account->toArray() + [

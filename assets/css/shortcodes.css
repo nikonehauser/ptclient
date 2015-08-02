@@ -350,7 +350,7 @@ blockquote {
 	background-image: -ms-linear-gradient(bottom, #F7F7F7 0%, #FFFFFF 100%);
 	background-color: #F9F9F9;
 	border: 1px solid #ddd;
-	border-bottom: 1px solid #ddd;
+	border-bottom: 2px solid #ddd;
 	color: #888;
 	display: block;
 	letter-spacing: 0;
@@ -364,7 +364,7 @@ blockquote {
 .tabs-nav li.active a {	color: #444; font-weight: bold;}
 .tabs-nav li.active a i {opacity: 0.8}
 .tabs-nav li i {opacity: .5}
-				
+
 .tabs-nav li.active a, .tabs-nav li a:hover  {
 	background: #fff;
 	border-bottom: 2px solid #fff;
@@ -448,7 +448,7 @@ table.standard-table th{
 	font-size: 14px;
 	font-weight: bold;
 }
-	
+
 table.standard-table th:first-child{
 	border-radius: 3px 0 0 0;
 }
@@ -468,7 +468,7 @@ table.standard-table td{
 	border-top: none;
 	border-right: none;
 }
-	
+
 table.standard-table tr:hover td{background-color:#fafafa;}
 
 
