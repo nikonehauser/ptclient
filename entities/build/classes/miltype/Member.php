@@ -100,6 +100,24 @@ class Member extends BaseMember
     'password'             => \Tbmt\Validator::FILTER_PASSWORD,
   ];
 
+  static public $BONUS_LEVEL_FORM_FIELDS = [
+    'recipient_id'  => [\Tbmt\TYPE_INT, ''],
+    'recipient_num' => [\Tbmt\TYPE_INT, ''],
+    'level'         => \Tbmt\TYPE_INT,
+  ];
+
+  static public $BONUS_LEVEL_FORM_FILTERS = [
+    'recipient_num'  => \Tbmt\Validator::FILTER_NOT_EMPTY,
+    'level' => [
+      'filter' => \FILTER_VALIDATE_INT,
+      'options' => [
+        'min_range' => 1,
+        'max_range' => 10
+      ],
+      'errorLabel' => 'error.greater_zero'
+    ]
+  ];
+
   static public $ROOT_ACCOUNT_BONUS_REASON = [
     Transaction::REASON_IT_BONUS => true,
     Transaction::REASON_CEO1_BONUS => true,
@@ -213,6 +231,33 @@ class Member extends BaseMember
     }
 
     return $member;
+  }
+
+
+  static public function initBonusLevelForm(array $data = array()) {
+    return \Tbmt\Arr::initMulti($data, self::$BONUS_LEVEL_FORM_FIELDS);
+  }
+
+
+  static public function validateBonusLevelForm(array $data = array())  {
+    $data = self::initBonusLevelForm($data);
+
+    $res = \Tbmt\Validator::getErrors($data, self::$BONUS_LEVEL_FORM_FILTERS);
+    if ( $res !== false )
+      return [false, $res, null];
+
+    $recipient = \MemberQuery::create()
+      ->filterByDeletionDate(null, Criteria::ISNULL)
+      ->findOneByNum($data['recipient_num']);
+    if ( $recipient == null ) {
+      return [false, ['recipient_num' => \Tbmt\Localizer::get('error.member_num')], null];
+    }
+
+    if ( !$recipient->hadPaid() )
+      return [false, ['recipient_num' => \Tbmt\Localizer::get('error.member_num_unpaid')], null];
+
+    return [true, $data, $recipient];
+
   }
 
   static public function getByNum($num) {

@@ -23,8 +23,11 @@ class AccountIndex extends Base {
     if ( $memberType > \Member::TYPE_MEMBER )
       $arr[] = 'invitation';
 
-    if ( $memberType >= \Member::TYPE_CEO )
+    if ( $memberType >= \Member::TYPE_CEO ) {
       $arr[] = 'bonus_payments';
+      $arr[] = 'bonus_levels';
+
+    }
 
     foreach ($arr as $linkName) {
       $locale = $linkNames[$linkName];

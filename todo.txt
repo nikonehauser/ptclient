@@ -1,16 +1,14 @@
 CURRENT
 ======
 
-- show notice that we received the member fee but waiting for parent income
+ - apply bonus level
 
-- track remaining money of member fee to know how much to give to the treuhand händler
-
-- translations with specific currencies
+ - wie ist läuft der bonus multiplikator wenn director 2 euro bekommt weil
+ kein orgleader existiert? kriegt er bei bonus level 2 dann 3 oder 4 euro?
+ - was sind die bonuse?
 
 LIST
 ====
-
-- separate HYA from Marketing System
 
 - website content auffüllen
 
@@ -37,6 +35,8 @@ LIST
 - write extensive tests 10 000 000 users.
 
 - use and run postgresql analyze
+
+- show notice that we received the member fee but waiting for parent income
 
 Profiling
 =========

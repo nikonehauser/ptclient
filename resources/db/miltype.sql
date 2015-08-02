@@ -29,6 +29,7 @@
     "type" smallint NOT NULL default 0 ,
 
     "bonus_ids" varchar(80) not null default '',
+    "bonus_level" smallint not null default 1 ,
 
     "advertised_count" int NOT NULL default 0 ,
     "outstanding_advertised_count" int NOT NULL default 0 ,

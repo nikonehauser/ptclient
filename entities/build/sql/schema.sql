@@ -79,6 +79,7 @@ CREATE TABLE "tbmt_member"
     "bic" VARCHAR(80) NOT NULL,
     "type" INT2 DEFAULT 0 NOT NULL,
     "bonus_ids" VARCHAR(80) DEFAULT '' NOT NULL,
+    "bonus_level" INT2 DEFAULT 1 NOT NULL,
     "advertised_count" INTEGER DEFAULT 0 NOT NULL,
     "outstanding_advertised_count" INTEGER DEFAULT 0 NOT NULL,
     "password" VARCHAR(80) NOT NULL,

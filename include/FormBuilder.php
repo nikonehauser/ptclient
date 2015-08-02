@@ -75,6 +75,24 @@ class FormBuilder {
     $group .= '</select></div>';
     return $group;
   }
+
+  public function buildBonusLevelSelectGroup($fieldKey) {
+    $label = Arr::init($this->labels, $fieldKey);
+    $value = Arr::init($this->values, $fieldKey);
+    $error = Arr::init($this->errors, $fieldKey);
+
+    $fieldId = $this->formName.$fieldKey;
+
+    $group = '<div class="field">'.
+      '<label for="'.$fieldId.'">'.$label.'</label>'.
+      '<select name="'.$fieldKey.'">';
+    for ( $i = 1; $i <= 10; $i++ ) {
+      $group .= '<option value="'.$i.'">Level '.$i.'</option>';
+    }
+
+    $group .= '</select></div>';
+    return $group;
+  }
 }
 
 ?>

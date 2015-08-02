@@ -1,0 +1,64 @@
+  <?php
+
+    $formBuilder = new \Tbmt\FormBuilder('bonusPaymentForm', $this->i18nView, $this->formVal, $this->formErrors);
+
+  ?>
+
+  <!--
+    FORM
+    *************************** -->
+  <div class="container u-max-full-width">
+
+        <?php if ( $this->successmsg ) {
+          echo \Tbmt\view\Factory::buildNotification($this->i18nView['signup_success'], $this->i18nView['success'], 'success');
+        } ?>
+
+      <h4 class="headline"><?=$this->i18nView['form_title']?></h4>
+      <form action="<?=\Tbmt\Router::toModule('account', 'bonus_levels_signup')?>" method="post" >
+          <input type="hidden" name="recipient_id" value="<?=(isset($this->formVal['recipient_id']) ? $this->formVal['recipient_id'] : '')?>" />
+          <div class="eight columns nested">
+              <?=$formBuilder->buildFieldGroup('recipient_num')?>
+          </div>
+
+          <div class="eight columns nested">
+              <?=$formBuilder->buildBonusLevelSelectGroup('level')?>
+          </div>
+
+          <?php if ( $this->recipient ) { ?>
+              <div class="sixteen columns nested">
+                  <h4 class="headline"><?=$this->i18nView['recipient_details']?></h4>
+
+                  <dl class="dl-horizontal dl-prettyStyled">
+
+                      <dt><?=$this->i18nView['member_type']?></dt>
+                      <dd><?=$this->i18nCommon['member_types'][$this->recipient->getType()]?></dd>
+
+                      <dt><?=$this->i18nView['member_num']?></dt>
+                      <dd><?=$this->recipient->getNum()?></dd>
+
+                      <dt><?=$this->i18nView['bonus_level']?></dt>
+                      <dd>Level <?=$this->recipient->getBonusLevel()?></dd>
+
+                      <dt><?=$this->i18nView['address']?></dt>
+                      <dd>
+                          <address>
+                              <?=\Tbmt\Base::encodeHtml($this->recipient->getCity())?><br>
+                              <?=\Tbmt\Base::encodeHtml($this->recipient->getCountry())?>
+                          </address>
+                      </dd>
+
+                      <dt><?=$this->i18nView['email']?></dt>
+                      <dd>
+                          <?=$this->recipient->getEmail() ?
+                          \Tbmt\Base::encodeHtml($this->recipient->getEmail()) :
+                          '<em class="text-muted">'.$this->i18nView['email_none'].'</em>'?>
+                      </dd>
+                  </dl>
+              </div>
+          <?php } ?>
+
+          <div class="sixteen columns nested">
+              <input class="button yellow medium" type="submit" value="<?=$this->i18nView[(empty($this->formVal['recipient_id']) ? 'validate_form' : 'submit')]?>">
+          </div>
+      </form>
+  </div>

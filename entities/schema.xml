@@ -55,6 +55,7 @@
     <column name="bic" phpName="Bic" type="VARCHAR" size="80" required="true"/>
     <column name="type" phpName="Type" type="SMALLINT" required="true" defaultValue="0"/>
     <column name="bonus_ids" phpName="BonusIds" type="VARCHAR" size="80" required="true" defaultValue=""/>
+    <column name="bonus_level" phpName="BonusLevel" type="SMALLINT" required="true" defaultValue="1"/>
     <column name="advertised_count" phpName="AdvertisedCount" type="INTEGER" required="true" defaultValue="0"/>
     <column name="outstanding_advertised_count" phpName="OutstandingAdvertisedCount" type="INTEGER" required="true" defaultValue="0"/>
     <column name="password" phpName="Password" type="VARCHAR" size="80" required="true"/>

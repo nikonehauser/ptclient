@@ -36,6 +36,11 @@ class Transaction extends BaseTransaction {
   static public $MEMBER_FEE;
   static public $BASE_CURRENCY;
   static public $REASON_TO_AMOUNT = [];
+  static public $BONUS_REASONS = [
+    self::REASON_VL_BONUS,
+    self::REASON_OL_BONUS,
+    self::REASON_PM_BONUS,
+  ];
 
   static public function getAmountForReason($reason) {
     return self::$REASON_TO_AMOUNT[$reason];
@@ -47,11 +52,15 @@ class Transaction extends BaseTransaction {
     self::$BASE_CURRENCY = $baseCurrency;
   }
 
+  static public function isBonusReason($reason) {
+    return isset(self::$BONUS_REASONS[$reason]);
+  }
+
   static public $BONUS_TRANSACTION_FORM_FIELDS = [
     'recipient_id'  => [\Tbmt\TYPE_INT, ''],
     'recipient_num' => [\Tbmt\TYPE_INT, ''],
-    'amount'       => \Tbmt\TYPE_INT,
-    'purpose'      => \Tbmt\TYPE_STRING,
+    'amount'        => \Tbmt\TYPE_INT,
+    'purpose'       => \Tbmt\TYPE_STRING,
   ];
 
   static public $BONUS_TRANSACTION_FORM_FILTERS = [

@@ -16,6 +16,8 @@ class AccountController extends BaseController {
     'invitation_create' => true,
     'bonus_payments' => true,
     'bonus_payments_signup' => true,
+    'bonus_levels' => true,
+    'bonus_levels_signup' => true,
     'ajax_tree' => true,
   ];
 
@@ -149,6 +151,47 @@ class AccountController extends BaseController {
       self::MODULE_NAME,
       'index',
       ['member' => $login, 'tab' => 'bonus_payments', 'formVal' => []]
+    );
+  }
+
+  public function action_bonus_levels() {
+    return ControllerDispatcher::renderModuleView(
+      self::MODULE_NAME,
+      'index',
+      ['member' => Session::getLogin()]
+    );
+  }
+
+  public function action_bonus_levels_signup() {
+    $login = Session::getLogin();
+    if ( $login->getType() !== \Member::TYPE_CEO )
+      throw new PermissionDeniedException();
+
+    list($valid, $data, $recipient) = \Member::validateBonusLevelForm($_REQUEST);
+    if ( $valid !== true ) {
+      return ControllerDispatcher::renderModuleView(
+        self::MODULE_NAME,
+        'index',
+        ['member' => $login, 'tab' => 'bonus_levels', 'formErrors' => $data, 'recipient' => $recipient]
+      );
+    }
+
+    if ( $data['recipient_id'] === '' ) {
+      $data['recipient_id'] = $recipient->getId();
+      return ControllerDispatcher::renderModuleView(
+        self::MODULE_NAME,
+        'index',
+        ['member' => $login, 'tab' => 'bonus_levels', 'formVal' => $data, 'recipient' => $recipient]
+      );
+    }
+
+    $recipient->setBonusLevel($data['level']);
+    $recipient->save();
+
+    return ControllerDispatcher::renderModuleView(
+      self::MODULE_NAME,
+      'index',
+      ['member' => $login, 'tab' => 'bonus_levels', 'formVal' => [], 'successmsg' => true]
     );
   }
 

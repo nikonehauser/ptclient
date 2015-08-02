@@ -339,7 +339,8 @@ return [
           'rtree' => 'Referral Tree',
           'htree' => 'Hierarchy Tree',
           'invitation' => 'Invitations',
-          'bonus_payments' => 'Bonus Payments'
+          'bonus_payments' => 'Bonus Payments',
+          'bonus_levels' => 'Bonus Levels'
         ]
       ],
       'tabs' => [
@@ -424,6 +425,23 @@ return [
           'recipient_num_th' => 'Received member number',
           'creation_date' => 'Created',
           'accepted_date' => 'Accepted',
+        ],
+        'bonus_levels' => [
+          'form_title' => 'Change bonus level for member',
+          'recipient_num' => 'Member number who receives this bonus level',
+          'level' => 'Bonus Level',
+          'validate_form' => 'Validate form',
+          'submit' => 'Submit',
+
+          'recipient_details' => 'Recipient details',
+          'member_type' => 'Membership type',
+          'bonus_level' => 'Bonus Level',
+          'member_num' => 'Member number',
+          'address' => 'Address',
+          'email' => 'Email',
+          'email_none' => '-none-',
+          'signup_success' => 'Successfully changed bonus level',
+          'success' => 'Success',
         ]
       ]
     ],
