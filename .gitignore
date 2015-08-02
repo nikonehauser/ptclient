@@ -3,3 +3,5 @@
 /entities/build/classes/miltype/om
 /entities/build/classes/miltype/map
 /config/cfg.json
+/entities/runtime-conf.xml
+/entities/build.properties

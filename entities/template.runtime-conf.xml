@@ -2,15 +2,14 @@
 
 <config>
   <propel>
-    <datasources default="zeyconnect">
-      <datasource id="zeyconnect">
-      <adapter>mysql</adapter>
+    <datasources default="miltype">
+      <datasource id="miltype">
+      <adapter>pgsql</adapter>
       <connection>
-        <classname>ZeyConnectPDO</classname> <!-- <classname>ZeyConnectDebugPDO</classname> -->
-        <dsn>mysql:host=127.0.0.1;dbname=zeyconnect</dsn>
-        <database>zeyconnect</database>
-        <user>root</user>
-        <password>isense</password>
+        <dsn>pgsql:host=127.0.0.1;dbname=miltype_main</dsn>
+        <database>miltype_main</database>
+        <user>miltype</user>
+        <password>491768test</password>
       </connection>
       </datasource>
     </datasources>
