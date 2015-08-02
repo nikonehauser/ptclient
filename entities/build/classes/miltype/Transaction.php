@@ -46,4 +46,77 @@ class Transaction extends BaseTransaction {
     self::$MEMBER_FEE = $memberFee;
     self::$BASE_CURRENCY = $baseCurrency;
   }
+
+  static public $BONUS_TRANSACTION_FORM_FIELDS = [
+    'recipient_id'  => [\Tbmt\TYPE_INT, ''],
+    'recipient_num' => [\Tbmt\TYPE_INT, ''],
+    'amount'       => \Tbmt\TYPE_INT,
+    'purpose'      => \Tbmt\TYPE_STRING,
+  ];
+
+  static public $BONUS_TRANSACTION_FORM_FILTERS = [
+    'recipient_num'  => \Tbmt\Validator::FILTER_NOT_EMPTY,
+    'amount' => [
+      'filter' => \FILTER_VALIDATE_INT,
+      'options' => [
+        'min_range' => 1
+      ],
+      'errorLabel' => 'error.greater_zero'
+    ],
+    'purpose' => \Tbmt\Validator::FILTER_NOT_EMPTY,
+  ];
+
+  static public function initBonusTransactionForm(array $data = array()) {
+    return \Tbmt\Arr::initMulti($data, self::$BONUS_TRANSACTION_FORM_FIELDS);
+  }
+
+  static public function validateBonusTransactionForm(array $data = array()) {
+    $data = self::initBonusTransactionForm($data);
+
+    $res = \Tbmt\Validator::getErrors($data, self::$BONUS_TRANSACTION_FORM_FILTERS);
+    if ( $res !== false )
+      return [false, $res, null];
+
+    $recipient = \MemberQuery::create()
+      ->filterByDeletionDate(null, Criteria::ISNULL)
+      ->findOneByNum($data['recipient_num']);
+    if ( $recipient == null ) {
+      return [false, ['recipient_num' => \Tbmt\Localizer::get('error.member_num')], null];
+    }
+
+    if ( !$recipient->hadPaid() )
+      return [false, ['recipient_num' => \Tbmt\Localizer::get('error.member_num_unpaid')], null];
+
+    return [true, $data, $recipient];
+  }
+
+  static public function createBonusTransaction(Member $login, Member $recipient, array $data, PropelPDO $con) {
+    $currentTransfer = $recipient->getCurrentTransferBundle($con);
+    $when = time();
+
+    if ( !$con->beginTransaction() )
+      throw new Exception('Could not begin transaction');
+
+    try {
+
+      $amount = $data['amount'];
+      $recipient->addOutstandingTotal($amount);
+      $transaction = $currentTransfer->addAmount($amount)
+        ->setReason(Transaction::REASON_CUSTOM_BONUS)
+        ->setPurpose($data['purpose'])
+        ->setRelatedId($login->getId())
+        ->setDate($when)
+        ->save($con);
+
+      $currentTransfer->save($con);
+      $recipient->save($con);
+
+      if ( !$con->commit() )
+        throw new Exception('Could not commit transaction');
+
+    } catch (Exception $e) {
+        $con->rollBack();
+        throw $e;
+    }
+  }
 }

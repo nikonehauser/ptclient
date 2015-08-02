@@ -18,21 +18,6 @@ CREATE TABLE "tbmt_activity"
 );
 
 -----------------------------------------------------------------------
--- tbmt_bonus_transaction
------------------------------------------------------------------------
-
-DROP TABLE IF EXISTS "tbmt_bonus_transaction" CASCADE;
-
-CREATE TABLE "tbmt_bonus_transaction"
-(
-    "id" bigserial NOT NULL,
-    "member_id" INTEGER NOT NULL,
-    "transaction_id" INTEGER NOT NULL,
-    "purpose" VARCHAR(255) NOT NULL,
-    PRIMARY KEY ("id")
-);
-
------------------------------------------------------------------------
 -- tbmt_currency
 -----------------------------------------------------------------------
 
@@ -149,10 +134,13 @@ CREATE TABLE "tbmt_transaction"
     "transfer_id" INTEGER NOT NULL,
     "amount" DOUBLE PRECISION DEFAULT 0 NOT NULL,
     "reason" INT2 DEFAULT 0 NOT NULL,
+    "purpose" VARCHAR(255) NOT NULL,
     "related_id" INTEGER,
     "date" TIMESTAMP NOT NULL,
     PRIMARY KEY ("id")
 );
+
+CREATE INDEX "idx_transaction_related_id" ON "tbmt_transaction" ("related_id");
 
 -----------------------------------------------------------------------
 -- tbmt_transfer
@@ -176,18 +164,6 @@ CREATE TABLE "tbmt_transfer"
 CREATE INDEX "idx_transfer_currency" ON "tbmt_transfer" ("currency");
 
 CREATE INDEX "idx_transfer_state" ON "tbmt_transfer" ("state");
-
-ALTER TABLE "tbmt_bonus_transaction" ADD CONSTRAINT "fk_bonus_transaction_member"
-    FOREIGN KEY ("member_id")
-    REFERENCES "tbmt_member" ("id")
-    ON UPDATE CASCADE
-    ON DELETE SET NULL;
-
-ALTER TABLE "tbmt_bonus_transaction" ADD CONSTRAINT "fk_bonus_transaction_transaction"
-    FOREIGN KEY ("transaction_id")
-    REFERENCES "tbmt_transaction" ("id")
-    ON UPDATE CASCADE
-    ON DELETE SET NULL;
 
 ALTER TABLE "tbmt_invitation" ADD CONSTRAINT "fk_invitation_accepted_member"
     FOREIGN KEY ("accepted_member_id")

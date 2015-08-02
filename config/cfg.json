@@ -24,5 +24,7 @@
 
   "main_system_url": "http://localhost/ptmain/",
 
+  "client_name": "india",
+
   "secret_salt": "APc7a5vhCiyNfYn6KvkLfs0oMDwLZtatdIlfFE7ObcP4quxevQrVq0vLXeKPalKz"
 }

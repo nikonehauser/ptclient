@@ -19,15 +19,15 @@ class AccountBonus_paymentsTab extends Base {
     $this->member = $params['member'];
     $this->recipient = isset($params['recipient']) ? $params['recipient'] : null;
 
-    $this->formVal = \BonusTransaction::initForm(
+    $this->formVal = \Transaction::initBonusTransactionForm(
       isset($params['formVal']) ? $params['formVal'] : $_REQUEST
     );
 
     $this->formErrors = isset($params['formErrors']) ? $params['formErrors'] : [];
 
-    $objBonusTransactions = \BonusTransactionQuery::create()
-      ->filterByMemberId($this->member->getId())
-      ->joinWith('Transaction')
+    $objBonusTransactions = \TransactionQuery::create()
+      ->filterByRelatedId($this->member->getId())
+      ->filterByReason(\Transaction::REASON_CUSTOM_BONUS)
       ->join('Transaction.Transfer')
       ->join('Transfer.Member')
       ->select([

@@ -1,5 +1,13 @@
   <?php
 
+    $this->i18nView['amount'] = \Tbmt\Localizier::insert($this->i18nView['amount_in_currency'], [
+      'symbol' => '',
+      'name'   => ''
+    ]);
+    print_r('<pre>');
+    print_r([$this->i18nView]);
+    print_r('</pre>');
+    exit;
     $formBuilder = new \Tbmt\FormBuilder('bonusPaymentForm', $this->i18nView, $this->formVal, $this->formErrors);
 
   ?>

@@ -10,18 +10,6 @@
     <column name="related_member_num" phpName="RelatedMemberNum" type="INTEGER" required="false"/>
     <column name="meta" phpName="Meta" type="LONGVARCHAR" required="false"/>
   </table>
-  <table name="bonus_transaction" phpName="BonusTransaction" idMethod="native">
-    <column name="id" phpName="Id" type="BIGINT" primaryKey="true" autoIncrement="true" required="true"/>
-    <column name="member_id" phpName="MemberId" type="INTEGER" required="true"/>
-    <column name="transaction_id" phpName="TransactionId" type="INTEGER" required="true"/>
-    <column name="purpose" phpName="Purpose" type="VARCHAR" size="255" required="true"/>
-    <foreign-key foreignTable="member" name="fk_bonus_transaction_member" onDelete="SET NULL" onUpdate="CASCADE">
-      <reference local="member_id" foreign="id"/>
-    </foreign-key>
-    <foreign-key foreignTable="transaction" name="fk_bonus_transaction_transaction" onDelete="SET NULL" onUpdate="CASCADE">
-      <reference local="transaction_id" foreign="id"/>
-    </foreign-key>
-  </table>
   <table name="currency" phpName="Currency" idMethod="native">
     <column name="name" phpName="Name" type="VARCHAR" size="128" required="true"/>
     <column name="alphabetic_code" phpName="AlphabeticCode" type="VARCHAR" size="3" primaryKey="true" required="true"/>
@@ -109,11 +97,15 @@
     <column name="transfer_id" phpName="TransferId" type="INTEGER" required="true"/>
     <column name="amount" phpName="Amount" type="DOUBLE" required="true" defaultValue="0"/>
     <column name="reason" phpName="Reason" type="SMALLINT" required="true" defaultValue="0"/>
+    <column name="purpose" phpName="Purpose" type="VARCHAR" size="255" required="true"/>
     <column name="related_id" phpName="RelatedId" type="INTEGER" required="false"/>
     <column name="date" phpName="Date" type="TIMESTAMP" required="true"/>
     <foreign-key foreignTable="transfer" name="fk_transaction_transfer" onDelete="CASCADE" onUpdate="CASCADE">
       <reference local="transfer_id" foreign="id"/>
     </foreign-key>
+    <index name="idx_transaction_related_id">
+      <index-column name="related_id"/>
+    </index>
   </table>
   <table name="transfer" phpName="Transfer" idMethod="native">
     <column name="id" phpName="Id" type="INTEGER" primaryKey="true" autoIncrement="true" required="true"/>

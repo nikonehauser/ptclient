@@ -66,6 +66,12 @@ return [
     'USD' => '$',
   ],
 
+  'currency_name' => [
+    'EUR' => 'Euro',
+    'USD' => 'US Dollar',
+    'INR' => 'Rupien',
+  ],
+
     /* ERRORS
     ---------------------------------------------*/
   'error' => [
@@ -366,7 +372,6 @@ return [
           'quantity' => 'Quantity',
           'total' => 'Total',
           'reason' => 'Reason',
-          'currency' => 'Currency',
           'transaction_reasons' => [
             'Advertised Lvl 1',
             'Advertised Lvl 2',
@@ -400,6 +405,7 @@ return [
           'form_title' => 'Create bonus payment for a member',
           'recipient_num' => 'Member number who receives this bonus',
           'amount' => 'Amount',
+          'amount_in_currency' => 'Amount in {symbol} ({name})',
           'purpose' => 'Purpose',
           'validate_form' => 'Validate form',
           'submit' => 'Submit',

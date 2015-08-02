@@ -120,7 +120,7 @@ class AccountController extends BaseController {
     if ( $login->getType() !== \Member::TYPE_CEO )
       throw new PermissionDeniedException();
 
-    list($valid, $data, $recipient) = \BonusTransaction::validateForm($_REQUEST);
+    list($valid, $data, $recipient) = \Transaction::validateBonusTransactionForm($_REQUEST);
     if ( $valid !== true ) {
       return ControllerDispatcher::renderModuleView(
         self::MODULE_NAME,
@@ -138,7 +138,7 @@ class AccountController extends BaseController {
       );
     }
 
-    \BonusTransaction::create(
+    \Transaction::createBonusTransaction(
       $login,
       $recipient,
       $data,
