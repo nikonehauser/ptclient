@@ -2,7 +2,7 @@
 
 namespace Tbmt;
 
-require_once(LIB_DIR.'/phpmailer/class.phpmailer.php');
+require VENDOR_DIR.'phpmailer'.DIRECTORY_SEPARATOR.'phpmailer'.DIRECTORY_SEPARATOR.'PHPMailerAutoload.php';
 
 class MailHelper {
 
@@ -36,9 +36,11 @@ class MailHelper {
     $mail->isSMTP();
 
     $mail->Host = Config::get('mail.smtp_host');
+    $mail->Port = Config::get('mail.smtp_port');
     $mail->SMTPAuth = true;
     $mail->Username = Config::get('mail.username');
     $mail->Password = Config::get('mail.password');
+    $mail->Timeout = Config::get('mail.timeout');
 
     $mail->addReplyTo(Config::get('mail.reply_mail'), 'Do not Reply');
     $mail->setFrom(Config::get('mail.sender_mail'), Config::get('mail.sender_name'));

@@ -5,3 +5,4 @@
 /config/cfg.json
 /entities/runtime-conf.xml
 /entities/build.properties
+/vendor

@@ -31,10 +31,12 @@
 
   "mail.smtp_secure": "ssl",
   "mail.smtp_host": "smtp.googlemail.com",
+  "mail.smtp_port": 465,
   "mail.username": "ssl",
   "mail.password": "ssl",
+  "mail.timeout": 10,
 
   "mail.sender_mail": "ssl",
   "mail.sender_name": "Help Yourself Association",
-  "mail.reply_mail": "ssl",
+  "mail.reply_mail": "ssl"
 }
