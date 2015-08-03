@@ -26,5 +26,15 @@
 
   "client_name": "india",
 
-  "secret_salt": "APc7a5vhCiyNfYn6KvkLfs0oMDwLZtatdIlfFE7ObcP4quxevQrVq0vLXeKPalKz"
+  "secret_salt": "APc7a5vhCiyNfYn6KvkLfs0oMDwLZtatdIlfFE7ObcP4quxevQrVq0vLXeKPalKz",
+
+
+  "mail.smtp_secure": "ssl",
+  "mail.smtp_host": "smtp.googlemail.com",
+  "mail.username": "ssl",
+  "mail.password": "ssl",
+
+  "mail.sender_mail": "ssl",
+  "mail.sender_name": "Help Yourself Association",
+  "mail.reply_mail": "ssl",
 }

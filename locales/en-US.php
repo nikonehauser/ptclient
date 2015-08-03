@@ -31,7 +31,7 @@ return [
       'Austria',
       'Canada',
       'USA',
-    ],
+    ]
   ],
 
 
@@ -321,13 +321,14 @@ return [
       'login' => [
         'page_title' => 'Member Login',
         'error' => 'Error',
+        'password_reset' => 'Password forgotten?',
         'form_labels' => [
           'login' => 'Login',
 
           'num' => 'Member Number',
           'pwd' => 'Password',
 
-          'submit' => 'Submit',
+          'submit' => 'Submit'
         ]
       ],
       'index' => [
@@ -447,6 +448,24 @@ return [
     ],
 
 
+    /* VIEWS - MANAGE
+    ---------------------------------------------*/
+    'manage' => [
+      'password_reset' => [
+        'page_title' => 'Password reset',
+        'error' => 'Error',
+        'success' => 'Success',
+        'form_labels' => [
+          'num' => 'Your member number',
+          'submit' => 'Reset password',
+        ]
+      ],
+      'do_reset_password' => [
+        'page_title' => 'Password reset',
+      ],
+    ],
+
+
     /* VIEWS - PROJECTS
     ---------------------------------------------*/
     'projects' => [
@@ -470,6 +489,22 @@ return [
       'index' => [
         'page_title' => 'Contact',
       ],
+    ]
+  ],
+
+
+
+    /* MAILS
+    ---------------------------------------------*/
+  'mail' => [
+    'password_reset' => [
+      'subject' => 'Password reset',
+      'body' => "We heard that you lost your GitHub password. Sorry about that!\n\n
+But don’t worry! You can use the following link within the next day to reset your password:\n\n
+{link}\n\n
+If you don’t use this link within 24 hours, it will expire.\n\n
+Thanks,\n\n
+Your friends at GitHub"
     ]
   ]
 ];

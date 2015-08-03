@@ -78,6 +78,14 @@ class Cryption {
   static public function validateApiToken($strToken) {
     return self::getApiToken() == $strToken;
   }
+
+  static public function getPasswordResetToken($memberNum, $now, $memberEmail) {
+    return md5(Config::get('secret_salt').$memberNum.$now.$memberEmail.self::$salt);
+  }
+
+  static public function validatePasswordResetToken($memberNum, $now, $memberEmail, $strToken) {
+    return self::getPasswordResetToken($memberNum, $now, $memberEmail) == $strToken;
+  }
 }
 
 ?>

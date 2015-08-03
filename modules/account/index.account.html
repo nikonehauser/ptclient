@@ -1,8 +1,8 @@
-<?=Tbmt\view\Factory::buildPageTitle($this->i18nView['page_title'])?>
+<?=\Tbmt\view\Factory::buildPageTitle($this->i18nView['page_title'])?>
 
 <div class="container">
   <h2 class="headline" ><?=\Tbmt\Localizer::insert($this->i18nView['welcome'], [
-      'name' => $this->member->getTitle(). ' '.$this->member->getFirstName(). ' '.$this->member->getLastName()
+      'name' => \Tbmt\view\Factory::buildMemberFullNameString($this->member)
   ])?></h2>
 
   <ul class="tabs-nav">

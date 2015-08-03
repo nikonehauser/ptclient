@@ -30,10 +30,13 @@ class Router {
     return self::$url;
   }
 
-  static public function toModule($moduleName, $action = null) {
+  static public function toModule($moduleName, $action = null, array $arrParams = null) {
     $params = [self::KEY_MODULE => $moduleName];
     if ( $action !== null )
       $params[self::KEY_ACTION] = $action;
+
+    if ( $arrParams )
+      $params = array_merge($params, $arrParams);
 
     return self::$url.'?'.http_build_query($params, null, '&');
   }

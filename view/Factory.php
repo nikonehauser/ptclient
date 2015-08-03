@@ -4,6 +4,10 @@ namespace Tbmt\view;
 
 class Factory {
 
+  static function buildMemberFullNameString(\Member $member) {
+    return $member->getTitle(). ' '.$member->getFirstName(). ' '.$member->getLastName();
+  }
+
   static function buildPageTitle($title) {
     return <<<END
 <!--  Page Title -->
