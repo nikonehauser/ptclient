@@ -12,8 +12,6 @@ LIST
 
 - website content auffüllen
 
-- passwort vergessen anhand konto nummer
-
 - promoter kann promoter werben
 
 - save unknown incommings to extra table
@@ -106,6 +104,7 @@ Die Abrechnung erfolgt immer am Montag
 - für die Mitglieder (VS 1 & VS 2)
 - für die Promoter (VS 2 & Bonus)
 - für die Orgaleiter (Bonus & ggf. VS 2)
+
 Die Abrechnung erfolgt immer Bankarbeitstag täglich
 - für den Bonus des Anwalts
 - für den jeweilige Anteil für M&C
@@ -114,8 +113,6 @@ Die Software muss massenhafte zeitgleiche Registrierungen verarbeiten können.
 - Bei einer Überlastung dürfen keine Fehler produziert werden
 - und es muss eine entsprechende Meldung erscheinen, dass es derzeit aufgrund der Vielzahl der Registrierungen eine Registrierung nicht möglich ist und dass man es später noch einmal probieren soll.
 
-Automatische Vergabe einer Mitgliedsnummer
-- wenn kein Geld eingeht wird diese Nummer nach x Tagen neu vergeben
 
 
 
@@ -123,9 +120,6 @@ Automatische Vergabe einer Mitgliedsnummer
 ============================
 ============================
 ============================
-
- - doppelte member von init it , anwalt etc.#
-
 
 
  - Seite 1: HYA
@@ -134,6 +128,6 @@ Automatische Vergabe einer Mitgliedsnummer
 
 
  - vertriebsseite pro land
-  - muss eigene währung unterstützen
+ - muss eigene währung unterstützen
 
 

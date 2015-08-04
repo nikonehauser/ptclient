@@ -22,7 +22,7 @@
     "9": 7.1
   },
 
-  "main_system_url": "http://localhost/ptclient/",
+  "main_system_url": "http://localhost/ptmain/",
 
   "client_name": "india",
 
@@ -36,7 +36,8 @@
   "mail.password": "ssl",
   "mail.timeout": 10,
 
-  "mail.sender_mail": "ssl",
+  "mail.subject_prefix": "[Help Yourself Association]",
+  "mail.sender_mail": "demo@hya.net",
   "mail.sender_name": "Help Yourself Association",
-  "mail.reply_mail": "ssl"
+  "mail.reply_mail": "demo@hya.net"
 }

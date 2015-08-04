@@ -11,7 +11,11 @@ class ManagePassword_reset extends Base {
     $this->formVal =  \Tbmt\ManageController::initPasswordResetForm($formParams);
 
     $this->formErrors = isset($params['formErrors']) ? $params['formErrors'] : [];
-    $this->resetMsg = isset($params['resetMsg']) ? $params['resetMsg'] : '';
+    $this->resetMsg = !isset($params['resetMsg']) ? '' : [
+      $this->i18nView['success_msg'],
+      $this->i18nView['success'],
+      'success'
+    ];
 
     return $this->renderFile(
       dirname(__FILE__).DIRECTORY_SEPARATOR.'password_reset.manage.html',

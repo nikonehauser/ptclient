@@ -49,15 +49,27 @@ class ManageController extends BaseController {
       'hash' => TYPE_STRING,
     ]);
 
+    $newPassword = false;
     if ( !empty($data['num']) || !empty($data['exp']) || !empty($data['hash']) ) {
+      $member = \Member::getByNum($data['num']);
 
-    } else
-      $resetMsg = ['Invalid reset token', 'Error!', 'error'];
+      if ( $member && Cryption::validatePasswordResetToken(
+          $data['num'],
+          $data['exp'],
+          $member->getEmail(),
+          $data['hash']
+        ) && intval($data['exp']) + 3600 * 24 >= time() ) {
+        $newPassword = bin2hex(mcrypt_create_iv(8, MCRYPT_DEV_URANDOM));
+
+        $member->setPassword($newPassword);
+        $member->save();
+      }
+    }
 
     return ControllerDispatcher::renderModuleView(
       self::MODULE_NAME,
       CURRENT_MODULE_ACTION,
-      ['resetMsg' => $resetMsg]
+      ['newPassword' => $newPassword]
     );
   }
 
@@ -75,7 +87,8 @@ class ManageController extends BaseController {
 
     return ControllerDispatcher::renderModuleView(
       self::MODULE_NAME,
-      CURRENT_MODULE_ACTION
+      CURRENT_MODULE_ACTION,
+      ['resetMsg' => true]
     );
   }
 }

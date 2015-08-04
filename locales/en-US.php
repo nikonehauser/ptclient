@@ -453,8 +453,9 @@ return [
     'manage' => [
       'password_reset' => [
         'page_title' => 'Password reset',
-        'error' => 'Error',
-        'success' => 'Success',
+        'error' => 'Error!',
+        'success' => 'Success!',
+        'success_msg' => 'We have send you an email with further instructions.',
         'form_labels' => [
           'num' => 'Your member number',
           'submit' => 'Reset password',
@@ -462,6 +463,10 @@ return [
       ],
       'do_reset_password' => [
         'page_title' => 'Password reset',
+        'error' => 'Error!',
+        'error_msg' => 'Invalid reset token',
+        'success' => 'Success!',
+        'success_msg' => 'Your new password is:',
       ],
     ],
 
@@ -499,11 +504,11 @@ return [
   'mail' => [
     'password_reset' => [
       'subject' => 'Password reset',
-      'body' => "We heard that you lost your GitHub password. Sorry about that!\n\n
-But don’t worry! You can use the following link within the next day to reset your password:\n\n
-{link}\n\n
-If you don’t use this link within 24 hours, it will expire.\n\n
-Thanks,\n\n
+      'body' => "We heard that you lost your GitHub password. Sorry about that!\n\r
+But don’t worry! You can use the following link within the next day to reset your password:\n\r
+{link}\n\r
+If you don’t use this link within 24 hours, it will expire.\n\r
+Thanks,\n\r
 Your friends at GitHub"
     ]
   ]

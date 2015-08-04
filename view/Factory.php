@@ -40,13 +40,14 @@ END;
 
   }
 
-  static function buildNotification($text, $strong = '', $type = 'error') {
+  static function buildNotification($text, $strong = '', $type = 'error', $content = '') {
     if ( $strong )
       $strong = "<span>$strong</span> ";
 
     return <<<END
 <div class="notification $type closeable" style="display: block;">
-    <p>${strong}$text</p>
+    <p>${strong} $text</p>
+    $content
 </div>
 END;
 

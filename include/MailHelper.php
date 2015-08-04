@@ -25,13 +25,13 @@ class MailHelper {
       \Tbmt\view\Factory::buildMemberFullNameString($member),
       $locale['subject'],
       Localizer::insert($locale['body'], [
-        'link' => '<a href="'.$href.'">'.$href.'</a>'
+        'link' => $href
       ], false)
     );
   }
 
   static function send($address, $name, $subject, $body) {
-    $mail = new \PHPMailer();
+    $mail = new \PHPMailer(true);
     $mail->SMTPSecure = Config::get('mail.smtp_secure');
     $mail->isSMTP();
 
@@ -41,12 +41,13 @@ class MailHelper {
     $mail->Username = Config::get('mail.username');
     $mail->Password = Config::get('mail.password');
     $mail->Timeout = Config::get('mail.timeout');
+    $mail->CharSet = Config::get('mail.charset', TYPE_STRING, 'utf-8');
 
-    $mail->addReplyTo(Config::get('mail.reply_mail'), 'Do not Reply');
     $mail->setFrom(Config::get('mail.sender_mail'), Config::get('mail.sender_name'));
+    $mail->addReplyTo(Config::get('mail.reply_mail'), 'Do not Reply');
     $mail->addAddress($address, $name);
 
-    $mail->Subject = $subject;
+    $mail->Subject = Config::get('mail.subject_prefix').' '.$subject;
     $mail->Body = $body;
 
     $boolResult = $mail->send();

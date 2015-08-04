@@ -10,12 +10,6 @@
     <column name="related_member_num" phpName="RelatedMemberNum" type="INTEGER" required="false"/>
     <column name="meta" phpName="Meta" type="LONGVARCHAR" required="false"/>
   </table>
-  <table name="bonus_transaction" phpName="BonusTransaction" idMethod="native">
-    <column name="id" phpName="Id" type="BIGINT" primaryKey="true" autoIncrement="true" required="true"/>
-    <column name="member_id" phpName="MemberId" type="INTEGER" required="true"/>
-    <column name="transaction_id" phpName="TransactionId" type="INTEGER" required="true"/>
-    <column name="purpose" phpName="Purpose" type="VARCHAR" size="255" required="true"/>
-  </table>
   <table name="currency" phpName="Currency" idMethod="native">
     <column name="name" phpName="Name" type="VARCHAR" size="128" required="true"/>
     <column name="alphabetic_code" phpName="AlphabeticCode" type="VARCHAR" size="3" primaryKey="true" required="true"/>
@@ -132,14 +126,5 @@
     <index name="idx_transfer_state">
       <index-column name="state"/>
     </index>
-  </table>
-  <table name="unknow_income" phpName="UnknowIncome" idMethod="native">
-    <column name="id" phpName="Id" type="BIGINT" primaryKey="true" autoIncrement="true" required="true"/>
-    <column name="action" phpName="Action" type="VARCHAR" size="160" required="true"/>
-    <column name="type" phpName="Type" type="SMALLINT" required="true"/>
-    <column name="date" phpName="Date" type="TIMESTAMP" required="true"/>
-    <column name="related_id" phpName="RelatedId" type="VARCHAR" size="64" required="false" defaultValue="NULL"/>
-    <column name="related_member_num" phpName="RelatedMemberNum" type="INTEGER" required="false"/>
-    <column name="meta" phpName="Meta" type="LONGVARCHAR" required="false"/>
   </table>
 </database>
