@@ -31,6 +31,10 @@ CURRENT
 
 LIST
 ====
+- edit password
+
+- edit bank account
+
 - add funds level select to invitation form
 
 - website content auffüllen

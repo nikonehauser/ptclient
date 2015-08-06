@@ -128,6 +128,10 @@ return [
           'rtree' => 'Referral Tree',
           'htree' => 'Hierarchy Tree',
           'logout' => 'Logout',
+        ],
+        'about' => [
+          'index' => 'Contact',
+          'faq' => 'FAQ',
         ]
       ],
       'member_login' => 'Member Login',
@@ -524,12 +528,12 @@ return [
   'mail' => [
     'password_reset' => [
       'subject' => 'Password reset',
-      'body' => "We heard that you lost your GitHub password. Sorry about that!\n\r
+      'body' => "We heard that you lost your {web_page_name} password. Sorry about that!\n\r
 But don’t worry! You can use the following link within the next day to reset your password:\n\r
 {link}\n\r
 If you don’t use this link within 24 hours, it will expire.\n\r
 Thanks,\n\r
-Your friends at GitHub"
+Your friends at {web_page_name}"
     ]
   ]
 ];

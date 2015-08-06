@@ -17,7 +17,7 @@ class SystemSetup {
     'LastName'      => 'unknown',
     'FirstName'     => 'unknown',
     'Age'           => 99,
-    'Email'         => 'unknown',
+    'Email'         => 'niko.neuhauser@gmail.com',
     'City'          => 'unknown',
     'Country'       => 'unknown',
     'BankRecipient' => 'unknown',
