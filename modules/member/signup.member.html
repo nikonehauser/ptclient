@@ -11,105 +11,128 @@
       <!--
         CONTACT
         *************************** -->
+      <div class="container top-40">
+        <div class="row">
+          <?php if ( count($this->formErrors) > 0 ) {
+            echo \Tbmt\view\Factory::buildNotification($this->i18nView['form_error'], '', 'notice top');
+          } ?>
 
-      <div class="container">
-          <h4 class="headline"><?=$this->formLabels['contact']?></h4>
+          <?=\Tbmt\view\Factory::buildHeadingArea($this->formLabels['contact'], 'bottom-30')?>
 
-          <div class="eight columns">
+          <div class="col-md-6">
             <?php echo $formBuilder->buildFieldGroup('referral_member_num'); ?>
           </div>
-          <div class="eight columns">
+          <div class="col-md-6">
             <?php echo $formBuilder->buildFieldGroup('invitation_code'); ?>
           </div>
+        </div>
       </div>
 
       <div class="container">
-          <div class="four columns">
+        <div class="row">
+          <div class="col-md-2">
               <?php echo $formBuilder->buildFieldGroup('title'); ?>
           </div>
-          <div class="six columns">
+          <div class="col-md-5">
               <?php echo $formBuilder->buildFieldGroup('lastName'); ?>
           </div>
-          <div class="six columns">
+          <div class="col-md-5">
               <?php echo $formBuilder->buildFieldGroup('firstName'); ?>
           </div>
+        </div>
       </div>
 
       <div class="container">
-          <div class="eight columns">
+        <div class="row">
+          <div class="col-md-6">
               <?php echo $formBuilder->buildFieldGroup('password', 'password'); ?>
               <p class="help-block"><?=\Tbmt\Localizer::get('error.password_conditions')?></p>
           </div>
-          <div class="eight columns">
+          <div class="col-md-6">
               <?php echo $formBuilder->buildFieldGroup('password2', 'password'); ?>
           </div>
+        </div>
       </div>
 
       <div class="container">
-          <div class="twelve columns">
+        <div class="row">
+          <div class="col-md-12">
               <?php echo $formBuilder->buildFieldGroup('email'); ?>
               <p class="help-block"><?=$this->formLabels['email_info']?></p>
           </div>
-          <div class="four columns">
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
               <?php echo $formBuilder->buildFieldGroup('age'); ?>
           </div>
+        </div>
       </div>
 
       <!--
         ADDRESS
         *************************** -->
       <div class="container">
-          <h4 class="headline"><?=$this->formLabels['address']?></h4>
+        <div class="row">
+          <?=\Tbmt\view\Factory::buildHeadingArea($this->formLabels['address'])?>
 
-          <div class="eight columns">
+          <div class="col-md-6">
               <?php echo $formBuilder->buildFieldGroup('city'); ?>
           </div>
-          <div class="eight columns">
+          <div class="col-md-6">
               <?php echo $formBuilder->buildFieldGroup('country'); ?>
           </div>
+        </div>
       </div>
 
       <!--
         BANK ACCOUNT
         *************************** -->
       <div class="container">
-          <h4 class="headline"><?=$this->formLabels['bank_account']?></h4>
+        <div class="row">
+          <?=\Tbmt\view\Factory::buildHeadingArea($this->formLabels['bank_account'])?>
 
-          <div class="sixteen columns">
+          <div class="col-md-12">
             <p><?=$this->formLabels['bank_account_info']?></p>
           </div>
 
-          <div class="sixteen columns">
+          <div class="col-md-12">
               <?php echo $formBuilder->buildFieldGroup('bank_recipient'); ?>
           </div>
 
-          <div class="ten columns">
+          <div class="col-md-6">
               <?php echo $formBuilder->buildFieldGroup('iban'); ?>
           </div>
-          <div class="six columns">
+          <div class="col-md-6">
               <?php echo $formBuilder->buildFieldGroup('bic'); ?>
           </div>
+        </div>
       </div>
 
       <!--
         CONFIRM
         *************************** -->
       <div class="container">
-          <h4 class="headline"><?=$this->formLabels['confirm']?></h4>
-
-          <div class="sixteen columns">
+        <div class="row">
+          <?=\Tbmt\view\Factory::buildHeadingArea($this->formLabels['confirm'])?>
+          <div class="col-md-12">
               <?php echo $formBuilder->buildFieldGroup('accept_agbs', 'checkbox'); ?>
           </div>
 
-          <div class="sixteen columns">
+          <div class="col-md-12">
               <?php echo $formBuilder->buildFieldGroup('accept_valid_country', 'checkbox'); ?>
-              <ul class="list-2 list-horizontal" style="padding: 15px; margin-top: -30px;">
+              <ul class="list-2 list-horizontal" style="padding: 15px; margin-top: -10px;">
                   <?=\Tbmt\view\Factory::buildListItems(\Tbmt\Localizer::get('common.forbidden_countries'))?>
                   <br class="clear" />
               </ul>
           </div>
+      </div>
 
 
-          <input class="button yellow medium" type="submit" value="<?=$this->formLabels['submit']?>">
+      <div class="container">
+        <div class="row">
+          <?=\Tbmt\view\Factory::buildSubmitBtn($this->formLabels['submit'], 'blue top-20')?>
+        </div>
       </div>
 </form>

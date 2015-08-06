@@ -1,25 +1,32 @@
 <?=\Tbmt\view\Factory::buildPageTitle($this->i18nView['page_title'])?>
 
 <div class="container">
-  <h2 class="headline" ><?=\Tbmt\Localizer::insert($this->i18nView['welcome'], [
+
+<div class="container content-inner">
+  <div class="heading-area text-center bottom-30">
+    <h4 class="heading large"><?=\Tbmt\Localizer::insert($this->i18nView['welcome'], [
       'name' => \Tbmt\view\Factory::buildMemberFullNameString($this->member)
-  ])?></h2>
+  ], false, '<span>{_val_}</span>')?></h4>
+  </div>
 
-  <ul class="tabs-nav">
-      <?php
-      foreach ($this->navigationLinks as $i => $link) {
-        $className = '';
-        if ( $link[2] )
-            $className = 'active';
+  <div class="tabs main">
+    <ul class="tabNavigation list-unstyled bottom-0 clearfix">
 
-        echo '<li class="'.$className.'"><a href="'.$link[0].'">'.$link[1].'</a></li>';
-      }
-      ?>
-  </ul>
+        <?php
+        foreach ($this->navigationLinks as $i => $link) {
+          $className = '';
+          if ( $link[2] )
+              $className = 'active';
 
-    <div class="tabs-container">
-        <div class="tab-content" >
+          echo '<li class="'.$className.'"><a href="'.$link[0].'">'.$link[1].'</a></li>';
+        }
+        ?>
+    </ul>
+
+    <div class="tabs-container active">
+        <div class="tabs-content" >
             <?=$this->tabContent?>
         </div>
     </div>
+  </div>
 </div>

@@ -4,7 +4,7 @@
 </div>
 <script type="text/javascript" src="<?=\Tbmt\Router::toJs('member.tree.js')?>"></script>
 <script type="text/javascript">
-  domready(function(){
+  jQuery(document).ready(function() {
     jQuery('#accountMemberTree').accountMemberTree(
       <?=json_encode($this->member)?>,
       {getRowsUrl: "<?=\Tbmt\Router::toModule('account', 'ajax_tree')?>"}

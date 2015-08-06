@@ -77,6 +77,12 @@ class SystemSetup {
       'Type'      => \Member::TYPE_CEO
     ]);
 
+
+    /* SET auto increment counter for member numbers
+    ---------------------------------------------*/
+    $sql = "SELECT setval('tbmt_member_num_seq', 1000001);";
+    $stmt = self::$con->prepare($sql);
+    $stmt->execute();
   }
 
   static public function doSetup() {

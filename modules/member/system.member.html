@@ -1,10 +1,5 @@
-<?=Tbmt\view\Factory::buildPageTitle($this->i18nView['page_title'])?>
+<?=\Tbmt\view\Factory::buildPageTitle($this->i18nView['page_title'])?>
 
-<div class="container">
-  <!--
-    INTO
-    *************************** -->
-    <h4 class="headline"><?=$this->i18nView['intro']?></h4>
 
   <?php
     $name_You = $this->i18nView['you'];
@@ -67,50 +62,123 @@
     $texts['32h'][2] = LL::currencyFormat($earnPerWeekTotal, $currencySymbol);
 
     $texts = new \Tbmt\IncrementalTextTranslation($texts);
+
+    class MMSHelper {
+      static private $countParts = 0;
+
+      static public $txtExplanation;
+      static public $txtIllustration;
+      static public $txtParts;
+
+      static public $texts;
+
+      static function nextExplanation() {
+        return '<h3 class="top-10 bottom-10">'.self::$txtExplanation.'</h3>'.
+          '<div class="divider bottom-10"></div>';
+      }
+
+      static function nextIllustration() {
+        return '<h4 class="top-10 bottom-10">'.self::$txtIllustration.'</h4>'.
+          '<div class="divider bottom-10"></div>';
+      }
+
+      static function nextText($plain = false) {
+        if ( $plain )
+          return self::$texts->next();
+
+        return '<p>'.self::$texts->next().'</p>';
+      }
+
+      static function nextTexts($l = 1) {
+        $r = '';
+        for ( $i = 0; $i < $l; $i++ )
+          $r .= self::nextText();
+
+        return $r;
+      }
+
+      static function nextRow($textContents, $illContents) {
+        $expHead = self::nextExplanation();
+        $illHead = self::nextIllustration();
+        self::$countParts++;
+        $head = \Tbmt\view\Factory::buildHeadingArea(self::$txtParts.'. '.self::$countParts, 'top-10 bottom-10');
+
+        $firstColWidth = 6;
+        $secondCol = '<div class="col-md-6">'.
+              $illHead.
+              $illContents.
+          '</div>';
+
+        if ( empty($illContents) ) {
+          $firstColWidth = 12;
+          $secondCol = '';
+        }
+
+return <<<END
+<div class="container msContainer">
+  <div class="row">
+    <div class="col-md-$firstColWidth bottom-sm-30">
+        $head
+        <div class="divider bottom-10"></div>
+
+        $textContents
+    </div>
+    $secondCol
+  </div>
+  <div class="divider circle clearfix top-40 bottom-40"></div>
+</div>
+END;
+
+      }
+    }
+    MMSHelper::$texts = $texts;
+    MMSHelper::$txtParts = $this->i18nView['head_part'];
+    MMSHelper::$txtExplanation = $this->i18nView['head_explanation'];
+    MMSHelper::$txtIllustration = $this->i18nView['head_illustration'];
   ?>
+
+  <!--
+  INTO
+  *************************** -->
+<div class="container content-inner">
+  <div class="heading-area text-center bottom-30">
+    <h4 class="heading large"><?=LL::insert($this->i18nView['intro1'], $this->i18nView['intro1h'], false, '<span>{_val_}</span>')?></h4>
+    <span class="sub-heading"><?=$this->i18nView['intro2']?></span>
+  </div>
+</div>
 
 <!--
   1
   *************************** -->
-    <div class="eight columns">
-        <h4 class="headline">1.</h4>
-        <p><?=$texts->next()?></p>
-    </div>
-    <div class="eight columns">
-        <h4 class="headline">&nbsp;</h4>
+<?php
+$txt = MMSHelper::nextTexts();
+$ill = <<<END
+    <table class="msConnectTable">
+      <tr>
+        <td></td>
+        <td></td>
+        <td class="msBox">{$this->i18nView['1_1']}</td>
+        <td class="msPadding">{$this->i18nView['vs1']}</td>
+      </tr>
 
-        <table style="margin:auto;">
-          <tr>
-            <td></td>
-            <td></td>
-            <td class="msBox"><?=$this->i18nView['1_1']?></td>
-            <td class="msPadding"><?=$this->i18nView['vs1']?></td>
-          </tr>
+    </table>
+END;
+echo MMSHelper::nextRow($txt, $ill);
+?>
 
-        </table>
-
-    </div>
-
-</div>
 
 <!--
   2
   *************************** -->
-<div class="container">
-    <div class="eight columns">
-        <h4 class="headline">2.</h4>
-
-        <p><?=$texts->next()?></p>
-        <p><?=$texts->next()?></p>
-    </div>
-    <div class="eight columns">
-        <h4 class="headline">&nbsp;</h4>
-        <table style="margin:auto;">
+<?php
+$txt = MMSHelper::nextTexts(2);
+$ill = <<<END
+        <table class="msConnectTable">
           <tr>
             <td></td>
-            <td class="msBox"><?=$name_You?></td>
+            <td class="msBox">$name_You</td>
             <td></td>
-            <td class="msPadding"><?=$this->i18nView['vs1']?></td>
+            <td class="msPadding">{$this->i18nView['vs1']}</td>
           </tr>
 
           <tr>
@@ -121,54 +189,46 @@
           </tr>
 
           <tr>
-            <td class="msBox"><?=$name_Anna?></td>
+            <td class="msBox">$name_Anna</td>
             <td></td>
-            <td class="msBox"><?=$name_Bernd?></td>
+            <td class="msBox">$name_Bernd</td>
             <td></td>
           </tr>
 
         </table>
-    </div>
-</div>
+END;
+echo MMSHelper::nextRow($txt, $ill);
+?>
+
 
 <!--
   3
   *************************** -->
-<div class="container">
-    <div class="eight columns">
-        <h4 class="headline">3.</h4>
-        <p><?=$texts->next()?></p>
-    </div>
-    <div class="eight columns">
-        <h4 class="headline">&nbsp;</h4>
-
-        <table style="margin:auto;">
+<?php
+$txt = MMSHelper::nextTexts(1);
+$ill = <<<END
+        <table class="msConnectTable">
           <tr>
-            <td class="msBox"><?=$name_You?></td>
-            <td class="msPadding"><?=$this->i18nView['vs2']?></td>
+            <td class="msBox">$name_You</td>
+            <td class="msPadding">{$this->i18nView['vs2']}</td>
           </tr>
 
         </table>
-    </div>
-</div>
+END;
+echo MMSHelper::nextRow($txt, $ill);
+?>
+
 
 <!--
   4
   *************************** -->
-<div class="container">
-    <div class="eight columns">
-        <h4 class="headline">4.</h4>
-        <p><?=$texts->next()?></p>
-        <p><?=$texts->next()?></p>
-        <p><?=$texts->next()?></p>
-    </div>
-    <div class="eight columns">
-        <h4 class="headline">&nbsp;</h4>
-
-        <table style="margin:auto;">
+<?php
+$txt = MMSHelper::nextTexts(3);
+$ill = <<<END
+        <table class="msConnectTable">
           <tr>
-            <td class="msBox"><?=$name_You?></td>
-            <td class="msPadding"><?=$this->i18nView['vs2']?></td>
+            <td class="msBox">{$name_You}</td>
+            <td class="msPadding">{$this->i18nView['vs2']}</td>
           </tr>
 
           <tr>
@@ -176,28 +236,26 @@
           </tr>
 
           <tr>
-            <td class="msBox"><?=$name_Chris?></td>
+            <td class="msBox">{$name_Chris}</td>
           </tr>
 
         </table>
-    </div>
-</div>
+END;
+echo MMSHelper::nextRow($txt, $ill);
+
+?>
+
 
 <!--
   5
   *************************** -->
-<div class="container">
-    <div class="eight columns">
-        <h4 class="headline">5.</h4>
-        <p><?=$texts->next()?></p>
-    </div>
-    <div class="eight columns">
-        <h4 class="headline">&nbsp;</h4>
-
-        <table style="margin:auto;">
+<?php
+$txt = MMSHelper::nextTexts(1);
+$ill = <<<END
+        <table class="msConnectTable">
           <tr>
-            <td class="msBox"><?=$name_You?></td>
-            <td class="msPadding"><?=$this->i18nView['vs2']?></td>
+            <td class="msBox">{$name_You}</td>
+            <td class="msPadding">{$this->i18nView['vs2']}</td>
           </tr>
 
           <tr>
@@ -205,35 +263,28 @@
           </tr>
 
           <tr>
-            <td class="msBox"><?=$name_Chris?></td>
-            <td class="msPadding"><?=$this->i18nView['vs1']?></td>
+            <td class="msBox">{$name_Chris}</td>
+            <td class="msPadding">{$this->i18nView['vs1']}</td>
           </tr>
 
         </table>
-    </div>
-</div>
+END;
+echo MMSHelper::nextRow($txt, $ill);
+?>
+
 
 <!--
   6
   *************************** -->
-<div class="container">
-    <div class="eight columns">
-        <h4 class="headline">6.</h4>
-        <p><?=$texts->next()?></p>
-        <p><?=$texts->next()?></p>
-        <p><?=$texts->next()?></p>
-        <p><?=$texts->next()?></p>
-        <p><?=$texts->next()?></p>
-    </div>
-    <div class="eight columns">
-        <h4 class="headline">&nbsp;</h4>
-
-        <table style="margin:auto;">
+<?php
+$txt = MMSHelper::nextTexts(5);
+$ill = <<<END
+        <table class="msConnectTable">
           <tr>
             <td></td>
-            <td class="msBox"><?=$name_You?></td>
+            <td class="msBox">{$name_You}</td>
             <td></td>
-            <td class="msPadding"><?=$this->i18nView['vs2']?></td>
+            <td class="msPadding">{$this->i18nView['vs2']}</td>
           </tr>
 
           <tr>
@@ -243,9 +294,9 @@
 
           <tr>
             <td></td>
-            <td class="msBox"><?=$name_Chris?></td>
+            <td class="msBox">{$name_Chris}</td>
             <td></td>
-            <td class="msPadding"><?=$this->i18nView['vs1']?></td>
+            <td class="msPadding">{$this->i18nView['vs1']}</td>
           </tr>
 
           <tr>
@@ -256,71 +307,65 @@
           </tr>
 
           <tr>
-            <td class="msBox"><?=$name_Dean?></td>
+            <td class="msBox">{$name_Dean}</td>
             <td></td>
-            <td class="msBox"><?=$name_Emi?></td>
+            <td class="msBox">{$name_Emi}</td>
             <td></td>
           </tr>
 
         </table>
-    </div>
-</div>
+END;
+echo MMSHelper::nextRow($txt, $ill);
+
+?>
+
 
 <!--
   7
   *************************** -->
-<div class="container">
-    <div class="sixteen columns">
-        <h4 class="headline">7.</h4>
-        <p><?=$texts->next()?></p>
-    </div>
-</div>
+<?php
+$txt = MMSHelper::nextTexts(1);
+$ill = '';
+echo MMSHelper::nextRow($txt, $ill);
+?>
+
+
 
 <!--
   8
   *************************** -->
-<div class="container">
-    <div class="eight columns">
-        <h4 class="headline">8.</h4>
-        <p><?=$texts->next()?></p>
-        <p><?=$texts->next()?></p>
-    </div>
-    <div class="eight columns">
-        <h4 class="headline">&nbsp;</h4>
-
-        <table style="margin:auto;">
+<?php
+$txt = MMSHelper::nextTexts(2);
+$ill = <<<END
+        <table class="msConnectTable">
           <tr>
-            <td class="msBox"><?=$name_You?></td>
+            <td class="msBox">{$name_You}</td>
             <td class="msConnect msC90"></td>
-            <td class="msBox"><?=$name_Chris?></td>
-            <td class="msPadding"><?=$this->i18nView['vs2']?></td>
+            <td class="msBox">{$name_Chris}</td>
+            <td class="msPadding">{$this->i18nView['vs2']}</td>
           </tr>
 
         </table>
+END;
+echo MMSHelper::nextRow($txt, $ill);
 
-    </div>
-</div>
+?>
+
+
 
 <!--
   9
   *************************** -->
-<div class="container">
-    <div class="eight columns">
-        <h4 class="headline">9.</h4>
-        <p><?=$texts->next()?></p>
-        <p><?=$texts->next()?></p>
-        <p><?=$texts->next()?></p>
-    </div>
-    <div class="eight columns">
-        <h4 class="headline">&nbsp;</h4>
-
-        <table style="margin:auto;">
+<?php
+$txt = MMSHelper::nextTexts(3);
+$ill = <<<END
+        <table class="msConnectTable">
           <tr>
             <td></td>
-            <td class="msBox"><?=$name_You?></td>
+            <td class="msBox">{$name_You}</td>
             <td></td>
             <td></td>
-            <td class="msPadding"><?=$this->i18nView['vs2']?></td>
+            <td class="msPadding">{$this->i18nView['vs2']}</td>
           </tr>
 
           <tr>
@@ -331,39 +376,36 @@
           </tr>
 
           <tr>
-            <td class="msBox"><?=$name_Dean?></td>
+            <td class="msBox">{$name_Dean}</td>
             <td></td>
-            <td class="msBox"><?=$name_Emi?></td>
+            <td class="msBox">{$name_Emi}</td>
             <td></td>
-            <td class="msPadding"><?=$this->i18nView['vs1']?></td>
+            <td class="msPadding">{$this->i18nView['vs1']}</td>
           </tr>
 
         </table>
+END;
+echo MMSHelper::nextRow($txt, $ill);
 
-    </div>
-</div>
+?>
+
+
 
 <!--
   10
   *************************** -->
-<div class="container">
-    <div class="eight columns">
-        <h4 class="headline">10.</h4>
-        <p><?=$texts->next()?></p>
-        <p><?=$texts->next()?></p>
-    </div>
-    <div class="eight columns">
-        <h4 class="headline">&nbsp;</h4>
-
-        <table style="margin:auto;">
+<?php
+$txt = MMSHelper::nextTexts(2);
+$ill = <<<END
+        <table class="msConnectTable">
           <tr>
             <td></td>
             <td></td>
             <td></td>
-            <td class="msBox"><?=$name_You?></td>
+            <td class="msBox">{$name_You}</td>
             <td></td>
             <td></td>
-            <td class="msPadding"><?=$this->i18nView['vs2']?></td>
+            <td class="msPadding">{$this->i18nView['vs2']}</td>
           </tr>
 
           <tr>
@@ -378,11 +420,11 @@
           <tr>
             <td></td>
             <td></td>
-            <td class="msBox"><?=$name_Dean?></td>
+            <td class="msBox">{$name_Dean}</td>
             <td></td>
-            <td class="msBox"><?=$name_Emi?></td>
+            <td class="msBox">{$name_Emi}</td>
             <td></td>
-            <td class="msPadding"><?=$this->i18nView['vs1']?></td>
+            <td class="msPadding">{$this->i18nView['vs1']}</td>
           </tr>
 
           <tr>
@@ -397,66 +439,62 @@
           </tr>
 
           <tr>
-            <td class="msBox"><?=$name_Frank?></td>
+            <td class="msBox">{$name_Frank}</td>
             <td class="msSpace"></td>
-            <td class="msBox"><?=$name_Gisele?></td>
+            <td class="msBox">{$name_Gisele}</td>
             <td></td>
-            <td class="msBox"><?=$name_Heinz?></td>
+            <td class="msBox">{$name_Heinz}</td>
             <td class="msSpace"></td>
-            <td><div class="msBox msBox-inline"><?=$name_Ida?></div></td>
+            <td><div class="msBox msBox-inline">{$name_Ida}</div></td>
           </tr>
 
         </table>
+END;
+echo MMSHelper::nextRow($txt, $ill);
 
-    </div>
-</div>
+?>
+
+
 
 <!--
   11
   *************************** -->
-<div class="container">
-    <div class="eight columns">
-        <h4 class="headline">11.</h4>
-        <p><?=$texts->next()?></p>
-        <p><?=$texts->next()?></p>
-    </div>
-    <div class="eight columns">
-        <h4 class="headline">&nbsp;</h4>
-
-        <table style="margin:auto;">
+<?php
+$txt = MMSHelper::nextTexts(2);
+$ill = <<<END
+        <table class="msConnectTable">
           <tr>
-            <td class="msBox"><?=$name_You?></td>
+            <td class="msBox">{$name_You}</td>
             <td class="msConnect msC90"></td>
-            <td class="msBox"><?=$name_Dean?></td>
+            <td class="msBox">{$name_Dean}</td>
             <td class="msConnect msC90"></td>
-            <td class="msBox"><?=$name_Emi?></td>
-            <td class="msPadding"><?=$this->i18nView['vs2']?></td>
+            <td class="msBox">{$name_Emi}</td>
+            <td class="msPadding">{$this->i18nView['vs2']}</td>
           </tr>
 
         </table>
+END;
+echo MMSHelper::nextRow($txt, $ill);
 
-    </div>
-</div>
+?>
+
+
 
 <!--
   12
   *************************** -->
-<div class="container">
-    <div class="eight columns">
-        <h4 class="headline">12.</h4>
-        <p><?=$texts->next()?></p>
-    </div>
-    <div class="eight columns">
-        <h4 class="headline">&nbsp;</h4>
+<?php
+$txt = MMSHelper::nextTexts(1);
+$ill = <<<END
 
-        <table style="margin:auto;">
+        <table class="msConnectTable">
           <tr>
             <td></td>
             <td></td>
-            <td colspan="3" class="msBox"><?=$name_You?></td>
+            <td colspan="3" class="msBox">{$name_You}</td>
             <td></td>
             <td></td>
-            <td class="msPadding"><?=$this->i18nView['vs2']?></td>
+            <td class="msPadding">{$this->i18nView['vs2']}</td>
           </tr>
 
           <tr>
@@ -471,41 +509,39 @@
           </tr>
 
           <tr>
-            <td class="msBox"><?=$name_Frank?></td>
+            <td class="msBox">{$name_Frank}</td>
             <td class="msSpace"></td>
-            <td class="msBox"><?=$name_Gisele?></td>
+            <td class="msBox">{$name_Gisele}</td>
             <td class="msSpace"></td>
-            <td class="msBox"><?=$name_Heinz?></td>
+            <td class="msBox">{$name_Heinz}</td>
             <td class="msSpace"></td>
-            <td class="msBox"><?=$name_Ida?></td>
-            <td class="msPadding"><?=$this->i18nView['vs1']?></td>
+            <td class="msBox">{$name_Ida}</td>
+            <td class="msPadding">{$this->i18nView['vs1']}</td>
           </tr>
 
         </table>
+END;
+echo MMSHelper::nextRow($txt, $ill);
 
-    </div>
-</div>
+?>
+
+
 
 <!--
   13
   *************************** -->
-<div class="container">
-    <div class="eight columns">
-        <h4 class="headline">13.</h4>
-        <p><?=$texts->next()?></p>
-        <p><?=$texts->next()?></p>
-    </div>
-    <div class="eight columns">
-        <h4 class="headline">&nbsp;</h4>
+<?php
+$txt = MMSHelper::nextTexts(2);
+$ill = <<<END
 
-        <table style="margin:auto;">
+        <table class="msConnectTable">
           <tr>
             <td></td>
             <td></td>
-            <td colspan="3" class="msBox"><?=$name_You?></td>
+            <td colspan="3" class="msBox">{$name_You}</td>
             <td></td>
             <td></td>
-            <td class="msPadding"><?=$this->i18nView['vs2']?></td>
+            <td class="msPadding">{$this->i18nView['vs2']}</td>
           </tr>
 
           <tr>
@@ -520,14 +556,14 @@
           </tr>
 
           <tr>
-            <td class="msBox"><?=$name_Frank?></td>
+            <td class="msBox">{$name_Frank}</td>
             <td class="msSpace"></td>
-            <td class="msBox"><?=$name_Gisele?></td>
+            <td class="msBox">{$name_Gisele}</td>
             <td class="msSpace"></td>
-            <td class="msBox"><?=$name_Heinz?></td>
+            <td class="msBox">{$name_Heinz}</td>
             <td class="msSpace"></td>
-            <td class="msBox"><?=$name_Ida?></td>
-            <td class="msPadding"><?=$this->i18nView['vs1']?></td>
+            <td class="msBox">{$name_Ida}</td>
+            <td class="msPadding">{$this->i18nView['vs1']}</td>
           </tr>
 
           <tr>
@@ -551,102 +587,102 @@
           </tr>
 
         </table>
+END;
+echo MMSHelper::nextRow($txt, $ill);
 
-    </div>
-</div>
+?>
+
+
 
 <!--
   14
   *************************** -->
-<div class="container">
-    <div class="sixteen columns">
-        <h4 class="headline">14.</h4>
-        <p><?=$texts->next()?></p>
-        <p><?=$texts->next()?></p>
-        <p><?=$texts->next()?></p>
-        <p><?=$texts->next()?></p>
-    </div>
-</div>
+<?php
+$txt = MMSHelper::nextTexts(4);
+$ill = '';
+echo MMSHelper::nextRow($txt, $ill);
+
+?>
+
 
 <!--
   15
   *************************** -->
-<div class="container">
-    <div class="eight columns">
-        <h4 class="headline">15.</h4>
-        <p><?=$texts->next()?></p>
-        <p><?=$texts->next()?></p>
-    </div>
-    <div class="eight columns">
-        <h4 class="headline">&nbsp;</h4>
+<?php
+$name_Week = $this->i18nView['31_week'];
 
-        <?php $name_Week = $this->i18nView['31_week'];?>
+$txt = MMSHelper::nextTexts(2);
+$ill = '<table style="margin:auto;" class="previewWeeksMoney">';
+foreach ( $earnPerWeek as $i => $week ) {
+  $ill .= '<tr>'.
+    '<td>'.($i+1).'. '.$name_Week.'</td>'.
+    '<td>'.$currencySymbol.'</td>'.
+    '<td>'.\Tbmt\Localizer::numFormat($week).'</td>'.
+  '</tr>';
+}
+$ill .= '</table>';
 
-        <table style="margin:auto;" class="previewWeeksMoney">
-            <?php foreach ( $earnPerWeek as $i => $week ) { ?>
+echo MMSHelper::nextRow($txt, $ill);
 
-            <tr>
-              <td><?=$i+1?>. <?=$name_Week?></td>
-              <td><?=$currencySymbol?></td>
-              <td><?=\Tbmt\Localizer::numFormat($week)?></td>
-            </tr>
+?>
 
-            <?php } ?>
-        </table>
-    </div>
-</div>
+
 
 <!--
   16
   *************************** -->
-<div class="container">
-    <div class="sixteen columns">
-        <h4 class="headline">16.</h4>
-        <p><?=$texts->next()?></p>
-    </div>
-</div>
+<?php
+$txt = MMSHelper::nextTexts(1);
+$ill = '';
+echo MMSHelper::nextRow($txt, $ill);
+
+?>
+
+
 
 <!--
   17
   *************************** -->
-<div class="container">
-    <div class="sixteen columns">
-        <h4 class="headline">17.</h4>
-        <p><?=$texts->next()?></p>
-        <?=\Tbmt\view\Factory::buildNotification($texts->next(), 'Notice!', 'notice')?>
-        <p><?=$texts->next()?></p>
-        <p><?=$texts->next()?></p>
-        <p><?=$texts->next()?></p>
-        <p><?=$texts->next()?></p>
-    </div>
-</div>
+<?php
+$txt = MMSHelper::nextText().
+  \Tbmt\view\Factory::buildNotification(MMSHelper::nextText(), '', 'info').
+  MMSHelper::nextTexts(4);
+$ill = '';
+echo MMSHelper::nextRow($txt, $ill);
+
+?>
+
 
 <!--
   18
   *************************** -->
-<div class="container">
-    <div class="sixteen columns">
-        <h4 class="headline">18.</h4>
-        <p><?=$texts->next()?></p>
+<?php
+$txt = MMSHelper::nextText().
 
-        <p><strong><?=$texts->next()?></strong></p>
-        <ul class="list-2">
-          <li><strong><?=$texts->next()?></strong></li>
-          <li><strong><?=$texts->next()?></strong></li>
-          <li><strong><?=$texts->next()?></strong></li>
-        </ul>
+  '<p><strong>'.MMSHelper::nextText().'</strong></p>'.
+  '<ul class="list-2">'.
+    '<li><strong>'.MMSHelper::nextText(true).'</strong></li>'.
+    '<li><strong>'.MMSHelper::nextText(true).'</strong></li>'.
+    '<li><strong>'.MMSHelper::nextText(true).'</strong></li>'.
+  '</ul>'.
 
-        <p>&nbsp;</p>
+  '<p>&nbsp;</p>'.
 
-        <p><?=$texts->next()?></p>
-        <p><?=$texts->next()?></p>
-        <p><?=$texts->next()?></p>
-        <p><?=$texts->next()?></p>
+  '<p>'.MMSHelper::nextText().'</p>'.
+  '<p>'.MMSHelper::nextText().'</p>'.
+  '<p>'.MMSHelper::nextText().'</p>'.
+  '<p>'.MMSHelper::nextText().'</p>'.
+  \Tbmt\view\Factory::buildInfoBox(
+    MMSHelper::nextText(),
+    MMSHelper::nextText(),
+    \Tbmt\view\Factory::buildButton(
+      $this->i18nView['signup_now'],
+      \Tbmt\Router::toModule('member', 'signup'),
+      ' pull-right'
+    ),
+    'action'
+  );
+$ill = '';
+echo MMSHelper::nextRow($txt, $ill);
 
-        <?=\Tbmt\view\Factory::buildLargeNotice(
-          $texts->next(),
-          $texts->next(),
-          '<a class="button small yellow" href="'.\Tbmt\Router::toModule('member', 'signup').'" role="button">'.$this->i18nView['signup_now'].'</a>'
-        )?>
-    </div>
-</div>
+?>

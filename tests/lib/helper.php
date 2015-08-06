@@ -91,6 +91,11 @@ class DbEntityHelper {
   }
 
   static public function setUpBonusMembers($doReset = true, $options = false) {
+    if ( !\MemberQuery::create()->findOneByNum(SystemStats::ACCOUNT_NUM_SYSTEM) ) {
+      \Tbmt\SystemSetup::setCon(self::$con);
+      \Tbmt\SystemSetup::doSetup();
+    }
+
     $options = array_merge([
       'IT' => true,
       'VL' => true,
@@ -113,11 +118,12 @@ class DbEntityHelper {
         $IT = self::$it_member = DbEntityHelper::createMember($currentParent, [
           'Type' => Member::TYPE_ITSPECIALIST,
           'FundsLevel' => Member::FUNDS_LEVEL2,
+          // 'Num' => SystemStats::ACCOUNT_NUM_IT
         ]);
 
       } else {
         $IT = self::$it_member;
-        $IT_t = self::$it_member->getOutstandingTotal();
+        $IT_t = self::$it_member->getOutstandingTotal()[DbEntityHelper::$currency];
       }
 
       $currentBonusIds = MemberBonusIds::populate($IT, '[]');

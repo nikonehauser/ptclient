@@ -1,5 +1,5 @@
 
-  <h4 class="headline" ><?=$this->i18nView['stats']?></h4>
+  <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['stats'], 'bottom-30 top-10')?>
 
   <dl class="dl-horizontal dl-largeSpaced dl-largeTitle dl-prettyStyled">
       <dt><?=$this->i18nView['oustanding_advertised_count']?></dt>
@@ -18,8 +18,8 @@
 
 
 
-  <h4 class="headline" ><?=$this->i18nView['transactions']?></h4>
-  <table class="standard-table">
+  <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['transactions'])?>
+  <table class="table">
     <tbody>
         <tr>
           <th><?=$this->i18nView['quantity']?></th>
@@ -43,51 +43,3 @@
     ?>
     </tbody>
   </table>
-
-<!--
-  <table class="standard-table">
-
-        <tbody><tr>
-          <th>Header 1</th>
-          <th>Header 2</th>
-          <th>Header 3</th>
-          <th>Header 4</th>
-        </tr>
-
-        <tr>
-          <td>Item #1</td>
-          <td>Description</td>
-          <td>100 GB</td>
-          <td>100 GB</td>
-        </tr>
-
-        <tr>
-          <td>Item #2</td>
-          <td>Description</td>
-          <td>200 GB</td>
-          <td>200 GB</td>
-        </tr>
-
-        <tr>
-          <td>Item #3</td>
-          <td>Description</td>
-          <td>300 GB</td>
-          <td>300 GB</td>
-        </tr>
-
-        <tr>
-          <td>Item #4</td>
-          <td>Description</td>
-          <td>400 GB</td>
-          <td>400 GB</td>
-        </tr>
-
-        <tr>
-          <td>Item #5</td>
-          <td>Description</td>
-          <td>500 GB</td>
-          <td>500 GB</td>
-        </tr>
-
-      </tbody></table>
-      -->

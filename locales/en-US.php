@@ -150,8 +150,13 @@ return [
         'notice' => 'Notice',
         'signup_now' => 'Signup Now',
         'etc' => 'etc.',
-        'intro' => 'This page will explain our marketing system in detail with the help of an example.',
+        'intro1' => 'This page will explain our {0} in detail',
+        'intro1h' => ['marketing system'],
+        'intro2' => 'For better understanding we will follow a detailed example',
         'you' => 'You',
+        'head_explanation' => 'Explanation',
+        'head_part' => 'Part',
+        'head_illustration' => 'Illustration',
         '1' => 'You become a member through registering and paying the contribution of {0}. In our marketing system, you are automatically on payment level 1.',
         '1h' => ['$_member_fee_$'],
         '1_1' => 'You = Member',
@@ -273,6 +278,7 @@ return [
 
       'signup' => [
         'page_title' => 'Signup for membership',
+        'form_error' => 'Form has invalid fields.',
         'form_labels' => [
           'contact' => 'Contact',
           'address' => 'Address',

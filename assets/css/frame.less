@@ -4,6 +4,16 @@
 @c-Organge: #f67f00;
 @c-Gray: #999;
 
+
+
+/* =============================================================== */
+/* theme style colors
+================================================================ */
+@c-BaseStyle: #EF4A43;
+
+
+
+
 @imagePath: '../images/';
 
 
@@ -12,25 +22,54 @@
 /* =============================================================== */
 /* general components
 ================================================================ */
+#header .logo-container {
+  padding: 30px 0;
+}
 .logo {
   display: block;
-  height: 80px;
+  height: 50px;
   >img {
-    width: 180px;
-    padding-top: 16px;
+    height: 100%;
   }
 }
 
-#navigation ul li:hover > a {color: @c-Organge !important;}
-#navigation ul ul li:hover > a {color: @c-Organge !important;}
-#current {color: @c-Organge !important;}
+.code, .command { font-family: Consolas, Courier, monospace; }
 
-#layerslider h2.girlsschools {
-  color: white;
-  background-color: @c-BgDark;
-  padding: 8px;
+
+/* =============================================================== */
+/* List Styles
+================================================================ */
+.list-1 li,
+.list-2 li,
+.list-3 li,
+.list-4 li {
+  list-style: none;
+  margin: 7px 0;
+  margin-left: 2px;
 }
 
+.list-1 li:first-child,
+.list-2 li:first-child,
+.list-3 li:first-child,
+.list-4 li:first-child {
+  margin-top: 0;
+}
+
+.list-1 li:before,
+.list-2 li:before,
+.list-3 li:before,
+.list-4 li:before {
+  content: "";
+  font-family: "FontAwesome";
+  margin: 0 7px 0 0;
+  position: relative;
+  color: @c-BaseStyle;
+}
+
+.list-1 li:before { content: ""; }
+.list-2 li:before { content: ""; }
+.list-3 li:before { content: ""; }
+.list-4 li:before { content: ""; }
 
 
 /* =============================================================== */
@@ -47,7 +86,6 @@
   &.checkbox {
     label {
       vertical-align: middle;
-      margin-bottom: 20px;
       padding: 10px;
     }
     input {
@@ -61,35 +99,48 @@
     }
   }
 
-  label.validation-error {
-    .text-danger;
-  }
-
-  label {
-    font-weight: bold;
-  }
-
-  .help-block, +.help-block {
-    margin-top: -10px;
-    margin-bottom: 20px;
+  .help-block:not(:empty), +.help-block:not(:empty) {
+    margin-bottom: 10px;
     .text-muted;
+  }
 
-    &.text-danger {
+  &.has-error {
+    .text-danger;
+    .help-block {
       .text-danger;
+    }
+
+    &.checkbox label {
+
+    }
+
+    input {
+      border-color: @c-Danger;
     }
   }
 }
 
 
-.form-inline {
-  .field>label {
-    display: inline-block;
-    margin-right: 20px;
+.form-inline .field {
+  text-align: left;
+  float: left;
+  display: inline-block;
+  padding-right: 15px;
+  padding-left: 15px;
+
+  height: 100%;
+
+  label {
+    padding-right: 15px;
   }
-  .field>input, .field>select {
-    display: inline-block;
-    width: auto;
-  }
+}
+
+
+.form-white {
+  .rounded(14px);
+  background: white;
+  padding: 14px;
+  border: 5px dotted #F0F0F0;
 }
 
 
@@ -124,6 +175,13 @@ dd {
   .dl-horizontal dd {
     margin-left: 180px;
   }
+
+  .dl-largeTitle>dt {
+    width: 360px;
+  }
+  .dl-largeTitle>dd {
+    margin-left: 380px;
+  }
 }
 
 .dl-largeSpaced>* {
@@ -137,14 +195,6 @@ dd {
 .dl-prettyStyled>dd {
   padding-left: 18px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-
-.dl-largeTitle>dt {
-  width: 360px;
-}
-.dl-largeTitle>dd {
-  margin-left: 380px;
 }
 
 
@@ -201,6 +251,15 @@ dd {
 /* =============================================================== */
 /* marketing system diagramms
 ================================================================ */
+.msContainer h4 {
+  line-height: 1;
+}
+
+.msConnectTable {
+  margin: auto;
+}
+
+
 .msBox {
   border: 1px solid @c-Gray;
   padding: 8px 18px;
@@ -251,6 +310,7 @@ dd {
 .msConnect {
   position: relative;
   height: @msConnect-Height;
+  vertical-align: baseline;
   &:before {
     content: "";
     display: block;

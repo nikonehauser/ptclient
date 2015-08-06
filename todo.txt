@@ -1,3 +1,14 @@
+Fragen
+======
+
+ - unter promoter - namensgebung
+
+ - trennung von den systemen:
+   - welches geld soll überwiesen werden?
+     - der gesamte rest? (bonus zahlungen "nicht mehr möglich")
+     - das was den einzelnen "unternehmern" zusteht?
+
+
 CURRENT
 ======
 
@@ -7,12 +18,25 @@ CURRENT
  kein orgleader existiert? kriegt er bei bonus level 2 dann 3 oder 4 euro?
  - was sind die bonuse?
 
+ - bonuse nicht als multiplikator sondern +1 euro +2 euro etc.
+
+ - beim marketing system unten hinschreiben das den letzten die hunde beißen,
+   je später du anfängst desto weniger verdienst du
+
+ - ist das in ordnung wenn jedes land sein eigenes system hat und daher es immer wieder von vorn
+   anfängt
+
+ - replace "Help Yourself Association" with the appropriate page name in language files
+
+ - how to für benutzer: überweisung durchführen mit EIGENER nummer als verwendungszweck
+
 LIST
 ====
+- add funds level select to invitation form
 
 - website content auffüllen
 
-- promoter kann promoter werben
+- promoter kann promoter werben (behinderter special fall)
 
 - save unknown incommings to extra table
 
@@ -39,20 +63,6 @@ LIST
 Profiling
 =========
 EXPLAIN ANALYZE VERBOSE UPDATE tbmt_transfer SET state=0 WHERE tbmt_transfer.state=1 AND tbmt_transfer.member_id=1000004;
-
-Fragen
-======
- - werden promoter etc. sofort mit funds level 2 eingetragen? (die ersten 10 000?) -> ja
-
- - unter promoter - wird noch geklärt
-
- - trennung von den systemen:
-   - Projekte werden gelistet auf beiden seiten? oder was wird auf der hya seite gelistet, nix?
-   - welches geld soll überwiesen werden?
-     - der gesamte rest? (bonus zahlungen "nicht mehr möglich")
-     - das was den einzelnen "unternehmern" zusteht?
-
-     - ich übertrage die zahlungen für die "unternehmen" und von dort automatisch an diese einzelnen konten
 
 
 TOM
@@ -112,22 +122,3 @@ Die Abrechnung erfolgt immer Bankarbeitstag täglich
 Die Software muss massenhafte zeitgleiche Registrierungen verarbeiten können.
 - Bei einer Überlastung dürfen keine Fehler produziert werden
 - und es muss eine entsprechende Meldung erscheinen, dass es derzeit aufgrund der Vielzahl der Registrierungen eine Registrierung nicht möglich ist und dass man es später noch einmal probieren soll.
-
-
-
-
-============================
-============================
-============================
-============================
-
-
- - Seite 1: HYA
- konto für spenden angeben#
- projekte
-
-
- - vertriebsseite pro land
- - muss eigene währung unterstützen
-
-

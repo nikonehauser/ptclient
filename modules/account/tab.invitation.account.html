@@ -7,22 +7,27 @@
   <!--
     FORM
     *************************** -->
-  <div class="container u-max-full-width">
-      <h4 class="headline"><?=$this->i18nView['form_title']?></h4>
-      <form action="<?=\Tbmt\Router::toModule('account', 'invitation_create')?>" method="post" class="form-inline">
-          <div class="sixteen columns nested">
-              <?php echo $formBuilder->buildInvitationTypeSelectGroup('type', $this->member->getType()); ?>
+  <div class="row">
+    <div class="col-md-12">
+        <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['form_title'], 'bottom-30 top-10')?>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <form action="<?=\Tbmt\Router::toModule('account', 'invitation_create')?>" method="post" class="form-inline form-white">
+
+            <?php echo $formBuilder->buildInvitationTypeSelectGroup('type', $this->member->getType()); ?>
+
+            <?php echo $formBuilder->buildFieldGroup('free_signup', 'checkbox'); ?>
+
+          <div class="field">
+            <?=\Tbmt\view\Factory::buildSubmitBtn($this->i18nView['submit'], 'blue')?>
           </div>
 
-          <div class="sixteen columns nested">
-              <?php echo $formBuilder->buildFieldGroup('free_signup', 'checkbox'); ?>
-          </div>
-
-
-          <div class="sixteen columns nested">
-              <input class="button yellow medium" type="submit" value="<?=$this->i18nView['submit']?>">
-          </div>
+          <div class="clearfix"></div>
       </form>
+    </div>
   </div>
 
 
@@ -30,9 +35,9 @@
     LIST OF INVITATIONS
     *************************** -->
   <div class="container u-max-full-width">
-      <h4 class="headline"><?=$this->i18nView['list_title']?></h4>
+      <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['list_title'])?>
 
-      <table class="standard-table">
+      <table class="table">
         <tbody>
             <tr>
               <th><?=$this->i18nView['hash']?></th>
@@ -46,11 +51,11 @@
         $memberTypes = \Tbmt\Localizer::get('common.member_types');
         foreach ( $this->invitations as $invitation ) {
           echo '<tr>';
-            echo '<td>'.$invitation->getHash().'</td>';
+            echo '<td class="code">'.$invitation->getHash().'</td>';
             echo '<td>'.$memberTypes[$invitation->getType()].'</td>';
-            echo '<td>'.($invitation->getFreeSignup() ? '<i class="fa fa-check" />' : '<i class="fa fa-remove" />').'</td>';
+            echo '<td>'.($invitation->getFreeSignup() ? '<i class="fa fa-check" />' : '<i class="fa fa-times" />').'</td>';
             echo '<td>'.date($this->invitationDateFormat, $invitation->getCreationDate('U')).'</td>';
-            echo '<td>'.($invitation->getAcceptedDate() ? '<i class="fa fa-check" />' : '<i class="fa fa-remove" />').'</td>';
+            echo '<td>'.($invitation->getAcceptedDate() ? '<i class="fa fa-check" />' : '<i class="fa fa-times" />').'</td>';
           echo '</tr>';
 
         }

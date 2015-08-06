@@ -43,6 +43,13 @@ class Index extends Base {
       unset($accountLinks[3]);
     }
 
+    $this->navigationIcons = [
+      'road',
+      'lightbulb-o',
+      'envelope',
+      'user',
+    ];
+
     $this->baseUrl = \Tbmt\Router::toBase();
     $this->locales = $viewCommon;
   }

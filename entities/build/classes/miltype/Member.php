@@ -40,6 +40,7 @@ class Member extends BaseMember
     self::TYPE_PROMOTER => Transaction::REASON_PM_BONUS,
     self::TYPE_ORGLEADER => Transaction::REASON_OL_BONUS,
     self::TYPE_MARKETINGLEADER => Transaction::REASON_VL_BONUS,
+    self::TYPE_ITSPECIALIST => Transaction::REASON_IT_BONUS,
   ];
 
   static public $NUM_TO_BONUS_REASON = [

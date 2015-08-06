@@ -11,6 +11,7 @@ class Router {
   static private $assetsBase;
   static private $imagesBase;
   static private $jsBase;
+  static private $cssBase;
 
   static public function init($url, $basePath = '') {
     // TODO
@@ -24,6 +25,7 @@ class Router {
     self::$assetsBase = $basePath.'assets/';
     self::$imagesBase = $basePath.'assets/images/';
     self::$jsBase = $basePath.'assets/js/';
+    self::$cssBase = $basePath.'assets/css/';
   }
 
   static public function toBase() {
@@ -57,5 +59,9 @@ class Router {
 
   static public function toJs($path) {
     return self::$jsBase.$path;
+  }
+
+  static public function toCss($path) {
+    return self::$cssBase.$path;
   }
 }

@@ -3,7 +3,7 @@
 /* Custom JS
 /*
 -----------------------------------------------------------------------------------*/
-	  
+
 /* Start Document */
 jQuery(document).ready(function() {
 
@@ -24,18 +24,18 @@ jQuery(document).ready(function() {
 		}).on('mouseleave', 'li', function() {
 			$(this).removeClass('hover').children('ul').stop(true, true).fadeOut(50);
 		});
-		
+
 	})();
-	
+
 	/* Responsive Menu */
-	domready(function(){
-			
+	jQuery(document).ready(function() {
+
 		selectnav('nav', {
 			label: 'Menu',
 			nested: true,
 			indent: '-'
 		});
-				
+
 	});
 
 /*----------------------------------------------------*/
@@ -53,13 +53,13 @@ jQuery(document).ready(function() {
 				jQuery("#backtotop").fadeOut(fadeOutTime);
 			}
 		});
-		 
+
 		jQuery('#backtotop a').click(function(){
-			jQuery('html, body').animate({scrollTop:0}, scrollSpeed); 
-			return false; 
-		}); 
-		
-		
+			jQuery('html, body').animate({scrollTop:0}, scrollSpeed);
+			return false;
+		});
+
+
 /*----------------------------------------------------*/
 /*	LayerSlider
 /*----------------------------------------------------*/
@@ -103,9 +103,9 @@ jQuery(document).ready(function()
 			animation: 'fade',
 			hideBoxes: false
 		};
-		
+
 		var options = $.extend({}, defaults, options);
-		
+
 		return this.each(function()
 		{
 			var wrapper = $(this),
@@ -113,23 +113,23 @@ jQuery(document).ready(function()
 				content = notification.find('p'),
 				title = content.find('strong'),
 				closeBtn = $('<a class="close" href="#"></a>');
-			
+
 			$(document.body).find('.notification').each(function(i)
 			{
 				var i = i+1;
 				$(this).attr('id', 'notification_'+i);
 			});
-			
+
 			notification.filter('.closeable').append(closeBtn);
-			
+
 			closeButton = notification.find('> .close');
-			
+
 			closeButton.click(function()
 			{
 				hideIt( $(this).parent() );
 				return false;
-			});			
-			
+			});
+
 			function hideIt(object)
 			{
 				switch(options.animation)
@@ -141,31 +141,31 @@ jQuery(document).ready(function()
 					default: fadeItSlideIt(object);
 				}
 			};
-			
+
 			function fadeIt(object)
 			{	object
 				.fadeOut(options.speed);
-			}			
+			}
 			function slideIt(object)
 			{	object
 				.slideUp(options.speed);
-			}			
+			}
 			function fadeItSlideIt(object)
 			{	object
 				.fadeTo(options.speed, 0, function() { slideIt(object) } );
-			}			
+			}
 			function boxAnimIt(object)
 			{	object
 				.hide(options.speed);
 			}
-			
+
 			if (options.hideBoxes){}
-			
+
 			else if (! options.hideBoxes)
 			{
 				notification.css({'display': 'block', 'visiblity': 'visible'});
 			}
-			
+
 		});
 	};
 })();
@@ -185,7 +185,7 @@ jQuery(document).ready(function()
 		var fullWidth = $container.outerWidth(true);
 		$trigger.css('width', fullWidth);
 		$container.css('width', fullWidth);
-		
+
 		$trigger.on('click', function(e) {
 			if( $(this).next().is(':hidden') ) {
 				$trigger.removeClass('active').next().slideUp(300);
@@ -203,7 +203,7 @@ jQuery(document).ready(function()
 
 	})();
 
-	
+
 /*----------------------------------------------------*/
 /*	Tabs
 /*----------------------------------------------------*/
@@ -228,7 +228,7 @@ jQuery(document).ready(function()
 
 			$this.siblings().removeClass('active').end()
 				 .addClass('active');
-			
+
 			$this.parent().next().children('.tab-content').stop(true,true).hide()
 														  .siblings( $this.find('a').attr('href') ).fadeIn();
 
@@ -236,8 +236,8 @@ jQuery(document).ready(function()
 		});
 
 	})();
-	
-	
+
+
 /*----------------------------------------------------*/
 /*	Contact Form
 /*----------------------------------------------------*/
@@ -250,7 +250,7 @@ var emailReg = /^[a-zA-Z0-9._-]+@([a-zA-Z0-9.-]+\.)+[a-zA-Z0-9.-]{2,4}$/;
 		//if submit button is clicked
         function validateName(name)
         {
-                    if (name.val()=='*') 
+                    if (name.val()=='*')
                         {
                             name.addClass('validation-error',animateSpeed);
                             return false;
@@ -261,7 +261,7 @@ var emailReg = /^[a-zA-Z0-9._-]+@([a-zA-Z0-9.-]+\.)+[a-zA-Z0-9.-]{2,4}$/;
                             return true;
                         }
          }
-		 
+
          function validateEmail(email,regex)
          {
                     if (!regex.test(email.val()))
@@ -275,7 +275,7 @@ var emailReg = /^[a-zA-Z0-9._-]+@([a-zA-Z0-9.-]+\.)+[a-zA-Z0-9.-]{2,4}$/;
                             return true;
                         }
          }
-		 
+
          function validateMessage(message)
          {
                     if (message.val()=='')
@@ -289,86 +289,86 @@ var emailReg = /^[a-zA-Z0-9._-]+@([a-zA-Z0-9.-]+\.)+[a-zA-Z0-9.-]{2,4}$/;
                              return true;
                          }
           }
-                
+
 		$('#send').click(function()
         {
 		// result of action
                 var result=true;
-                
+
 		//Get the data from all the fields
 		var name = $('input[name=name]');
 		var email = $('input[name=email]');
 		var message = $('textarea[name=message]');
-                
-                
+
+
          // validate of name input
          if(!validateName(name)) result=false;
          if(!validateEmail(email,emailReg)) result=false;
          if(!validateMessage(message)) result=false;
-		
+
          if(result==false) return false;
 		//organize the data properly
 		var data = 'name=' + name.val() + '&email=' + email.val() + '&message='  + encodeURIComponent(message.val());
-		
+
 		//disabled all the text fields
 		$('.text').attr('disabled','true');
-		
+
 		//show the loading sign
 		$('.loading').fadeIn('slow');
-		
+
 		//start the ajax
 		$.ajax({
-		
+
 			//this is the php file that processes the data and send mail
-			url: "contact.php",	
-			
+			url: "contact.php",
+
 			//GET method is used
 			type: "GET",
 
-			//pass the data			
-			data: data,		
-			
+			//pass the data
+			data: data,
+
 			//Do not cache the page
 			cache: false,
-			
+
 			//success
-			success: function (html) {				
+			success: function (html) {
 				//if process.php returned 1/true (send mail success)
-				if (html==1) {	
+				if (html==1) {
 
 					//show the loading sign
-					$('.loading').fadeOut('slow');	
-					
+					$('.loading').fadeOut('slow');
+
 					//show the success message
 					$('.success-message').slideDown('slow');
-                                        
+
                     //deactivate submit
 					$('#send').attr('disabled',true);
-					
+
 				//if process.php returned 0/false (send mail failed)
-				} else 
-               
+				} else
+
 			   {
                   $('.loading').fadeOut('slow')
-                  alert('Sorry, unexpected error. Please try again.');				
+                  alert('Sorry, unexpected error. Please try again.');
                }
-			   
-			}		
+
+			}
 		});
-		
+
 		//cancel the submit button default behaviours
 		return false;
         });
         $('input[name=name]').blur(function(){
-           validateName($(this)); 
+           validateName($(this));
         });
         $('input[name=email]').blur(function(){
-           validateEmail($(this),emailReg); 
+           validateEmail($(this),emailReg);
         });
         $('textarea[name=message]').blur(function(){
-           validateMessage($(this)); 
+           validateMessage($(this));
         });
-       
+
 })();
 
 

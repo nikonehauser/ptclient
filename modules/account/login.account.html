@@ -1,39 +1,37 @@
-<?=Tbmt\view\Factory::buildPageTitle($this->i18nView['page_title'])?>
+<?=\Tbmt\view\Factory::buildPageTitle($this->i18nView['page_title'])?>
 
 <!-- 960 Container Start -->
 <div class="container">
+	<div class="row">
+		<div class="col-md-4 col-md-offset-3">
+			<!--<form action="" method="post">-->
+			<form action="" method="post">
 
-    <div class="five columns">&nbsp;</div>
-    <div class="six columns">
-            <!--<form action="" method="post">-->
-            <form action="" method="post">
+				<?php
 
-                <?php
+				$formBuilder = new \Tbmt\FormBuilder('loginForm', $this->formLabels, $this->formVal, $this->formErrors);
 
-                $formBuilder = new \Tbmt\FormBuilder('loginForm', $this->formLabels, $this->formVal, $this->formErrors);
+				echo $formBuilder->buildFieldGroup('num');
+				echo $formBuilder->buildFieldGroup('pwd', 'password');
 
-                echo $formBuilder->buildFieldGroup('num');
-                echo $formBuilder->buildFieldGroup('pwd', 'password');
+				if ( $this->loginError ) {
+					echo \Tbmt\view\Factory::buildNotification($this->loginError, '', 'notice top');
+				}
 
-                if ( $this->loginError ) {
-                    echo Tbmt\view\Factory::buildNotification($this->loginError, $this->i18nView['error'].'!');
-                }
+				?>
 
-                ?>
+				<?=\Tbmt\view\Factory::buildSubmitBtn($this->formLabels['submit'])?>
+				<a class="pull-right" href="<?=\Tbmt\Router::toModule('manage', 'password_reset')?>"><?=$this->i18nView['password_reset']?></a>
 
-                <input class="button medium yellow" type="submit" value="<?=$this->formLabels['submit']?>">
-
-                <a class="pull-right" href="<?=\Tbmt\Router::toModule('manage', 'password_reset')?>"><?=$this->i18nView['password_reset']?></a>
-
-            </form>
-    </div>
-    <div class="five columns">&nbsp;</div>
+			</form>
+		</div>
+	</div>
 
 </div>
 <!-- 960 Container End -->
 
 <script type="text/javascript">
-  domready(function(){
-    jQuery('#loginFormnum').focus();
+  jQuery(document).ready(function() {
+		jQuery('#loginFormnum').focus();
   });
 </script>

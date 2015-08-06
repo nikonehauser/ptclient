@@ -1,13 +1,14 @@
 <?=\Tbmt\view\Factory::buildPageTitle($this->i18nView['page_title'])?>
 
-<div class="container">
+<div class="container content-inner">
 
-    <h4 class="headline"><?=$this->i18nView['basic_idea']?></h4>
+    <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['basic_idea'], 'bottom-30')?>
 
 
     <!--
       BASIC IDEA
       *************************** -->
+    <div class="row">
     <?php
     use \Tbmt\Localizer as LL;
     use \Transaction as Ta;
@@ -25,50 +26,55 @@
       'heart',
     ];
     foreach ( $titles as $i => $title ) {
-      echo '<div class="one-third column">';
+      echo '<div class="col-md-4">';
       echo \Tbmt\view\Factory::buildFeature(
         $title,
         !$highlights[$i] ? $texts[$i] : \Tbmt\Localizer::insert($texts[$i], $highlights[$i], false, '<strong class="text-mark">{_val_}</strong>'),
-        $icons[$i]
+        $icons[$i],
+        'alt'
       );
       echo '</div>';
     }
 
     ?>
+    </div>
 
 
     <!--
       FORBIDDEN COUNTRIES
       *************************** -->
-    <div class="eight columns">
-        <h4 class="headline"><?=$this->i18nView['forbidden_countries']?></h4>
+    <div class="row">
+      <div class="col-md-6">
+          <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['forbidden_countries'])?>
 
-        <ul class="list-2 list-horizontal" style="">
-            <?=\Tbmt\view\Factory::buildListItems(\Tbmt\Localizer::get('common.forbidden_countries'))?>
-        </ul>
-    </div>
+          <ul class="list-2 list-horizontal clearfix">
+              <?=\Tbmt\view\Factory::buildListItems(\Tbmt\Localizer::get('common.forbidden_countries'))?>
+          </ul>
+      </div>
 
-    <div class="eight columns">
-        <h4 class="headline"><?=$this->i18nView['why_forbidden_countries']?></h4>
-        <p><?=$this->i18nView['forbidden_countries_text']?></p>
+      <div class="col-md-6">
+          <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['why_forbidden_countries'])?>
+          <p><?=$this->i18nView['forbidden_countries_text']?></p>
+      </div>
     </div>
 
 
     <!--
       BECOME MEMBER
       *************************** -->
-    <div class="sixteen columns">
-        <h4 class="headline"><?=$this->i18nView['become_member_title']?></h4>
+    <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['become_member_title'])?>
+    <div class="row">
+      <div class="col-md-12">
         <p><?=\Tbmt\Localizer::insert($this->i18nView['become_member_text'], $this->i18nView['become_member_highlights'], false, '<strong class="text-mark">{_val_}</strong>')?></p>
+      </div>
     </div>
 
 
     <!--
       WHAT WILL YOU GET AS MEMBER
       *************************** -->
-    <div class="sixteen columns">
-        <h4 class="headline"><?=$this->i18nView['member_starting']?></h4>
-    </div>
+    <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['member_starting'])?>
+    <div class="row">
 
     <?php
 
@@ -80,14 +86,16 @@
       \Tbmt\Router::toModule('member', 'system'),
       \Tbmt\Router::toModule('member', 'signup')
     ];
+    $buttonsColors = ['yellow', 'blue', 'black'];
     foreach ( $titles as $i => $title ) {
-      echo '<div class="one-third column">';
+      echo '<div class="col-md-4">';
       echo \Tbmt\view\Factory::buildInfoBox($title, $texts[$i],
-          '<a class="button small yellow" href="'.$buttonsRoutes[$i].'" role="button">'.$buttonsTexts[$i].'</a>'
+          \Tbmt\view\Factory::buildButton($buttonsTexts[$i], $buttonsRoutes[$i], "$buttonsColors[$i] top-10")
         );
       echo '</div>';
     }
 
     ?>
+    </div>
 
 </div>

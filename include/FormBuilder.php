@@ -26,29 +26,29 @@ class FormBuilder {
 
     $className = '';
     if ( $error )
-      $className .= ' validation-error';
+      $className .= ' has-error';
 
     $fieldClassName = 'field';
     if ( $type === 'checkbox' )
       $fieldClassName .= ' checkbox';
 
-    $group = '<div class="'.$fieldClassName.'">';
+    $group = '<div class="'.$fieldClassName.' '.$className.'">';
     if ( $type === 'checkbox' ) {
       $checked = '';
       if ( $value )
         $checked = ' checked="checked"';
 
-      $group .= '<label class="'.$className.'"><input type="'.$type.'" name="'.$fieldKey.'" value="1" '.$checked.' >'.$label.'</label>';
+      $group .= '<label ><input type="'.$type.'" name="'.$fieldKey.'" value="1" '.$checked.' >'.$label.'</label>';
 
     } else {
       $fieldId = $this->formName.$fieldKey;
       $group .= '<label for="'.$fieldId.'">'.$label.'</label>'.
-        '<input type="'.$type.'" class="'.$className.'" id="'.$fieldId.'" name="'.$fieldKey.'" value="'.$value.'">';
+        '<input type="'.$type.'" id="'.$fieldId.'" name="'.$fieldKey.'" value="'.$value.'">';
 
     }
 
+    $group .= '<p class="help-block">'.$error.'</p>';
     if ( $error ) {
-      $group .= '<p class="help-block text-danger">'.$error.'</p>';
     }
 
     $group .= '</div>';

@@ -2,15 +2,15 @@
     use \Tbmt\Base;
 
     if ( !$this->member->hadPaid() ) {
-      echo \Tbmt\view\Factory::buildNotification($this->i18nView['unpaid_text'], $this->i18nView['warning'], 'warning');
+      echo \Tbmt\view\Factory::buildNotification($this->i18nView['unpaid_text'], $this->i18nView['warning'], 'warning top');
     } else {
-      echo \Tbmt\view\Factory::buildNotification($this->i18nView['paid_text'], $this->i18nView['tank_you'], 'success');
+      echo \Tbmt\view\Factory::buildNotification($this->i18nView['paid_text'], $this->i18nView['tank_you'], 'info top');
     }
   ?>
 
-  <div class="container u-max-full-width">
-      <div class="eight columns nested">
-          <h4 class="headline"><?=$this->i18nView['account']?></h4>
+    <div class="row">
+      <div class="col-md-6">
+          <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['account'], 'bottom-30 top-10')?>
 
           <dl class="dl-horizontal dl-largeSpaced dl-prettyStyled">
               <?php
@@ -40,8 +40,8 @@
               </dd>
           </dl>
       </div>
-      <div class="eight columns nested">
-          <h4 class="headline"><?=$this->i18nView['bank_account']?></h4>
+      <div class="col-md-6">
+          <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['bank_account'], 'bottom-30 top-10')?>
 
           <dl class="dl-horizontal dl-largeSpaced dl-prettyStyled">
               <dt><?=$this->i18nView['bank_recipient']?></dt>
@@ -54,4 +54,4 @@
               <dd><?=Base::encodeHtml($this->member->getBic())?></dd>
           </dl>
       </div>
-  </div>
+    </div>
