@@ -7,14 +7,13 @@
   <!--
     FORM
     *************************** -->
-  <div class="row">
-    <div class="col-md-12">
-        <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['form_title'], 'bottom-30 top-10')?>
-    </div>
-  </div>
+  <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['form_title'], 'bottom-30 top-10')?>
+
+  <?php if ( $this->successmsg ) {
+    echo \Tbmt\view\Factory::buildNotification($this->i18nView['signup_success'], $this->i18nView['success'], 'success top');
+  } ?>
 
   <div class="row">
-    <div class="col-md-12">
       <form action="<?=\Tbmt\Router::toModule('account', 'invitation_create')?>" method="post" class="form-inline form-white">
 
             <?php echo $formBuilder->buildInvitationTypeSelectGroup('type', $this->member->getType()); ?>
@@ -27,14 +26,13 @@
 
           <div class="clearfix"></div>
       </form>
-    </div>
   </div>
 
 
   <!--
     LIST OF INVITATIONS
     *************************** -->
-  <div class="container u-max-full-width">
+  <div class="row">
       <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['list_title'])?>
 
       <table class="table">

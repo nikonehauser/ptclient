@@ -4,7 +4,7 @@
 jQuery(document).ready(function() {
 (function ( $ ) {
   $.fn.accountMemberTree = function(member, rootOptions) {
-    var tree = $('<ol class="tree">');
+    var tree = $('<ol class="tree" style="padding:0;">');
     var _this = this;
 
     rootOptions || (rootOptions = {});

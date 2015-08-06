@@ -24,6 +24,7 @@ class AccountBonus_paymentsTab extends Base {
     );
 
     $this->formErrors = isset($params['formErrors']) ? $params['formErrors'] : [];
+    $this->successmsg = isset($params['successmsg']) ? true : false;
 
     $objBonusTransactions = \TransactionQuery::create()
       ->filterByRelatedId($this->member->getId())

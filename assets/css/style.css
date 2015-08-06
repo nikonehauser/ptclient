@@ -125,7 +125,7 @@ body {
 	font-size: 13.8px;
 	line-height: 23px;
 	background-color: #fff;
-	color: #999;
+	color: #777;
 	overflow-x: hidden;
 	font-weight: 300;
 }
@@ -239,9 +239,9 @@ button {
 input,
 select,
 textarea {
-	color: #999;
+	color: #777;
 	padding: 8px 15px 9px;
-	border: 2px solid #f0f0f0;
+	border: 2px solid #e0e0e0;
 	font-family: inherit;
 	margin-bottom: 5px;
 	background: transparent;
@@ -250,9 +250,10 @@ textarea {
 input:focus,
 select:focus,
 textarea:focus {
-	border-color: #ddd;
-	color: #bbb;
+	border-color: #ccc;
+	color: #555;
 	outline: 0;
+	box-shadow: 0px 0px 8px rgba(239, 74, 67, .6);
 }
 select {
 	padding: 8px 15px 9px;
@@ -2736,6 +2737,14 @@ input[type="reset"]:active {
 }
 .alert.warning .alert-icon {
 	background: #d4ac0c;
+}
+.alert.success {
+	background: #26A666;
+	color: #fff;
+	border-color: #26A666;
+}
+.alert.success .alert-icon {
+	background: #219159;
 }
 .alert.notice {
 	background: #e74c3c;

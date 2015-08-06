@@ -18,13 +18,33 @@ class AccountBonus_levelsTab extends Base {
 
     $this->member = $params['member'];
     $this->recipient = isset($params['recipient']) ? $params['recipient'] : null;
-    $this->successmsg = isset($params['successmsg']) ? true : false;
 
-    $this->formVal = \Transaction::initBonusTransactionForm(
+    $this->formVal = \Member::initBonusLevelForm(
       isset($params['formVal']) ? $params['formVal'] : $_REQUEST
     );
 
     $this->formErrors = isset($params['formErrors']) ? $params['formErrors'] : [];
+    $this->successmsg = isset($params['successmsg']) ? true : false;
+
+    $objBonusMembers = \MemberQuery::create()
+      ->filterByBonusLevel(0, \Criteria::GREATER_THAN)
+      ->select([
+          'Num',
+          'BonusLevel',
+        ])
+      ->limit(100)
+      ->find();
+
+    $arrBonusMembers = [];
+    $currencySymbol = \Tbmt\Localizer::get('currency_symbol.'.\Transaction::$BASE_CURRENCY);
+    foreach ( $objBonusMembers as $bonusMembers ) {
+      $arrBonusMembers[] = [
+        $bonusMembers['Num'],
+        \Tbmt\Localizer::currencyFormat($bonusMembers['BonusLevel'], $currencySymbol)
+      ];
+    }
+
+    $this->bonusMembers = $arrBonusMembers;
 
     return $this->renderFile(
       dirname(__FILE__).DIRECTORY_SEPARATOR.'tab.bonus_levels.account.html',

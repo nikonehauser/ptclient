@@ -77,6 +77,7 @@ return [
     ---------------------------------------------*/
   'error' => [
     'greater_zero' => 'Must be greater zero',
+    'money_numeric' => 'Must be numeric greater or equal zero',
     'empty'  => 'Can not be empty',
     'email'  => 'Invalid email address',
     'int'    => 'Invalid integer',
@@ -411,6 +412,8 @@ return [
           'hash' => 'Code',
           'creation_date' => 'Created',
           'accepted_date' => 'Accepted',
+          'signup_success' => 'Successfully created invitation code.',
+          'success' => 'Success!',
         ],
         'bonus_payments' => [
           'form_title' => 'Create bonus payment for a member',
@@ -429,14 +432,17 @@ return [
           'email_none' => '-none-',
 
           'list_title' => 'Bonus payments',
-          'recipient_num_th' => 'Received member number',
+          'recipient_num_th' => 'Recipient member number',
           'creation_date' => 'Created',
           'accepted_date' => 'Accepted',
+
+          'signup_success' => 'Successfully created bonus payment.',
+          'success' => 'Success!',
         ],
         'bonus_levels' => [
           'form_title' => 'Change bonus level for member',
           'recipient_num' => 'Member number who receives this bonus level',
-          'level' => 'Bonus Level',
+          'amount_in_currency' => 'Amount in {symbol} ({name})',
           'validate_form' => 'Validate form',
           'submit' => 'Submit',
 
@@ -447,8 +453,11 @@ return [
           'address' => 'Address',
           'email' => 'Email',
           'email_none' => '-none-',
-          'signup_success' => 'Successfully changed bonus level',
-          'success' => 'Success',
+          'signup_success' => 'Successfully changed bonus level.',
+          'success' => 'Success!',
+
+          'list_title' => 'Bonus members',
+          'member_num' => 'Member number',
         ]
       ]
     ],

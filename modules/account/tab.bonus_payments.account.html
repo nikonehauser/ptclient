@@ -13,25 +13,32 @@
   <!--
     FORM
     *************************** -->
-  <div class="container u-max-full-width">
-      <h4 class="headline"><?=$this->i18nView['form_title']?></h4>
-      <form action="<?=\Tbmt\Router::toModule('account', 'bonus_payments_signup')?>" method="post" >
+  <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['form_title'], 'bottom-30 top-10')?>
+
+  <?php if ( $this->successmsg ) {
+    echo \Tbmt\view\Factory::buildNotification($this->i18nView['signup_success'], $this->i18nView['success'], 'success top');
+  } ?>
+
+    <div class="row">
+
+      <form action="<?=\Tbmt\Router::toModule('account', 'bonus_payments_signup')?>" method="post" class="form-white">
           <input type="hidden" name="recipient_id" value="<?=(isset($this->formVal['recipient_id']) ? $this->formVal['recipient_id'] : '')?>" />
-          <div class="eight columns nested">
+
+          <div class="col-md-6">
               <?=$formBuilder->buildFieldGroup('recipient_num')?>
           </div>
 
-          <div class="eight columns nested">
+          <div class="col-md-6">
               <?=$formBuilder->buildFieldGroup('amount')?>
           </div>
 
-          <div class="sixteen columns nested">
+          <div class="col-md-12">
               <?=$formBuilder->buildFieldGroup('purpose')?>
           </div>
 
           <?php if ( $this->recipient ) { ?>
-              <div class="sixteen columns nested">
-                  <h4 class="headline"><?=$this->i18nView['recipient_details']?></h4>
+              <div class="col-md-12">
+                  <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['recipient_details'], 'bottom-30 top-10')?>
 
                   <dl class="dl-horizontal dl-prettyStyled">
 
@@ -59,18 +66,22 @@
               </div>
           <?php } ?>
 
-          <div class="sixteen columns nested">
-              <input class="button yellow medium" type="submit" value="<?=$this->i18nView[(empty($this->formVal['recipient_id']) ? 'validate_form' : 'submit')]?>">
+          <div class="col-md-12">
+            <?=\Tbmt\view\Factory::buildSubmitBtn(
+              $this->i18nView[(empty($this->formVal['recipient_id']) ? 'validate_form' : 'submit')],
+              (empty($this->formVal['recipient_id']) ? 'blue' : 'warning').' top-10'
+            )?>
           </div>
+          <div class="clearfix"></div>
       </form>
-  </div>
+    </div>
 
 
   <!--
-    LIST OF INVITATIONS
+    LIST OF BONUS PAYMENTS
     *************************** -->
-  <div class="container u-max-full-width">
-      <h4 class="headline"><?=$this->i18nView['list_title']?></h4>
+  <div class="top-30">
+      <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['list_title'], 'bottom-30 top-10')?>
 
       <table class="table">
         <tbody>

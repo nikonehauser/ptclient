@@ -13,7 +13,7 @@ class SystemSetup {
   }
 
   static private $memberDefaults = [
-    'Title'         => 'unknown',
+    'Title'         => '',
     'LastName'      => 'unknown',
     'FirstName'     => 'unknown',
     'Age'           => 99,
@@ -48,8 +48,8 @@ class SystemSetup {
     /* Setup - SYSTEM ACCOUNT
     ---------------------------------------------*/
     self::createMember(null, [
-      'LastName'  => 'system',
-      'FirstName' => 'account',
+      'LastName'  => 'account',
+      'FirstName' => 'system',
       'Email'     => $IT_SPECIALIST_EMAIL,
       'Num'       => \SystemStats::ACCOUNT_NUM_SYSTEM,
       'Type'      => \Member::TYPE_SYSTEM
@@ -59,8 +59,8 @@ class SystemSetup {
     /* Setup - ROOT ACCOUNT
     ---------------------------------------------*/
     self::createMember(null, [
-      'LastName'  => 'root',
-      'FirstName' => 'account',
+      'LastName'  => 'account',
+      'FirstName' => 'root',
       'Email'     => $IT_SPECIALIST_EMAIL,
       'Num'       => \SystemStats::ACCOUNT_NUM_ROOT,
       'Type'      => \Member::TYPE_SYSTEM
@@ -70,8 +70,8 @@ class SystemSetup {
     /* Setup - CEO1
     ---------------------------------------------*/
     $ceo1 = self::createMember(null, [
-      'LastName'  => 'system',
-      'FirstName' => 'ceo1',
+      'LastName'  => 'ceo1',
+      'FirstName' => 'system',
       'Email'     => $IT_SPECIALIST_EMAIL,
       'Num'       => \SystemStats::ACCOUNT_NUM_CEO1,
       'Type'      => \Member::TYPE_CEO
@@ -92,8 +92,8 @@ class SystemSetup {
     /* Setup - SYSTEM ACCOUNT
     ---------------------------------------------*/
     self::createMember(null, [
-      'LastName'  => 'system',
-      'FirstName' => 'account',
+      'LastName'  => 'account',
+      'FirstName' => 'system',
       'Email'     => $IT_SPECIALIST_EMAIL,
       'Num'       => \SystemStats::ACCOUNT_NUM_SYSTEM,
       'Type'      => \Member::TYPE_SYSTEM
@@ -103,8 +103,8 @@ class SystemSetup {
     /* Setup - ROOT ACCOUNT
     ---------------------------------------------*/
     self::createMember(null, [
-      'LastName'  => 'root',
-      'FirstName' => 'account',
+      'LastName'  => 'account',
+      'FirstName' => 'root',
       'Email'     => $IT_SPECIALIST_EMAIL,
       'Num'       => \SystemStats::ACCOUNT_NUM_ROOT,
       'Type'      => \Member::TYPE_SYSTEM
@@ -114,8 +114,8 @@ class SystemSetup {
     /* Setup - CEO1
     ---------------------------------------------*/
     $ceo1 = self::createMember(null, [
-      'LastName'  => 'system',
-      'FirstName' => 'ceo1',
+      'LastName'  => 'ceo1',
+      'FirstName' => 'system',
       'Email'     => $IT_SPECIALIST_EMAIL,
       'Num'       => \SystemStats::ACCOUNT_NUM_CEO1,
       'Type'      => \Member::TYPE_CEO
@@ -125,8 +125,8 @@ class SystemSetup {
     /* Setup - CEO2
     ---------------------------------------------*/
     $ceo2 = self::createMember(null, [
-      'LastName'  => 'system',
-      'FirstName' => 'ceo2',
+      'LastName'  => 'ceo2',
+      'FirstName' => 'system',
       'Email'     => $IT_SPECIALIST_EMAIL,
       'Num'       => \SystemStats::ACCOUNT_NUM_CEO2,
       'Type'      => \Member::TYPE_CEO
@@ -136,8 +136,8 @@ class SystemSetup {
     /* Setup - IT
     ---------------------------------------------*/
     $it = self::createMember(null, [
-      'LastName'  => 'system',
-      'FirstName' => 'it',
+      'LastName'  => 'it',
+      'FirstName' => 'system',
       'Email'     => $IT_SPECIALIST_EMAIL,
       'Num'       => \SystemStats::ACCOUNT_NUM_IT,
       'Type'      => \Member::TYPE_MEMBER
@@ -147,8 +147,8 @@ class SystemSetup {
     /* Setup - LAWYER
     ---------------------------------------------*/
     $lawyer = self::createMember(null, [
-      'LastName'  => 'system',
-      'FirstName' => 'lawyer',
+      'LastName'  => 'lawyer',
+      'FirstName' => 'system',
       'Email'     => $IT_SPECIALIST_EMAIL,
       'Num'       => \SystemStats::ACCOUNT_NUM_LAWYER,
       'Type'      => \Member::TYPE_MEMBER

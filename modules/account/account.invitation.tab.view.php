@@ -22,6 +22,7 @@ class AccountInvitationTab extends Base {
     );
 
     $this->formErrors = isset($params['formErrors']) ? $params['formErrors'] : [];
+    $this->successmsg = isset($params['successmsg']) ? true : false;
 
     $this->invitations = \InvitationQuery::create()
       ->filterByMemberId($this->member->getId())

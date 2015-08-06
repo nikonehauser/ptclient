@@ -104,18 +104,17 @@ class Member extends BaseMember
   static public $BONUS_LEVEL_FORM_FIELDS = [
     'recipient_id'  => [\Tbmt\TYPE_INT, ''],
     'recipient_num' => [\Tbmt\TYPE_INT, ''],
-    'level'         => \Tbmt\TYPE_INT,
+    'amount'        => [\Tbmt\TYPE_INT, ''],
   ];
 
   static public $BONUS_LEVEL_FORM_FILTERS = [
     'recipient_num'  => \Tbmt\Validator::FILTER_NOT_EMPTY,
-    'level' => [
+    'amount' => [
       'filter' => \FILTER_VALIDATE_INT,
       'options' => [
-        'min_range' => 1,
-        'max_range' => 10
+        'min_range' => 0
       ],
-      'errorLabel' => 'error.greater_zero'
+      'errorLabel' => 'error.money_numeric'
     ]
   ];
 
@@ -242,7 +241,6 @@ class Member extends BaseMember
 
   static public function validateBonusLevelForm(array $data = array())  {
     $data = self::initBonusLevelForm($data);
-
     $res = \Tbmt\Validator::getErrors($data, self::$BONUS_LEVEL_FORM_FILTERS);
     if ( $res !== false )
       return [false, $res, null];

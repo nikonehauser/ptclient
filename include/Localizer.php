@@ -142,9 +142,9 @@ class Localizer {
     return number_format($num, $decimals !== false ? $decimals : self::$decimalsCount, self::$decPoint, self::$thousandsSep);
   }
 
-  static public function currencyFormat($num, $currency = null, $decimals = false) {
-    if ( !$currency )
-      $currency = self::$arrData['currency_symbol'][$currency];
+  static public function currencyFormat($num, $currency, $decimals = false) {
+    if ( is_array($currency) )
+      $currency = self::$arrData['currency_symbol'][$currency[0]];
 
     return $currency.' '.self::numFormat($num, $decimals !== false ? $decimals : self::$decimalsCount, self::$decPoint, self::$thousandsSep);
   }

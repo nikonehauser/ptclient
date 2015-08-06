@@ -86,8 +86,8 @@ class FormBuilder {
     $group = '<div class="field">'.
       '<label for="'.$fieldId.'">'.$label.'</label>'.
       '<select name="'.$fieldKey.'">';
-    for ( $i = 1; $i <= 10; $i++ ) {
-      $group .= '<option value="'.$i.'">Level '.$i.'</option>';
+    for ( $i = 1; $i <= 20; $i++ ) {
+      $group .= '<option value="'.$i.'">+ '.$i.'</option>';
     }
 
     $group .= '</select></div>';

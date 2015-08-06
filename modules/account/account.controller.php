@@ -105,7 +105,7 @@ class AccountController extends BaseController {
     return ControllerDispatcher::renderModuleView(
       self::MODULE_NAME,
       'index',
-      ['member' => Session::getLogin(), 'tab' => 'invitation']
+      ['member' => Session::getLogin(), 'tab' => 'invitation', 'successmsg' => true]
     );
   }
 
@@ -150,7 +150,7 @@ class AccountController extends BaseController {
     return ControllerDispatcher::renderModuleView(
       self::MODULE_NAME,
       'index',
-      ['member' => $login, 'tab' => 'bonus_payments', 'formVal' => []]
+      ['member' => $login, 'tab' => 'bonus_payments', 'formVal' => [], 'successmsg' => true]
     );
   }
 
@@ -185,7 +185,7 @@ class AccountController extends BaseController {
       );
     }
 
-    $recipient->setBonusLevel($data['level']);
+    $recipient->setBonusLevel($data['amount']);
     $recipient->save();
 
     return ControllerDispatcher::renderModuleView(
