@@ -15,4 +15,93 @@
  */
 class Activity extends BaseActivity
 {
+  const ACT_ACCOUNT_BONUS_LEVEL = 1;
+  CONST ACT_ACCOUNT_BONUS_PAYMENT = 2;
+
+  const TYPE_SUCCESS = 1;
+  const TYPE_FAILURE = 2;
+
+  static public function exec($callable, $arrArgs, $action, $creator = null, $related = null, PropelPDO $con, $metaResultKey = null) {
+    if ( !$con->beginTransaction() )
+      throw new Exception('Could not begin transaction');
+
+    try {
+      $resIsArray = $res = false;
+      $res = call_user_func_array($callable, $arrArgs);
+      $resIsArray = is_array($res);
+
+      self::insert($action, self::TYPE_SUCCESS,
+        $creator,
+        $related,
+        $resIsArray ? $res : [$res],
+        null,
+        $con
+      );
+
+      if ( !$con->commit() )
+        throw new Exception('Could not commit transaction');
+
+      if ( $metaResultKey !== null && $resIsArray )
+        return $res[$metaResultKey];
+
+      return $res;
+    } catch (Exception $e) {
+        $con->rollBack();
+
+        self::insert($action, self::TYPE_FAILURE,
+          $creator,
+          $related,
+          $resIsArray ? $res : [$res],
+          $e,
+          $con
+        );
+
+        throw $e;
+    }
+  }
+
+  static public function insert($action, $type, $creator = null, $related = null, array $metaData = array(), Exception $exception = null, PropelPDO $con) {
+    $activity = new Activity();
+
+    if ( $creator instanceof Member )
+      $activity->setMemberId($creator->getId());
+    else if ( is_numeric($creator) )
+      $activity->setMemberId($creator);
+
+    if ( $related instanceof Member ) {
+      $activity->setRelatedId($related->getId());
+    } else if ( is_numeric($related) )
+      $activity->setRelatedId($related);
+
+    $activity
+      ->setAction($action)
+      ->setType($type)
+      ->setDate(time());
+
+    try {
+      if ( $exception != null && !isset($metaData['exception']) ) {
+        $metaData['exception'] = array(
+          'message' => $exception->getMessage(),
+          'trace'   => $exception->getTraceAsString(),
+        );
+      }
+
+      $activity
+        ->setMeta($metaData)
+        ->save($con);
+
+    } catch (Exception $e) {
+      error_log(__METHOD__.': '.$e->__toString().': '.var_export($metaData, true));
+      throw $e;
+    }
+  }
+
+  public function getMeta() {
+    return json_decode(parent::getMeta(), true);
+  }
+
+  public function setMeta($v) {
+    parent::setMeta(json_encode($v));
+    return $this;
+  }
 }

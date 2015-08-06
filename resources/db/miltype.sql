@@ -213,14 +213,21 @@
 
   CREATE TABLE IF NOT EXISTS  "tbmt_activity" (
     "id" bigserial NOT NULL ,
-    "action" VARCHAR(160) NOT NULL,
+    "action" smallint NOT NULL,
     "type" SMALLINT NOT NULL ,
     "date" timestamp with time zone NOT NULL ,
-    "related_id" VARCHAR(64) NULL DEFAULT NULL,
-    "related_member_num" int NULL DEFAULT NULL,
+    "member_id" INT NULL DEFAULT NULL,
+    "related_id" INT NULL DEFAULT NULL,
     "meta" TEXT NULL,
-    PRIMARY KEY ("id")
+    PRIMARY KEY ("id") ,
+    CONSTRAINT "fk_activity_member"
+      FOREIGN KEY ("member_id")
+      REFERENCES "tbmt_member" ("id")
+      ON DELETE set null
+      ON UPDATE CASCADE
   );
+
+  CREATE INDEX idx_activity_related_id ON "tbmt_activity" (member_id);
 
 -- -----------------------------------------------------
 -- View "last_members" for maintenance issues

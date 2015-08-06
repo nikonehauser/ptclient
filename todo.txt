@@ -14,19 +14,16 @@ Fragen
 CURRENT
 ======
 
+ - write activity entry for setting bonus level
+
  - apply bonus level
 
- - wie ist läuft der bonus multiplikator wenn director 2 euro bekommt weil
- kein orgleader existiert? kriegt er bei bonus level 2 dann 3 oder 4 euro?
  - was sind die bonuse?
 
  - bonuse nicht als multiplikator sondern +1 euro +2 euro etc.
 
  - beim marketing system unten hinschreiben das den letzten die hunde beißen,
    je später du anfängst desto weniger verdienst du
-
- - ist das in ordnung wenn jedes land sein eigenes system hat und daher es immer wieder von vorn
-   anfängt
 
  - replace "Help Yourself Association" with the appropriate page name in language files
 

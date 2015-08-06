@@ -33,7 +33,7 @@
 
           <?php if ( $this->recipient ) { ?>
               <div class="col-md-12">
-                  <h4 class="headline"><?=$this->i18nView['recipient_details']?></h4>
+                  <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['recipient_details'], 'bottom-30 top-10')?>
 
                   <dl class="dl-horizontal dl-prettyStyled">
 
@@ -88,6 +88,7 @@
             <tr>
               <th><?=$this->i18nView['member_num']?></th>
               <th><?=$this->i18nView['bonus_level']?></th>
+              <th><?=$this->i18nView['date']?></th>
             </tr>
         <?php \Tbmt\view\Factory::echoTableRows($this->bonusMembers); ?>
         </tbody>

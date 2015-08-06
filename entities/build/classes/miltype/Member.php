@@ -136,10 +136,6 @@ class Member extends BaseMember
   static public function validateSignupForm(array $data = array()) {
     $data = self::initSignupForm($data);
 
-    // Email is not required
-    if ( $data['email'] === '' )
-      unset($data['email']);
-
     if ( $data['password'] !== $data['password2'] )
       return [false, ['password' => \Tbmt\Localizer::get('error.password_unequal')], null, null];
 
@@ -274,6 +270,17 @@ class Member extends BaseMember
     $num = $this->getNum();
     if ( isset(self::$NUM_TO_BONUS_REASON[$num]) )
       return self::$NUM_TO_BONUS_REASON[$num];
+
+    if ( !isset(self::$TYPE_TO_BONUS_REASON[$this->getType()]) ) {
+      print_r('<pre>');
+      print_r($this->toArray());
+      print_r('</pre>');
+      try {throw new \Exception('trace');} catch(\Exception $e) {
+        print_r('<pre>');
+        print_r([$e->getTraceAsString()]);
+        print_r('</pre>');
+      }
+    }
 
     return self::$TYPE_TO_BONUS_REASON[$this->getType()];
   }

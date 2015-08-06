@@ -157,7 +157,12 @@ class SystemSetup {
 
     /* Setup - TOP LEVEL BONUS IDS
     ---------------------------------------------*/
-    $topLvlBonusIds = json_encode([$ceo1->getId(), $ceo2->getId(), $it->getId(), $lawyer->getId()]);
+    $topLvlBonusIds = json_encode([
+      $ceo1->getId() => 1,
+      $ceo2->getId() => 1,
+      $it->getId() => 1,
+      $lawyer->getId() => 1
+    ]);
 
     $ceo1->setBonusIds($topLvlBonusIds);
     $ceo2->setBonusIds($topLvlBonusIds);

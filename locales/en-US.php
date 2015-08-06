@@ -132,6 +132,10 @@ return [
       ],
       'member_login' => 'Member Login',
       'copyright_name' => 'Help Yourself Associaton',
+
+      'useful_link_contact' => 'You have questions? Just contact us!',
+      'useful_link_faq' => 'Frequently asked questions',
+      'useful_link_terms' => 'Terms of Use',
     ],
 
     /* VIEWS - MEMBER
@@ -291,7 +295,7 @@ return [
           'firstName' => 'First name',
           'lastName' => 'Last name',
           'title' => 'Title',
-          'email' => 'Email (optional)',
+          'email' => 'Email',
           'age' => 'Age',
           'country' => 'Country',
           'city' => 'City',
@@ -309,7 +313,7 @@ return [
           'submit' => 'Submit',
 
           'bank_account_info' => 'We will never charge your bank account. But you will receive your provisions for your referalls at this account.',
-          'email_info' => 'We strongly recommend you to provide an email. It is neccessary for e.g. password reset or we will contact you if we encounter problems with your bank account. You will never receive spam or advertising emails from us.'
+          'email_info' => 'You will never receive spam from us. We need your E-Mail to contact you if for example we have failures to transfer your provisions. If you have no email you can register for free there: ',
         ]
       ],
 
@@ -458,6 +462,7 @@ return [
 
           'list_title' => 'Bonus members',
           'member_num' => 'Member number',
+          'date' => 'Date',
         ]
       ]
     ],

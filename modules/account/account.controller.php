@@ -140,11 +140,19 @@ class AccountController extends BaseController {
       );
     }
 
-    \Transaction::createBonusTransaction(
+    $con = \Propel::getConnection();
+    \Activity::exec([
+        '\\Transaction', 'activity_createBonusTransaction'
+      ], [
+        $login,
+        $recipient,
+        $data,
+        $con
+      ],
+      \Activity::ACT_ACCOUNT_BONUS_PAYMENT,
       $login,
       $recipient,
-      $data,
-      \Propel::getConnection()
+      $con
     );
 
     return ControllerDispatcher::renderModuleView(
@@ -185,8 +193,24 @@ class AccountController extends BaseController {
       );
     }
 
-    $recipient->setBonusLevel($data['amount']);
-    $recipient->save();
+    $con = \Propel::getConnection();
+    \Activity::exec(
+      function($login, $recipient, $data, $con) {
+        $recipient->setBonusLevel($data['amount']);
+        $recipient->save($con);
+
+        return ['amount' => $data['amount']];
+      }, [
+        $login,
+        $recipient,
+        $data,
+        $con
+      ],
+      \Activity::ACT_ACCOUNT_BONUS_LEVEL,
+      $login,
+      $recipient,
+      $con
+    );
 
     return ControllerDispatcher::renderModuleView(
       self::MODULE_NAME,

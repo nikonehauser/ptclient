@@ -8,14 +8,16 @@ DROP TABLE IF EXISTS "tbmt_activity" CASCADE;
 CREATE TABLE "tbmt_activity"
 (
     "id" bigserial NOT NULL,
-    "action" VARCHAR(160) NOT NULL,
+    "action" INT2 NOT NULL,
     "type" INT2 NOT NULL,
     "date" TIMESTAMP NOT NULL,
-    "related_id" VARCHAR(64),
-    "related_member_num" INTEGER,
+    "member_id" INTEGER,
+    "related_id" INTEGER,
     "meta" TEXT,
     PRIMARY KEY ("id")
 );
+
+CREATE INDEX "idx_activity_related_id" ON "tbmt_activity" ("member_id");
 
 -----------------------------------------------------------------------
 -- tbmt_currency
@@ -79,7 +81,7 @@ CREATE TABLE "tbmt_member"
     "bic" VARCHAR(80) NOT NULL,
     "type" INT2 DEFAULT 0 NOT NULL,
     "bonus_ids" VARCHAR(80) DEFAULT '' NOT NULL,
-    "bonus_level" INT2 DEFAULT 1 NOT NULL,
+    "bonus_level" DOUBLE PRECISION DEFAULT 0 NOT NULL,
     "advertised_count" INTEGER DEFAULT 0 NOT NULL,
     "outstanding_advertised_count" INTEGER DEFAULT 0 NOT NULL,
     "password" VARCHAR(80) NOT NULL,
@@ -165,6 +167,12 @@ CREATE TABLE "tbmt_transfer"
 CREATE INDEX "idx_transfer_currency" ON "tbmt_transfer" ("currency");
 
 CREATE INDEX "idx_transfer_state" ON "tbmt_transfer" ("state");
+
+ALTER TABLE "tbmt_activity" ADD CONSTRAINT "fk_activity_member"
+    FOREIGN KEY ("member_id")
+    REFERENCES "tbmt_member" ("id")
+    ON UPDATE CASCADE
+    ON DELETE SET NULL;
 
 ALTER TABLE "tbmt_invitation" ADD CONSTRAINT "fk_invitation_accepted_member"
     FOREIGN KEY ("accepted_member_id")

@@ -56,15 +56,17 @@
 
       <div class="container">
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-8">
               <?php echo $formBuilder->buildFieldGroup('email'); ?>
               <p class="help-block"><?=$this->formLabels['email_info']?></p>
+              <ul class="list-3 list-horizontal" style="padding:0;margin-top:-10px;">
+                  <li><a href="https://mail.google.com" target="_blank">mail.google.com</a></li>
+                  <!-- <li><a href="https://produkte.web.de/freemail-webmail/" target="_blank">web.de</a></li> -->
+                  <li><a href="https://gmx.net" target="_blank">gmx.net</a></li>
+                  <br class="clear" />
+              </ul>
           </div>
-        </div>
-      </div>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-4">
               <?php echo $formBuilder->buildFieldGroup('age'); ?>
           </div>
         </div>

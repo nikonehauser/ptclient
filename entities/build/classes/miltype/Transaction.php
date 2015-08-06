@@ -99,32 +99,20 @@ class Transaction extends BaseTransaction {
     return [true, $data, $recipient];
   }
 
-  static public function createBonusTransaction(Member $login, Member $recipient, array $data, PropelPDO $con) {
+  static public function activity_createBonusTransaction(Member $login, Member $recipient, array $data, PropelPDO $con) {
     $currentTransfer = $recipient->getCurrentTransferBundle(self::$BASE_CURRENCY, $con);
     $when = time();
 
-    if ( !$con->beginTransaction() )
-      throw new Exception('Could not begin transaction');
-
-    try {
-      $amount = $data['amount'];
-      $recipient->addOutstandingTotal($amount, self::$BASE_CURRENCY);
-      $transaction = $currentTransfer->addAmount($amount)
-        ->setReason(Transaction::REASON_CUSTOM_BONUS)
-        ->setPurpose($data['purpose'])
-        ->setRelatedId($login->getId())
-        ->setDate($when)
-        ->save($con);
-
-      $currentTransfer->save($con);
-      $recipient->save($con);
-
-      if ( !$con->commit() )
-        throw new Exception('Could not commit transaction');
-
-    } catch (Exception $e) {
-        $con->rollBack();
-        throw $e;
-    }
+    $amount = $data['amount'];
+    $recipient->addOutstandingTotal($amount, self::$BASE_CURRENCY);
+    $transaction = $currentTransfer->addAmount($amount)
+      ->setReason(Transaction::REASON_CUSTOM_BONUS)
+      ->setPurpose($data['purpose'])
+      ->setRelatedId($login->getId())
+      ->setDate($when)
+      ->save($con);
+throw new \Exception('test');
+    $currentTransfer->save($con);
+    $recipient->save($con);
   }
 }

@@ -3,12 +3,18 @@
 <database name="miltype" defaultIdMethod="native">
   <table name="activity" phpName="Activity" idMethod="native">
     <column name="id" phpName="Id" type="BIGINT" primaryKey="true" autoIncrement="true" required="true"/>
-    <column name="action" phpName="Action" type="VARCHAR" size="160" required="true"/>
+    <column name="action" phpName="Action" type="SMALLINT" required="true"/>
     <column name="type" phpName="Type" type="SMALLINT" required="true"/>
     <column name="date" phpName="Date" type="TIMESTAMP" required="true"/>
-    <column name="related_id" phpName="RelatedId" type="VARCHAR" size="64" required="false" defaultValue="NULL"/>
-    <column name="related_member_num" phpName="RelatedMemberNum" type="INTEGER" required="false"/>
+    <column name="member_id" phpName="MemberId" type="INTEGER" required="false"/>
+    <column name="related_id" phpName="RelatedId" type="INTEGER" required="false"/>
     <column name="meta" phpName="Meta" type="LONGVARCHAR" required="false"/>
+    <foreign-key foreignTable="member" name="fk_activity_member" onDelete="SET NULL" onUpdate="CASCADE">
+      <reference local="member_id" foreign="id"/>
+    </foreign-key>
+    <index name="idx_activity_related_id">
+      <index-column name="member_id"/>
+    </index>
   </table>
   <table name="currency" phpName="Currency" idMethod="native">
     <column name="name" phpName="Name" type="VARCHAR" size="128" required="true"/>
@@ -55,7 +61,7 @@
     <column name="bic" phpName="Bic" type="VARCHAR" size="80" required="true"/>
     <column name="type" phpName="Type" type="SMALLINT" required="true" defaultValue="0"/>
     <column name="bonus_ids" phpName="BonusIds" type="VARCHAR" size="80" required="true" defaultValue=""/>
-    <column name="bonus_level" phpName="BonusLevel" type="SMALLINT" required="true" defaultValue="1"/>
+    <column name="bonus_level" phpName="BonusLevel" type="DOUBLE" required="true" defaultValue="0"/>
     <column name="advertised_count" phpName="AdvertisedCount" type="INTEGER" required="true" defaultValue="0"/>
     <column name="outstanding_advertised_count" phpName="OutstandingAdvertisedCount" type="INTEGER" required="true" defaultValue="0"/>
     <column name="password" phpName="Password" type="VARCHAR" size="80" required="true"/>

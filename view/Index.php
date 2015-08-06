@@ -5,8 +5,8 @@ namespace Tbmt\view;
 class Index extends Base {
 
   protected function init() {
-    $locales = \Tbmt\Localizer::plain('common');
-    $this->textBrandName = $locales['brand_name'];
+    $i18nView = \Tbmt\Localizer::plain('common');
+    $this->textBrandName = $i18nView['brand_name'];
 
     $viewCommon = \Tbmt\Localizer::get('view.common');
     $linkNames = $viewCommon['navigation_links'];
@@ -51,7 +51,7 @@ class Index extends Base {
     ];
 
     $this->baseUrl = \Tbmt\Router::toBase();
-    $this->locales = $viewCommon;
+    $this->i18nView = $viewCommon;
   }
 
   protected $varsDef = [

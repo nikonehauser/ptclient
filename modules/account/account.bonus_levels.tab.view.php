@@ -26,21 +26,31 @@ class AccountBonus_levelsTab extends Base {
     $this->formErrors = isset($params['formErrors']) ? $params['formErrors'] : [];
     $this->successmsg = isset($params['successmsg']) ? true : false;
 
-    $objBonusMembers = \MemberQuery::create()
-      ->filterByBonusLevel(0, \Criteria::GREATER_THAN)
+    $query = \MemberQuery::create()
+      // ->filterByBonusLevel(0, \Criteria::GREATER_THAN)
+      ->joinActivity()
       ->select([
           'Num',
           'BonusLevel',
+          'Activity.Meta',
+          'Activity.Date'
         ])
-      ->limit(100)
-      ->find();
+      ->where('Activity.MemberId = ?', $this->member->getId())
+      ->orderBy('Activity.Date', \Criteria::DESC)
+      ->limit(100);
+    $objBonusMembers = $query->find();
 
     $arrBonusMembers = [];
     $currencySymbol = \Tbmt\Localizer::get('currency_symbol.'.\Transaction::$BASE_CURRENCY);
+    $dateFormat = \Tbmt\Localizer::get('datetime_format_php.long');
     foreach ( $objBonusMembers as $bonusMembers ) {
+      $meta = json_decode($bonusMembers['Activity.Meta'], true);
+      $amount = isset($meta['amount']) ? $meta['amount'] : ' - ';
+
       $arrBonusMembers[] = [
         $bonusMembers['Num'],
-        \Tbmt\Localizer::currencyFormat($bonusMembers['BonusLevel'], $currencySymbol)
+        \Tbmt\Localizer::currencyFormat($amount, $currencySymbol),
+        (new \DateTime($bonusMembers['Activity.Date']))->format($dateFormat)
       ];
     }
 
