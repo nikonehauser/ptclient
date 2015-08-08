@@ -56,7 +56,11 @@ class Transfer extends BaseTransfer {
   }
 
   public function createTransactionForReason(Member $transferOwner, $reason, $advertisedMemberId, $when, PropelPDO $con) {
-    $amount = Transaction::getAmountForReason($reason);
+    if ( $reason === Transaction::REASON_CUSTOM_BONUS_LEVEL )
+      $amount = $transferOwner->getBonusLevel();
+    else
+      $amount = Transaction::getAmountForReason($reason);
+
     $transferOwner->addOutstandingTotal($amount, $this->getCurrency());
     $transaction = $this->addAmount($amount);
     $transaction->setReason($reason);

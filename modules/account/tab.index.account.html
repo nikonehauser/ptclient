@@ -24,6 +24,16 @@
               <dt><?=$this->i18nView['your_num']?></dt>
               <dd><?=$this->member->getNum()?></dd>
 
+              <?php
+              if ( $this->member->getBonusLevel() > 0 ) {
+                echo '<dt>'.$this->i18nView['bonus_level'].'</dt>
+                  <dd>+ '.\Tbmt\Localizer::currencyFormat($this->member->getBonusLevel(),
+                        [\Transaction::$BASE_CURRENCY]
+                      ).'</dd>';
+
+              }
+              ?>
+
               <dt><?=$this->i18nView['address']?></dt>
               <dd>
                   <address>

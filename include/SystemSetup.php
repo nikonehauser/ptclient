@@ -33,7 +33,7 @@ class SystemSetup {
 
     $member->fromArray(array_merge(self::$memberDefaults, $data));
     if ( $referralMember )
-      $member->setRefererMember($referralMember, self::$con);
+      $member->setReferrerMember($referralMember, self::$con);
 
     $member->save(self::$con);
     return $member;

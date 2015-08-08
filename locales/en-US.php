@@ -8,7 +8,7 @@ return [
       'Member',
       'Promoter',
       'Organization Leader',
-      'Marketing Leader',
+      'Director',
       'Developer',
       'CEO'
     ],
@@ -86,11 +86,11 @@ return [
     'password_conditions' => '5 characters or more, at least one small letter and one digit',
     'password_unequal' => 'Passwords were not equal',
 
-    'referral_member_num' => 'Referer number does not exist',
+    'referral_member_num' => 'Referrer number does not exist',
     'member_num' => 'Member number does not exist',
     'member_num_unpaid' => 'Member had not paid yet',
     'age_of_18' => 'Must be 18 or older',
-    'referer_paiment_outstanding' => 'The member exists but we didn´t receive the member fee yet. Unfornately you have to wait for this members full membership',
+    'referrer_paiment_outstanding' => 'The member exists but we didn´t receive the member fee yet. Unfornately you have to wait for this members full membership',
     'invitation_code_inexisting' => 'Invitation Code does not exist',
     'invitation_code_invalid' => 'Invalid invitation code',
     'invitation_code_used' => 'Invitation code already used',
@@ -140,6 +140,7 @@ return [
       'useful_link_contact' => 'You have questions? Just contact us!',
       'useful_link_faq' => 'Frequently asked questions',
       'useful_link_terms' => 'Terms of Use',
+      'useful_link_about_us' => 'About us'
     ],
 
     /* VIEWS - MEMBER
@@ -294,7 +295,7 @@ return [
           'bank_account' => 'Bank Account',
           'confirm' => 'Confirm',
 
-          'referral_member_num' => 'Referer Member Number',
+          'referral_member_num' => 'Referrer Member Number',
           'invitation_code' => 'Invitation Code (optional)',
           'firstName' => 'First name',
           'lastName' => 'Last name',
@@ -377,6 +378,7 @@ return [
           // 'bic' => 'BIC (Bank Identifier Code)'
           'bic' => 'BIC',
           'member_type' => 'Membership type',
+          'bonus_level' => 'Bonus Level',
         ],
         'invoice' => [
           'stats' => 'Statistics',
@@ -395,7 +397,7 @@ return [
             0 => 'Advertised Lvl 1',
             1 => 'Advertised Lvl 2',
             2 => 'Bonus Lvl 2 Indirect',
-            3 => 'Bonus marketing leader',
+            3 => 'Bonus director',
             4 => 'Bonus organization leader',
             5 => 'Bonus promoter',
             6 => 'Bonus IT',
@@ -406,6 +408,8 @@ return [
             1001 => 'Custom bonus payment',
             1002 => 'Remaining member fee',
             1003 => 'Transfer to root system',
+
+            2000 => 'Custom bonus level payment',
           ]
         ],
         'tree' => [
@@ -517,6 +521,52 @@ return [
 
       'index' => [
         'page_title' => 'Contact',
+        'form_title' => 'Contact form',
+        'form_labels' => [
+          'name' => 'Name',
+          'email' => 'E-Mail',
+          'subject' => 'Subject',
+          'message' => 'Message',
+
+          'submit' => 'Submit'
+        ],
+        'signup_success' => 'Successfully transferred message. We will hurry to process your request!',
+        'success' => 'Success!',
+      ],
+
+      'faq' => [
+        'page_title' => 'FAQ',
+        'welcome_faq' => 'Frequently {0} Questions',
+        'welcome_faqh' => ['Asked'],
+
+        'items' => [
+          'When does the projects get started',
+          '...',
+
+          'Can I follow the projects progress?',
+          '...',
+
+          'When does the projects get started',
+          '...',
+
+          'When will I get my provisions',
+          '...',
+
+          'What does happen if I sign up but do not pay the member fee',
+          '...',
+
+          'Why do you need an email address from myself?',
+          '...',
+
+          'I still have questions',
+          '...',
+
+          'How to pay the member fee?',
+          '...',
+
+          'I paid the member fee a view days ago but I still see the message that i did not paid yet?',
+          '...',
+        ]
       ],
     ]
   ],

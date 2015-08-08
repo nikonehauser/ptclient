@@ -40,6 +40,11 @@ class FormBuilder {
 
       $group .= '<label ><input type="'.$type.'" name="'.$fieldKey.'" value="1" '.$checked.' >'.$label.'</label>';
 
+    } else if ( $type === 'textarea' ) {
+      $fieldId = $this->formName.$fieldKey;
+      $group .= '<label for="'.$fieldId.'">'.$label.'</label>'.
+        '<textarea class="fullwidth" cols="40" rows="3"  id="'.$fieldId.'" name="'.$fieldKey.'" value="'.$value.'">'.$value.'</textarea>';
+
     } else {
       $fieldId = $this->formName.$fieldKey;
       $group .= '<label for="'.$fieldId.'">'.$label.'</label>'.

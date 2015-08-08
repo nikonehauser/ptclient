@@ -245,6 +245,43 @@ END;
     return implode(', ', $arr);
   }
 
+
+  /**
+   * [accordion description]
+   * @param  [type] $id
+   * @param  [type] $items
+   * @return [type]
+   */
+  static function accordion($id, $items) {
+    $r = '<div class="accordion toggle bottom-sm-30">';
+    $l = count($items);
+    for ( $i = 0; $i < $l; $i += 2 ) {
+      $y = $i+1;
+      $r .= <<<END
+<div class="panel accordion-item bottom-20">
+  <div class="accordion-heading">
+    <h5 class="accordion-title">
+      <a class="collapsed" data-toggle="collapse" href="#$id$i">
+        $items[$i]
+      </a>
+    </h5><!-- // .accordion-title -->
+  </div><!-- // .accordion-heading -->
+
+  <div id="$id$i" class="accordion-collapse collapse">
+    <div class="accordion-body">
+      $items[$y]
+    </div><!-- // .accordion-body -->
+  </div> <!-- // .collapse -->
+</div>
+END;
+    }
+
+    return $r;
+  }
+
+
+
+
 }
 
 ?>

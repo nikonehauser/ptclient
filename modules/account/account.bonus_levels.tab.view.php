@@ -45,7 +45,7 @@ class AccountBonus_levelsTab extends Base {
     $dateFormat = \Tbmt\Localizer::get('datetime_format_php.long');
     foreach ( $objBonusMembers as $bonusMembers ) {
       $meta = json_decode($bonusMembers['Activity.Meta'], true);
-      $amount = isset($meta['amount']) ? $meta['amount'] : ' - ';
+      $amount = isset($meta[\Activity::MK_BONUS_PAYMENT_AMOUNT]) ? $meta[\Activity::MK_BONUS_PAYMENT_AMOUNT] : ' - ';
 
       $arrBonusMembers[] = [
         $bonusMembers['Num'],

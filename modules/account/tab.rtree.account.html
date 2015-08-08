@@ -8,7 +8,7 @@
     jQuery('#accountMemberTree').accountMemberTree(
       <?=json_encode($this->member)?>, {
         getRowsUrl: "<?=\Tbmt\Router::toModule('account', 'ajax_tree')?>",
-        column: 'RefererId'
+        column: 'ReferrerId'
       }
     );
   });

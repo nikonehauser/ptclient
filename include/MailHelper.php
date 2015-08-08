@@ -6,6 +6,22 @@ require VENDOR_DIR.'phpmailer'.DIRECTORY_SEPARATOR.'phpmailer'.DIRECTORY_SEPARAT
 
 class MailHelper {
 
+  static public function sendContactFormMail($fromMail, $fromName, $subject, $body) {
+    $body = "From mail: $fromMail\n\r".
+      "From name: $fromName\n\r\n\r".
+      "Body:\n\r$body\n\r";
+
+    return self::send(
+      Config::get('contact_mail_recipient'),
+      null,
+      ' - Contact Form - '.$subject,
+      $body,
+      $fromMail,
+      $fromName
+    );
+
+  }
+
   static public function sendPasswordResetLink(\Member $member) {
     $email = $member->getEmail();
     $locale = Localizer::get('mail.password_reset');
@@ -30,7 +46,7 @@ class MailHelper {
     );
   }
 
-  static function send($address, $name, $subject, $body) {
+  static function send($address, $name, $subject, $body, $fromMail = null, $fromName = null) {
     $mail = new \PHPMailer(true);
     $mail->SMTPSecure = Config::get('mail.smtp_secure');
     $mail->isSMTP();
@@ -43,7 +59,13 @@ class MailHelper {
     $mail->Timeout = Config::get('mail.timeout');
     $mail->CharSet = Config::get('mail.charset', TYPE_STRING, 'utf-8');
 
-    $mail->setFrom(Config::get('mail.sender_mail'), Config::get('mail.sender_name'));
+    if ( !$fromMail )
+      $fromMail = Config::get('mail.sender_mail');
+
+    if ( !$fromName )
+      $fromName = Config::get('mail.sender_name');
+
+    $mail->setFrom($fromMail, $fromName);
     $mail->addReplyTo(Config::get('mail.reply_mail'), 'Do not Reply');
     $mail->addAddress($address, $name);
 

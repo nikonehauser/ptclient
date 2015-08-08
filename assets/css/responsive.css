@@ -61,7 +61,7 @@
 		padding-left: 0;
 	}
 	.sidebar-content-sidebar .blog-item .blog-short-info .author-avatar {
-		margin: 0 0 60px -20px; 
+		margin: 0 0 60px -20px;
 	}
 	.sidebar-content-sidebar .blog-item .blog-icon {
 		right: -10px;
@@ -112,7 +112,9 @@
 		margin-top: 0;
 	}
 	.accordion .accordion-heading .accordion-title a:after {
+		/*
 		display: none;
+		 */
 	}
 	.tabs.center .tabNavigation li,
 	.tabs.main .tabNavigation li {
@@ -246,7 +248,7 @@
 	.text-sm-center{text-align: center !important}
 	.text-sm-left{text-align: left !important}
 	.text-sm-right{text-align: right !important}
-	
+
 }
 @media (min-width: 992px) and (max-width: 1199px) {
 	.bottom-md-30{margin-bottom: 30px!important}

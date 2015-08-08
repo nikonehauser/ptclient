@@ -14,9 +14,10 @@
       <file>DeleteUnpaidTest.php</file>
       <file>BonusSpreadingTest.php</file>
       <file>InvitationTest.php</file>
+      <file>BonusLevelTest.php</file>
       -->
 
-      <file>BonusSpreadingTest.php</file>
+      <file>BonusLevelTest.php</file>
 
     </testsuite>
   </testsuites>

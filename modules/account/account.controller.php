@@ -141,17 +141,17 @@ class AccountController extends BaseController {
     }
 
     $con = \Propel::getConnection();
-    \Activity::exec([
-        '\\Transaction', 'activity_createBonusTransaction'
-      ], [
+    \Activity::exec(
+      /*callable*/['\\Transaction', 'activity_createBonusTransaction'],
+      /*func args*/[
         $login,
         $recipient,
         $data,
         $con
       ],
-      \Activity::ACT_ACCOUNT_BONUS_PAYMENT,
-      $login,
-      $recipient,
+      /*activity.action*/\Activity::ACT_ACCOUNT_BONUS_PAYMENT,
+      /*activity.member*/$login,
+      /*activity.related*/$recipient,
       $con
     );
 
@@ -195,20 +195,14 @@ class AccountController extends BaseController {
 
     $con = \Propel::getConnection();
     \Activity::exec(
-      function($login, $recipient, $data, $con) {
-        $recipient->setBonusLevel($data['amount']);
-        $recipient->save($con);
-
-        return ['amount' => $data['amount']];
-      }, [
-        $login,
-        $recipient,
-        $data,
+      /*callable*/[$recipient, 'activity_setBonusLevel'],
+      /*func args*/[
+        $data['amount'],
         $con
       ],
-      \Activity::ACT_ACCOUNT_BONUS_LEVEL,
-      $login,
-      $recipient,
+      /*activity.action*/\Activity::ACT_ACCOUNT_BONUS_LEVEL,
+      /*activity.member*/$login,
+      /*activity.related*/$recipient,
       $con
     );
 

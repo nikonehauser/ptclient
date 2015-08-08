@@ -71,7 +71,7 @@ CREATE TABLE "tbmt_member"
     "city" VARCHAR(80) NOT NULL,
     "country" VARCHAR(80) NOT NULL,
     "age" INT2 NOT NULL,
-    "referer_id" INTEGER,
+    "referrer_id" INTEGER,
     "parent_id" INTEGER,
     "signup_date" TIMESTAMP NOT NULL,
     "paid_date" TIMESTAMP,
@@ -192,8 +192,8 @@ ALTER TABLE "tbmt_member" ADD CONSTRAINT "fk_member_parent"
     ON UPDATE CASCADE
     ON DELETE SET NULL;
 
-ALTER TABLE "tbmt_member" ADD CONSTRAINT "fk_member_referer"
-    FOREIGN KEY ("referer_id")
+ALTER TABLE "tbmt_member" ADD CONSTRAINT "fk_member_referrer"
+    FOREIGN KEY ("referrer_id")
     REFERENCES "tbmt_member" ("id")
     ON UPDATE CASCADE
     ON DELETE SET NULL;

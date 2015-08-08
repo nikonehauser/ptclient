@@ -16,7 +16,9 @@
 class Activity extends BaseActivity
 {
   const ACT_ACCOUNT_BONUS_LEVEL = 1;
-  CONST ACT_ACCOUNT_BONUS_PAYMENT = 2;
+  const ACT_ACCOUNT_BONUS_PAYMENT = 2;
+
+  const MK_BONUS_PAYMENT_AMOUNT = 'amount';
 
   const TYPE_SUCCESS = 1;
   const TYPE_FAILURE = 2;

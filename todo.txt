@@ -2,6 +2,7 @@ Fragen
 ======
 
  - unter promoter - namensgebung
+ - unter promoter - das nicht vorhanden sein eines org leader erzwingen?
 
  - extra bonus für irgendein Mitglied, ab FundsLvl 2 für jede Werbung?
 
@@ -9,6 +10,11 @@ Fragen
    - welches geld soll überwiesen werden?
      - der gesamte rest? (bonus zahlungen "nicht mehr möglich")
      - das was den einzelnen "unternehmern" zusteht?
+
+ - bonuse gibts für alle unter mir kommenden unabhänig vom Funds Level ???!
+
+ - wenn ich jemand einlade durch einen invitation code mit "free signup" dann
+ werden auch keine provisionen verteilt
 
 
 CURRENT
@@ -31,6 +37,11 @@ CURRENT
 
 LIST
 ====
+
+- throw specialized error in case of the total incomming fee get spread through all the bonuses
+
+- handle mail to invalid/non existing email address
+
 - edit password
 
 - edit bank account

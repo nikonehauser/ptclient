@@ -51,7 +51,7 @@
     <column name="city" phpName="City" type="VARCHAR" size="80" required="true"/>
     <column name="country" phpName="Country" type="VARCHAR" size="80" required="true"/>
     <column name="age" phpName="Age" type="SMALLINT" required="true"/>
-    <column name="referer_id" phpName="RefererId" type="INTEGER" required="false"/>
+    <column name="referrer_id" phpName="ReferrerId" type="INTEGER" required="false"/>
     <column name="parent_id" phpName="ParentId" type="INTEGER" required="false"/>
     <column name="signup_date" phpName="SignupDate" type="TIMESTAMP" required="true"/>
     <column name="paid_date" phpName="PaidDate" type="TIMESTAMP" required="false"/>
@@ -71,8 +71,8 @@
     <foreign-key foreignTable="member" name="fk_member_parent" onDelete="SET NULL" onUpdate="CASCADE">
       <reference local="parent_id" foreign="id"/>
     </foreign-key>
-    <foreign-key foreignTable="member" name="fk_member_referer" onDelete="SET NULL" onUpdate="CASCADE">
-      <reference local="referer_id" foreign="id"/>
+    <foreign-key foreignTable="member" name="fk_member_referrer" onDelete="SET NULL" onUpdate="CASCADE">
+      <reference local="referrer_id" foreign="id"/>
     </foreign-key>
     <unique name="member_num_UNIQUE">
       <unique-column name="num"/>

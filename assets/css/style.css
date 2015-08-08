@@ -2261,7 +2261,7 @@ input[type="reset"]:active {
 	position: relative;
 	display: block;
 	font-weight: bold;
-	padding: 15px 20px 17px;
+	padding: 15px 54px 17px 20px;
 	margin: 0 0 -2px;
 	background: #f0f0f0;
 	color: #EF4A43;
@@ -2269,13 +2269,13 @@ input[type="reset"]:active {
 .accordion .accordion-heading .accordion-title a:after {
 	position: absolute;
 	width: 54px;
-	height: 54px;
 	padding-top: 16px;
 	content: '\f056';
 	font-family: 'FontAwesome';
 	text-align: center;
 	border-left: 1px solid #e5e5e5;
 	top: -2px;
+	bottom: -2px;
 	right: 0px;
 	color: #EF4A43;
 }
@@ -2286,7 +2286,7 @@ input[type="reset"]:active {
 .accordion .accordion-heading .accordion-title a.collapsed {
 	background: #fff;
 	margin: 0;
-	padding: 15px 20px;
+	padding: 15px 54px 15px 20px;
 	color: #272727;
 }
 .accordion-item.cover.active .accordion-heading .accordion-title a{

@@ -153,7 +153,7 @@ class Member extends BaseMember
 
     }
     // else if ( $parentMember->hadPaid() ) {
-    //   return [false, ['referral_member_num' => \Tbmt\Localizer::get('error.referer_paiment_outstanding')], null];
+    //   return [false, ['referral_member_num' => \Tbmt\Localizer::get('error.referrer_paiment_outstanding')], null];
     // }
 
     $invitation = null;
@@ -175,7 +175,7 @@ class Member extends BaseMember
     return [true, $data, $parentMember, $invitation];
   }
 
-  static public function createFromSignup($data, $refererMember, Invitation $invitation = null, PropelPDO $con) {
+  static public function createFromSignup($data, $referrerMember, Invitation $invitation = null, PropelPDO $con) {
     // This functions expects this parameter to be valid!
     // E.g. the result from self::validateSignupForm()
 
@@ -195,7 +195,7 @@ class Member extends BaseMember
         ->setCity($data['city'])
         ->setCountry($data['country'])
         ->setAge($data['age'])
-        // ->setRefererNum($data['referral_member_num'])
+        // ->setReferrerNum($data['referral_member_num'])
         ->setBankRecipient($data['bank_recipient'])
         ->setIban($data['iban'])
         ->setBic($data['bic'])
@@ -210,7 +210,7 @@ class Member extends BaseMember
         $invitation->setAcceptedDate($now);
       }
 
-      $member->setRefererMember($refererMember, $con);
+      $member->setReferrerMember($referrerMember, $con);
       $member->save($con);
 
       if ( $invitation ) {
@@ -272,14 +272,7 @@ class Member extends BaseMember
       return self::$NUM_TO_BONUS_REASON[$num];
 
     if ( !isset(self::$TYPE_TO_BONUS_REASON[$this->getType()]) ) {
-      print_r('<pre>');
-      print_r($this->toArray());
-      print_r('</pre>');
-      try {throw new \Exception('trace');} catch(\Exception $e) {
-        print_r('<pre>');
-        print_r([$e->getTraceAsString()]);
-        print_r('</pre>');
-      }
+      return null;
     }
 
     return self::$TYPE_TO_BONUS_REASON[$this->getType()];
@@ -317,27 +310,76 @@ class Member extends BaseMember
     return $this;
   }
 
+
+  public function activity_setBonusLevel($amount, PropelPDO $con) {
+    $this->setBonusLevel($amount);
+
+    $bonusIds = $this->getBonusIds();
+    $bonusIds = MemberBonusIds::populate($this, $bonusIds);
+    $this->setBonusIds($bonusIds);
+
+    $children = $this->applyToAllChildren(
+      function($parent, $child) use ($amount, $con) {
+        $bonusIds = $child->getBonusIds();
+        $bonusIds = MemberBonusIds::populate($parent, $bonusIds);
+        $child->setBonusIds($bonusIds);
+        $child->save($con);
+      },
+      $con
+    );
+
+    $this->save($con);
+
+    return [\Activity::MK_BONUS_PAYMENT_AMOUNT => $amount];
+  }
+
+  /**
+   * This is a dangerous method cause the tree of this member might exceed
+   * over thousands/millions of members !?
+   *
+   * @return [type]
+   */
+  public function applyToAllChildren($callable, PropelPDO $con, $byColumn = 'ReferrerId') {
+    $ids = [$this->getId()];
+    $filterByColumn = "filterBy$byColumn";
+
+    $rows = [];
+    do {
+      $members = \MemberQuery::create()
+        ->$filterByColumn($ids, \Criteria::IN)
+        ->find($con);
+
+      $newIds = [];
+      foreach ($members as $member) {
+        $newIds[] = $member->getId();
+
+        call_user_func_array($callable, [$this, $member]);
+      }
+      $ids = $newIds;
+    } while( count($members) > 0 );
+  }
+
   /**
    *
-   * @param Member    $referer
+   * @param Member    $referrer
    * @param PropelPDO $con
    */
-  public function setRefererMember(Member $referer, PropelPDO $con) {
-    $refererId = $referer->getId();
-    $this->setRefererId($refererId);
-    $this->setParentId($refererId);
+  public function setReferrerMember(Member $referrer, PropelPDO $con) {
+    $referrerId = $referrer->getId();
+    $this->setReferrerId($referrerId);
+    $this->setParentId($referrerId);
 
-    $bonusIds = $referer->getBonusIds();
-    $refererType = $referer->getType();
-    if ( $refererType > self::TYPE_MEMBER ) {
-      $bonusIds = MemberBonusIds::populate($referer, $bonusIds);
+    $bonusIds = $referrer->getBonusIds();
+    $referrerType = $referrer->getType();
+    if ( $referrerType > self::TYPE_MEMBER ) {
+      $bonusIds = MemberBonusIds::populate($referrer, $bonusIds);
     }
 
     if ( $bonusIds )
       $this->setBonusIds($bonusIds);
 
-    $referer->addOutstandingAdvertisedCount(1);
-    $referer->save($con);
+    $referrer->addOutstandingAdvertisedCount(1);
+    $referrer->save($con);
   }
 
   public function addOutstandingAdvertisedCount($int) {
@@ -422,7 +464,7 @@ class Member extends BaseMember
 
         // As long as i am level 1 i wont receive more from them than just
         // the 5 euro. All further advertised members etc. will go on to the
-        // account of my referer
+        // account of my referrer
         $advertisedMember->setMemberRelatedByParentId($parent);
         $parentTransfer->save($con);
         $parent->save($con);
@@ -525,12 +567,12 @@ class Member extends BaseMember
    *
    */
   public function onReceivedMemberFee($currency, $when, PropelPDO $con) {
-    $referer = $this->getMemberRelatedByParentId($con);
+    $referrer = $this->getMemberRelatedByParentId($con);
 
-    if ( $referer && !$referer->hadPaid() ) {
+    if ( $referrer && !$referrer->hadPaid() ) {
       // if the parent hasnt paid yet. reserve this event until his fee is
       // comming in or we kick him from the list.
-      $referer->reserveReceivedMemberFeeEvent($this, $currency, $when, $con);
+      $referrer->reserveReceivedMemberFeeEvent($this, $currency, $when, $con);
       return;
     }
 
@@ -544,17 +586,17 @@ class Member extends BaseMember
     $memberFee = new \Tbmt\MemberFee(\Tbmt\Config::get('member_fee'), $this, $currency);
 
     // @see resources/snowball.txt - processes - P2
-    if ( $referer ) {
+    if ( $referrer ) {
 
-      $referer->payAdvertisingFor($memberFee, $this, $currency, $when, $con);
+      $referrer->payAdvertisingFor($memberFee, $this, $currency, $when, $con);
 
-      $newAdvertisedCount = $referer->convertOutstandingAdvertisedCount(1);
+      $newAdvertisedCount = $referrer->convertOutstandingAdvertisedCount(1);
       if ( $newAdvertisedCount == 2 ) {
-        $referer->setFundsLevel(Member::FUNDS_LEVEL2);
-        $referer->setMemberRelatedByParentId(null);
+        $referrer->setFundsLevel(Member::FUNDS_LEVEL2);
+        $referrer->setMemberRelatedByParentId(null);
       }
 
-      $referer->save($con);
+      $referrer->save($con);
     }
 
     $memberFee->addRemainingToAccounts($when, $con);
@@ -597,7 +639,7 @@ class Member extends BaseMember
   }
 
   /**
-   * Delete this member and adopt his children to his referer.
+   * Delete this member and adopt his children to his referrer.
    * Calling onReceivedMemberFee.
    *
    * @param  PropelPDO $con
@@ -605,24 +647,24 @@ class Member extends BaseMember
    */
   public function deleteAndUpdateTree(PropelPDO $con) {
     $children = MemberQuery::create()
-      ->filterByRefererId($this->getId())
+      ->filterByReferrerId($this->getId())
       ->find($con);
 
-    $thisReferer = $this->getMemberRelatedByRefererId();
-    $thisRefererHadPaid = $thisReferer->hadPaid();
+    $thisReferrer = $this->getMemberRelatedByReferrerId();
+    $thisReferrerHadPaid = $thisReferrer->hadPaid();
 
     $updateCount = ReservedPaidEventQuery::create()
       ->filterByUnpaidId($this->getId())
-      ->update(['UnpaidId' => $thisReferer->getId()], $con);
+      ->update(['UnpaidId' => $thisReferrer->getId()], $con);
 
     foreach ($children as $child) {
-      $child->setRefererMember($thisReferer, $con);
+      $child->setReferrerMember($thisReferrer, $con);
       $child->save($con);
     }
 
     if ( $updateCount > 0 ) {
-      $thisReferer->fireReservedReceivedMemberFeeEvents($con);
-      $thisReferer->save($con);
+      $thisReferrer->fireReservedReceivedMemberFeeEvents($con);
+      $thisReferrer->save($con);
     }
 
     $this->setDeletionDate(time());
@@ -639,9 +681,9 @@ class MemberBonusIds {
     return json_encode($bonusIds);
   }
 
-  static public function populate(Member $refererMember, $bonusIds) {
+  static public function populate(Member $referrerMember, $bonusIds) {
     $arr = self::toArray($bonusIds);
-    $arr[$refererMember->getId()] = $refererMember->getType();
+    $arr[$referrerMember->getId()] = $referrerMember->getType();
     return self::toString($arr);
   }
 
@@ -667,23 +709,42 @@ class MemberBonusIds {
     foreach ( $bonusMembers as $member ) {
       $type = $member->getType();
 
-      $transfer = self::doPay(
-        $memberFee,
-        null,
-        $member,
-        $member->getBonusReason(),
-        $relatedId,
-        $currency,
-        $when,
-        $con
-      );
+      $transfer = null;
+      $reason = $member->getBonusReason();
+      if ( $member->getBonusLevel() > 0 ) {
+        $transfer = self::doPay(
+          $memberFee,
+          $transfer,
+          $member,
+          \Transaction::REASON_CUSTOM_BONUS_LEVEL,
+          $relatedId,
+          $currency,
+          $when,
+          $con
+        );
+      }
+
+      if ( $reason !== null ) {
+        $transfer = self::doPay(
+          $memberFee,
+          $transfer,
+          $member,
+          $reason,
+          $relatedId,
+          $currency,
+          $when,
+          $con
+        );
+      }
 
       // lazy save all these objects later to prevent multiple
       // database update's cause there might get more bonuses spread.
-      $toBeSaved[] = $member;
-      $toBeSaved[] = $transfer;
+      if ( $transfer ) {
+        $toBeSaved[] = $member;
+        $toBeSaved[] = $transfer;
 
-      $spreadBonuses[$type] = [$member, $transfer];
+        $spreadBonuses[$type] = [$member, $transfer];
+      }
     }
 
     $inheritBonuses = [];

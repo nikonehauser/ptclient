@@ -33,7 +33,7 @@ class InvitationTest extends Tbmt_Tests_DatabaseTestCase {
     ---------------------------------------------*/
     DbEntityHelper::setCon(self::$propelCon);
     $marketingLeader = DbEntityHelper::createMember(null, [
-      'type' => Member::TYPE_MARKETINGLEADER
+      'Type' => Member::TYPE_MARKETINGLEADER
     ]);
     $marketingLeader->reload(self::$propelCon);
 
@@ -82,7 +82,7 @@ class InvitationTest extends Tbmt_Tests_DatabaseTestCase {
     ---------------------------------------------*/
     DbEntityHelper::setCon(self::$propelCon);
     $marketingLeader = DbEntityHelper::createMember(null, [
-      'type' => Member::TYPE_MARKETINGLEADER
+      'Type' => Member::TYPE_MARKETINGLEADER
     ]);
     $marketingLeader->reload(self::$propelCon);
 

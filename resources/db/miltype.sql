@@ -16,8 +16,8 @@
     "city" VARCHAR(80) NOT NULL ,
     "country" VARCHAR(80) NOT NULL ,
     "age" smallint not null ,
-    "referer_id" INTEGER NULL ,
-    "parent_id" INTEGER NULL ,
+    "referrer_id" INTEGER NULL , -- this is the never changing member who recruited this member
+    "parent_id" INTEGER NULL , -- this is the changing parent who receives provisions for my recruitings
     "signup_date" timestamp with time zone NOT NULL ,
     "paid_date" timestamp with time zone NULL ,
     "funds_level" smallint NOT NULL default 1,
@@ -42,8 +42,8 @@
     "deletion_date" timestamp with time zone NULL ,
 
     PRIMARY KEY ("id") ,
-    CONSTRAINT "fk_member_referer"
-      FOREIGN KEY ("referer_id")
+    CONSTRAINT "fk_member_referrer"
+      FOREIGN KEY ("referrer_id")
       REFERENCES "tbmt_member" ("id")
       ON DELETE set null
       ON UPDATE CASCADE ,

@@ -1,5 +1,46 @@
 <?=Tbmt\view\Factory::buildPageTitle($this->i18nView['page_title'])?>
 
-<div class="container">
-TODO
-</div>
+  <?php
+
+    $formBuilder = new \Tbmt\FormBuilder('signupForm', $this->formLabels, $this->formVal, $this->formErrors);
+
+  ?>
+
+    <!--
+      FORM
+      *************************** -->
+
+    <form action="<?=\Tbmt\Router::toModule('about', 'contact_submit')?>" method="post" class="form">
+      <div class="container">
+        <div class="row">
+
+          <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['form_title'])?>
+
+          <?php if ( true || $this->successmsg ) {
+            echo \Tbmt\view\Factory::buildNotification($this->i18nView['signup_success'], $this->i18nView['success'], 'success top');
+          } ?>
+
+          <div class="col-md-6">
+              <?php echo $formBuilder->buildFieldGroup('name'); ?>
+          </div>
+          <div class="col-md-6">
+              <?php echo $formBuilder->buildFieldGroup('email'); ?>
+          </div>
+
+          <div class="col-md-12">
+              <?php echo $formBuilder->buildFieldGroup('subject'); ?>
+          </div>
+
+          <div class="col-md-12">
+              <?php echo $formBuilder->buildFieldGroup('message', 'textarea'); ?>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="container">
+        <div class="row">
+          <?=\Tbmt\view\Factory::buildSubmitBtn($this->formLabels['submit'], 'blue top-20')?>
+        </div>
+      </div>
+    </form>

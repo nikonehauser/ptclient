@@ -60,7 +60,7 @@ class DbEntityHelper {
 
     $member->fromArray(array_merge(self::$memberDefaults, $data));
     if ( $referralMember )
-      $member->setRefererMember($referralMember, self::$con);
+      $member->setReferrerMember($referralMember, self::$con);
 
     $now = time();
     $member->setSignupDate($now)
@@ -70,8 +70,9 @@ class DbEntityHelper {
     return $member;
   }
 
-  static public function createSignupMember(Member $referralMember, $receivedPaiment = true) {
-    $member = Member::createFromSignup(self::$memberSignup, $referralMember, null, self::$con);
+  static public function createSignupMember(Member $referralMember, $receivedPaiment = true, array $data = array()) {
+    $member = Member::createFromSignup(array_merge(self::$memberSignup, $data), $referralMember, null, self::$con);
+
     if ( $receivedPaiment )
       $member->onReceivedMemberFee(self::$currency, time(), self::$con);
 
@@ -268,6 +269,11 @@ class TransactionTotalsAssertions {
 
   public function add($reason, $quantity = 1) {
     $this->total += Transaction::getAmountForReason($reason) * $quantity;
+    return $this;
+  }
+
+  public function addBonusLevelPayment($quantity = 1) {
+    $this->total += $this->member->getBonusLevel() * $quantity;
     return $this;
   }
 
