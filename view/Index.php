@@ -5,12 +5,12 @@ namespace Tbmt\view;
 class Index extends Base {
 
   protected function init() {
-    $i18nView = \Tbmt\Localizer::plain('common');
-    $this->textBrandName = $i18nView['brand_name'];
+    $this->i18nView = \Tbmt\Localizer::get('view.common');
+    $this->textBrandName = $this->i18nView['brand_name'];
+    $this->textBrandMail = \Tbmt\Config::get('brand.mail');
 
-    $viewCommon = \Tbmt\Localizer::get('view.common');
-    $linkNames = $viewCommon['navigation_links'];
-    $subLinkNames = $viewCommon['navigation_sublinks'];
+    $linkNames = $this->i18nView['navigation_links'];
+    $subLinkNames = $this->i18nView['navigation_sublinks'];
     $this->navigationLinks = [];
     foreach (['projects', 'member', 'about', 'account'] as $linkName) {
       $locale = $linkNames[$linkName];
@@ -39,7 +39,7 @@ class Index extends Base {
     $this->isLoggedIn = \Tbmt\Session::isLoggedIn();
     if ( !$this->isLoggedIn ) {
       $accountLinks = &$this->navigationLinks[count($this->navigationLinks)-1];
-      $accountLinks[1] = $viewCommon['member_login'];
+      $accountLinks[1] = $this->i18nView['member_login'];
       unset($accountLinks[3]);
     }
 
@@ -51,7 +51,7 @@ class Index extends Base {
     ];
 
     $this->baseUrl = \Tbmt\Router::toBase();
-    $this->i18nView = $viewCommon;
+    $this->i18nView = $this->i18nView;
   }
 
   protected $varsDef = [

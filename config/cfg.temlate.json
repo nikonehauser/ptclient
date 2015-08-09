@@ -33,6 +33,7 @@
 
   "brand.name": "Help Yourself Association",
   "brand.short": "HYA",
+  "brand.mail": "info@hya.net",
 
 
   "mail.smtp_secure": "ssl",

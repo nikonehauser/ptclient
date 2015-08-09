@@ -80,6 +80,16 @@ jQuery(document).ready(function($){
 	wow.init();
 
 
+	/* header social
+  ---------------------------------------------*/
+  jQuery('.social-info').each(function(){
+
+      jQuery(this).find('li').hover(function() {
+          jQuery('.social-info').find('li.active').removeClass('active');
+          jQuery(this).addClass('active');
+      });
+  });
+
 	/* scroll back to top
   ---------------------------------------------*/
 	(function($){$.fn.backToTop=function(options){var $this=$(this);$this.hide().click(function(){$("body, html").animate({scrollTop:"0px"});});var $window=$(window);$window.scroll(function(){if($window.scrollTop()>0){$this.fadeIn();}else{$this.fadeOut();}});return this;};})(jQuery);

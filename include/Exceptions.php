@@ -2,6 +2,8 @@
 
 namespace Tbmt;
 
+class UrgentException extends \Exception {}
+
 class PublicException extends \Exception {
   protected $name;
   public function getName() {

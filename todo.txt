@@ -16,19 +16,20 @@ Fragen
  - wenn ich jemand einlade durch einen invitation code mit "free signup" dann
  werden auch keine provisionen verteilt
 
+- Wenn ein Promoter, orgleader, etc. gelöscht wird wird sein Bonus verteilt als hätte es ihn nie gegeben.
+
 
 CURRENT
 ======
 
- - beim marketing system unten hinschreiben das den letzten die hunde beißen,
-   je später du anfängst desto weniger verdienst du
+ - send email on any error
+
+ - add header with usefull links
 
  - how to für benutzer: überweisung durchführen mit EIGENER nummer als verwendungszweck
 
 LIST
 ====
-
-- throw specialized error in case of the total incomming fee get spread through all the bonuses
 
 - handle mail to invalid/non existing email address
 
@@ -40,27 +41,23 @@ LIST
 
 - promoter kann promoter werben (behinderter special fall)
 
-- save unknown incommings to extra table
+- save unknown incommings to extra table for later handling
 
  - handle bank api fehler
 
  - add link to agbs.
 
 - try { } catch {} cron jobs, add activity entry for the various actions
-- send email on any error
 
 - Angabe der Bankverbindung des Vereins.
-
-- encodeHtml account->information - statistics
-
-- zeige: bereits angemeldete benutzer
-- zeige: bereits gesammeltes geld
 
 - write extensive tests 10 000 000 users.
 
 - use and run postgresql analyze
 
-- show notice that we received the member fee but waiting for parent income
+- sitemap
+
+- throw specialized error in case of the total incomming fee get spread through all the bonuses??
 
 Profiling
 =========
@@ -84,27 +81,13 @@ Quality handling
 
 
 
-FAQ
-===
-- wann starten die projekte
-- wann bekomme ich mein geld
-- was passiert wenn ich nicht überweise
-- error handling / reporting
-- why email
-- i want to know more - where can i get help
-
-
-
 SYSTEM
 ======
-- Wenn ein Promoter gelöscht wird wird sein Bonus verteilt als hätte es ihn nie gegeben.
 
 
 
 LASTENHEFT
 =========
-
-- sitemap
 
 Sprache auswählbar, möglichst von allen aktuellen Ländern zuzüglich englisch
 > ggf. aus Abgrenzungsgründen nur in Englisch?

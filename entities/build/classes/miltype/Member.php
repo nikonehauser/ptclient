@@ -626,6 +626,10 @@ class Member extends BaseMember
     $reservedPaidEvent->setCurrency($currency);
     $reservedPaidEvent->setDate($when);
     $reservedPaidEvent->save($con);
+
+    // This will result in payment received message in account.index view
+    $paidMember->setPaidDate(1);
+    $paidMember->save($con);
   }
 
   /**

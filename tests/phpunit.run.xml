@@ -15,9 +15,10 @@
       <file>BonusSpreadingTest.php</file>
       <file>InvitationTest.php</file>
       <file>BonusLevelTest.php</file>
+      <file>SystemTest.php</file>
       -->
 
-      <file>BonusLevelTest.php</file>
+      <file>SystemTest.php</file>
 
     </testsuite>
   </testsuites>

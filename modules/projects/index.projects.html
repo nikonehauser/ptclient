@@ -4,13 +4,14 @@ use \Tbmt\Router;
 
 
 <div class="container">
-    <div class="eight columns">
+  <div class="row">
+    <div class="col-md-6">
         <h2 class="headline" ><?=$this->i18nView['about_us_title']?></h2>
 
         <p>Die „Help Yourself Association“ ist ein Verein und wurde für Menschen gegründet, die aus verschiedenen Gründen - zum Beispiel den wirtschaftlichen oder auch den politischen Rahmenbedingungen in ihrem Land -  nur geringe oder keine Möglichkeiten haben, sich durch eigenen Einsatz zu einem besseren Leben zu verhelfen.</p>
 
     </div>
-    <div class="eight columns" style="padding:20px; box-sizing: border-box;">
+    <div class="col-md-6" style="padding:20px; box-sizing: border-box;">
         <img src="<?=Router::toImage('helping-hand.jpg')?>"/>
 
     </div>
@@ -18,11 +19,11 @@ use \Tbmt\Router;
 
 
 
-    <div class="eight columns" style="padding:20px; box-sizing: border-box;">
+    <div class="col-md-6" style="padding:20px; box-sizing: border-box;">
         <img src="<?=Router::toImage('vision-community.jpg')?>"/>
 
     </div>
-    <div class="eight columns">
+    <div class="col-md-6">
         <h2 class="headline" ><?=$this->i18nView['about_us_title2']?></h2>
         <p>Der Verein bietet mittels eines Marketingsystems einen direkten Weg zur Selbsthilfe einerseits und andererseits durch diverse soziale Hilfsprojekte in verschiedenen Ländern Hilfe zur Selbsthilfe an. Beide Konzepte finanzieren sich zu 100% aus den einmaligen Vereinsbeiträgen der Vereinsmitglieder.
         Insofern hilft das Mitglied mit der Zahlung seines einmaligen Vereinsbeitrags in Höhe von nur $ 70,- sich direkt und zudem über die sozialen Hilfsprojekte der Help Yourself Assoziation zusätzlich anderen Menschen, da der Verein in verschiedenen Ländern verschiedene Projekte zur Selbsthilfe und Weiterentwicklung projektieren, errichten und betreiben wird.</p>
@@ -32,7 +33,7 @@ use \Tbmt\Router;
 
     <div class="clearfix"></div>
 
-    <div class="eight columns" >
+    <div class="col-md-6" >
         <h2 class="headline" ><?=$this->i18nView['planed_projects_title']?></h2>
         <p>
 Über unseren Verein haben Menschen die Möglichkeit, sich selbst zu helfen. Dies setzt allerdings voraus, dass diese Menschen ein gewisses Alter aufweisen, vollständig in der Lage sind, für sich selbst zu handeln und nicht in Grundbedürfnissen bereits auf andere angewiesen sind.
@@ -47,7 +48,7 @@ Mit zunehmender Mitgliederzahl werden wir versuchen auch in anderen Ländern unt
         </p>
 
     </div>
-    <div class="eight columns" >
+    <div class="col-md-6" >
         <h2 class="headline" ><?=$this->i18nView['affected_countries_title']?></h2>
         <ul class="list-2" style="padding:20px;">
             <li>Indien</li>
@@ -70,4 +71,5 @@ Mit zunehmender Mitgliederzahl werden wir versuchen auch in anderen Ländern unt
             <div class="clearfix"></div>
         </div>
     </div> -->
+  </div>
 </div>

@@ -61,6 +61,29 @@ use \Tbmt\Router as R;
 
 		<!-- Header -->
 		<header id="header">
+			<div class="top-header">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="callus">
+								<span><?=$this->i18nView['email_us']?></span>
+								<a href="mailto:<?=$this->textBrandMail?>"><?=$this->textBrandMail?></a>
+							</div>
+						</div>
+						<div class="col-md-6 hidden-xs hidden-sm">
+							<div class="social-info pull-right">
+								<ul class="social textcolor list-unstyled">
+									<li class="mail active"><a href="mailto:<?=$this->textBrandMail?>"><i class="fa fa-envelope"></i><span><?=$this->textBrandMail?></span></a></li>
+									<li class="facebook"><a href="<?=\Tbmt\Router::toModule('about', 'faq')?>"><i class="fa fa-question-circle"></i><span>FAQ</span></a></li>
+									<li class="twitter"><a href="#"><i class="fa fa-twitter"></i><span>follow us on Twitter</span></a></li>
+									<li class="pinterest"><a href="#"><i class="fa fa-pinterest"></i><span>get pin on pinterest</span></a></li>
+									<li class="googleplus"><a href="#"><i class="fa fa-google-plus"></i><span>follow on google plus</span></a></li>
+								</ul><!-- // .social -->
+							</div><!-- // .social-info -->
+						</div>
+					</div>
+				</div>
+			</div>
 
 			<div class="logo-header">
 				<div class="container">
@@ -156,7 +179,7 @@ use \Tbmt\Router as R;
 								<ul>
 									<li class="clearfix">
 										<div class="post-icon"><i class="fa fa-question-circle"></i></div>
-										<div class="post-content"><h4 class="bottom-0"><a href="#"><?=$this->i18nView['useful_link_faq']?></a></h4></div>
+										<div class="post-content"><h4 class="bottom-0"><a href="<?=\Tbmt\Router::toModule('about', 'faq')?>"><?=$this->i18nView['useful_link_faq']?></a></h4></div>
 									</li>
 									<li class="clearfix">
 										<div class="post-icon"><i class="fa fa-briefcase"></i></div>

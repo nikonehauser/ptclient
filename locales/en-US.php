@@ -106,6 +106,11 @@ return [
     ---------------------------------------------*/
   'view' => [
     'common' => [
+      'brand_name' => $brandName,
+      'brand_name_short' => 'HYA',
+
+      'email_us' => 'Email us: ',
+
       'navigation_links' => [
         'member' => 'The Idea',
         'projects' => 'Projects',
@@ -223,20 +228,18 @@ return [
         '37' => 'However, we will also have members, who with mediocre effort will just earn a meager amount, for example a few thousand dollars.',
         '38' => 'Then we will also have members who will only earn very few, for example only few hundreds of dollars.',
         '39' => 'And of course in the future, probably in a few years, we will also have cases of members which will not earn anything. They have through their contribution facilitated the earnings of the other members and the development of several social projects and thus sponsored their $70 directly for the goods of their fellow people.',
-        '40' => 'The specific development of your personal profits can hardly be predicted. However, the possibilities result from each member’s personal effort.',
-        '41' => 'If you believe,',
-        '42' => 'That you can recruit at least three new members',
-        '43' => 'That these members again can recruit two new members',
-        '44' => 'That these new members each can recruit at least two new members',
-        '45' => 'Then you can rest assured that your contribution is reimbursed within 30 days and that you additionally will have scored your first profit.',
-        '46' => 'Furthermore, if you believe that over a course of only three months each new member at least recruits three new members, then we can congratulate you because, if it happens like that, you will earn lots and lots of money with us and will be able to afford yourself a whole new quality of life.',
-        '47' => 'You will be able to afford things which you have never thought of before. You will be able to support your family, enjoy best medical care, buy a new car, spend no time thinking about what to live from when you’re old, etc.',
-        '48' => 'Exactly that is the whole purpose of our association!',
-        '49' => 'Take action now',
-        '50' => 'Here you can register for a better life:',
-        '51' => '',
-        '52' => '',
-        '53' => '',
+        '40' => 'We also need to say that, due to the way the system works, you will earn less in dependence of how near we are to the end of recruiting. It is mostly unpredictable but someday the system will stagnate until there will be no new members. That day we will close the signup and start to realize benificial projects.',
+        '41' => 'The specific development of your personal profits can hardly be predicted. However, the possibilities result from each member’s personal effort.',
+        '42' => 'If you believe,',
+        '43' => 'That you can recruit at least three new members',
+        '44' => 'That these members again can recruit two new members',
+        '45' => 'That these new members each can recruit at least two new members',
+        '46' => 'Then you can rest assured that your contribution is reimbursed within 30 days and that you additionally will have scored your first profit.',
+        '47' => 'Furthermore, if you believe that over a course of only three months each new member at least recruits three new members, then we can congratulate you because, if it happens like that, you will earn lots and lots of money with us and will be able to afford yourself a whole new quality of life.',
+        '48' => 'You will be able to afford things which you have never thought of before. You will be able to support your family, enjoy best medical care, buy a new car, spend no time thinking about what to live from when you’re old, etc.',
+        '49' => 'Exactly that is the whole purpose of our association!',
+        '50' => 'Take action now',
+        '51' => 'Here you can register for a better life:',
       ],
 
       'index' => [
