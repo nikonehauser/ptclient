@@ -20,18 +20,8 @@ Fragen
 CURRENT
 ======
 
- - write activity entry for setting bonus level
-
- - apply bonus level
-
- - was sind die bonuse?
-
- - bonuse nicht als multiplikator sondern +1 euro +2 euro etc.
-
  - beim marketing system unten hinschreiben das den letzten die hunde beißen,
    je später du anfängst desto weniger verdienst du
-
- - replace "Help Yourself Association" with the appropriate page name in language files
 
  - how to für benutzer: überweisung durchführen mit EIGENER nummer als verwendungszweck
 
@@ -45,8 +35,6 @@ LIST
 - edit password
 
 - edit bank account
-
-- add funds level select to invitation form
 
 - website content auffüllen
 

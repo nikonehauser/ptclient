@@ -31,6 +31,10 @@
   "secret_salt": "APc7a5vhCiyNfYn6KvkLfs0oMDwLZtatdIlfFE7ObcP4quxevQrVq0vLXeKPalKz",
 
 
+  "brand.name": "Help Yourself Association",
+  "brand.short": "HYA",
+
+
   "mail.smtp_secure": "ssl",
   "mail.smtp_host": "smtp.googlemail.com",
   "mail.smtp_port": 465,

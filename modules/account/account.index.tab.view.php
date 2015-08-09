@@ -18,6 +18,9 @@ class AccountIndexTab extends Base {
       throw new \Exception('Invalid param member for account index view.');
 
     $this->member = $params['member'];
+    $this->signupmsg = \Tbmt\Session::get(\Tbmt\Session::KEY_SIGNUP_MSG);
+    if ( $this->signupmsg )
+      \Tbmt\Session::delete(\Tbmt\Session::KEY_SIGNUP_MSG);
 
     return $this->renderFile(
       dirname(__FILE__).DIRECTORY_SEPARATOR.'tab.index.account.html',

@@ -17,20 +17,28 @@ class Activity extends BaseActivity
 {
   const ACT_ACCOUNT_BONUS_LEVEL = 1;
   const ACT_ACCOUNT_BONUS_PAYMENT = 2;
+  const ACT_MEMBER_SIGNUP = 3;
+
+  const ARR_RESULT_RETURN_KEY = '__return';
 
   const MK_BONUS_PAYMENT_AMOUNT = 'amount';
 
   const TYPE_SUCCESS = 1;
   const TYPE_FAILURE = 2;
 
-  static public function exec($callable, $arrArgs, $action, $creator = null, $related = null, PropelPDO $con, $metaResultKey = null) {
+  static public function exec($callable, $arrArgs, $action, $creator = null, $related = null, PropelPDO $con) {
     if ( !$con->beginTransaction() )
       throw new Exception('Could not begin transaction');
 
     try {
       $resIsArray = $res = false;
-      $res = call_user_func_array($callable, $arrArgs);
+      $res = $return = call_user_func_array($callable, $arrArgs);
       $resIsArray = is_array($res);
+
+      if ( $resIsArray && isset($res[self::ARR_RESULT_RETURN_KEY]) ) {
+        $return = $res[self::ARR_RESULT_RETURN_KEY];
+        unset($res[self::ARR_RESULT_RETURN_KEY]);
+      }
 
       self::insert($action, self::TYPE_SUCCESS,
         $creator,
@@ -43,10 +51,7 @@ class Activity extends BaseActivity
       if ( !$con->commit() )
         throw new Exception('Could not commit transaction');
 
-      if ( $metaResultKey !== null && $resIsArray )
-        return $res[$metaResultKey];
-
-      return $res;
+      return $return;
     } catch (Exception $e) {
         $con->rollBack();
 

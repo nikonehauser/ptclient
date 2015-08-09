@@ -5,6 +5,7 @@ namespace Tbmt;
 final class Session {
 
   const KEY_USER_ID = 'user_id';
+  const KEY_SIGNUP_MSG = 'show_signup_msg';
 
   static private $user;
 
@@ -63,5 +64,9 @@ final class Session {
 
   static public function set($key, $value) {
     $_SESSION[$key] = $value;
+  }
+
+  static public function delete($key) {
+    unset($_SESSION[$key]);
   }
 }

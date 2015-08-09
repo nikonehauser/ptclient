@@ -1,7 +1,10 @@
 <?php
+$brandName = \Tbmt\Config::get('brand.name');
+$brandNameShort = \Tbmt\Config::get('brand.short');
+
 return [
   'common' => [
-    'brand_name' => 'Help Yourself Association',
+    'brand_name' => $brandName,
     'brand_name_short' => 'HYA',
 
     'member_types' => [
@@ -135,7 +138,7 @@ return [
         ]
       ],
       'member_login' => 'Member Login',
-      'copyright_name' => 'Help Yourself Associaton',
+      'copyright_name' => $brandName,
 
       'useful_link_contact' => 'You have questions? Just contact us!',
       'useful_link_faq' => 'Frequently asked questions',
@@ -246,9 +249,9 @@ return [
           'For those who deserve',
         ],
         'basic_idea_text' => [
-          'Basically every human can become a member of the Help Yourself Association. The {onetime} contribution is only {member_fee}.',
-          'Every member can recruit new members for the Help Yourself Association within the “Members recruit new members” marketing system, and thereby achieve a constant and, above all, {passive_income}.',
-          'Citizens living in rich countries are not allowed to become a member of the Help Yourself Association.',
+          'Basically every human can become a member of the '.$brandName.'. The {onetime} contribution is only {member_fee}.',
+          'Every member can recruit new members for the '.$brandName.' within the “Members recruit new members” marketing system, and thereby achieve a constant and, above all, {passive_income}.',
+          'Citizens living in rich countries are not allowed to become a member of the '.$brandName,
         ],
         'basic_idea_highlights' => [
           ['onetime' => 'one-time', 'member_fee' => '$_member_fee_$'],
@@ -261,7 +264,7 @@ return [
         'forbidden_countries_text' => 'Each citizen of those countries has sufficient access to education, jobs, medical treatments and social welfare, thus we do not offer these citizens access to our self-help club.',
 
         'become_member_title' => 'I want to be member',
-        'become_member_text' => 'If you also want to become a member, then please register here on our homepage and pay the membership fee of {member_fee} within 10 days. Then you are a member of the Help Yourself Association and you can use our fantastic marketing system to achieve a permanent and {passive_income}.',
+        'become_member_text' => 'If you also want to become a member, then please register here on our homepage and pay the membership fee of {member_fee} within 10 days. Then you are a member of the '.$brandName.' and you can use our fantastic marketing system to achieve a permanent and {passive_income}.',
         'become_member_highlights' => [
           'passive_income' => 'passive income',
           'member_fee' => '$_member_fee_$'
@@ -277,7 +280,7 @@ return [
         'member_starting_text' => [
           'In our “Members recruit new members” marketing system you are automatically integrated on payment level 1.',
           'We want to show you in the following explanation of our marketing system what this means for you.',
-          'Directly after you have finished your registration, you can recruit new members for the Help Yourself Association via this homepage.',
+          'Directly after you have finished your registration, you can recruit new members for the '.$brandName.' via this homepage.',
         ],
         'member_starting_button' => [
           'What is payment level 1?',
@@ -324,7 +327,7 @@ return [
 
       'signupSuccess' => [
         'page_title' => 'Successfully signed up',
-        'welcome' => 'Welcome to "Help Yourself Association".',
+        'welcome' => 'Welcome to "'.$brandName.'".',
         'new_member_num' => 'Your member number is {num}. Please note this number.',
         'info' => 'Use it to invite new members to help them and yourself.',
       ]
@@ -379,6 +382,10 @@ return [
           'bic' => 'BIC',
           'member_type' => 'Membership type',
           'bonus_level' => 'Bonus Level',
+
+          'welc_not_1' => 'Welcome {name}',
+          'welc_not_2' => 'This is you profile where you can find various information',
+          'welc_not_3' => 'IMPORTANT! Note your member number! You will need it for login, recruting etc.',
         ],
         'invoice' => [
           'stats' => 'Statistics',

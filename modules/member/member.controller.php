@@ -32,11 +32,24 @@ class MemberController extends BaseController {
       );
     }
 
-    $con = $con = \Propel::getConnection();
-    $member = \Member::createFromSignup($data, $referralMember, $invitation, $con);
+    $con = \Propel::getConnection();
+    $member = \Activity::exec(
+      /*callable*/['\\Member', 'activity_createFromSignup'],
+      /*func args*/[
+        $data,
+        $referralMember,
+        $invitation,
+        $con
+      ],
+      /*activity.action*/\Activity::ACT_MEMBER_SIGNUP,
+      /*activity.member*/null,
+      /*activity.related*/$referralMember,
+      $con
+    );
     $member->reload(false, $con);
 
     Session::setLogin($member);
+    Session::set(Session::KEY_SIGNUP_MSG, true);
     return new ControllerActionRedirect(Router::toModule('account'));
   }
 

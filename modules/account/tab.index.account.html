@@ -1,7 +1,15 @@
   <?php
     use \Tbmt\Base;
 
-    if ( !$this->member->hadPaid() ) {
+    if ( $this->signupmsg ) {
+      echo \Tbmt\view\Factory::buildNotification(
+        \Tbmt\Localizer::insert($this->i18nView['welc_not_1'], ['name' => \Tbmt\view\Factory::buildMemberFullNameString($this->member)]),
+        '',
+        'success top',
+        '<p>'.$this->i18nView['welc_not_2'].'</p>'.
+        '<p>'.$this->i18nView['welc_not_3'].'</p>'
+      );
+    } else if ( !$this->member->hadPaid() ) {
       echo \Tbmt\view\Factory::buildNotification($this->i18nView['unpaid_text'], $this->i18nView['warning'], 'warning top');
     } else {
       echo \Tbmt\view\Factory::buildNotification($this->i18nView['paid_text'], $this->i18nView['tank_you'], 'info top');

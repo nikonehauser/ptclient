@@ -230,6 +230,18 @@ class Member extends BaseMember
   }
 
 
+  static public function activity_createFromSignup($data, $referrerMember, Invitation $invitation = null, PropelPDO $con) {
+    $member = self::createFromSignup($data, $referrerMember, $invitation, $con);
+    return [
+      'data' => $data,
+      'member' => $member->toArray(),
+      'referer' => $referrerMember->toArray(),
+      'invitation' => $invitation ? $invitation->toArray() : null,
+      Activity::ARR_RESULT_RETURN_KEY => $member
+    ];
+  }
+
+
   static public function initBonusLevelForm(array $data = array()) {
     return \Tbmt\Arr::initMulti($data, self::$BONUS_LEVEL_FORM_FIELDS);
   }
