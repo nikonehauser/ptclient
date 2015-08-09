@@ -40,10 +40,18 @@ try {
   }
 
 } catch (PublicException $e) {
-  echo view\PublicError::fromPublicException($e);
+  echo (new view\Index())->render([
+    'basePath'    => '',
+    'windowtitle' => 'TostiMiltype',
+    'controllerBody' => view\PublicError::fromPublicException($e)
+  ]);
 } catch (\Exception $e) {
   error_log($e->__toString());
-  echo view\Error::fromException($e);
+  echo (new view\Index())->render([
+    'basePath'    => '',
+    'windowtitle' => 'TostiMiltype',
+    'controllerBody' => view\Error::fromException($e)
+  ]);
 }
 
 

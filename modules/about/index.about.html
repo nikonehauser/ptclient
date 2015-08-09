@@ -16,7 +16,7 @@
 
           <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['form_title'])?>
 
-          <?php if ( true || $this->successmsg ) {
+          <?php if ( $this->successmsg ) {
             echo \Tbmt\view\Factory::buildNotification($this->i18nView['signup_success'], $this->i18nView['success'], 'success top');
           } ?>
 

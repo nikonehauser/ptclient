@@ -8,13 +8,8 @@ class SystemTest extends Tbmt_Tests_DatabaseTestCase {
 
   }
 
-  public function testCanUsePaidDateForDifferentStates() {
-    $member = new Member();
-    $member->setPaidDate(1);
-    print_r('<pre>');
-    print_r([$member->getPaidDate()]);
-    print_r('</pre>');
-
+  public function test1() {
+    $this->assertTrue(true);
   }
 
 }
