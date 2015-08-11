@@ -280,6 +280,22 @@ END;
   }
 
 
+  /**
+   * [accordion description]
+   * @param  [type] $id
+   * @param  [type] $items
+   * @return [type]
+   */
+  static function testimonial($text) {
+    return <<<END
+
+<div class="testimonail-item">
+  <div class="testimonial-content">
+    <p>$text</p>
+  </div><!-- // .testimonial-content -->
+</div>
+END;
+  }
 
 
 }

@@ -9,6 +9,7 @@
       BASIC IDEA
       *************************** -->
     <div class="row">
+    <div class="sheet clearfix">
     <?php
     use \Tbmt\Localizer as LL;
     use \Transaction as Ta;
@@ -38,6 +39,7 @@
 
     ?>
     </div>
+    </div>
 
 
     <!--
@@ -47,14 +49,14 @@
       <div class="col-md-6">
           <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['forbidden_countries'])?>
 
-          <ul class="list-2 list-horizontal clearfix">
+          <ul class="list-2 list-horizontal clearfix sheet">
               <?=\Tbmt\view\Factory::buildListItems(\Tbmt\Localizer::get('common.forbidden_countries'))?>
           </ul>
       </div>
 
       <div class="col-md-6">
           <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['why_forbidden_countries'])?>
-          <p><?=$this->i18nView['forbidden_countries_text']?></p>
+          <p class="sheet"><?=$this->i18nView['forbidden_countries_text']?></p>
       </div>
     </div>
 
@@ -64,9 +66,11 @@
       *************************** -->
     <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['become_member_title'])?>
     <div class="row">
+    <div class="sheet clearfix">
       <div class="col-md-12">
         <p><?=\Tbmt\Localizer::insert($this->i18nView['become_member_text'], $this->i18nView['become_member_highlights'], false, '<strong class="text-mark">{_val_}</strong>')?></p>
       </div>
+    </div>
     </div>
 
 

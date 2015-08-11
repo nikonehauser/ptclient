@@ -1,0 +1,155 @@
+#header .logo-container {
+  padding: 20px 0;
+}
+
+.mobile-menu-action {
+  top: 23px;
+}
+
+#footer {
+  margin-top: 0;
+}
+
+#header .site-menu li .icon {
+  margin-right: 8px;
+}
+
+.sheet {
+  background-color: white;
+  .box-shadow(0 2px 5px rgba(0, 0, 0, .75));
+  padding: 15px;
+}
+
+.row>.sheet {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+
+#header .site-menu .site-menu-inner {
+  .box-shadow(0 2px 3px rgba(0, 0, 0, .75));
+
+  @backgRoundColorFrom: #818181;
+  @backgRoundColorTo: #919191;
+  background-image: linear-gradient(bottom, @backgRoundColorFrom 0%, @backgRoundColorTo 100%);
+  background-image: -o-linear-gradient(bottom, @backgRoundColorFrom 0%, @backgRoundColorTo 100%);
+  background-image: -moz-linear-gradient(bottom, @backgRoundColorFrom 0%, @backgRoundColorTo 100%);
+  background-image: -webkit-linear-gradient(bottom, @backgRoundColorFrom 0%, @backgRoundColorTo 100%);
+  background-image: -ms-linear-gradient(bottom, @backgRoundColorFrom 0%, @backgRoundColorTo 100%);
+  background-color: #919191;
+
+  border-bottom: 1px solid #5A5A5A;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+}
+
+
+
+/* =sidebar borders
+-------------------------------------------------------------- */
+.content-inner, .sidebar-inner, .widget.contact ul li {
+  border-color: #9A9A9A !important;
+}
+
+
+/* =Heading
+-------------------------------------------------------------- */
+.callout {
+  border: none;
+  .box-shadow(0 2px 5px rgba(0, 0, 0, .75));
+  padding: 0px;
+}
+
+.callout-content {
+  padding: 15px;
+  background-color: white;
+}
+
+
+
+/* =Heading
+-------------------------------------------------------------- */
+.page-heading {
+  padding: 15px 0;
+
+  border: 1px solid #e2e2e2;
+  border-left: none;
+  border-right: none;
+
+  @backgRoundColorTo: #E9E9E9;
+  @backgRoundColorFrom: #FFF;
+  background-image: linear-gradient(bottom, @backgRoundColorFrom 0%, @backgRoundColorTo 100%);
+  background-image: -o-linear-gradient(bottom, @backgRoundColorFrom 0%, @backgRoundColorTo 100%);
+  background-image: -moz-linear-gradient(bottom, @backgRoundColorFrom 0%, @backgRoundColorTo 100%);
+  background-image: -webkit-linear-gradient(bottom, @backgRoundColorFrom 0%, @backgRoundColorTo 100%);
+  background-image: -ms-linear-gradient(bottom, @backgRoundColorFrom 0%, @backgRoundColorTo 100%);
+  background-color: #fafafa;
+  background-color: white;
+
+  .box-shadow(0 1px 5px rgba(0, 0, 0, .75));
+
+  >.container {
+    padding: 15px 15px;
+  }
+
+  position: relative;
+  z-index: -1;
+  &:after {
+    display: block;
+    content: "";
+    position: absolute;
+    top: 7px;
+    bottom: 7px;
+    left: 0;
+    right: 0;
+
+    border: 3px dotted #D1D1D1;
+    border-left: none;
+    border-right: none;
+  }
+}
+
+
+/* =============================================================== */
+/* main page background gradient
+================================================================ */
+
+.wrap {
+
+  @backgRoundColorFrom: #FFFFFF;
+  @backgRoundColorTo: #E5BB97;
+  @backgRoundColorTo2: #F0D2AA;
+  background: #ffffff; /* Old browsers */
+  background: -moz-linear-gradient(45deg,  @backgRoundColorFrom 0%,@backgRoundColorTo 80%, @backgRoundColorTo2 95%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,@backgRoundColorFrom), color-stop(80%,@backgRoundColorTo), color-stop(95%,@backgRoundColorTo2)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(45deg,  @backgRoundColorFrom 0%,@backgRoundColorTo 80%, @backgRoundColorTo2 95%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(45deg,  @backgRoundColorFrom 0%,@backgRoundColorTo 80%, @backgRoundColorTo2 95%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(45deg,  @backgRoundColorFrom 0%,@backgRoundColorTo 80%, @backgRoundColorTo2 95%); /* IE10+ */
+  background: linear-gradient(45deg,  @backgRoundColorFrom 0%,@backgRoundColorTo 80%, @backgRoundColorTo2 95%); /* W3C */
+
+  position: relative;
+  &:before {
+    display: block;
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    // background: url("@{imagePath}footer_lodyas_bright.png");
+    // opacity: .6;
+    z-index: 1;
+  }
+
+  &>* {
+    position: relative;
+    z-index: 2;
+  }
+}
+
+.heading-area-panel {
+  .box-shadow(2px 2px 5px rgba(0, 0, 0, .35));
+
+}

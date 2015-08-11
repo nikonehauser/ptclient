@@ -29,14 +29,14 @@ use \Tbmt\Router as R;
 <link rel="stylesheet" type="text/css" href="<?=R::toCss('plugins.css')?>">
 <link rel="stylesheet" type="text/css" href="<?=R::toCss('responsive.css')?>">
 
+<link rel="stylesheet" type="text/css" href="<?=R::toCss('color/red.css')?>">
+
 <link rel="stylesheet/less" type="text/css" title="assets/css/frame.less" href="<?=R::toCss('frame.less')?>" />
 
 
 <!-- Revolutions slider -->
-<!--
-<link href="rs-plugin/css/settings.css" rel="stylesheet">
-<link href="rs-plugin/css/captions.css" rel="stylesheet">
--->
+<link href="<?=R::toAsset('rs-plugin/css/settings.css')?>" rel="stylesheet">
+<link href="<?=R::toAsset('rs-plugin/css/captions.css')?>" rel="stylesheet">
 
 
 <!-- Java Script
@@ -50,6 +50,10 @@ use \Tbmt\Router as R;
 <script src="<?=R::toJs('sidebar.js')?>"></script>
 <script src="<?=R::toJs('functions.js')?>"></script>
 
+<!-- Revolutions slider -->
+<script src="<?=R::toAsset('rs-plugin/js/jquery.themepunch.plugins.min.js')?>"></script>
+<script src="<?=R::toAsset('rs-plugin/js/jquery.themepunch.revolution.min.js')?>"></script>
+
 </head>
 <body>
 	<!--[if lt IE 8]>
@@ -61,50 +65,35 @@ use \Tbmt\Router as R;
 
 		<!-- Header -->
 		<header id="header">
-			<div class="top-header">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-6">
-							<div class="callus">
-								<span><?=$this->i18nView['email_us']?></span>
-								<a href="mailto:<?=$this->textBrandMail?>"><?=$this->textBrandMail?></a>
-							</div>
-						</div>
-						<div class="col-md-6 hidden-xs hidden-sm">
-							<div class="social-info pull-right">
-								<ul class="social textcolor list-unstyled">
-									<li class="mail active"><a href="mailto:<?=$this->textBrandMail?>"><i class="fa fa-envelope"></i><span><?=$this->textBrandMail?></span></a></li>
-									<li class="facebook"><a href="<?=\Tbmt\Router::toModule('about', 'faq')?>"><i class="fa fa-question-circle"></i><span>FAQ</span></a></li>
-									<li class="twitter"><a href="#"><i class="fa fa-twitter"></i><span>follow us on Twitter</span></a></li>
-									<li class="pinterest"><a href="#"><i class="fa fa-pinterest"></i><span>get pin on pinterest</span></a></li>
-									<li class="googleplus"><a href="#"><i class="fa fa-google-plus"></i><span>follow on google plus</span></a></li>
-								</ul><!-- // .social -->
-							</div><!-- // .social-info -->
-						</div>
-					</div>
-				</div>
-			</div>
-
 			<div class="logo-header">
 				<div class="container">
-					<div class="logo-container pull-left clearfix">
-						<div class="logo">
+					<div class="logo-container clearfix">
+
+						<div class="logo pull-left">
 							<h1 class="site-title">
-								<a class="logo" href="<?=\Tbmt\Router::toBase()?>"><img src="<?php echo $this->var['basePath']; ?>assets/images/logo_pt_bold.jpg" alt=""/></a>
+								<a href="<?=\Tbmt\Router::toBase()?>">
+									<img src="<?=\Tbmt\Router::toImage('logo_title.png')?>" alt="INDIA SELF HELP">
+								</a>
 							</h1><!-- // .site-title -->
-
-							<!--<p class="site-desc">Flexible Multipurpose HTML5 Template</p>-->
-
 						</div><!-- // .logo -->
+
+						<div class="social-info pull-right hidden-xs hidden-sm">
+							<ul class="social textcolor list-unstyled">
+								<li class="mail active"><a href="mailto:<?=$this->textBrandMail?>"><i class="fa fa-envelope"></i><span><?=$this->textBrandMail?></span></a></li>
+								<li class="facebook active"><a href="<?=\Tbmt\Router::toModule('about', 'faq')?>"><i class="fa fa-question-circle"></i><span>FAQ</span></a></li>
+							</ul><!-- // .social -->
+						</div><!-- // .social-info -->
+
 					</div><!-- // .logo-container -->
+				</div><!-- // .container -->
+			</div><!-- // .logo-header -->
 
-					<div class="menu-container pull-right">
-						<div class="site-menu">
-
-							<div class="site-menu-inner clearfix">
-								<div class="site-menu-container pull-left">
-									<nav class="hidden-xs hidden-sm">
-										<ul class="sf-menu clearfix list-unstyled">
+			<div class="site-menu">
+				<div class="container">
+					<div class="site-menu-inner clearfix hidden-xs hidden-sm">
+						<div class="site-menu-container pull-left">
+							<nav class="">
+								<ul class="sf-menu clearfix list-unstyled">
 
 					<?php
 					$last = count($this->navigationLinks) - 1;
@@ -133,21 +122,19 @@ use \Tbmt\Router as R;
 					}
 					?>
 
-										</ul><!-- // .clearfix -->
-									</nav><!-- // nav -->
-								</div><!-- // .site-menu-container -->
+								</ul><!-- // .clearfix -->
+							</nav><!-- // nav -->
+						</div><!-- // .site-menu-container -->
 
-							</div><!-- // .site-menu-inner -->
-
-						</div><!-- // .site-menu -->
-					</div>
-
+					</div><!-- // .site-menu-inner -->
 				</div><!-- // .container -->
-			</div><!-- // .logo-header -->
+			</div><!-- // .site-menu -->
 
 		</header><!-- // #header -->
 
-		<div id="content-wrap">
+		</header><!-- // #header -->
+
+		<div id="content-wrap" class="<?=$this->var['contentWrapClass']?>">
 			<?=$this->var['controllerBody']?>
 		</div><!-- // #main-inner-content-wrap -->
 
@@ -162,7 +149,7 @@ use \Tbmt\Router as R;
 					<div class="col-md-6">
 						<div class="widget text-center">
 
-							<a href="#"><img src="images/logo_gray.png" alt="" class="element"></a>
+							<!--<a href="#"><img src="images/logo_gray.png" alt="" class="element"></a>-->
 
 							<h4 class="top-20 bottom-10 widget-title"><span>About</span> Us</h4>
 							<p>Consectetur adipiscing elit aeneane lorem lipsum, condimentum ultrices consequat eu, vehicula mauris lipsum adipiscing lipsum aenean orci lorem.</p>

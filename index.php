@@ -32,11 +32,18 @@ try {
   if ( $actionResult instanceof ControllerActionResult ) {
     $actionResult->execute();
   } else {
-    echo (new view\Index())->render([
+    if ( !is_array($actionResult) ) {
+      $actionResult = [
+        'controllerBody' => $actionResult
+      ];
+    }
+
+    $params = array_merge([
       'basePath'    => '',
-      'windowtitle' => 'TostiMiltype',
-      'controllerBody' => $actionResult
-    ]);
+      'windowtitle' => 'TostiMiltype'
+    ], $actionResult);
+
+    echo (new view\Index())->render($params);
   }
 
 } catch (PublicException $e) {

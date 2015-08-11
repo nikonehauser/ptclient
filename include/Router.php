@@ -53,6 +53,10 @@ class Router {
 
   }
 
+  static public function toAsset($path) {
+    return self::$assetsBase.$path;
+  }
+
   static public function toImage($path) {
     return self::$imagesBase.$path;
   }

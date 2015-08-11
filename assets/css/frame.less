@@ -9,7 +9,8 @@
 /* =============================================================== */
 /* theme style colors
 ================================================================ */
-@c-BaseStyle: #EF4A43;
+@c-BaseStyle: #EF4A43; // red
+// @c-BaseStyle: #f39c12; // orange
 
 @imagePath: '../images/';
 
@@ -23,14 +24,9 @@ img.fullsize {
   height: 100%;
   width: 100%;
 }
-
-
-#header .logo-container {
-  padding: 30px 0;
-}
 .logo {
   display: block;
-  height: 50px;
+  // height: 50px;
   >img {
     height: 100%;
   }
@@ -42,6 +38,18 @@ h1.exception {
     color: #555;
     font-size: 2em;
     font-weight: 400;
+}
+
+
+.drop-shadow {
+  .box-shadow(0 2px 5px rgba(0, 0, 0, .75));
+
+}
+
+
+img.bordered {
+  border: 4px double #B1B1B1;
+  .drop-shadow;
 }
 
 /* =============================================================== */
@@ -126,6 +134,13 @@ h1.exception {
       border-color: @c-Danger;
     }
   }
+}
+
+
+input,
+select,
+textarea {
+  border-color: #B1B1B1;
 }
 
 
@@ -477,3 +492,7 @@ ol.tree {
   }
 
     ol.tree li input:checked + ol > li { display: block; }
+
+
+
+@import "custom_styles.less";

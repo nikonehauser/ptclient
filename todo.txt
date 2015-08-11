@@ -107,3 +107,15 @@ Die Abrechnung erfolgt immer Bankarbeitstag täglich
 Die Software muss massenhafte zeitgleiche Registrierungen verarbeiten können.
 - Bei einer Überlastung dürfen keine Fehler produziert werden
 - und es muss eine entsprechende Meldung erscheinen, dass es derzeit aufgrund der Vielzahl der Registrierungen eine Registrierung nicht möglich ist und dass man es später noch einmal probieren soll.
+
+
+CONTENT
+=======
+
+slide 3 - map of india -
+
+
+- almost no risk
+- moderate effort
+
+- get this template now - sidebar - template > features > sidebar

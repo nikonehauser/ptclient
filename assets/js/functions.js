@@ -82,13 +82,12 @@ jQuery(document).ready(function($){
 
 	/* header social
   ---------------------------------------------*/
-  jQuery('.social-info').each(function(){
-
-      jQuery(this).find('li').hover(function() {
-          jQuery('.social-info').find('li.active').removeClass('active');
-          jQuery(this).addClass('active');
-      });
-  });
+  // jQuery('.social-info').each(function(){
+  //     jQuery(this).find('li').hover(function() {
+  //         jQuery('.social-info').find('li.active').removeClass('active');
+  //         jQuery(this).addClass('active');
+  //     });
+  // });
 
 	/* scroll back to top
   ---------------------------------------------*/

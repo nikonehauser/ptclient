@@ -376,11 +376,9 @@ input[type="reset"]:active {
 
 /* Top Info */
 #header .top-header {
-	padding: 10px 0;
-	-webkit-box-shadow: 0px 2px 0px 0px rgba(50, 50, 50, 0.05);
-	-moz-box-shadow:    0px 2px 0px 0px rgba(50, 50, 50, 0.05);
-	box-shadow:         0px 2px 0px 0px rgba(50, 50, 50, 0.05);
-	background: #fbfbfb;
+	/*
+	=> custom_styles.less
+	*/
 }
 #header .top-header .callus {
 	margin-top: 3px;
@@ -397,7 +395,7 @@ input[type="reset"]:active {
 }
 #header .social-info .social li a {
 	color: #919191;
-	border: 1px solid #dedede;
+	border: 1px solid #919191;
 	border-top: 0;
 	border-bottom: 0;
 	padding-top: 3px;
@@ -857,10 +855,12 @@ input[type="reset"]:active {
 
 /* =Heading
 -------------------------------------------------------------- */
+/*
 .page-heading {
-	padding: 30px 0;
-	background: url(../images/heading.png);
+	=> custom_styles.less
 }
+ */
+
 .page-heading .page-title {
 	font-size: 22px;
 	line-height: 33px;

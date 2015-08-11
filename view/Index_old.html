@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"><![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"><![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"><![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"><!--<![endif]-->
+<head>
+
+<?php
+use \Tbmt\Router as R;
+?>
+
+<!-- Basic Page Needs
+ ================================================== -->
+<meta charset="utf-8">
+<title><?php echo $this->var['windowtitle']; ?></title>
+
+<!-- Mobile Specific
+ ================================================== -->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<!-- CSS
+ ================================================== -->
+<link rel="stylesheet" type="text/css" href="<?=R::toCss('bootstrap.css')?>">
+
+<!-- Custom styles for this template -->
+<link rel="stylesheet" type="text/css" href="<?=R::toCss('style.css')?>">
+<link rel="stylesheet" type="text/css" href="<?=R::toCss('fonts.css')?>">
+<link rel="stylesheet" type="text/css" href="<?=R::toCss('animate.css')?>">
+<link rel="stylesheet" type="text/css" href="<?=R::toCss('plugins.css')?>">
+<link rel="stylesheet" type="text/css" href="<?=R::toCss('responsive.css')?>">
+
+<!--
+<link rel="stylesheet" type="text/css" href="<?=R::toCss('color/orange.css')?>">
+-->
+
+<link rel="stylesheet/less" type="text/css" title="assets/css/frame.less" href="<?=R::toCss('frame.less')?>" />
+
+
+<!-- Revolutions slider -->
+<!--
+<link href="rs-plugin/css/settings.css" rel="stylesheet">
+<link href="rs-plugin/css/captions.css" rel="stylesheet">
+-->
+
+
+<!-- Java Script
+ ================================================== -->
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.1/less.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="<?=R::toJs('wow.js')?>"></script>
+<script src="<?=R::toJs('sidebar.js')?>"></script>
+<script src="<?=R::toJs('functions.js')?>"></script>
+
+</head>
+<body>
+	<!--[if lt IE 8]>
+		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+	<![endif]-->
+
+<div class="wrap">
+	<div class="main-inner-content">
+
+		<!-- Header -->
+		<header id="header">
+			<div class="top-header">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="callus">
+								<span><?=$this->i18nView['email_us']?></span>
+								<a href="mailto:<?=$this->textBrandMail?>"><?=$this->textBrandMail?></a>
+							</div>
+						</div>
+						<div class="col-md-6 hidden-xs hidden-sm">
+							<div class="social-info pull-right">
+								<ul class="social textcolor list-unstyled">
+									<li class="mail active"><a href="mailto:<?=$this->textBrandMail?>"><i class="fa fa-envelope"></i><span><?=$this->textBrandMail?></span></a></li>
+									<li class="facebook"><a href="<?=\Tbmt\Router::toModule('about', 'faq')?>"><i class="fa fa-question-circle"></i><span>FAQ</span></a></li>
+									<li class="twitter"><a href="#"><i class="fa fa-twitter"></i><span>follow us on Twitter</span></a></li>
+									<li class="pinterest"><a href="#"><i class="fa fa-pinterest"></i><span>get pin on pinterest</span></a></li>
+									<li class="googleplus"><a href="#"><i class="fa fa-google-plus"></i><span>follow on google plus</span></a></li>
+								</ul><!-- // .social -->
+							</div><!-- // .social-info -->
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="logo-header">
+				<div class="container">
+					<div class="logo-container pull-left clearfix">
+						<div class="logo">
+							<h1 class="site-title">
+								<a class="logo" href="<?=\Tbmt\Router::toBase()?>"><img src="<?php echo $this->var['basePath']; ?>assets/images/logo_pt_bold.jpg" alt=""/></a>
+							</h1><!-- // .site-title -->
+
+							<!--<p class="site-desc">Flexible Multipurpose HTML5 Template</p>-->
+
+						</div><!-- // .logo -->
+					</div><!-- // .logo-container -->
+
+					<div class="menu-container pull-right">
+						<div class="site-menu">
+
+							<div class="site-menu-inner clearfix">
+								<div class="site-menu-container pull-left">
+									<nav class="hidden-xs hidden-sm">
+										<ul class="sf-menu clearfix list-unstyled">
+
+					<?php
+					$last = count($this->navigationLinks) - 1;
+					foreach ($this->navigationLinks as $i => $link) {
+						$icon = '';
+						$currentId = '';
+						if ( $link[2] )
+							$currentId = 'current-menu-item';
+
+						if ( isset($this->navigationIcons[$i]) )
+							$icon = '<span class="icon"><i class="fa fa-fw fa-'.$this->navigationIcons[$i].'"></i></span>';
+
+						// if ( $last === $i )
+						//     echo '</ul><ul class="nav navbar-nav navbar-right">';
+
+						echo '<li class="'.$currentId.'" ><a href="'.$link[0].'" '.$currentId.'>'.$icon.$link[1].'</a>';
+						if ( isset($link[3]) ) {
+							echo '<ul>';
+							foreach ($link[3] as $sublink) {
+								echo '<li class="" ><a href="'.$sublink[0].'">'.$sublink[1].'</a></li>';
+							}
+
+							echo '</ul>';
+						}
+						echo '</li>';
+					}
+					?>
+
+										</ul><!-- // .clearfix -->
+									</nav><!-- // nav -->
+								</div><!-- // .site-menu-container -->
+
+							</div><!-- // .site-menu-inner -->
+
+						</div><!-- // .site-menu -->
+					</div>
+
+				</div><!-- // .container -->
+			</div><!-- // .logo-header -->
+
+		</header><!-- // #header -->
+
+		<div id="content-wrap">
+			<?=$this->var['controllerBody']?>
+		</div><!-- // #main-inner-content-wrap -->
+
+	</div><!-- // #main-inner-content-wrap -->
+
+	<!-- Footer Start -->
+	<footer id="footer">
+		<div class="footer-widget">
+			<div class="container">
+				<div class="row">
+
+					<div class="col-md-6">
+						<div class="widget text-center">
+
+							<a href="#"><img src="images/logo_gray.png" alt="" class="element"></a>
+
+							<h4 class="top-20 bottom-10 widget-title"><span>About</span> Us</h4>
+							<p>Consectetur adipiscing elit aeneane lorem lipsum, condimentum ultrices consequat eu, vehicula mauris lipsum adipiscing lipsum aenean orci lorem.</p>
+							<p>Asequat lorem ipsum dolor lorem sit amet, consectetur adipiscing dolor elit. Aenean nisl orci, condimentum.</p>
+						</div><!-- // .widget -->
+					</div><!-- // .col-md-6 -->
+
+					<div class="col-md-6">
+						<div class="widget">
+							<h4 class="widget-title">
+								Useful <span>Links</span>
+							</h4>
+							<div class="widget posts">
+								<ul>
+									<li class="clearfix">
+										<div class="post-icon"><i class="fa fa-question-circle"></i></div>
+										<div class="post-content"><h4 class="bottom-0"><a href="<?=\Tbmt\Router::toModule('about', 'faq')?>"><?=$this->i18nView['useful_link_faq']?></a></h4></div>
+									</li>
+									<li class="clearfix">
+										<div class="post-icon"><i class="fa fa-briefcase"></i></div>
+										<div class="post-content"><h4 class="bottom-0"><a href="#"><?=$this->i18nView['useful_link_terms']?></a></h4></div>
+									</li>
+									<li class="clearfix">
+										<div class="post-icon"><i class="fa fa-envelope"></i></div>
+										<div class="post-content"><h4 class="bottom-0"><a href="#"><?=$this->i18nView['useful_link_contact']?></a></h4></div>
+									</li>
+									<li class="clearfix">
+										<div class="post-icon"><i class="fa fa-building-o"></i></div>
+										<div class="post-content"><h4 class="bottom-0"><a href="#"><?=$this->i18nView['useful_link_about_us']?></a></h4></div>
+									</li>
+								</ul>
+							</div>
+						</div><!-- // .widget -->
+					</div><!-- // .col-md-3 -->
+				</div><!-- // .row -->
+			</div><!-- // .container -->
+		</div><!-- // .footer-widgets -->
+
+		<div class="footer-credits">
+			<div class="container">
+				<div class="footer-credits-inner">
+					<div class="row">
+						<div class="col-md-6">
+							<span>© Copyright 2015 by <?=$this->i18nView['copyright_name']?>. All Rights Reserved.</span>
+						</div><!-- // .col-md-6 -->
+					</div><!-- // .row -->
+				</div><!-- // .footer-credits-inner -->
+			</div><!-- // .container -->
+		</div><!-- // .footer-credits -->
+	</footer><!-- // #footer -->
+
+
+	<div class="sb-slidebar sb-right">
+		<div class="sb-menu-trigger"></div>
+	</div><!-- /.sb-left -->
+
+
+</div><!-- // #wrap -->
+
+
+<noscript>
+  <div id="conNoJS">
+	<h1>You need to change a setting in your web browser</h1>
+	<div class="font-size-15">
+	  <p>This website requires a browser feature called <strong>JavaScript</strong>.
+	  Don't worry, all modern browsers support JavaScript, so you probably just need to change your settings
+	  in order to turn it on.</p>
+	  <p>Check out this article by Google for details:
+	  <a href="http://www.google.com/support/bin/answer.py?answer=23852">How to enable JavaScript in your browser.</a></p>
+	  <p>Try to <a href="">reload this page</a> once JavaScript is activated.</p>'
+	</div>
+  </div>
+</noscript>
+
+
+</body>
+</html>
