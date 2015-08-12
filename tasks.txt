@@ -1,0 +1,6 @@
+
+ - versende email im fehler fall
+
+ - unter promoter test case geschrieben
+ - unter promoter bonus verteilung implementiert
+ - unter promoter einladung implementiert

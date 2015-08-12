@@ -53,6 +53,8 @@ try {
     'controllerBody' => view\PublicError::fromPublicException($e)
   ]);
 } catch (\Exception $e) {
+  MailHelper::sendException($e);
+
   error_log($e->__toString());
   echo (new view\Index())->render([
     'basePath'    => '',

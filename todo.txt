@@ -12,7 +12,7 @@ Fragen
 CURRENT
 ======
 
- - send email on any error
+- handle mail to invalid/non existing email address
 
 - throw specialized error in case of the total incomming fee get spread through all the bonuses??
 
@@ -21,8 +21,6 @@ LIST
 
 - test for single bonus ids type per member for all types > member
  (throw error if 2 promoter bonus ids would be set for a member )
-
-- handle mail to invalid/non existing email address
 
 - edit password
 

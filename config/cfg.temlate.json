@@ -25,6 +25,7 @@
   },
 
   "contact_mail_recipient": "niko.neuhauser@gmail.com",
+  "error_mail_recipient": "niko.neuhauser@gmail.com",
 
   "main_system_url": "http://localhost/ptmain/",
 

@@ -6,6 +6,25 @@ require VENDOR_DIR.'phpmailer'.DIRECTORY_SEPARATOR.'phpmailer'.DIRECTORY_SEPARAT
 
 class MailHelper {
 
+  static public function sendException(\Exception $e) {
+    $body = "Exception: \n\r".$e->getMessage()."\n\r\n\r".
+      "Stack: \n\r".$e->getTraceAsString()."\n\r\n\r".
+      "Request: \n\r".json_encode($_REQUEST, JSON_PRETTY_PRINT)."\n\r\n\r".
+      "Server: \n\r".json_encode($_SERVER, JSON_PRETTY_PRINT)."\n\r\n\r".
+      "Session: \n\r".json_encode($_SESSION, JSON_PRETTY_PRINT)."\n\r\n\r";
+
+    if ( count(\Activity::$_ActivityExceptions) > 0 ) {
+      $body .= "ActivityExceptions: \n\r".json_encode(\Activity::$_ActivityExceptions, JSON_PRETTY_PRINT)."\n\r\n\r";
+    }
+
+    return self::send(
+      Config::get('error_mail_recipient'),
+      null,
+      ' - Exception - '.$e->getMessage(),
+      $body
+    );
+  }
+
   static public function sendContactFormMail($fromMail, $fromName, $subject, $body) {
     $body = "From mail: $fromMail\n\r".
       "From name: $fromName\n\r\n\r".
@@ -19,7 +38,6 @@ class MailHelper {
       $fromMail,
       $fromName
     );
-
   }
 
   static public function sendPasswordResetLink(\Member $member) {

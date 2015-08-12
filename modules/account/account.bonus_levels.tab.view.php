@@ -45,11 +45,13 @@ class AccountBonus_levelsTab extends Base {
     $dateFormat = \Tbmt\Localizer::get('datetime_format_php.long');
     foreach ( $objBonusMembers as $bonusMembers ) {
       $meta = json_decode($bonusMembers['Activity.Meta'], true);
-      $amount = isset($meta[\Activity::MK_BONUS_PAYMENT_AMOUNT]) ? $meta[\Activity::MK_BONUS_PAYMENT_AMOUNT] : ' - ';
+      $amount = isset($meta[\Activity::MK_BONUS_PAYMENT_AMOUNT]) ?
+        \Tbmt\Localizer::currencyFormat($meta[\Activity::MK_BONUS_PAYMENT_AMOUNT], $currencySymbol) :
+        ' - ';
 
       $arrBonusMembers[] = [
         $bonusMembers['Num'],
-        \Tbmt\Localizer::currencyFormat($amount, $currencySymbol),
+        $amount,
         (new \DateTime($bonusMembers['Activity.Date']))->format($dateFormat)
       ];
     }

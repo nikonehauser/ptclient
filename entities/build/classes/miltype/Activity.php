@@ -26,6 +26,8 @@ class Activity extends BaseActivity
   const TYPE_SUCCESS = 1;
   const TYPE_FAILURE = 2;
 
+  static public $_ActivityExceptions = [];
+
   static public function exec($callable, $arrArgs, $action, $creator = null, $related = null, PropelPDO $con) {
     if ( !$con->beginTransaction() )
       throw new Exception('Could not begin transaction');
@@ -55,13 +57,15 @@ class Activity extends BaseActivity
     } catch (Exception $e) {
         $con->rollBack();
 
-        self::insert($action, self::TYPE_FAILURE,
+        $activity = self::insert($action, self::TYPE_FAILURE,
           $creator,
           $related,
           $resIsArray ? $res : [$res],
           $e,
           $con
         );
+
+        self::$_ActivityExceptions[] = $activity->toArray();
 
         throw $e;
     }
@@ -101,6 +105,8 @@ class Activity extends BaseActivity
       error_log(__METHOD__.': '.$e->__toString().': '.var_export($metaData, true));
       throw $e;
     }
+
+    return $activity;
   }
 
   public function getMeta() {
