@@ -57,6 +57,13 @@
                   '<em class="text-muted">'.$this->i18nView['email_none'].'</em>'?>
               </dd>
           </dl>
+
+          <?=\Tbmt\view\Factory::buildButton(
+            $this->i18nView['change_pwd'],
+            \Tbmt\Router::toModule('manage', 'change_pwd'),
+            ' blue pull-right',
+            'lock'
+          )?>
       </div>
       <div class="col-md-6">
           <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['bank_account'], 'bottom-30 top-10')?>

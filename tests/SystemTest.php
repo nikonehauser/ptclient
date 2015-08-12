@@ -8,8 +8,13 @@ class SystemTest extends Tbmt_Tests_DatabaseTestCase {
 
   }
 
-  public function test1() {
-    $this->assertTrue(true);
+  public function testHandleInvalidEmailRecipient() {
+    \Tbmt\MailHelper::send(
+      'non@efesus.de',
+      null,
+      'test',
+      'test'
+    );
   }
 
 }

@@ -18,7 +18,7 @@
       <file>SystemTest.php</file>
       -->
 
-      <file>BonusSpreadingTest.php</file>
+      <file>SystemTest.php</file>
 
     </testsuite>
   </testsuites>

@@ -6,6 +6,38 @@ class ManageController extends BaseController {
 
   const MODULE_NAME = 'manage';
 
+  static private $CHANGE_PASSWORD_FORM_FIELDS = [
+    'old_pwd' => \Tbmt\TYPE_STRING,
+    'new_pwd' => \Tbmt\TYPE_STRING,
+    'new_repeat' => \Tbmt\TYPE_STRING,
+  ];
+
+  static private $CHANGE_PASSWORD_FORM_FILTERS = [
+    'old_pwd' => \Tbmt\Validator::FILTER_NOT_EMPTY,
+    'new_pwd' => \Tbmt\Validator::FILTER_PASSWORD,
+    'new_repeat' => \Tbmt\Validator::FILTER_NOT_EMPTY,
+  ];
+
+  static public function initChangePasswordForm(array $data = array()) {
+    return \Tbmt\Arr::initMulti($data, self::$CHANGE_PASSWORD_FORM_FIELDS);
+  }
+
+  static public function validateChangePasswordForm(\Member $login, array $data = array())  {
+    $data = self::initChangePasswordForm($data);
+
+    if ( $data['new_pwd'] !== $data['new_repeat'] )
+      return [false, ['new_pwd' => \Tbmt\Localizer::get('error.password_unequal')]];
+
+    if ( !Cryption::verifyPassword($data['old_pwd'], $login->getPassword()) )
+      return [false, ['old_pwd' => \Tbmt\Localizer::get('error.password')]];
+
+    $res = \Tbmt\Validator::getErrors($data, self::$CHANGE_PASSWORD_FORM_FILTERS);
+    if ( $res !== false )
+      return [false, $res];
+
+    return [true, $data];
+  }
+
   static private $PASSWORD_RESET_FORM_FIELDS = [
     'num' => [\Tbmt\TYPE_INT, ''],
   ];
@@ -17,7 +49,6 @@ class ManageController extends BaseController {
   static public function initPasswordResetForm(array $data = array()) {
     return \Tbmt\Arr::initMulti($data, self::$PASSWORD_RESET_FORM_FIELDS);
   }
-
 
   static public function validatePasswordResetForm(array $data = array())  {
     $data = self::initPasswordResetForm($data);
@@ -39,7 +70,10 @@ class ManageController extends BaseController {
 
   protected $actions = [
     'password_reset' => true,
-    'do_reset_password' => true
+    'do_reset_password' => true,
+    'change_pwd' => true,
+    'change_pwd_signup' => true,
+
   ];
 
   public function action_do_reset_password() {
@@ -88,7 +122,43 @@ class ManageController extends BaseController {
     return ControllerDispatcher::renderModuleView(
       self::MODULE_NAME,
       CURRENT_MODULE_ACTION,
-      ['resetMsg' => true]
+      ['resetmsg' => true]
+    );
+  }
+
+  public function action_change_pwd() {
+    $login = Session::getLogin();
+    if ( !$login )
+      throw new PageNotFoundException();
+
+    return ControllerDispatcher::renderModuleView(
+      self::MODULE_NAME,
+      CURRENT_MODULE_ACTION,
+      []
+    );
+  }
+
+  public function action_change_pwd_signup() {
+    $login = Session::getLogin();
+    if ( !$login )
+      throw new PageNotFoundException();
+
+    list($valid, $data) = self::validateChangePasswordForm($login, $_REQUEST);
+    if ( $valid !== true ) {
+      return ControllerDispatcher::renderModuleView(
+        self::MODULE_NAME,
+        'change_pwd',
+        ['formErrors' => $data]
+      );
+    }
+
+    $login->setPassword($data['new_pwd']);
+    $login->save();
+
+    return ControllerDispatcher::renderModuleView(
+      self::MODULE_NAME,
+      'change_pwd',
+      ['successmsg' => true]
     );
   }
 }

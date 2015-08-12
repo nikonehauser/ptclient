@@ -389,6 +389,8 @@ return [
           'member_type' => 'Membership type',
           'bonus_level' => 'Bonus Level',
 
+          'change_pwd' => 'Change password',
+
           'welc_not_1' => 'Welcome {name}',
           'welc_not_2' => 'This is you profile where you can find various information',
           'welc_not_3' => 'IMPORTANT! Note your member number! You will need it for login, recruting etc.',
@@ -517,6 +519,18 @@ return [
         'error_msg' => 'Invalid reset token',
         'success' => 'Success!',
         'success_msg' => 'Your new password is:',
+      ],
+      'change_pwd' => [
+        'page_title' => 'Change your password',
+        'error' => 'Error!',
+        'success' => 'Success!',
+        'success_msg' => 'We have send you an email with further instructions.',
+        'form_labels' => [
+          'old_pwd' => 'Current password',
+          'new_pwd' => 'New password',
+          'new_repeat' => 'Repeat new password',
+          'submit' => 'Change password',
+        ]
       ],
     ],
 

@@ -64,7 +64,7 @@ class MailHelper {
     );
   }
 
-  static function send($address, $name, $subject, $body, $fromMail = null, $fromName = null) {
+  static public function send($address, $name, $subject, $body, $fromMail = null, $fromName = null) {
     $mail = new \PHPMailer(true);
     $mail->SMTPSecure = Config::get('mail.smtp_secure');
     $mail->isSMTP();

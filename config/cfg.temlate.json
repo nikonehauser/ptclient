@@ -4,6 +4,7 @@
   "baseAssetsPath": "",
 
   "devmode": true,
+  "send_email_on_error": false,
 
   "base_currency": "INR",
   "member_fee": 75.3,

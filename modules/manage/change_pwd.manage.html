@@ -1,0 +1,38 @@
+<?=Tbmt\view\Factory::buildPageTitle($this->i18nView['page_title'])?>
+
+<div class="container top-30 bottom-30">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <!--<form action="" method="post">-->
+            <div class="sheet">
+            <?php
+            $formBuilder = new \Tbmt\FormBuilder('passwordChangeForm', $this->formLabels, $this->formVal, $this->formErrors);
+
+            if ( !empty($this->successmsg) ) {
+                echo Tbmt\view\Factory::buildNotification($this->successmsg[0], $this->successmsg[1], $this->successmsg[2]);
+
+            } else { ?>
+
+                <form action="<?=\Tbmt\Router::toModule('manage', 'change_pwd_signup')?>" method="post">
+                    <?=$formBuilder->buildFieldGroup('old_pwd', 'password')?>
+                    <?=$formBuilder->buildFieldGroup('new_pwd', 'password')?>
+                    <p class="help-block"><?=\Tbmt\Localizer::get('error.password_conditions')?></p>
+
+                    <?=$formBuilder->buildFieldGroup('new_repeat', 'password')?>
+
+                    <?=\Tbmt\view\Factory::buildSubmitBtn($this->formLabels['submit'])?>
+                </form>
+
+            <?php } ?>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- 960 Container End -->
+
+<script type="text/javascript">
+  jQuery(document).ready(function() {
+    jQuery('#passwordChangeFormold_pwd').focus();
+  });
+</script>

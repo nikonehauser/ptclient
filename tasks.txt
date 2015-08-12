@@ -1,4 +1,7 @@
 
+
+ - füge passwort ändern formular hinzu
+
  - versende email im fehler fall
 
  - unter promoter test case geschrieben

@@ -12,19 +12,15 @@ Fragen
 CURRENT
 ======
 
-- handle mail to invalid/non existing email address
-
-- throw specialized error in case of the total incomming fee get spread through all the bonuses??
-
 LIST
 ====
 
 - test for single bonus ids type per member for all types > member
  (throw error if 2 promoter bonus ids would be set for a member )
 
-- edit password
-
 - edit bank account
+
+- throw specialized error in case of the total incomming fee get spread through all the bonuses??
 
 - website content auffüllen
 
@@ -47,6 +43,8 @@ LIST
 - how to für benutzer: überweisung durchführen mit EIGENER nummer als verwendungszweck
 
 - visualize current "sub promoter"
+
+- handle mail to invalid/non existing email address
 
 Profiling
 =========

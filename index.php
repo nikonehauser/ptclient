@@ -53,7 +53,8 @@ try {
     'controllerBody' => view\PublicError::fromPublicException($e)
   ]);
 } catch (\Exception $e) {
-  MailHelper::sendException($e);
+  if ( Config::get('send_email_on_error', TYPE_BOOL, true) )
+    MailHelper::sendException($e);
 
   error_log($e->__toString());
   echo (new view\Index())->render([
