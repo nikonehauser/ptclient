@@ -9,6 +9,7 @@ class AccountInvitationTab extends Base {
 
   protected function init() {
     $this->i18nView = \Tbmt\Localizer::get('view.account.tabs.invitation');
+    $this->i18nCommon = \Tbmt\Localizer::plain('common');
   }
 
   public function render(array $params = array()) {
@@ -16,6 +17,7 @@ class AccountInvitationTab extends Base {
       throw new \Exception('Invalid param member for account index view.');
 
     $this->member = $params['member'];
+    $this->recipient = isset($params['recipient']) ? $params['recipient'] : null;
 
     $this->formVal = \Invitation::initInvitationForm(
       isset($params['formVal']) ? $params['formVal'] : $_REQUEST

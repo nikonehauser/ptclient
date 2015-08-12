@@ -473,6 +473,90 @@ class BonusSpreadingTest extends Tbmt_Tests_DatabaseTestCase {
 
   }
 
+  static private $singupFormData = [
+    'title'          => 'unknown',
+    'lastName'       => 'unknown',
+    'firstName'      => 'unknown',
+    'age'            => 99,
+    'email'          => 'unknown@un.de',
+    'city'           => 'unknown',
+    'country'        => 'unknown',
+    'bank_recipient' => 'unknown',
+    'iban'           => 'unknown',
+    'bic'            => 'unknown',
+    'password'       => 'demo1234',
+    'password2'       => 'demo1234',
+    'accept_agbs'          => '1',
+    'accept_valid_country' => '1',
+  ];
+
+  public function testSubPromoterBonusSpreading() {
+    /**
+     *       PM
+     *       1$
+     *
+     * VL -  S_PM - Neues Mitglied
+     * 1$ -  1$  - 5$
+     * ------------------------------------------*/
+
+    /* Setup
+    ---------------------------------------------*/
+    DbEntityHelper::setCon(self::$propelCon);
+    $marketingLeader = DbEntityHelper::createMember(null, [
+      'Type' => Member::TYPE_MARKETINGLEADER,
+      'FundsLevel' => Member::FUNDS_LEVEL2
+    ]);
+    $marketingLeader->reload(self::$propelCon);
+    $mLeaderTransfer = new TransactionTotalsAssertions($marketingLeader, $this);
+
+    $promoter = DbEntityHelper::createSignupMember($marketingLeader);
+    $mLeaderTransfer->add(Transaction::REASON_ADVERTISED_LVL2);
+    $mLeaderTransfer->add(Transaction::REASON_VL_BONUS);
+    $mLeaderTransfer->add(Transaction::REASON_OL_BONUS);
+    $mLeaderTransfer->add(Transaction::REASON_PM_BONUS);
+
+    /* Create invitation
+    ---------------------------------------------*/
+    $invitation = Invitation::create(
+      $marketingLeader, [
+        'type' => Member::TYPE_SUB_PROMOTER,
+        'free_signup' => 1,
+        'promoter_num' => $promoter->getNum(),
+        'promoter_id' => $promoter->getId(),
+      ],
+      self::$propelCon
+    );
+
+    /* Create member with created invitation code
+    ---------------------------------------------*/
+    list($valid, $data, $referralMember, $invitation)
+      = \Member::validateSignupForm(array_merge(self::$singupFormData, [
+        'referral_member_num' => $marketingLeader->getNum(),
+        'invitation_code' => $invitation->getHash(),
+      ]));
+
+    $subPromoter = \Member::createFromSignup($data, $marketingLeader, $invitation, self::$propelCon);
+    $subPromoter->reload(self::$propelCon);
+
+    /* Sub promoter recruits anyone
+    ---------------------------------------------*/
+    DbEntityHelper::createSignupMember($subPromoter);
+
+    $subPromoterTransfer = new TransactionTotalsAssertions($subPromoter, $this);
+    $promoterTransfer = new TransactionTotalsAssertions($promoter, $this);
+
+    $mLeaderTransfer->add(Transaction::REASON_VL_BONUS);
+    $mLeaderTransfer->add(Transaction::REASON_ADVERTISED_INDIRECT);
+
+    $promoterTransfer->add(Transaction::REASON_SUB_PM_REF_BONUS);
+    $subPromoterTransfer->add(Transaction::REASON_SUB_PM_BONUS);
+    $subPromoterTransfer->add(Transaction::REASON_ADVERTISED_LVL1);
+
+    $mLeaderTransfer->assertTotals();
+    $promoterTransfer->assertTotals();
+    $subPromoterTransfer->assertTotals();
+  }
+
   private function assertTransferTotal($total, Member $member) {
     $transfer = DbEntityHelper::getCurrentTransferBundle($member);
     $this->assertEquals($total, $transfer->getAmount(), 'Incorrect transfer total');

@@ -15,6 +15,7 @@
 
   <div class="row">
       <form action="<?=\Tbmt\Router::toModule('account', 'invitation_create')?>" method="post" class="form-inline form-white">
+          <input type="hidden" name="promoter_id" value="<?=(isset($this->formVal['promoter_id']) ? $this->formVal['promoter_id'] : '')?>" />
 
             <?php echo $formBuilder->buildInvitationTypeSelectGroup('type', $this->member->getType()); ?>
 
@@ -25,16 +26,66 @@
           </div>
 
           <div class="clearfix"></div>
+
+          <div id="invitationForm_promoterFieldGroup" style="display: none;">
+            <?php echo $formBuilder->buildFieldGroup('promoter_num'); ?>
+
+            <?php if ( $this->recipient ) { ?>
+                <div class="col-md-12">
+                    <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['recipient_details'], 'bottom-30 top-10')?>
+
+                    <dl class="dl-horizontal dl-prettyStyled">
+
+                        <dt><?=$this->i18nView['member_type']?></dt>
+                        <dd><?=$this->i18nCommon['member_types'][$this->recipient->getType()]?></dd>
+
+                        <dt><?=$this->i18nView['member_num']?></dt>
+                        <dd><?=$this->recipient->getNum()?></dd>
+
+                        <dt><?=$this->i18nView['address']?></dt>
+                        <dd>
+                            <address>
+                                <?=\Tbmt\Base::encodeHtml($this->recipient->getCity())?><br>
+                                <?=\Tbmt\Base::encodeHtml($this->recipient->getCountry())?>
+                            </address>
+                        </dd>
+
+                        <dt><?=$this->i18nView['email']?></dt>
+                        <dd>
+                            <?=$this->recipient->getEmail() ?
+                            \Tbmt\Base::encodeHtml($this->recipient->getEmail()) :
+                            '<em class="text-muted">'.$this->i18nView['email_none'].'</em>'?>
+                        </dd>
+                    </dl>
+                </div>
+            <?php } ?>
+          </div>
+
+          <div class="clearfix"></div>
       </form>
   </div>
+
+  <script type="text/javascript">
+    jQuery(document).ready(function() {
+      jQuery('#invitationFormtype').change(function() {
+
+        if ( jQuery(this).val() == <?=\Member::TYPE_SUB_PROMOTER?> ){
+          jQuery('#invitationForm_promoterFieldGroup').show();
+
+        } else {
+          jQuery('#invitationFormpromoter_num').val('');
+          jQuery('#invitationForm_promoterFieldGroup').hide();
+        }
+      }).change();
+    });
+  </script>
 
 
   <!--
     LIST OF INVITATIONS
     *************************** -->
+  <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['list_title'])?>
   <div class="row">
-      <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['list_title'])?>
-
       <table class="table">
         <tbody>
             <tr>

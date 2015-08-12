@@ -93,19 +93,41 @@ class AccountController extends BaseController {
   public function action_invitation_create() {
     $login = Session::getLogin();
     $type = Arr::init($_REQUEST, 'type', TYPE_INT);
-    if ( $login->getType() <= $type || $type < \Member::TYPE_MEMBER || $type >= \Member::TYPE_CEO )
+    if ( $login->getType() <= $type || $type < \Member::TYPE_MEMBER || $type > $login->getType() )
       throw new PermissionDeniedException();
+
+    if ( $type === \Member::TYPE_SUB_PROMOTER ) {
+      list($valid, $data, $recipient) = \Invitation::validateInvitationForm($_REQUEST);
+      if ( $valid !== true ) {
+        return ControllerDispatcher::renderModuleView(
+          self::MODULE_NAME,
+          'index',
+          ['member' => $login, 'tab' => 'invitation', 'formErrors' => $data, 'recipient' => $recipient, 'formVal' => $_REQUEST]
+        );
+      }
+
+      if ( $data['promoter_id'] === '' ) {
+        $data['promoter_id'] = $recipient->getId();
+        return ControllerDispatcher::renderModuleView(
+          self::MODULE_NAME,
+          'index',
+          ['member' => $login, 'tab' => 'invitation', 'formVal' => $data, 'recipient' => $recipient]
+        );
+      }
+    } else
+      $data = \Invitation::initInvitationForm($_REQUEST);
+
 
     \Invitation::create(
       $login,
-      $_REQUEST,
+      $data,
       \Propel::getConnection()
     );
 
     return ControllerDispatcher::renderModuleView(
       self::MODULE_NAME,
       'index',
-      ['member' => Session::getLogin(), 'tab' => 'invitation', 'successmsg' => true]
+      ['member' => $login, 'tab' => 'invitation', 'successmsg' => true, 'formVal' => []]
     );
   }
 

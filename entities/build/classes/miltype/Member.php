@@ -22,21 +22,24 @@ class Member extends BaseMember
    */
   const TYPE_SYSTEM = -1;
   const TYPE_MEMBER = 0;
-  const TYPE_PROMOTER = 1;
-  const TYPE_ORGLEADER = 2;
-  const TYPE_MARKETINGLEADER = 3;
-  const TYPE_CEO = 4;
-  const TYPE_ITSPECIALIST = 5;
+  const TYPE_SUB_PROMOTER = 1;
+  const TYPE_PROMOTER = 2;
+  const TYPE_ORGLEADER = 3;
+  const TYPE_MARKETINGLEADER = 4;
+  const TYPE_CEO = 5;
+  const TYPE_ITSPECIALIST = 6;
 
   const INVITE_MARKETINGLEADER = 'ml880d914385a632784ce6b3a220ce5364';
   const INVITE_ORGLEADER = 'ol23bfe2e3a018ec8a833d7a1e6c562162';
   const INVITE_PROMOTER = 'pmc16758bfb94b6cfa38e8f9c30a6802ef';
+  const INVITE_SUB_PROMOTER = 'subpmc1675d9d2fb94b8a8a38e8a2a662dcf5';
   const INVITE_MEMBER = 'me562dcf56bd9d2730c02d0e211e029201';
 
   const FUNDS_LEVEL1 = 1;
   const FUNDS_LEVEL2 = 2;
 
   static public $TYPE_TO_BONUS_REASON = [
+    self::TYPE_SUB_PROMOTER => Transaction::REASON_SUB_PM_BONUS,
     self::TYPE_PROMOTER => Transaction::REASON_PM_BONUS,
     self::TYPE_ORGLEADER => Transaction::REASON_OL_BONUS,
     self::TYPE_MARKETINGLEADER => Transaction::REASON_VL_BONUS,
@@ -54,6 +57,7 @@ class Member extends BaseMember
     self::TYPE_MARKETINGLEADER => self::INVITE_MARKETINGLEADER,
     self::TYPE_ORGLEADER => self::INVITE_ORGLEADER,
     self::TYPE_PROMOTER => self::INVITE_PROMOTER,
+    self::TYPE_SUB_PROMOTER => self::INVITE_SUB_PROMOTER,
     self::TYPE_MEMBER => self::INVITE_MEMBER,
   ];
 
@@ -208,6 +212,9 @@ class Member extends BaseMember
           $member->setPaidDate($now);
 
         $invitation->setAcceptedDate($now);
+        if ( $invitation->getType() === self::TYPE_SUB_PROMOTER ) {
+          $member->setSubPromoterReferral($invitation->getMeta()['promoter_id']);
+        }
       }
 
       $member->setReferrerMember($referrerMember, $con);
@@ -283,11 +290,12 @@ class Member extends BaseMember
     if ( isset(self::$NUM_TO_BONUS_REASON[$num]) )
       return self::$NUM_TO_BONUS_REASON[$num];
 
-    if ( !isset(self::$TYPE_TO_BONUS_REASON[$this->getType()]) ) {
+    $type = $this->getType();
+    if ( !isset(self::$TYPE_TO_BONUS_REASON[$type]) ) {
       return null;
     }
 
-    return self::$TYPE_TO_BONUS_REASON[$this->getType()];
+    return self::$TYPE_TO_BONUS_REASON[$type];
   }
 
   public function hadPaid() {
@@ -763,16 +771,33 @@ class MemberBonusIds {
       }
     }
 
+    $issetSpreadSubPromoterBonus = isset($spreadBonuses[Member::TYPE_SUB_PROMOTER]);
+    if ( $issetSpreadSubPromoterBonus ) {
+      $subPromoter = $spreadBonuses[Member::TYPE_SUB_PROMOTER][0];
+      $subPromoterReferral = $subPromoter->getMemberRelatedBySubPromoterReferral($con);
+      self::doPay(
+        $memberFee,
+        null,
+        $subPromoterReferral,
+        \Transaction::REASON_SUB_PM_REF_BONUS,
+        $relatedId,
+        $currency,
+        $when,
+        $con
+      )->save($con);
+      $subPromoterReferral->save($con);
+    }
+
     $inheritBonuses = [];
     $add_OL = null;
     $add_VL = [];
     $vl = null;
-    if ( !isset($spreadBonuses[Member::TYPE_PROMOTER]) ) {
+    if ( !isset($spreadBonuses[Member::TYPE_PROMOTER]) && !$issetSpreadSubPromoterBonus ) {
       // if promoter does not exist give org leader his bonus
       $add_OL = Transaction::REASON_PM_BONUS;
     }
 
-    if ( !isset($spreadBonuses[Member::TYPE_ORGLEADER]) ) {
+    if ( !isset($spreadBonuses[Member::TYPE_ORGLEADER]) && !$issetSpreadSubPromoterBonus ) {
       // if org leader does not exist give marketing leader his bonus
       $add_VL[] = Transaction::REASON_OL_BONUS;
       if ( $add_OL ) {
@@ -818,7 +843,7 @@ class MemberBonusIds {
     }
   }
 
-  static private function doPay(\Tbmt\MemberFee $memberFee, $transfer, Member $member, $reason, $relatedId, $currency, $when, PropelPDO $con) {
+  static private function doPay(\Tbmt\MemberFee $memberFee, Transfer $transfer = null, Member $member, $reason, $relatedId, $currency, $when, PropelPDO $con) {
     if ( $transfer === null )
       $transfer = $member->getCurrentTransferBundle($currency, $con);
 

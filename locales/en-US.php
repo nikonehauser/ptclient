@@ -9,6 +9,7 @@ return [
 
     'member_types' => [
       'Member',
+      'Sub Promoter',
       'Promoter',
       'Organization Leader',
       'Director',
@@ -97,6 +98,8 @@ return [
     'invitation_code_inexisting' => 'Invitation Code does not exist',
     'invitation_code_invalid' => 'Invalid invitation code',
     'invitation_code_used' => 'Invitation code already used',
+
+    'sub_promoter_to_promoter' => 'Member is no promoter',
 
     'login' => 'Invalid login credentials'
   ],
@@ -414,6 +417,7 @@ return [
             7 => 'Bonus CEO1',
             8 => 'Bonus CEO2',
             9 => 'Bonus lawyer',
+            10 => 'Bonus sub promoter',
 
             1001 => 'Custom bonus payment',
             1002 => 'Remaining member fee',
@@ -428,6 +432,7 @@ return [
           'form_title' => 'Create new invitation',
           'type' => 'Type',
           'free_signup' => 'Free signup',
+          'promoter_num' => 'On the recommendation of Promoter (Num)',
           'submit' => 'Submit',
 
           'list_title' => 'Invitations',
@@ -436,6 +441,13 @@ return [
           'accepted_date' => 'Accepted',
           'signup_success' => 'Successfully created invitation code.',
           'success' => 'Success!',
+
+          'recipient_details' => 'Recipient details',
+          'member_type' => 'Membership type',
+          'member_num' => 'Member number',
+          'address' => 'Address',
+          'email' => 'Email',
+          'email_none' => '-none-',
         ],
         'bonus_payments' => [
           'form_title' => 'Create bonus payment for a member',

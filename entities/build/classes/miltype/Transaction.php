@@ -29,6 +29,9 @@ class Transaction extends BaseTransaction {
   const REASON_CEO2_BONUS = 8;
   const REASON_LAWYER_BONUS = 9;
 
+  const REASON_SUB_PM_BONUS = 10;
+  const REASON_SUB_PM_REF_BONUS = 11;
+
   const REASON_CUSTOM_BONUS = 1001;
   const REASON_REMAINING_MEMBER_FEE = 1002;
   const REASON_TRANSFER_TO_ROOT = 1003;
@@ -113,7 +116,7 @@ class Transaction extends BaseTransaction {
       ->setRelatedId($login->getId())
       ->setDate($when)
       ->save($con);
-throw new \Exception('test');
+
     $currentTransfer->save($con);
     $recipient->save($con);
   }

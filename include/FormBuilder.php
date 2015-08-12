@@ -43,7 +43,7 @@ class FormBuilder {
     } else if ( $type === 'textarea' ) {
       $fieldId = $this->formName.$fieldKey;
       $group .= '<label for="'.$fieldId.'">'.$label.'</label>'.
-        '<textarea class="fullwidth" cols="40" rows="3"  id="'.$fieldId.'" name="'.$fieldKey.'" value="'.$value.'">'.$value.'</textarea>';
+        '<textarea class="fullwidth" cols="40" rows="3" id="'.$fieldId.'" name="'.$fieldKey.'" value="'.$value.'">'.$value.'</textarea>';
 
     } else {
       $fieldId = $this->formName.$fieldKey;
@@ -60,7 +60,7 @@ class FormBuilder {
     return $group;
   }
 
-  public function buildInvitationTypeSelectGroup($fieldKey, $offType) {
+  public function buildInvitationTypeSelectGroup($fieldKey, $loginType) {
     $label = Arr::init($this->labels, $fieldKey);
     $value = Arr::init($this->values, $fieldKey);
     $error = Arr::init($this->errors, $fieldKey);
@@ -68,13 +68,22 @@ class FormBuilder {
     $memberTypes = Localizer::get('common.member_types');
 
     $fieldId = $this->formName.$fieldKey;
-    $offType--;
+
+    if ( $loginType > \Member::TYPE_MARKETINGLEADER )
+      $loginType = \Member::TYPE_MARKETINGLEADER;
 
     $group = '<div class="field">'.
       '<label for="'.$fieldId.'">'.$label.'</label>'.
-      '<select name="'.$fieldKey.'">';
-    for ( $i = $offType; $i >= \Member::TYPE_MEMBER; $i-- ) {
-      $group .= '<option value="'.$i.'">'.$memberTypes[$i].'</option>';
+      '<select name="'.$fieldKey.'" id="'.$fieldId.'" >';
+    for ( $i = $loginType; $i >= \Member::TYPE_MEMBER; $i-- ) {
+      if ( $i === \Member::TYPE_SUB_PROMOTER && $loginType < \Member::TYPE_MARKETINGLEADER )
+        continue;
+
+      $selected = '';
+      if ( $value == $i )
+        $selected = 'selected="selected"';
+
+      $group .= '<option value="'.$i.'" '.$selected.'>'.$memberTypes[$i].'</option>';
     }
 
     $group .= '</select></div>';

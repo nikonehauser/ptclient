@@ -41,6 +41,8 @@
 
     "deletion_date" timestamp with time zone NULL ,
 
+    "sub_promoter_referral" INTEGER NULL ,
+
     PRIMARY KEY ("id") ,
     CONSTRAINT "fk_member_referrer"
       FOREIGN KEY ("referrer_id")
@@ -49,6 +51,11 @@
       ON UPDATE CASCADE ,
     CONSTRAINT "fk_member_parent"
       FOREIGN KEY ("parent_id")
+      REFERENCES "tbmt_member" ("id")
+      ON DELETE set null
+      ON UPDATE CASCADE ,
+    CONSTRAINT "fk_member_sub_promoter_referral"
+      FOREIGN KEY ("sub_promoter_referral")
       REFERENCES "tbmt_member" ("id")
       ON DELETE set null
       ON UPDATE CASCADE
@@ -145,6 +152,7 @@
     "creation_date" timestamp with time zone NOT NULL ,
     "accepted_date" timestamp with time zone NULL ,
     "accepted_member_id" int NULL ,
+    "meta" TEXT NOT NULL DEFAULT '[]',
     PRIMARY KEY ("id", "hash") ,
     CONSTRAINT "fk_invitation_member"
       FOREIGN KEY ("member_id")
@@ -254,7 +262,9 @@
       ta.related_id,
       ta.date,
       tf.amount AS trfamount,
-      m.type
+      m.type,
+      m.id as memId,
+      m.num
     from tbmt_transaction as ta
     join tbmt_transfer as tf on ta.transfer_id = tf.id
     join tbmt_member as m on tf.member_id = m.id

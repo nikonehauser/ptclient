@@ -34,6 +34,7 @@
     <column name="creation_date" phpName="CreationDate" type="TIMESTAMP" required="true"/>
     <column name="accepted_date" phpName="AcceptedDate" type="TIMESTAMP" required="false"/>
     <column name="accepted_member_id" phpName="AcceptedMemberId" type="INTEGER" required="false"/>
+    <column name="meta" phpName="Meta" type="LONGVARCHAR" required="true" defaultValue="[]"/>
     <foreign-key foreignTable="member" name="fk_invitation_accepted_member" onDelete="SET NULL" onUpdate="CASCADE">
       <reference local="accepted_member_id" foreign="id"/>
     </foreign-key>
@@ -68,11 +69,15 @@
     <column name="transferred_total" phpName="TransferredTotal" type="VARCHAR" size="255" required="true" defaultValue="[]"/>
     <column name="outstanding_total" phpName="OutstandingTotal" type="VARCHAR" size="255" required="true" defaultValue="[]"/>
     <column name="deletion_date" phpName="DeletionDate" type="TIMESTAMP" required="false"/>
+    <column name="sub_promoter_referral" phpName="SubPromoterReferral" type="INTEGER" required="false"/>
     <foreign-key foreignTable="member" name="fk_member_parent" onDelete="SET NULL" onUpdate="CASCADE">
       <reference local="parent_id" foreign="id"/>
     </foreign-key>
     <foreign-key foreignTable="member" name="fk_member_referrer" onDelete="SET NULL" onUpdate="CASCADE">
       <reference local="referrer_id" foreign="id"/>
+    </foreign-key>
+    <foreign-key foreignTable="member" name="fk_member_sub_promoter_referral" onDelete="SET NULL" onUpdate="CASCADE">
+      <reference local="sub_promoter_referral" foreign="id"/>
     </foreign-key>
     <unique name="member_num_UNIQUE">
       <unique-column name="num"/>

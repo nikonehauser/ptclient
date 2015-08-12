@@ -51,6 +51,7 @@ CREATE TABLE "tbmt_invitation"
     "creation_date" TIMESTAMP NOT NULL,
     "accepted_date" TIMESTAMP,
     "accepted_member_id" INTEGER,
+    "meta" TEXT DEFAULT '[]' NOT NULL,
     PRIMARY KEY ("id","hash")
 );
 
@@ -88,6 +89,7 @@ CREATE TABLE "tbmt_member"
     "transferred_total" VARCHAR(255) DEFAULT '[]' NOT NULL,
     "outstanding_total" VARCHAR(255) DEFAULT '[]' NOT NULL,
     "deletion_date" TIMESTAMP,
+    "sub_promoter_referral" INTEGER,
     PRIMARY KEY ("id"),
     CONSTRAINT "member_num_UNIQUE" UNIQUE ("num")
 );
@@ -194,6 +196,12 @@ ALTER TABLE "tbmt_member" ADD CONSTRAINT "fk_member_parent"
 
 ALTER TABLE "tbmt_member" ADD CONSTRAINT "fk_member_referrer"
     FOREIGN KEY ("referrer_id")
+    REFERENCES "tbmt_member" ("id")
+    ON UPDATE CASCADE
+    ON DELETE SET NULL;
+
+ALTER TABLE "tbmt_member" ADD CONSTRAINT "fk_member_sub_promoter_referral"
+    FOREIGN KEY ("sub_promoter_referral")
     REFERENCES "tbmt_member" ("id")
     ON UPDATE CASCADE
     ON DELETE SET NULL;
