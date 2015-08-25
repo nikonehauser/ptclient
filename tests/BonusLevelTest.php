@@ -113,4 +113,20 @@ class BonusLevelTest extends Tbmt_Tests_DatabaseTestCase {
 
   }
 
+    /**
+     * @expectedException \Tbmt\ProvisionExceedMemberFeeException
+     */
+  public function testProvisionExceedMemberFreeException() {
+    $marketingLeader = DbEntityHelper::createMember(null, [
+      'type' => Member::TYPE_MARKETINGLEADER,
+      'LastName' => 'vl'
+    ]);
+    $marketingLeader->reload(self::$propelCon);
+
+    $m1 = DbEntityHelper::createSignupMember($marketingLeader, true, ['lastName' => 'm1']);
+    $m1->activity_setBonusLevel(\Tbmt\Config::get('member_fee', \Tbmt\TYPE_FLOAT, 100) + 10, self::$propelCon);
+
+    $m1_3 = DbEntityHelper::createSignupMember($m1, true, ['lastName' => 'm1_3']);
+  }
+
 }

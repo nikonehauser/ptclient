@@ -24,6 +24,11 @@ class MemberFee {
 
   }
 
+  public function checkRemainGreaterZero() {
+    if ( $this->toSystemAccount < 0 )
+      throw new ProvisionExceedMemberFeeException();
+  }
+
   public function addRemainingToAccounts($when, \PropelPDO $con) {
     $systemAccount = \SystemStats::getSystemAccount();
     $transfer = $systemAccount->getCurrentTransferBundle($this->currency, $con);

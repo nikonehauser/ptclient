@@ -27,6 +27,15 @@ jQuery(document).ready(function($){
 
 
 	function erika_hover(){
+    jQuery('.service-box').each(function() {
+        var iconheight = jQuery(this).find('.service-icon').outerHeight();
+        jQuery(this).hover(function() {
+            jQuery(this).find('.service-icon').stop().animate({'margin-top' : iconheight*-1-10, 'opacity' : 0}, 400, 'jswing');
+        }, function(){
+            jQuery(this).find('.service-icon').stop().animate({'margin-top' : 0, 'opacity' : 1}, 200, 'jswing');
+        });
+    });
+
 		jQuery.slidebars();
 	};
 
@@ -37,6 +46,20 @@ jQuery(document).ready(function($){
 		  resizeTimer = setTimeout(erika_hover, 0);
 		}).resize();
 	});
+
+  // Eqal Height
+  function equalHeight(group) {
+      var tallest = 0;
+      group.each(function() {
+          var thisHeight = jQuery(this).height();
+          if(thisHeight > tallest) {
+              tallest = thisHeight;
+          }
+      });
+      group.height(tallest);
+  }
+
+  equalHeight(jQuery('.service-box'));
 
 
 	/* Responsive Mobile Menu

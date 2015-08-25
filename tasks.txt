@@ -1,5 +1,8 @@
 
 
+
+ - erzeuge fehler wenn durch verteilung der bonuse etc. der gesamte mitgliedsbeitrag aufgebraucht wird
+
  - füge passwort ändern formular hinzu
 
  - versende email im fehler fall

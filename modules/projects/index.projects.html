@@ -243,88 +243,136 @@ use \Tbmt\Router as R;
 <div class="container">
   <div class="row">
 
-      <div class="heading-area text-center bottom-30 top-40 wow slideInUp animated" data-wow-duration="0.6s" data-wow-delay="0.3s" style="visibility: visible; animation-duration: 0.6s; animation-delay: 0.3s; animation-name: slideInUp;">
-        <h4 class="heading large">EVER WONDERED WHY INDIA BECAME SO POOR</h4>
-        <span class="sub-heading">Jawaharlal Nehru, First Prime Minister of India said:</span>
+      <div class="heading-area text-center bottom-30 top-40 ">
+        <h4 class="heading large"><?=$this->i18nView['why_poor_head']?></h4>
       </div>
 
-      <div class=" bottom-30 top-40 wow slideInUp animated" data-wow-duration="0.6s" data-wow-delay="0.3s">
-      <?=\Tbmt\view\Factory::testimonial('A significant fact which stands out is that those parts of India which have been longest under British rule are the poorest today.')?>
+      <div class=" bottom-30 top-40">
+      <?=\Tbmt\view\Factory::testimonial(
+        $this->i18nView['why_poor_quote'],
+        $this->i18nView['why_poor_quote_author'],
+        $this->i18nView['why_poor_quote_author_org'])?>
       </div>
   </div>
 </div>
 
 
 <!--
-  INDIA TITLE
+  ABOUT US
   *************************** -->
-<div class="container">
-  <div class="row">
+<div class="section-bgwrap" style="background-color: rgba(145, 145, 145, 0.9);">
+    <div class="container white">
+        <div class="row">
 
-    <div class="col-md-6">
-        <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['about_us_title'])?>
-        <p class="sheet">Die „Help Yourself Association“ ist ein Verein und wurde für Menschen gegründet, die aus verschiedenen Gründen - zum Beispiel den wirtschaftlichen oder auch den politischen Rahmenbedingungen in ihrem Land -  nur geringe oder keine Möglichkeiten haben, sich durch eigenen Einsatz zu einem besseren Leben zu verhelfen.</p>
 
+      <div class="heading-area text-center bottom-40 top-40">
+        <h4 class="heading large"><?=$this->i18nView['against_poverty_head']?></h4>
+        <span class="sub-heading"><?=$this->i18nView['against_poverty_sub']?></span>
+      </div>
+
+
+
+        <div class="col-md-6 hidden-xs hidden-sm" >
+          <div class="element text-right" style="margin: 0px 60px -10px 0px;">
+            <img src="<?=R::toImage('helping-hand.png')?>" alt="" style="height: 400px;">
+          </div><!-- // .element -->
+        </div><!-- // .col-md-6 -->
+
+        <div class="col-md-6" >
+            <h1 class="bottom-10 white"><?=$this->i18nView['we_foundation']?></h1>
+            <p class="white"><?=$this->i18nView['we_foundation_description']?></p>
+
+            <h1 class="bottom-10 top-30 white"><?=$this->i18nView['we_system']?></h1>
+            <p class="white"><?=$this->i18nView['we_system_description']?></p>
+
+            <h1 class="bottom-10 top-30 white"><?=$this->i18nView['we_fee']?></h1>
+            <p class=" white"><?=$this->i18nView['we_fee_description']?></p>
+
+            <div class="bottom-30"></div>
+        </div><!-- // .col-md-6 -->
+
+        </div><!-- // .row -->
+    </div><!-- // .container -->
+</div>
+
+<div class="container bottom-40">
+
+  <div class="heading-area text-center bottom-30 top-40">
+    <h4 class="heading large"><?=$this->i18nView['where_to_go_head']?></h4>
+  </div>
+
+  <div class="row nospace service-color-area">
+      <div class="col-md-3">
+        <div class="service-box fadein" style="height: 224px;">
+          <a href="<?=\Tbmt\Router::toModule('member')?>">
+            <div class="service-icon" style="opacity: 1; margin-top: 0px;">
+                <i class="pe-7s-study"></i>
+            </div><!-- // service-icon -->
+
+            <div class="service-content top-10">
+                <h3 class="bottom-10 service-title"><?=$this->i18nView['service_ms_title']?></h3>
+                <p><?=$this->i18nView['service_ms_desc']?></p>
+            </div><!-- // .service-content -->
+
+            <div class="service-action top-20">
+                <?=\Tbmt\view\Factory::buildButton($this->i18nView['service_ms_btn'], \Tbmt\Router::toModule('member'), 'white stroke')?>
+            </div><!-- // .service-action -->
+          </a>
+        </div><!-- // .service-box -->
     </div>
-    <div class="col-md-6" style="padding:20px; box-sizing: border-box;">
-        <img class="fullsize bordered" src="<?=R::toImage('helping-hand.jpg')?>"/>
+      <div class="col-md-3">
+        <div class="service-box fadein" style="height: 224px;">
+          <a href="<?=\Tbmt\Router::toModule('member')?>">
+            <div class="service-icon" style="opacity: 1; margin-top: 0px;">
+                <i class="pe-7s-info"></i>
+            </div><!-- // service-icon -->
 
+            <div class="service-content top-10">
+                <h3 class="bottom-10 service-title"><?=$this->i18nView['service_faq_title']?></h3>
+                <p><?=$this->i18nView['service_faq_desc']?></p>
+            </div><!-- // .service-content -->
+
+            <div class="service-action top-20">
+                <?=\Tbmt\view\Factory::buildButton($this->i18nView['service_faq_btn'], \Tbmt\Router::toModule('member'), 'white stroke')?>
+            </div><!-- // .service-action -->
+          </a>
+        </div><!-- // .service-box -->
     </div>
+      <div class="col-md-3">
+        <div class="service-box fadein" style="height: 224px;">
+          <a href="<?=\Tbmt\Router::toModule('member')?>">
+            <div class="service-icon" style="opacity: 1; margin-top: 0px;">
+                <i class="pe-7s-mail"></i>
+            </div><!-- // service-icon -->
 
+            <div class="service-content top-10">
+                <h3 class="bottom-10 service-title"><?=$this->i18nView['service_contact_title']?></h3>
+                <p><?=$this->i18nView['service_contact_desc']?></p>
+            </div><!-- // .service-content -->
 
-
-
-    <div class="col-md-6" style="padding:20px; box-sizing: border-box;">
-        <img class="fullsize bordered" src="<?=R::toImage('vision-community.jpg')?>"/>
-
+            <div class="service-action top-20">
+                <?=\Tbmt\view\Factory::buildButton($this->i18nView['service_contact_btn'], \Tbmt\Router::toModule('member'), 'white stroke')?>
+            </div><!-- // .service-action -->
+          </a>
+        </div><!-- // .service-box -->
     </div>
-    <div class="col-md-6">
-        <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['about_us_title2'])?>
-        <p class="sheet">Der Verein bietet mittels eines Marketingsystems einen direkten Weg zur Selbsthilfe einerseits und andererseits durch diverse soziale Hilfsprojekte in verschiedenen Ländern Hilfe zur Selbsthilfe an. Beide Konzepte finanzieren sich zu 100% aus den einmaligen Vereinsbeiträgen der Vereinsmitglieder.
-        Insofern hilft das Mitglied mit der Zahlung seines einmaligen Vereinsbeitrags in Höhe von nur $ 70,- sich direkt und zudem über die sozialen Hilfsprojekte der Help Yourself Assoziation zusätzlich anderen Menschen, da der Verein in verschiedenen Ländern verschiedene Projekte zur Selbsthilfe und Weiterentwicklung projektieren, errichten und betreiben wird.</p>
+      <div class="col-md-3">
+        <div class="service-box fadein" style="height: 224px;">
+          <a href="<?=\Tbmt\Router::toModule('member')?>">
+            <div class="service-icon" style="opacity: 1; margin-top: 0px;">
+                <i class="pe-7s-albums"></i>
+            </div><!-- // service-icon -->
+
+            <div class="service-content top-10">
+                <h3 class="bottom-10 service-title"><?=$this->i18nView['service_signup_title']?></h3>
+                <p><?=$this->i18nView['service_signup_desc']?></p>
+            </div><!-- // .service-content -->
+
+            <div class="service-action top-20">
+                <?=\Tbmt\view\Factory::buildButton($this->i18nView['service_signup_btn'], \Tbmt\Router::toModule('member'), 'white stroke')?>
+            </div><!-- // .service-action -->
+          </a>
+        </div><!-- // .service-box -->
     </div>
-
-
-
-    <div class="clearfix"></div>
-
-    <div class="col-md-6" >
-        <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['planed_projects_title'])?>
-        <p>
-Über unseren Verein haben Menschen die Möglichkeit, sich selbst zu helfen. Dies setzt allerdings voraus, dass diese Menschen ein gewisses Alter aufweisen, vollständig in der Lage sind, für sich selbst zu handeln und nicht in Grundbedürfnissen bereits auf andere angewiesen sind.
-All diese Menschen helfen aber nicht nur sich selbst, sondern ebenfalls denen, die nicht in der Lage sind, sich selbst zu helfen.
-Daher gilt unser Hauptaugenmerk den Kindern, die ohne Elternhaus sind, ein schlechtes Elternhaus haben oder keine Möglichkeiten bekommen, eine „normale“ Kindheit zu verbringen. Die Hintergründe hierfür sind sehr unterschiedlich.
-Seit Jahren kann man Berichte lesen, welch unglaubliche Geschichten Kinder bereits in ihren jüngsten Jahren erzählen können, da sie sie selbst erlebten. Leider sind es in den seltensten Fällen Geschichten, um die man diese Kinder beneidet.
-Alle Kinder, egal welcher Herkunft, welches Elternhauses, welches Landes oder welcher „Hautfarbe“ benötigen Zuneigung, Anerkennung, Würde, Bildung, Perspektiven und vor allem Hoffnung.
-Mit Ihrer Hilfe können wir solch grundlegende Kinderrechte verwirklichen.
-Unsere vielfältigen Projekte zur Selbsthilfe werden wir deshalb anfänglich in den rechts genannten Ländern und mit nachfolgendem Schwerpunkten umsetzen.
-<br>
-Mit zunehmender Mitgliederzahl werden wir versuchen auch in anderen Ländern unter anderem nachfolgende Hilfsprogramme umzusetzen:
-        </p>
-
-    </div>
-    <div class="col-md-6" >
-        <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['affected_countries_title'])?>
-        <ul class="list-2" style="padding:20px;">
-            <li>Indien</li>
-            <li>Nepal</li>
-            <li>Sri Lanka</li>
-            <li>Bangladesh (Burma)</li>
-            <li>Mayanmar</li>
-            <li>Vietnam</li>
-            <li>more...</li>
-        </ul>
-    <span >die länder könnte man einzeln mit ein paar sätzen aufgeplusterter darstellen</span>
-    </div>
-
-<!--     <div class="sixteen columns">
-        <div class="info-box">
-            <div class="info-content">
-                <h4>Help yourself and other now</h4>
-            </div>
-            <a href="#" class="button medium yellow pull-right">Sign up</a>
-            <div class="clearfix"></div>
-        </div>
-    </div> -->
   </div>
 </div>

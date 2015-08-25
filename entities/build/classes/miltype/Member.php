@@ -619,6 +619,8 @@ class Member extends BaseMember
       $referrer->save($con);
     }
 
+    $memberFee->checkRemainGreaterZero();
+
     $memberFee->addRemainingToAccounts($when, $con);
 
     $this->fireReservedReceivedMemberFeeEvents($con);

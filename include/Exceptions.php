@@ -25,3 +25,5 @@ class PageNotFoundException extends PublicException {
     parent::__construct($msg != '' ? $msg : 'Sorry, but the page you were trying to view does not exist.');
   }
 }
+
+class ProvisionExceedMemberFeeException extends \Exception {}

@@ -12,6 +12,7 @@ Fragen
 CURRENT
 ======
 
+
 LIST
 ====
 
@@ -19,8 +20,6 @@ LIST
  (throw error if 2 promoter bonus ids would be set for a member )
 
 - edit bank account
-
-- throw specialized error in case of the total incomming fee get spread through all the bonuses??
 
 - website content auffüllen
 

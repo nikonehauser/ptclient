@@ -116,7 +116,7 @@
 
 return <<<END
 <div class="container msContainer">
-  <div class="row">
+  <div class="row sheet">
     <div class="col-md-$firstColWidth bottom-sm-30">
         $head
         <div class="divider bottom-10"></div>
@@ -125,7 +125,7 @@ return <<<END
     </div>
     $secondCol
   </div>
-  <div class="divider circle clearfix top-40 bottom-40"></div>
+  <div class="divider circle dark clearfix top-40 bottom-40"></div>
 </div>
 END;
 
@@ -141,7 +141,7 @@ END;
   INTO
   *************************** -->
 <div class="container content-inner">
-  <div class="heading-area text-center bottom-30">
+  <div class="heading-area text-center">
     <h4 class="heading large"><?=LL::insert($this->i18nView['intro1'], $this->i18nView['intro1h'], false, '<span>{_val_}</span>')?></h4>
     <span class="sub-heading"><?=$this->i18nView['intro2']?></span>
   </div>
@@ -671,7 +671,13 @@ $txt = MMSHelper::nextText().
   '<p>'.MMSHelper::nextText().'</p>'.
   '<p>'.MMSHelper::nextText().'</p>'.
   '<p>'.MMSHelper::nextText().'</p>'.
-  '<p>'.MMSHelper::nextText().'</p>'.
+  '<p>'.MMSHelper::nextText().'</p>';
+$ill = '';
+echo MMSHelper::nextRow($txt, $ill);
+
+
+echo '<div class="container msContainer">
+  <div class="row">'.
   \Tbmt\view\Factory::buildInfoBox(
     MMSHelper::nextText(),
     MMSHelper::nextText(),
@@ -681,8 +687,5 @@ $txt = MMSHelper::nextText().
       ' pull-right'
     ),
     'action'
-  );
-$ill = '';
-echo MMSHelper::nextRow($txt, $ill);
-
+  ).'</div></div>';
 ?>

@@ -289,13 +289,24 @@ END;
    * @param  [type] $items
    * @return [type]
    */
-  static function testimonial($text) {
+  static function testimonial($text, $infoName = '', $infoOrigin = '') {
+    $info = '';
+    if ( $infoName ) {
+      $info = <<<END
+    <div class="testimonial-info">
+      <span class="name">$infoName</span>
+      <span class="company">$infoOrigin</span>
+    </div>
+END;
+    }
+
     return <<<END
 
-<div class="testimonail-item">
+<div class="testimonail-detail active">
   <div class="testimonial-content">
     <p>$text</p>
   </div><!-- // .testimonial-content -->
+  $info
 </div>
 END;
   }

@@ -544,6 +544,40 @@ return [
         'about_us_title2' => 'Help yourself AND others',
         'planed_projects_title' => 'Our planeed Projects for self-help',
         'affected_countries_title' => 'Countries we want to help',
+
+        'why_poor_head' => 'EVER WONDERED WHY INDIA BECAME SO POOR',
+        'why_poor_quote' => 'A significant fact which stands out is that those parts of India which have been longest under British rule are the poorest today.',
+        'why_poor_quote_author' => 'Jawaharlal Nehru',
+        'why_poor_quote_author_org' => 'First Prime Minister of India',
+
+        'against_poverty_head' => 'So we are against poverty',
+        'against_poverty_sub' => 'and therefore developed this marketing sytem to change things for us',
+        'we_foundation' => 'Foundation',
+        'we_foundation_description' => 'The club has been founded for people who for various reasons – for example, the economic and political circumstances – have only few or no options to achieve a better life for themselves on their own.',
+        'we_system' => 'Marketing System',
+        'we_system_description' => 'On the one hand, the club offers a direct way to help yourself through a marketing system and, on the other hand, we try to help by supporting beneficial social projects.',
+
+        'we_fee' => 'One time fee',
+        'we_fee_description' => 'Both concepts are financed by 100% from the one-time contributions of the club members.',
+
+        'where_to_go_head' => 'where to go from here',
+
+        'service_ms_title' => 'Marketing System',
+        'service_ms_desc' => 'Sounds great! Where can i get more information about this marketing system?',
+        'service_ms_btn' => 'Click me!',
+
+        'service_faq_title' => 'I have some questions',
+        'service_faq_desc' => 'No problem, just got to hour FAQ section. You will find answers there?',
+        'service_faq_btn' => 'Go to FAQ',
+
+        'service_contact_title' => 'I still have questions',
+        'service_contact_desc' => 'Still no problem! Just contact us. We will answer any question!',
+        'service_contact_btn' => 'Contact us',
+
+        'service_signup_title' => 'I want to join',
+        'service_signup_desc' => 'Great! Just follow this link and fill in the signup form to get started!',
+        'service_signup_btn' => 'Go to signup',
+
       ],
       'girls_schools' => [
         'page_title' => 'Grils schools'
