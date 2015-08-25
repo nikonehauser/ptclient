@@ -1,9 +1,10 @@
 <?=\Tbmt\view\Factory::buildPageTitle($this->i18nView['page_title'])?>
 
 <!-- 960 Container Start -->
-<div class="container">
+<div class="container top-30 bottom-30">
 	<div class="row">
-		<div class="col-md-4 col-md-offset-3">
+		<div class="col-md-6 col-md-offset-3">
+			<div class="sheet">
 			<!--<form action="" method="post">-->
 			<form action="" method="post">
 
@@ -24,6 +25,7 @@
 				<a class="pull-right" href="<?=\Tbmt\Router::toModule('manage', 'password_reset')?>"><?=$this->i18nView['password_reset']?></a>
 
 			</form>
+			</div>
 		</div>
 	</div>
 

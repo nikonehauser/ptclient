@@ -116,7 +116,7 @@ return [
 
       'navigation_links' => [
         'member' => 'The Idea',
-        'projects' => 'Projects',
+        'projects' => 'Home',
         'about' => 'Contact',
         'account' => 'Profile'
       ],
@@ -125,13 +125,6 @@ return [
           'index' => 'Member recruit members',
           'system' => 'Our marketing system',
           'signup' => 'Signup',
-        ],
-        'projects' => [
-          'index' => 'Social projects',
-          'girls_schools'  => 'Schools for girls',
-          'residential_home'  => 'Residential home',
-          'vocational_education'  => 'Vocational education',
-          'hospitals'  => 'Hospitals',
         ],
         'account' => [
           'index' => 'Information',
