@@ -72,8 +72,9 @@ use \Tbmt\Router as R;
 
 						<div class="logo pull-left">
 							<h1 class="site-title">
-								<a href="<?=\Tbmt\Router::toBase()?>">
-									<img src="<?=\Tbmt\Router::toImage('logo_title.png')?>" alt="INDIA SELF HELP">
+								<a href="<?=\Tbmt\Router::toBase()?>" style="color:#7E7E7E; font-size: 26pt; font-family: Courier New">
+									<!--<img src="<?=\Tbmt\Router::toImage('logo_title.png')?>" alt="">-->
+									<?=strtoupper($this->textBrandName)?>
 								</a>
 							</h1><!-- // .site-title -->
 						</div><!-- // .logo -->

@@ -159,8 +159,8 @@ return [
 
       'system' => [
         'page_title' => 'Marketing System',
-        'vs1' => 'Payment level 1',
-        'vs2' => 'Payment level 2',
+        'vs1' => 'Club donator level 1',
+        'vs2' => 'Club donator level 2',
         'notice' => 'Notice',
         'signup_now' => 'Signup Now',
         'etc' => 'etc.',
@@ -278,7 +278,7 @@ return [
 
         'member_starting' => 'What will i get as donator',
         'member_starting_title' => [
-          'Payment Level 1',
+          'Club donator level 1',
           'Marketing System',
           'Immediately start recruiting',
         ],
