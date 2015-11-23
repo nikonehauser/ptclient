@@ -8,6 +8,7 @@ use \Tbmt\Router as R;
             <div id="rev_slider_1_1_wrapper" class="rev_slider_wrapper fullwidthbanner-container" style="margin:0px auto;background-color:transparent;padding:0px;margin-top:0px;margin-bottom:0px;max-height:650px;">
                 <div id="rev_slider_1_1" class="rev_slider fullwidthabanner" style="display:none;max-height:650px;height:650px;">
                     <ul>    <!-- SLIDE  -->
+
                         <li data-transition="random-static" data-slotamount="7" data-masterspeed="300"  data-saveperformance="off" >
                             <!-- MAIN IMAGE -->
                             <img src="<?=R::toImage('placeholder/transparent.png')?>"  alt=""  data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat">
@@ -45,6 +46,7 @@ use \Tbmt\Router as R;
                                 <a class="button black" href="<?=R::toModule('member', 'system')?>"><span>Marketing System</span></a>
                             </div>
                         </li>
+
                         <!-- SLIDE  -->
                         <li data-transition="random" data-slotamount="7" data-masterspeed="300"  data-saveperformance="off" >
                             <!-- MAIN IMAGE -->
@@ -63,14 +65,20 @@ use \Tbmt\Router as R;
 
                             <!-- LAYER NR. 3 -->
                             <div class="tp-caption erika_big_title sfb tp-resizeme" data-x="470" data-y="120"  data-speed="600" data-start="500" data-easing="Power3.easeInOut" data-splitin="none" data-splitout="none" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="600" style="z-index: 4; max-width: auto; max-height: auto; white-space: nowrap;">
-                                Better Lifes
+                                Better Lives
                             </div>
 
 
                             <!-- LAYER NR. 4 -->
                             <div class="tp-caption hidden-sm hidden-xs black_p right sfb tp-resizeme" data-x="605" data-y="170"  data-speed="600" data-start="500" data-easing="Power3.easeInOut" data-splitin="none" data-splitout="none" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="600" style="z-index: 5; max-width: auto; max-height: auto;">
                                 Signup with a moderate one time fee<br>
-                                and change yours and others life to the better
+                                and change your and other's lives to the better
+                            </div>
+                        </li>
+
+                        <li data-transition="random-static" data-slotamount="7" data-masterspeed="300"  data-saveperformance="off" >
+                            <div class="tp-caption sfb stl" data-x="150" data-y="80" data-speed="600" data-start="500" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="600" style="z-index: 2;">
+                                <iframe height="500" width="850" src="https://www.youtube.com/embed/gzRrxf75v0M" frameborder="0" allowfullscreen></iframe>
                             </div>
                         </li>
                     </ul>
@@ -304,7 +312,7 @@ use \Tbmt\Router as R;
   <div class="row nospace service-color-area">
       <div class="col-md-3">
         <div class="service-box fadein" style="height: 224px;">
-          <a href="<?=\Tbmt\Router::toModule('member')?>">
+          <a href="<?=\Tbmt\Router::toModule('member', 'system')?>">
             <div class="service-icon" style="opacity: 1; margin-top: 0px;">
                 <i class="pe-7s-study"></i>
             </div><!-- // service-icon -->
@@ -315,7 +323,7 @@ use \Tbmt\Router as R;
             </div><!-- // .service-content -->
 
             <div class="service-action top-20">
-                <?=\Tbmt\view\Factory::buildButton($this->i18nView['service_ms_btn'], \Tbmt\Router::toModule('member'), 'white stroke')?>
+                <?=\Tbmt\view\Factory::buildButton($this->i18nView['service_ms_btn'], \Tbmt\Router::toModule('member', 'system'), 'white stroke')?>
             </div><!-- // .service-action -->
           </a>
         </div><!-- // .service-box -->
@@ -333,7 +341,7 @@ use \Tbmt\Router as R;
             </div><!-- // .service-content -->
 
             <div class="service-action top-20">
-                <?=\Tbmt\view\Factory::buildButton($this->i18nView['service_faq_btn'], \Tbmt\Router::toModule('member'), 'white stroke')?>
+                <?=\Tbmt\view\Factory::buildButton($this->i18nView['service_faq_btn'], \Tbmt\Router::toModule('about', 'faq'), 'white stroke')?>
             </div><!-- // .service-action -->
           </a>
         </div><!-- // .service-box -->
@@ -351,7 +359,7 @@ use \Tbmt\Router as R;
             </div><!-- // .service-content -->
 
             <div class="service-action top-20">
-                <?=\Tbmt\view\Factory::buildButton($this->i18nView['service_contact_btn'], \Tbmt\Router::toModule('member'), 'white stroke')?>
+                <?=\Tbmt\view\Factory::buildButton($this->i18nView['service_contact_btn'], \Tbmt\Router::toModule('about'), 'white stroke')?>
             </div><!-- // .service-action -->
           </a>
         </div><!-- // .service-box -->
@@ -369,7 +377,7 @@ use \Tbmt\Router as R;
             </div><!-- // .service-content -->
 
             <div class="service-action top-20">
-                <?=\Tbmt\view\Factory::buildButton($this->i18nView['service_signup_btn'], \Tbmt\Router::toModule('member'), 'white stroke')?>
+                <?=\Tbmt\view\Factory::buildButton($this->i18nView['service_signup_btn'], \Tbmt\Router::toModule('member', 'signup'), 'white stroke')?>
             </div><!-- // .service-action -->
           </a>
         </div><!-- // .service-box -->
