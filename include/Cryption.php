@@ -20,7 +20,7 @@ class Cryption {
    * @see getPasswordHash()
    */
   static public function encryptPassword($password, $salt) {
-    return hash_hmac(self::ALGORITHM, $password, $salt.':'.self::$salt);
+    return \hash_hmac(self::ALGORITHM, $password, $salt.':'.self::$salt);
   }
 
 
@@ -29,7 +29,7 @@ class Cryption {
     $num = $member->getNum();
     $typeKey = \Member::$INVITATION_BY_KEY[$type];
     $data = $id.$num.$type.$typeKey;
-    return hash_hmac(self::ALGORITHM, $data, $salt.':'.self::$salt).$type;
+    return \hash_hmac(self::ALGORITHM, $data, $salt.':'.self::$salt).$type;
 
       // self::TYPE_ORGLEADER => Cryption::getInvitationHash($id.$num, self::INVITE_ORGLEADER).self::TYPE_ORGLEADER,
       // self::TYPE_PROMOTER => Cryption::getInvitationHash($id.$num, self::INVITE_PROMOTER).self::TYPE_PROMOTER
@@ -46,9 +46,9 @@ class Cryption {
    */
   static public function getPasswordHash($password, $salt = null) {
     if ( $salt === null )
-      $salt = bin2hex(mcrypt_create_iv(8, MCRYPT_DEV_URANDOM)).time();
+      $salt = \bin2hex(\mcrypt_create_iv(8, MCRYPT_DEV_URANDOM)).time();
 
-    return json_encode(array($salt, self::encryptPassword($password, $salt)));
+    return \json_encode(array($salt, self::encryptPassword($password, $salt)));
   }
 
   /**
@@ -61,7 +61,7 @@ class Cryption {
    * @see getPasswordHash()
    */
   static public function verifyPassword($password, $passwordHash) {
-    $hashData = json_decode($passwordHash, true);
+    $hashData = \json_decode($passwordHash, true);
     if ( !isset($hashData[0], $hashData[1]) or !is_array($hashData) )
       throw new \Exception('Invalid password hash found in database.');
 
@@ -72,7 +72,7 @@ class Cryption {
   }
 
   static public function getApiToken() {
-    return md5(Config::get('secret_salt').self::$apiSalt);
+    return \md5(Config::get('secret_salt').self::$apiSalt);
   }
 
   static public function validateApiToken($strToken) {
@@ -80,7 +80,7 @@ class Cryption {
   }
 
   static public function getPasswordResetToken($memberNum, $now, $memberEmail) {
-    return md5(Config::get('secret_salt').$memberNum.$now.$memberEmail.self::$salt);
+    return \md5(Config::get('secret_salt').$memberNum.$now.$memberEmail.self::$salt);
   }
 
   static public function validatePasswordResetToken($memberNum, $now, $memberEmail, $strToken) {

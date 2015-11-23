@@ -37,6 +37,7 @@ class Base {
 
   public function renderFile($filePath, array $params = array()) {
     $this->var = \Tbmt\Arr::initMulti($params, $this->varsDef);
+    $filePath = str_replace('\\', DIRECTORY_SEPARATOR, $filePath);
 
     ob_start();
     try {

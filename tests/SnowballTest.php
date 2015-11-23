@@ -2,6 +2,13 @@
 
 class SnowballTest extends Tbmt_Tests_DatabaseTestCase {
 
+  static public function setUpBeforeClass() {
+    parent::setUpBeforeClass();
+
+    \Tbmt\DistributionStrategy::resetInstance();
+    \Tbmt\Config::set('distribution.strategy', 'Waterfall');
+  }
+
   public function testSnowballModel() {
     /* Setup
     ---------------------------------------------*/
@@ -30,7 +37,6 @@ class SnowballTest extends Tbmt_Tests_DatabaseTestCase {
     // ---- assert - ME
     $MYSELF_total->add(Transaction::REASON_ADVERTISED_LVL2);
     $MYSELF_total->assertTotals();
-
 
     /* chris advertise 1 user - dean
     ---------------------------------------------*/

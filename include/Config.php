@@ -18,6 +18,10 @@ class Config {
   static public function get($name, $type = TYPE_STRING, $default = false) {
     return Arr::init(self::$struct, $name, $type, $default);
   }
+
+  static public function set($name, $value) {
+    self::$struct[$name] = $value;
+  }
 }
 
 ?>

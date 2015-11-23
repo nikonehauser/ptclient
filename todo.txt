@@ -1,3 +1,15 @@
+- pdf einbauen
+
+- video einbauen, einmal slider, einmal als menüpunkt,
+
+- home links fixxen
+
+- contact email fixxen
+
+
+
+
+
 Fragen
 ======
 
