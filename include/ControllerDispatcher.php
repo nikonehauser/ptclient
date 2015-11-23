@@ -80,4 +80,18 @@ class ControllerActionAjax extends ControllerActionResult {
   }
 }
 
+class ControllerActionDownload extends ControllerActionResult {
+
+  public function execute() {
+    $data = $this->getData();
+    $name = $data['name'];
+    $contentType = $data['contentType'];
+    $path = $data['path'];
+
+    header("Content-Type: $contentType");
+    header("Content-Disposition: attachment; filename=\"$name\"");
+    readfile($path);
+  }
+}
+
 ?>

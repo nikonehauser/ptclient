@@ -171,6 +171,10 @@ return [
         'head_explanation' => 'Explanation',
         'head_part' => 'Step',
         'head_illustration' => 'Illustration',
+
+        'pdf_explanation' => 'We also prepared an illustrated explanation in an extra document. If you prefer to read a pdf document, ',
+        'pdf_explanation_link' => 'just click here',
+
         '1' => 'You become a donator through registering and paying the contribution of {0}. In our marketing system, you are automatically on payment level 1.',
         '1h' => ['$_member_fee_$'],
         '1_1' => 'You = donator',
@@ -285,7 +289,11 @@ return [
           'What is payment level 1?',
           'Explain this marketing system!',
           'Yes, I want to signup!',
-        ]
+        ],
+
+        'pdf_explanation_head' => 'Marketing system illustration',
+        'pdf_explanation' => 'We also prepared an illustrated explanation in an extra document. If you prefer to read a pdf document, ',
+        'pdf_explanation_link' => 'just click here',
       ],
 
       'signup' => [
@@ -570,6 +578,10 @@ return [
         'service_signup_title' => 'I want to join',
         'service_signup_desc' => 'Great! Just follow this link and fill in the signup form to get started!',
         'service_signup_btn' => 'Go to signup',
+
+        'pdf_explanation_head' => 'Marketing system illustration',
+        'pdf_explanation' => 'We also prepared an illustrated explanation in an extra document. If you prefer to read a pdf document, ',
+        'pdf_explanation_link' => 'just click here',
 
       ],
       'girls_schools' => [

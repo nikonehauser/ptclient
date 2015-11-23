@@ -102,4 +102,15 @@
     ?>
     </div>
 
+    <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['pdf_explanation_head'])?>
+    <div class="row">
+      <div class="col-md-12">
+
+      <?=\Tbmt\view\Factory::testimonial(
+        $this->i18nView['pdf_explanation'].'<a href="'.\Tbmt\Router::toModule('download', 'illustration').'" style="color:#EF4A43;">'.
+          $this->i18nView['pdf_explanation_link'].'</a>'
+      )?>
+      </div>
+    </div>
+
 </div>

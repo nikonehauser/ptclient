@@ -322,7 +322,7 @@ use \Tbmt\Router as R;
     </div>
       <div class="col-md-3">
         <div class="service-box fadein" style="height: 224px;">
-          <a href="<?=\Tbmt\Router::toModule('member')?>">
+          <a href="<?=\Tbmt\Router::toModule('about', 'faq')?>">
             <div class="service-icon" style="opacity: 1; margin-top: 0px;">
                 <i class="pe-7s-info"></i>
             </div><!-- // service-icon -->
@@ -340,7 +340,7 @@ use \Tbmt\Router as R;
     </div>
       <div class="col-md-3">
         <div class="service-box fadein" style="height: 224px;">
-          <a href="<?=\Tbmt\Router::toModule('member')?>">
+          <a href="<?=\Tbmt\Router::toModule('about')?>">
             <div class="service-icon" style="opacity: 1; margin-top: 0px;">
                 <i class="pe-7s-mail"></i>
             </div><!-- // service-icon -->
@@ -358,7 +358,7 @@ use \Tbmt\Router as R;
     </div>
       <div class="col-md-3">
         <div class="service-box fadein" style="height: 224px;">
-          <a href="<?=\Tbmt\Router::toModule('member')?>">
+          <a href="<?=\Tbmt\Router::toModule('member', 'signup')?>">
             <div class="service-icon" style="opacity: 1; margin-top: 0px;">
                 <i class="pe-7s-albums"></i>
             </div><!-- // service-icon -->
@@ -373,6 +373,23 @@ use \Tbmt\Router as R;
             </div><!-- // .service-action -->
           </a>
         </div><!-- // .service-box -->
+    </div>
+  </div>
+</div>
+
+<div class="container bottom-40">
+
+  <div class="heading-area text-center bottom-30 top-40">
+    <h4 class="heading large"><?=$this->i18nView['pdf_explanation_head']?></h4>
+  </div>
+
+  <div class="row nospace service-color-area">
+    <div class="col-md-12">
+
+    <?=\Tbmt\view\Factory::testimonial(
+      $this->i18nView['pdf_explanation'].'<a href="'.\Tbmt\Router::toModule('download', 'illustration').'" style="color:#EF4A43;">'.
+        $this->i18nView['pdf_explanation_link'].'</a>'
+    )?>
     </div>
   </div>
 </div>
