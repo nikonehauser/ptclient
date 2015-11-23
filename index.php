@@ -40,7 +40,7 @@ try {
 
     $params = array_merge([
       'basePath'    => '',
-      'windowtitle' => 'TostiMiltype'
+      'windowtitle' => ''
     ], $actionResult);
 
     echo (new view\Index())->render($params);
@@ -49,7 +49,7 @@ try {
 } catch (PublicException $e) {
   echo (new view\Index())->render([
     'basePath'    => '',
-    'windowtitle' => 'TostiMiltype',
+    'windowtitle' => '',
     'controllerBody' => view\PublicError::fromPublicException($e)
   ]);
 } catch (\Exception $e) {
@@ -59,7 +59,7 @@ try {
   error_log($e->__toString());
   echo (new view\Index())->render([
     'basePath'    => '',
-    'windowtitle' => 'TostiMiltype',
+    'windowtitle' => '',
     'controllerBody' => view\Error::fromException($e)
   ]);
 }
