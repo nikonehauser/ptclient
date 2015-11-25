@@ -1,3 +1,5 @@
+
+
 <?php
 $brandName = \Tbmt\Config::get('brand.name');
 $brandNameShort = \Tbmt\Config::get('brand.short');
@@ -122,9 +124,9 @@ return [
       ],
       'navigation_sublinks' => [
         'member' => [
-          'index' => 'Donator recruit members',
+          'index' => 'Donator recruits members',
           'system' => 'Our marketing system',
-          'signup' => 'Signup',
+          'signup' => 'Sign up',
         ],
         'account' => [
           'index' => 'Information',
@@ -141,7 +143,7 @@ return [
       'member_login' => 'Donator Login',
       'copyright_name' => $brandName,
 
-      'useful_link_contact' => 'You have questions? Just contact us!',
+      'useful_link_contact' => 'Any questions? Just contact us!',
       'useful_link_faq' => 'Frequently asked questions',
       'useful_link_terms' => 'Terms of Use',
       'useful_link_about_us' => 'About us'
@@ -151,7 +153,7 @@ return [
     ---------------------------------------------*/
     'member' => [
       'btn' => [
-        'signup' => 'Signup now'
+        'signup' => 'Sign up now'
       ],
       'text' => [
         'Donator advertises member'
@@ -162,86 +164,86 @@ return [
         'vs1' => 'Club donator level 1',
         'vs2' => 'Club donator level 2',
         'notice' => 'Notice',
-        'signup_now' => 'Signup Now',
+        'signup_now' => 'Sign up now',
         'etc' => 'etc.',
         'intro1' => 'This page will explain our {0} in detail',
         'intro1h' => ['marketing system'],
-        'intro2' => 'For better understanding we will follow a detailed example',
+        'intro2' => 'To make it easy we will follow a detailed example',
         'you' => 'You',
         'head_explanation' => 'Explanation',
         'head_part' => 'Step',
         'head_illustration' => 'Illustration',
 
-        'pdf_explanation' => 'We also prepared an illustrated explanation in an extra document. If you prefer to read a pdf document, ',
+        'pdf_explanation' => 'There is also an illustrated explanation in an extra document. If you prefer to read a pdf document, ',
         'pdf_explanation_link' => 'just click here',
 
-        '1' => 'You become a donator through registering and paying the contribution of {0}. In our marketing system, you are automatically on club donator level 1.',
+        '1' => 'You become a donator through registering and paying the contribution of {0}. In our marketing system you will automatically be on club donator level 1.',
         '1h' => ['$_member_fee_$'],
         '1_1' => 'You = donator',
 
-        '2' => 'Now you recruit your first two new donators, Anna and Bernd.',
-        '3' => 'Thereby you earn {0} each on level 1, hence altogether you earn {1}.',
+        '2' => 'Now you recruit your first two new donators Durga and Kamal.',
+        '3' => 'Thereby you will earn {0} each on level 1, hence altogether you earn {1}.',
         '3h' => ['$_lvl1_$', '$_2_times_lvl1_$'],
-        '4' => 'As you have recruited two new donators successfully, you automatically rise to club donator level 2.',
-        '5' => 'Now you recruit your third new donator, Chris.',
-        '6' => 'Thereby you earn a payment of {0} on level 2.',
+        '4' => 'When you have recruited two new donators successfully, you automatically get club donator level 2.',
+        '5' => 'Now you recruit your third new donator, Jivan.',
+        '6' => 'Thereby you will earn {0} on level 2.',
         '6h' => ['$_lvl2_$'],
-        '7' => 'For every additional donator that you recruit in the future, you would also earn {0} each.',
+        '7' => 'For every additional donator you recruit in the future, you will also earn {0} each.',
         '7h' => ['$_lvl2_$'],
-        '8' => 'Since Chris is now a donator, he automatically is on club donator level 1.',
-        '9' => 'You now recruit – for example, because of a severe disease or because of an accident – no more donators.',
-        '10' => 'But Chris recruits, as you have done before, his first two new donators, Dean and Emi.',
-        '11' => 'Chris thereby earns a {0} payment for each recruited donator on level 1, thus altogether {1}.',
+        '8' => 'Since Jivan is now a donator, he automatically is on club donator level 1.',
+        '9' => 'Should you not be able to recruit any more donators',
+        '10' => 'but Jivan recruits, just like you did before, his first two new donators, Rati and Lila.',
+        '11' => ' Jivan thereby earns {0} for each recruited donator on level 1, thus altogether {1}.',
         '11r' => ['$_lvl1_$', '$_2_times_lvl1_$'],
-        '12' => 'You earn a payment of {0} for each recruited donator in this case, thus altogether {1}.',
+        '12' => 'You earn {0} for each recruited donator in this case, thus altogether {1}.',
         '12h' => ['$_indirect_$', '$_2_times_indirect_$'],
         '13' => '{0}',
-        '13h' => ['At this point you already earn payments without becoming active yourself!'],
-        '14' => 'Already now – {0} – you have earned {1} {2}',
-        '14h' => ['after just one week', '$_after_one_week_$', 'and almost entirely balanced your membership contribution!'],
-        '15' => 'Chris rises automatically to club donator level 2 after his first two successful recruitings.',
-        '16' => 'As you and Chris now have the same club donator level, you do not earn anything anymore when Chris recruits new donators.',
-        '17' => 'However, now Dean and Emi are placed into your tree.',
-        '18' => 'This happens to each of our donators. The first two new recruited donators are assigned to the donator that has once recruited the recruiting donator.',
-        '19' => 'After Dean and Emi have paid their donatorship fee, they both are on club donator level 1.',
-        '20' => 'Now Dean and Emi each recruit their first two new donators, Frank, Gisele, Heinz and Ida.',
-        '21' => 'Thereby Dean and Emi earn {0} for each recruited donator and you earn {1} each, thus altogether you earn {2}.',
+        '13h' => ['At this point you already earn money without being active yourself!'],
+        '14' => '{0} – you have already earned {1} {2}',
+        '14h' => ['After just one week', '$_after_one_week_$', 'and almost entirely balanced your membership contribution!'],
+        '15' => ' Jivan automatically gets club donator level 2 with his first two successful recruitings.',
+        '16' => 'As soon as you and Jivan have the same club donator level, you do not get paid when Jivan recruits new donators.',
+        '17' => 'However, now Rati and Lila are placed into your tree.',
+        '18' => 'Because the first two new recruited donators (Rati and Lila) are assigned to the donator (you) that has advertised the recruiting donator (Jivan)in the first place.',
+        '19' => 'After Rati and Lila have paid their donatorship fee, they both are on club donator level 1.',
+        '20' => 'Now Rati and Lila each recruit their first two new donators, Devi, Kumar, Gita and Karan.',
+        '21' => 'Thereby Rati and Lila earn {0} for each recruited donator and you get {1} each, thus altogether you earn {2}.',
         '21h' => ['$_lvl1_$', '$_indirec_$', '$_4_times_indirect_$'],
-        '22' => 'Now Dean and Emi rise to level 2 after their first two successful recruitings.',
-        '23' => 'From now on, you do not earn anything when Dean and Emi recruit new donators.',
-        '24' => 'However, now Frank, Gisele, Heinz and Ida are placed into your tree. As they have already paid their contribution, they are all on club donator level 1.',
-        '25' => 'Now Frank, Gisele, Heinz and Ida recruited their first two donators each.',
-        '26' => 'Thereby Frank, Gisele, Heinz and ida earn {0} for each donator and you earn {1} each, thus altogether you earn {2}.',
+        '22' => 'Now Rati and Lila get donator level 2 after their first two successful recruitings.',
+        '23' => 'From now on, you do not earn anything when Rati and Lila recruit new donators.',
+        '24' => 'However, now Devi, Kumar, Gita and Karan are placed into your tree. As they have already paid their contribution, they are all on club donator level 1.',
+        '25' => 'Now Devi, Kumar, Gita and Karan recruited their first two donators each.',
+        '26' => 'Thereby Devi, Kumar, Gita and Karan earn {0} for each donator and you earn {1} each, thus altogether you earn {2}.',
         '26h' => ['$_lvl1_$', '$_indirec_$', '$_8_times_indirect_$'],
-        '27' => 'Now you have already not only balanced your membership fee and returned your investment, but also earned something on top of that.',
+        '27' => 'You now have not only balanced your membership fee and returned your investment but also earned money on top of that.',
         '28' => 'And how long did it take?',
         '29' => 'From experience, it takes one day on average, until a donator recruits a new donator successfully.',
-        '30' => 'Therefore, this example would take 10 to 14 days, for example.',
-        '31' => 'If every future donator only recruits two new donators, but only needs one week on average, your earnings develop as you can see in the table:',
+        '30' => 'Therefore, this example would take 10 to 14 days.',
+        '31' => 'If every future donator only recruits two new Donators and takes one week on average, your earnings develop as you can see in the following table:',
         '31_week' => 'Week',
-        '32' => '{0} you therefore already earned {1} {2} and have helped yourself according to our club motto “Help Yourself”.',
+        '32' => '{0} you therefore already earned {1} {2}',
         '32h' => ['After approximately ten weeks', 'more than', '$_after_10_weeks_$'],
-        '33' => 'Of course this will not work indefinitely, because the number of people are naturally limited. There were and are, however, marketing systems worldwide and in different economic fields that have created a sheer endless number of prosperous people and are still creating new ones.',
-        '34' => 'With us, donators who have decided to recruit new donators, especially  early on, will earn lots and lots of money.',
-        '35' => 'Trustworthy mathematical calculations project that donators who became active in the first 12 months after starting the marketing system and at least recruit three new donators, will earn altogether {0} to {1} in the first 12 months.',
+        '33' => 'Of course this will not work infinitely, because the number of people are naturally limited. There were and are, however, marketing systems worldwide and in different economic fields that have created a sheer endless number of prosperous people and are still creating new ones.',
+        '34' => 'With us, donators who have decided to recruit new donators, especially  early on, you will earn lots and lots of money.',
+        '35' => 'Trustworthy mathematical calculations project that donators who became active in the first 12 months after starting the marketing system and at least recruit three new donators, will earn a total of {0} to {1} in the first 12 months.',
         '35h' => ['$_lvl1_$', '$_lvl1_$'],
-        '36' => 'There are no limits on the very top. If only one donator recruits e.g. 10, 15 or 20 or even more donators, naturally considerably higher earnings are possible.',
-        '37' => 'However, we will also have donators, who with mediocre effort will just earn a meager amount, for example a few thousand dollars.',
+        '36' => 'There are no limits: If only one donator recruits e.g. 10, 15 or 20 or even more donators, naturally considerably higher earnings are possible.',
+        '37' => 'However, we will also have donators who will just earn a meager amount caused by mediocre effort, for example a few thousand dollars.',
         '38' => 'Then we will also have donators who will only earn very few, for example only few hundreds of dollars.',
-        '39' => 'And of course in the future, probably in a few years, we will also have cases of donators which will not earn anything. They have through their contribution facilitated the earnings of the other donators and the development of several social projects and thus sponsored their {0} directly for the goods of their fellow people.',
+        '39' => 'And of course in the future, probably in a few years, we will also have cases of donators who will not earn anything. Through their contribution they have facilitated the earnings of the other donators and the development of several social projects and thus sponsored their {0} directly for the goods of their fellow people.',
         '39h' => ['$_member_fee_$'],
-        '40' => 'We also need to say that, due to the way the system works, you will earn less in dependence of how near we are to the end of recruiting. It is mostly unpredictable but someday the system will stagnate until there will be no new donators. That day we will close the signup and start to realize benificial projects.',
+        '40' => 'Due to the way the system  works, you will earn less depending on how near we are to the end of recruiting. It is mostly unpredictable but someday the system will stagnate as soon as there are no new donators. That day we will close the register and start to carry out beneficial projects.',
         '41' => 'The specific development of your personal profits can hardly be predicted. However, the possibilities result from each donator’s personal effort.',
-        '42' => 'If you believe,',
-        '43' => 'That you can recruit at least three new donators',
-        '44' => 'That these donators again can recruit two new donators',
-        '45' => 'That these new donators each can recruit at least two new donators',
-        '46' => 'Then you can rest assured that your contribution is reimbursed within 30 days and that you additionally will have scored your first profit.',
-        '47' => 'Furthermore, if you believe that over a course of only three months each new donator at least recruits three new donators, then we can congratulate you because, if it happens like that, you will earn lots and lots of money with us and will be able to afford yourself a whole new quality of life.',
-        '48' => 'You will be able to afford things which you have never thought of before. You will be able to support your family, enjoy best medical care, buy a new car, spend no time thinking about what to live from when you’re old, etc.',
-        '49' => 'Exactly that is the whole purpose of our association!',
+        '42' => 'If you believe that,',
+        '43' => 'you can recruit at least three new donators',
+        '44' => 'these donators again can recruit two new donators',
+        '45' => 'these new donators each can recruit at least two new donators',
+        '46' => 'Then your contribution will be reimbursed within around 15 - 25 days and  you additionally will have scored your first profit.',
+        '47' => 'Furthermore, if you believe that over a course of only three months each new donator at least recruits three new donators, you will earn lots and lots of money with us and will be able to afford a whole new living standard.',
+        '48' => 'You will be able to afford things you have never thought of before. You will be able to support your family, enjoy best medical care, buy a new car, spend no time thinking about what to live from when you’re old, etc.',
+        '49' => 'Exactly that is the whole purpose of the Betterliving Club!',
         '50' => 'Take action now',
-        '51' => 'Here you can register for a better life:',
+        '51' => 'You can register for a better life right here:',
       ],
 
       'index' => [
@@ -254,8 +256,8 @@ return [
           'For those who deserve',
         ],
         'basic_idea_text' => [
-          'Basically every human can become a donator of the '.$brandName.'. The {onetime} contribution is only {member_fee}.',
-          'Every donator can recruit new donators for the '.$brandName.' within the “donators recruit new donators” marketing system, and thereby achieve a constant and, above all, {passive_income}.',
+          'Everybody can become a donator of the '.$brandName.'. The {onetime} contribution is only {member_fee}.',
+          'Every donator can advertise new donators for the '.$brandName.' within the “donators recruit new donators” marketing System, thereby achieve a constant and above all {passive_income}.',
           'Citizens living in rich countries are not allowed to become a donator of the '.$brandName,
         ],
         'basic_idea_highlights' => [
@@ -265,41 +267,41 @@ return [
         ],
 
         'forbidden_countries' => 'Forbidden countries',
-        'why_forbidden_countries' => 'Why forbid these countries',
-        'forbidden_countries_text' => 'Each citizen of those countries has sufficient access to education, jobs, medical treatments and social welfare, thus we do not offer these citizens access to our self-help club.',
+        'why_forbidden_countries' => 'Why these countries are forbidden',
+        'forbidden_countries_text' => 'Each citizen of those countries has sufficient access to education, jobs, medical treatments and social welfare, thus we do not offer these citizens access to the Betterliving club.',
 
         'become_member_title' => 'I want to be donator',
-        'become_member_text' => 'If you also want to become a donator, then please register here on our homepage and pay the membership fee of {member_fee} within 10 days. Then you are a donator of the '.$brandName.' and you can use our fantastic marketing system to achieve a permanent and {passive_income}.',
+        'become_member_text' => 'If you also want to be a donator, please register on this homepage and pay the membership fee of {member_fee} within 10 days. This will make you a donator of the '.$brandName.' and you can use our fantastic marketing system to achieve a permanent and {passive_income}.',
         'become_member_highlights' => [
           'passive_income' => 'passive income',
           'member_fee' => '$_member_fee_$'
         ],
 
 
-        'member_starting' => 'What will i get as donator',
+        'member_starting' => 'Why should I make a donation',
         'member_starting_title' => [
           'Club donator level 1',
           'Marketing System',
           'Immediately start recruiting',
         ],
         'member_starting_text' => [
-          'In our “Donators recruit new donators” marketing system you are automatically integrated on club donator level 1.',
-          'We want to show you in the following explanation of our marketing system what this means for you.',
-          'Directly after you have finished your registration, you can recruit new donators for the '.$brandName.' via this homepage.',
+          'In our “Donators advertise new donators” marketing system you automatically are on club donator level 1.',
+          'The meaning of the marketing system will be explained in the following.',
+          'Right after you have finished your registration you can recruit new donators for the '.$brandName.' via this homepage.',
         ],
         'member_starting_button' => [
-          'What is club donator level 1?',
-          'Explain this marketing system!',
-          'Yes, I want to signup!',
+          'What does club donator level 1 mean?',
+          'Explanation of the marketing system!',
+          'Yes, I want to sign up!',
         ],
 
         'pdf_explanation_head' => 'Marketing system illustration',
-        'pdf_explanation' => 'We also prepared an illustrated explanation in an extra document. If you prefer to read a pdf document, ',
+        'pdf_explanation' => 'We also prepared an illustrated explanation in an extra document. Should you prefer reading a pdf document, ',
         'pdf_explanation_link' => 'just click here',
       ],
 
       'signup' => [
-        'page_title' => 'Signup for membership',
+        'page_title' => 'Sign up to be a donator',
         'form_error' => 'Form has invalid fields.',
         'form_labels' => [
           'contact' => 'Contact',
@@ -307,7 +309,7 @@ return [
           'bank_account' => 'Bank Account',
           'confirm' => 'Confirm',
 
-          'referral_member_num' => 'Referrer Donator Number',
+          'referral_member_num' => 'Referrer donator number',
           'invitation_code' => 'Invitation Code (optional)',
           'firstName' => 'First name',
           'lastName' => 'Last name',
@@ -324,21 +326,21 @@ return [
           'password2' => 'Repeat password',
 
           'accept_agbs' => 'I have read and accept the terms and conditions',
-          'accept_valid_country' => 'I confirm that i am NOT citizen of one of following countries:',
+          'accept_valid_country' => 'I confirm that I am NOT a citizen of one of the following countries:',
           'not_accepted_countries' => '',
 
           'submit' => 'Submit',
 
-          'bank_account_info' => 'We will never charge your bank account. But you will receive your provisions for your referalls at this account.',
-          'email_info' => 'You will never receive spam from us. We need your E-Mail to contact you if for example we have failures to transfer your provisions. If you have no email you can register for free there: ',
+          'bank_account_info' => 'We will never charge your bank account. But your payments for your referrals will be paid into this account.',
+          'email_info' => 'You will never receive spam from us. We need your e-mail address to contact you in case there are problems with transferring money. If you do not have an e-mail address you can register here for free: ',
         ]
       ],
 
       'signupSuccess' => [
         'page_title' => 'Successfully signed up',
         'welcome' => 'Welcome to "'.$brandName.'".',
-        'new_member_num' => 'Your donator number is {num}. Please note this number.',
-        'info' => 'Use it to invite new donators to help them and yourself.',
+        'new_member_num' => 'Your personal donator number is {num}. Make sure to rememeber this number.',
+        'info' => 'You will need it to invite new donators in order to help them and yourself.',
       ]
     ],
 
@@ -349,7 +351,7 @@ return [
       'login' => [
         'page_title' => 'Donator Login',
         'error' => 'Error',
-        'password_reset' => 'Password forgotten?',
+        'password_reset' => 'Forgot your password?',
         'form_labels' => [
           'login' => 'Login',
 
@@ -378,8 +380,8 @@ return [
           'your_num' => 'Your donator number',
           'warning' => 'Warning!',
           'tank_you' => 'Thank You!',
-          'unpaid_text' => 'We did not receive your donator fee yet!',
-          'paid_text' => 'We received your donator fee.',
+          'unpaid_text' => 'We have not received your donator fee yet!',
+          'paid_text' => 'We have received your donator fee.',
           'address' => 'Address',
           'email' => 'Email',
           'email_none' => '-none-',
@@ -395,8 +397,8 @@ return [
           'change_pwd' => 'Change password',
 
           'welc_not_1' => 'Welcome {name}',
-          'welc_not_2' => 'This is you profile where you can find various information',
-          'welc_not_3' => 'IMPORTANT! Note your donator number! You will need it for login, recruting etc.',
+          'welc_not_2' => 'This is your profile. You can find various information here',
+          'welc_not_3' => 'IMPORTANT! Always remember your donator number! You will need it to login, recruit others etc.',
         ],
         'invoice' => [
           'stats' => 'Statistics',
@@ -436,8 +438,8 @@ return [
         'invitation' => [
           'form_title' => 'Create new invitation',
           'type' => 'Type',
-          'free_signup' => 'Free signup',
-          'promoter_num' => 'On the recommendation of Promoter (Num)',
+          'free_signup' => 'Free registration',
+          'promoter_num' => 'On the recommendation of promoter (Num)',
           'submit' => 'Submit',
 
           'list_title' => 'Invitations',
@@ -510,7 +512,7 @@ return [
         'page_title' => 'Password reset',
         'error' => 'Error!',
         'success' => 'Success!',
-        'success_msg' => 'We have send you an email with further instructions.',
+        'success_msg' => 'We have sent you an email with further instructions.',
         'form_labels' => [
           'num' => 'Your donator number',
           'submit' => 'Reset password',
@@ -527,7 +529,7 @@ return [
         'page_title' => 'Change your password',
         'error' => 'Error!',
         'success' => 'Success!',
-        'success_msg' => 'We have send you an email with further instructions.',
+        'success_msg' => 'We have sent you an email with further instructions.',
         'form_labels' => [
           'old_pwd' => 'Current password',
           'new_pwd' => 'New password',
@@ -545,20 +547,20 @@ return [
         'page_title' => 'Projects',
         'about_us_title' => 'About us and our idea',
         'about_us_title2' => 'Help yourself AND others',
-        'planed_projects_title' => 'Our planeed Projects for self-help',
+        'planed_projects_title' => 'Our planned projects for the future',
         'affected_countries_title' => 'Countries we want to help',
 
         'why_poor_head' => 'EVER WONDERED WHY INDIA BECAME SO POOR',
-        'why_poor_quote' => 'A significant fact which stands out is that those parts of India which have been longest under British rule are the poorest today.',
+        'why_poor_quote' => 'A significant fact is that the parts of India that have been under British control for a long time are the least wealthy today.',
         'why_poor_quote_author' => 'Jawaharlal Nehru',
         'why_poor_quote_author_org' => 'First Prime Minister of India',
 
-        'against_poverty_head' => 'So we are against poverty',
-        'against_poverty_sub' => 'and therefore developed this marketing sytem to change things for us',
+        'against_poverty_head' => 'We are against poverty',
+        'against_poverty_sub' => 'We developed this marketing sytem to change lives to the better',
         'we_foundation' => 'Foundation',
-        'we_foundation_description' => 'The club has been founded for people who for various reasons – for example, the economic and political circumstances – have only few or no options to achieve a better life for themselves on their own.',
+        'we_foundation_description' => 'The club has been founded for people who have few to no options to achieve a better life for themselves. This might be caused by various reasons like economic and political circumstances. .',
         'we_system' => 'Marketing System',
-        'we_system_description' => 'On the one hand, the club offers a direct way to help yourself through a marketing system and, on the other hand, we try to help by supporting beneficial social projects.',
+        'we_system_description' => 'On the one hand the club offers a direct way to help yourself through a marketing system and on the other hand it helps by supporting beneficial social projects.',
 
         'we_fee' => 'One time fee',
         'we_fee_description' => 'Both concepts are financed by 100% from the one-time contributions of the club donators.',
@@ -566,23 +568,23 @@ return [
         'where_to_go_head' => 'where to go from here',
 
         'service_ms_title' => 'Marketing System',
-        'service_ms_desc' => 'Sounds great! Where can i get more information about this marketing system?',
-        'service_ms_btn' => 'Click me!',
+        'service_ms_desc' => 'Sounds great! Where can I get more information about this marketing system?',
+        'service_ms_btn' => 'Click here!',
 
-        'service_faq_title' => 'I have some questions',
-        'service_faq_desc' => 'No problem, just got to our FAQ section. You will find answers there?',
+        'service_faq_title' => 'I have questions',
+        'service_faq_desc' => 'No problem, just go to the FAQ section. You will find answers there',
         'service_faq_btn' => 'Go to FAQ',
 
         'service_contact_title' => 'I still have questions',
-        'service_contact_desc' => 'Still no problem! Just contact us. We will answer any question!',
+        'service_contact_desc' => 'Still no problem! Just contact us and we will answer any question!',
         'service_contact_btn' => 'Contact us',
 
         'service_signup_title' => 'I want to join',
-        'service_signup_desc' => 'Great! Just follow this link and fill in the signup form to get started!',
-        'service_signup_btn' => 'Go to signup',
+        'service_signup_desc' => 'Great! Just follow this link and fill in the registration form to get started!',
+        'service_signup_btn' => 'Go to registration',
 
         'pdf_explanation_head' => 'Marketing system illustration',
-        'pdf_explanation' => 'We also prepared an illustrated explanation in an extra document. If you prefer to read a pdf document, ',
+        'pdf_explanation' => 'There is also an illustrated explanation in an extra document. Should you prefer reading a pdf document, ',
         'pdf_explanation_link' => 'just click here',
 
       ],
@@ -607,7 +609,7 @@ return [
 
           'submit' => 'Submit'
         ],
-        'signup_success' => 'Successfully transferred message. We will hurry to process your request!',
+        'signup_success' => 'Successfully transferred message. Your request is being processed',
         'success' => 'Success!',
       ],
 
@@ -617,32 +619,31 @@ return [
         'welcome_faqh' => ['Asked'],
 
         'items' => [
-          'When does the projects get started',
-          '...',
+          'When do the projects get started?',
+          'As soon as the first donations are being made the planning process will begin. After the first two months of running the system, the projects will be started.',
 
-          'Can I follow the projects progress?',
-          '...',
+          'Can I follow the progressing project?',
+          'Of course! There will be a news feed on the Betterliving homepage which will be updated weekly.',
 
-          'When does the projects get started',
-          '...',
+          'How long does the Betterliving club support the projects?',
+          'There will be support from the club until the project is fully accomplished. If you are interested in the progress of each project just take a look at the news feed.',
 
-          'When will I get my provisions',
-          '...',
+          'When will I get paid?',
+          'As soon as your donation (or your advertised donators’ donations) have been transferred to the club, your payments will be booked into your account. ',
 
-          'What does happen if I sign up but do not pay the donator fee',
-          '...',
+          'What happens if I sign up but do not pay the donator fee?',
+          'We expect your donation within 14 days. If no payment has taken place during that time, you will not be able to receive any payments yourself.',
 
-          'Why do you need an email address from myself?',
-          '...',
+          'What do you need my email address for?',
+          'In case you forget your password or there is any problem at all, we have a chance to contact you.',
+
+
+          'How do I pay the donator fee?',
+          'You will have to transfer the money. Usually, this transfer will take around 2-3 days.',
 
           'I still have questions',
-          '...',
+          'You can email any question to this address: info@betterliving.social',
 
-          'How to pay the donator fee?',
-          '...',
-
-          'I paid the donator fee a view days ago but I still see the message that i did not paid yet?',
-          '...',
         ]
       ],
     ]
@@ -655,7 +656,7 @@ return [
   'mail' => [
     'password_reset' => [
       'subject' => 'Password reset',
-      'body' => "We heard that you lost your {web_page_name} password. Sorry about that!\n\r
+      'body' => "You have lost your {web_page_name} password. Sorry about that!\n\r
 But don’t worry! You can use the following link within the next day to reset your password:\n\r
 {link}\n\r
 If you don’t use this link within 24 hours, it will expire.\n\r
