@@ -1,6 +1,12 @@
-
-
 <?php
+
+/*
+
+(\w|\.|\%|,)[\r\n](\w|\.|\%|,)
+$1 $2
+
+*/
+
 $brandName = \Tbmt\Config::get('brand.name');
 $brandNameShort = \Tbmt\Config::get('brand.short');
 
@@ -124,7 +130,7 @@ return [
       ],
       'navigation_sublinks' => [
         'member' => [
-          'index' => 'Donator recruits members',
+          'index' => 'Donators recruits donators',
           'system' => 'Our marketing system',
           'signup' => 'Sign up',
         ],
@@ -145,8 +151,8 @@ return [
 
       'useful_link_contact' => 'Any questions? Just contact us!',
       'useful_link_faq' => 'Frequently asked questions',
-      'useful_link_terms' => 'Terms of Use',
-      'useful_link_about_us' => 'About us'
+      'useful_link_terms' => 'Terms of Use (Work in progress)',
+      'useful_link_about_us' => 'About us (Work in progress)'
     ],
 
     /* VIEWS - MEMBER
