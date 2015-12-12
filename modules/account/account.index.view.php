@@ -27,6 +27,9 @@ class AccountIndex extends Base {
       $arr[] = 'bonus_payments';
       $arr[] = 'bonus_levels';
 
+      if ( \Tbmt\Config::get('devmode', \Tbmt\TYPE_BOOL, false) )
+        $arr[] = 'dev_paying';
+
     }
 
     foreach ($arr as $linkName) {

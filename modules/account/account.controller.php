@@ -19,6 +19,9 @@ class AccountController extends BaseController {
     'bonus_levels' => true,
     'bonus_levels_signup' => true,
     'ajax_tree' => true,
+
+    'dev_paying' => true,
+    'do_dev_paying' => true,
   ];
 
   public function dispatchAction($action, $params) {
@@ -260,6 +263,46 @@ class AccountController extends BaseController {
     }
 
     return new ControllerActionAjax($rows);
+  }
+
+  public function action_dev_paying() {
+    return ControllerDispatcher::renderModuleView(
+      self::MODULE_NAME,
+      'index',
+      ['member' => Session::getLogin()]
+    );
+  }
+
+  public function action_do_dev_paying() {
+    if ( !\Tbmt\Config::get('devmode', \Tbmt\TYPE_BOOL, false) || !isset($_REQUEST['fake_income_num']) )
+      throw new PageNotFoundException();
+
+    $member = \Member::getByNum($_REQUEST['fake_income_num']);
+
+    $con = \Propel::getConnection();
+    if ( !$con->beginTransaction() )
+      throw new Exception('Could not begin transaction');
+
+    try {
+      $member->onReceivedMemberFee(
+        \Transaction::$BASE_CURRENCY,
+        time(),
+        $con
+      );
+
+      if ( !$con->commit() )
+        throw new Exception('Could not commit transaction');
+
+    } catch (Exception $e) {
+        $con->rollBack();
+        throw $e;
+    }
+
+    return ControllerDispatcher::renderModuleView(
+      self::MODULE_NAME,
+      'index',
+      ['member' => Session::getLogin(), 'tab' => 'dev_paying']
+    );
   }
 
 }

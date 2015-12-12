@@ -1,6 +1,12 @@
-- pdf einbauen
+ - email nach der anmeldung
+ - email nach geldeingang
 
-- video einbauen, einmal slider, einmal als menüpunkt,
+ - link zur website NGO
+
+ - PDF als quittung
+
+ - tarik jung - 50 rupien
+ - tarik alt - 50 rupien
 
 
 

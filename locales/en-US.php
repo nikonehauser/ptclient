@@ -377,7 +377,8 @@ return [
           'htree' => 'Hierarchy Tree',
           'invitation' => 'Invitations',
           'bonus_payments' => 'Bonus Payments',
-          'bonus_levels' => 'Bonus Levels'
+          'bonus_levels' => 'Bonus Levels',
+          'dev_paying' => 'DevTest Paying'
         ]
       ],
       'tabs' => [
@@ -506,6 +507,9 @@ return [
           'list_title' => 'Bonus donators',
           'member_num' => 'Donator number',
           'date' => 'Date',
+        ],
+        'dev_paying' => [
+          'view_title' => 'DevTest paying'
         ]
       ]
     ],
