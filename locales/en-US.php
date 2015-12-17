@@ -7,6 +7,8 @@ $1 $2
 
  */
 
+$faqItems = include 'faq.php';
+
 $brandName = \Tbmt\Config::get('brand.name');
 $brandNameShort = \Tbmt\Config::get('brand.short');
 
@@ -621,6 +623,8 @@ return [
         'welcome_faq' => 'Frequently {0} Questions',
         'welcome_faqh' => ['Asked'],
 
+        'items' => $faqItems,
+        /*
         'items' => [
           'When do the projects get started?',
           'As soon as the first donations are being made the planning process will begin. After the first two months of running the system, the projects will be started.',
@@ -648,6 +652,7 @@ return [
           'You can email any question to this address: info@betterliving.social',
 
         ],
+        */
       ],
     ],
   ],
