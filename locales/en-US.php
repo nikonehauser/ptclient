@@ -144,6 +144,7 @@ return [
         'about' => [
           'index' => 'Contact',
           'faq' => 'FAQ',
+          'terms' => 'Terms of Use',
         ],
       ],
       'member_login' => 'Donator Login',

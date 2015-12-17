@@ -37,6 +37,7 @@ class AboutController extends BaseController {
   protected $actions = [
     'index' => true,
     'faq' => true,
+    'terms' => true,
     'contact_submit' => true
   ];
 
