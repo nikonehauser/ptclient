@@ -1,44 +1,21 @@
 <?=Tbmt\view\Factory::buildPageTitle($this->i18nView['page_title'])?>
 
-  <?php
+<div class="container">
+  <div class="heading-area text-center bottom-30 top-30">
+    <h4 class="heading large">This project is managed and produced by</h4>
+  </div>
 
-    $formBuilder = new \Tbmt\FormBuilder('signupForm', $this->formLabels, $this->formVal, $this->formErrors);
+  <div class="row bottom-30 sheet">
+      SHADOW FOUNDATIon NGO Ram Bagh Payeen (<a href="https://www.shadowfoundation.org">www.shadowfoundation.org</a>)<br>
 
-  ?>
+      Srinagar<br>
 
-    <!--
-      FORM
-      *************************** -->
+      President: Tariq Hafiz<br>
 
-    <form action="<?=\Tbmt\Router::toModule('about', 'contact_submit')?>" method="post" class="form">
-      <div class="container content-inner">
-        <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['form_title'], 'bottom-30')?>
+      Hafizullah Dar<br>
 
-        <div class="row">
-        <div class="sheet clearfix">
+      Rambagh Srinagar<br>
 
-            <?php if ( $this->successmsg ) {
-              echo \Tbmt\view\Factory::buildNotification($this->i18nView['signup_success'], $this->i18nView['success'], 'success top');
-            } ?>
-
-            <div class="col-md-6">
-                <?php echo $formBuilder->buildFieldGroup('name'); ?>
-            </div>
-            <div class="col-md-6">
-                <?php echo $formBuilder->buildFieldGroup('email'); ?>
-            </div>
-
-            <div class="col-md-12">
-                <?php echo $formBuilder->buildFieldGroup('subject'); ?>
-            </div>
-
-            <div class="col-md-12">
-                <?php echo $formBuilder->buildFieldGroup('message', 'textarea'); ?>
-            </div>
-
-            <?=\Tbmt\view\Factory::buildSubmitBtn($this->formLabels['submit'], 'blue top-20')?>
-
-      </div>
-      </div>
-    </div>
-  </form>
+      Mobile Phone: 9906893689
+  </div>
+</div>

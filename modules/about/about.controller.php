@@ -36,6 +36,7 @@ class AboutController extends BaseController {
 
   protected $actions = [
     'index' => true,
+    'contact' => true,
     'faq' => true,
     'terms' => true,
     'contact_submit' => true
@@ -46,7 +47,7 @@ class AboutController extends BaseController {
     if ( $valid !== true ) {
       return ControllerDispatcher::renderModuleView(
         self::MODULE_NAME,
-        'index',
+        'contact',
         ['formErrors' => $data]
       );
     }
@@ -60,7 +61,7 @@ class AboutController extends BaseController {
 
     return ControllerDispatcher::renderModuleView(
       self::MODULE_NAME,
-      'index',
+      'contact',
       ['successmsg' => true, 'formVal' => []]
     );
   }

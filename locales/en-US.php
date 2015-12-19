@@ -125,7 +125,7 @@ return [
       'navigation_links' => [
         'member' => 'The Idea',
         'projects' => 'Home',
-        'about' => 'Contact',
+        'about' => 'About Us',
         'account' => 'Profile',
       ],
       'navigation_sublinks' => [
@@ -142,7 +142,8 @@ return [
           'logout' => 'Logout',
         ],
         'about' => [
-          'index' => 'Contact',
+          'index' => 'About Us',
+          'contact' => 'Contact',
           'faq' => 'FAQ',
           'terms' => 'Terms of Use',
         ],
@@ -609,6 +610,10 @@ return [
     'about' => [
 
       'index' => [
+        'page_title' => 'About Us',
+      ],
+
+      'contact' => [
         'page_title' => 'Contact',
         'form_title' => 'Contact form',
         'form_labels' => [
