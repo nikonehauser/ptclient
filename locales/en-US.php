@@ -11,6 +11,7 @@ $faqItems = include 'faq.php';
 
 $brandName = \Tbmt\Config::get('brand.name');
 $brandNameShort = \Tbmt\Config::get('brand.short');
+$webPageName = 'Better living club';
 
 return [
   'common' => [
@@ -686,12 +687,29 @@ return [
   'mail' => [
     'password_reset' => [
       'subject' => 'Password reset',
-      'body' => "You have lost your {web_page_name} password. Sorry about that!\n\r
-But don’t worry! You can use the following link within the next day to reset your password:\n\r
-{link}\n\r
-If you don’t use this link within 24 hours, it will expire.\n\r
-Thanks,\n\r
-Your friends at {web_page_name}",
+      'body' => "You have lost your $webPageName password. Sorry about that!\n
+But don’t worry! You can use the following link within the next day to reset your password:\n
+{link}\n
+If you don’t use this link within 24 hours, it will expire.\n
+Thanks,\n
+Your friends at $webPageName",
+    ],
+
+    'signup_confirm' => [
+      'subject' => 'Signup confirmation - Betterliving',
+      'body' => "Hallo {fullname}
+Thank you for registering for $webPageName!\n
+It is great to have you with us.\n
+It is the first step into a better live.\n
+\n
+This is your donator number: {num}\n
+\n
+You best note it down. You need this number to login into our webpage and to recruit other donators.\n
+\n
+If you have any questions, just do not hesitate and contact us!\n
+\n
+Best regards,\n
+Your friends at $webPageName",
     ],
   ],
 ];

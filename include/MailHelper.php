@@ -25,6 +25,24 @@ class MailHelper {
     );
   }
 
+  static public function sendSignupConfirm(\Member $member) {
+    $email = $member->getEmail();
+    $locale = Localizer::get('mail.signup_confirm');
+
+    $num = $member->getNum();
+    $fullName = \Tbmt\view\Factory::buildMemberFullNameString($member);
+
+    return self::send(
+      $email,
+      $fullName,
+      $locale['subject'],
+      Localizer::insert($locale['body'], [
+        'fullname' => $fullName,
+        'num' => $num
+      ], false)
+    );
+  }
+
   static public function sendContactFormMail($fromMail, $fromName, $subject, $body) {
     $body = "From mail: $fromMail\n\r".
       "From name: $fromName\n\r\n\r".
