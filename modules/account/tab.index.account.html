@@ -75,5 +75,12 @@
               <dt><?=$this->i18nView['bic']?></dt>
               <dd><?=Base::encodeHtml($this->member->getBic())?></dd>
           </dl>
+
+          <?=\Tbmt\view\Factory::buildButton(
+            $this->i18nView['change_bank'],
+            \Tbmt\Router::toModule('manage', 'change_bank'),
+            ' blue pull-right',
+            'credit-card'
+          )?>
       </div>
     </div>

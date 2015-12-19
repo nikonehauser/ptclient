@@ -1,0 +1,33 @@
+<?=Tbmt\view\Factory::buildPageTitle($this->i18nView['page_title'])?>
+
+<div class="container top-30 bottom-30">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <!--<form action="" method="post">-->
+            <div class="sheet">
+            <?php
+            $formBuilder = new \Tbmt\FormBuilder('bankingChangeForm', $this->formLabels, $this->formVal, $this->formErrors);
+
+            if ( !empty($this->successmsg) )
+                echo Tbmt\view\Factory::buildNotification($this->successmsg[0], $this->successmsg[1], $this->successmsg[2]);
+            ?>
+
+                <form action="<?=\Tbmt\Router::toModule('manage', 'change_bank_signup')?>" method="post">
+                    <?=$formBuilder->buildFieldGroup('bank_recipient')?>
+                    <?=$formBuilder->buildFieldGroup('bic')?>
+                    <?=$formBuilder->buildFieldGroup('iban')?>
+
+                    <?=\Tbmt\view\Factory::buildSubmitBtn($this->formLabels['submit'],
+                        'pull-right blue')?>
+                    <?=\Tbmt\view\Factory::buildButton($this->formLabels['back'],
+                        \Tbmt\Router::toModule('account', 'index'),
+                        'pull-left'
+                    )?>
+                    <div class="clearfix"></div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</div>

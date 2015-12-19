@@ -18,8 +18,24 @@ class ManageController extends BaseController {
     'new_repeat' => \Tbmt\Validator::FILTER_NOT_EMPTY,
   ];
 
+  static private $CHANGE_BANKING_FORM_FIELDS = [
+    'bic' => \Tbmt\TYPE_STRING,
+    'iban' => \Tbmt\TYPE_STRING,
+    'bank_recipient' => \Tbmt\TYPE_STRING,
+  ];
+
+  static private $CHANGE_BANKING_FORM_FILTERS = [
+    'bic' => \Tbmt\Validator::FILTER_NOT_EMPTY,
+    'iban' => \Tbmt\Validator::FILTER_NOT_EMPTY,
+    'bank_recipient' => \Tbmt\Validator::FILTER_NOT_EMPTY,
+  ];
+
   static public function initChangePasswordForm(array $data = array()) {
     return \Tbmt\Arr::initMulti($data, self::$CHANGE_PASSWORD_FORM_FIELDS);
+  }
+
+  static public function initChangeBankingForm(array $data = array()) {
+    return \Tbmt\Arr::initMulti($data, self::$CHANGE_BANKING_FORM_FIELDS);
   }
 
   static public function validateChangePasswordForm(\Member $login, array $data = array())  {
@@ -32,6 +48,15 @@ class ManageController extends BaseController {
       return [false, ['old_pwd' => \Tbmt\Localizer::get('error.password')]];
 
     $res = \Tbmt\Validator::getErrors($data, self::$CHANGE_PASSWORD_FORM_FILTERS);
+    if ( $res !== false )
+      return [false, $res];
+
+    return [true, $data];
+  }
+
+  static public function validateChangeBankingForm(\Member $login, array $data = array())  {
+    $data = self::initChangeBankingForm($data);
+    $res = \Tbmt\Validator::getErrors($data, self::$CHANGE_BANKING_FORM_FILTERS);
     if ( $res !== false )
       return [false, $res];
 
@@ -74,6 +99,8 @@ class ManageController extends BaseController {
     'change_pwd' => true,
     'change_pwd_signup' => true,
 
+    'change_bank' => true,
+    'change_bank_signup' => true,
   ];
 
   public function action_do_reset_password() {
@@ -158,6 +185,49 @@ class ManageController extends BaseController {
     return ControllerDispatcher::renderModuleView(
       self::MODULE_NAME,
       'change_pwd',
+      ['successmsg' => true]
+    );
+  }
+
+
+  public function action_change_bank() {
+    $login = Session::getLogin();
+    if ( !$login )
+      throw new PageNotFoundException();
+
+    return ControllerDispatcher::renderModuleView(
+      self::MODULE_NAME,
+      CURRENT_MODULE_ACTION,
+      ['formVal' => [
+        'bic' => $login->getBic(),
+        'iban' => $login->getIban(),
+        'bank_recipient' => $login->getBankRecipient(),
+      ]]
+    );
+  }
+
+  public function action_change_bank_signup() {
+    $login = Session::getLogin();
+    if ( !$login )
+      throw new PageNotFoundException();
+
+    list($valid, $data) = self::validateChangeBankingForm($login, $_REQUEST);
+    if ( $valid !== true ) {
+      return ControllerDispatcher::renderModuleView(
+        self::MODULE_NAME,
+        'change_bank',
+        ['formErrors' => $data]
+      );
+    }
+
+    $login->setBic($data['bic']);
+    $login->setIban($data['iban']);
+    $login->setBankRecipient($data['bank_recipient']);
+    $login->save();
+
+    return ControllerDispatcher::renderModuleView(
+      self::MODULE_NAME,
+      'change_bank',
       ['successmsg' => true]
     );
   }

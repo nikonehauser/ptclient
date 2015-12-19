@@ -1,4 +1,3 @@
- - email nach der anmeldung
  - email nach geldeingang
 
  - link zur website NGO
