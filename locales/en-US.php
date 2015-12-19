@@ -310,6 +310,8 @@ return [
       'signup' => [
         'page_title' => 'Sign up to be a donator',
         'form_error' => 'Form has invalid fields.',
+        'referral_member_num_help' => 'This is the donator number of the person who is recruiting you. He also will receive the reward for your signup. It is required. You can not join us if nobody invited you with his donator number.',
+        'invitation_code_help' => 'This code is NOT required. You may received a special invitation code from the person who is recruiting you. This code may be linked with a bonus or similar things.',
         'form_labels' => [
           'contact' => 'Contact',
           'address' => 'Address',

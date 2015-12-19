@@ -4,6 +4,12 @@
 
   <?php
 
+    $this->formLabels['referral_member_num'] = $this->formLabels['referral_member_num'].
+      '  <a data-toggle="popover" data-content="'.$this->i18nView['referral_member_num_help'].'" style="font-size:larger;"><i class="fa fa-question-circle"></i></a>';
+
+    $this->formLabels['invitation_code'] = $this->formLabels['invitation_code'].
+      '  <a data-toggle="popover" data-content="'.$this->i18nView['invitation_code_help'].'" style="font-size:larger;"><i class="fa fa-question-circle"></i></a>';
+
     $formBuilder = new \Tbmt\FormBuilder('signupForm', $this->formLabels, $this->formVal, $this->formErrors);
 
   ?>
@@ -24,6 +30,7 @@
 
           <div class="col-md-6">
             <?php echo $formBuilder->buildFieldGroup('referral_member_num'); ?>
+
           </div>
           <div class="col-md-6">
             <?php echo $formBuilder->buildFieldGroup('invitation_code'); ?>
@@ -145,3 +152,13 @@
       </div>
     </div>
 </form>
+
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+  $('[data-toggle="popover"]').popover({
+    'placement': 'right',
+    'trigger': 'hover click',
+    'template': '<div class="popover alert info"><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
+  })
+});
+</script>
