@@ -50,10 +50,7 @@
 
                       <dt><?=$this->i18nView['address']?></dt>
                       <dd>
-                          <address>
-                              <?=\Tbmt\Base::encodeHtml($this->recipient->getCity())?><br>
-                              <?=\Tbmt\Base::encodeHtml($this->recipient->getCountry())?>
-                          </address>
+                          <?=\Tbmt\view\Factory::buildMemberAddress($this->recipient)?>
                       </dd>
 
                       <dt><?=$this->i18nView['email']?></dt>

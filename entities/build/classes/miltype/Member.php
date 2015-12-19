@@ -70,6 +70,7 @@ class Member extends BaseMember
     'age'                  => \Tbmt\TYPE_STRING,
     'email'                => \Tbmt\TYPE_STRING,
     'city'                 => \Tbmt\TYPE_STRING,
+    'zip_code'             => \Tbmt\TYPE_STRING,
     'country'              => \Tbmt\TYPE_STRING,
     'bank_recipient'       => \Tbmt\TYPE_STRING,
     'iban'                 => \Tbmt\TYPE_STRING,
@@ -96,6 +97,7 @@ class Member extends BaseMember
     'firstName'            => \Tbmt\Validator::FILTER_NOT_EMPTY,
 
     'city'                 => \Tbmt\Validator::FILTER_NOT_EMPTY,
+    'zip_code'             => \Tbmt\Validator::FILTER_NOT_EMPTY,
     'country'              => \Tbmt\Validator::FILTER_NOT_EMPTY,
     'bank_recipient'       => \Tbmt\Validator::FILTER_NOT_EMPTY,
     'iban'                 => \Tbmt\Validator::FILTER_NOT_EMPTY,
@@ -197,6 +199,7 @@ class Member extends BaseMember
         ->setEmail($data['email'])
         ->setTitle($data['title'])
         ->setCity($data['city'])
+        ->setZipCode($data['zip_code'])
         ->setCountry($data['country'])
         ->setAge($data['age'])
         // ->setReferrerNum($data['referral_member_num'])

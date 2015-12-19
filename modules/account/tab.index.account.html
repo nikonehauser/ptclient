@@ -44,10 +44,7 @@
 
               <dt><?=$this->i18nView['address']?></dt>
               <dd>
-                  <address>
-                      <?=Base::encodeHtml($this->member->getCity())?><br>
-                      <?=Base::encodeHtml($this->member->getCountry())?>
-                  </address>
+                  <?=\Tbmt\view\Factory::buildMemberAddress($this->member)?>
               </dd>
 
               <dt><?=$this->i18nView['email']?></dt>

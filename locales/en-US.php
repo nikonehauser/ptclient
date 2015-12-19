@@ -324,6 +324,7 @@ return [
           'email' => 'Email',
           'age' => 'Age',
           'country' => 'Country',
+          'zip_code' => 'Zip Code',
           'city' => 'City',
           'country' => 'Country',
           'iban' => 'IBAN',
@@ -394,9 +395,9 @@ return [
           'email_none' => '-none-',
           'bank_account' => 'Bank account',
           'bank_recipient' => 'Recipient Name',
-// 'iban' => 'IBAN (International Bank Account Number)',
+          // 'iban' => 'IBAN (International Bank Account Number)',
           'iban' => 'IBAN',
-// 'bic' => 'BIC (Bank Identifier Code)'
+          // 'bic' => 'BIC (Bank Identifier Code)'
           'bic' => 'BIC',
           'member_type' => 'Donator type',
           'bonus_level' => 'Bonus Level',

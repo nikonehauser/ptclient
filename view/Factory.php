@@ -311,6 +311,17 @@ END;
 END;
   }
 
+  static function buildMemberAddress(\Member $member) {
+    $zipCode = \Tbmt\Base::encodeHtml($member->getZipCode());
+    $city = \Tbmt\Base::encodeHtml($member->getCity());
+    $country = \Tbmt\Base::encodeHtml($member->getCountry());
+    return <<<END
+<address>
+    $zipCode $city<br>
+    $country
+</address>
+END;
+  }
 
 }
 

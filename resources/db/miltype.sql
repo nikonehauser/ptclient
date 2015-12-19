@@ -14,6 +14,7 @@
     "email" VARCHAR(80) NOT NULL ,
     "title" VARCHAR(80) NOT NULL ,
     "city" VARCHAR(80) NOT NULL ,
+    "zip_code" VARCHAR(80) NOT NULL ,
     "country" VARCHAR(80) NOT NULL ,
     "age" smallint not null ,
     "referrer_id" INTEGER NULL , -- this is the never changing member who recruited this member
