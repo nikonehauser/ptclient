@@ -696,7 +696,7 @@ Your friends at $webPageName",
     ],
 
     'signup_confirm' => [
-      'subject' => 'Signup confirmation - Betterliving',
+      'subject' => 'Signup confirmation',
       'body' => "Hallo {fullname}
 Thank you for registering for $webPageName!\n
 It is great to have you with us.\n
