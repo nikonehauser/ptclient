@@ -23,18 +23,6 @@ class Cryption {
     return \hash_hmac(self::ALGORITHM, $password, $salt.':'.self::$salt);
   }
 
-
-  static public function getInvitationHash(\Member $member, $type, $salt) {
-    $id = $member->getId();
-    $num = $member->getNum();
-    $typeKey = \Member::$INVITATION_BY_KEY[$type];
-    $data = $id.$num.$type.$typeKey;
-    return \hash_hmac(self::ALGORITHM, $data, $salt.':'.self::$salt).$type;
-
-      // self::TYPE_ORGLEADER => Cryption::getInvitationHash($id.$num, self::INVITE_ORGLEADER).self::TYPE_ORGLEADER,
-      // self::TYPE_PROMOTER => Cryption::getInvitationHash($id.$num, self::INVITE_PROMOTER).self::TYPE_PROMOTER
-  }
-
   /**
    * Returns a JSON string encoding the encrypted password and the used salt.
    *

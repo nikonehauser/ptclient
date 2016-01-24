@@ -53,14 +53,6 @@ class Member extends BaseMember
     SystemStats::ACCOUNT_NUM_LAWYER => Transaction::REASON_LAWYER_BONUS,
   ];
 
-  static public $INVITATION_BY_KEY = [
-    self::TYPE_MARKETINGLEADER => self::INVITE_MARKETINGLEADER,
-    self::TYPE_ORGLEADER => self::INVITE_ORGLEADER,
-    self::TYPE_PROMOTER => self::INVITE_PROMOTER,
-    self::TYPE_SUB_PROMOTER => self::INVITE_SUB_PROMOTER,
-    self::TYPE_MEMBER => self::INVITE_MEMBER,
-  ];
-
   static public $SIGNUP_FORM_FIELDS = [
     'referral_member_num'  => [\Tbmt\TYPE_INT, ''],
     'title'                => \Tbmt\TYPE_STRING,

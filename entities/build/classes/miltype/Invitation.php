@@ -58,12 +58,7 @@ class Invitation extends BaseInvitation
   static public function create(Member $login, array $data, PropelPDO $con) {
     $type = $data['type'];
 
-    $invitationsCount = InvitationQuery::create()->count();
-    $hash = \Tbmt\Cryption::getInvitationHash(
-      $login,
-      $type,
-      $invitationsCount.time()
-    );
+    $hash = SystemStats::getIncreasedInvitationIncrementer($con);
 
     $invitation = new Invitation();
 

@@ -89,6 +89,13 @@ class SystemSetup {
     $IT_SPECIALIST_EMAIL = 'niko.neuhauser@gmail.com';
 
 
+    /* Setup - SYSTEM STATS
+    ---------------------------------------------*/
+    $systemStats = new SystemStats();
+    $systemStats->setInvitationIncrementer('2A15F6')
+    $systemStats->save();
+
+
     /* Setup - SYSTEM ACCOUNT
     ---------------------------------------------*/
     self::createMember(null, [

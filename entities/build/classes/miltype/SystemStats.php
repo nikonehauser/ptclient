@@ -41,6 +41,19 @@ class SystemStats extends BaseSystemStats {
     self::ACCOUNT_NUM_LAWYER,
   ];
 
+  static public function getIncreasedInvitationIncrementer(PropelPDO $con) {
+    $systemStats = SystemStatsQuery::create()->findOneById(1);
+
+    $inc = hexdec($systemStats->getInvitationIncrementer());
+    $inc++;
+    $inc = dechex($inc);
+
+    $systemStats->setInvitationIncrementer($inc);
+    $systemStats->save($con);
+
+    return $inc;
+  }
+
   static private $systemAccount;
   static public function getSystemAccount() {
     if ( !self::$systemAccount )
