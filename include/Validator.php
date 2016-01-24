@@ -6,8 +6,10 @@ class Validator {
 
   const FILTER_NOT_EMPTY = 'filter_not_empty';
   const FILTER_PASSWORD = 'filter_password';
+  const FILTER_INDIA_PINCODE = 'filter_india_pincode';
 
   static private $FILTER_ERROR_KEYS = [
+    self::FILTER_INDIA_PINCODE => 'error.india_pincode',
     self::FILTER_PASSWORD    => 'error.password',
     self::FILTER_NOT_EMPTY   => 'error.empty',
     \FILTER_VALIDATE_EMAIL   => 'error.email',
@@ -78,6 +80,21 @@ class Validator {
 
     return $v;
     // return preg_match('/^.*(?=.{5,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/', $v);
+  }
+
+  static private $indiaPincodes;
+  static public function getIndiaPincodes() {
+    if ( !self::$indiaPincodes ) {
+      self::$indiaPincodes = json_decode(file_get_contents(Router::toConfig('india.pincodes.json')), true);
+    }
+
+
+    return self::$indiaPincodes;
+  }
+
+  static public function filter_india_pincode($v) {
+    $codes = self::getIndiaPincodes();
+    return isset($codes[$v]);
   }
 
 }

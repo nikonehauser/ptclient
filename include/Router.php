@@ -13,6 +13,7 @@ class Router {
   static private $jsBase;
   static private $cssBase;
   static private $publicResourceBase;
+  static private $configsPath;
 
   static public function init($url, $basePath = '') {
     // TODO
@@ -28,6 +29,7 @@ class Router {
     self::$jsBase = $basePath.'assets/js/';
     self::$cssBase = $basePath.'assets/css/';
     self::$publicResourceBase = $basePath.'resources/public/';
+    self::$configsPath = $basePath.'config/';
   }
 
   static public function toBase() {
@@ -73,5 +75,9 @@ class Router {
 
   static public function toPublicResource($path) {
     return self::$publicResourceBase.$path;
+  }
+
+  static public function toConfig($path) {
+    return self::$configsPath.$path;
   }
 }

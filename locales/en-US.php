@@ -112,6 +112,8 @@ return [
     'sub_promoter_to_promoter' => 'Donator is no promoter',
 
     'login' => 'Invalid login credentials',
+
+    'india_pincode' => 'This is no valid pin code from india.',
   ],
 
     /* VIEWS
@@ -338,7 +340,7 @@ return [
           'password2' => 'Repeat password',
 
           'accept_agbs' => 'I have read and accepted the terms and conditions',
-          'accept_valid_country' => 'I confirm that I am NOT a citizen of one of the following countries:',
+          'accept_valid_country' => 'I confirm that I am citizen of India',
           'not_accepted_countries' => '',
 
           'submit' => 'Submit',

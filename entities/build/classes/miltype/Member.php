@@ -71,7 +71,7 @@ class Member extends BaseMember
     'email'                => \Tbmt\TYPE_STRING,
     'city'                 => \Tbmt\TYPE_STRING,
     'zip_code'             => \Tbmt\TYPE_STRING,
-    'country'              => \Tbmt\TYPE_STRING,
+    'country'              => [\Tbmt\TYPE_STRING, 'India'],
     'bank_recipient'       => \Tbmt\TYPE_STRING,
     'iban'                 => \Tbmt\TYPE_STRING,
     'bic'                  => \Tbmt\TYPE_STRING,
@@ -97,8 +97,8 @@ class Member extends BaseMember
     'firstName'            => \Tbmt\Validator::FILTER_NOT_EMPTY,
 
     'city'                 => \Tbmt\Validator::FILTER_NOT_EMPTY,
-    'zip_code'             => \Tbmt\Validator::FILTER_NOT_EMPTY,
-    'country'              => \Tbmt\Validator::FILTER_NOT_EMPTY,
+    'zip_code'             => \Tbmt\Validator::FILTER_INDIA_PINCODE,
+    // 'country'              => \Tbmt\Validator::FILTER_NOT_EMPTY,
     'bank_recipient'       => \Tbmt\Validator::FILTER_NOT_EMPTY,
     'iban'                 => \Tbmt\Validator::FILTER_NOT_EMPTY,
     'bic'                  => \Tbmt\Validator::FILTER_NOT_EMPTY,
@@ -200,7 +200,7 @@ class Member extends BaseMember
         ->setTitle($data['title'])
         ->setCity($data['city'])
         ->setZipCode($data['zip_code'])
-        ->setCountry($data['country'])
+        ->setCountry('India')
         ->setAge($data['age'])
         // ->setReferrerNum($data['referral_member_num'])
         ->setBankRecipient($data['bank_recipient'])

@@ -153,21 +153,17 @@ img.bordered {
   }
 
   &.has-error {
-    .text-danger;
-    .help-block {
-      .text-danger;
-    }
-
-    &.checkbox label {
-
-    }
-
     input, select, textarea {
       border-color: @c-Danger;
     }
   }
 }
 
+
+input[disabled], select[disabled], textarea[disabled] {
+  background: #ddd;
+  cursor: not-allowed !important;
+}
 
 input,
 select,

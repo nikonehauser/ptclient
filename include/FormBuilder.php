@@ -14,7 +14,7 @@ class FormBuilder {
     $this->errors = $errors;
   }
 
-  public function buildFieldGroup($fieldKey, $type = 'text', $label = '', $value = '', $error = '') {
+  public function buildFieldGroup($fieldKey, $type = 'text', $label = null, $value = null, $error = null, array $options = array()) {
     if ( !$label )
       $label = Arr::init($this->labels, $fieldKey);
 
@@ -28,6 +28,10 @@ class FormBuilder {
     if ( $error )
       $className .= ' has-error';
 
+    $disabled = '';
+    if ( !empty($options['disabled']) )
+      $disabled = ' disabled="true"';
+
     $fieldClassName = 'field';
     if ( $type === 'checkbox' )
       $fieldClassName .= ' checkbox';
@@ -38,17 +42,17 @@ class FormBuilder {
       if ( $value )
         $checked = ' checked="checked"';
 
-      $group .= '<label ><input type="'.$type.'" name="'.$fieldKey.'" value="1" '.$checked.' >'.$label.'</label>';
+      $group .= '<label ><input type="'.$type.'" name="'.$fieldKey.'" value="1" '.$checked.$disabled.'>'.$label.'</label>';
 
     } else if ( $type === 'textarea' ) {
       $fieldId = $this->formName.$fieldKey;
       $group .= '<label for="'.$fieldId.'">'.$label.'</label>'.
-        '<textarea class="fullwidth" cols="40" rows="3" id="'.$fieldId.'" name="'.$fieldKey.'" value="'.$value.'">'.$value.'</textarea>';
+        '<textarea class="fullwidth" cols="40" rows="3" id="'.$fieldId.'" name="'.$fieldKey.'"'.$disabled.' value="'.$value.'">'.$value.'</textarea>';
 
     } else {
       $fieldId = $this->formName.$fieldKey;
       $group .= '<label for="'.$fieldId.'">'.$label.'</label>'.
-        '<input type="'.$type.'" id="'.$fieldId.'" name="'.$fieldKey.'" value="'.$value.'">';
+        '<input type="'.$type.'" id="'.$fieldId.'" name="'.$fieldKey.'" value="'.$value.'"'.$disabled.'>';
 
     }
 

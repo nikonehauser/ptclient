@@ -94,7 +94,7 @@
               <?php echo $formBuilder->buildFieldGroup('city'); ?>
           </div>
           <div class="col-md-5">
-              <?php echo $formBuilder->buildFieldGroup('country'); ?>
+              <?php echo $formBuilder->buildFieldGroup('country', 'text', null, null, null, ['disabled'=> true]); ?>
           </div>
 
         </div>
@@ -139,10 +139,6 @@
 
           <div class="col-md-12">
               <?php echo $formBuilder->buildFieldGroup('accept_valid_country', 'checkbox'); ?>
-              <ul class="list-2 list-horizontal" style="padding: 15px; margin-top: -10px;">
-                  <?=\Tbmt\view\Factory::buildListItems(\Tbmt\Localizer::get('common.forbidden_countries'))?>
-                  <br class="clear" />
-              </ul>
           </div>
 
         <div class="col-md-12">
