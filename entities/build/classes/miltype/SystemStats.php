@@ -45,7 +45,7 @@ class SystemStats extends BaseSystemStats {
     $systemStats = SystemStatsQuery::create()->findOneById(1);
 
     $inc = hexdec($systemStats->getInvitationIncrementer());
-    $inc++;
+    $inc += 106121;
     $inc = dechex($inc);
 
     $systemStats->setInvitationIncrementer($inc);
