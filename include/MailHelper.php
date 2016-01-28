@@ -6,14 +6,18 @@ require VENDOR_DIR.'phpmailer'.DIRECTORY_SEPARATOR.'phpmailer'.DIRECTORY_SEPARAT
 
 class MailHelper {
 
+  static public $MAILS_DISABLED =  false;
+
   static public function sendException(\Exception $e) {
     $body = "Exception: \n\r".$e->getMessage()."\n\r\n\r".
       "Stack: \n\r".$e->getTraceAsString()."\n\r\n\r".
       "Request: \n\r".json_encode($_REQUEST, JSON_PRETTY_PRINT)."\n\r\n\r".
-      "Server: \n\r".json_encode($_SERVER, JSON_PRETTY_PRINT)."\n\r\n\r".
-      "Session: \n\r".json_encode($_SESSION, JSON_PRETTY_PRINT)."\n\r\n\r";
+      "Server: \n\r".json_encode($_SERVER, JSON_PRETTY_PRINT)."\n\r\n\r";
 
-    if ( count(\Activity::$_ActivityExceptions) > 0 ) {
+    if ( isset($_SESSION) )
+      $body .= "Session: \n\r".json_encode($_SESSION, JSON_PRETTY_PRINT)."\n\r\n\r";
+
+    if ( class_exists('Activity') && count(\Activity::$_ActivityExceptions) > 0 ) {
       $body .= "ActivityExceptions: \n\r".json_encode(\Activity::$_ActivityExceptions, JSON_PRETTY_PRINT)."\n\r\n\r";
     }
 
@@ -25,23 +29,65 @@ class MailHelper {
     );
   }
 
-  static public function sendSignupConfirm(\Member $member) {
+  static public function sendSignupConfirm(\Member $member, PropelPDO $con = null) {
     $email = $member->getEmail();
     $locale = Localizer::get('mail.signup_confirm');
 
     $num = $member->getNum();
     $fullName = \Tbmt\view\Factory::buildMemberFullNameString($member);
 
+    $referrer = $member->getReferrerMember($con);
+    $referrerFullName = \Tbmt\view\Factory::buildMemberFullNameString($referrer);
+/*
+ *   fullname,
+ *   member_id,
+ *   recruiter,
+ *   fmt_member_fee,
+ *   bankaccount
+ */
     return self::send(
       $email,
       $fullName,
       $locale['subject'],
       Localizer::insert($locale['body'], [
         'fullname' => $fullName,
-        'num' => $num
+        'member_id' => $num,
+        'recruiter' => $referrerFullName,
+        'fmt_member_fee' => \Tbmt\view\Factory::buildFmtMemberFeeStr(),
+        'bankaccount' => \Tbmt\view\Factory::buildBankAccountStr()
       ], false)
     );
   }
+
+  static public function sendNewRecruitmentCongrats(\Member $referrer, \Member $recruited) {
+    $email = $referrer->getEmail();
+    $locale = Localizer::get('mail.new_recruitment_congrats');
+
+    $num = $referrer->getNum();
+    $fullName = \Tbmt\view\Factory::buildMemberFullNameString($referrer);
+
+    $recruitedFullName = \Tbmt\view\Factory::buildMemberFullNameString($recruited);
+/*
+ *   fullname,
+ *   member_id,
+ *   recommendation_count,
+ *   recruited_fullname,
+ *   video_link,
+ */
+    return self::send(
+      $email,
+      $fullName,
+      $locale['subject'],
+      Localizer::insert($locale['body'], [
+        'fullname' => $fullName,
+        'member_id' => $num,
+        'recommendation_count' => \Tbmt\Localizer::countInWords($referrer->getAdvertisedCountTotal()),
+        'recruited_fullname' => $recruitedFullName,
+        'video_link' => \Tbmt\Router::toVideo()
+      ], false)
+    );
+  }
+
 
   static public function sendContactFormMail($fromMail, $fromName, $subject, $body) {
     $body = "From mail: $fromMail\n\r".
@@ -83,6 +129,9 @@ class MailHelper {
   }
 
   static public function send($address, $name, $subject, $body, $fromMail = null, $fromName = null) {
+    if ( self::$MAILS_DISABLED )
+      return true;
+
     $mail = new \PHPMailer(true);
     $mail->SMTPSecure = Config::get('mail.smtp_secure');
     $mail->isSMTP();
@@ -100,6 +149,8 @@ class MailHelper {
 
     if ( !$fromName )
       $fromName = Config::get('mail.sender_name');
+
+    $body .= Config::get('mail.signature');
 
     $mail->setFrom($fromMail, $fromName);
     $mail->addReplyTo(Config::get('mail.reply_mail'), 'Do not Reply');

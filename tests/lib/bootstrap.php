@@ -9,4 +9,7 @@
   require TESTS_LIB_DIR.'helper.php';
   require TESTS_LIB_DIR.'Tbmt_Tests_DatabaseTestCase.php';
 
+  // Disable mails.
+  MailHelper::$MAILS_DISABLED = true;
+
 ?>

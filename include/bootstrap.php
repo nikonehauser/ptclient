@@ -79,5 +79,9 @@ try {
   exit();
 }
 
+define('BOOTSTRAP_DONE', true);
+define('DEVELOPER_MODE', Config::get('devmode', TYPE_BOOL, false));
+
+MailHelper::$MAILS_DISABLED = Config::get('disable_email_distribution', TYPE_BOOL, false);
 
 ?>

@@ -48,8 +48,6 @@ class MemberController extends BaseController {
     );
     $member->reload(false, $con);
 
-    MailHelper::sendSignupConfirm($member);
-
     Session::setLogin($member);
     Session::set(Session::KEY_SIGNUP_MSG, true);
     return new ControllerActionRedirect(Router::toModule('account'));

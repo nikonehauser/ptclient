@@ -76,11 +76,14 @@ use \Tbmt\Router as R;
                             </div>
                         </li>
 
+                        <!-- SLIDE  -->
+                        <!--
                         <li data-transition="random-static" data-slotamount="7" data-masterspeed="300"  data-saveperformance="off" >
                             <div class="tp-caption sfb stl" data-x="150" data-y="80" data-speed="600" data-start="500" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="600" style="z-index: 2;">
                                 <iframe width="850" height="500" src="https://www.youtube.com/embed/M5Fp3ewW4i4" frameborder="0" allowfullscreen></iframe>
                             </div>
                         </li>
+                        -->
                     </ul>
                     <div class="tp-bannertimer tp-bottom hidden"></div>
                 </div><!-- // .rev_slider -->
@@ -248,7 +251,7 @@ use \Tbmt\Router as R;
 <!--
   POVERTY QUOTE
   *************************** -->
-<div class="container">
+<div class="container bottom-40">
   <div class="row">
 
       <div class="heading-area text-center bottom-30 top-40 ">
@@ -261,6 +264,23 @@ use \Tbmt\Router as R;
         $this->i18nView['why_poor_quote_author'],
         $this->i18nView['why_poor_quote_author_org'])?>
       </div>
+  </div>
+</div>
+
+<div class="container bottom-40" id="video_explanation">
+
+  <div class="heading-area text-center bottom-30 top-40">
+    <h4 class="heading large"><?=$this->i18nView['video_explanation_head']?></h4>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+    <?=\Tbmt\view\Factory::buildTakeActionBox(
+      '',
+      $this->i18nView['video_explanation'],
+      '<iframe width="100%" height="350" src="https://www.youtube.com/embed/M5Fp3ewW4i4" frameborder="0" allowfullscreen></iframe>'
+    )?>
+    </div>
   </div>
 </div>
 
@@ -301,6 +321,29 @@ use \Tbmt\Router as R;
 
         </div><!-- // .row -->
     </div><!-- // .container -->
+</div>
+
+<div class="container bottom-40" id="pdf_explanation">
+
+  <div class="heading-area text-center bottom-30 top-40">
+    <h4 class="heading large"><?=$this->i18nView['pdf_explanation_head']?></h4>
+  </div>
+
+  <div class="row nospace service-color-area">
+    <div class="col-md-8" style="padding: 15px;">
+    <?=\Tbmt\view\Factory::buildTakeActionBox(
+      '','', '<image style="margin-left: 50%; width: 450px; transform:translateX(-50%);" src="'.\Tbmt\Router::toImage('pdf_preview.png').'"/>'
+    )?>
+    </div>
+
+    <div class="col-md-4" style="padding: 15px;">
+
+    <?=\Tbmt\view\Factory::testimonial(
+      $this->i18nView['pdf_explanation'].'<a href="'.\Tbmt\Router::toModule('download', 'illustration').'" style="color:#EF4A43;">'.
+        $this->i18nView['pdf_explanation_link'].'</a>'
+    )?>
+    </div>
+  </div>
 </div>
 
 <div class="container bottom-40">
@@ -381,23 +424,6 @@ use \Tbmt\Router as R;
             </div><!-- // .service-action -->
           </a>
         </div><!-- // .service-box -->
-    </div>
-  </div>
-</div>
-
-<div class="container bottom-40">
-
-  <div class="heading-area text-center bottom-30 top-40">
-    <h4 class="heading large"><?=$this->i18nView['pdf_explanation_head']?></h4>
-  </div>
-
-  <div class="row nospace service-color-area">
-    <div class="col-md-12">
-
-    <?=\Tbmt\view\Factory::testimonial(
-      $this->i18nView['pdf_explanation'].'<a href="'.\Tbmt\Router::toModule('download', 'illustration').'" style="color:#EF4A43;">'.
-        $this->i18nView['pdf_explanation_link'].'</a>'
-    )?>
     </div>
   </div>
 </div>

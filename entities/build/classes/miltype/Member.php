@@ -220,6 +220,9 @@ class Member extends BaseMember
         $invitation->save($con);
       }
 
+      \Tbmt\MailHelper::sendSignupConfirm($member);
+      \Tbmt\MailHelper::sendNewRecruitmentCongrats($referrerMember, $member);
+
       if ( !$con->commit() )
         throw new Exception('Could not commit transaction');
 
@@ -306,6 +309,10 @@ class Member extends BaseMember
   public function setPassword($password) {
     parent::setPassword(\Tbmt\Cryption::getPasswordHash($password));
     return $this;
+  }
+
+  public function getAdvertisedCountTotal() {
+    return $this->getAdvertisedCount() + $this->getOutstandingAdvertisedCount();
   }
 
   public function getOutstandingTotal() {
@@ -395,6 +402,10 @@ class Member extends BaseMember
 
     $referrer->addOutstandingAdvertisedCount(1);
     $referrer->save($con);
+  }
+
+  public function getReferrerMember(PropelPDO $con = null) {
+    return $this->getMemberRelatedByParentId($con);
   }
 
   public function addOutstandingAdvertisedCount($int) {
@@ -516,7 +527,7 @@ class Member extends BaseMember
    *
    */
   public function onReceivedMemberFee($currency, $when, PropelPDO $con) {
-    $referrer = $this->getMemberRelatedByParentId($con);
+    $referrer = $this->getReferrerMember();
 
     if ( $referrer && !$referrer->hadPaid() ) {
       // if the parent hasnt paid yet. reserve this event until his fee is

@@ -5,6 +5,7 @@ namespace Tbmt;
 define('BASE_DIR', dirname(__FILE__).DIRECTORY_SEPARATOR);
 
 try {
+
   require BASE_DIR.'include'.DIRECTORY_SEPARATOR.'bootstrap.php';
 
   Session::start();
@@ -53,15 +54,21 @@ try {
     'controllerBody' => view\PublicError::fromPublicException($e)
   ]);
 } catch (\Exception $e) {
-  if ( Config::get('send_email_on_error', TYPE_BOOL, true) )
+  $sendMail = defined('BOOTSTRAP_DONE');
+
+  if ( $sendMail && Config::get('send_email_on_error', TYPE_BOOL, true) )
     MailHelper::sendException($e);
 
   error_log($e->__toString());
-  echo (new view\Index())->render([
-    'basePath'    => '',
-    'windowtitle' => '',
-    'controllerBody' => view\Error::fromException($e)
-  ]);
+  if ( !$sendMail ) {
+    echo '<pre>'.$e->__toString().'</pre>';
+  } else {
+    echo (new view\Index())->render([
+      'basePath'    => '',
+      'windowtitle' => '',
+      'controllerBody' => view\Error::fromException($e)
+    ]);
+  }
 }
 
 

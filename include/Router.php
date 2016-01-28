@@ -80,4 +80,11 @@ class Router {
   static public function toConfig($path) {
     return self::$configsPath.$path;
   }
+
+  static public function toVideo() {
+    return self::toModule(
+      Config::get('video.module'),
+      Config::get('video.action')
+    ).'#'.Config::get('video.anchor');
+  }
 }

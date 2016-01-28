@@ -148,6 +148,13 @@ class Localizer {
 
     return $currency.' '.self::numFormat($num, $decimals !== false ? $decimals : self::$decimalsCount, self::$decPoint, self::$thousandsSep);
   }
+
+  static public function countInWords($count) {
+    if ( $count <= 3 )
+      return self::get('count.'.$count);
+
+    return $count;
+  }
 }
 
 class IncrementalTextTranslation {

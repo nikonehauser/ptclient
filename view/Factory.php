@@ -4,13 +4,36 @@ namespace Tbmt\view;
 
 class Factory {
 
+  static $fmtMemberFeeStr;
+  static function buildFmtMemberFeeStr() {
+    if ( ! self::$fmtMemberFeeStr )
+      self::$fmtMemberFeeStr = \Tbmt\Localizer::currencyFormat(\Transaction::$MEMBER_FEE, \Tbmt\Localizer::get('currency_symbol.'.\Transaction::$BASE_CURRENCY));
+
+    return self::$fmtMemberFeeStr;
+  }
+
   /**
-   * [buildMemberFullNameString description]
+   *
    * @param  \Member $member
-   * @return [type]
+   * @return String
    */
   static function buildMemberFullNameString(\Member $member) {
-    return $member->getTitle(). ' '.$member->getFirstName(). ' '.$member->getLastName();
+    $name = '';
+    $title = $member->getTitle();
+
+    if ( $title !== '' )
+      $name = $title.' ';
+
+    return $name.$member->getFirstName().' '.$member->getLastName();
+  }
+
+
+  /**
+   *
+   * @return String
+   */
+  static function buildBankAccountStr() {
+    return \Tbmt\Config::get('bankaccount');
   }
 
 
@@ -202,10 +225,16 @@ END;
    * @return [type]
    */
   static function buildTakeActionBox($title, $text, $content = '') {
+    if ( $title !== '' )
+      $title = '<h2 class="bottom-20 white">'.$title.'</h2>';
+
+    if ( $text !== '' )
+      $text = '<p>'.$text.'</p>';
+
     return <<<END
 <div class="widget action">
-  <h2 class="bottom-20 white">$title</h2>
-  <p>$text</p>
+  $title
+  $text
 
   $content
   <div class="clearfix"></div>

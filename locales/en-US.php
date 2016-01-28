@@ -7,11 +7,13 @@ $1 $2
 
  */
 
-$faqItems = include 'faq.php';
-
+$lang = substr(basename(__FILE__), 0, 5);
 $brandName = \Tbmt\Config::get('brand.name');
 $brandNameShort = \Tbmt\Config::get('brand.short');
 $webPageName = 'Better living club';
+
+$faqItems = include $lang.'-faq.php';
+$mails = include $lang.'-mails.php';
 
 return [
   'common' => [
@@ -48,6 +50,16 @@ return [
       'USA',
     ],
   ],
+
+
+    /* DATE FORMATS
+    ---------------------------------------------*/
+  'count' => [
+    '1' => 'first',
+    '2' => 'second',
+    '3' => 'third',
+  ],
+
 
     /* DATE FORMATS
     ---------------------------------------------*/
@@ -132,6 +144,10 @@ return [
         'account' => 'Profile',
       ],
       'navigation_sublinks' => [
+        'projects' => [
+          '1' => ['index', 'Video Explanation', 'video_explanation'],
+          '2' => ['index', 'PDF Explanation', 'pdf_explanation']
+        ],
         'member' => [
           'index' => 'Donators recruit donators',
           'system' => 'Our marketing system',
@@ -184,6 +200,8 @@ return [
         'head_explanation' => 'Explanation',
         'head_part' => 'Step',
         'head_illustration' => 'Illustration',
+
+
 
         'pdf_explanation' => 'There is also an illustrated explanation in an extra document. If you prefer to read a pdf document, ',
         'pdf_explanation_link' => 'just click here',
@@ -612,6 +630,9 @@ return [
         'service_signup_desc' => 'Great! Just follow this link and fill in the registration form to get started!',
         'service_signup_btn' => 'Go to registration',
 
+        'video_explanation_head' => 'Marketing system video',
+        'video_explanation' => 'We also prepared a video. Explaining our goals in detail.',
+
         'pdf_explanation_head' => 'Marketing system illustration',
         'pdf_explanation' => 'There is also an illustrated explanation in an extra document. If you prefer reading a pdf document, ',
         'pdf_explanation_link' => 'just click here',
@@ -651,69 +672,13 @@ return [
         'welcome_faqh' => ['Asked'],
 
         'items' => $faqItems,
-        /*
-        'items' => [
-          'When do the projects get started?',
-          'As soon as the first donations are being made the planning process will begin. After the first two months of running the system, the projects will be started.',
-
-          'Can I follow the progressing project?',
-          'Of course! There will be a news feed on the Betterliving homepage which will be updated weekly.',
-
-          'How long does the Betterliving club support the projects?',
-          'There will be support from the club until the project is fully accomplished.',
-
-          'When will I get paid?',
-          'As soon as your donation (or your advertised donators’ donations) have been transferred to the club, your payments will be booked into your account. ',
-
-          'What happens if I sign up but do not pay the donator fee?',
-          'We expect your donation within 10 days. If no payment has been made during that time, you will not be able to receive any payments yourself.',
-
-          'What do you need my email address for?',
-          'In case you forget your password or there is any problem at all, we have a chance to contact you.',
-
-
-          'How do I pay the donation?',
-          'You will have to transfer the money. Usually, this transfer will take around 2-3 days.',
-
-          'I still have questions',
-          'You can email any question to this address: info@betterliving.social',
-
-        ],
-        */
       ],
     ],
   ],
 
     /* MAILS
     ---------------------------------------------*/
-  'mail' => [
-    'password_reset' => [
-      'subject' => 'Password reset',
-      'body' => "You have lost your $webPageName password. Sorry about that!\n
-But don’t worry! You can use the following link within the next day to reset your password:\n
-{link}\n
-If you don’t use this link within 24 hours, it will expire.\n
-Thanks,\n
-Your friends at $webPageName",
-    ],
-
-    'signup_confirm' => [
-      'subject' => 'Signup confirmation',
-      'body' => "Hallo {fullname}
-Thank you for registering for $webPageName!\n
-It is great to have you with us.\n
-It is the first step into a better live.\n
-\n
-This is your donator number: {num}\n
-\n
-You best note it down. You need this number to login into our webpage and to recruit other donators.\n
-\n
-If you have any questions, just do not hesitate and contact us!\n
-\n
-Best regards,\n
-Your friends at $webPageName",
-    ],
-  ],
+  'mail' => $mails
 ];
 
 ?>

@@ -19,8 +19,15 @@ class Index extends Base {
       if ( isset($subLinkNames[$linkName]) ) {
         $sublinks = [];
         foreach ($subLinkNames[$linkName] as $action => $name) {
+          $anchor = '';
+          if ( is_array($name) ) {
+            $anchor = '#'.$name[2];
+            $action = $name[0];
+            $name = $name[1];
+          }
+
           array_push($sublinks, [
-            \Tbmt\Router::toModule($linkName, $action),
+            \Tbmt\Router::toModule($linkName, $action).$anchor,
             $name,
             $action === CURRENT_MODULE_ACTION ? true : false
           ]);
