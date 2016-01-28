@@ -29,6 +29,14 @@ class MailHelper {
     );
   }
 
+
+  /**
+   * #1
+   *
+   * @param  \Member        $member
+   * @param  PropelPDO|null $con
+   * @return [type]
+   */
   static public function sendSignupConfirm(\Member $member, PropelPDO $con = null) {
     $email = $member->getEmail();
     $locale = Localizer::get('mail.signup_confirm');
@@ -38,13 +46,7 @@ class MailHelper {
 
     $referrer = $member->getReferrerMember($con);
     $referrerFullName = \Tbmt\view\Factory::buildMemberFullNameString($referrer);
-/*
- *   fullname,
- *   member_id,
- *   recruiter,
- *   fmt_member_fee,
- *   bankaccount
- */
+
     return self::send(
       $email,
       $fullName,
@@ -54,11 +56,18 @@ class MailHelper {
         'member_id' => $num,
         'recruiter' => $referrerFullName,
         'fmt_member_fee' => \Tbmt\view\Factory::buildFmtMemberFeeStr(),
-        'bankaccount' => \Tbmt\view\Factory::buildBankAccountStr()
+        'bankaccount' => \Tbmt\view\Factory::buildBankAccountStr(),
+        'duedate' => \Tbmt\Localizer::dateLong($member->getFirstDueDate())
       ], false)
     );
   }
 
+  /**
+   * #2
+   * @param  \Member $referrer
+   * @param  \Member $recruited
+   * @return [type]
+   */
   static public function sendNewRecruitmentCongrats(\Member $referrer, \Member $recruited) {
     $email = $referrer->getEmail();
     $locale = Localizer::get('mail.new_recruitment_congrats');
@@ -67,13 +76,7 @@ class MailHelper {
     $fullName = \Tbmt\view\Factory::buildMemberFullNameString($referrer);
 
     $recruitedFullName = \Tbmt\view\Factory::buildMemberFullNameString($recruited);
-/*
- *   fullname,
- *   member_id,
- *   recommendation_count,
- *   recruited_fullname,
- *   video_link,
- */
+
     return self::send(
       $email,
       $fullName,
@@ -83,7 +86,196 @@ class MailHelper {
         'member_id' => $num,
         'recommendation_count' => \Tbmt\Localizer::countInWords($referrer->getAdvertisedCountTotal()),
         'recruited_fullname' => $recruitedFullName,
-        'video_link' => \Tbmt\Router::toVideo()
+        'video_link' => \Tbmt\Router::toVideo(),
+        'duedate' => \Tbmt\Localizer::dateLong($recruited->getFirstDueDate())
+      ], false)
+    );
+  }
+
+  /**
+   * #3
+   * @param  \Member $member
+   * @return [type]
+   */
+  static public function sendFeeReminder(\Member $member) {
+    $email = $member->getEmail();
+    $locale = Localizer::get('mail.fee_reminder');
+
+    $num = $member->getNum();
+    $fullName = \Tbmt\view\Factory::buildMemberFullNameString($member);
+
+    return self::send(
+      $email,
+      $fullName,
+      $locale['subject'],
+      Localizer::insert($locale['body'], [
+        'fullname' => $fullName,
+        'member_id' => $num,
+        'signup_date' => \Tbmt\Localizer::dateLong($member->getSignupDate()),
+        'video_link' => \Tbmt\Router::toVideo(),
+        'bankaccount' => \Tbmt\view\Factory::buildBankAccountStr(),
+        'duedate_second' => \Tbmt\Localizer::dateLong($member->getSecondDueDate())
+      ], false)
+    );
+  }
+
+  /**
+   * #4
+   * @param  \Member $referrer
+   * @return [type]
+   */
+  static public function sendFeeReminderReferrer(\Member $referrer, \Member $recruited) {
+    $email = $referrer->getEmail();
+    $locale = Localizer::get('mail.fee_reminder_referrer');
+
+    $num = $referrer->getNum();
+    $fullName = \Tbmt\view\Factory::buildMemberFullNameString($referrer);
+    $recruited_fullname = \Tbmt\view\Factory::buildMemberFullNameString($recruited);
+
+    return self::send(
+      $email,
+      $fullName,
+      Localizer::insert($locale['subject'], ['recruited_fullname' => $recruited_fullname]),
+      Localizer::insert($locale['body'], [
+        'fullname' => $fullName,
+        'member_id' => $num,
+        'recruited_fullname' => $recruited_fullname,
+        'recruited_firstname' => $recruited->getFirstName(),
+        'recruited_signup_date' => \Tbmt\Localizer::dateLong($recruited->getSignupDate()),
+        'bankaccount' => \Tbmt\view\Factory::buildBankAccountStr(),
+      ], false)
+    );
+  }
+
+  /**
+   * #5
+   * @param  \Member $referrer
+   * @return [type]
+   */
+  static public function sendFeeReminderWithAdvertisings(\Member $member) {
+    $email = $member->getEmail();
+    $locale = Localizer::get('mail.fee_reminder_with_advertisings');
+
+    $num = $member->getNum();
+    $fullName = \Tbmt\view\Factory::buildMemberFullNameString($member);
+
+    return self::send(
+      $email,
+      $fullName,
+      $locale['subject'],
+      Localizer::insert($locale['body'], [
+        'fullname' => $fullName,
+        'member_id' => $num,
+        'signup_date' => \Tbmt\Localizer::dateLong($member->getSignupDate()),
+        'duedate_second' => \Tbmt\Localizer::dateLong($member->getSecondDueDate()),
+        'bankaccount' => \Tbmt\view\Factory::buildBankAccountStr(),
+        'video_link' => \Tbmt\Router::toVideo(),
+      ], false)
+    );
+  }
+
+  /**
+   * #6
+   * @param  \Member $referrer
+   * @return [type]
+   */
+  static public function sendFeeReminderWithAdvertisingsReferrer(\Member $referrer, \Member $recruited) {
+    $email = $referrer->getEmail();
+    $locale = Localizer::get('mail.fee_reminder_referrer');
+
+    $num = $referrer->getNum();
+    $fullName = \Tbmt\view\Factory::buildMemberFullNameString($referrer);
+    $recruited_fullname = \Tbmt\view\Factory::buildMemberFullNameString($recruited);
+
+    return self::send(
+      $email,
+      $fullName,
+      Localizer::insert($locale['subject'], ['recruited_fullname' => $recruited_fullname]),
+      Localizer::insert($locale['body'], [
+        'fullname' => $fullName,
+        'member_id' => $num,
+        'recruited_fullname' => $recruited_fullname,
+        'recruited_firstname' => $recruited->getFirstName(),
+        'recruited_signup_date' => \Tbmt\Localizer::dateLong($recruited->getSignupDate()),
+        'bankaccount' => \Tbmt\view\Factory::buildBankAccountStr(),
+      ], false)
+    );
+  }
+
+  /**
+   * #7
+   * @param  \Member $member
+   * @return [type]
+   */
+  static public function sendFeeIncome(\Member $member) {
+    $email = $member->getEmail();
+    $locale = Localizer::get('mail.fee_income');
+
+    $referrer = $member->getReferrerMember();
+
+    $num = $member->getNum();
+    $fullName = \Tbmt\view\Factory::buildMemberFullNameString($member);
+    $referrer_fullname = \Tbmt\view\Factory::buildMemberFullNameString($referrer);
+
+    return self::send(
+      $email,
+      $fullName,
+      $locale['subject'],
+      Localizer::insert($locale['body'], [
+        'fullname' => $fullName,
+        'member_id' => $num,
+        'referrer_fullname' => $referrer_fullname,
+        'video_link' => \Tbmt\Router::toVideo(),
+        'signup_link' => \Tbmt\Router::toSignup($member),
+      ], false)
+    );
+  }
+
+  /**
+   * #8
+   * @param  \Member $member
+   * @return [type]
+   */
+  static public function sendFeeIncomeReferrer(\Member $referrer, \Member $recruited) {
+    $email = $referrer->getEmail();
+    $locale = Localizer::get('mail.fee_income_referrer');
+
+    $fullName = \Tbmt\view\Factory::buildMemberFullNameString($referrer);
+    $recruited_fullname = \Tbmt\view\Factory::buildMemberFullNameString($recruited);
+
+    return self::send(
+      $email,
+      $fullName,
+      $locale['subject'],
+      Localizer::insert($locale['body'], [
+        'fullname' => $fullName,
+        'recruited_fullname' => $recruited_fullname,
+        'recruited_firstname' => $recruited->getFirstName(),
+        'video_link' => \Tbmt\Router::toVideo(),
+      ], false)
+    );
+  }
+
+  /**
+   * #9
+   * @param  \Member $member
+   * @return [type]
+   */
+  static public function sendFundsLevelUpgrade(\Member $referrer, \Member $recruited) {
+    $email = $referrer->getEmail();
+    $locale = Localizer::get('mail.funds_level_upgrade');
+
+    $fullName = \Tbmt\view\Factory::buildMemberFullNameString($referrer);
+    $recruited_fullname = \Tbmt\view\Factory::buildMemberFullNameString($recruited);
+
+    return self::send(
+      $email,
+      $fullName,
+      $locale['subject'],
+      Localizer::insert($locale['body'], [
+        'fullname' => $fullName,
+        'recruited_fullname' => $recruited_fullname,
+        'video_link' => \Tbmt\Router::toVideo(),
       ], false)
     );
   }

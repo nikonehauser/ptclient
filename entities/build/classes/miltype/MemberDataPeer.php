@@ -3,7 +3,7 @@
 
 
 /**
- * Skeleton subclass for representing a row from the 'tbmt_reserved_fee_events' table.
+ * Skeleton subclass for performing query and update operations on the 'tbmt_member_data' table.
  *
  *
  *
@@ -13,6 +13,6 @@
  *
  * @package    propel.generator.miltype
  */
-class ReservedFeeEvents extends BaseReservedFeeEvents
+class MemberDataPeer extends BaseMemberDataPeer
 {
 }

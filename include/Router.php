@@ -87,4 +87,12 @@ class Router {
       Config::get('video.action')
     ).'#'.Config::get('video.anchor');
   }
+
+  static public function toSignup(\Member $referrer = null) {
+    $arrParams = [];
+    if ( $referrer )
+      $arrParams['referral_member_num'] = $referrer->getNum();
+
+    return self::toModule('member', 'signup', $arrParams);
+  }
 }

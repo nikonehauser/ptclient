@@ -332,6 +332,13 @@ class Member extends BaseMember
     return $this;
   }
 
+  public function getFirstDueDate() {
+    return strtotime(\Tbmt\Config::get('duedate_first'), $this->getSignupDate());
+  }
+
+  public function getSecondDueDate() {
+    return strtotime(\Tbmt\Config::get('duedate_second'), $this->getSignupDate());
+  }
 
   public function activity_setBonusLevel($amount, PropelPDO $con) {
     $this->setBonusLevel($amount);
@@ -525,6 +532,8 @@ class Member extends BaseMember
    * Update all current Transfers with state Transfer::STATE_RESERVED to
    * Transfer::STATE_COLLECT making them ready for processing.
    *
+   * NOTE: Caller is responsible for transactional processing.
+   *
    */
   public function onReceivedMemberFee($currency, $when, PropelPDO $con) {
     $referrer = $this->getReferrerMember();
@@ -549,6 +558,9 @@ class Member extends BaseMember
       $when,
       $con
     );
+
+    \Tbmt\MailHelper::sendFeeIncome($this);
+    \Tbmt\MailHelper::sendFeeIncomeReferrer($referrer, $this);
 
     $this->fireReservedReceivedMemberFeeEvents($con);
     $this->save($con);

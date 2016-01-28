@@ -13,6 +13,9 @@
 
  - hinweis um fehlende india pin codes hinzufügen zu können
 
+ - projects@betterliving.social
+
+ - die funds level grenze wurde von 2 auf 3 erhöht ?
 
 Fragen
 ======
