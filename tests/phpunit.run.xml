@@ -9,7 +9,7 @@
 
   <testsuites>
     <testsuite name="System">
-      <!--
+    <!--
       <file>SnowballTest.php</file>
       <file>DeleteUnpaidTest.php</file>
       <file>BonusSpreadingTest.php</file>
@@ -17,9 +17,20 @@
       <file>InvitationTest.php</file>
       <file>BonusLevelTest.php</file>
       <file>SystemTest.php</file>
-      -->
-
       <file>SingleDistributionTest.php</file>
+      <file>BonusSpreadingTest.php</file>
+    -->
+
+      <file>SnowballTest.php</file>
+      <file>DeleteUnpaidTest.php</file>
+      <file>BonusSpreadingTest.php</file>
+      <file>BonusLevelTest.php</file>
+      <file>InvitationTest.php</file>
+      <file>BonusLevelTest.php</file>
+      <file>SystemTest.php</file>
+      <file>SingleDistributionTest.php</file>
+      <file>BonusSpreadingTest.php</file>
+
 
     </testsuite>
   </testsuites>

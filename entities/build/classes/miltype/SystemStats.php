@@ -29,17 +29,11 @@ class SystemStats extends BaseSystemStats {
   const ACCOUNT_NUM_ROOT = 101;
 
   const ACCOUNT_NUM_CEO1   = 102;
-  const ACCOUNT_NUM_CEO2   = 103;
   const ACCOUNT_NUM_IT     = 104;
-  const ACCOUNT_NUM_LAWYER = 105;
-
-  static public $ROOT_ACCOUNTS_NUM = [
-    self::ACCOUNT_NUM_ROOT,
-    self::ACCOUNT_NUM_CEO1,
-    self::ACCOUNT_NUM_CEO2,
-    self::ACCOUNT_NUM_IT,
-    self::ACCOUNT_NUM_LAWYER,
-  ];
+  const ACCOUNT_SYLVHEIM   = 105;
+  const ACCOUNT_NGO_PROJECTS = 106;
+  const ACCOUNT_TARIC_WANIG = 107;
+  const ACCOUNT_EXECUTIVE = 108;
 
   static public function getIncreasedInvitationIncrementer(PropelPDO $con) {
     $systemStats = SystemStatsQuery::create()->findOneById(1);

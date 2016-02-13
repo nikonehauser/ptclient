@@ -73,7 +73,7 @@ class Invitation extends BaseInvitation
       ->setHash($hash)
       ->setMemberId($login->getId())
       ->setType($type)
-      ->setFreeSignup($data['free_signup'] ? 1 : 0)
+      ->setFreeSignup(isset($data['free_signup']) && $data['free_signup'] ? 1 : 0)
       ->setCreationDate(time())
       ->save($con);
 

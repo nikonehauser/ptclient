@@ -48,9 +48,11 @@ class Member extends BaseMember
 
   static public $NUM_TO_BONUS_REASON = [
     SystemStats::ACCOUNT_NUM_CEO1 => Transaction::REASON_CEO1_BONUS,
-    SystemStats::ACCOUNT_NUM_CEO2 => Transaction::REASON_CEO2_BONUS,
     SystemStats::ACCOUNT_NUM_IT   => Transaction::REASON_IT_BONUS,
-    SystemStats::ACCOUNT_NUM_LAWYER => Transaction::REASON_LAWYER_BONUS,
+    SystemStats::ACCOUNT_SYLVHEIM => Transaction::REASON_SYLVHEIM,
+    SystemStats::ACCOUNT_EXECUTIVE => Transaction::REASON_EXECUTIVE,
+    SystemStats::ACCOUNT_NGO_PROJECTS => Transaction::REASON_NGO_PROJECTS,
+    SystemStats::ACCOUNT_TARIC_WANIG => Transaction::REASON_TARIC_WANI,
   ];
 
   static public $SIGNUP_FORM_FIELDS = [
@@ -115,17 +117,6 @@ class Member extends BaseMember
       'errorLabel' => 'error.money_numeric'
     ]
   ];
-
-  static public $ROOT_ACCOUNT_BONUS_REASON = [
-    Transaction::REASON_IT_BONUS => true,
-    Transaction::REASON_CEO1_BONUS => true,
-    Transaction::REASON_CEO2_BONUS => true,
-    Transaction::REASON_LAWYER_BONUS => true,
-  ];
-
-  static public function isRootAccountBonusReason($reason) {
-    return isset(self::$ROOT_ACCOUNT_BONUS_REASON[$reason]);
-  }
 
   static public function initSignupForm(array $data = array()) {
     return \Tbmt\Arr::initMulti($data, self::$SIGNUP_FORM_FIELDS);
@@ -199,7 +190,8 @@ class Member extends BaseMember
         ->setIban($data['iban'])
         ->setBic($data['bic'])
         ->setPassword($data['password'])
-        ->setSignupDate($now);
+        ->setSignupDate($now)
+        ->setPaidDate(null);
 
       if ( $invitation ) {
         $member->setType($invitation->getType());
@@ -208,6 +200,8 @@ class Member extends BaseMember
 
         $invitation->setAcceptedDate($now);
         if ( $invitation->getType() === self::TYPE_SUB_PROMOTER ) {
+          $member->setSubPromoterReferral($invitation->getMeta()['promoter_id']);
+        } else if ( $invitation->getType() === self::TYPE_SUB_PROMOTER ) {
           $member->setSubPromoterReferral($invitation->getMeta()['promoter_id']);
         }
       }
@@ -297,7 +291,7 @@ class Member extends BaseMember
   }
 
   public function hadPaid() {
-    return $this->getPaidDate() !== null;
+    return $this->getPaidDate() > 1;
   }
 
   /**
@@ -656,26 +650,31 @@ class MemberBonusIds {
     if ( !is_array($bonusByIds) )
       return;
 
+    // Each member carries all members which receive bonus for his signup
     $bonusIds = array_keys($bonusByIds);
     if ( count($bonusIds) === 0 )
       return;
 
     $relatedId = $payingMember->getId();
 
+    // Select all bonus members
     $bonusMembers = MemberQuery::create()
       ->filterByDeletionDate(null, Criteria::ISNULL)
       ->filterById($bonusIds, Criteria::IN)
       ->find($con);
 
+    $memberSylvheim = null;
+
     $spreadBonuses = [];
-    $membersByType = [];
     $toBeSaved = [];
     foreach ( $bonusMembers as $member ) {
       $type = $member->getType();
 
       $transfer = null;
       $reason = $member->getBonusReason();
+
       if ( $member->getBonusLevel() > 0 ) {
+        // Pay the individual bonus set for this member
         $transfer = self::doPay(
           $memberFee,
           $transfer,
@@ -689,6 +688,7 @@ class MemberBonusIds {
       }
 
       if ( $reason !== null ) {
+        // Pay bonus by reason for this member
         $transfer = self::doPay(
           $memberFee,
           $transfer,
@@ -707,12 +707,17 @@ class MemberBonusIds {
         $toBeSaved[] = $member;
         $toBeSaved[] = $transfer;
 
+        // Save the payed bonuses by type
         $spreadBonuses[$type] = [$member, $transfer];
+
+        if ( $member->getNum() === \SystemStats::ACCOUNT_SYLVHEIM )
+          $memberSylvheim = [$member, $transfer];
       }
     }
 
     $issetSpreadSubPromoterBonus = isset($spreadBonuses[Member::TYPE_SUB_PROMOTER]);
     if ( $issetSpreadSubPromoterBonus ) {
+      // Pay the weird sub promoter guy ... sigh ...
       $subPromoter = $spreadBonuses[Member::TYPE_SUB_PROMOTER][0];
       $subPromoterReferral = $subPromoter->getMemberRelatedBySubPromoterReferral($con);
       self::doPay(
@@ -729,6 +734,7 @@ class MemberBonusIds {
     }
 
     $inheritBonuses = [];
+    $add_sylvheim = [];
     $add_OL = null;
     $add_VL = [];
     $vl = null;
@@ -746,12 +752,13 @@ class MemberBonusIds {
       }
     }
 
-    if ( !isset($spreadBonuses[Member::TYPE_MARKETINGLEADER]) ) {
-      $add_VL = [];
-    } else
+
+    if ( isset($spreadBonuses[Member::TYPE_MARKETINGLEADER]) ) {
       $vl = $spreadBonuses[Member::TYPE_MARKETINGLEADER];
+    }
 
     if ( $add_OL ) {
+      // Pay org leader if exists
       $ol = $spreadBonuses[Member::TYPE_ORGLEADER];
       self::doPay(
         $memberFee,
@@ -765,17 +772,37 @@ class MemberBonusIds {
       );
     }
 
-    foreach ( $add_VL as $params ) {
-      self::doPay(
-        $memberFee,
-        $vl[1],
-        $vl[0],
-        $params,
-        $relatedId,
-        $currency,
-        $when,
-        $con
-      );
+    if ( $vl ) {
+      // Pay remaining to marketing leader
+      foreach ( $add_VL as $params ) {
+        self::doPay(
+          $memberFee,
+          $vl[1],
+          $vl[0],
+          $params,
+          $relatedId,
+          $currency,
+          $when,
+          $con
+        );
+      }
+    } else if ( $memberSylvheim ) {
+      // Pay sylvia and friedhelm by adding bonuses for all
+      // missing type of promoter, orgleader, marketing leader
+      $add_VL[] = Transaction::REASON_VL_BONUS;
+      foreach ( $add_VL as $params ) {
+        self::doPay(
+          $memberFee,
+          $memberSylvheim[1],
+          $memberSylvheim[0],
+          $params,
+          $relatedId,
+          $currency,
+          $when,
+          $con
+        );
+      }
+
     }
 
     foreach ( $toBeSaved as $row ) {

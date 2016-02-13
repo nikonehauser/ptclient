@@ -194,7 +194,7 @@
 
   CREATE TABLE IF NOT EXISTS  "tbmt_system_stats" (
     "id" serial NOT NULL ,
-    "invitation_incrementer" VARCHAR(10) NOT NULL default "2A15F6",
+    "invitation_incrementer" VARCHAR(10) NOT NULL default '2A15F6',
     "signup_count" int NOT NULL default 0,
     "member_count" int NOT NULL default 0,
     "starter_count" int NOT NULL default 0,

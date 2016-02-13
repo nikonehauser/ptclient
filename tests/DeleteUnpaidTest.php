@@ -32,6 +32,7 @@ class DeleteUnpaidTest extends Tbmt_Tests_DatabaseTestCase {
     // i do not get this because he wont pay
     // $MYSELF_total += Transaction::AMOUNT_ADVERTISED_LVL2;
     $WILL_NOT_PAY = DbEntityHelper::createSignupMember($MYSELF, false);
+    $WILL_NOT_PAY_total = new TransactionTotalsAssertions($WILL_NOT_PAY, $this);
 
     // myself would get 30euro for these 2 advertisings but
     // since $WILL_NOT_PAY will not pay, he gets deleted and those two will

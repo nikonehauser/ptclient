@@ -18,10 +18,6 @@ class MemberFee {
 
   public function subtract($floatAmount, $reason) {
     $this->toSystemAccount -= $floatAmount;
-
-    if ( !\Member::isRootAccountBonusReason($reason) )
-      $this->toRootAccount -= $floatAmount;
-
   }
 
   public function checkRemainGreaterZero() {
@@ -42,19 +38,6 @@ class MemberFee {
     );
 
     $systemAccount->save($con);
-
-    $rootAccount = \SystemStats::getRootAccount();
-    $transfer = $rootAccount->getCurrentTransferBundle($this->currency, $con);
-    $transaction = $transfer->createTransaction(
-      $rootAccount,
-      $this->toRootAccount,
-      \Transaction::REASON_TRANSFER_TO_ROOT,
-      $this->member->getId(),
-      $when,
-      $con
-    );
-
-    $rootAccount->save($con);
   }
 }
 

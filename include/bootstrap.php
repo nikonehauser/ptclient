@@ -43,13 +43,17 @@ require INC_DIR.'Localizer.php';
 require INC_DIR.'Router.php';
 require INC_DIR.'ControllerDispatcher.php';
 
-Config::load(CONFIG_DIR.'cfg.json');
+Config::load(defined('CONFIG_FILE_PATH') ? CONFIG_FILE_PATH : CONFIG_DIR.'cfg.php');
 $baseUrl = Config::get('baseurl');
 if ( !$baseUrl )
   throw new \Exception('Invalid configuration. Missing "baseurl" definition.');
 
+// $basePath = Config::get('basepath');
+// if ( !$basePath )
+//   throw new \Exception('Invalid configuration. Missing "basepath" definition.');
+
 Localizer::load(LOCALES_DIR);
-Router::init($baseUrl);
+Router::init($baseUrl, '');
 
 /* Setup propel
 ---------------------------------------------*/

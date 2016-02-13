@@ -85,7 +85,7 @@ class Validator {
   static private $indiaPincodes;
   static public function getIndiaPincodes() {
     if ( !self::$indiaPincodes ) {
-      self::$indiaPincodes = json_decode(file_get_contents(Router::toConfig('india.pincodes.json')), true);
+      self::$indiaPincodes = json_decode(file_get_contents(CONFIG_DIR.'india.pincodes.json'), true);
     }
 
 

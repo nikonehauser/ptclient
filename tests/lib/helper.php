@@ -35,6 +35,7 @@ class DbEntityHelper {
     'Email'         => 'niko.neuhauser@gmail.com',
     'City'          => 'unknown',
     'Country'       => 'unknown',
+    'ZipCode'       => '504231',
     'BankRecipient' => 'unknown',
     'Iban'          => 'unknown',
     'Bic'           => 'unknown',
@@ -49,6 +50,7 @@ class DbEntityHelper {
     'email'         => 'niko.neuhauser@gmail.com',
     'city'           => 'unknown',
     'country'        => 'unknown',
+    'zip_code'       => '504231',
     'bank_recipient' => 'unknown',
     'iban'           => 'unknown',
     'bic'            => 'unknown',
@@ -278,8 +280,20 @@ class TransactionTotalsAssertions {
   }
 
   public function out() {
+    if ( !$this->transfer->isNew() )
+      $this->transfer->reload(DbEntityHelper::$con);
+
+    if ( !$this->member->isNew() )
+      $this->member->reload(DbEntityHelper::$con);
+
+    $memberTotal = $this->member->getOutstandingTotal();
     print_r('<pre>');
-    print_r($this->total);
+    print_r([
+      'memberId' => $this->member->getId(),
+      $this->total,
+      $this->transfer->getAmount(),
+      isset($memberTotal[DbEntityHelper::$currency]) ? $memberTotal[DbEntityHelper::$currency] : null
+    ]);
     print_r('</pre>');
 
   }

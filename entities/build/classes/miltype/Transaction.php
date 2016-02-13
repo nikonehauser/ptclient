@@ -26,11 +26,16 @@ class Transaction extends BaseTransaction {
 
   const REASON_IT_BONUS = 6;
   const REASON_CEO1_BONUS = 7;
-  const REASON_CEO2_BONUS = 8;
-  const REASON_LAWYER_BONUS = 9;
+  // const REASON_CEO2_BONUS = 8; removed
+  // const REASON_LAWYER_BONUS = 9; removed
 
   const REASON_SUB_PM_BONUS = 10;
   const REASON_SUB_PM_REF_BONUS = 11;
+
+  const REASON_SYLVHEIM = 12;
+  const REASON_EXECUTIVE = 13;
+  const REASON_TARIC_WANI = 14;
+  const REASON_NGO_PROJECTS = 15;
 
   const REASON_CUSTOM_BONUS = 1001;
   const REASON_REMAINING_MEMBER_FEE = 1002;
@@ -41,11 +46,6 @@ class Transaction extends BaseTransaction {
   static public $MEMBER_FEE;
   static public $BASE_CURRENCY;
   static public $REASON_TO_AMOUNT = [];
-  static public $BONUS_REASONS = [
-    self::REASON_VL_BONUS,
-    self::REASON_OL_BONUS,
-    self::REASON_PM_BONUS,
-  ];
 
   static public function getAmountForReason($reason) {
     return self::$REASON_TO_AMOUNT[$reason];
@@ -55,10 +55,6 @@ class Transaction extends BaseTransaction {
     self::$REASON_TO_AMOUNT = $amountsByReasons;
     self::$MEMBER_FEE = $memberFee;
     self::$BASE_CURRENCY = $baseCurrency;
-  }
-
-  static public function isBonusReason($reason) {
-    return isset(self::$BONUS_REASONS[$reason]);
   }
 
   static public $BONUS_TRANSACTION_FORM_FIELDS = [

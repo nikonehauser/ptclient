@@ -16,6 +16,9 @@ class Router {
   static private $configsPath;
 
   static public function init($url, $basePath = '') {
+    // if ( $basePath[strlen($basePath)-1] !== '/' )
+    //   $basePath .= '/';
+
     // TODO
     // For $url to either end to valid file like:
     //   http://localhost/pt/index.php
@@ -23,6 +26,7 @@ class Router {
     // "http://localhost/pt/
     //
     // @see http://serverfault.com/questions/587002/apache2-301-redirect-when-missing-at-the-end-of-directory-in-the-url
+
     self::$url = $url;
     self::$assetsBase = $basePath.'assets/';
     self::$imagesBase = $basePath.'assets/images/';

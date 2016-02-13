@@ -16,6 +16,7 @@ class InvitationTest extends Tbmt_Tests_DatabaseTestCase {
     'email'          => 'unknown@un.de',
     'city'           => 'unknown',
     'country'        => 'unknown',
+    'zip_code'       => '504231',
     'bank_recipient' => 'unknown',
     'iban'           => 'unknown',
     'bic'            => 'unknown',

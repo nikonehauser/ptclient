@@ -34,61 +34,6 @@ class Cron {
     }
   }
 
-  public static function pushRootAccounts() {
-    $con = \Propel::getConnection();
-
-    if ( !$con->beginTransaction() )
-      throw new \Exception('Could not begin transaction');
-
-    $now = time();
-
-    try {
-      $rootAccountNums = \SystemStats::$ROOT_ACCOUNTS_NUM;
-      $rootAccounts = \MemberQuery::create()
-        ->filterByNum($rootAccountNums, \Criteria::IN)
-        ->filterByDeletionDate(null, \Criteria::ISNULL)
-        ->find();
-
-      $arrRootAccounts = [];
-      foreach ($rootAccounts as $account) {
-        $transfers = $account->getOpenCollectingTransfers($con);
-
-        $arrTransfers = [];
-        foreach ($transfers as $transfer) {
-          $transfer->executeTransfer($account);
-          $transfer->save($con);
-          $arrTransfers[] = $transfer->toArray();
-        }
-
-        if ( count($arrTransfers) === 0 )
-          continue;
-
-        $account->save($con);
-
-        $arrRootAccounts[] = $account->toArray() + [
-          'Transfers' => $arrTransfers
-        ];
-      }
-
-      $client = new ApiClient();
-
-      print_r('<pre>');
-      print_r([$client->pushRootAccounts($arrRootAccounts)]);
-      print_r('</pre>');
-
-
-      throw new \Exception('test');
-
-      if ( !$con->commit() )
-        throw new \Exception('Could not commit transaction');
-
-    } catch (\Exception $e) {
-        $con->rollBack();
-        throw $e;
-    }
-
-  }
-
   /**
    * Remind all unpaid members after 7 days.
    *
