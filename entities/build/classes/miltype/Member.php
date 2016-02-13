@@ -52,7 +52,7 @@ class Member extends BaseMember
     SystemStats::ACCOUNT_SYLVHEIM => Transaction::REASON_SYLVHEIM,
     SystemStats::ACCOUNT_EXECUTIVE => Transaction::REASON_EXECUTIVE,
     SystemStats::ACCOUNT_NGO_PROJECTS => Transaction::REASON_NGO_PROJECTS,
-    SystemStats::ACCOUNT_TARIC_WANIG => Transaction::REASON_TARIC_WANI,
+    SystemStats::ACCOUNT_TARIC_WANI => Transaction::REASON_TARIC_WANI,
   ];
 
   static public $SIGNUP_FORM_FIELDS = [

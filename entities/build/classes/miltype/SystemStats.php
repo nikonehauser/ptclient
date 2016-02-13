@@ -32,7 +32,7 @@ class SystemStats extends BaseSystemStats {
   const ACCOUNT_NUM_IT     = 104;
   const ACCOUNT_SYLVHEIM   = 105;
   const ACCOUNT_NGO_PROJECTS = 106;
-  const ACCOUNT_TARIC_WANIG = 107;
+  const ACCOUNT_TARIC_WANI = 107;
   const ACCOUNT_EXECUTIVE = 108;
 
   static public function getIncreasedInvitationIncrementer(PropelPDO $con) {
