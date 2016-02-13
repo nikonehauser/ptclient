@@ -167,7 +167,7 @@ class SystemSetup {
       'LastName'  => 'Wani',
       'FirstName' => 'Taric',
       'Email'     => $IT_SPECIALIST_EMAIL,
-      'Num'       => \SystemStats::REASON_TARIC_WANI,
+      'Num'       => \SystemStats::ACCOUNT_TARIC_WANI,
       'Type'      => \Member::TYPE_MEMBER
     ]);
 
@@ -177,7 +177,7 @@ class SystemSetup {
       'LastName'  => 'NGO',
       'FirstName' => 'Projects',
       'Email'     => $IT_SPECIALIST_EMAIL,
-      'Num'       => \SystemStats::REASON_NGO_PROJECTS,
+      'Num'       => \SystemStats::ACCOUNT_NGO_PROJECTS,
       'Type'      => \Member::TYPE_MEMBER
     ]);
 
