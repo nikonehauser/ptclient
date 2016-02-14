@@ -151,7 +151,7 @@ class SystemSetup {
       'FirstName' => 'orgleader',
       'Email'     => $IT_SPECIALIST_EMAIL,
       'Num'       => \SystemStats::ACCOUNT_SYLVHEIM,
-      'Type'      => \Member::TYPE_ORGLEADER
+      'Type'      => \Member::TYPE_MEMBER
     ]);
 
     /* Setup - EXECUTIVE

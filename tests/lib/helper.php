@@ -72,6 +72,18 @@ class DbEntityHelper {
     return $member;
   }
 
+  static public function createBonusMember($accountNumber) {
+    $member = self::createMember(null, [
+      'Num'=> $accountNumber,
+    ]);
+
+    $member->setBonusIds(json_encode([
+      $member->getId() => 1,
+    ]));
+
+    return $member;
+  }
+
   static public function createSignupMember(Member $referralMember, $receivedPaiment = true, array $data = array()) {
     $member = Member::createFromSignup(array_merge(self::$memberSignup, $data), $referralMember, null, self::$con);
 
@@ -290,12 +302,30 @@ class TransactionTotalsAssertions {
     print_r('<pre>');
     print_r([
       'memberId' => $this->member->getId(),
-      $this->total,
-      $this->transfer->getAmount(),
-      isset($memberTotal[DbEntityHelper::$currency]) ? $memberTotal[DbEntityHelper::$currency] : null
+      'manual_total' => $this->total,
+      'transfer_total' => $this->transfer->getAmount(),
+      'member_total' =>  isset($memberTotal[DbEntityHelper::$currency]) ? $memberTotal[DbEntityHelper::$currency] : null,
+      'member_transactions' => $this->transferTransactionsToArray($this->transfer)
     ]);
     print_r('</pre>');
 
+  }
+
+  public function transferTransactionsToArray($transfer) {
+    $i18nView = \Tbmt\Localizer::get('view.account.tabs.invoice');
+    $reasons = $i18nView['transaction_reasons'];
+
+    $result = [];
+    $transactions = $transfer->getTransactions();
+    foreach ( $transactions as $trans ) {
+      $result[] = [
+        'id'     => $trans->getId(),
+        'amount' => $trans->getAmount(),
+        'reason' => $reasons[$trans->getReason()]
+      ];
+    }
+
+    return $result;
   }
 
   public function assertTotals() {

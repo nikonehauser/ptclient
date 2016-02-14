@@ -565,4 +565,20 @@ class BonusSpreadingTest extends Tbmt_Tests_DatabaseTestCase {
     $outTot = isset($outTot[DbEntityHelper::$currency]) ? $outTot[DbEntityHelper::$currency] : 0;
     $this->assertEquals($total, $outTot, 'Incorrect outstanding total');
   }
+
+  public function testSylvhelmBonuses() {
+    $sylvheim = DbEntityHelper::createBonusMember(\SystemStats::ACCOUNT_SYLVHEIM);
+    $sylvheim_total = new TransactionTotalsAssertions($sylvheim, $this);
+
+    $any = DbEntityHelper::createSignupMember($sylvheim);
+
+    $sylvheim_total->add(Transaction::REASON_ADVERTISED_LVL1, 1);
+    $sylvheim_total->add(Transaction::REASON_VL_BONUS, 1);
+    $sylvheim_total->add(Transaction::REASON_OL_BONUS, 1);
+    $sylvheim_total->add(Transaction::REASON_PM_BONUS, 1);
+    $sylvheim_total->add(Transaction::REASON_SYLVHEIM, 1);
+
+    $sylvheim_total->assertTotals();
+
+  }
 }

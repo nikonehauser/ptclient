@@ -530,6 +530,9 @@ class Member extends BaseMember
    *
    */
   public function onReceivedMemberFee($currency, $when, PropelPDO $con) {
+    if ( $this->hadPaid() )
+      throw new \Exception('Paid member receiving fee again!');
+
     $referrer = $this->getReferrerMember();
 
     if ( $referrer && !$referrer->hadPaid() ) {
