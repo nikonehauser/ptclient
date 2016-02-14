@@ -32,6 +32,9 @@ class SystemSetup {
   static public function createMember(\Member $referralMember = null, array $data = array()) {
     $member = new \Member();
 
+    $data['SignupDate'] = time();
+    $data['PaidDate'] = time();
+
     $member->fromArray(array_merge(self::$memberDefaults, $data));
     if ( $referralMember )
       $member->setReferrerMember($referralMember, self::$con);
