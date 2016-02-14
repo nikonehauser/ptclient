@@ -26,8 +26,8 @@ class MemberSignup extends Base {
         'bic'                  => 'Test',
         'accept_agbs'          => '1',
         'accept_valid_country' => '1',
-        'password'             => 'test1234',
-        'password2'            => 'test1234',
+        'password'             => 'demo1234',
+        'password2'            => 'demo1234',
       ], $data);
     }
 
