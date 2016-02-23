@@ -170,7 +170,7 @@ and wish you a carefree and pleasant future life with your high passive income o
 
     'body' => "Dear {fullname},
 
-on {recruited_signup_date} (full name recruited donator) successfully signed up on
+on {recruited_signup_date} {recruited_fullname} successfully signed up on
 www.betterliving.social because of your recommendation.
 
 Unfortunately {recruited_fullname} has not transferred their donation yet.

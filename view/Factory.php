@@ -44,12 +44,12 @@ class Factory {
    * @param  integer $size
    * @return [type]
    */
-  static function buildButton($text, $href, $type = '', $icon = '') {
+  static function buildButton($text, $href, $type = '', $icon = '', $target = '') {
     if ( $icon !== '' )
       $icon = '<i class="icon-right fa fa-'.$icon.'"></i>';
 
     return <<<END
-<a href="$href" class="button $type text-center"><span>$text $icon</span></a>
+<a href="$href" $target class="button $type text-center"><span>$text $icon</span></a>
 END;
   }
 

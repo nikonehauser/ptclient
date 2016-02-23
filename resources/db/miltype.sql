@@ -74,19 +74,15 @@
   DROP TABLE IF EXISTS "tbmt_member_data" CASCADE;
 
   CREATE TABLE IF NOT EXISTS  "tbmt_member_data" (
-    "id" serial NOT NULL ,
     "member_id" integer NOT NULL ,
     "fee_reminder_email" smallint not null default 0 ,
-    PRIMARY KEY ("id") ,
+    PRIMARY KEY ("member_id") ,
     CONSTRAINT "fk_member_data_member"
       FOREIGN KEY ("member_id")
       REFERENCES "tbmt_member" ("id")
       ON DELETE CASCADE
       ON UPDATE CASCADE
   );
-
-  ALTER TABLE ONLY tbmt_member_data
-    ADD CONSTRAINT "tbmt_member_data_member_id_UNIQUE" UNIQUE (member_id);
 
 -- -----------------------------------------------------
 -- Table "transfer"

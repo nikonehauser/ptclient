@@ -4,18 +4,9 @@
 
  - PDF als quittung
 
- - tarik jung - 50 rupien, tarik alt - 50 rupien ( list aller aktuellen typen)
-
-
- - einladungs code verkürzen.
-
- - signup checkbox for terms, add link to that terms
-
  - hinweis um fehlende india pin codes hinzufügen zu können
 
  - projects@betterliving.social
-
- - die funds level grenze wurde von 2 auf 3 erhöht ?
 
 Fragen
 ======

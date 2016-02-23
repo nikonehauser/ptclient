@@ -18,6 +18,7 @@ class AccountDev_payingTab extends Base {
 
     $this->members = \MemberQuery::create()
       ->filterByPaidDate(null, \Criteria::ISNULL)
+      ->filterByDeletionDate(null, \Criteria::ISNULL)
       ->find();
 
     return $this->renderFile(

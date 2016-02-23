@@ -4,6 +4,24 @@
   <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['view_title'], 'bottom-30 top-10')?>
 
     <div class="row">
+
+      <?=\Tbmt\view\Factory::buildButton(
+        'Trigger 7 Days Reminder',
+        \Tbmt\Router::toModule('cron', 'firstreminder'),
+        ' blue',
+        '',
+        'target="_blank"'
+      )?>
+
+
+      <?=\Tbmt\view\Factory::buildButton(
+        'Trigger remove unpaid',
+        \Tbmt\Router::toModule('cron', 'removeunpaid'),
+        ' red',
+        '',
+        'target="_blank"'
+      )?>
+
       <table class="table">
         <tbody>
           <?php

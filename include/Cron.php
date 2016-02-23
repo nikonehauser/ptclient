@@ -3,17 +3,19 @@
 namespace Tbmt;
 
 class Cron {
-  public static function removeUnpaid() {
+  public static function removeUnpaid($now = null, $allowedSeconds = 1209600) {
     $con = \Propel::getConnection();
 
     if ( !$con->beginTransaction() )
       throw new \Exception('Could not begin transaction');
 
-    $now = time();
+    if ( $now === null )
+      $now = time();
 
     // - 2 weeks (3600 * 24 * 14)
-    $twoWeeksAgo -= 1209600;
+    $twoWeeksAgo = $now - $allowedSeconds;
 
+    $result = '';
     try {
       $unpaidMembers = \MemberQuery::create()
         ->filterByPaidDate(null, \Criteria::ISNULL)
@@ -21,7 +23,16 @@ class Cron {
         ->filterByDeletionDate(null, \Criteria::ISNULL)
         ->find($con);
 
+      $result .= "Remove unpaid user job:\n\n";
+
+      if ( count($unpaidMembers) > 0 ) {
+        $result .= "Found ".count($unpaidMembers)." members:\n\n";
+      } else {
+        $result .= "No unpaid members found.";
+      }
+
       foreach ( $unpaidMembers as $member ) {
+        $result .= "Remove member: ".$member->getNum()."\n";
         $member->deleteAndUpdateTree($con);
       }
 
@@ -32,6 +43,8 @@ class Cron {
         $con->rollBack();
         throw $e;
     }
+
+    return $result;
   }
 
   /**
@@ -39,14 +52,18 @@ class Cron {
    *
    * @return
    */
-  public static function emailReminder() {
+  public static function emailReminder($now = null, $allowedDays = '-7 days') {
     $con = \Propel::getConnection();
 
     if ( !$con->beginTransaction() )
       throw new \Exception('Could not begin transaction');
 
-    $now = time();
-    $before7Days = strtotime('-7 days', $now);
+    if ( $now === null )
+      $now = time();
+
+    $before7Days = strtotime($allowedDays, $now);
+
+    $result = '';
 
     try {
       $unpaidMembers = \MemberQuery::create()
@@ -69,8 +86,20 @@ class Cron {
         ->where(array('reminderMailIsNull', 'reminderMailEqualZero'), \Criteria::LOGICAL_OR)
         ->find();
 
+      $result .= "7 days reminder email job:\n\n";
+
+      if ( count($unpaidMembers) > 0 ) {
+        $result .= "Found ".count($unpaidMembers)." members:\n\n";
+      } else {
+        $result .= "No member to remind found.";
+      }
+
       foreach ($unpaidMembers as $member) {
-        if ( $member->getAdvertisedCountTotal() === 0 ) {
+        $totalAdvertised = $member->getAdvertisedCountTotal();
+        $result .= "Member: ".$member->getNum()."\n";
+        $result .= "Advertised count: ".$totalAdvertised."\n";
+
+        if ( $totalAdvertised === 0 ) {
           MailHelper::sendFeeReminder($member);
           MailHelper::sendFeeReminderReferrer($member->getReferrerMember(), $member);
         } else {
@@ -78,7 +107,7 @@ class Cron {
           MailHelper::sendFeeReminderWithAdvertisingsReferrer($member->getReferrerMember(), $member);
         }
 
-        $data = $member->getMemberDatas();
+        $data = $member->getMemberData();
         if ( !$data ) {
           $data = new \MemberData();
           $data->setMemberId($member->getId());
@@ -86,6 +115,8 @@ class Cron {
 
         $data->setFeeReminderEmail(1);
         $data->save($con);
+
+        $result .= "---------\n\n";
       }
 
       if ( !$con->commit() )
@@ -95,6 +126,8 @@ class Cron {
         $con->rollBack();
         throw $e;
     }
+
+    return $result;
 
   }
 }
