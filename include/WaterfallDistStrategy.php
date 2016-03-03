@@ -70,12 +70,12 @@ class WaterfallDistStrategy extends DistributionStrategy {
         // As long as i am level 1 i wont receive more from them than just
         // the 5 euro. All further advertised members etc. will go on to the
         // account of my referrer
-        $advertisedMember->setMemberRelatedByParentId($parent);
+        $advertisedMember->setParentId($referrer->getReferrerId());
         $parentTransfer->save($con);
         $parent->save($con);
       }
 
-    } else { // if ( $this->getFundsLevel() === Member::FUNDS_LEVEL2 ) {
+    } else { // if ( $this->getFundsLevel() >= Member::FUNDS_LEVEL2 ) {
 
       // @see resources/snowball.txt - processes - P3
 

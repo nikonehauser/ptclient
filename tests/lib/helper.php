@@ -321,7 +321,8 @@ class TransactionTotalsAssertions {
       $result[] = [
         'id'     => $trans->getId(),
         'amount' => $trans->getAmount(),
-        'reason' => $reasons[$trans->getReason()]
+        'reason' => $reasons[$trans->getReason()],
+        'related_id' => $trans->getRelatedId()
       ];
     }
 

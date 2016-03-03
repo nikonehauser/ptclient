@@ -390,7 +390,9 @@ class Member extends BaseMember
   public function setReferrerMember(Member $referrer, PropelPDO $con) {
     $referrerId = $referrer->getId();
     $this->setReferrerId($referrerId);
-    $this->setParentId($referrerId);
+
+    if ( $referrer->getFundsLevel() === self::FUNDS_LEVEL2 )
+      $this->setParentId($referrerId);
 
     $bonusIds = $referrer->getBonusIds();
     $referrerType = $referrer->getType();
@@ -406,7 +408,7 @@ class Member extends BaseMember
   }
 
   public function getReferrerMember(PropelPDO $con = null) {
-    return $this->getMemberRelatedByParentId($con);
+    return $this->getMemberRelatedByReferrerId($con);
   }
 
   public function addOutstandingAdvertisedCount($int) {
@@ -534,6 +536,12 @@ class Member extends BaseMember
       throw new \Exception('Paid member receiving fee again!');
 
     $referrer = $this->getReferrerMember();
+    if ( !$referrer ) {
+      throw new Exception('Member ('.$this->getId().') has no referrer!');
+    }
+
+    \Tbmt\MailHelper::sendFeeIncome($this);
+    \Tbmt\MailHelper::sendFeeIncomeReferrer($referrer, $this);
 
     if ( $referrer && !$referrer->hadPaid() ) {
       // if the parent hasnt paid yet. reserve this event until his fee is
@@ -555,9 +563,6 @@ class Member extends BaseMember
       $when,
       $con
     );
-
-    \Tbmt\MailHelper::sendFeeIncome($this);
-    \Tbmt\MailHelper::sendFeeIncomeReferrer($referrer, $this);
 
     $this->fireReservedReceivedMemberFeeEvents($con);
     $this->save($con);

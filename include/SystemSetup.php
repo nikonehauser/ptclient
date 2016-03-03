@@ -66,13 +66,13 @@ class SystemSetup {
 
     /* Setup - ROOT ACCOUNT
     ---------------------------------------------*/
-    self::createMember(null, [
-      'LastName'  => 'account',
-      'FirstName' => 'root',
-      'Email'     => $IT_SPECIALIST_EMAIL,
-      'Num'       => \SystemStats::ACCOUNT_NUM_ROOT,
-      'Type'      => \Member::TYPE_SYSTEM
-    ]);
+    // self::createMember(null, [
+    //   'LastName'  => 'account',
+    //   'FirstName' => 'root',
+    //   'Email'     => $IT_SPECIALIST_EMAIL,
+    //   'Num'       => \SystemStats::ACCOUNT_NUM_ROOT,
+    //   'Type'      => \Member::TYPE_SYSTEM
+    // ]);
 
 
     /* Setup - CEO1
@@ -108,7 +108,8 @@ class SystemSetup {
       'FirstName' => 'system',
       'Email'     => $IT_SPECIALIST_EMAIL,
       'Num'       => \SystemStats::ACCOUNT_NUM_SYSTEM,
-      'Type'      => \Member::TYPE_SYSTEM
+      'Type'      => \Member::TYPE_SYSTEM,
+      'FundsLevel'=> \Member::FUNDS_LEVEL2
     ]);
 
 
@@ -119,7 +120,8 @@ class SystemSetup {
       'FirstName' => 'root',
       'Email'     => $IT_SPECIALIST_EMAIL,
       'Num'       => \SystemStats::ACCOUNT_NUM_ROOT,
-      'Type'      => \Member::TYPE_SYSTEM
+      'Type'      => \Member::TYPE_SYSTEM,
+      'FundsLevel'=> \Member::FUNDS_LEVEL2
     ]);
 
 
@@ -130,7 +132,8 @@ class SystemSetup {
       'FirstName' => 'system',
       'Email'     => $IT_SPECIALIST_EMAIL,
       'Num'       => \SystemStats::ACCOUNT_NUM_CEO1,
-      'Type'      => \Member::TYPE_CEO
+      'Type'      => \Member::TYPE_CEO,
+      'FundsLevel'=> \Member::FUNDS_LEVEL2
     ]);
 
 
@@ -141,7 +144,8 @@ class SystemSetup {
       'FirstName' => 'system',
       'Email'     => $IT_SPECIALIST_EMAIL,
       'Num'       => \SystemStats::ACCOUNT_NUM_IT,
-      'Type'      => \Member::TYPE_MEMBER
+      'Type'      => \Member::TYPE_MEMBER,
+      'FundsLevel'=> \Member::FUNDS_LEVEL2
     ]);
 
     /* Setup - SYLVHEIM
@@ -151,7 +155,8 @@ class SystemSetup {
       'FirstName' => 'orgleader',
       'Email'     => $IT_SPECIALIST_EMAIL,
       'Num'       => \SystemStats::ACCOUNT_SYLVHEIM,
-      'Type'      => \Member::TYPE_MEMBER
+      'Type'      => \Member::TYPE_MEMBER,
+      'FundsLevel'=> \Member::FUNDS_LEVEL2
     ]);
 
     /* Setup - EXECUTIVE
@@ -161,7 +166,8 @@ class SystemSetup {
       'FirstName' => 'organization',
       'Email'     => $IT_SPECIALIST_EMAIL,
       'Num'       => \SystemStats::ACCOUNT_EXECUTIVE,
-      'Type'      => \Member::TYPE_MEMBER
+      'Type'      => \Member::TYPE_MEMBER,
+      'FundsLevel'=> \Member::FUNDS_LEVEL2
     ]);
 
     /* Setup - TARIC WANI
@@ -171,7 +177,8 @@ class SystemSetup {
       'FirstName' => 'Taric',
       'Email'     => $IT_SPECIALIST_EMAIL,
       'Num'       => \SystemStats::ACCOUNT_TARIC_WANI,
-      'Type'      => \Member::TYPE_MEMBER
+      'Type'      => \Member::TYPE_MEMBER,
+      'FundsLevel'=> \Member::FUNDS_LEVEL2
     ]);
 
     /* Setup - REASON_NGO_PROJECTS
@@ -181,7 +188,8 @@ class SystemSetup {
       'FirstName' => 'Projects',
       'Email'     => $IT_SPECIALIST_EMAIL,
       'Num'       => \SystemStats::ACCOUNT_NGO_PROJECTS,
-      'Type'      => \Member::TYPE_MEMBER
+      'Type'      => \Member::TYPE_MEMBER,
+      'FundsLevel'=> \Member::FUNDS_LEVEL2
     ]);
 
 

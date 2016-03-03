@@ -288,4 +288,25 @@ class SnowballTest extends Tbmt_Tests_DatabaseTestCase {
     $MYSELF_total->assertTotals();
   }
 
+
+
+  public function testFixRecursiveIndirectBonusSpreading() {
+    $promoter1 = DbEntityHelper::createMember(null, ['LastName' => 'promoter']);
+    $promoter1_total = new TransactionTotalsAssertions($promoter1, $this);
+
+    $MYSELF = DbEntityHelper::createSignupMember($promoter1, true, ['lastName' => 'myself']);
+    $MYSELF_total = new TransactionTotalsAssertions($MYSELF, $this);
+
+    $bea = DbEntityHelper::createSignupMember($MYSELF, true, ['lastName' => 'bea']);
+    $franz = DbEntityHelper::createSignupMember($bea, true, ['lastName' => 'franz']);
+    $egal = DbEntityHelper::createSignupMember($franz, true, ['lastName' => 'egal']);
+    DbEntityHelper::createSignupMember($egal);
+
+    $MYSELF_total->add(Transaction::REASON_ADVERTISED_LVL1);
+    $promoter1_total->add(Transaction::REASON_ADVERTISED_LVL1);
+
+    $promoter1_total->assertTotals();
+    $MYSELF_total->assertTotals();
+  }
+
 }

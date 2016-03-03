@@ -243,6 +243,11 @@ class MailHelper {
     $fullName = \Tbmt\view\Factory::buildMemberFullNameString($referrer);
     $recruited_fullname = \Tbmt\view\Factory::buildMemberFullNameString($recruited);
 
+    if ( $referrer->getFundsLevel() == \Member::FUNDS_LEVEL2 )
+      $provision = \Transaction::getAmountForReason(\Transaction::REASON_ADVERTISED_LVL2);
+    else
+      $provision = \Transaction::getAmountForReason(\Transaction::REASON_ADVERTISED_LVL1);
+
     return self::send(
       $email,
       $fullName,
@@ -252,6 +257,7 @@ class MailHelper {
         'recruited_fullname' => $recruited_fullname,
         'recruited_firstname' => $recruited->getFirstName(),
         'video_link' => \Tbmt\Router::toVideo(),
+        'provision_amount' => $provision
       ], false)
     );
   }

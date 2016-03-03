@@ -13,11 +13,18 @@
         'target="_blank"'
       )?>
 
-
       <?=\Tbmt\view\Factory::buildButton(
         'Trigger remove unpaid',
         \Tbmt\Router::toModule('cron', 'removeunpaid'),
         ' red',
+        '',
+        'target="_blank"'
+      )?>
+
+      <?=\Tbmt\view\Factory::buildButton(
+        'Show all invoices',
+        \Tbmt\Router::toModule('debug', 'allinvoices'),
+        ' yellow',
         '',
         'target="_blank"'
       )?>

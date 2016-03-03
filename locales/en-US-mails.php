@@ -377,6 +377,8 @@ We wish you the very best and hope you’ll get rich soon!"
  *   recruited_firstname,
  *   video_link
  *
+ *
+ *  TODO
  */
   'fee_income_referrer' => [
 
@@ -389,7 +391,7 @@ Thank you for sharing the opportunity with {recruited_firstname}.
 Now Betterliving can carry out beneficial projects in India.
 Your advantage is great as well!
 You should know by now that you will get a commission for {recruited_firstname}’s donation.
-You will receive (300/1500) Rupees for {recruited_firstname}’s donation.
+You will receive {provision_amount} Rupees for {recruited_firstname}’s donation.
 You want to earn even more? Make sure you find three friends who join Betterliving.
 This will make you a prime member. That means your commission will go up +400% to 1500 Rupees!
 This is proved in the explanation video

@@ -8,6 +8,12 @@
 
  - projects@betterliving.social
 
+
+
+ - Mail 8 ist so nicht anwendbar. Entweder der text muss angepasst werden um
+ lvl 1 und 2 zu entsprechen oder wir brauchen 2 verschiedene emails die an
+ lvl 1 und 2 entsprechend gerichtet werden
+
 Fragen
 ======
 
