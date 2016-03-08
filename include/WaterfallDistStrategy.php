@@ -69,8 +69,8 @@ class WaterfallDistStrategy extends DistributionStrategy {
 
         // As long as i am level 1 i wont receive more from them than just
         // the 5 euro. All further advertised members etc. will go on to the
-        // account of my referrer
-        $advertisedMember->setParentId($referrer->getReferrerId());
+        // account of my !parent!
+        $advertisedMember->setParentId($referrer->getParentId());
         $parentTransfer->save($con);
         $parent->save($con);
       }

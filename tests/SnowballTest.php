@@ -291,22 +291,41 @@ class SnowballTest extends Tbmt_Tests_DatabaseTestCase {
 
 
   public function testFixRecursiveIndirectBonusSpreading() {
-    $promoter1 = DbEntityHelper::createMember(null, ['LastName' => 'promoter']);
+    $promoter1 = DbEntityHelper::createMember(null, [
+        'LastName' => 'promoter1',
+        'FundsLevel' => \Member::FUNDS_LEVEL2
+    ]);
+    $S1 = DbEntityHelper::createSignupMember($promoter1, true, ['lastName' => 'S1']);
+    $S2 = DbEntityHelper::createSignupMember($S1, true, ['lastName' => 'S2']);
+    $S3 = DbEntityHelper::createSignupMember($S2, true, ['lastName' => 'S3']);
+    $S4 = DbEntityHelper::createSignupMember($S3, true, ['lastName' => 'S4']);
+    // DbEntityHelper::createSignupMember($egal);
+
     $promoter1_total = new TransactionTotalsAssertions($promoter1, $this);
+    $S1_total = new TransactionTotalsAssertions($S1, $this);
+    $S2_total = new TransactionTotalsAssertions($S2, $this);
+    $S3_total = new TransactionTotalsAssertions($S3, $this);
+    $S4_total = new TransactionTotalsAssertions($S4, $this);
 
-    $MYSELF = DbEntityHelper::createSignupMember($promoter1, true, ['lastName' => 'myself']);
-    $MYSELF_total = new TransactionTotalsAssertions($MYSELF, $this);
+    // Zahlung s1
+    $promoter1_total->add(Transaction::REASON_ADVERTISED_LVL2);
 
-    $bea = DbEntityHelper::createSignupMember($MYSELF, true, ['lastName' => 'bea']);
-    $franz = DbEntityHelper::createSignupMember($bea, true, ['lastName' => 'franz']);
-    $egal = DbEntityHelper::createSignupMember($franz, true, ['lastName' => 'egal']);
-    DbEntityHelper::createSignupMember($egal);
+    // zahlung s2
+    $promoter1_total->add(Transaction::REASON_ADVERTISED_INDIRECT);
+    $S1_total->add(Transaction::REASON_ADVERTISED_LVL1);
 
-    $MYSELF_total->add(Transaction::REASON_ADVERTISED_LVL1);
-    $promoter1_total->add(Transaction::REASON_ADVERTISED_LVL1);
+    // zahlung s3
+    $promoter1_total->add(Transaction::REASON_ADVERTISED_INDIRECT);
+    $S2_total->add(Transaction::REASON_ADVERTISED_LVL1);
+
+    // zahlung s4
+    $promoter1_total->add(Transaction::REASON_ADVERTISED_INDIRECT);
+    $S3_total->add(Transaction::REASON_ADVERTISED_LVL1);
 
     $promoter1_total->assertTotals();
-    $MYSELF_total->assertTotals();
+    $S1_total->assertTotals();
+    $S2_total->assertTotals();
+    $S3_total->assertTotals();
   }
 
 }

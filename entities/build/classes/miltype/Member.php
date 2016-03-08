@@ -390,9 +390,7 @@ class Member extends BaseMember
   public function setReferrerMember(Member $referrer, PropelPDO $con) {
     $referrerId = $referrer->getId();
     $this->setReferrerId($referrerId);
-
-    if ( $referrer->getFundsLevel() === self::FUNDS_LEVEL2 )
-      $this->setParentId($referrerId);
+    $this->setParentId($referrerId);
 
     $bonusIds = $referrer->getBonusIds();
     $referrerType = $referrer->getType();
@@ -409,6 +407,10 @@ class Member extends BaseMember
 
   public function getReferrerMember(PropelPDO $con = null) {
     return $this->getMemberRelatedByReferrerId($con);
+  }
+
+  public function getParentMember(PropelPDO $con = null) {
+    return $this->getMemberRelatedByParentId($con);
   }
 
   public function addOutstandingAdvertisedCount($int) {
