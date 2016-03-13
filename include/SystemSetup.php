@@ -153,7 +153,7 @@ class SystemSetup {
     $sylvheim = self::createMember(null, [
       'LastName'  => 'sylvheim',
       'FirstName' => 'orgleader',
-      'Email'     => 'test35@gmx.net',
+      'Email'     => 'test35@gmx.de',
       'Num'       => \SystemStats::ACCOUNT_SYLVHEIM,
       'Type'      => \Member::TYPE_CEO,
       'FundsLevel'=> \Member::FUNDS_LEVEL2
