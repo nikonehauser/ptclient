@@ -17,7 +17,7 @@ class MemberSignup extends Base {
         'lastName'             => 'Spender ',
         'firstName'            => 'Spender ',
         'age'                  => '25',
-        'email'                => 'info@efesus.de',
+        'email'                => 'test1@gmx.net',
         'city'                 => 'Test',
         'zip_code'             => '504299',
         'country'              => 'India',

@@ -72,10 +72,10 @@ class DbEntityHelper {
     return $member;
   }
 
-  static public function createBonusMember($accountNumber) {
-    $member = self::createMember(null, [
+  static public function createBonusMember($accountNumber, array $data = array()) {
+    $member = self::createMember(null, array_merge([
       'Num'=> $accountNumber,
-    ]);
+    ], $data));
 
     $member->setBonusIds(json_encode([
       $member->getId() => 1,
