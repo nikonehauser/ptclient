@@ -88,7 +88,7 @@ class DbEntityHelper {
     $member = Member::createFromSignup(array_merge(self::$memberSignup, $data), $referralMember, null, self::$con);
 
     if ( $receivedPaiment )
-      $member->onReceivedMemberFee(self::$currency, time(), self::$con);
+      $member->onReceivedMemberFee(self::$currency, time(), false, self::$con);
 
     return $member;
   }
@@ -98,7 +98,7 @@ class DbEntityHelper {
   }
 
   static public function fireReceivedMemberFee(Member $member, $now) {
-    $member->onReceivedMemberFee(self::$currency, $now, self::$con);
+    $member->onReceivedMemberFee(self::$currency, $now, false, self::$con);
   }
 
   static public function resetBonusMembers() {

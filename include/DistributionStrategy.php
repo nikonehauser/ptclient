@@ -20,7 +20,9 @@ abstract class DistributionStrategy {
     self::$instance = null;
   }
 
-  abstract public function onReceivedMemberFee(\Member $member, \Member $referrer, $currency, $when, \PropelPDO $con);
+  abstract public function onReceivedMemberFee(\Member $member, \Member $referrer, $currency, $when, $freeFromInvitation, \PropelPDO $con);
+
+  abstract public function updateTreeByFundsLevel(\Member $referrer, \Member $advertisedMember);
 
 }
 

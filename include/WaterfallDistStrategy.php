@@ -6,27 +6,30 @@ class WaterfallDistStrategy extends DistributionStrategy {
 
   const FUNDS_LEVLE_UPDATE_WITH = 2;
 
-  public function onReceivedMemberFee(\Member $member, \Member $referrer, $currency, $when, \PropelPDO $con) {
+  public function onReceivedMemberFee(\Member $member, \Member $referrer, $currency, $when, $freeFromInvitation, \PropelPDO $con) {
     // TODO - replace config value with real received value from bank transaction
     $memberFee = new \Tbmt\MemberFee(\Tbmt\Config::get('member_fee'), $member, $currency);
 
     // @see resources/snowball.txt - processes - P2
-    if ( $referrer ) {
 
+    if ( !$freeFromInvitation )
       $this->payAdvertisingFor($referrer, $memberFee, $member, $currency, $when, $con);
 
-      $newAdvertisedCount = $referrer->convertOutstandingAdvertisedCount(1);
-      if ( $newAdvertisedCount == self::FUNDS_LEVLE_UPDATE_WITH ) {
-        $referrer->setFundsLevel(\Member::FUNDS_LEVEL2);
-        $referrer->setMemberRelatedByParentId(null);
-        MailHelper::sendFundsLevelUpgrade($referrer, $member);
-      }
+    $this->updateTreeByFundsLevel($referrer, $member);
 
-      $referrer->save($con);
+    $newAdvertisedCount = $referrer->convertOutstandingAdvertisedCount(1);
+    if ( $newAdvertisedCount == self::FUNDS_LEVLE_UPDATE_WITH ) {
+      $referrer->setFundsLevel(\Member::FUNDS_LEVEL2);
+      $referrer->setMemberRelatedByParentId(null);
+      MailHelper::sendFundsLevelUpgrade($referrer, $member);
     }
 
-    $memberFee->checkRemainGreaterZero();
-    $memberFee->addRemainingToAccounts($when, $con);
+    $referrer->save($con);
+
+    if ( !$freeFromInvitation ) {
+      $memberFee->checkRemainGreaterZero();
+      $memberFee->addRemainingToAccounts($when, $con);
+    }
 
   }
 
@@ -67,10 +70,6 @@ class WaterfallDistStrategy extends DistributionStrategy {
         );
         $memberFee->subtract($parentTransaction->getAmount(), \Transaction::REASON_ADVERTISED_INDIRECT);
 
-        // As long as i am level 1 i wont receive more from them than just
-        // the 5 euro. All further advertised members etc. will go on to the
-        // account of my !parent!
-        $advertisedMember->setParentId($referrer->getParentId());
         $parentTransfer->save($con);
         $parent->save($con);
       }
@@ -78,8 +77,6 @@ class WaterfallDistStrategy extends DistributionStrategy {
     } else { // if ( $this->getFundsLevel() >= Member::FUNDS_LEVEL2 ) {
 
       // @see resources/snowball.txt - processes - P3
-
-      $advertisedMember->setMemberRelatedByParentId($referrer);
 
       $transaction = $transfer->createTransactionForReason(
         $referrer,
@@ -94,6 +91,19 @@ class WaterfallDistStrategy extends DistributionStrategy {
     $transfer->save($con);
 
     \MemberBonusIds::payBonuses($memberFee, $advertisedMember, $currency, $when, $con);
+  }
+
+  public function updateTreeByFundsLevel(\Member $referrer, \Member $advertisedMember) {
+    if ( $referrer->getFundsLevel() === \Member::FUNDS_LEVEL1 ) {
+      // As long as i am level 1 i wont receive more from them than just
+      // the 5 euro. All further advertised members etc. will go on to the
+      // account of my !parent!
+      $advertisedMember->setParentId($referrer->getParentId());
+
+    } else { // if ( $this->getFundsLevel() >= Member::FUNDS_LEVEL2 ) {
+      $advertisedMember->setMemberRelatedByParentId($referrer);
+    }
+
   }
 
 }

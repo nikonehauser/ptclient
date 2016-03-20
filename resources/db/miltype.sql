@@ -140,6 +140,7 @@
   CREATE TABLE IF NOT EXISTS  "tbmt_reserved_paid_event" (
     "unpaid_id" int NOT NULL ,
     "paid_id" int NOT NULL ,
+    "is_free_invitation" int NOT NULL default 0,
     "currency" varchar(3) not null ,
     "date" timestamp with time zone NOT NULL ,
     PRIMARY KEY ("unpaid_id", "paid_id") ,

@@ -1,3 +1,8 @@
+ - code mit nicht bezahlen testen, das des hinhaut
+ - nicht 2 mal bezahlen bekommen
+
+ - checkbox das man donator auf stufe 2 anmelden kann?
+
  - email nach geldeingang
 
  - link zur website NGO
@@ -8,11 +13,6 @@
 
  - projects@betterliving.social
 
-
-
- - Mail 8 ist so nicht anwendbar. Entweder der text muss angepasst werden um
- lvl 1 und 2 zu entsprechen oder wir brauchen 2 verschiedene emails die an
- lvl 1 und 2 entsprechend gerichtet werden
 
 Fragen
 ======

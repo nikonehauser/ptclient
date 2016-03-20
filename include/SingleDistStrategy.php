@@ -29,7 +29,7 @@ class SingleDistStrategy extends DistributionStrategy {
    * @param  Member    $advertisedMember
    * @param  PropelPDO $con
    */
-  public function payAdvertisingFor(\Member $referrer, \Tbmt\MemberFee $memberFee, \Member $advertisedMember, $currency, $when, \PropelPDO $con) {
+  public function payAdvertisingFor(\Member $referrer, \Tbmt\MemberFee $memberFee, \Member $advertisedMember, $currency, $when, $freeFromInvitation, \PropelPDO $con) {
     $advertisedMemberId = $advertisedMember->getId();
     $transfer = $referrer->getCurrentTransferBundle($currency, $con);
 

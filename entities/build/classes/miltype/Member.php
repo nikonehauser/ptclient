@@ -195,8 +195,6 @@ class Member extends BaseMember
 
       if ( $invitation ) {
         $member->setType($invitation->getType());
-        if ( $invitation->getFreeSignup() )
-          $member->setPaidDate($now);
 
         $invitation->setAcceptedDate($now);
         if ( $invitation->getType() === self::TYPE_SUB_PROMOTER ) {
@@ -210,6 +208,9 @@ class Member extends BaseMember
       if ( $invitation ) {
         $invitation->setAcceptedMemberId($member->getId());
         $invitation->save($con);
+
+        if ( $invitation->getFreeSignup() )
+          $member->onReceivedMemberFee(\Transaction::$BASE_CURRENCY, $now, true, $con);
       }
 
       \Tbmt\MailHelper::sendSignupConfirm($member);
@@ -531,7 +532,7 @@ class Member extends BaseMember
    * NOTE: Caller is responsible for transactional processing.
    *
    */
-  public function onReceivedMemberFee($currency, $when, PropelPDO $con) {
+  public function onReceivedMemberFee($currency, $when, $freeFromInvitation, PropelPDO $con) {
     if ( $this->hadPaid() )
       throw new \Exception('Paid member receiving fee again!');
 
@@ -540,13 +541,19 @@ class Member extends BaseMember
       throw new Exception('Member ('.$this->getId().') has no referrer!');
     }
 
-    \Tbmt\MailHelper::sendFeeIncome($this);
+    if ( !$this->hadPaid() ) {
+      // Prevent multiple income of the same message. Because this situation
+      // can ocure more often because of the removal of unpaing members
+      // {@see $this->fireReservedReceivedMemberFeeEvents}
+      \Tbmt\MailHelper::sendFeeIncome($this);
+    }
+
     \Tbmt\MailHelper::sendFeeIncomeReferrer($referrer, $this);
 
     if ( $referrer && !$referrer->hadPaid() ) {
       // if the parent hasnt paid yet. reserve this event until his fee is
       // comming in or we kick him from the list.
-      $referrer->reserveReceivedMemberFeeEvent($this, $currency, $when, $con);
+      $referrer->reserveReceivedMemberFeeEvent($this, $currency, $when, $freeFromInvitation, $con);
       return;
     }
 
@@ -561,6 +568,7 @@ class Member extends BaseMember
       $referrer,
       $currency,
       $when,
+      $freeFromInvitation,
       $con
     );
 
@@ -568,12 +576,13 @@ class Member extends BaseMember
     $this->save($con);
   }
 
-  public function reserveReceivedMemberFeeEvent($paidMember, $currency, $when, PropelPDO $con) {
+  public function reserveReceivedMemberFeeEvent($paidMember, $currency, $when, $freeFromInvitation, PropelPDO $con) {
     // $this = the yet unpaid parent of $paidMember
     $reservedPaidEvent = new ReservedPaidEvent();
     $reservedPaidEvent->setMemberRelatedByPaidId($paidMember);
     $reservedPaidEvent->setMemberRelatedByUnpaidId($this);
     $reservedPaidEvent->setCurrency($currency);
+    $reservedPaidEvent->setIsFreeInvitation($freeFromInvitation);
     $reservedPaidEvent->setDate($when);
     $reservedPaidEvent->save($con);
 
@@ -596,7 +605,7 @@ class Member extends BaseMember
 
       foreach ( $reservedEvents as $event) {
         $paidMember = $event->getMemberRelatedByPaidId($con);
-        $paidMember->onReceivedMemberFee($event->getCurrency(), $event->getDate('U'), $con);
+        $paidMember->onReceivedMemberFee($event->getCurrency(), $event->getDate('U'), $event->getIsFreeInvitation(), $con);
         $idsStack[] = $paidMember->getId();
 
         $event->delete($con);
