@@ -3,6 +3,55 @@
 namespace Tbmt;
 
 class FormBuilder {
+
+  const TYPE_SYSTEM = -1;
+  const TYPE_MEMBER = 0;
+  const TYPE_SUB_PROMOTER = 1;
+  const TYPE_PROMOTER = 2;
+  const TYPE_ORGLEADER = 3;
+  const TYPE_MARKETINGLEADER = 4;
+  const TYPE_CEO = 5;
+  const TYPE_ITSPECIALIST = 6;
+
+  static public $invitationMapping = [
+    \Member::TYPE_MEMBER => [],
+
+    \Member::TYPE_SUB_PROMOTER => [
+      \Member::TYPE_MEMBER
+    ],
+
+    \Member::TYPE_PROMOTER => [
+      \Member::TYPE_SUB_PROMOTER,
+      \Member::TYPE_MEMBER
+    ],
+
+    \Member::TYPE_ORGLEADER => [
+      \Member::TYPE_PROMOTER,
+      \Member::TYPE_MEMBER
+    ],
+
+    \Member::TYPE_MARKETINGLEADER => [
+      \Member::TYPE_ORGLEADER,
+      \Member::TYPE_PROMOTER,
+      \Member::TYPE_MEMBER
+    ],
+
+    \Member::TYPE_CEO => [
+      \Member::TYPE_MARKETINGLEADER,
+      \Member::TYPE_ORGLEADER,
+      \Member::TYPE_PROMOTER,
+      \Member::TYPE_MEMBER
+    ],
+
+    \Member::TYPE_ITSPECIALIST => [
+      \Member::TYPE_MARKETINGLEADER,
+      \Member::TYPE_ORGLEADER,
+      \Member::TYPE_PROMOTER,
+      \Member::TYPE_MEMBER
+    ],
+
+  ];
+
   private $formName;
   private $labels;
   private $values;
@@ -70,6 +119,7 @@ class FormBuilder {
     $error = Arr::init($this->errors, $fieldKey);
 
     $memberTypes = Localizer::get('common.member_types');
+    $types = self::$invitationMapping[$loginType];
 
     $fieldId = $this->formName.$fieldKey;
 
@@ -79,15 +129,12 @@ class FormBuilder {
     $group = '<div class="field">'.
       '<label for="'.$fieldId.'">'.$label.'</label>'.
       '<select name="'.$fieldKey.'" id="'.$fieldId.'" >';
-    for ( $i = $loginType; $i >= \Member::TYPE_MEMBER; $i-- ) {
-      if ( $i === \Member::TYPE_SUB_PROMOTER && $loginType < \Member::TYPE_MARKETINGLEADER )
-        continue;
-
+    foreach ( $types as $type ) {
       $selected = '';
-      if ( $value == $i )
+      if ( $value == $type )
         $selected = 'selected="selected"';
 
-      $group .= '<option value="'.$i.'" '.$selected.'>'.$memberTypes[$i].'</option>';
+      $group .= '<option value="'.$type.'" '.$selected.'>'.$memberTypes[$type].'</option>';
     }
 
     $group .= '</select></div>';
