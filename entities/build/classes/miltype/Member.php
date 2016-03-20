@@ -201,8 +201,6 @@ class Member extends BaseMember
         $invitation->setAcceptedDate($now);
         if ( $invitation->getType() === self::TYPE_SUB_PROMOTER ) {
           $member->setSubPromoterReferral($invitation->getMeta()['promoter_id']);
-        } else if ( $invitation->getType() === self::TYPE_SUB_PROMOTER ) {
-          $member->setSubPromoterReferral($invitation->getMeta()['promoter_id']);
         }
       }
 
