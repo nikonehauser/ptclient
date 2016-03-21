@@ -399,7 +399,7 @@ return [
           'index' => 'Information',
           'invoice' => 'Invoice',
           'rtree' => 'Referral Tree',
-          'htree' => 'Hierarchy Tree',
+          'htree' => 'Funds Level Tree',
           'invitation' => 'Invitations',
           'bonus_payments' => 'Bonus Payments',
           'bonus_levels' => 'Bonus Levels',
