@@ -22,7 +22,7 @@ return [
 
     'member_types' => [
       'Donator',
-      'Sub Promoter',
+      // 'Sub Promoter',
       'Promoter',
       'Marketing Leader',
       'Director',

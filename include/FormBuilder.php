@@ -4,24 +4,10 @@ namespace Tbmt;
 
 class FormBuilder {
 
-  const TYPE_SYSTEM = -1;
-  const TYPE_MEMBER = 0;
-  const TYPE_SUB_PROMOTER = 1;
-  const TYPE_PROMOTER = 2;
-  const TYPE_ORGLEADER = 3;
-  const TYPE_MARKETINGLEADER = 4;
-  const TYPE_CEO = 5;
-  const TYPE_ITSPECIALIST = 6;
-
   static public $invitationMapping = [
     \Member::TYPE_MEMBER => [],
 
-    \Member::TYPE_SUB_PROMOTER => [
-      \Member::TYPE_MEMBER
-    ],
-
     \Member::TYPE_PROMOTER => [
-      \Member::TYPE_SUB_PROMOTER,
       \Member::TYPE_MEMBER
     ],
 
