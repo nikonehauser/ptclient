@@ -287,6 +287,7 @@ class AccountController extends BaseController {
       $member->onReceivedMemberFee(
         \Transaction::$BASE_CURRENCY,
         time(),
+        false,
         $con
       );
 

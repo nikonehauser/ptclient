@@ -33,7 +33,7 @@
     foreach ( $this->transactions as $transaction ) {
       echo '<tr>';
         echo '<td>'.$transaction['Quantity'].'</td>';
-        echo '<td>'.$transaction['Total'].'</td>';
+        echo '<td>'.\Tbmt\Localizer::numFormat($transaction['Total']).'</td>';
         echo '<td>'.$transaction['Transfer.Currency'].'</td>';
         echo '<td>'.$reasons[$transaction['Reason']].'</td>';
         // echo '<td>'.date($this->transDateForm, $transaction->getDate()).'</td>';

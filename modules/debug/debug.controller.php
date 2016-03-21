@@ -83,7 +83,7 @@ class DebugController extends BaseController {
       foreach ($transactions as $transaction) {
         $result .= '<tr>';
         $result .= '<td colspan="2"></td>';
-        $result .= '<td>'.$transaction['Total'].'</td>';
+        $result .= '<td>'.\Tbmt\Localizer::numFormat($transaction['Total']).'</td>';
         $result .= '<td>'.$transaction['Quantity'].'</td>';
         $result .= '<td>'.$reasons[$transaction['Reason']].'</td>';
         $result .= '</tr>';

@@ -157,7 +157,7 @@ return [
           'index' => 'Information',
           'invoice' => 'Invoice',
           'rtree' => 'Referral Tree',
-          'htree' => 'Hierarchy Tree',
+          'htree' => 'Funds Level Tree',
           'logout' => 'Logout',
         ],
         'about' => [
