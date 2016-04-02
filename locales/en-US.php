@@ -230,7 +230,7 @@ return [
         '14' => '{0} – you have already earned {1} {2}',
         '14h' => ['After just one week', '$_after_one_week_$', 'and almost entirely balanced your membership contribution!', ],
         '15' => ' Jivan automatically gets premium donator with his first two successful recruitings.',
-        '16' => 'As soon as you and Jivan have the same club donator level, you do not get paid when Jivan recruits new donators.',
+        '16' => 'As soon as you and Jivan have the same donator level, you do not get paid when Jivan recruits new donators.',
         '17' => 'However, now Rati and Lila are placed into your tree.',
         '18' => 'Because the first two new recruited donators (Rati and Lila) are assigned to the donator (you) that has advertised the recruiting donator (Jivan)in the first place.',
         '19' => 'After Rati and Lila have paid their donation, they both are on donator.',
@@ -269,7 +269,7 @@ return [
         '46' => 'Then your donation will be reimbursed within around 15 - 25 days and you additionally will have scored your first profit.',
         '47' => 'Furthermore, if you believe that over a course of only three months each new donator at least recruits three new donators, you will earn lots and lots of money with us and will be able to afford a whole new living standard.',
         '48' => 'You will be able to afford things you have never thought of before. You will be able to support your family, enjoy best medical care, buy a new car, spend no time thinking about what to live from when you’re old, etc.',
-        '49' => 'This is the purpose of the Betterliving Club!',
+        '49' => "This is the purpose of the $brandName!",
         '50' => 'Take action now',
         '51' => 'You can register for a better life right here:',
       ],
@@ -296,7 +296,7 @@ return [
 
         'forbidden_countries' => 'Forbidden countries',
         'why_forbidden_countries' => 'Why these countries are forbidden',
-        'forbidden_countries_text' => 'Each citizen of those countries has sufficient access to education, jobs, medical treatments and social welfare, thus we do not offer these citizens access to the Betterliving club.',
+        'forbidden_countries_text' => "Each citizen of those countries has sufficient access to education, jobs, medical treatments and social welfare, thus we do not offer these citizens access to the $brandName.",
 
         'become_member_title' => 'I want to be donator',
         'become_member_text' => 'If you also want to be a donator, please register on this homepage and pay the membership fee of {member_fee} within 10 days. This will make you a donator of the ' . $brandName . ' and you can use our fantastic marketing system to achieve a permanent and {passive_income}.',
@@ -618,12 +618,12 @@ return [
         'against_poverty_head' => 'We are against poverty',
         'against_poverty_sub' => 'We developed this marketing system to change lives to the better',
         'we_foundation' => 'Foundation',
-        'we_foundation_description' => 'The club has been founded for people who have few to no options to achieve a better life for themselves. This might be caused by various reasons like economic and political circumstances. .',
+        'we_foundation_description' => "$brandName has been founded for people who have few to no options to achieve a better life for themselves. This might be caused by various reasons like economic and political circumstances.",
         'we_system' => 'Marketing System',
-        'we_system_description' => 'On the one hand the club offers a direct way to help yourself through a marketing system and on the other hand it helps by supporting beneficial social projects.',
+        'we_system_description' => "On the one hand $brandName offers a direct way to help yourself through a marketing system and on the other hand it helps by supporting beneficial social projects.",
 
         'we_fee' => 'Donation',
-        'we_fee_description' => 'Both concepts are financed by 100% from the donations of the club donators.',
+        'we_fee_description' => 'Both concepts are financed by 100% from the donations of the donators.',
 
         'where_to_go_head' => 'where to go from here',
 
