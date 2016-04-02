@@ -109,9 +109,6 @@ class FormBuilder {
 
     $fieldId = $this->formName.$fieldKey;
 
-    if ( $loginType > \Member::TYPE_MARKETINGLEADER )
-      $loginType = \Member::TYPE_MARKETINGLEADER;
-
     $group = '<div class="field">'.
       '<label for="'.$fieldId.'">'.$label.'</label>'.
       '<select name="'.$fieldKey.'" id="'.$fieldId.'" >';

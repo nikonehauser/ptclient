@@ -9,7 +9,13 @@ class PublicException extends \Exception {
   public function getName() {
     return $this->name ? $this->name : get_class();
   }
+}
 
+class InvalidDataException extends PublicException {
+  protected $name = 'Invalid Data';
+  public function __construct($msg = '') {
+    parent::__construct($msg);
+  }
 }
 
 class PermissionDeniedException extends PublicException {

@@ -6,10 +6,20 @@ return [
 
     'password_reset' => [
       'subject' => 'Password reset',
-      'body' => "You have lost your $webPageName password. Sorry about that!
+      'body' => "You have lost your $brandName password. Sorry about that!
 But don’t worry! You can use the following link within the next day to reset your password:
 {link}
 If you don’t use this link within 24 hours, it will expire.",
+    ],
+
+
+
+    'email_validation' => [
+      'subject' => 'Registration Email Validation',
+      'body' => "Hello {fullname},
+thank you for signing up for $brandName!
+Just open the following link in your favourite web browser to complete your registration:
+{link}",
     ],
 
 
@@ -44,7 +54,7 @@ Please transfer your donation of {fmt_member_fee} to the following bank account 
 
 Always indicate your personal ID {member_id} as intended purpose for the transfer.
 As soon as we have received your donation we are going to tell
-you some helpful secrets about how to make a fortune with Better Living."
+you some helpful secrets about how to make a fortune with $brandName."
   ],
 
 

@@ -10,7 +10,6 @@ $1 $2
 $lang = substr(basename(__FILE__), 0, 5);
 $brandName = \Tbmt\Config::get('brand.name');
 $brandNameShort = \Tbmt\Config::get('brand.short');
-$webPageName = 'Better living club';
 
 $faqItems = include $lang.'-faq.php';
 $mails = include $lang.'-mails.php';
@@ -21,13 +20,13 @@ return [
     'brand_name_short' => 'BL',
 
     'member_types' => [
-      'Donator',
-      // 'Sub Promoter',
-      'Promoter',
-      'Marketing Leader',
-      'Director',
-      'Developer',
-      'CEO',
+      0 => 'Donator',
+      // 1 =>'Sub Promoter',
+      2 => 'Promoter',
+      3 => 'Marketing Leader',
+      4 => 'Director',
+      5 => 'CEO',
+      6 => 'Developer',
     ],
 
     'forbidden_countries' => [
@@ -370,9 +369,10 @@ return [
 
       'signupSuccess' => [
         'page_title' => 'Successfully signed up',
-        'welcome' => 'Welcome to "' . $brandName . '".',
-        'new_member_num' => 'Your personal donator number is {num}. Make sure to remember this number.',
-        'info' => 'You will need it to invite new donators in order to help them and yourself.',
+        'hello' => "Welcome to $brandName",
+        'signup_text1' => "Thank you for signing up. You are one step away from becomming member of $brandName!",
+        'signup_text2' => 'We have send a confirmation link to your email address. You need to verify your email address by clicking on the link provided in that registration email. This is required to complete the registration.',
+        'signup_text3' => 'This process guarantees valid email addresses for you and us. Because this is the only way how we can reach you if we run into problems transfering your bonus!'
       ],
     ],
 

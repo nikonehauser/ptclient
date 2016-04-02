@@ -1,15 +1,17 @@
 <?=Tbmt\view\Factory::buildPageTitle($this->i18nView['page_title'])?>
 
-<div class="container align-center">
-  <?php
+<div class="container">
+  <div class="heading-area text-center bottom-30 top-30">
+    <h4 class="heading large"><?=$this->i18nView['hello']?></h4>
+  </div>
 
-  echo '<p>'.$this->i18nView['welcome'].'</p>';
-
-  echo '<p>'.\Tbmt\Localizer::insert($this->i18nView['new_member_num'], [
-    'num' => '<mark>'.\Tbmt\Localizer::encodeHtml($this->var['newMemberNum']).'</mark>'
-  ], false).'</p>';;
-
-  echo '<p>'.$this->i18nView['info'].'</p>';
-
-  ?>
+  <div class="row bottom-30 sheet">
+    <?=$this->i18nView['signup_text1']?>
+    <br>
+    <br>
+    <?=$this->i18nView['signup_text2']?>
+    <br>
+    <br>
+    <?=$this->i18nView['signup_text3']?>
+  </div>
 </div>

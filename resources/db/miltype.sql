@@ -85,6 +85,20 @@
   );
 
 -- -----------------------------------------------------
+-- Table "email_validation"
+-- -----------------------------------------------------
+  CREATE TABLE IF NOT EXISTS  "tbmt_email_validation" (
+    "id" serial NOT NULL ,
+    "hash" varchar (64) not null ,
+    "creationdate" integer not null ,
+    "meta" JSON NOT NULL DEFAULT '[]',
+    PRIMARY KEY ("id")
+  );
+
+  ALTER TABLE ONLY tbmt_email_validation
+    ADD CONSTRAINT "email_validation_hash_UNIQUE" UNIQUE (hash);
+
+-- -----------------------------------------------------
 -- Table "transfer"
 -- -----------------------------------------------------
   DROP TABLE IF EXISTS "tbmt_transfer" CASCADE;

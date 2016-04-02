@@ -1,3 +1,7 @@
+
+ - member bonuses view
+ - test the wrong bonus spreading case
+
  - code mit nicht bezahlen testen, das des hinhaut
  - nicht 2 mal bezahlen bekommen
 
@@ -12,7 +16,6 @@
  - hinweis um fehlende india pin codes hinzufügen zu können
 
  - projects@betterliving.social
-
 
 Fragen
 ======

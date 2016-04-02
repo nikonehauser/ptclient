@@ -29,6 +29,24 @@ class MailHelper {
     );
   }
 
+  static public function sendEmailValidation($recipientEmail, $recipientFullName, \EmailValidation $emailValidation) {
+    $locale = Localizer::get('mail.email_validation');
+
+    $href = Router::toModule('member', 'confirm_email_registration', [
+      'hash' => $emailValidation->getHash()
+    ]);
+
+    return self::send(
+      $recipientEmail,
+      $recipientFullName,
+      $locale['subject'],
+      Localizer::insert($locale['body'], [
+        'fullname' => $recipientFullName,
+        'link' => $href
+      ], false)
+    );
+  }
+
 
   /**
    * #1

@@ -11,7 +11,8 @@ class MemberController extends BaseController {
     'system' => true,
     'signup' => true,
     'signup_submit' => true,
-    'signupSuccess' => true
+    'signupSuccess' => true,
+    'confirm_email_registration' => true
   ];
 
   public function action_signup() {
@@ -31,6 +32,33 @@ class MemberController extends BaseController {
         ['formErrors' => $data]
       );
     }
+
+    $now = time();
+    $mail = $data['email'];
+
+    $con = \Propel::getConnection();
+    $emailValidation = \EmailValidation::create($now, $mail, $_REQUEST, $con);
+    MailHelper::sendEmailValidation(
+      $mail,
+      (empty($data['title']) ? '' : $data['title'].' ').$data['firstName'].' '.$data['lastName'],
+      $emailValidation
+    );
+
+    return new ControllerActionRedirect(Router::toModule('member', 'signupSuccess'));
+  }
+
+  public function action_confirm_email_registration() {
+    $valid = false;
+    if ( empty($_REQUEST['hash']) )
+      throw new PageNotFoundException();
+
+    $emailValidation = \EmailValidation::validateHash($_REQUEST['hash']);
+    if ( !$emailValidation )
+      throw new InvalidDataException('Sorry the provided registration hash is invalid!');
+
+    list($valid, $data, $referralMember, $invitation) = \Member::validateSignupForm(json_decode($emailValidation->getMeta(), true));
+    if ( $valid !== true )
+      throw new \Exception('Doh, something is wrong with the registration data!');
 
     $con = \Propel::getConnection();
     $member = \Activity::exec(

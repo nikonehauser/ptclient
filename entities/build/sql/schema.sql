@@ -36,6 +36,21 @@ CREATE TABLE "tbmt_currency"
 );
 
 -----------------------------------------------------------------------
+-- tbmt_email_validation
+-----------------------------------------------------------------------
+
+DROP TABLE IF EXISTS "tbmt_email_validation" CASCADE;
+
+CREATE TABLE "tbmt_email_validation"
+(
+    "id" serial NOT NULL,
+    "hash" VARCHAR(64) NOT NULL,
+    "creationdate" INTEGER NOT NULL,
+    "meta" VARCHAR DEFAULT '[]' NOT NULL,
+    PRIMARY KEY ("id")
+);
+
+-----------------------------------------------------------------------
 -- tbmt_invitation
 -----------------------------------------------------------------------
 
@@ -70,6 +85,7 @@ CREATE TABLE "tbmt_member"
     "email" VARCHAR(80) NOT NULL,
     "title" VARCHAR(80) NOT NULL,
     "city" VARCHAR(80) NOT NULL,
+    "zip_code" VARCHAR(80) NOT NULL,
     "country" VARCHAR(80) NOT NULL,
     "age" INT2 NOT NULL,
     "referrer_id" INTEGER,
@@ -95,6 +111,19 @@ CREATE TABLE "tbmt_member"
 );
 
 -----------------------------------------------------------------------
+-- tbmt_member_data
+-----------------------------------------------------------------------
+
+DROP TABLE IF EXISTS "tbmt_member_data" CASCADE;
+
+CREATE TABLE "tbmt_member_data"
+(
+    "member_id" INTEGER NOT NULL,
+    "fee_reminder_email" INT2 DEFAULT 0 NOT NULL,
+    PRIMARY KEY ("member_id")
+);
+
+-----------------------------------------------------------------------
 -- tbmt_reserved_paid_event
 -----------------------------------------------------------------------
 
@@ -106,6 +135,7 @@ CREATE TABLE "tbmt_reserved_paid_event"
     "paid_id" INTEGER NOT NULL,
     "currency" VARCHAR(3) NOT NULL,
     "date" TIMESTAMP NOT NULL,
+    "is_free_invitation" INTEGER DEFAULT 0 NOT NULL,
     PRIMARY KEY ("unpaid_id","paid_id")
 );
 
@@ -118,6 +148,7 @@ DROP TABLE IF EXISTS "tbmt_system_stats" CASCADE;
 CREATE TABLE "tbmt_system_stats"
 (
     "id" serial NOT NULL,
+    "invitation_incrementer" VARCHAR(10) DEFAULT '2A15F6' NOT NULL,
     "signup_count" INTEGER DEFAULT 0 NOT NULL,
     "member_count" INTEGER DEFAULT 0 NOT NULL,
     "starter_count" INTEGER DEFAULT 0 NOT NULL,
@@ -205,6 +236,12 @@ ALTER TABLE "tbmt_member" ADD CONSTRAINT "fk_member_sub_promoter_referral"
     REFERENCES "tbmt_member" ("id")
     ON UPDATE CASCADE
     ON DELETE SET NULL;
+
+ALTER TABLE "tbmt_member_data" ADD CONSTRAINT "fk_member_data_member"
+    FOREIGN KEY ("member_id")
+    REFERENCES "tbmt_member" ("id")
+    ON UPDATE CASCADE
+    ON DELETE CASCADE;
 
 ALTER TABLE "tbmt_reserved_paid_event" ADD CONSTRAINT "fk_reserved_paid_event_paid_member"
     FOREIGN KEY ("paid_id")
