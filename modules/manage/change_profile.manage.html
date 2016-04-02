@@ -12,7 +12,14 @@
                 echo Tbmt\view\Factory::buildNotification($this->successmsg[0], $this->successmsg[1], $this->successmsg[2]);
             ?>
 
-                <form action="<?=\Tbmt\Router::toModule('manage', 'change_bank_signup')?>" method="post">
+                <form action="<?=\Tbmt\Router::toModule('manage', 'change_profile_signup')?>" method="post">
+                    <?=$formBuilder->buildFieldGroup('title')?>
+                    <?=$formBuilder->buildFieldGroup('firstName')?>
+                    <?=$formBuilder->buildFieldGroup('lastName')?>
+                    <?=$formBuilder->buildFieldGroup('email')?>
+                    <?=$formBuilder->buildFieldGroup('city')?>
+                    <?=$formBuilder->buildFieldGroup('zip_code')?>
+
                     <?=$formBuilder->buildFieldGroup('bank_recipient')?>
                     <?=$formBuilder->buildFieldGroup('bic')?>
                     <?=$formBuilder->buildFieldGroup('iban')?>

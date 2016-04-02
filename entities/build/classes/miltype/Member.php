@@ -88,8 +88,6 @@ class Member extends BaseMember
       ],
       'errorLabel' => 'error.age_of_18'
     ],
-    'firstName'            => \Tbmt\Validator::FILTER_NOT_EMPTY,
-
     'city'                 => \Tbmt\Validator::FILTER_NOT_EMPTY,
     'zip_code'             => \Tbmt\Validator::FILTER_INDIA_PINCODE,
     // 'country'              => \Tbmt\Validator::FILTER_NOT_EMPTY,

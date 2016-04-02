@@ -2,7 +2,7 @@
 
 namespace Tbmt\view;
 
-class ManageChange_bank extends Base {
+class ManageChange_profile extends Base {
 
   public function render(array $params = array()) {
     $this->formLabels = $this->i18nView['form_labels'];
@@ -18,7 +18,7 @@ class ManageChange_bank extends Base {
     ];
 
     return $this->renderFile(
-      dirname(__FILE__).DIRECTORY_SEPARATOR.'change_bank.manage.html',
+      dirname(__FILE__).DIRECTORY_SEPARATOR.'change_profile.manage.html',
       $params
     );
   }

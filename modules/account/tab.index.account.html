@@ -54,13 +54,6 @@
                   '<em class="text-muted">'.$this->i18nView['email_none'].'</em>'?>
               </dd>
           </dl>
-
-          <?=\Tbmt\view\Factory::buildButton(
-            $this->i18nView['change_pwd'],
-            \Tbmt\Router::toModule('manage', 'change_pwd'),
-            ' blue pull-right',
-            'lock'
-          )?>
       </div>
       <div class="col-md-6">
           <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['bank_account'], 'bottom-30 top-10')?>
@@ -77,10 +70,17 @@
           </dl>
 
           <?=\Tbmt\view\Factory::buildButton(
-            $this->i18nView['change_bank'],
-            \Tbmt\Router::toModule('manage', 'change_bank'),
+            $this->i18nView['change_profile'],
+            \Tbmt\Router::toModule('manage', 'change_profile'),
             ' blue pull-right',
             'credit-card'
+          )?>
+
+          <?=\Tbmt\view\Factory::buildButton(
+            $this->i18nView['change_pwd'],
+            \Tbmt\Router::toModule('manage', 'change_pwd'),
+            ' yellow',
+            'lock'
           )?>
       </div>
     </div>

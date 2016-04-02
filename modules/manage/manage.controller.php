@@ -18,15 +18,26 @@ class ManageController extends BaseController {
     'new_repeat' => \Tbmt\Validator::FILTER_NOT_EMPTY,
   ];
 
-  static private $CHANGE_BANKING_FORM_FIELDS = [
-    'bic' => \Tbmt\TYPE_STRING,
-    'iban' => \Tbmt\TYPE_STRING,
+  static private $CHANGE_PROFILE_FORM_FIELDS = [
+    'title'          => \Tbmt\TYPE_STRING,
+    'lastName'       => \Tbmt\TYPE_STRING,
+    'firstName'      => \Tbmt\TYPE_STRING,
+    'email'          => \Tbmt\TYPE_STRING,
+    'city'           => \Tbmt\TYPE_STRING,
+    'zip_code'       => \Tbmt\TYPE_STRING,
+    'bic'            => \Tbmt\TYPE_STRING,
+    'iban'           => \Tbmt\TYPE_STRING,
     'bank_recipient' => \Tbmt\TYPE_STRING,
   ];
 
-  static private $CHANGE_BANKING_FORM_FILTERS = [
-    'bic' => \Tbmt\Validator::FILTER_NOT_EMPTY,
-    'iban' => \Tbmt\Validator::FILTER_NOT_EMPTY,
+  static private $CHANGE_PROFILE_FORM_FILTERS = [
+    'lastName'       => \Tbmt\Validator::FILTER_NOT_EMPTY,
+    'firstName'      => \Tbmt\Validator::FILTER_NOT_EMPTY,
+    'email'          => \FILTER_VALIDATE_EMAIL,
+    'city'           => \Tbmt\Validator::FILTER_NOT_EMPTY,
+    'zip_code'       => \Tbmt\Validator::FILTER_INDIA_PINCODE,
+    'bic'            => \Tbmt\Validator::FILTER_NOT_EMPTY,
+    'iban'           => \Tbmt\Validator::FILTER_NOT_EMPTY,
     'bank_recipient' => \Tbmt\Validator::FILTER_NOT_EMPTY,
   ];
 
@@ -35,7 +46,7 @@ class ManageController extends BaseController {
   }
 
   static public function initChangeBankingForm(array $data = array()) {
-    return \Tbmt\Arr::initMulti($data, self::$CHANGE_BANKING_FORM_FIELDS);
+    return \Tbmt\Arr::initMulti($data, self::$CHANGE_PROFILE_FORM_FIELDS);
   }
 
   static public function validateChangePasswordForm(\Member $login, array $data = array())  {
@@ -56,7 +67,7 @@ class ManageController extends BaseController {
 
   static public function validateChangeBankingForm(\Member $login, array $data = array())  {
     $data = self::initChangeBankingForm($data);
-    $res = \Tbmt\Validator::getErrors($data, self::$CHANGE_BANKING_FORM_FILTERS);
+    $res = \Tbmt\Validator::getErrors($data, self::$CHANGE_PROFILE_FORM_FILTERS);
     if ( $res !== false )
       return [false, $res];
 
@@ -99,8 +110,8 @@ class ManageController extends BaseController {
     'change_pwd' => true,
     'change_pwd_signup' => true,
 
-    'change_bank' => true,
-    'change_bank_signup' => true,
+    'change_profile' => true,
+    'change_profile_signup' => true,
   ];
 
   public function action_do_reset_password() {
@@ -190,7 +201,7 @@ class ManageController extends BaseController {
   }
 
 
-  public function action_change_bank() {
+  public function action_change_profile() {
     $login = Session::getLogin();
     if ( !$login )
       throw new PageNotFoundException();
@@ -199,14 +210,20 @@ class ManageController extends BaseController {
       self::MODULE_NAME,
       CURRENT_MODULE_ACTION,
       ['formVal' => [
-        'bic' => $login->getBic(),
-        'iban' => $login->getIban(),
+        'title'          => $login->getTitle(),
+        'lastName'       => $login->getLastName(),
+        'firstName'      => $login->getFirstName(),
+        'email'          => $login->getEmail(),
+        'city'           => $login->getCity(),
+        'zip_code'       => $login->getZipCode(),
+        'bic'            => $login->getBic(),
+        'iban'           => $login->getIban(),
         'bank_recipient' => $login->getBankRecipient(),
       ]]
     );
   }
 
-  public function action_change_bank_signup() {
+  public function action_change_profile_signup() {
     $login = Session::getLogin();
     if ( !$login )
       throw new PageNotFoundException();
@@ -215,11 +232,17 @@ class ManageController extends BaseController {
     if ( $valid !== true ) {
       return ControllerDispatcher::renderModuleView(
         self::MODULE_NAME,
-        'change_bank',
+        'change_profile',
         ['formErrors' => $data]
       );
     }
 
+    $login->setTitle($data['title']);
+    $login->setLastName($data['lastName']);
+    $login->setFirstName($data['firstName']);
+    $login->setEmail($data['email']);
+    $login->setCity($data['city']);
+    $login->setZipCode($data['zip_code']);
     $login->setBic($data['bic']);
     $login->setIban($data['iban']);
     $login->setBankRecipient($data['bank_recipient']);
@@ -227,7 +250,7 @@ class ManageController extends BaseController {
 
     return ControllerDispatcher::renderModuleView(
       self::MODULE_NAME,
-      'change_bank',
+      'change_profile',
       ['successmsg' => true]
     );
   }

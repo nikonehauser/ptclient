@@ -427,7 +427,7 @@ return [
           'bonus_level' => 'Bonus Level',
 
           'change_pwd' => 'Change password',
-          'change_bank' => 'Change banking',
+          'change_profile' => 'Change Profile',
 
           'welc_not_1' => 'Welcome {name}',
           'welc_not_2' => 'This is your profile. You can find various information here',
@@ -578,12 +578,19 @@ return [
           'submit' => 'Change password',
         ],
       ],
-      'change_bank' => [
+      'change_profile' => [
         'page_title' => 'Change your banking',
         'error' => 'Error!',
         'success' => 'Success!',
         'success_msg' => 'We have successfully changed your banking information.',
         'form_labels' => [
+          'firstName' => 'First name',
+          'lastName' => 'Last name',
+          'title' => 'Title',
+          'email' => 'Email',
+          'country' => 'Country',
+          'zip_code' => 'Zip Code',
+          'city' => 'City',
           'iban' => 'IBAN',
           'bic' => 'BIC',
           'bank_recipient' => 'Recipient',
