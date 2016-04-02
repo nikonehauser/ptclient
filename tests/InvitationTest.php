@@ -161,4 +161,30 @@ class InvitationTest extends Tbmt_Tests_DatabaseTestCase {
     $marketingLeader_total->assertTotals();
   }
 
+  public function testDirectorInviteDirectorWillReceiveSameParent() {
+    DbEntityHelper::setCon(self::$propelCon);
+
+    $sylvheim = DbEntityHelper::createBonusMember(\SystemStats::ACCOUNT_SYLVHEIM, [
+      'Type'      => \Member::TYPE_CEO,
+    ]);
+
+    $marketingLeader = DbEntityHelper::createMember($sylvheim, [
+      'Type' => Member::TYPE_MARKETINGLEADER
+    ]);
+    $marketingLeader->reload(self::$propelCon);
+
+    $marketingLeader2 = DbEntityHelper::createMemberWithInvitation(
+      $marketingLeader,
+      Member::TYPE_MARKETINGLEADER,
+      self::$singupFormData
+    );
+
+    /* Assert proper member type
+    ---------------------------------------------*/
+    $this->assertEquals(Member::TYPE_MARKETINGLEADER, $marketingLeader->getType());
+    $this->assertEquals(Member::TYPE_MARKETINGLEADER, $marketingLeader2->getType());
+
+    $this->assertEquals($marketingLeader->getReferrerId(), $marketingLeader2->getReferrerId());
+  }
+
 }

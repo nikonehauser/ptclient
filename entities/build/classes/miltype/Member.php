@@ -192,12 +192,23 @@ class Member extends BaseMember
         ->setPaidDate(null);
 
       if ( $invitation ) {
-        $member->setType($invitation->getType());
+        $invitationType = $invitation->getType();
+        $member->setType($invitationType);
+
+        // Special case if e.g. director invites another director.
+        // The referrer of the referrer will be the referrer.
+        // This is necessary because the same type can not be on same line vertical
+        // but horizontal. E.g. Director can have more marketing leader under him
+        // but only Directors next to him (NOT under him)
+        if ( $invitationType > \Member::TYPE_MEMBER && $referrerMember->getType() == $invitationType )
+          $referrerMember = $referrerMember->getReferrerMember();
 
         $invitation->setAcceptedDate($now);
-        if ( $invitation->getType() === self::TYPE_SUB_PROMOTER ) {
-          $member->setSubPromoterReferral($invitation->getMeta()['promoter_id']);
-        }
+
+        // Deprecated code
+        // if ( $invitation->getType() === self::TYPE_SUB_PROMOTER ) {
+        //   $member->setSubPromoterReferral($invitation->getMeta()['promoter_id']);
+        // }
       }
 
       $member->setReferrerMember($referrerMember, $con);

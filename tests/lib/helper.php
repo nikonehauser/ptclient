@@ -93,6 +93,29 @@ class DbEntityHelper {
     return $member;
   }
 
+  static public function createMemberWithInvitation($referrer, $invitationType, $data) {
+    /* Create invitation
+    ---------------------------------------------*/
+    $invitation = Invitation::create(
+      $referrer,
+      ['type' => $invitationType],
+      self::$con
+    );
+
+    /* Create member with created invitation code
+    ---------------------------------------------*/
+    list($valid, $data, $referralMember, $invitation)
+      = \Member::validateSignupForm(array_merge($data, [
+        'referral_member_num' => $referrer->getNum(),
+        'invitation_code' => $invitation->getHash(),
+      ]));
+
+    $member = \Member::createFromSignup($data, $referrer, $invitation, self::$con);
+    $member->reload(self::$con);
+
+    return $member;
+  }
+
   static public function getCurrentTransferBundle(Member $member) {
     return $member->getCurrentTransferBundle(self::$currency, self::$con);
   }

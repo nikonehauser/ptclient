@@ -1,13 +1,11 @@
+CURRENT - TODOS
+===============
 
  - member bonuses view
+
  - test the wrong bonus spreading case
 
- - code mit nicht bezahlen testen, das des hinhaut
- - nicht 2 mal bezahlen bekommen
-
- - checkbox das man donator auf stufe 2 anmelden kann?
-
- - email nach geldeingang
+ - ??checkbox das man donator auf stufe 2 anmelden kann??
 
  - link zur website NGO
 
@@ -15,38 +13,20 @@
 
  - hinweis um fehlende india pin codes hinzufügen zu können
 
- - projects@betterliving.social
 
 Fragen
 ======
 
- - kriegt der ol,vl promoter bonus wenn ein promoter rekrutiert wird???
 
- - trennung von den systemen:
-   - welches geld soll überwiesen werden?
-     - der gesamte rest? (bonus zahlungen "nicht mehr möglich")
-     - das was den einzelnen "unternehmern" zusteht?
-
-
-CURRENT
-======
-
-
-LIST
-====
+TODOS
+=====
 
 - test for single bonus ids type per member for all types > member
  (throw error if 2 promoter bonus ids would be set for a member )
 
-- edit bank account
-
-- website content auffüllen
+- verify email address on change profile
 
 - save unknown incommings to extra table for later handling
-
- - handle bank api fehler
-
- - add link to agbs.
 
 - try { } catch {} cron jobs, add activity entry for the various actions
 
@@ -56,13 +36,17 @@ LIST
 
 - use and run postgresql analyze
 
-- sitemap
-
 - how to für benutzer: überweisung durchführen mit EIGENER nummer als verwendungszweck
 
-- visualize current "sub promoter"
+NICE TO HAVE
+============
+
+- sitemap
+
+- handle emails asynchron/multithreaded
 
 - handle mail to invalid/non existing email address
+
 
 Profiling
 =========
@@ -83,44 +67,3 @@ Quality handling
 - stress test against filled database
 - php opcode cacheing with apc
 - activity log (all activities will get logged in separated table)
-
-
-
-SYSTEM
-======
-
-
-
-LASTENHEFT
-=========
-
-Sprache auswählbar, möglichst von allen aktuellen Ländern zuzüglich englisch
-> ggf. aus Abgrenzungsgründen nur in Englisch?
-
-
-Geldeingänge in Bezug auf Vergütungsstufen und sämtliche hieraus resultierenden Zahlungen automatisch berücksichtigen
-Alle Zahlungen automatisch nach jeweiligem Geldeingang wie folgt veranlassen:
-Die Abrechnung erfolgt immer am Montag
-- für die Mitglieder (VS 1 & VS 2)
-- für die Promoter (VS 2 & Bonus)
-- für die Orgaleiter (Bonus & ggf. VS 2)
-
-Die Abrechnung erfolgt immer Bankarbeitstag täglich
-- für den Bonus des Anwalts
-- für den jeweilige Anteil für M&C
-
-Die Software muss massenhafte zeitgleiche Registrierungen verarbeiten können.
-- Bei einer Überlastung dürfen keine Fehler produziert werden
-- und es muss eine entsprechende Meldung erscheinen, dass es derzeit aufgrund der Vielzahl der Registrierungen eine Registrierung nicht möglich ist und dass man es später noch einmal probieren soll.
-
-
-CONTENT
-=======
-
-slide 3 - map of india -
-
-
-- almost no risk
-- moderate effort
-
-- get this template now - sidebar - template > features > sidebar
