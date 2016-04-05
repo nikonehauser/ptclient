@@ -182,7 +182,6 @@ class MailHelper {
     $num = $member->getNum();
     $fullName = \Tbmt\view\Factory::buildMemberFullNameString($member);
 
-      $provision = ;
     return self::send(
       $email,
       $fullName,
