@@ -7,6 +7,11 @@ require VENDOR_DIR.'phpmailer'.DIRECTORY_SEPARATOR.'phpmailer'.DIRECTORY_SEPARAT
 class MailHelper {
 
   static public $MAILS_DISABLED =  false;
+  static public $DEBUG_PRINT =  false;
+
+  static public function getLocalizedTRA($transactinoReason) {
+    return Localizer::numFormat(\Transaction::getAmountForReason($transactinoReason), 0);
+  }
 
   static public function sendException(\Exception $e) {
     $body = "Exception: \n\r".$e->getMessage()."\n\r\n\r".
@@ -177,6 +182,7 @@ class MailHelper {
     $num = $member->getNum();
     $fullName = \Tbmt\view\Factory::buildMemberFullNameString($member);
 
+      $provision = ;
     return self::send(
       $email,
       $fullName,
@@ -188,6 +194,7 @@ class MailHelper {
         'duedate_second' => \Tbmt\Localizer::dateLong($member->getSecondDueDate()),
         'bankaccount' => \Tbmt\view\Factory::buildBankAccountStr(),
         'video_link' => \Tbmt\Router::toVideo(),
+        'advindirectamount' => self::getLocalizedTRA(\Transaction::REASON_ADVERTISED_INDIRECT)
       ], false)
     );
   }
@@ -245,6 +252,7 @@ class MailHelper {
         'referrer_fullname' => $referrer_fullname,
         'video_link' => \Tbmt\Router::toVideo(),
         'signup_link' => \Tbmt\Router::toSignup($member),
+        'after6weeksamount' => Localizer::numFormat(300000, 0)
       ], false)
     );
   }
@@ -262,9 +270,9 @@ class MailHelper {
     $recruited_fullname = \Tbmt\view\Factory::buildMemberFullNameString($recruited);
 
     if ( $referrer->getFundsLevel() == \Member::FUNDS_LEVEL2 )
-      $provision = \Transaction::getAmountForReason(\Transaction::REASON_ADVERTISED_LVL2);
+      $provision = self::getLocalizedTRA(\Transaction::REASON_ADVERTISED_LVL2);
     else
-      $provision = \Transaction::getAmountForReason(\Transaction::REASON_ADVERTISED_LVL1);
+      $provision = self::getLocalizedTRA(\Transaction::REASON_ADVERTISED_LVL1);
 
     return self::send(
       $email,
@@ -275,7 +283,10 @@ class MailHelper {
         'recruited_fullname' => $recruited_fullname,
         'recruited_firstname' => $recruited->getFirstName(),
         'video_link' => \Tbmt\Router::toVideo(),
-        'provision_amount' => $provision
+        'provision_amount' => $provision,
+        'adv2amount' => self::getLocalizedTRA(\Transaction::REASON_ADVERTISED_LVL2),
+        'memberfee_amount' => Localizer::numFormat(\Transaction::$MEMBER_FEE, 0),
+        'member_id' => $referrer->getNum(),
       ], false)
     );
   }
@@ -300,6 +311,10 @@ class MailHelper {
         'fullname' => $fullName,
         'recruited_fullname' => $recruited_fullname,
         'video_link' => \Tbmt\Router::toVideo(),
+        'adv1amount' => self::getLocalizedTRA(\Transaction::REASON_ADVERTISED_LVL1),
+        'adv2amount' => self::getLocalizedTRA(\Transaction::REASON_ADVERTISED_LVL2),
+        'advindirectamount' => self::getLocalizedTRA(\Transaction::REASON_ADVERTISED_INDIRECT),
+        'after6weeksamount' => Localizer::numFormat(300000, 0)
       ], false)
     );
   }
@@ -345,8 +360,11 @@ class MailHelper {
   }
 
   static public function send($address, $name, $subject, $body, $fromMail = null, $fromName = null) {
-    if ( self::$MAILS_DISABLED )
+    if ( self::$MAILS_DISABLED === true )
       return true;
+
+    if ( self::$DEBUG_PRINT === true )
+      return [$address, $name, $subject, $body];
 
     $mail = new \PHPMailer(true);
     $mail->SMTPSecure = Config::get('mail.smtp_secure');

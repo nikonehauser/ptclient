@@ -29,7 +29,7 @@
 
     "type" smallint NOT NULL default 0 ,
 
-    "bonus_ids" varchar(80) not null default '',
+    "bonus_ids" JSON NOT NULL DEFAULT '{}',
     "bonus_level" double precision not null default 0 ,
 
     "advertised_count" int NOT NULL default 0 ,

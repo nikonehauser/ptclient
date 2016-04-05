@@ -20,6 +20,9 @@ class AccountIndex extends Base {
     $arr = ['index', 'invoice', 'rtree', 'htree'];
 
     $memberType = $this->member->getType();
+    if ( $memberType > \Member::TYPE_PROMOTER )
+      $arr[] = 'btree';
+
     if ( $memberType > \Member::TYPE_MEMBER )
       $arr[] = 'invitation';
 

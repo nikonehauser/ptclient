@@ -28,9 +28,6 @@ class Val {
       case TYPE_INT:
         return \is_numeric($value) ? (int) +$value : ($default === false ? 0 : $default);
 
-      case TYPE_TRIM:
-        return $value === null ? ($default === false ? '' : $default) : \trim($value);
-
       case TYPE_ARRAY:
         return \is_array($value) ? $value : ($default === false ? [] : $default);
 
@@ -76,7 +73,7 @@ class Val {
         return ( $value = \trim($value) ) === '' ? ($default === false ? '' : $default) : $value;
     }
 
-    return $value === null ? ($default === false ? '' : $default) : (string) $value;
+    return $value === null ? ($default === false ? '' : $default) : \trim($value);
   }
 }
 

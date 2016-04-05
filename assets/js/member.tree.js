@@ -16,7 +16,8 @@ jQuery(document).ready(function() {
     };
 
     var createMemberCell = function(tree, member) {
-      var cell = $('<li class="member"><label>' + createMemberName(member) + '</label></li>');
+      var cell = $('<li class="member"><label>' + createMemberName(member) +
+          (rootOptions.bonusOnly && member.TypeTranslated ? ' - ' + member.TypeTranslated : '' ) + '</label></li>');
       cell.appendTo(tree);
 
       member.__msTree_cell = cell;
@@ -58,7 +59,8 @@ jQuery(document).ready(function() {
       var ol = $('<ol></ol>');
       var id = 'msTreeSubTreeOf' + member.Id;
       cell.html(
-        '<label for="' + id + '">' + createMemberName(member) + '</label>' +
+        '<label for="' + id + '">' + createMemberName(member) +
+          (rootOptions.bonusOnly && member.TypeTranslated ? ' - ' + member.TypeTranslated : '' ) + '</label>' +
         '<input type="checkbox" checked="checked" id="' + id + '"/>'
       );
 
@@ -84,7 +86,8 @@ jQuery(document).ready(function() {
         type: 'POST',
         data: {
           ids: ids,
-          column: rootOptions.column
+          column: rootOptions.column,
+          bonusOnly: rootOptions.bonusOnly ? 1 : 0
         },
 
         // Code to run if the request succeeds;

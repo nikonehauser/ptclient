@@ -241,7 +241,7 @@ you cannot receive commissions for your recommended donators.
 That’s not it. You can see in our explanation video at 4:25 what happens
 if you are a prime partner of Betterliving. Being a prime partner is easy;
 all you have to do is recommend three donators.
-From then on you will receive a commission of 1200 Rupees
+From then on you will receive a commission of {advindirectamount} Rupees
 for the first two donators of all your future recommendations.
 As you can see in the video, this can rise up to be a pretty high income in a short time.
 Don’t miss your chance to make a lot of money by forgetting to donate.
@@ -319,7 +319,8 @@ Thank you for the support, we hope you will successfully find new donators for u
  *   member_id,
  *   referrer_fullname,
  *   video_link,
- *   signup_link
+ *   signup_link,
+ *   after6weeksamount
  *
  */
   'fee_income' => [
@@ -342,7 +343,7 @@ will receive commissions from Betterliving.
 From your third recommendation on the commission will go up to +400%.
 The video will show you how high your income can be.
 Let it surprise you and let all your friends know about this opportunity.
-What would you do if you and your friends owned commissions of more than 300000 Rupees?
+What would you do if you and your friends owned commissions of more than {after6weeksamount} Rupees?
 And you will not only have a lot more money than you do now;
 your donation makes many social projects possible which benefit Indian citizens.
 If you have any idea about how you would spend money and you
@@ -385,7 +386,9 @@ We wish you the very best and hope you’ll get rich soon!"
  *   fullname,
  *   recruited_fullname,
  *   recruited_firstname,
- *   video_link
+ *   video_link,
+ *   memberfee_amount,
+ *   member_id
  *
  *
  *  TODO
@@ -396,21 +399,21 @@ We wish you the very best and hope you’ll get rich soon!"
 
     'body' => "Dear {fullname},
 
-your recommended donator {recruited_fullname} has made a donation of 5500 Rupees.
+your recommended donator {recruited_fullname} has made a donation of {memberfee_amount} Rupees.
 Thank you for sharing the opportunity with {recruited_firstname}.
 Now Betterliving can carry out beneficial projects in India.
 Your advantage is great as well!
 You should know by now that you will get a commission for {recruited_firstname}’s donation.
 You will receive {provision_amount} Rupees for {recruited_firstname}’s donation.
 You want to earn even more? Make sure you find three friends who join Betterliving.
-This will make you a prime member. That means your commission will go up +400% to 1500 Rupees!
+This will make you a prime member. That means your commission will go up +400% to {adv2amount} Rupees!
 This is proved in the explanation video
 {video_link}
 at 4:09.
 You are going see that in your upcoming invoice as well.
-From the third recommended donator who signs up using your personal ID
+From the third recommended donator who signs up using your personal ID {member_id}
 and donates within the deadline the door to your private wellbeing will be wide open.
-We’re wishing best of luck finding new donators and have fun spending the commissions you will receive. "
+We’re wishing best of luck finding new donators and have fun spending the commissions you will receive."
 
   ],
 
@@ -436,23 +439,23 @@ We’re wishing best of luck finding new donators and have fun spending the comm
 
 CONGRATULATIONS! You made it.
 By recommending your second donator you have become a prime partner of Betterliving.
-From now on you will receive 1500 Rupees for every future donator.
+From now on you will receive {adv2amount} Rupees for every future donator.
 So what do you need to know now?
-You know you have received 300 Rupees for the first two donators.
-Betterliving always pays a commission of 1500 Rupees for each donator,
-so as a prime partner you will always get the difference of 1200 Rupees
+You know you have received {adv1amount} Rupees for the first two donators.
+Betterliving always pays a commission of {adv2amount} Rupees for each donator,
+so as a prime partner you will always get the difference of {advindirectamount} Rupees
 for the first two donators of your recommended friends.
 If you take a look at 4:22 – 4:33 in the video
 {video_link}
 you can replace “Jivan” with {recruited_fullname}.
 If you want to make sure you make a lot of money in a short time, here’s how it works:
 Well firstly, you can always go on finding new donators.
-You will always receive 1500 Rupees each.
+You will always receive {adv2amount} Rupees each.
 Secondly, and this is way more interesting, show all your recommended donators how to become prime partners as well.
 The video
 {video_link}
 shows what will happen when {recruited_fullname} finds two friends who also recommend two others at 4:40.
-After six weeks you will find a total amount of 300000 Rupees in your bank account.
+After six weeks you will find a total amount of {after6weeksamount} Rupees in your bank account.
 
 So in order to make lots of money, all you have to do is:
   1. Get three friends to join Betterliving, so you’ll become a prime partner

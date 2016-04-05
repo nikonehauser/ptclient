@@ -12,6 +12,7 @@ class AccountController extends BaseController {
     'invoice' => true,
     'rtree' => true,
     'htree' => true,
+    'btree' => true,
     'invitation' => true,
     'invitation_create' => true,
     'bonus_payments' => true,
@@ -78,6 +79,14 @@ class AccountController extends BaseController {
   }
 
   public function action_htree() {
+    return ControllerDispatcher::renderModuleView(
+      self::MODULE_NAME,
+      'index',
+      ['member' => Session::getLogin()]
+    );
+  }
+
+  public function action_btree() {
     return ControllerDispatcher::renderModuleView(
       self::MODULE_NAME,
       'index',
@@ -240,25 +249,35 @@ class AccountController extends BaseController {
 
   public function action_ajax_tree(array $params = array()) {
     $ids = Arr::init($_REQUEST, 'ids', TYPE_ARRAY);
+    $bonusOnly = Arr::init($_REQUEST, 'bonusOnly', TYPE_BOOL);
     $rowCount = Arr::init($_REQUEST, 'count', TYPE_INT, 5);
     $byColumn = Arr::init($_REQUEST, 'column', TYPE_STRING, 'ParentId');
 
     $filterByColumn = "filterBy$byColumn";
+    $comparisonOperator = \Criteria::IN;
+
+    $memberTypes = Localizer::get('common.member_types');
 
     $rows = [];
     for ( $i = 0; $i < $rowCount; $i++ ) {
       $members = \MemberQuery::create()
-        ->$filterByColumn($ids, \Criteria::IN)
-        ->find();
+        ->$filterByColumn($ids, $comparisonOperator);
+
+      if ( $bonusOnly )
+        $members->filterByType(\Member::TYPE_MEMBER, \Criteria::GREATER_THAN);
+
+      $members = $members->find();
 
       if ( count($members) === 0 )
         break;
 
-      $rows[] = $members->toArray();
+      $row = $members->toArray();
       $newIds = [];
-      foreach ($members as $member) {
+      foreach ($members as $i => $member) {
+        $row[$i]['TypeTranslated'] = $memberTypes[$member->getType()];
         $newIds[] = $member->getId();
       }
+      $rows[] = $row;
       $ids = $newIds;
     }
 

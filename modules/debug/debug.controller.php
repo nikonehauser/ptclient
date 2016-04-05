@@ -8,6 +8,7 @@ class DebugController extends BaseController {
 
   protected $actions = [
     'allinvoices' => true,
+    'printmail' => true,
   ];
 
   public function dispatchAction($action, $params) {
@@ -15,6 +16,43 @@ class DebugController extends BaseController {
       throw new \PageNotFoundException();
 
     return parent::dispatchAction($action, $params);
+  }
+
+  public function action_printmail() {
+    if ( empty($_REQUEST['mail']) )
+      throw new Exception('Missing param "mail"');
+
+    $mail = $_REQUEST['mail'];
+
+    MailHelper::$DEBUG_PRINT = true;
+    $mail = $this->getMail($mail);
+    return '<pre>'.
+      $mail[2]."\n\n".$mail[3].
+      '</pre>';
+  }
+
+  private function getMail($name) {
+    switch ($name) {
+      case 'FundsLevelUpgrade':
+        return MailHelper::sendFundsLevelUpgrade(
+          \Member::getByNum('102'),
+          \Member::getByNum('105')
+        );
+
+      case 'FeeIncomeReferrer':
+        return MailHelper::sendFeeIncomeReferrer(
+          \Member::getByNum('102'),
+          \Member::getByNum('105')
+        );
+
+      case 'FeeIncome':
+        $member105 = \Member::getByNum('105');
+        $member105->setReferrerId(\Member::getByNum('105')->getId());
+        // Do not save!!
+        return MailHelper::sendFeeIncome(
+          $member105
+        );
+    }
   }
 
   public function action_allinvoices() {

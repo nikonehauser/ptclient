@@ -1,17 +1,36 @@
 CURRENT - TODOS
 ===============
 
- - member bonuses view
+ - Kunden schildern welchen verwendungszweck sie unbedingt nutzen müssen!
+
+ - More Promiment SIGNUP
 
  - test the wrong bonus spreading case
 
  - ??checkbox das man donator auf stufe 2 anmelden kann??
+
+
+Offen an Tom:
 
  - link zur website NGO
 
  - PDF als quittung
 
  - hinweis um fehlende india pin codes hinzufügen zu können
+
+ - email #8 macht so keinen sinn sie an einen level 2 typen zu schicken!
+
+ - email #9 - funds_level_upgrade, referenziert das video. das ist angeblich falsch:
+
+ You know you have received 300 Rupees for the first two donators.
+Betterliving always pays a commission of 1500 1,500 Rupees for each donator,
+so as a prime partner you will always get the difference of 1200 1,200 Rupees
+for the first two donators of your recommended friends.
+If you take a look at 4:22 – 4:33 in the video
+http://betterliving.social?mod=projects&act=index#video_explanation
+you can replace “Jivan” with Spender 32.
+Das stimmt nicht! Spender 32 ist der 2. NF gewesen und auch nur deshalb, weil der Promoter 25 fälschlicherweise als NF verschoben wurde. Einen Jivan gibt es hier noch nicht!
+
 
 
 Fragen

@@ -8,7 +8,8 @@
     jQuery('#accountMemberTree').accountMemberTree(
       <?=json_encode($this->member)?>, {
         getRowsUrl: "<?=\Tbmt\Router::toModule('account', 'ajax_tree')?>",
-        column: 'ParentId'
+        column: 'ReferrerId',
+        bonusOnly: true,
       }
     );
   });
