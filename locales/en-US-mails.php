@@ -19,7 +19,8 @@ If you don’t use this link within 24 hours, it will expire.",
       'body' => "Hello {fullname},
 thank you for signing up for $brandName!
 Just open the following link in your favourite web browser to complete your registration:
-{link}",
+{link}
+If you don’t use this link within 24 hours, it will expire.",
     ],
 
 
