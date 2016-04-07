@@ -78,8 +78,8 @@ class SystemSetup {
     /* Setup - CEO1
     ---------------------------------------------*/
     $ceo1 = self::createMember(null, [
-      'LastName'  => 'ceo1',
-      'FirstName' => 'system',
+      'LastName'  => 'CEO',
+      'FirstName' => 'Marcus',
       'Email'     => $IT_SPECIALIST_EMAIL,
       'Num'       => \SystemStats::ACCOUNT_NUM_CEO1,
       'Type'      => \Member::TYPE_CEO
@@ -116,8 +116,8 @@ class SystemSetup {
     /* Setup - ROOT ACCOUNT
     ---------------------------------------------*/
     self::createMember(null, [
-      'LastName'  => 'account',
       'FirstName' => 'root',
+      'LastName'  => 'account',
       'Email'     => $IT_SPECIALIST_EMAIL,
       'Num'       => \SystemStats::ACCOUNT_NUM_ROOT,
       'Type'      => \Member::TYPE_SYSTEM,
@@ -128,8 +128,8 @@ class SystemSetup {
     /* Setup - CEO1
     ---------------------------------------------*/
     $ceo1 = self::createMember(null, [
-      'LastName'  => 'ceo1',
-      'FirstName' => 'system',
+      'FirstName' => 'Marcus',
+      'LastName'  => 'CEO',
       'Email'     => $IT_SPECIALIST_EMAIL,
       'Num'       => \SystemStats::ACCOUNT_NUM_CEO1,
       'Type'      => \Member::TYPE_CEO,
@@ -140,8 +140,8 @@ class SystemSetup {
     /* Setup - IT
     ---------------------------------------------*/
     $it = self::createMember(null, [
-      'LastName'  => 'it',
-      'FirstName' => 'system',
+      'FirstName' => 'System',
+      'LastName'  => 'IT',
       'Email'     => $IT_SPECIALIST_EMAIL,
       'Num'       => \SystemStats::ACCOUNT_NUM_IT,
       'Type'      => \Member::TYPE_MEMBER,
@@ -151,8 +151,8 @@ class SystemSetup {
     /* Setup - SYLVHEIM
     ---------------------------------------------*/
     $sylvheim = self::createMember(null, [
-      'LastName'  => 'sylvheim',
-      'FirstName' => 'orgleader',
+      'FirstName' => 'Sales',
+      'LastName'  => 'Management',
       'Email'     => 'test35@gmx.de',
       'Num'       => \SystemStats::ACCOUNT_SYLVHEIM,
       'Type'      => \Member::TYPE_CEO,
@@ -162,8 +162,8 @@ class SystemSetup {
     /* Setup - EXECUTIVE
     ---------------------------------------------*/
     $executive = self::createMember(null, [
-      'LastName'  => 'executive',
-      'FirstName' => 'organization',
+      'FirstName' => 'Organization',
+      'LastName'  => 'Executive',
       'Email'     => $IT_SPECIALIST_EMAIL,
       'Num'       => \SystemStats::ACCOUNT_EXECUTIVE,
       'Type'      => \Member::TYPE_MEMBER,
@@ -173,8 +173,8 @@ class SystemSetup {
     /* Setup - TARIC WANI
     ---------------------------------------------*/
     $taricWani = self::createMember(null, [
-      'LastName'  => 'Wani',
       'FirstName' => 'Taric',
+      'LastName'  => 'Wani',
       'Email'     => $IT_SPECIALIST_EMAIL,
       'Num'       => \SystemStats::ACCOUNT_TARIC_WANI,
       'Type'      => \Member::TYPE_MEMBER,
@@ -184,14 +184,13 @@ class SystemSetup {
     /* Setup - REASON_NGO_PROJECTS
     ---------------------------------------------*/
     $ngoProjects = self::createMember(null, [
-      'LastName'  => 'NGO',
       'FirstName' => 'Projects',
+      'LastName'  => 'NGO',
       'Email'     => $IT_SPECIALIST_EMAIL,
       'Num'       => \SystemStats::ACCOUNT_NGO_PROJECTS,
       'Type'      => \Member::TYPE_MEMBER,
       'FundsLevel'=> \Member::FUNDS_LEVEL2
     ]);
-
 
     /* Setup - TOP LEVEL BONUS IDS
     ---------------------------------------------*/
