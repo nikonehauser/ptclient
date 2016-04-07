@@ -13,6 +13,8 @@ define('MEMBER_PER_PM_CREATE_NUM', 3);
 $con = Propel::getConnection();
 DbEntityHelper::setCon($con);
 
+\Tbmt\MailHelper::$MAILS_DISABLED = true;
+
 $count = MemberQuery::create()->count();
 if ( !$count ) {
   // Setup base structure

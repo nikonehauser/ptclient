@@ -1,18 +1,16 @@
 CURRENT - TODOS
 ===============
 
+ - zahlung an die head leute? Konten?
+
  - Kunden schildern welchen verwendungszweck sie unbedingt nutzen müssen!
 
  - More Promiment SIGNUP
 
  - test the wrong bonus spreading case
 
- - ??checkbox das man donator auf stufe 2 anmelden kann??
-
 
 Offen an Tom:
-
- - link zur website NGO
 
  - PDF als quittung
 

@@ -1,0 +1,60 @@
+
+  <?=\Tbmt\view\Factory::buildHeadingArea('Global Invoice', 'bottom-30 top-10')?>
+
+  <dl class="dl-horizontal dl-largeSpaced dl-largeTitle dl-prettyStyled">
+      <dt>Total member count</dt>
+      <dd><?=$this->totalMemberCount?></dd>
+
+      <dt>Total paid member count</dt>
+      <dd><?=$this->totalPaidMemberCount?></dd>
+
+<!--
+      <dt><?=$this->i18nView['transferred_total']?></dt>
+      <dd><?=\Tbmt\view\Factory::currencyArrToString($this->absoluteTransferredTotal)?></dd>
+-->
+  </dl>
+
+  <?=\Tbmt\view\Factory::buildHeadingArea('All members')?>
+  <table class="table">
+    <tbody>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Advertised</th>
+          <th>Signups</th>
+          <th>Transferred total</th>
+          <th>Outstanding total</th>
+        </tr>
+    <?php
+    $memberTypes = \Tbmt\Localizer::get('common.member_types');
+
+    $baseCurrency = \Transaction::$BASE_CURRENCY;
+
+    foreach ( $this->members as $member ) {
+
+      $transferredTotal = $member->getTransferredTotal();
+      $outstandingTotal = $member->getOutstandingTotal();
+
+      if ( isset($transferredTotal[$baseCurrency]) )
+        $transferredTotal = $transferredTotal[$baseCurrency];
+      else
+        $transferredTotal = 0;
+
+      if ( isset($outstandingTotal[$baseCurrency]) )
+        $outstandingTotal = $outstandingTotal[$baseCurrency];
+      else
+        $outstandingTotal = 0;
+
+      echo '<tr>';
+        echo '<td>'.$member->getFirstName().' '.$member->getLastName().'</td>';
+        echo '<td>'.$memberTypes[$member->getType()].'</td>';
+        echo '<td>'.$member->getOutstandingAdvertisedCount().'</td>';
+        echo '<td>'.$member->getAdvertisedCount().'</td>';
+        echo '<td>'.\Tbmt\Localizer::numFormat($transferredTotal).'</td>';
+        echo '<td>'.\Tbmt\Localizer::numFormat($outstandingTotal).'</td>';
+      echo '</tr>';
+    }
+
+    ?>
+    </tbody>
+  </table>

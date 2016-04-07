@@ -23,6 +23,8 @@ class AccountController extends BaseController {
 
     'dev_paying' => true,
     'do_dev_paying' => true,
+
+    'total_invoice' => true,
   ];
 
   public function dispatchAction($action, $params) {
@@ -322,6 +324,19 @@ class AccountController extends BaseController {
       self::MODULE_NAME,
       'index',
       ['member' => Session::getLogin(), 'tab' => 'dev_paying']
+    );
+  }
+
+  public function action_total_invoice() {
+    $login = Session::getLogin();
+
+    if ( $login->getType() < \Member::TYPE_CEO )
+      throw new PageNotFoundException();
+
+    return ControllerDispatcher::renderModuleView(
+      self::MODULE_NAME,
+      'index',
+      ['member' => Session::getLogin()]
     );
   }
 

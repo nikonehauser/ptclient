@@ -16,6 +16,16 @@
 
   </dl>
 
+  <?php
+  if ( true ) {
+    echo \Tbmt\view\Factory::buildButton(
+      'Show total invoice',
+      \Tbmt\Router::toModule('account', 'total_invoice'),
+      ' yellow pull-right',
+      'file-o'
+    );
+  }
+  ?>
 
 
   <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['transactions'])?>
@@ -38,7 +48,6 @@
         echo '<td>'.$reasons[$transaction['Reason']].'</td>';
         // echo '<td>'.date($this->transDateForm, $transaction->getDate()).'</td>';
       echo '</tr>';
-
     }
     ?>
     </tbody>

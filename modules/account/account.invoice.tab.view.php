@@ -31,6 +31,7 @@ class AccountInvoiceTab extends Base {
     $this->transactions = $query->find();
 
     $this->transDateForm = \Tbmt\Localizer::get('datetime_format_php.long');
+    $this->isCEO = $this->member->getType() >= \Member::TYPE_CEO;
 
     return $this->renderFile(
       dirname(__FILE__).DIRECTORY_SEPARATOR.'tab.invoice.account.html',
