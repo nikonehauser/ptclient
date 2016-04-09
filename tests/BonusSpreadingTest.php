@@ -492,6 +492,9 @@ class BonusSpreadingTest extends Tbmt_Tests_DatabaseTestCase {
   ];
 
   public function testSubPromoterBonusSpreading() {
+    // Deprecated
+    $this->assertTrue(true);
+    return;
     /**
      *       PM
      *       1$

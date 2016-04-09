@@ -54,6 +54,39 @@ class MailHelper {
 
 
   /**
+   * #1_1
+   *
+   * @param  \Member        $member
+   * @param  PropelPDO|null $con
+   * @return [type]
+   */
+  static public function sendFreeSignupConfirm(\Member $member, PropelPDO $con = null) {
+    $email = $member->getEmail();
+    $locale = Localizer::get('mail.free_signup_confirm');
+
+    $num = $member->getNum();
+    $fullName = \Tbmt\view\Factory::buildMemberFullNameString($member);
+
+    $referrer = $member->getReferrerMember($con);
+    $referrerFullName = \Tbmt\view\Factory::buildMemberFullNameString($referrer);
+
+    return self::send(
+      $email,
+      $fullName,
+      $locale['subject'],
+      Localizer::insert($locale['body'], [
+        'fullname' => $fullName,
+        'member_id' => $num,
+        'member_type' => Localizer::get('common.member_types')[$member->getType()],
+        'referrer_fullname' => $referrerFullName,
+        'video_link' => \Tbmt\Router::toVideo(),
+        'signup_link' => \Tbmt\Router::toSignup($member),
+        'after6weeksamount' => Localizer::numFormat(300000, 0)
+      ], false)
+    );
+  }
+
+  /**
    * #1
    *
    * @param  \Member        $member
@@ -84,6 +117,36 @@ class MailHelper {
       ], false)
     );
   }
+
+
+  /**
+   * #2_1
+   * @param  \Member $referrer
+   * @param  \Member $recruited
+   * @return [type]
+   */
+  static public function sendNewFreeRecruitmentCongrats(\Member $referrer, \Member $recruited) {
+    $email = $referrer->getEmail();
+    $locale = Localizer::get('mail.new_free_recruitment_congrats');
+
+    $num = $referrer->getNum();
+    $fullName = \Tbmt\view\Factory::buildMemberFullNameString($referrer);
+
+    $recruitedFullName = \Tbmt\view\Factory::buildMemberFullNameString($recruited);
+
+    return self::send(
+      $email,
+      $fullName,
+      $locale['subject'],
+      Localizer::insert($locale['body'], [
+        'fullname' => $fullName,
+        'member_id' => $num,
+        'recruited_fullname' => $recruitedFullName,
+        'video_link' => \Tbmt\Router::toVideo(),
+      ], false)
+    );
+  }
+
 
   /**
    * #2
@@ -362,9 +425,6 @@ class MailHelper {
     if ( self::$MAILS_DISABLED === true )
       return true;
 
-    if ( self::$DEBUG_PRINT === true )
-      return [$address, $name, $subject, $body];
-
     $mail = new \PHPMailer(true);
     $mail->SMTPSecure = Config::get('mail.smtp_secure');
     $mail->isSMTP();
@@ -391,6 +451,9 @@ class MailHelper {
 
     $mail->Subject = Config::get('mail.subject_prefix').' '.$subject;
     $mail->Body = $body;
+
+    if ( self::$DEBUG_PRINT === true )
+      return [$address, $name, $mail->Subject, $mail->Body];
 
     $boolResult = $mail->send();
     if(!$boolResult)

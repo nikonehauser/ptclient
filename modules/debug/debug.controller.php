@@ -46,11 +46,23 @@ class DebugController extends BaseController {
         );
 
       case 'FeeIncome':
-        $member105 = \Member::getByNum('105');
-        $member105->setReferrerId(\Member::getByNum('105')->getId());
+        $member102 = \Member::getByNum('102');
+        $member102->setReferrerId(\Member::getByNum('105')->getId());
         // Do not save!!
         return MailHelper::sendFeeIncome(
-          $member105
+          $member102
+        );
+      case 'FreeSignupConfirm':
+        $member102 = \Member::getByNum('102');
+        $member102->setReferrerId(\Member::getByNum('105')->getId());
+        // Do not save!!
+        return MailHelper::sendFreeSignupConfirm(
+          $member102
+        );
+      case 'NewFreeRecruitmentCongrats':
+        return MailHelper::sendNewFreeRecruitmentCongrats(
+          \Member::getByNum('102'),
+          \Member::getByNum('105')
         );
     }
   }

@@ -149,7 +149,7 @@ class Member extends BaseMember
       if ( $parentMember == null )
         return [false, ['invitation_code' => \Tbmt\Localizer::get('error.invitation_code_inexisting')], null, null];
 
-      if ( $invitation->getMemberId() !== $parentMember->getId() )
+      if ( $invitation->getMemberId() != $parentMember->getId() )
         return [false, ['invitation_code' => \Tbmt\Localizer::get('error.invitation_code_invalid')], null, null];
 
       if ( $invitation->getAcceptedMemberId() )
@@ -191,6 +191,8 @@ class Member extends BaseMember
         ->setSignupDate($now)
         ->setPaidDate(null);
 
+      $wasFreeInvitation = false;
+
       if ( $invitation ) {
         $invitationType = $invitation->getType();
         $member->setType($invitationType);
@@ -205,6 +207,9 @@ class Member extends BaseMember
 
         $invitation->setAcceptedDate($now);
 
+        if ( $invitation->getFreeSignup() )
+          $wasFreeInvitation = true;
+
         // Deprecated code
         // if ( $invitation->getType() === self::TYPE_SUB_PROMOTER ) {
         //   $member->setSubPromoterReferral($invitation->getMeta()['promoter_id']);
@@ -218,12 +223,18 @@ class Member extends BaseMember
         $invitation->setAcceptedMemberId($member->getId());
         $invitation->save($con);
 
-        if ( $invitation->getFreeSignup() )
+        if ( $wasFreeInvitation )
           $member->onReceivedMemberFee(\Transaction::$BASE_CURRENCY, $now, true, $con);
       }
 
-      \Tbmt\MailHelper::sendSignupConfirm($member);
-      \Tbmt\MailHelper::sendNewRecruitmentCongrats($referrerMember, $member);
+      if ( $wasFreeInvitation ) {
+        \Tbmt\MailHelper::sendFreeSignupConfirm($member);
+        \Tbmt\MailHelper::sendNewFreeRecruitmentCongrats($referrerMember, $member);
+
+      } else {
+        \Tbmt\MailHelper::sendSignupConfirm($member);
+        \Tbmt\MailHelper::sendNewRecruitmentCongrats($referrerMember, $member);
+      }
 
       if ( !$con->commit() )
         throw new Exception('Could not commit transaction');
@@ -552,12 +563,14 @@ class Member extends BaseMember
 
     if ( !$this->hadPaid() ) {
       // Prevent multiple income of the same message. Because this situation
-      // can ocure more often because of the removal of unpaing members
+      // can ocure more often because of the removal of not paying members
       // {@see $this->fireReservedReceivedMemberFeeEvents}
-      \Tbmt\MailHelper::sendFeeIncome($this);
+      if ( !$freeFromInvitation )
+        \Tbmt\MailHelper::sendFeeIncome($this);
     }
 
-    \Tbmt\MailHelper::sendFeeIncomeReferrer($referrer, $this);
+    if ( !$freeFromInvitation )
+      \Tbmt\MailHelper::sendFeeIncomeReferrer($referrer, $this);
 
     if ( $referrer && !$referrer->hadPaid() ) {
       // if the parent hasnt paid yet. reserve this event until his fee is

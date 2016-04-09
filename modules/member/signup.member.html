@@ -29,7 +29,13 @@
         <div class="row">
 
           <div class="col-md-6">
-            <?php echo $formBuilder->buildFieldGroup('referral_member_num'); ?>
+            <?php echo $formBuilder->buildFieldGroup('referral_member_num',
+              'text', // type
+              null, // label
+              null, // value
+              null, // error
+              $this->referralNumDisabled !== true ? [] : ['disabled' => true]
+            ); ?>
 
           </div>
           <div class="col-md-6">

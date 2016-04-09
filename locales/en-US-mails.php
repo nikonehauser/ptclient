@@ -14,6 +14,7 @@ If you don’t use this link within 24 hours, it will expire.",
 
 
 
+
     'email_validation' => [
       'subject' => 'Registration Email Validation',
       'body' => "Hello {fullname},
@@ -25,6 +26,72 @@ If you don’t use this link within 24 hours, it will expire.",
 
 
 
+
+
+/**
+ * #1_1
+ * Der neue Spender erhält eine umfassende Begrüßungsemail, diese mail bezieht
+ * sich auf kostenlose einladungen.
+ *
+ * params:
+ *   fullname,
+ *   member_id,
+ *   member_type,
+ *   referrer_fullname,
+ *   video_link,
+ *   signup_link,
+ *   after6weeksamount
+ *
+ */
+  'free_signup_confirm' => [
+
+    'subject' => 'Welcome to Betterliving',
+
+    'body' => "Dear {fullname},
+
+Welcome to Betterliving – You’re now registered at Betterliving.social!
+{referrer_fullname} recommended you and wants you to profit from Betterliving.
+We’re happy you followed his recommendation.
+
+You were invited as special guest!
+You are \"{member_type}\". So you can earn even more than normal donators!
+
+Most probably {referrer_fullname} has already told you it is possible to earn money with Betterliving.
+Please watch the video
+{video_link}
+for more information. As soon as you recommend friends to Betterliving you
+will receive commissions from Betterliving.
+From your third recommendation on, the commission will go up to +400%.
+The video will show you how high your income can become.
+Let it surprise you and let all your friends know about this opportunity.
+What would you do if you and your friends owned commissions of more than {after6weeksamount} Rupees?
+If you have any idea about how you would spend money and you
+grudge your friends the same, make sure you tell them about Betterliving.
+Just share the video
+{video_link}
+and let them know you are on board as well.
+Don’t forget to give them your personal ID \"{member_id}\".
+Because you can only be identified and get commissions if they will fill in
+your ID when they are signing up to Betterliving.
+So what are you waiting for?
+Enjoy the opportunity of making a fortune by being social!
+Maybe you don’t know how to let your friends know about this.
+In this case just copy the following and send it to all your best friends via email:
+__________________________________________
+Dear friend,
+a short time ago I was told about the opportunity to make money by collecting donations for social projects.
+It’s super easy and just genius.
+I would like to let you know about this opportunity and how you can get a lot of money as well.
+Just watch this video
+http://betterliving.social?mod=projects&act=index#video_explanation
+for me. I have already donated to Betterliving and I’d be happy if you did so, too.
+In order to join, just click here:
+{signup_link}
+___________________________________________
+
+We wish you the very best and hope you’ll get rich soon!"
+
+  ],
 
 
 /**
@@ -53,9 +120,46 @@ Please transfer your donation of {fmt_member_fee} to the following bank account 
 
 {bankaccount}
 
-Always indicate your personal ID {member_id} as intended purpose for the transfer.
+Always indicate your personal ID \"{member_id}\" as intended purpose for the transfer.
 As soon as we have received your donation we are going to tell
 you some helpful secrets about how to make a fortune with $brandName."
+  ],
+
+
+
+
+
+/**
+ * #2_1
+ * Der Tippgeber dieses neuen Spenders erhält auch eine Email, diese mail bezieht
+ * sich auf kostenlose einladungen.
+ *
+ * params:
+ *   fullname,
+ *   member_id,
+ *   recruited_fullname,
+ *   video_link,
+ *
+ */
+  'new_free_recruitment_congrats' => [
+
+    'subject' => 'The next step to make a fortune with Betterliving',
+
+    'body' => "Dear {fullname}
+
+Congratulations on your successful invitation!
+We have been informed that you invited {recruited_fullname} to Betterliving.
+{recruited_fullname} has successfully signed up for Betterliving.
+We wish you the best at finding new donators for Betterliving.
+Just share the video
+{video_link}
+with your friends and tell everybody about the great opportunity of making money by being social.
+It’s enough if every donator recommends three more donators.
+You can show {recruited_fullname} how easy it is.
+That way you can support each other in making a fortune.
+Take good care that your friends use your ID \"{member_id}\"
+when they are signing up."
+
   ],
 
 
@@ -97,7 +201,7 @@ We wish you the best at finding new donators for Betterliving.
 Just share the video
 {video_link}
 with your friends and tell everybody about the great opportunity of making money by being social.
-Take good care that your friends use your ID {member_id}
+Take good care that your friends use your ID \"{member_id}\"
 when they are signing up."
 
   ],
@@ -136,7 +240,7 @@ These are our bank account details:
 
 {bankaccount}
 
-Always indicate your personal ID {member_id} as intended purpose for the transfer.
+Always indicate your personal ID \"{member_id}\" as intended purpose for the transfer.
 Please keep in mind that we are in need of your donation in order to carry out
 social projects for the neediest in this country and on top you will
 be able to revalue your own life!
@@ -194,7 +298,7 @@ Here are our account details:
 
 {bankaccount}
 
-The personal ID {member_id} should always be given as intended purpose for the transfer.
+The personal ID \"{member_id}\" should always be given as intended purpose for the transfer.
 Thank you for the support, we hope you will successfully find new donators for us and your passive income."
 
   ],
@@ -233,7 +337,7 @@ Here are our bank account details:
 
 {bankaccount}
 
-Always indicate your personal ID {member_id} as intended
+Always indicate your personal ID \"{member_id}\" as intended
 purpose for the transfer.
 
 Here is some very important information for you:
@@ -300,7 +404,7 @@ Here are our account details:
 
 {bankaccount}
 
-The personal ID {member_id} should always be given as intended purpose for the transfer.
+The personal ID \"{member_id}\" should always be given as intended purpose for the transfer.
 By the way, {recruited_fullname} has already been diligent and has successfully recommended more donators.
 Now all {recruited_firstname} has to do is make their donation within 7 days so you will get payed!
 Thank you for the support, we hope you will successfully find new donators for us and your passive income."
@@ -352,7 +456,7 @@ grudge your friends the same, make sure you tell them about Betterliving.
 Just share the video
 {video_link}
 and let them know you are on board as well.
-Don’t forget to give them your personal ID {member_id}.
+Don’t forget to give them your personal ID \"{member_id}\".
 Because you can only be identified and get commissions if they fill in
 your ID when they are signing up to Betterliving.
 So what are you waiting for?
@@ -412,7 +516,7 @@ This is proved in the explanation video
 {video_link}
 at 4:09.
 You are going see that in your upcoming invoice as well.
-From the third recommended donator who signs up using your personal ID {member_id}
+From the third recommended donator who signs up using your personal ID \"{member_id}\"
 and donates within the deadline the door to your private wellbeing will be wide open.
 We’re wishing best of luck finding new donators and have fun spending the commissions you will receive."
 

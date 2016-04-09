@@ -57,6 +57,8 @@ TODOS
 NICE TO HAVE
 ============
 
+- immediately load and show member when entering referral_member_num on signup
+
 - sitemap
 
 - handle emails asynchron/multithreaded

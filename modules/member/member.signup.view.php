@@ -9,7 +9,9 @@ class MemberSignup extends Base {
 
     $data = isset($params['formVal']) ? $params['formVal'] : $_REQUEST;
 
-    if ( DEVELOPER_MODE === true && !isset($data['referral_member_num']) ) {
+    $this->referralNumDisabled = !empty($_REQUEST['referral_member_num']);
+
+    if ( DEVELOPER_MODE === true ) {
       $data = array_merge([
         'referral_member_num'  => '102',
         'title'                => '',
