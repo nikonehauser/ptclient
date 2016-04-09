@@ -1,13 +1,12 @@
 CURRENT - TODOS
 ===============
 
+ - im account eine erläuterung bereit stellen wie genau überwiesen werden muss!
+   Verwendungs zweck etc.
+
  - zahlung an die head leute? Konten?
 
- - Kunden schildern welchen verwendungszweck sie unbedingt nutzen müssen!
-
  - More Promiment SIGNUP
-
- - test the wrong bonus spreading case
 
 
 Offen an Tom:

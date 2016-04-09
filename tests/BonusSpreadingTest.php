@@ -574,7 +574,7 @@ class BonusSpreadingTest extends Tbmt_Tests_DatabaseTestCase {
 
     $any = DbEntityHelper::createSignupMember($sylvheim);
 
-    $sylvheim_total->add(Transaction::REASON_ADVERTISED_LVL1, 1);
+    $sylvheim_total->add(Transaction::REASON_ADVERTISED_LVL2, 1);
     $sylvheim_total->add(Transaction::REASON_VL_BONUS, 1);
     $sylvheim_total->add(Transaction::REASON_OL_BONUS, 1);
     $sylvheim_total->add(Transaction::REASON_PM_BONUS, 1);

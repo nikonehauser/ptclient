@@ -57,6 +57,24 @@ class DbEntityHelper {
     'password'       => 'demo1234',
   ];
 
+  static private $memberInvitation = [
+    'title'          => 'unknown',
+    'lastName'       => 'unknown',
+    'firstName'      => 'unknown',
+    'age'            => 99,
+    'email'          => 'unknown@un.de',
+    'city'           => 'unknown',
+    'country'        => 'unknown',
+    'zip_code'       => '504231',
+    'bank_recipient' => 'unknown',
+    'iban'           => 'unknown',
+    'bic'            => 'unknown',
+    'password'       => 'demo1234',
+    'password2'       => 'demo1234',
+    'accept_agbs'          => '1',
+    'accept_valid_country' => '1',
+  ];
+
   static public function createMember(Member $referralMember = null, array $data = array()) {
     $member = new Member();
 
@@ -75,6 +93,7 @@ class DbEntityHelper {
   static public function createBonusMember($accountNumber, array $data = array()) {
     $member = self::createMember(null, array_merge([
       'Num'=> $accountNumber,
+      'FundsLevel' => Member::FUNDS_LEVEL2
     ], $data));
 
     $member->setBonusIds(json_encode([
@@ -93,7 +112,8 @@ class DbEntityHelper {
     return $member;
   }
 
-  static public function createMemberWithInvitation($referrer, $invitationType, $data) {
+  static public function createMemberWithInvitation($referrer, $invitationType, $data = []) {
+    $data = array_merge(self::$memberInvitation, $data);
     /* Create invitation
     ---------------------------------------------*/
     $invitation = Invitation::create(
@@ -112,6 +132,7 @@ class DbEntityHelper {
 
     $member = \Member::createFromSignup($data, $referrer, $invitation, self::$con);
     $member->reload(self::$con);
+    $member->onReceivedMemberFee(self::$currency, time(), false, self::$con);
 
     return $member;
   }
