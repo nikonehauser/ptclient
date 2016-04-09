@@ -4,7 +4,7 @@ namespace Tbmt;
 
 class WaterfallDistStrategy extends DistributionStrategy {
 
-  const FUNDS_LEVLE_UPDATE_WITH = 2;
+  const FUNDS_LEVEL_UPDATE_WITH = 2;
 
   public function onReceivedMemberFee(\Member $member, \Member $referrer, $currency, $when, $freeFromInvitation, \PropelPDO $con) {
     // TODO - replace config value with real received value from bank transaction
@@ -18,7 +18,7 @@ class WaterfallDistStrategy extends DistributionStrategy {
     $this->updateTreeByFundsLevel($referrer, $member);
 
     $newAdvertisedCount = $referrer->convertOutstandingAdvertisedCount(1);
-    if ( $newAdvertisedCount == self::FUNDS_LEVLE_UPDATE_WITH ) {
+    if ( $newAdvertisedCount == self::FUNDS_LEVEL_UPDATE_WITH ) {
       $referrer->setFundsLevel(\Member::FUNDS_LEVEL2);
       $referrer->setMemberRelatedByParentId(null);
       MailHelper::sendFundsLevelUpgrade($referrer, $member);
