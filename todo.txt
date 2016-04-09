@@ -13,10 +13,6 @@ Offen an Tom:
 
  - PDF als quittung
 
- - hinweis um fehlende india pin codes hinzufügen zu können
-
- - email #8 macht so keinen sinn sie an einen level 2 typen zu schicken!
-
  - email #9 - funds_level_upgrade, referenziert das video. das ist angeblich falsch:
 
  You know you have received 300 Rupees for the first two donators.

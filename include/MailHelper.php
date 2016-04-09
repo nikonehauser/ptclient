@@ -336,11 +336,15 @@ class MailHelper {
     else
       $provision = self::getLocalizedTRA(\Transaction::REASON_ADVERTISED_LVL1);
 
+    $body = $locale['body'];
+    if ( $referrer->getFundsLevel() == \Member::FUNDS_LEVEL1 )
+      $body .= "\n".$locale['level1_addition'];
+
     return self::send(
       $email,
       $fullName,
       $locale['subject'],
-      Localizer::insert($locale['body'], [
+      Localizer::insert($body, [
         'fullname' => $fullName,
         'recruited_fullname' => $recruited_fullname,
         'recruited_firstname' => $recruited->getFirstName(),
@@ -443,7 +447,7 @@ class MailHelper {
     if ( !$fromName )
       $fromName = Config::get('mail.sender_name');
 
-    $body .= Config::get('mail.signature');
+    $body .= "\n\n".Config::get('mail.signature')."\n";
 
     $mail->setFrom($fromMail, $fromName);
     $mail->addReplyTo(Config::get('mail.reply_mail'), 'Do not Reply');
