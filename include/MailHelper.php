@@ -268,7 +268,7 @@ class MailHelper {
    */
   static public function sendFeeReminderWithAdvertisingsReferrer(\Member $referrer, \Member $recruited) {
     $email = $referrer->getEmail();
-    $locale = Localizer::get('mail.fee_reminder_referrer');
+    $locale = Localizer::get('mail.fee_reminder_referrer_with_advertisings');
 
     $num = $referrer->getNum();
     $fullName = \Tbmt\view\Factory::buildMemberFullNameString($referrer);

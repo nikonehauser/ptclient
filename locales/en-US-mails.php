@@ -386,7 +386,7 @@ and wish you a carefree and pleasant future life with your high passive income o
  *   bankaccount,
  *
  */
-  'fee_reminder_with_advertisings' => [
+  'fee_reminder_referrer_with_advertisings' => [
 
     'subject' => 'Your recommended donator {recruited_fullname} has not made their donation',
 
