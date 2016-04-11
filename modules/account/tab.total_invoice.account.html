@@ -18,6 +18,7 @@
   <table class="table">
     <tbody>
         <tr>
+          <th></th>
           <th>Name</th>
           <th>Had Paid</th>
           <th>Type</th>
@@ -31,7 +32,7 @@
 
     $baseCurrency = \Transaction::$BASE_CURRENCY;
 
-    foreach ( $this->members as $member ) {
+    foreach ( $this->members as $i => $member ) {
 
       $transferredTotal = $member->getTransferredTotal();
       $outstandingTotal = $member->getOutstandingTotal();
@@ -47,8 +48,9 @@
         $outstandingTotal = 0;
 
       echo '<tr>';
+        echo '<td>'.($i+1).'</td>';
         echo '<td>'.$member->getFirstName().' '.$member->getLastName().'</td>';
-        echo '<td>'.($member->getPaidDate() != '' ? 1 : '' ).'</td>';
+        echo '<td>'.($member->getPaidDate() != '' ? '<i class="fa fa-check" />' : '' ).'</td>';
         echo '<td>'.$memberTypes[$member->getType()].'</td>';
         echo '<td>'.$member->getOutstandingAdvertisedCount().'</td>';
         echo '<td>'.$member->getAdvertisedCount().'</td>';
