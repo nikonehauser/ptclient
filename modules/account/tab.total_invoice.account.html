@@ -3,10 +3,10 @@
 
   <dl class="dl-horizontal dl-largeSpaced dl-largeTitle dl-prettyStyled">
       <dt>Total member count</dt>
-      <dd><?=$this->totalMemberCount?></dd>
+      <dd><?=($this->totalMemberCount - 2)?></dd>
 
       <dt>Total paid member count</dt>
-      <dd><?=$this->totalPaidMemberCount?></dd>
+      <dd><?=($this->totalPaidMemberCount - 8)?></dd>
 
 <!--
       <dt><?=$this->i18nView['transferred_total']?></dt>
@@ -19,9 +19,10 @@
     <tbody>
         <tr>
           <th>Name</th>
+          <th>Had Paid</th>
           <th>Type</th>
           <th>Advertised</th>
-          <th>Signups</th>
+          <th>Paid Advertised</th>
           <th>Transferred total</th>
           <th>Outstanding total</th>
         </tr>
@@ -47,6 +48,7 @@
 
       echo '<tr>';
         echo '<td>'.$member->getFirstName().' '.$member->getLastName().'</td>';
+        echo '<td>'.($member->getPaidDate() != '' ? 1 : '' ).'</td>';
         echo '<td>'.$memberTypes[$member->getType()].'</td>';
         echo '<td>'.$member->getOutstandingAdvertisedCount().'</td>';
         echo '<td>'.$member->getAdvertisedCount().'</td>';
