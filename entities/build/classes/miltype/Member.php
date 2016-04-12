@@ -313,6 +313,10 @@ class Member extends BaseMember
     return $this->getPaidDate() > 1;
   }
 
+  public function isMarkedAsPaid() {
+    return $this->getPaidDate() >= 1;
+  }
+
   /**
    * Sets the user's password
    *
@@ -561,7 +565,7 @@ class Member extends BaseMember
       throw new Exception('Member ('.$this->getId().') has no referrer!');
     }
 
-    if ( !$this->hadPaid() ) {
+    if ( !$this->isMarkedAsPaid() ) {
       // Prevent multiple income of the same message. Because this situation
       // can ocure more often because of the removal of not paying members
       // {@see $this->fireReservedReceivedMemberFeeEvents}

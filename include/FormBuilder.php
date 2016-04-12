@@ -8,35 +8,30 @@ class FormBuilder {
     \Member::TYPE_MEMBER => [],
 
     \Member::TYPE_PROMOTER => [
-      \Member::TYPE_PROMOTER,
-      \Member::TYPE_MEMBER
+      \Member::TYPE_PROMOTER
     ],
 
     \Member::TYPE_ORGLEADER => [
       \Member::TYPE_ORGLEADER,
-      \Member::TYPE_PROMOTER,
-      \Member::TYPE_MEMBER
+      \Member::TYPE_PROMOTER
     ],
 
     \Member::TYPE_MARKETINGLEADER => [
       \Member::TYPE_MARKETINGLEADER,
       \Member::TYPE_ORGLEADER,
-      \Member::TYPE_PROMOTER,
-      \Member::TYPE_MEMBER
+      \Member::TYPE_PROMOTER
     ],
 
     \Member::TYPE_CEO => [
       \Member::TYPE_MARKETINGLEADER,
       \Member::TYPE_ORGLEADER,
-      \Member::TYPE_PROMOTER,
-      \Member::TYPE_MEMBER
+      \Member::TYPE_PROMOTER
     ],
 
     \Member::TYPE_ITSPECIALIST => [
       \Member::TYPE_MARKETINGLEADER,
       \Member::TYPE_ORGLEADER,
-      \Member::TYPE_PROMOTER,
-      \Member::TYPE_MEMBER
+      \Member::TYPE_PROMOTER
     ],
 
   ];
