@@ -252,7 +252,7 @@ class AccountController extends BaseController {
   public function action_ajax_tree(array $params = array()) {
     $ids = Arr::init($_REQUEST, 'ids', TYPE_ARRAY);
     $bonusOnly = Arr::init($_REQUEST, 'bonusOnly', TYPE_BOOL);
-    $rowCount = Arr::init($_REQUEST, 'count', TYPE_INT, 5);
+    $rowCount = Arr::init($_REQUEST, 'count', TYPE_INT, 100);
     $byColumn = Arr::init($_REQUEST, 'column', TYPE_STRING, 'ParentId');
 
     $filterByColumn = "filterBy$byColumn";
@@ -263,7 +263,8 @@ class AccountController extends BaseController {
     $rows = [];
     for ( $i = 0; $i < $rowCount; $i++ ) {
       $members = \MemberQuery::create()
-        ->$filterByColumn($ids, $comparisonOperator);
+        ->$filterByColumn($ids, $comparisonOperator)
+        ->orderBy(\MemberPeer::SIGNUP_DATE, \Criteria::ASC);
 
       if ( $bonusOnly )
         $members->filterByType(\Member::TYPE_MEMBER, \Criteria::GREATER_THAN);
