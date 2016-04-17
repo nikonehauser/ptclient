@@ -5,15 +5,15 @@
  */
 class BonusSpreadingTest extends Tbmt_Tests_DatabaseTestCase {
 
-  static public function setUpBeforeClass() {
-    $con = Propel::getConnection();
-    DbEntityHelper::truncateDatabase($con);
-  }
+  // static public function setUpBeforeClass() {
+  //   parent::setUpBeforeClass();
+  //   DbEntityHelper::truncateDatabase(self::$propelCon);
+  // }
 
-  public function setUp() {
-    parent::setUp();
-    DbEntityHelper::resetBonusMembers();
-  }
+  // public function setUp() {
+  //   parent::setUp();
+  //   DbEntityHelper::resetBonusMembers();
+  // }
 
   /**
    * Vertriebsleiter => VL
@@ -27,10 +27,6 @@ class BonusSpreadingTest extends Tbmt_Tests_DatabaseTestCase {
      * VL -  OL - PM - VS2 - VS1 – Neues Mitglied
      * 1$ -  1$ - 1$ - 15$ -  5$
      * ------------------------------------------*/
-
-    /* Setup
-    ---------------------------------------------*/
-    DbEntityHelper::setCon(self::$propelCon);
 
     list(
         list($IT, $VL, $OL, $PM, $VS2, $VS1),
@@ -570,9 +566,7 @@ class BonusSpreadingTest extends Tbmt_Tests_DatabaseTestCase {
   }
 
   public function testSylvhelmBonuses() {
-    $sylvheim = DbEntityHelper::createBonusMember(\SystemStats::ACCOUNT_SYLVHEIM, [
-      'Type'      => \Member::TYPE_SALES_MANAGER,
-    ]);
+    $sylvheim = Member::getByNum(\SystemStats::ACCOUNT_SYLVHEIM);
     $sylvheim_total = new TransactionTotalsAssertions($sylvheim, $this);
 
     $any = DbEntityHelper::createSignupMember($sylvheim);
@@ -583,6 +577,52 @@ class BonusSpreadingTest extends Tbmt_Tests_DatabaseTestCase {
     $sylvheim_total->add(Transaction::REASON_PM_BONUS, 1);
     $sylvheim_total->add(Transaction::REASON_SYLVHEIM, 1);
 
+    $sylvheim_total->assertTotals();
+
+  }
+
+  public function testCeoBonuses() {
+    $ceo = Member::getByNum(\SystemStats::ACCOUNT_NUM_CEO1);
+    $ceo_total = new TransactionTotalsAssertions($ceo, $this);
+
+    $any = DbEntityHelper::createSignupMember($ceo);
+
+    $ceo_total->add(Transaction::REASON_ADVERTISED_LVL2, 1);
+    $ceo_total->add(Transaction::REASON_VL_BONUS, 1);
+    $ceo_total->add(Transaction::REASON_OL_BONUS, 1);
+    $ceo_total->add(Transaction::REASON_PM_BONUS, 1);
+    $ceo_total->add(Transaction::REASON_SYLVHEIM, 1);
+    $ceo_total->add(Transaction::REASON_CEO1_BONUS, 1);
+
+    $ceo_total->assertTotals();
+
+  }
+
+  public function testTopLevelBonusSpreading() {
+    $ceo = Member::getByNum(\SystemStats::ACCOUNT_NUM_CEO1);
+    $it = Member::getByNum(\SystemStats::ACCOUNT_NUM_IT);
+    $sylvheim = Member::getByNum(\SystemStats::ACCOUNT_SYLVHEIM);
+    $taric = Member::getByNum(\SystemStats::ACCOUNT_TARIC_WANI);
+
+    $ceo_total = new TransactionTotalsAssertions($ceo, $this);
+    $it_total = new TransactionTotalsAssertions($it, $this);
+    $sylvheim_total = new TransactionTotalsAssertions($sylvheim, $this);
+    $taric_total = new TransactionTotalsAssertions($taric, $this);
+
+    // Any advertise any
+    $any = DbEntityHelper::createSignupMember($taric);
+
+    $ceo_total->add(Transaction::REASON_CEO1_BONUS, 1);
+    $ceo_total->add(Transaction::REASON_VL_BONUS, 1);
+    $ceo_total->add(Transaction::REASON_OL_BONUS, 1);
+    $ceo_total->add(Transaction::REASON_PM_BONUS, 1);
+    $ceo_total->add(Transaction::REASON_SYLVHEIM, 1);
+
+    $it_total->add(Transaction::REASON_IT_BONUS, 1);
+    // Sylvhelm gets nothing here!
+
+    $ceo_total->assertTotals();
+    $it_total->assertTotals();
     $sylvheim_total->assertTotals();
 
   }

@@ -45,12 +45,11 @@ class Member extends BaseMember
     self::TYPE_ORGLEADER => Transaction::REASON_OL_BONUS,
     self::TYPE_MARKETINGLEADER => Transaction::REASON_VL_BONUS,
     self::TYPE_ITSPECIALIST => Transaction::REASON_IT_BONUS,
+    self::TYPE_CEO => Transaction::REASON_CEO1_BONUS,
+    self::TYPE_SALES_MANAGER => Transaction::REASON_SYLVHEIM,
   ];
 
   static public $NUM_TO_BONUS_REASON = [
-    SystemStats::ACCOUNT_NUM_CEO1 => Transaction::REASON_CEO1_BONUS,
-    SystemStats::ACCOUNT_NUM_IT   => Transaction::REASON_IT_BONUS,
-    SystemStats::ACCOUNT_SYLVHEIM => Transaction::REASON_SYLVHEIM,
     SystemStats::ACCOUNT_EXECUTIVE => Transaction::REASON_EXECUTIVE,
     SystemStats::ACCOUNT_NGO_PROJECTS => Transaction::REASON_NGO_PROJECTS,
     SystemStats::ACCOUNT_TARIC_WANI => Transaction::REASON_TARIC_WANI,
@@ -297,17 +296,24 @@ class Member extends BaseMember
     return $member;
   }
 
-  public function getBonusReason() {
-    $num = $this->getNum();
-    if ( isset(self::$NUM_TO_BONUS_REASON[$num]) )
-      return self::$NUM_TO_BONUS_REASON[$num];
-
-    $type = $this->getType();
+  static public function getTransactionReasonByType($type) {
     if ( !isset(self::$TYPE_TO_BONUS_REASON[$type]) ) {
       return null;
     }
 
     return self::$TYPE_TO_BONUS_REASON[$type];
+  }
+
+  public function getTransactionReasonByMemberType() {
+    return self::getTransactionReasonByType($this->getType());
+  }
+
+  public function getTransactionReasonByMemberNum() {
+    $num = $this->getNum();
+    if ( isset(self::$NUM_TO_BONUS_REASON[$num]) )
+      return self::$NUM_TO_BONUS_REASON[$num];
+
+    return null;
   }
 
   public function hadPaid() {
@@ -363,14 +369,17 @@ class Member extends BaseMember
 
     $bonusIds = $this->getBonusIds();
     $bonusIds = MemberBonusIds::populate($this, $bonusIds);
-    $this->setBonusIds($bonusIds);
+    if ( $bonusIds !== false )
+      $this->setBonusIds($bonusIds);
 
     $children = $this->applyToAllChildren(
       function($parent, $child) use ($amount, $con) {
         $bonusIds = $child->getBonusIds();
         $bonusIds = MemberBonusIds::populate($parent, $bonusIds);
-        $child->setBonusIds($bonusIds);
-        $child->save($con);
+        if ( $bonusIds !== false ) {
+          $child->setBonusIds($bonusIds);
+          $child->save($con);
+        }
       },
       $con
     );
@@ -384,7 +393,6 @@ class Member extends BaseMember
    * This is a dangerous method cause the tree of this member might exceed
    * over thousands/millions of members !?
    *
-   * @return [type]
    */
   public function applyToAllChildren($callable, PropelPDO $con, $byColumn = 'ReferrerId') {
     $ids = [$this->getId()];
@@ -419,7 +427,9 @@ class Member extends BaseMember
     $bonusIds = $referrer->getBonusIds();
     $referrerType = $referrer->getType();
     if ( $referrerType > self::TYPE_MEMBER ) {
-      $bonusIds = MemberBonusIds::populate($referrer, $bonusIds);
+      $newBonusIds = MemberBonusIds::populate($referrer, $bonusIds);
+      if ( $newBonusIds !== false )
+        $bonusIds = $newBonusIds;
     }
 
     if ( $bonusIds )
@@ -683,9 +693,23 @@ class MemberBonusIds {
     return json_encode($bonusIds);
   }
 
+  /**
+   * NOTE: Function returns {bolean} false if the ids were not changed.
+   *
+   */
   static public function populate(Member $referrerMember, $bonusIds) {
     $arr = self::toArray($bonusIds);
-    $arr[$referrerMember->getId()] = $referrerMember->getType();
+    $memberId = $referrerMember->getId();
+    $type = $referrerMember->getType();
+    if ( isset($arr[$memberId]) && $arr[$memberId] === $type )
+      return false;
+
+    // These are singleton bonuses and have to exist once only on each
+    // member
+    if ( in_array($type, Member::$TYPE_TO_BONUS_REASON) && in_array($type, $arr) )
+      throw new Exception('InvalidSituationException: Tryed to set bonus type: "'.$type.'" twice.');
+
+    $arr[$memberId] = $type;
     return self::toString($arr);
   }
 
@@ -707,16 +731,13 @@ class MemberBonusIds {
       ->filterById($bonusIds, Criteria::IN)
       ->find($con);
 
-    $memberSylvheim = null;
-
     $spreadBonuses = [];
     $toBeSaved = [];
     foreach ( $bonusMembers as $member ) {
       $type = $member->getType();
-
       $transfer = null;
-      $reason = $member->getBonusReason();
 
+      // Even so the system still supporting this, it was declarated deprecated by marcus sheffold
       if ( $member->getBonusLevel() > 0 ) {
         // Pay the individual bonus set for this member
         $transfer = self::doPay(
@@ -731,13 +752,27 @@ class MemberBonusIds {
         );
       }
 
-      if ( $reason !== null ) {
-        // Pay bonus by reason for this member
+      $reasonByType = $member->getTransactionReasonByType($type);
+      if ( $reasonByType !== null ) {
         $transfer = self::doPay(
           $memberFee,
           $transfer,
           $member,
-          $reason,
+          $reasonByType,
+          $relatedId,
+          $currency,
+          $when,
+          $con
+        );
+      }
+
+      $reasonByMemberNum = $member->getTransactionReasonByMemberNum();
+      if ( $reasonByMemberNum !== null ) {
+        $transfer = self::doPay(
+          $memberFee,
+          $transfer,
+          $member,
+          $reasonByMemberNum,
           $relatedId,
           $currency,
           $when,
@@ -752,101 +787,42 @@ class MemberBonusIds {
         $toBeSaved[] = $transfer;
 
         // Save the payed bonuses by type
-        $spreadBonuses[$type] = [$member, $transfer];
-
-        if ( $member->getNum() === \SystemStats::ACCOUNT_SYLVHEIM )
-          $memberSylvheim = [$member, $transfer];
+        $spreadBonuses[$type] = [$transfer, $member, $reasonByType];
       }
     }
 
-    $issetSpreadSubPromoterBonus = isset($spreadBonuses[Member::TYPE_SUB_PROMOTER]);
-    if ( $issetSpreadSubPromoterBonus ) {
-      // Pay the weird sub promoter guy ... sigh ...
-      $subPromoter = $spreadBonuses[Member::TYPE_SUB_PROMOTER][0];
-      $subPromoterReferral = $subPromoter->getMemberRelatedBySubPromoterReferral($con);
-      self::doPay(
-        $memberFee,
-        null,
-        $subPromoterReferral,
-        \Transaction::REASON_SUB_PM_REF_BONUS,
-        $relatedId,
-        $currency,
-        $when,
-        $con
-      )->save($con);
-      $subPromoterReferral->save($con);
-    }
+    $propagateBonuses = [
+      Member::TYPE_PROMOTER,
+      Member::TYPE_ORGLEADER,
+      Member::TYPE_MARKETINGLEADER,
+      Member::TYPE_SALES_MANAGER,
+      Member::TYPE_CEO,
+    ];
 
-    $inheritBonuses = [];
-    $add_sylvheim = [];
-    $add_OL = null;
-    $add_VL = [];
-    $vl = null;
-    if ( !isset($spreadBonuses[Member::TYPE_PROMOTER]) && !$issetSpreadSubPromoterBonus ) {
-      // if promoter does not exist give org leader his bonus
-      $add_OL = Transaction::REASON_PM_BONUS;
-    }
+    $collectUnspreadBonusus = [];
+    foreach ( $propagateBonuses as $memberType ) {
+      if ( !isset($spreadBonuses[$memberType]) ) {
+        // This bonus is unspread, so collect it to give it to the next higher
+        // existing member type
+        $collectUnspreadBonusus[] = $memberType;
+      } else {
+        $memberObjects = $spreadBonuses[$memberType];
 
-    if ( !isset($spreadBonuses[Member::TYPE_ORGLEADER]) && !$issetSpreadSubPromoterBonus ) {
-      // if org leader does not exist give marketing leader his bonus
-      $add_VL[] = Transaction::REASON_OL_BONUS;
-      if ( $add_OL ) {
-        $add_VL[] = $add_OL;
-        $add_OL = null;
+        foreach ($collectUnspreadBonusus as $memberType) {
+          self::doPay(
+            $memberFee,
+            $memberObjects[0], // member {object}
+            $memberObjects[1], // member transfer {object}
+            \Member::getTransactionReasonByType($memberType), // reason by type {integer}
+            $relatedId,
+            $currency,
+            $when,
+            $con
+          );
+        }
+        // Reset
+        $collectUnspreadBonusus = [];
       }
-    }
-
-
-    if ( isset($spreadBonuses[Member::TYPE_MARKETINGLEADER]) ) {
-      $vl = $spreadBonuses[Member::TYPE_MARKETINGLEADER];
-    }
-
-    if ( $add_OL ) {
-      // Pay org leader if exists
-      $ol = $spreadBonuses[Member::TYPE_ORGLEADER];
-      self::doPay(
-        $memberFee,
-        $ol[1],
-        $ol[0],
-        $add_OL,
-        $relatedId,
-        $currency,
-        $when,
-        $con
-      );
-    }
-
-    if ( $vl ) {
-      // Pay remaining to marketing leader
-      foreach ( $add_VL as $params ) {
-        self::doPay(
-          $memberFee,
-          $vl[1],
-          $vl[0],
-          $params,
-          $relatedId,
-          $currency,
-          $when,
-          $con
-        );
-      }
-    } else if ( $memberSylvheim ) {
-      // Pay sylvia and friedhelm by adding bonuses for all
-      // missing type of promoter, orgleader, marketing leader
-      $add_VL[] = Transaction::REASON_VL_BONUS;
-      foreach ( $add_VL as $params ) {
-        self::doPay(
-          $memberFee,
-          $memberSylvheim[1],
-          $memberSylvheim[0],
-          $params,
-          $relatedId,
-          $currency,
-          $when,
-          $con
-        );
-      }
-
     }
 
     foreach ( $toBeSaved as $row ) {

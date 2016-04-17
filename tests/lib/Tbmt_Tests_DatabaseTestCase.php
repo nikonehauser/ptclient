@@ -20,6 +20,8 @@ abstract class Tbmt_Tests_DatabaseTestCase extends PHPUnit_Extensions_Database_T
     public function setUp() {
         parent::setUp();
 
+        // DbEntityHelper::truncateDatabase(self::$propelCon);
+
         \Tbmt\SystemSetup::setCon(self::$propelCon);
         \Tbmt\SystemSetup::doSetupUnitTests();
     }

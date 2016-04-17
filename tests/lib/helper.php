@@ -323,6 +323,9 @@ class TransactionTotalsAssertions {
     $this->member = $member;
     $this->testCase = $testCase;
     $this->transfer = DbEntityHelper::getCurrentTransferBundle($member);
+    if ( $this->transfer->isNew() )
+      $this->transfer->save(DbEntityHelper::$con);
+
   }
 
   public function add($reason, $quantity = 1) {
@@ -377,6 +380,8 @@ class TransactionTotalsAssertions {
     $this->transfer->reload(DbEntityHelper::$con);
     $this->member->reload(DbEntityHelper::$con);
     $this->testCase->assertEquals($this->total, $this->transfer->getAmount());
-    $this->testCase->assertEquals($this->total, $this->member->getOutstandingTotal()[DbEntityHelper::$currency]);
+
+    $amount = $this->member->getOutstandingTotal();
+    $this->testCase->assertEquals($this->total, isset($amount[DbEntityHelper::$currency]) ? $amount[DbEntityHelper::$currency] : 0);
   }
 }

@@ -85,31 +85,7 @@ class DebugController extends BaseController {
               <th>Reasons</th>
             </tr>';
 
-    $reasons = [
-            0 => 'Advertised Lvl 1',
-            1 => 'Advertised Lvl 2',
-            2 => 'Bonus Lvl 2 Indirect',
-            3 => 'Bonus marketing leader',
-            4 => 'Bonus organization leader',
-            5 => 'Bonus promoter',
-            6 => 'Bonus IT',
-            7 => 'Bonus CEO1',
-            // 8 => 'Bonus CEO2',
-            // 9 => 'Bonus lawyer',
-            10 => 'Bonus sub promoter',
-            11 => 'Bonus sub promoter referrer',
-
-            12 => 'Bonus Sylvhelm',
-            13 => 'Bonus Executive',
-            14 => 'Bonus Taric Wani',
-            15 => 'Bonus NGO Projects',
-
-            1001 => 'Custom bonus payment',
-            1002 => 'Remaining donation',
-            1003 => 'Transfer to root system',
-
-            2000 => 'Custom bonus level payment',
-          ];
+    $reasons = \Tbmt\Localizer::get('view.account.tabs.invoice.transaction_reasons');
 
     foreach ($members as $member) {
       $result .= '<tr>';

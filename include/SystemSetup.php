@@ -44,53 +44,8 @@ class SystemSetup {
   }
 
   static public function doSetupUnitTests() {
-    $IT_SPECIALIST_EMAIL = 'niko.neuhauser@gmail.com';
-
     \SystemStats::_refreshForUnitTests();
-
-    $systemStats = new \SystemStats();
-    $systemStats->setInvitationIncrementer('2A15F6');
-    $systemStats->save();
-
-
-    /* Setup - SYSTEM ACCOUNT
-    ---------------------------------------------*/
-    self::createMember(null, [
-      'LastName'  => 'account',
-      'FirstName' => 'system',
-      'Email'     => $IT_SPECIALIST_EMAIL,
-      'Num'       => \SystemStats::ACCOUNT_NUM_SYSTEM,
-      'Type'      => \Member::TYPE_SYSTEM
-    ]);
-
-
-    /* Setup - ROOT ACCOUNT
-    ---------------------------------------------*/
-    // self::createMember(null, [
-    //   'LastName'  => 'account',
-    //   'FirstName' => 'root',
-    //   'Email'     => $IT_SPECIALIST_EMAIL,
-    //   'Num'       => \SystemStats::ACCOUNT_NUM_ROOT,
-    //   'Type'      => \Member::TYPE_SYSTEM
-    // ]);
-
-
-    /* Setup - CEO1
-    ---------------------------------------------*/
-    $ceo1 = self::createMember(null, [
-      'LastName'  => 'CEO',
-      'FirstName' => 'Marcus',
-      'Email'     => $IT_SPECIALIST_EMAIL,
-      'Num'       => \SystemStats::ACCOUNT_NUM_CEO1,
-      'Type'      => \Member::TYPE_CEO
-    ]);
-
-
-    /* SET auto increment counter for member numbers
-    ---------------------------------------------*/
-    $sql = "SELECT setval('tbmt_member_num_seq', 1000001);";
-    $stmt = self::$con->prepare($sql);
-    $stmt->execute();
+    self::doSetup();
   }
 
   /**
@@ -144,13 +99,14 @@ class SystemSetup {
       'LastName'  => 'IT',
       'Email'     => $IT_SPECIALIST_EMAIL,
       'Num'       => \SystemStats::ACCOUNT_NUM_IT,
-      'Type'      => \Member::TYPE_MEMBER,
+      'Type'      => \Member::TYPE_ITSPECIALIST,
       'FundsLevel'=> \Member::FUNDS_LEVEL2
     ]);
 
     /* Setup - SYLVHEIM
     ---------------------------------------------*/
     $sylvheim = self::createMember(null, [
+      'ReferrerId' => $ceo1->getId(),
       'FirstName' => 'Sales',
       'LastName'  => 'Management',
       'Email'     => 'test35@gmx.de',
@@ -195,17 +151,25 @@ class SystemSetup {
     /* Setup - TOP LEVEL BONUS IDS
     ---------------------------------------------*/
     $topLvlBonusIds = json_encode([
-      $ceo1->getId() => 1,
-      $it->getId() => 1,
-      $sylvheim->getId() => 1,
-      $executive->getId() => 1,
-      $taricWani->getId() => 1,
-      $ngoProjects->getId() => 1
+      $ceo1->getId() => $ceo1->getType(),
+      $it->getId() => $it->getType(),
+      $executive->getId() => $executive->getType(),
+      $taricWani->getId() => $taricWani->getType(),
+      $ngoProjects->getId() => $ngoProjects->getType()
+    ]);
+
+    $salesManagerBonusIds = json_encode([
+      $ceo1->getId() => $ceo1->getType(),
+      $it->getId() => $it->getType(),
+      $sylvheim->getId() => $sylvheim->getType(),
+      $executive->getId() => $executive->getType(),
+      $taricWani->getId() => $taricWani->getType(),
+      $ngoProjects->getId() => $ngoProjects->getType()
     ]);
 
     $ceo1->setBonusIds($topLvlBonusIds);
     $it->setBonusIds($topLvlBonusIds);
-    $sylvheim->setBonusIds($topLvlBonusIds);
+    $sylvheim->setBonusIds($salesManagerBonusIds);
     $executive->setBonusIds($topLvlBonusIds);
     $taricWani->setBonusIds($topLvlBonusIds);
     $ngoProjects->setBonusIds($topLvlBonusIds);

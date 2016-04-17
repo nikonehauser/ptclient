@@ -2,7 +2,6 @@ CURRENT - TODOS
 ===============
 
  - bonus dem nachrücken angleichen
- - bonuse zum CEO nachreichen Falls Bonuse unter ihm nicht vorhanden
 
  - im account eine erläuterung bereit stellen wie genau überwiesen werden muss!
    Verwendungs zweck etc.
