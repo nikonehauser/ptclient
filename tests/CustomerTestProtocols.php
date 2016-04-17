@@ -9,8 +9,6 @@ class CustomerTestProtocolsTest extends Tbmt_Tests_DatabaseTestCase {
   // }
 
   public function test_105_director_marketingleader_promoter() {
-    DbEntityHelper::setCon(self::$propelCon);
-
     $sylvheim = Member::getByNum(\SystemStats::ACCOUNT_SYLVHEIM);
     $sylvheim_total = new TransactionTotalsAssertions($sylvheim, $this);
     $this->assertEquals(Member::FUNDS_LEVEL2, $sylvheim->getFundsLevel());
@@ -69,8 +67,7 @@ class CustomerTestProtocolsTest extends Tbmt_Tests_DatabaseTestCase {
 
     $sylvheim_total->add(Transaction::REASON_ADVERTISED_INDIRECT);
     $sylvheim_total->add(Transaction::REASON_SYLVHEIM);
-
-    $director_total->add(Transaction::REASON_VL_BONUS);
+    $sylvheim_total->add(Transaction::REASON_VL_BONUS);
 
     $orgleader_total->add(Transaction::REASON_ADVERTISED_LVL1);
     $orgleader_total->add(Transaction::REASON_OL_BONUS);
@@ -88,10 +85,8 @@ class CustomerTestProtocolsTest extends Tbmt_Tests_DatabaseTestCase {
 
     $sylvheim_total->add(Transaction::REASON_ADVERTISED_INDIRECT);
     $sylvheim_total->add(Transaction::REASON_SYLVHEIM);
-
-    $director_total->add(Transaction::REASON_VL_BONUS);
-
-    $orgleader_total->add(Transaction::REASON_OL_BONUS);
+    $sylvheim_total->add(Transaction::REASON_VL_BONUS);
+    $sylvheim_total->add(Transaction::REASON_OL_BONUS);
 
     $promoter_total->add(Transaction::REASON_ADVERTISED_LVL1);
     $promoter_total->add(Transaction::REASON_PM_BONUS);

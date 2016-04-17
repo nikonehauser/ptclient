@@ -20,7 +20,7 @@ class Transaction extends BaseTransaction {
   const REASON_ADVERTISED_LVL1     = 0;
   const REASON_ADVERTISED_LVL2     = 1;
   const REASON_ADVERTISED_INDIRECT = 2;
-  const REASON_VL_BONUS = 3;
+  const REASON_VL_BONUS = 3; // Vertriebsleiter === Marketing Leader === Director
   const REASON_OL_BONUS = 4;
   const REASON_PM_BONUS = 5;
 

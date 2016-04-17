@@ -113,13 +113,12 @@ class InvitationTest extends Tbmt_Tests_DatabaseTestCase {
   }
 
   public function testLevelApplyingWithFreeRegistration() {
-    DbEntityHelper::setCon(self::$propelCon);
     $sylvheim = Member::getByNum(\SystemStats::ACCOUNT_SYLVHEIM);
     $sylvheim_total = new TransactionTotalsAssertions($sylvheim, $this);
 
-    /* Setup
+    /* Setup - This member is set as paid but no money is spread.
+     * Because this one is just for testing purpose
     ---------------------------------------------*/
-    DbEntityHelper::setCon(self::$propelCon);
     $marketingLeader = DbEntityHelper::createMember($sylvheim, [
       'Type' => Member::TYPE_MARKETINGLEADER
     ]);
@@ -142,8 +141,8 @@ class InvitationTest extends Tbmt_Tests_DatabaseTestCase {
         'invitation_code' => $invitation->getHash(),
       ]));
 
-    // Because the marketing leader is level 1 this org leader will
-    // transfered as child of sylvheim
+    // Because the marketing leader is level 1 this org leader will be
+    // transfered to be child of sylvheim
     $orgLeader = \Member::createFromSignup($data, $marketingLeader, $invitation, self::$propelCon);
     $orgLeader->reload(self::$propelCon);
 
@@ -151,17 +150,21 @@ class InvitationTest extends Tbmt_Tests_DatabaseTestCase {
     // needs to bonus sylvheim
     DbEntityHelper::createSignupMember($orgLeader);
 
+    // Spread money for creating this last member
     $sylvheim_total->add(Transaction::REASON_SYLVHEIM, 1);
     $sylvheim_total->add(Transaction::REASON_ADVERTISED_INDIRECT, 1);
-    $marketingLeader_total->add(Transaction::REASON_VL_BONUS, 1);
+    // VL_BONUS - because, orgleader was VL first member and got transferred to
+    // sylvheimm, therefore there is no VL between sylvheim and ol when ol
+    // inviteds member
+    $sylvheim_total->add(Transaction::REASON_VL_BONUS, 1);
+
+    // marketing leader gets nothing from ol's advertising.
 
     $sylvheim_total->assertTotals();
     $marketingLeader_total->assertTotals();
   }
 
   public function testDirectorInviteDirectorWillReceiveSameParent() {
-    DbEntityHelper::setCon(self::$propelCon);
-
     $sylvheim = Member::getByNum(\SystemStats::ACCOUNT_SYLVHEIM);
 
     $marketingLeader = DbEntityHelper::createMember($sylvheim, [

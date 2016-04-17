@@ -39,7 +39,7 @@ class AccountController extends BaseController {
         'pwd' => TYPE_STRING
       ]);
 
-      $num = (int)$num;
+      $num = !empty($num) ? (int)$num : '';
 
       if (!$num || !$pwd || !Session::login($num, $pwd)) {
         return ControllerDispatcher::renderModuleView(

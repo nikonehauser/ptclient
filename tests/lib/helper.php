@@ -112,13 +112,16 @@ class DbEntityHelper {
     return $member;
   }
 
-  static public function createMemberWithInvitation($referrer, $invitationType, $data = []) {
+  static public function createMemberWithInvitation($referrer, $invitationData, $data = []) {
+    if ( is_numeric($invitationData) )
+      $invitationData = ['type' => $invitationData];
+
     $data = array_merge(self::$memberInvitation, $data);
     /* Create invitation
     ---------------------------------------------*/
     $invitation = Invitation::create(
       $referrer,
-      ['type' => $invitationType],
+      $invitationData,
       self::$con
     );
 
@@ -132,7 +135,9 @@ class DbEntityHelper {
 
     $member = \Member::createFromSignup($data, $referrer, $invitation, self::$con);
     $member->reload(self::$con);
-    $member->onReceivedMemberFee(self::$currency, time(), false, self::$con);
+
+    if ( !isset($invitationData['free_signup']) || !$invitationData['free_signup'] )
+      $member->onReceivedMemberFee(self::$currency, time(), false, self::$con);
 
     return $member;
   }
@@ -379,9 +384,10 @@ class TransactionTotalsAssertions {
   public function assertTotals() {
     $this->transfer->reload(DbEntityHelper::$con);
     $this->member->reload(DbEntityHelper::$con);
-    $this->testCase->assertEquals($this->total, $this->transfer->getAmount());
+    $this->testCase->assertEquals($this->total, $this->transfer->getAmount(), 'Invalid totals of: '.$this->member->getFirstName().' '.$this->member->getLastName());
 
     $amount = $this->member->getOutstandingTotal();
-    $this->testCase->assertEquals($this->total, isset($amount[DbEntityHelper::$currency]) ? $amount[DbEntityHelper::$currency] : 0);
+    $this->testCase->assertEquals($this->total, isset($amount[DbEntityHelper::$currency]) ? $amount[DbEntityHelper::$currency] : 0,
+      'Invalid totals of: '.$this->member->getFirstName().' '.$this->member->getLastName());
   }
 }

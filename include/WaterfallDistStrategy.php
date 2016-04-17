@@ -98,7 +98,16 @@ class WaterfallDistStrategy extends DistributionStrategy {
       // As long as i am level 1 i wont receive more from them than just
       // the 5 euro. All further advertised members etc. will go on to the
       // account of my !parent!
-      $advertisedMember->setParentId($referrer->getParentId());
+      $referrerParent = $referrer->getMemberRelatedByParentId();
+      $advertisedMember->setParentId($referrerParent ? $referrerParent->getId() : null);
+
+      // We have transferred the advertised member, therefore adjust the
+      // bonus ids of this member either.
+      // Since he is now "beyond the tree of another member" just apply
+      // his new parent bonus ids.
+      if ( $referrerParent )
+        $advertisedMember->setBonusIds($referrerParent->getBonusIds());
+
 
     } else { // if ( $this->getFundsLevel() >= Member::FUNDS_LEVEL2 ) {
       $advertisedMember->setMemberRelatedByParentId($referrer);

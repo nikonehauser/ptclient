@@ -20,7 +20,9 @@
         <tr>
           <th></th>
           <th>Name</th>
-          <th>Had Paid</th>
+          <th>From</th>
+          <th>Paid</th>
+          <th>Free Invite</th>
           <th>Type</th>
           <th>Advertised</th>
           <th>Paid Advertised</th>
@@ -47,10 +49,17 @@
       else
         $outstandingTotal = 0;
 
+      $referrer = $member->getMemberRelatedByReferrerId();
+      $referrerName = '';
+      if ( $referrer )
+        $referrerName = $referrer->getFirstName().' '.$referrer->getLastName();
+
       echo '<tr>';
         echo '<td>'.($i+1).'</td>';
         echo '<td>'.$member->getFirstName().' '.$member->getLastName().'</td>';
+        echo '<td>'.$referrerName.'</td>';
         echo '<td>'.($member->getPaidDate() != '' ? '<i class="fa fa-check" />' : '' ).'</td>';
+        echo '<td>'.($member->getFreeInvitation() ? '<i class="fa fa-check" />' : '' ).'</td>';
         echo '<td>'.$memberTypes[$member->getType()].'</td>';
         echo '<td>'.$member->getOutstandingAdvertisedCount().'</td>';
         echo '<td>'.$member->getAdvertisedCount().'</td>';

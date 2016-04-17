@@ -207,8 +207,10 @@ class Member extends BaseMember
 
         $invitation->setAcceptedDate($now);
 
-        if ( $invitation->getFreeSignup() )
+        if ( $invitation->getFreeSignup() ) {
+          $member->setFreeInvitation(1);
           $wasFreeInvitation = true;
+        }
 
         // Deprecated code
         // if ( $invitation->getType() === self::TYPE_SUB_PROMOTER ) {

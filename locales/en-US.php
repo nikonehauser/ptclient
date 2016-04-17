@@ -25,8 +25,9 @@ return [
       2 => 'Promoter',
       3 => 'Organization Leader',
       4 => 'Director',
-      5 => 'CEO',
-      6 => 'Developer',
+      5 => 'Sales Manager',
+      6 => 'CEO',
+      7 => 'Developer',
     ],
 
     'forbidden_countries' => [

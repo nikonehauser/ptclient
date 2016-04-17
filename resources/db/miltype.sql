@@ -23,6 +23,8 @@
     "paid_date" timestamp with time zone NULL ,
     "funds_level" smallint NOT NULL default 1,
 
+    "free_invitation" smallint NOT NULL default 0,
+
     "bank_recipient" VARCHAR(120) NOT NULL ,
     "iban" VARCHAR(80) NOT NULL ,
     "bic" VARCHAR(80) NOT NULL ,

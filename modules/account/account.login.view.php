@@ -8,7 +8,7 @@ class AccountLogin extends Base {
     $this->formLabels = $this->i18nView['form_labels'];
 
     $formParams = isset($params['formVal']) ? $params['formVal'] : $_REQUEST;
-    $loginTry = isset($formParams['num']) || isset($formParams['pwd']);
+    $loginTry = !empty($formParams['num']) || !empty($formParams['pwd']);
 
     $this->formVal =  \Tbmt\Arr::initMulti($formParams, [
       'num' => \Tbmt\TYPE_STRING
