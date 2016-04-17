@@ -160,7 +160,7 @@ class AccountController extends BaseController {
 
   public function action_bonus_payments_signup() {
     $login = Session::getLogin();
-    if ( $login->getType() !== \Member::TYPE_CEO )
+    if ( $login->getType() < \Member::TYPE_SALES_MANAGER )
       throw new PermissionDeniedException();
 
     list($valid, $data, $recipient) = \Transaction::validateBonusTransactionForm($_REQUEST);
@@ -213,7 +213,7 @@ class AccountController extends BaseController {
 
   public function action_bonus_levels_signup() {
     $login = Session::getLogin();
-    if ( $login->getType() !== \Member::TYPE_CEO )
+    if ( $login->getType() < \Member::TYPE_SALES_MANAGER )
       throw new PermissionDeniedException();
 
     list($valid, $data, $recipient) = \Member::validateBonusLevelForm($_REQUEST);
@@ -336,7 +336,7 @@ class AccountController extends BaseController {
   public function action_total_invoice() {
     $login = Session::getLogin();
 
-    if ( $login->getType() < \Member::TYPE_CEO )
+    if ( $login->getType() < \Member::TYPE_SALES_MANAGER )
       throw new PageNotFoundException();
 
     return ControllerDispatcher::renderModuleView(

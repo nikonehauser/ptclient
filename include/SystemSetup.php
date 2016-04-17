@@ -155,7 +155,7 @@ class SystemSetup {
       'LastName'  => 'Management',
       'Email'     => 'test35@gmx.de',
       'Num'       => \SystemStats::ACCOUNT_SYLVHEIM,
-      'Type'      => \Member::TYPE_CEO,
+      'Type'      => \Member::TYPE_SALES_MANAGER,
       'FundsLevel'=> \Member::FUNDS_LEVEL2
     ]);
 

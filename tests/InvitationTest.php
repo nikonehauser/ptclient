@@ -115,7 +115,7 @@ class InvitationTest extends Tbmt_Tests_DatabaseTestCase {
   public function testLevelApplyingWithFreeRegistration() {
     DbEntityHelper::setCon(self::$propelCon);
     $sylvheim = DbEntityHelper::createBonusMember(\SystemStats::ACCOUNT_SYLVHEIM, [
-      'Type'      => \Member::TYPE_CEO,
+      'Type'      => \Member::TYPE_SALES_MANAGER,
     ]);
     $sylvheim_total = new TransactionTotalsAssertions($sylvheim, $this);
 
@@ -165,7 +165,7 @@ class InvitationTest extends Tbmt_Tests_DatabaseTestCase {
     DbEntityHelper::setCon(self::$propelCon);
 
     $sylvheim = DbEntityHelper::createBonusMember(\SystemStats::ACCOUNT_SYLVHEIM, [
-      'Type'      => \Member::TYPE_CEO,
+      'Type'      => \Member::TYPE_SALES_MANAGER,
     ]);
 
     $marketingLeader = DbEntityHelper::createMember($sylvheim, [

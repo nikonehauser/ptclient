@@ -26,7 +26,7 @@ class AccountIndex extends Base {
     if ( $memberType > \Member::TYPE_MEMBER )
       $arr[] = 'invitation';
 
-    if ( $memberType >= \Member::TYPE_CEO ) {
+    if ( $memberType >= \Member::TYPE_SALES_MANAGER ) {
       $arr[] = 'bonus_payments';
       $arr[] = 'bonus_levels';
 

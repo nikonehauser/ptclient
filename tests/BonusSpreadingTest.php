@@ -571,7 +571,7 @@ class BonusSpreadingTest extends Tbmt_Tests_DatabaseTestCase {
 
   public function testSylvhelmBonuses() {
     $sylvheim = DbEntityHelper::createBonusMember(\SystemStats::ACCOUNT_SYLVHEIM, [
-      'Type'      => \Member::TYPE_CEO,
+      'Type'      => \Member::TYPE_SALES_MANAGER,
     ]);
     $sylvheim_total = new TransactionTotalsAssertions($sylvheim, $this);
 

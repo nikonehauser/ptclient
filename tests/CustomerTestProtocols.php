@@ -12,7 +12,7 @@ class CustomerTestProtocolsTest extends Tbmt_Tests_DatabaseTestCase {
     DbEntityHelper::setCon(self::$propelCon);
 
     $sylvheim = DbEntityHelper::createBonusMember(\SystemStats::ACCOUNT_SYLVHEIM, [
-      'Type'      => \Member::TYPE_CEO,
+      'Type'      => \Member::TYPE_SALES_MANAGER,
     ]);
     $sylvheim_total = new TransactionTotalsAssertions($sylvheim, $this);
     $this->assertEquals(Member::FUNDS_LEVEL2, $sylvheim->getFundsLevel());

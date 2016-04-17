@@ -26,8 +26,9 @@ class Member extends BaseMember
   const TYPE_PROMOTER = 2;
   const TYPE_ORGLEADER = 3;
   const TYPE_MARKETINGLEADER = 4;
-  const TYPE_CEO = 5;
-  const TYPE_ITSPECIALIST = 6;
+  const TYPE_SALES_MANAGER = 5;
+  const TYPE_CEO = 6;
+  const TYPE_ITSPECIALIST = 7;
 
   const INVITE_MARKETINGLEADER = 'ml880d914385a632784ce6b3a220ce5364';
   const INVITE_ORGLEADER = 'ol23bfe2e3a018ec8a833d7a1e6c562162';
