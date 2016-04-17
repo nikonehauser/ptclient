@@ -35,9 +35,11 @@ class AccountController extends BaseController {
 
     if ( !Session::isLoggedIn() ) {
       list($num, $pwd) = Arr::initList($_REQUEST, [
-        'num' => TYPE_KEY,
+        'num' => TYPE_STRING,
         'pwd' => TYPE_STRING
       ]);
+
+      $num = (int)$num;
 
       if (!$num || !$pwd || !Session::login($num, $pwd)) {
         return ControllerDispatcher::renderModuleView(
@@ -107,7 +109,10 @@ class AccountController extends BaseController {
   public function action_invitation_create() {
     $login = Session::getLogin();
     $type = Arr::init($_REQUEST, 'type', TYPE_INT);
-    if ( $login->getType() < $type || $type < \Member::TYPE_MEMBER || $type > $login->getType() )
+    if ( $login->getType() < $type ||
+      $type < \Member::TYPE_MEMBER ||
+      $type > $login->getType() ||
+      $login->getFundsLevel() != \Member::FUNDS_LEVEL2 )
       throw new PermissionDeniedException();
 
     if ( $type === \Member::TYPE_SUB_PROMOTER ) {

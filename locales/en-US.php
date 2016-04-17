@@ -482,6 +482,7 @@ return [
           'free_signup' => 'Free registration',
           'promoter_num' => 'On the recommendation of promoter (Num)',
           'submit' => 'Submit',
+          'restricted_to_lvl2' => 'You need to invite 2 paid donators to unlock invitations',
 
           'list_title' => 'Invitations',
           'hash' => 'Code',
@@ -581,10 +582,10 @@ return [
         ],
       ],
       'change_profile' => [
-        'page_title' => 'Change your banking',
+        'page_title' => 'Change your profile',
         'error' => 'Error!',
         'success' => 'Success!',
-        'success_msg' => 'We have successfully changed your banking information.',
+        'success_msg' => 'We have successfully changed your profile information.',
         'form_labels' => [
           'firstName' => 'First name',
           'lastName' => 'Last name',

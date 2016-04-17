@@ -14,55 +14,66 @@
   } ?>
 
   <div class="row">
-      <form action="<?=\Tbmt\Router::toModule('account', 'invitation_create')?>" method="post" class="form-inline form-white">
-          <input type="hidden" name="promoter_id" value="<?=(isset($this->formVal['promoter_id']) ? $this->formVal['promoter_id'] : '')?>" />
+      <?php
+      if ( $this->member->getFundsLevel() != \Member::FUNDS_LEVEL2 ) {
 
-            <?php echo $formBuilder->buildInvitationTypeSelectGroup('type', $this->member->getType()); ?>
+        echo '<div class="col-md-12">'.$this->i18nView['restricted_to_lvl2'].'</div>';
 
-            <?php echo $formBuilder->buildFieldGroup('free_signup', 'checkbox'); ?>
+      } else {
 
-          <div class="field">
-            <?=\Tbmt\view\Factory::buildSubmitBtn($this->i18nView['submit'], 'blue')?>
-          </div>
+      ?>
+        <form action="<?=\Tbmt\Router::toModule('account', 'invitation_create')?>" method="post" class="form-inline form-white">
+            <input type="hidden" name="promoter_id" value="<?=(isset($this->formVal['promoter_id']) ? $this->formVal['promoter_id'] : '')?>" />
 
-          <div class="clearfix"></div>
+              <?php echo $formBuilder->buildInvitationTypeSelectGroup('type', $this->member->getType()); ?>
 
-          <div id="invitationForm_promoterFieldGroup" style="display: none;">
-            <?php echo $formBuilder->buildFieldGroup('promoter_num'); ?>
+              <?php echo $formBuilder->buildFieldGroup('free_signup', 'checkbox'); ?>
 
-            <?php if ( $this->recipient ) { ?>
-                <div class="col-md-12">
-                    <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['recipient_details'], 'bottom-30 top-10')?>
+            <div class="field">
+              <?=\Tbmt\view\Factory::buildSubmitBtn($this->i18nView['submit'], 'blue')?>
+            </div>
 
-                    <dl class="dl-horizontal dl-prettyStyled">
+            <div class="clearfix"></div>
 
-                        <dt><?=$this->i18nView['member_type']?></dt>
-                        <dd><?=$this->i18nCommon['member_types'][$this->recipient->getType()]?></dd>
+            <div id="invitationForm_promoterFieldGroup" style="display: none;">
+              <?php echo $formBuilder->buildFieldGroup('promoter_num'); ?>
 
-                        <dt><?=$this->i18nView['member_num']?></dt>
-                        <dd><?=$this->recipient->getNum()?></dd>
+              <?php if ( $this->recipient ) { ?>
+                  <div class="col-md-12">
+                      <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['recipient_details'], 'bottom-30 top-10')?>
 
-                        <dt><?=$this->i18nView['address']?></dt>
-                        <dd>
-                            <address>
-                                <?=\Tbmt\Base::encodeHtml($this->recipient->getCity())?><br>
-                                <?=\Tbmt\Base::encodeHtml($this->recipient->getCountry())?>
-                            </address>
-                        </dd>
+                      <dl class="dl-horizontal dl-prettyStyled">
 
-                        <dt><?=$this->i18nView['email']?></dt>
-                        <dd>
-                            <?=$this->recipient->getEmail() ?
-                            \Tbmt\Base::encodeHtml($this->recipient->getEmail()) :
-                            '<em class="text-muted">'.$this->i18nView['email_none'].'</em>'?>
-                        </dd>
-                    </dl>
-                </div>
-            <?php } ?>
-          </div>
+                          <dt><?=$this->i18nView['member_type']?></dt>
+                          <dd><?=$this->i18nCommon['member_types'][$this->recipient->getType()]?></dd>
 
-          <div class="clearfix"></div>
-      </form>
+                          <dt><?=$this->i18nView['member_num']?></dt>
+                          <dd><?=$this->recipient->getNum()?></dd>
+
+                          <dt><?=$this->i18nView['address']?></dt>
+                          <dd>
+                              <address>
+                                  <?=\Tbmt\Base::encodeHtml($this->recipient->getCity())?><br>
+                                  <?=\Tbmt\Base::encodeHtml($this->recipient->getCountry())?>
+                              </address>
+                          </dd>
+
+                          <dt><?=$this->i18nView['email']?></dt>
+                          <dd>
+                              <?=$this->recipient->getEmail() ?
+                              \Tbmt\Base::encodeHtml($this->recipient->getEmail()) :
+                              '<em class="text-muted">'.$this->i18nView['email_none'].'</em>'?>
+                          </dd>
+                      </dl>
+                  </div>
+              <?php } ?>
+            </div>
+
+            <div class="clearfix"></div>
+        </form>
+        <?php
+        }
+        ?>
   </div>
 
   <script type="text/javascript">
