@@ -1,4 +1,6 @@
 /node_modules
+/entities/schema.xml
+/entities/build/sql/schema.sql
 /entities/build/conf
 /entities/build/classes/miltype/om
 /entities/build/classes/miltype/map
