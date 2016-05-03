@@ -20,16 +20,16 @@ social media.',
 
 
 
-'Why are you based in Kashmir?',
-'By chance. But our social projects will be carried out in the regions
-the donators are from. So by you donation (or location) you can decide
-where the next projects are going to be.',
+// 'Why are you based in Kashmir?',
+// 'By chance. But our social projects will be carried out in the regions
+// the donators are from. So by you donation (or location) you can decide
+// where the next projects are going to be.',
 
 
-'Does Betterliving only operate in Kashmir?',
-'No, Betterliving is here for everybody in India. Everyone can be a
-donator and also receive money with us. So by you donation (or location)
-you can decide where the next projects are going to be.',
+// 'Does Betterliving only operate in Kashmir?',
+// 'No, Betterliving is here for everybody in India. Everyone can be a
+// donator and also receive money with us. So by you donation (or location)
+// you can decide where the next projects are going to be.',
 
 
 'Is this a chain system?',

@@ -450,8 +450,8 @@ return [
           'total' => 'Total',
           'reason' => 'Reason',
           'transaction_reasons' => [
-            0 => 'Comission Level 1',
-            1 => 'Comission Level 2',
+            0 => 'Commission Level 1',
+            1 => 'Commission Level 2',
             2 => 'Bonus Level 2',
             3 => 'Bonus Director',
             4 => 'Bonus Organization Leader',
