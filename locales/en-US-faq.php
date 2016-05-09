@@ -12,10 +12,10 @@ to contact us.',
 
 
 
-'Can I follow the projects?',
+// 'Can I follow the projects?',
 
-'Yes! The progress will be published on www.shadowfoundation.org and on
-social media.',
+// 'Yes! The progress will be published on www.shadowfoundation.org and on
+// social media.',
 
 
 
