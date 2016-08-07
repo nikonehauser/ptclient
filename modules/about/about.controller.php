@@ -11,6 +11,7 @@ class AboutController extends BaseController {
     'email'   => \Tbmt\TYPE_STRING,
     'subject' => \Tbmt\TYPE_STRING,
     'message' => \Tbmt\TYPE_STRING,
+    'phone' => \Tbmt\TYPE_STRING,
   ];
 
   static private $CONTACT_FORM_FILTERS = [
@@ -54,6 +55,7 @@ class AboutController extends BaseController {
 
     MailHelper::sendContactFormMail(
       $data['email'],
+      $data['phone'],
       $data['name'],
       $data['subject'],
       $data['message']

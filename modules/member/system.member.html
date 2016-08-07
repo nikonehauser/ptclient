@@ -32,8 +32,8 @@
     $texts['6h'][0] = LL::currencyFormat($lvl2, $currencySymbol);
     $texts['7h'][0] = LL::currencyFormat($lvl2, $currencySymbol);
 
-    $texts['11r'][0] = LL::currencyFormat($lvl1, $currencySymbol);
-    $texts['11r'][1] = LL::currencyFormat($lvl1 * 2, $currencySymbol);
+    $texts['11h'][0] = LL::currencyFormat($lvl1, $currencySymbol);
+    $texts['11h'][1] = LL::currencyFormat($lvl1 * 2, $currencySymbol);
 
     $texts['12h'][0] = LL::currencyFormat($indirect, $currencySymbol);
     $texts['12h'][1] = LL::currencyFormat($indirect * 2, $currencySymbol);
@@ -51,10 +51,11 @@
     $texts26[1] = LL::currencyFormat($indirect, $currencySymbol);
     $texts26[2] = LL::currencyFormat($indirect * 8, $currencySymbol);
 
-    $texts['35h'][0] = LL::currencyFormat(10000000, $currencySymbol);
-    $texts['35h'][1] = LL::currencyFormat(30000000, $currencySymbol);
+    $texts['35h'][0] = LL::currencyFormat(150000, $currencySymbol);
+    $texts['35h'][1] = LL::currencyFormat(300000, $currencySymbol);
 
-    $texts['39h'][0] = LL::currencyFormat(Ta::$MEMBER_FEE, $currencySymbol);
+    $texts['37r'][0] = LL::currencyFormat(1000, $currencySymbol);
+    $texts['38r'][0] = LL::currencyFormat(200, $currencySymbol);
 
     $earnPerWeek = [];
     $earnPerWeekCurrent = 0;
@@ -152,6 +153,14 @@ END;
     <h4 class="heading large"><?=LL::insert($this->i18nView['intro1'], $this->i18nView['intro1h'], false, '<span>{_val_}</span>')?></h4>
     <span class="sub-heading"><?=$this->i18nView['intro2']?></span>
   </div>
+
+
+  <div class="row sheet top-30">
+    <div class="col-md-12 bottom-sm-30">
+      <?=$this->i18nView['intro3']?>
+    </div>
+  </div>
+
 
   <div class="divider circle dark clearfix top-40 bottom-40"></div>
 

@@ -386,8 +386,9 @@ class MailHelper {
   }
 
 
-  static public function sendContactFormMail($fromMail, $fromName, $subject, $body) {
+  static public function sendContactFormMail($fromMail, $fromPhone, $fromName, $subject, $body) {
     $body = "From mail: $fromMail\n\r".
+      "From phone: $fromPhone\n\r".
       "From name: $fromName\n\r\n\r".
       "Body:\n\r$body\n\r";
 

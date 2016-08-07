@@ -14,31 +14,51 @@
       <div class="container content-inner">
         <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['form_title'], 'bottom-30')?>
 
-        <div class="row">
         <div class="sheet clearfix">
 
-            <?php if ( $this->successmsg ) {
-              echo \Tbmt\view\Factory::buildNotification($this->i18nView['signup_success'], $this->i18nView['success'], 'success top');
-            } ?>
+          <div class="row">
+              <div class="col-md-12">
+                <?php if ( $this->successmsg ) {
+                  echo \Tbmt\view\Factory::buildNotification($this->i18nView['signup_success'], $this->i18nView['success'], 'success top');
+                } ?>
+              </div>
+          </div>
 
-            <div class="col-md-6">
-                <?php echo $formBuilder->buildFieldGroup('name'); ?>
-            </div>
-            <div class="col-md-6">
-                <?php echo $formBuilder->buildFieldGroup('email'); ?>
-            </div>
+          <div class="row">
+              <div class="col-md-6">
+                  <?php echo $formBuilder->buildFieldGroup('name'); ?>
+              </div>
+          </div>
 
-            <div class="col-md-12">
-                <?php echo $formBuilder->buildFieldGroup('subject'); ?>
-            </div>
 
-            <div class="col-md-12">
-                <?php echo $formBuilder->buildFieldGroup('message', 'textarea'); ?>
-            </div>
+          <div class="row">
+              <div class="col-md-6">
+                  <?php echo $formBuilder->buildFieldGroup('email'); ?>
+              </div>
+              <div class="col-md-6">
+                  <?php echo $formBuilder->buildFieldGroup('phone'); ?>
+              </div>
+          </div>
 
-            <?=\Tbmt\view\Factory::buildSubmitBtn($this->formLabels['submit'], 'blue top-20')?>
+          <div class="row">
+              <div class="col-md-12">
+                  <?php echo $formBuilder->buildFieldGroup('subject'); ?>
+              </div>
+          </div>
 
-      </div>
+          <div class="row">
+              <div class="col-md-12">
+                  <?php echo $formBuilder->buildFieldGroup('message', 'textarea'); ?>
+              </div>
+          </div>
+
+          <div class="row">
+              <div class="col-md-12">
+                <?=\Tbmt\view\Factory::buildSubmitBtn($this->formLabels['submit'], 'blue top-20')?>
+              </div>
+          </div>
+
+        </div>
       </div>
     </div>
   </form>
