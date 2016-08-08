@@ -54,7 +54,7 @@ Welcome to Betterliving – You’re now registered at Betterliving.social!
 We’re happy you followed his recommendation.
 
 You were invited as special guest!
-You are \"{member_type}\". So you can earn even more than normal donators!
+You are \"{member_type}\". So you can earn even more than normal customers!
 
 Most probably {referrer_fullname} has already told you it is possible to earn money with Betterliving.
 Please watch the video
@@ -64,7 +64,7 @@ will receive commissions from Betterliving.
 From your third recommendation on, the commission will go up to +400%.
 The video will show you how high your income can become.
 Let it surprise you and let all your friends know about this opportunity.
-What would you do if you and your friends owned commissions of more than {after6weeksamount} Rupees?
+What would you do if you and your friends owned commissions of more than {after6weeksamount} Dollar?
 If you have any idea about how you would spend money and you
 grudge your friends the same, make sure you tell them about Betterliving.
 Just share the video
@@ -150,11 +150,11 @@ you some helpful secrets about how to make a fortune with $brandName."
 Congratulations on your successful invitation!
 We have been informed that you invited {recruited_fullname} to Betterliving.
 {recruited_fullname} has successfully signed up for Betterliving.
-We wish you the best at finding new donators for Betterliving.
+We wish you the best at finding new customers for Betterliving.
 Just share the video
 {video_link}
 with your friends and tell everybody about the great opportunity of making money by being social.
-It’s enough if every donator recommends three more donators.
+It’s enough if every customer recommends three more customers.
 You can show {recruited_fullname} how easy it is.
 That way you can support each other in making a fortune.
 Take good care that your friends use your ID \"{member_id}\"
@@ -194,10 +194,10 @@ If possible, please ask him whether the donation has already been made.
 For sure you have seen the video
 {video_link}
 about how to make a fortune with Betterliving.
-It’s enough if every donator recommends three more donators.
+It’s enough if every customer recommends three more customers.
 You can show {recruited_fullname} how easy it is.
 That way you can support each other in making a fortune.
-We wish you the best at finding new donators for Betterliving.
+We wish you the best at finding new customers for Betterliving.
 Just share the video
 {video_link}
 with your friends and tell everybody about the great opportunity of making money by being social.
@@ -230,7 +230,7 @@ when they are signing up."
     'body' => "Dear {fullname},
 
 we have already welcomed you to Betterliving on {signup_date}
-after you successfully signed up to be a donator on www.betterliving.soical.
+after you successfully signed up to be a customer on www.betterliving.soical.
 Unfortunately we did not receive your donation within the deadline of 7 days.
 If the donation has already been transferred, this email can be ignored.
 In case you haven’t been able to donate because of personal issues
@@ -244,8 +244,8 @@ Always indicate your personal ID \"{member_id}\" as intended purpose for the tra
 Please keep in mind that we are in need of your donation in order to carry out
 social projects for the neediest in this country and on top you will
 be able to revalue your own life!
-Because if you are a donator and recommend three others,
-you can receive monthly payments of several million Rupees
+Because if you are a customer and recommend three others,
+you can receive monthly payments of several million Dollar
 using our unique marketing system.
 It’s not only your life that will be a lot better and more comfortable in the future.
 Just offer everyone you know and love, say your family and friends,
@@ -281,7 +281,7 @@ and wish you a carefree and pleasant future life with your high passive income o
  */
   'fee_reminder_referrer' => [
 
-    'subject' => 'Your recommended donator {recruited_fullname} has not made their donation yet',
+    'subject' => 'Your recommended customer {recruited_fullname} has not made their donation yet',
 
     'body' => "Dear {fullname},
 
@@ -299,7 +299,7 @@ Here are our account details:
 {bankaccount}
 
 The personal ID \"{member_id}\" should always be given as intended purpose for the transfer.
-Thank you for the support, we hope you will successfully find new donators for us and your passive income."
+Thank you for the support, we hope you will successfully find new customers for us and your passive income."
 
   ],
 
@@ -327,7 +327,7 @@ Thank you for the support, we hope you will successfully find new donators for u
     'body' => "Dear {fullname},
 
 we could already welcome you to Betterliving on {signup_date}
-after you successfully signed up to be a donator on www.betterliving.soical.
+after you successfully signed up to be a customer on www.betterliving.soical.
 Unfortunately we did not receive your donation within the deadline of 7 days.
 If the donation has already been transferred, this email can be ignored.
 In case you haven’t been able to donate because of personal issues
@@ -342,12 +342,12 @@ purpose for the transfer.
 
 Here is some very important information for you:
 If you miss out on donating within the deadline listed above,
-you cannot receive commissions for your recommended donators.
+you cannot receive commissions for your recommended customers.
 That’s not it. You can see in our explanation video at 4:25 what happens
 if you are a prime partner of Betterliving. Being a prime partner is easy;
-all you have to do is recommend three donators.
-From then on you will receive a commission of {advindirectamount} Rupees
-for the first two donators of all your future recommendations.
+all you have to do is recommend three customers.
+From then on you will receive a commission of {advindirectamount} Dollar
+for the first two customers of all your future recommendations.
 As you can see in the video, this can rise up to be a pretty high income in a short time.
 Don’t miss your chance to make a lot of money by forgetting to donate.
 So please transfer your donation for Betterliving as soon as you can!
@@ -388,7 +388,7 @@ and wish you a carefree and pleasant future life with your high passive income o
  */
   'fee_reminder_referrer_with_advertisings' => [
 
-    'subject' => 'Your recommended donator {recruited_fullname} has not made their donation',
+    'subject' => 'Your recommended customer {recruited_fullname} has not made their donation',
 
     'body' => "Dear {fullname},
 
@@ -405,9 +405,9 @@ Here are our account details:
 {bankaccount}
 
 The personal ID \"{member_id}\" should always be given as intended purpose for the transfer.
-By the way, {recruited_fullname} has already been diligent and has successfully recommended more donators.
+By the way, {recruited_fullname} has already been diligent and has successfully recommended more customers.
 Now all {recruited_firstname} has to do is make their donation within 7 days so you will get payed!
-Thank you for the support, we hope you will successfully find new donators for us and your passive income."
+Thank you for the support, we hope you will successfully find new customers for us and your passive income."
 
   ],
 
@@ -448,7 +448,7 @@ will receive commissions from Betterliving.
 From your third recommendation on the commission will go up to +400%.
 The video will show you how high your income can be.
 Let it surprise you and let all your friends know about this opportunity.
-What would you do if you and your friends owned commissions of more than {after6weeksamount} Rupees?
+What would you do if you and your friends owned commissions of more than {after6weeksamount} Dollar?
 And you will not only have a lot more money than you do now;
 your donation makes many social projects possible which benefit Indian citizens.
 If you have any idea about how you would spend money and you
@@ -504,23 +504,23 @@ We wish you the very best and hope you’ll get rich soon!"
 
     'body' => "Dear {fullname},
 
-your recommended donator {recruited_fullname} has made a donation of {memberfee_amount} Rupees.
+your recommended customer {recruited_fullname} has made a donation of {memberfee_amount} Dollar.
 Thank you for sharing the opportunity with {recruited_firstname}.
 Now Betterliving can carry out beneficial projects in India.
 Your advantage is great as well!
 You should know by now that you will get a commission for {recruited_firstname}’s donation.
-You will receive {provision_amount} Rupees for {recruited_firstname}’s donation.",
+You will receive {provision_amount} Dollar for {recruited_firstname}’s donation.",
 
     'level1_addition' =>
 "You want to earn even more? Make sure you find three friends who join Betterliving.
-This will make you a prime member. That means your commission will go up +400% to {adv2amount} Rupees!
+This will make you a prime member. That means your commission will go up +400% to {adv2amount} Dollar!
 This is proved in the explanation video
 {video_link}
 at 4:09.
 You are going see that in your upcoming invoice as well.
-From the third recommended donator who signs up using your personal ID \"{member_id}\"
+From the third recommended customer who signs up using your personal ID \"{member_id}\"
 and donates within the deadline the door to your private wellbeing will be wide open.
-We’re wishing best of luck finding new donators and have fun spending the commissions you will receive."
+We’re wishing best of luck finding new customers and have fun spending the commissions you will receive."
 
   ],
 
@@ -545,24 +545,24 @@ We’re wishing best of luck finding new donators and have fun spending the comm
     'body' => "Dear {fullname},
 
 CONGRATULATIONS! You made it.
-By recommending your second donator you have become a prime partner of Betterliving.
-From now on you will receive {adv2amount} Rupees for every future donator.
+By recommending your second customer you have become a prime partner of Betterliving.
+From now on you will receive {adv2amount} Dollar for every future customer.
 So what do you need to know now?
-You know you have received {adv1amount} Rupees for the first two donators.
-Betterliving always pays a commission of {adv2amount} Rupees for each donator,
-so as a prime partner you will always get the difference of {advindirectamount} Rupees
-for the first two donators of your recommended friends.
+You know you have received {adv1amount} Dollar for the first two customers.
+Betterliving always pays a commission of {adv2amount} Dollar for each customer,
+so as a prime partner you will always get the difference of {advindirectamount} Dollar
+for the first two customers of your recommended friends.
 If you take a look at 4:22 – 4:33 in the video
 {video_link}
 you can replace “Jivan” with {recruited_fullname}.
 If you want to make sure you make a lot of money in a short time, here’s how it works:
-Well firstly, you can always go on finding new donators.
-You will always receive {adv2amount} Rupees each.
-Secondly, and this is way more interesting, show all your recommended donators how to become prime partners as well.
+Well firstly, you can always go on finding new customers.
+You will always receive {adv2amount} Dollar each.
+Secondly, and this is way more interesting, show all your recommended customers how to become prime partners as well.
 The video
 {video_link}
 shows what will happen when {recruited_fullname} finds two friends who also recommend two others at 4:40.
-After six weeks you will find a total amount of {after6weeksamount} Rupees in your bank account.
+After six weeks you will find a total amount of {after6weeksamount} Dollar in your bank account.
 
 So in order to make lots of money, all you have to do is:
   1. Get three friends to join Betterliving, so you’ll become a prime partner

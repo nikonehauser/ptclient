@@ -4,7 +4,7 @@ return [
 
 'Which regions are you doing social projects in?',
 
-'In India. They will be only in those Indian regions where our donators
+'In India. They will be only in those Indian regions where our customers
 and with that the donations come from.
 If you have any interesting project suggestions, please do not hesitate
 to contact us.',
@@ -22,13 +22,13 @@ to contact us.',
 
 // 'Why are you based in Kashmir?',
 // 'By chance. But our social projects will be carried out in the regions
-// the donators are from. So by you donation (or location) you can decide
+// the customers are from. So by you donation (or location) you can decide
 // where the next projects are going to be.',
 
 
 // 'Does Betterliving only operate in Kashmir?',
 // 'No, Betterliving is here for everybody in India. Everyone can be a
-// donator and also receive money with us. So by you donation (or location)
+// customer and also receive money with us. So by you donation (or location)
 // you can decide where the next projects are going to be.',
 
 
@@ -53,18 +53,18 @@ to contact us.',
 'Why do you need my bank account details?',
 
 'We need your account details in order to weekly transfer your commissions.
-Betterliving is new and unique because you will be a donator and
-fundraiser at the same time. As soon as your first recruited donator is
+Betterliving is new and unique because you will be a customer and
+fundraiser at the same time. As soon as your first recruited customer is
 on board, you will receive your first commissions.
-For the first and the second donator you receive 300 Rupees each. From
-the third one it will be 1500 Rupees each.
-As soon as you have recruited three donators you get access to the
-donators’ network. New donators will be allocated to you who you do
+For the first and the second customer you receive 4 Dollar each. From
+the third one it will be 24 Dollar each.
+As soon as you have recruited three customers you get access to the
+customers’ network. New customers will be allocated to you who you do
 not know and most possibly never get to know either.
-From this point on donators will be allocated to you anonymously by the
-network. You receive 1200 Rupees for each of those.
-As soon as one of these donators advertises one or more others, you can
-automatically receive many thousand Rupees through the mathematical
+From this point on customers will be allocated to you anonymously by the
+network. You receive 20 Dollar for each of those.
+As soon as one of these customers advertises one or more others, you can
+automatically receive many thousand Dollar through the mathematical
 algorithm.',
 
 
@@ -91,11 +91,11 @@ money. You are the one who decides how your donation is paid: You can
 transfer it or make a cash deposit at the bank. Please note that we do
 not offer payments by credit cards or other online methods in order to
 avoid fees.
-You should pay within 10 days. You can start to find new donators with
-your donator number immediately though. You will get paid for finding
-new donators after we received your complete donation. It is not
+You should pay within 10 days. You can start to find new customers with
+your customer number immediately though. You will get paid for finding
+new customers after we received your complete donation. It is not
 possible to offset your donation against the commissions you get for
-advertising donators.',
+advertising customers.',
 
 
 // next
@@ -123,7 +123,7 @@ political or other organisations.',
 'Can I influence the projects?',
 
 'Yes!
-Every donator can suggest interesting social projects. Please contact us
+Every customer can suggest interesting social projects. Please contact us
 via project@betterliving.social and tell us about the project you are
 thinking about. Regarding the amount of emails it will not always be
 possible to reply to each of them but all suggestions will be collected.
