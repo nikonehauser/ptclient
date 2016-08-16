@@ -50,22 +50,22 @@ to contact us.',
 
 
 // next
-'Why do you need my bank account details?',
+// 'Why do you need my bank account details?',
 
-'We need your account details in order to weekly transfer your commissions.
-Betterliving is new and unique because you will be a customer and
-fundraiser at the same time. As soon as your first recruited customer is
-on board, you will receive your first commissions.
-For the first and the second customer you receive 4 Dollar each. From
-the third one it will be 24 Dollar each.
-As soon as you have recruited three customers you get access to the
-customers’ network. New customers will be allocated to you who you do
-not know and most possibly never get to know either.
-From this point on customers will be allocated to you anonymously by the
-network. You receive 20 Dollar for each of those.
-As soon as one of these customers advertises one or more others, you can
-automatically receive many thousand Dollar through the mathematical
-algorithm.',
+// 'We need your account details in order to weekly transfer your commissions.
+// Betterliving is new and unique because you will be a customer and
+// fundraiser at the same time. As soon as your first recruited customer is
+// on board, you will receive your first commissions.
+// For the first and the second customer you receive 4 Dollar each. From
+// the third one it will be 24 Dollar each.
+// As soon as you have recruited three customers you get access to the
+// customers’ network. New customers will be allocated to you who you do
+// not know and most possibly never get to know either.
+// From this point on customers will be allocated to you anonymously by the
+// network. You receive 20 Dollar for each of those.
+// As soon as one of these customers advertises one or more others, you can
+// automatically receive many thousand Dollar through the mathematical
+// algorithm.',
 
 
 

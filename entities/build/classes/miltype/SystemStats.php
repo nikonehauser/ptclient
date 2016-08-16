@@ -21,13 +21,6 @@ class SystemStats extends BaseSystemStats {
    */
   const ACCOUNT_NUM_SYSTEM  = 100;
 
-  /**
-   * The Root account holds the total income which should be transferred to
-   * the root/main system. This excludes provisions and bonuses for promoter
-   * but includes "special" bonuses for eg. lawyer, ceo1, it etc.
-   */
-  const ACCOUNT_NUM_ROOT = 101;
-
   const ACCOUNT_NUM_CEO1   = 102;
   const ACCOUNT_NUM_IT     = 104;
   const ACCOUNT_SYLVHEIM   = 105;
@@ -56,16 +49,7 @@ class SystemStats extends BaseSystemStats {
     return self::$systemAccount;
   }
 
-  static private $rootAccount;
-  static public function getRootAccount() {
-    if ( !self::$rootAccount )
-      self::$rootAccount = Member::getByNum(self::ACCOUNT_NUM_ROOT);
-
-    return self::$rootAccount;
-  }
-
   static public function _refreshForUnitTests() {
     self::$systemAccount = null;
-    self::$rootAccount = null;
   }
 }

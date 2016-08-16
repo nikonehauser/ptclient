@@ -146,7 +146,7 @@ class Localizer {
     if ( is_array($currency) )
       $currency = self::$arrData['currency_symbol'][$currency[0]];
 
-    return $currency.' '.self::numFormat($num, $decimals !== false ? $decimals : self::$decimalsCount, self::$decPoint, self::$thousandsSep);
+    return $currency.'&nbsp;'.self::numFormat($num, $decimals !== false ? $decimals : self::$decimalsCount, self::$decPoint, self::$thousandsSep);
   }
 
   static public function countInWords($count) {

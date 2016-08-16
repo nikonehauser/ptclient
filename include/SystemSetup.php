@@ -68,18 +68,6 @@ class SystemSetup {
     ]);
 
 
-    /* Setup - ROOT ACCOUNT
-    ---------------------------------------------*/
-    self::createMember(null, [
-      'FirstName' => 'root',
-      'LastName'  => 'account',
-      'Email'     => $IT_SPECIALIST_EMAIL,
-      'Num'       => \SystemStats::ACCOUNT_NUM_ROOT,
-      'Type'      => \Member::TYPE_SYSTEM,
-      'FundsLevel'=> \Member::FUNDS_LEVEL2
-    ]);
-
-
     /* Setup - CEO1
     ---------------------------------------------*/
     $ceo1 = self::createMember(null, [
@@ -118,7 +106,7 @@ class SystemSetup {
     /* Setup - EXECUTIVE
     ---------------------------------------------*/
     $executive = self::createMember(null, [
-      'FirstName' => 'Organization',
+      'FirstName' => 'Administration',
       'LastName'  => 'Executive',
       'Email'     => $IT_SPECIALIST_EMAIL,
       'Num'       => \SystemStats::ACCOUNT_EXECUTIVE,
@@ -128,25 +116,25 @@ class SystemSetup {
 
     /* Setup - TARIC WANI
     ---------------------------------------------*/
-    $taricWani = self::createMember(null, [
-      'FirstName' => 'Taric',
-      'LastName'  => 'Wani',
-      'Email'     => $IT_SPECIALIST_EMAIL,
-      'Num'       => \SystemStats::ACCOUNT_TARIC_WANI,
-      'Type'      => \Member::TYPE_MEMBER,
-      'FundsLevel'=> \Member::FUNDS_LEVEL2
-    ]);
+    // $taricWani = self::createMember(null, [
+    //   'FirstName' => 'Taric',
+    //   'LastName'  => 'Wani',
+    //   'Email'     => $IT_SPECIALIST_EMAIL,
+    //   'Num'       => \SystemStats::ACCOUNT_TARIC_WANI,
+    //   'Type'      => \Member::TYPE_MEMBER,
+    //   'FundsLevel'=> \Member::FUNDS_LEVEL2
+    // ]);
 
     /* Setup - REASON_NGO_PROJECTS
     ---------------------------------------------*/
-    $ngoProjects = self::createMember(null, [
-      'FirstName' => 'Projects',
-      'LastName'  => 'NGO',
-      'Email'     => $IT_SPECIALIST_EMAIL,
-      'Num'       => \SystemStats::ACCOUNT_NGO_PROJECTS,
-      'Type'      => \Member::TYPE_MEMBER,
-      'FundsLevel'=> \Member::FUNDS_LEVEL2
-    ]);
+    // $ngoProjects = self::createMember(null, [
+    //   'FirstName' => 'Projects',
+    //   'LastName'  => 'NGO',
+    //   'Email'     => $IT_SPECIALIST_EMAIL,
+    //   'Num'       => \SystemStats::ACCOUNT_NGO_PROJECTS,
+    //   'Type'      => \Member::TYPE_MEMBER,
+    //   'FundsLevel'=> \Member::FUNDS_LEVEL2
+    // ]);
 
     /* Setup - TOP LEVEL BONUS IDS
     ---------------------------------------------*/
@@ -154,8 +142,8 @@ class SystemSetup {
       $ceo1->getId() => $ceo1->getType(),
       $it->getId() => $it->getType(),
       $executive->getId() => $executive->getType(),
-      $taricWani->getId() => $taricWani->getType(),
-      $ngoProjects->getId() => $ngoProjects->getType()
+      // $taricWani->getId() => $taricWani->getType(),
+      // $ngoProjects->getId() => $ngoProjects->getType()
     ]);
 
     $salesManagerBonusIds = json_encode([
@@ -163,23 +151,23 @@ class SystemSetup {
       $it->getId() => $it->getType(),
       $sylvheim->getId() => $sylvheim->getType(),
       $executive->getId() => $executive->getType(),
-      $taricWani->getId() => $taricWani->getType(),
-      $ngoProjects->getId() => $ngoProjects->getType()
+      // $taricWani->getId() => $taricWani->getType(),
+      // $ngoProjects->getId() => $ngoProjects->getType()
     ]);
 
     $ceo1->setBonusIds($topLvlBonusIds);
     $it->setBonusIds($topLvlBonusIds);
     $sylvheim->setBonusIds($salesManagerBonusIds);
     $executive->setBonusIds($topLvlBonusIds);
-    $taricWani->setBonusIds($topLvlBonusIds);
-    $ngoProjects->setBonusIds($topLvlBonusIds);
+    // $taricWani->setBonusIds($topLvlBonusIds);
+    // $ngoProjects->setBonusIds($topLvlBonusIds);
 
     $ceo1->save(self::$con);
     $it->save(self::$con);
     $sylvheim->save(self::$con);
     $executive->save(self::$con);
-    $taricWani->save(self::$con);
-    $ngoProjects->save(self::$con);
+    // $taricWani->save(self::$con);
+    // $ngoProjects->save(self::$con);
 
     /* SET auto increment counter for member numbers
     ---------------------------------------------*/
