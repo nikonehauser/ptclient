@@ -9,7 +9,7 @@ return [
       'body' => "You have lost your $brandName password. Sorry about that!
 But don’t worry! You can use the following link within the next day to reset your password:
 {link}
-If you don’t use this link within 24 hours, it will expire.",
+Note: Link expires within 24 hours.",
     ],
 
 
@@ -18,10 +18,10 @@ If you don’t use this link within 24 hours, it will expire.",
     'email_validation' => [
       'subject' => 'Registration Email Validation',
       'body' => "Hello {fullname},
-thank you for signing up for $brandName!
+thank you for signing up to $brandName!
 Just open the following link in your favourite web browser to complete your registration:
 {link}
-If you don’t use this link within 24 hours, it will expire.",
+Note: Link expires within 24 hours.",
     ],
 
 
@@ -53,7 +53,7 @@ Welcome to Betterliving – You’re now registered at Betterliving.social!
 {referrer_fullname} recommended you and wants you to profit from Betterliving.
 We’re happy you followed his recommendation.
 
-You were invited as special guest!
+You were invited as a special guest!
 You are \"{member_type}\". So you can earn even more than normal customers!
 
 Most probably {referrer_fullname} has already told you it is possible to earn money with Betterliving.
@@ -70,16 +70,16 @@ grudge your friends the same, make sure you tell them about Betterliving.
 Just share the video
 {video_link}
 and let them know you are on board as well.
-Don’t forget to give them your personal ID \"{member_id}\".
+Don’t forget to give them your personal costumer number \"{member_id}\".
 Because you can only be identified and get commissions if they will fill in
-your ID when they are signing up to Betterliving.
+this costumer number when they are signing up for Betterliving.
 So what are you waiting for?
-Enjoy the opportunity of making a fortune by being social!
+Enjoy the opportunity of making a fortune while being social!
 Maybe you don’t know how to let your friends know about this.
 In this case just copy the following and send it to all your best friends via email:
 __________________________________________
 Dear friend,
-a short time ago I was told about the opportunity to make money by collecting donations for social projects.
+a short time ago I was told about the opportunity to make money by using the Happiness Guide.
 It’s super easy and just genius.
 I would like to let you know about this opportunity and how you can get a lot of money as well.
 Just watch this video
@@ -115,14 +115,14 @@ We wish you the very best and hope you’ll get rich soon!"
 
 Welcome to Betterliving. {recruiter} recommended you and wants you to profit from Betterliving.
 We’re happy you followed {recruiter}’s recommendation.
-In order to make you a part of Betterliving and to offer you all opportunities it is necessary for you to donate.
-Please transfer your donation of {fmt_member_fee} to the following bank account until {duedate}:
+In order to make you a part of Betterliving and to offer you all opportunities it is necessary for you to purchase the Happiness Guide.
+Please transfer {fmt_member_fee} to the following bank account until {duedate}:
 
 {bankaccount}
 
-Always indicate your personal ID \"{member_id}\" as intended purpose for the transfer.
-As soon as we have received your donation we are going to tell
-you some helpful secrets about how to make a fortune with $brandName."
+Always indicate your personal customer number \"{member_id}\" as intended purpose for the transfer.
+As soon as we have received your payment, you are going to get to know
+helpful secrets about how to make a fortune with $brandName."
   ],
 
 
@@ -149,7 +149,7 @@ you some helpful secrets about how to make a fortune with $brandName."
 
 Congratulations on your successful invitation!
 We have been informed that you invited {recruited_fullname} to Betterliving.
-{recruited_fullname} has successfully signed up for Betterliving.
+{recruited_fullname} has successfully signed up.
 We wish you the best at finding new customers for Betterliving.
 Just share the video
 {video_link}
@@ -157,7 +157,7 @@ with your friends and tell everybody about the great opportunity of making money
 It’s enough if every customer recommends three more customers.
 You can show {recruited_fullname} how easy it is.
 That way you can support each other in making a fortune.
-Take good care that your friends use your ID \"{member_id}\"
+Take good care that your friends use your costumer number \"{member_id}\"
 when they are signing up."
 
   ],
@@ -188,8 +188,8 @@ when they are signing up."
 Congratulations on your successful {recommendation_count} recommendation!
 We have been informed that you invited {recruited_fullname} to Betterliving.
 {recruited_fullname} has successfully signed up for Betterliving.
-Most probably you have already told him to transfer their donation within 7 days, until the {duedate}.
-This is important for you as you will get commissions for their donation.
+Most probably you have already told him to purchase the Happiness Guide within 7 days, until the {duedate}.
+This is important for you as you will get commissions for their purchase.
 If possible, please ask him whether the donation has already been made.
 For sure you have seen the video
 {video_link}
@@ -197,11 +197,11 @@ about how to make a fortune with Betterliving.
 It’s enough if every customer recommends three more customers.
 You can show {recruited_fullname} how easy it is.
 That way you can support each other in making a fortune.
-We wish you the best at finding new customers for Betterliving.
+We wish you the best at finding new customers for the Happiness Guide.
 Just share the video
 {video_link}
 with your friends and tell everybody about the great opportunity of making money by being social.
-Take good care that your friends use your ID \"{member_id}\"
+Take good care that your friends use your customer number \"{member_id}\"
 when they are signing up."
 
   ],
@@ -231,34 +231,30 @@ when they are signing up."
 
 we have already welcomed you to Betterliving on {signup_date}
 after you successfully signed up to be a customer on www.betterliving.soical.
-Unfortunately we did not receive your donation within the deadline of 7 days.
-If the donation has already been transferred, this email can be ignored.
-In case you haven’t been able to donate because of personal issues
-you can do so as soon as possible.
-Please make sure you will have donated by {duedate_second}.
-These are our bank account details:
+Unfortunately we did not receive your payment within 7 days.
+If you have already transferred the full amount, this email can be ignored.
+In case you haven’t been able to do so because of personal issues
+you can make up for it as soon as possible.
+Please make sure you are done by {duedate_second}.
+These are the bank account details:
 
 {bankaccount}
 
-Always indicate your personal ID \"{member_id}\" as intended purpose for the transfer.
-Please keep in mind that we are in need of your donation in order to carry out
-social projects for the neediest in this country and on top you will
-be able to revalue your own life!
+Always indicate your personal customer number \"{member_id}\" as intended purpose for the transfer.
 Because if you are a customer and recommend three others,
-you can receive monthly payments of several million Dollar
-using our unique marketing system.
+you can receive very good monthly payments
+using this unique marketing system.
 It’s not only your life that will be a lot better and more comfortable in the future.
-Just offer everyone you know and love, say your family and friends,
-the opportunity to make a donation and to profit from our unbelievable
+Just offer everyone you know and love, your family and friends,
+the opportunity to profit from our unbelievable
 marketing system by only making three recommendations.
 In this video
 {video_link}
 for you and your loved ones our marketing system is explained.
 We hope you won’t miss your chance to make your life a lot easier than
-before by making a small donation and recommending Betterliving
+before by purchasing the Happiness Guide and recommending Betterliving
 to only three people who do the same.
-Us, the team of Betterliving, thank you for your donation in advance
-and wish you a carefree and pleasant future life with your high passive income of Betterliving."
+We wish you a carefree and pleasant future life with your great passive income of Betterliving."
 
   ],
 
@@ -268,7 +264,7 @@ and wish you a carefree and pleasant future life with your high passive income o
 
 /**
  * #4
- * Der neue registrierte Spender erhält eine Email, in der das Datum seiner Registrierung genannt wird und wir bis dato keinen Geldeingang verzeichnen konnten. Dann wird er daran erinnert, sein Spende unter Angabe seiner ID spätestens innerhalb von sieben Tagen zu leisten. Hier wird noch einmal kurz auf die tollen Projekte der NGO und recht ausführlich auf die Verdienstmöglichkeit für ihn und seine Freunde, Bekannten und Verwandte hingewiesen.
+ * Der neue registrierte Spender erhält eine Email, in der das Datum seiner Registrierung genannt wird und wir bis dato keinen Geldeingang verzeichnen konnten. Dann wird er daran erinnert, sein Kauf unter Angabe seiner ID spätestens innerhalb von sieben Tagen zu leisten. Hier wird noch einmal kurz auf die tollen Projekte der NGO und recht ausführlich auf die Verdienstmöglichkeit für ihn und seine Freunde, Bekannten und Verwandte hingewiesen.
  *
  * params:
  *   fullname,
@@ -281,24 +277,24 @@ and wish you a carefree and pleasant future life with your high passive income o
  */
   'fee_reminder_referrer' => [
 
-    'subject' => 'Your recommended customer {recruited_fullname} has not made their donation yet',
+    'subject' => 'Your recommended customer {recruited_fullname} has not made their purchase yet',
 
     'body' => "Dear {fullname},
 
 on {recruited_signup_date} {recruited_fullname} successfully signed up on
 www.betterliving.social because of your recommendation.
 
-Unfortunately {recruited_fullname} has not transferred their donation yet.
+Unfortunately {recruited_fullname} has not purchased the Happiness Guide yet.
 Please get in touch with {recruited_fullname}. Maybe {recruited_fullname} didn’t
 get our messages or there are still questions we definitely have answers for.
-Possibly {recruited_firstname} has already made their donation but it just has not
+Possibly {recruited_firstname} has already got it but the payment has not
 entered our bank account yet, in this case everything is fine.
-If this is not the case please make sure {recruited_firstname} will donate as soon as possible.
+If this is not the case please make sure {recruited_firstname} makes their purchase as soon as possible.
 Here are our account details:
 
 {bankaccount}
 
-The personal ID \"{member_id}\" should always be given as intended purpose for the transfer.
+The customer number \"{member_id}\" should always be given as intended purpose for the transfer.
 Thank you for the support, we hope you will successfully find new customers for us and your passive income."
 
   ],
@@ -328,44 +324,39 @@ Thank you for the support, we hope you will successfully find new customers for 
 
 we could already welcome you to Betterliving on {signup_date}
 after you successfully signed up to be a customer on www.betterliving.soical.
-Unfortunately we did not receive your donation within the deadline of 7 days.
-If the donation has already been transferred, this email can be ignored.
-In case you haven’t been able to donate because of personal issues
-you can do so as soon as possible.
-Please make sure you will have donated by {duedate_second}.
-Here are our bank account details:
+Unfortunately you did not purchase the Happiness Guide within 7 days.
+If you already have, this email can be ignored.
+In case you haven’t been able to purchase it because of personal issues
+please do so by{duedate_second}.
+Here are the bank account details:
 
 {bankaccount}
 
-Always indicate your personal ID \"{member_id}\" as intended
+Always indicate your customer number \"{member_id}\" as intended
 purpose for the transfer.
 
 Here is some very important information for you:
-If you miss out on donating within the deadline listed above,
+If you miss out on purchasing within the deadline listed above,
 you cannot receive commissions for your recommended customers.
 That’s not it. You can see in our explanation video at 4:25 what happens
-if you are a prime partner of Betterliving. Being a prime partner is easy;
+if you are a \"premium customer\" of Betterliving. Being a \"premium customer\" is easy;
 all you have to do is recommend three customers.
-From then on you will receive a commission of {advindirectamount} Dollar
+From then on you will receive a commission of {advindirectamount} Dollars
 for the first two customers of all your future recommendations.
 As you can see in the video, this can rise up to be a pretty high income in a short time.
-Don’t miss your chance to make a lot of money by forgetting to donate.
-So please transfer your donation for Betterliving as soon as you can!
-
-Keep in mind that we are in need of your donation in order to carry out social
-projects for the neediest in this country and on top you will be able to revalue your own life!
+Don’t miss your chance to make a lot of money.
 
 It’s not only your life which will be a lot better and more comfortable in the future.
-Just offer everyone you know and love, say your family and friends,
-the opportunity to make a donation and to profit from our
+Just offer everyone you know and love, your family and friends,
+the opportunity to purchase the Happiness Guide and to profit from this
 unbelievable marketing system by only making three recommendations.
 In this video
 {video_link}
 for you and your loved ones our marketing system is explained.
 We hope you don’t miss your chance to make your life a lot easier than before
-by making a small donation and recommending Betterliving to only three people who do the same.
-Us, the team of Betterliving, thank you for your donation in advance
-and wish you a carefree and pleasant future life with your high passive income of Betterliving."
+with the Happiness Guide and recommending it to only three people.
+
+We wish you a carefree and pleasant future life with your high passive income of Betterliving."
 
   ],
 
@@ -388,25 +379,25 @@ and wish you a carefree and pleasant future life with your high passive income o
  */
   'fee_reminder_referrer_with_advertisings' => [
 
-    'subject' => 'Your recommended customer {recruited_fullname} has not made their donation',
+    'subject' => 'Your recommended customer {recruited_fullname} has not made their purchase',
 
     'body' => "Dear {fullname},
 
 on {recruited_signup_date} {recruited_fullname} successfully signed up
 on www.betterliving.social after your recommendation.
-Unfortunately {recruited_firstname} has not transferred their donation yet.
+Unfortunately {recruited_firstname} has not purchased the Happiness Guide yet.
 Please get in touch with {recruited_firstname}.
 Maybe {recruited_firstname} didn’t get our messages or there are still questions we definitely have an answer for.
-Possibly {recruited_firstname} has already made their donation
-but it just has not entered our bank account yet, in this case everything is fine.
-If this is not the case please make sure {recruited_firstname} will donate as soon as possible.
-Here are our account details:
+Possibly {recruited_firstname} has already got it
+but it has not entered our bank account yet, in this case everything is fine.
+If this is not the case please make sure {recruited_firstname} will get the Happiness Guide as soon as possible.
+Here are the account details:
 
 {bankaccount}
 
-The personal ID \"{member_id}\" should always be given as intended purpose for the transfer.
+The personal customer number \"{member_id}\" should always be given as intended purpose for the transfer.
 By the way, {recruited_fullname} has already been diligent and has successfully recommended more customers.
-Now all {recruited_firstname} has to do is make their donation within 7 days so you will get payed!
+Now all {recruited_firstname} has to do is make their purchase within 7 days so you will get paid!
 Thank you for the support, we hope you will successfully find new customers for us and your passive income."
 
   ],
@@ -434,10 +425,7 @@ Thank you for the support, we hope you will successfully find new customers for 
 
     'body' => "Dear {fullname},
 
-today we have received your donation, thank you!
-You are helping our co-operating NGOs in India in order to carry out social projects for Indian people.
-You will be informed about several projects in the next weeks and months.
-If you would like to suggest a project, please let us know at projects@betterliving.social.
+thanks for purchasing the Happiness Guide!
 Now here is our secret which maybe isn’t a secret anymore for you:
 
 Maybe {referrer_fullname} has already told you it is possible to earn money with Betterliving.
@@ -448,34 +436,32 @@ will receive commissions from Betterliving.
 From your third recommendation on the commission will go up to +400%.
 The video will show you how high your income can be.
 Let it surprise you and let all your friends know about this opportunity.
-What would you do if you and your friends owned commissions of more than {after6weeksamount} Dollar?
-And you will not only have a lot more money than you do now;
-your donation makes many social projects possible which benefit Indian citizens.
+What would you do if you and your friends owned commissions of more than {after6weeksamount} dollar?
 If you have any idea about how you would spend money and you
 grudge your friends the same, make sure you tell them about Betterliving.
 Just share the video
 {video_link}
 and let them know you are on board as well.
-Don’t forget to give them your personal ID \"{member_id}\".
+Don’t forget to give them your personal customer number \"{member_id}\".
 Because you can only be identified and get commissions if they fill in
-your ID when they are signing up to Betterliving.
+your number when they are signing up for Betterliving.
 So what are you waiting for?
-Enjoy the opportunity of making a fortune by being social!
+Enjoy the opportunity of making a fortune!
 Maybe you don’t know how to let your friends know about this.
 In this case just copy the following and send it to all your best friends via email:
 __________________________________________
 Dear friend,
-a short time ago I was told about the opportunity to make money by collecting donations for social projects.
+a short time ago I was told about the opportunity to make money by purchasing the Happiness Guide.
 It’s super easy and just genius.
-I would like to let you know about this opportunity and how you can get a lot of money as well.
+I would like to let you know about this opportunity and how you can make a lot of money as well.
 Just watch this video
 {video_link}
-for me. I have already donated to Betterliving and I’d be happy if you did so, too.
+for me. I have already purchased it and I’d be happy if you did so, too.
 In order to join, just click here:
 {signup_link}
 ___________________________________________
 
-We wish you the very best and hope you’ll get rich soon!"
+We wish you the very best and hope you’ll be rich soon!"
 
   ],
 
@@ -504,22 +490,20 @@ We wish you the very best and hope you’ll get rich soon!"
 
     'body' => "Dear {fullname},
 
-your recommended customer {recruited_fullname} has made a donation of {memberfee_amount} Dollar.
+your recommended customer {recruited_fullname} has purchased the Happiness Guide.
 Thank you for sharing the opportunity with {recruited_firstname}.
-Now Betterliving can carry out beneficial projects in India.
-Your advantage is great as well!
-You should know by now that you will get a commission for {recruited_firstname}’s donation.
-You will receive {provision_amount} Dollar for {recruited_firstname}’s donation.",
+You will get a commission for {recruited_firstname}’s purchase.
+You will receive {provision_amount} Dollar for {recruited_firstname}’s purchase.",
 
     'level1_addition' =>
 "You want to earn even more? Make sure you find three friends who join Betterliving.
-This will make you a prime member. That means your commission will go up +400% to {adv2amount} Dollar!
+This will make you a premium customer. That means your commission will go up +400% to {adv2amount} Dollar!
 This is proved in the explanation video
 {video_link}
 at 4:09.
-You are going see that in your upcoming invoice as well.
-From the third recommended customer who signs up using your personal ID \"{member_id}\"
-and donates within the deadline the door to your private wellbeing will be wide open.
+You are going to see that in your upcoming invoice as well.
+From the third recommended customer who signs up using your personal customer number \"{member_id}\"
+and purchases the Happiness Guide the door to your private wellbeing will be wide open.
 We’re wishing best of luck finding new customers and have fun spending the commissions you will receive."
 
   ],
@@ -545,12 +529,12 @@ We’re wishing best of luck finding new customers and have fun spending the com
     'body' => "Dear {fullname},
 
 CONGRATULATIONS! You made it.
-By recommending your second customer you have become a prime partner of Betterliving.
+By recommending your second customer you have become a premium customer of Betterliving.
 From now on you will receive {adv2amount} Dollar for every future customer.
 So what do you need to know now?
 You know you have received {adv1amount} Dollar for the first two customers.
 Betterliving always pays a commission of {adv2amount} Dollar for each customer,
-so as a prime partner you will always get the difference of {advindirectamount} Dollar
+so as a premium costumer you will always get the difference of {advindirectamount} Dollar
 for the first two customers of your recommended friends.
 If you take a look at 4:22 – 4:33 in the video
 {video_link}
@@ -558,21 +542,19 @@ you can replace “Jivan” with {recruited_fullname}.
 If you want to make sure you make a lot of money in a short time, here’s how it works:
 Well firstly, you can always go on finding new customers.
 You will always receive {adv2amount} Dollar each.
-Secondly, and this is way more interesting, show all your recommended customers how to become prime partners as well.
+Secondly, and this is even more interesting, show all your recommended customers how to become premium costumers as well.
 The video
 {video_link}
 shows what will happen when {recruited_fullname} finds two friends who also recommend two others at 4:40.
 After six weeks you will find a total amount of {after6weeksamount} Dollar in your bank account.
 
-So in order to make lots of money, all you have to do is:
-  1. Get three friends to join Betterliving, so you’ll become a prime partner
-  2. Show them how to be prime partners as well
-  3. Find more friends who donate to Betterliving
+In order to make lots of money, all you have to do is:
+  1. Get three friends to join Betterliving and get the Happiness Guide, so you’ll become a premium costumer
+  2. Show them how to be premium costumers as well
+  3. Find more friends who purchase the Happiness Guide.
 
-With every person you help becoming a prime partner you multiply your commission.
-On top of that Betterliving will be able to carry out many social projects with their partners in India
-which will benefit Indian citizens.
-Your friends will have a great income being prime partners and you have
+With every person you help becoming a premium costumer you multiply your commission.
+Your friends will have a great income being premium costumers and you have
 done well in making a fortune for you and your family.
 Good luck!"
 

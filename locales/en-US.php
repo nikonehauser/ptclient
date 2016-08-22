@@ -125,7 +125,7 @@ return [
 
     'login' => 'Invalid login credentials',
 
-    'india_pincode' => 'This is no valid pin code from india.',
+    'india_pincode' => 'This is no valid pin code from India.',
   ],
 
     /* VIEWS
@@ -173,8 +173,8 @@ return [
 
       'useful_link_contact' => 'Any questions? Just contact us!',
       'useful_link_faq' => 'Frequently asked questions',
-      'useful_link_terms' => 'Terms of Use',
-      'useful_link_about_us' => 'About us',
+      'useful_link_terms' => 'Terms of use',
+      'useful_link_about_us' => 'About',
     ],
 
     /* VIEWS - MEMBER
@@ -210,21 +210,21 @@ return [
 
         '',
 
-        '1' => 'Because you are a customer of Better Living you will automatically in our marketing system be on the position “customer”.',
+        '1' => 'As you are a customer of Better Living you will automatically be in a "customer" position in our marketing system.',
         '1h' => ['$_member_fee_$'],
         '1_1' => 'You = Customer',
 
         '2' => 'Now you recruit your first two new customers Durga and Kamal.',
         '3' => 'Thereby you will earn {0} each in the position "customer", hence altogether you earn {1}.',
         '3h' => ['$_lvl1_$', '$_2_times_lvl1_$'],
-        '4' => 'When you have recruited two new customers successfully, you automatically get "premium customer".',
+        '4' => 'When you have recruited two new customers successfully, you automatically are a "premium customer".',
         '5' => 'Now you recruit your third new customer, Jivan.',
         '6' => 'Thereby you will earn {0} in the position premium customer.',
         '6h' => ['$_lvl2_$'],
         '7' => 'For every additional customer you recruit in the future, you will also earn {0} each.',
         '7h' => ['$_lvl2_$'],
-        '8' => 'Since Jivan is now a customer, he automatically is on "customer".',
-        '9' => 'For example you are not be able to recruit any more customers but Jivan recruits, just like you did before, his first two new customers, Rati and Lila.',
+        '8' => 'Since Jivan now is a customer, he automatically is on the level "customer".',
+        '9' => 'For example, if you can not recruit any more customers but Jivan can, his first two new customers are Rati and Lila.',
         '10' => '',
         '11' => 'Jivan thereby earns {0} for each recruited customer in his position "customer", thus altogether {1}.',
         '11h' => ['$_lvl1_$', '$_2_times_lvl1_$'],
@@ -234,48 +234,48 @@ return [
         '13h' => ['At this point you already earn money without being active yourself!', ],
         '14' => '{0} – you have already earned {1} {2}',
         '14h' => ['After just one week', '$_after_one_week_$', 'and almost entirely balanced your contribution!', ],
-        '15' => ' Jivan automatically is a "premium customer" with his first two successful recruitings.',
-        '16' => 'As soon as you and Jivan have the same level, you will not get paid when Jivan recruits new customers.',
+        '15' => ' Jivan will automatically be a "premium customer" with his first two successful recruitings.',
+        '16' => 'As soon as you and Jivan are on the same level, you will not get paid any more for Jivan´s new customers.',
         '17' => 'However, now Rati and Lila are placed into your tree.',
         '18' => 'Because the first two new recruited customers (Rati and Lila) are assigned to the customer (you) that has advertised the recruiting customer (Jivan) in the first place.',
-        '19' => 'After Rati and Lila have paid their Happiness Guide, they both are on "customer".',
+        '19' => 'After Rati and Lila have paid for their Happiness Guide, they both are on the "customer" level.',
         '20' => 'Now Rati and Lila each recruit their first two new customers, Devi, Kumar, Gita and Karan.',
         '21' => 'Thereby Rati and Lila earn {0} for each recruited customer and you get {1} each, thus altogether you earn {2}.',
         '21h' => ['$_lvl1_$', '$_indirect_$', '$_4_times_indirect_$'],
-        '22' => 'Now Rati and Lila get customer into the position "premium customer" after their first two successful recruitings.',
-        '23' => 'From now on, you do not earn anything when Rati and Lila recruit new customers.',
-        '24' => 'However, now Devi, Kumar, Gita and Karan are placed into your tree. As they have already paid their Happiness Guide, they are all on "customer".',
+        '22' => 'Now Rati and Lila go from "customer" to "premium customer" after their first two successful recruitings.',
+        '23' => 'From now on, you do not earn any more when Rati and Lila recruit new customers.',
+        '24' => 'However, now Devi, Kumar, Gita and Karan are placed into your tree. As they have already paid for their Happiness Guide, they are all "customers".',
         '25' => 'Now Devi, Kumar, Gita and Karan recruited their first two customers each.',
         '26' => 'Thereby Devi, Kumar, Gita and Karan earn {0} for each customer and you earn {1} each, thus altogether you earn {2}.',
         '26h' => ['$_lvl1_$', '$_indirect_$', '$_8_times_indirect_$'],
-        '27' => 'Now you have not only balanced your purchase price for your own Happiness Guide and returned so your “investment in your better life” but also earned money on top of that.',
+        '27' => 'Now you did not only balance your purchase price for your own Happiness Guide and returned the investment for your better life but also earned money on top of that.',
         '28' => 'And how long did it take?',
-        '29' => 'From experience, it takes one day on average, until a customer recruits a new customer successfully.',
+        '29' => 'From experience, on average it takes one day, until a customer successfully recruits a new customer.',
         '30' => 'Therefore, this example would take 10 to 14 days.',
-        '31' => 'If every future customer only recruits two new customers and takes one week on average, your earnings develop as you can see in the following table:',
+        '31' => 'If every future customer only recruits two new customers and takes one week on average, your earnings develop this way:',
         '31_week' => 'Week',
         '32' => '{0} you therefore already earned {1} {2}',
         '32h' => ['After approximately ten weeks', 'round about', '$_after_10_weeks_$'],
-        '33' => '<p>Of course this marketing system will not work endlessly because the number of people is naturally limited. But there were and there still are, however, marketing systems worldwide and in different economic fields that have created a sheer endless number of prosperous people and are still creating new ones.</p><p>The only question for you is now: Will you be a part of these happy people or will you be the one who only mean to know how this marketing system doesn´t operate?</p>At this time and surely in the close future it operates - you must only do it!
+        '33' => '<p>Of course this marketing system will not work endlessly because the number of people is naturally limited. But there were and there still are, however, marketing systems worldwide and in different economic fields that have created a sheer endless number of prosperous people and are still creating new ones.</p><p>The only question for you is: Will you be one of these happy people or will you be the one who does not believe this could work?</p>Right now it is definitely working - you only need to join!
 ',
-        '34' => 'With us customers who have decided to recruit new customers especially early on you will earn lots and lots of money.',
-        '35' => 'Trustworthy mathematical calculations project that customers who became active in the first 12 months after starting the marketing system and at least recruit three new customers, will earn a total of {0} to {1} in the first 12 months.',
+        '34' => 'With the customers who have decided to recruit new customers quickly on you will earn lots and lots of money.',
+        '35' => 'Trustworthy mathematical calculations project that customers who became active in the first 12 months after starting the marketing system and at least recruited three new customers, earned a total of {0} to {1} in the first 12 months.',
         '35h' => ['$_lvl1_$', '$_lvl1_$'],
-        '36' => '<p>There are no limits:</p> If only one customer recruits e.g. 10, 15 or 20 or even more customers, naturally considerably higher earnings are possible.',
-        '37' => 'However, we will also have customers who will just earn a meager amount caused by mediocre effort, for example {0}',
+        '36' => '<p>There are no limits:</p> If only one customer recruits e.g. 10, 15 or 20 or even more customers, even higher earnings are possible.',
+        '37' => 'However, we will also be customers who will just earn a meager amount caused by mediocre effort, for example {0}',
         '37r' => ['$_thousand_dollar_$'],
-        '38' => 'Then we will also have customers who will only earn very few, for example only {0}',
+        '38' => 'Then there will also be customers who will only earn very few, for example only {0}',
         '38r' => ['$_2hundred_dollar_$'],
-        '39' => 'And of course in the future, probably in a few years, we will also have cases of customers who will not earn anything with our marketing system. But through our Happiness Guide they have many advantages in her whole life and maybe through this they earn much money in another field.',
-        '40' => 'Due to the way the system works, you will earn less depending on how near we are to the end of recruiting. It is mostly unpredictable but someday the system will stagnate as soon as there are no new customers. That day we will close our marketing system and maybe we will offer you a new and also successful opportunity to earn money!',
-        '41' => 'The specific development of your personal profits can hardly be predicted. However, the possibilities result is depending from each customer’s personal effort.',
+        '39' => 'And of course in the future, probably in a few years, we will also have cases of customers who will not earn anything in that marketing system. But with the Happiness Guide there are many advantages in life and maybe through this they earn much money in another field.',
+        '40' => 'Due to the way the system works, you will earn less depending on how close the system is to ending. It is mostly unpredictable but someday the system will stagnate which will be when there are not any new customers. That day the marketing system will be closed, but maybe there will be a new way of successfully earning money!',
+        '41' => 'The specific development of your personal profits can hardly be predicted. However, the possibilities result is depending on each customer’s personal effort.',
         '42' => 'If you believe that,',
         '43' => 'you can recruit at least three new customers',
         '44' => 'these customers again can recruit two new customers',
         '45' => 'these new customers each can recruit at least two new customers',
         '46' => 'Then your purchase price for your own Happiness Guide will be reimbursed within around 15 - 25 days and you additionally will have scored your first profit.',
-        '47' => 'Furthermore, if you believe that over a course of only three months each new customer at least recruits three new customers, you will earn lots and lots of money with us and will be able to afford a whole new living standard.',
-        '48' => 'You will be able to afford things you have never thought of before. You will be able to support your family, enjoy best medical care, buy a new car, spend no time thinking about what to live from when you’re old, etc.',
+        '47' => 'Furthermore, if you believe that over a course of only three months each new customer at least recruits three new customers, you will earn lots and lots of money with this and will be able to afford a whole new living standard.',
+        '48' => 'You will be able to afford things you have never thought of before. You will be able to support your family, enjoy best medical care, buy a new car, do not need to spend time thinking about what to live from when you’re old, etc.',
         '49' => "This is the real and brilliant purpose of $brandName!",
         '50' => 'Take action now',
         '51' => 'You can register for a better life right here:',
@@ -286,16 +286,16 @@ return [
 
         'basic_idea' => 'Basic idea',
         'basic_idea_title' => [
-          'Our Happiness Guide',
+          'The Happiness Guide',
           'Basics',
           'Passive income',
           'Who can become a customer with better living',
         ],
         'basic_idea_text' => [
-          'With our Happiness Guide we will move you into the right situation to get in the future more happy moments. We want that you get more success in your work or business a better health and all around in your life more happiness',
-          'Everybody in India can buy our Happiness Guide. For only {member_fee} you get an instruction for a better and much happier life',
-          'Every customer can easy and without any fee or costs become active within the “customers recruit new customers” marketing system; thereby achieve a constant and above all {passive_income}.',
-          'Only citizens of India are allowed to become a customer of ' . $brandName,
+          'With the Happiness Guide you will find yourself in a great position on the way to a future of happiness. You will be more successfull at work or in your business, be more healthy and bring more happiness to your life.',
+          'Everybody in India can buy the Happiness Guide. For only {member_fee} you get the instruction on how to become a happier person.',
+          'Every customer can become active easily (and without any fee or costs) within the “customers recruit new customers” marketing system and earn a constant and {passive_income}.',
+          'Only citizens of India are allowed to become customers of ' . $brandName,
         ],
         'basic_idea_highlights' => [
           null,
@@ -305,7 +305,7 @@ return [
         ],
 
         'become_member_title' => 'I want to be customer',
-        'become_member_text' => 'If you also want to be a customer, please register on this homepage and pay the purchase price of {member_fee}. After we got your money you are a customer of us and you get our Happiness Guide for your ' . $brandName . '. You can at this point then also use our fantastic marketing system to achieve a permanent and {passive_income}.',
+        'become_member_text' => 'If you also want to be a customer, please register on this homepage and purchase the Happiness Guide for {member_fee}. As soon as the payment has been transferred, you are a customer and you will receive the Happiness Guide for your ' . $brandName . '. At this point you can use the fantastic marketing system to achieve a permanent and {passive_income}.',
         'become_member_highlights' => [
           'passive_income' => 'passive income',
           'member_fee' => '$_member_fee_$',
@@ -320,15 +320,15 @@ return [
           'Immediately start recruiting',
         ],
         'member_starting_text' => [
-          'With our Happiness Guide you change nearly immediately your life in the areas of your work or business and your health into a better direction to get in the future more happiness.',
-          'In our “customer recruit customers” marketing system you are automatically on the position “customer”.',
-          'The meaning of the marketing system will be explained in the following.',
+          'With the Happiness Guide you can change your work life, your health and be happier overall.',
+          'In our “customers recruit customers” marketing system you are on the level “customer” automatically.',
+          'How the marketing system works will be explained in the following.',
           'Right after you have finished your registration you can recruit new customers for ' . $brandName . ' via this homepage.',
         ],
         'member_starting_button' => [
           '',
-          'What does customer mean?',
-          'Explanation of the marketing system!',
+          'What does "customer" mean?',
+          'Explanation of the marketing system',
           'Yes, I want to sign up!',
         ],
 
@@ -340,8 +340,8 @@ return [
       'signup' => [
         'page_title' => 'Sign up to be a customer',
         'form_error' => 'Form has invalid fields.',
-        'referral_member_num_help' => 'This is the customer number of the person who is recruiting you. He also will receive the reward for your signup. It is required. You can not join us if nobody invited you with his customer number.',
-        'invitation_code_help' => 'This code is NOT required. You may received a special invitation code from the person who is recruiting you. This code may be linked with a bonus or similar things.',
+        'referral_member_num_help' => 'This is the customer number of the person who recruited you. This person will also receive a reward for your purchase. In order to join, you need somebody to invite you with their customer number.',
+        'invitation_code_help' => 'This code is NOT required. You may have received a special invitation code from the person who invited you. This code may be linked with a bonus or similar things.',
         'form_labels' => [
           'contact' => 'Contact',
           'address' => 'Address',
@@ -371,8 +371,8 @@ return [
 
           'submit' => 'Submit',
 
-          'bank_account_info' => 'We will never charge your bank account. But your payments for your referrals will be paid into this account.',
-          'email_info' => 'You will never receive spam from us. We need your e-mail address to contact you in case there are problems with transferring money. If you do not have an e-mail address you can register here for free: ',
+          'bank_account_info' => 'We will never charge your bank account. Only the payments for your referrals will be paid into this account.',
+          'email_info' => 'You will never receive any spam from us. We need your e-mail address to contact you in case there are problems with transferring money. If you do not have an e-mail address you can register here for free: ',
         ],
       ],
 
@@ -380,8 +380,8 @@ return [
         'page_title' => 'Successfully signed up',
         'hello' => "Welcome to $brandName",
         'signup_text1' => "Thank you for signing up. You are one step away from becomming member of $brandName!",
-        'signup_text2' => 'We have send a confirmation link to your email address. You need to verify your email address by clicking on the link provided in that registration email. This is required to complete the registration.',
-        'signup_text3' => 'This process guarantees valid email addresses for you and us. Because this is the only way how we can reach you if we run into problems transfering your bonus!'
+        'signup_text2' => 'We have sent a confirmation link to your email address. You need to verify your email address by clicking on the link in the registration email. This is required to complete the registration.',
+        'signup_text3' => 'This process guarantees valid email addresses for you and us. Because this is the only way how we can contact you if we run into problems transferring your bonus!'
       ],
     ],
 
@@ -407,7 +407,7 @@ return [
         'navigation_links' => [
           'index' => 'Information',
           'invoice' => 'Invoice',
-          'rtree' => 'Referral Tree',
+          'rtree' => 'Referrer Tree',
           'htree' => 'Funds Level Tree',
           'btree' => 'Bonus Hierarchy',
           'invitation' => 'Invitations',
@@ -490,7 +490,7 @@ return [
           'free_signup' => 'Free registration',
           'promoter_num' => 'On the recommendation of promoter (Num)',
           'submit' => 'Submit',
-          'restricted_to_lvl2' => 'You need to invite 2 paid customers to unlock invitations',
+          'restricted_to_lvl2' => 'You need to invite two customers to unlock invitations',
 
           'list_title' => 'Invitations',
           'hash' => 'Code',
@@ -593,7 +593,7 @@ return [
         'page_title' => 'Change your profile',
         'error' => 'Error!',
         'success' => 'Success!',
-        'success_msg' => 'We have successfully changed your profile information.',
+        'success_msg' => 'Your profile information has been changed.',
         'form_labels' => [
           'firstName' => 'First name',
           'lastName' => 'Last name',
@@ -605,7 +605,7 @@ return [
           'iban' => 'IBAN',
           'bic' => 'BIC',
           'bank_recipient' => 'Recipient',
-          'submit' => 'Speichern',
+          'submit' => 'Save',
           'back' => 'Back',
         ],
       ],
@@ -622,23 +622,23 @@ return [
         'affected_countries_title' => 'Countries we want to help',
 
         'why_poor_head' => 'EVER WONDERED WHY INDIA BECAME SO POOR?',
-        'why_poor_quote' => 'A significant fact is that the parts of India that have been under British control for a long time are the least wealthy today.',
+        'why_poor_quote' => 'It is a fact that the parts of India that have been under British control for a long time are the least wealthy today.',
         'why_poor_quote_author' => 'Jawaharlal Nehru',
         'why_poor_quote_author_org' => 'First Prime Minister of India',
 
         'against_poverty_head' => 'We are against poverty',
-        'against_poverty_sub' => 'We developed our Happiness Guide and this marketing system to change lives to the better',
+        'against_poverty_sub' => 'We developed the Happiness Guide and this marketing system to make lives better',
         'we_foundation' => 'The Company',
-        'we_foundation_description' => "$brandName has been founded for people who have few to no options to achieve a better life for themselves. This might be caused by various reasons like economic and political circumstances.",
+        'we_foundation_description' => "$brandName has been founded for people who have few to no options to achieve a better life. This could be caused by reasons like economic and political circumstances.",
 
         'we_mission' => 'Our mission',
-        'we_mission_description' => 'With our Happness Guide we want give everyone existential and important information’s about how to get a happier life. Thereby everyone can make a better living themselves in the future.',
+        'we_mission_description' => 'With the Happness Guide we want everyone to have important information about being happy. This way everybody can have a better life in the future.',
 
         'we_system' => 'Marketing System',
-        'we_system_description' => "Our marketing system offers a huge opportunity to start immediately a better and happier life. It is no special education needed. With a little effort and just a little time all our customers can earn a lot of money with a few recommendations. It is really the easiest system to earn money ever.",
+        'we_system_description' => "Our marketing system offers a huge opportunity to immediately start a better and happier life. No special education is required. With a little effort and just a little time all customers can earn a lot of money with a few recommendations. It really is the easiest system to earn money ever.",
 
         'we_fee' => 'Financing',
-        'we_fee_description' => 'Our marketing system is sponsored by 100% from our profit. So if we make a big profit our customers make also a big profit.',
+        'we_fee_description' => '100% of the marketing system is sponsored by our profit. So if the system profits, the customers profit.',
 
         'where_to_go_head' => 'where to go from here',
 
@@ -651,7 +651,7 @@ return [
         'service_faq_btn' => 'Go to FAQ',
 
         'service_contact_title' => 'I still have questions',
-        'service_contact_desc' => 'Still no problem! Just contact us and we will answer any question!',
+        'service_contact_desc' => 'That is still no problem! Just contact us and we will answer any question!',
         'service_contact_btn' => 'Contact us',
 
         'service_signup_title' => 'I want to join',
