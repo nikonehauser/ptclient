@@ -1,8 +1,6 @@
 CURRENT - TODOS
 ===============
 
- - bonus dem nachrücken angleichen
-
  - im account eine erläuterung bereit stellen wie genau überwiesen werden muss!
    Verwendungs zweck etc.
 
