@@ -84,3 +84,28 @@
           )?>
       </div>
     </div>
+
+    <div class="row">
+      <div class="col-md-12">
+          <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['guides'], 'bottom-30 top-10')?>
+
+        <div style="padding-left: 25px;" class="widget category">
+          <?php
+
+          if ( !$this->guidesCount ) {
+            echo \Tbmt\view\Factory::buildNotification($this->i18nView['guides_not_available'], '', 'info');
+          } else {
+            echo '<ul>';
+            for ( $i = 1; $i <= $this->guidesCount; $i++ ) {
+              echo '<li><a target="_blank" href="'.\Tbmt\Router::toModule('download', 'guide', ['number' => $i]).'">'.
+                \Tbmt\Localizer::insert($this->i18nView['guide_name'], ['number' => $i]).
+                '</a></li>';
+            }
+
+            echo '</ul>';
+          }
+
+          ?>
+        </div>
+      </div>
+    </div>

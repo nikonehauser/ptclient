@@ -132,6 +132,7 @@ END;
    * @return [type]
    */
   static private $NOT_TYPE_TO_ICON = [
+    'default' => '',
     'notice' => 'times',
     'info'  => 'info',
     'warning' => 'exclamation',

@@ -22,6 +22,21 @@ class AccountIndexTab extends Base {
     if ( $this->signupmsg )
       \Tbmt\Session::delete(\Tbmt\Session::KEY_SIGNUP_MSG);
 
+    $paidDate = $this->member->getPaidDate();
+    if ( !$paidDate || $paidDate <= 0 )
+      $this->maxGuideNumber = 0;
+    else {
+      $period = \Tbmt\Config::get('guides_available_period');
+      $diff = time() - $paidDate;
+
+      $guidesCount = (int)(($diff / $period) + 1);
+      $maxCount = \Tbmt\Config::get('guides_count');
+      if ( $guidesCount > $maxCount )
+        $guidesCount = $maxCount;
+
+      $this->guidesCount = $guidesCount;
+    }
+
     return $this->renderFile(
       dirname(__FILE__).DIRECTORY_SEPARATOR.'tab.index.account.html',
       $params

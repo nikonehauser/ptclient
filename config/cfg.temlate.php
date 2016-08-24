@@ -57,6 +57,11 @@ return [
 
   "secret_salt" => "APc7a5vhCiyNfYn6KvkLfs0oMDwLZtatdIlfFE7ObcP4quxevQrVq0vLXeKPalKz",
 
+  // seconds how long it takes that the next guide will be avialable
+  // after paid date.
+  "guides_available_period" => 1209600, // 2 weeks
+  "guides_count" => 8,
+
 
   "brand.name" => "Help Yourself Association",
   "brand.short" => "HYA",

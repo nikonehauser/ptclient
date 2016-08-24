@@ -442,6 +442,11 @@ return [
           'welc_not_1' => 'Welcome {name}',
           'welc_not_2' => 'This is your profile. You can find various information here',
           'welc_not_3' => 'IMPORTANT! Always remember your customer number! You will need it to login, recruit others etc.',
+
+          'guides' => 'Your Happy Guides',
+          'guides_not_available' => 'You have no guide enabled yet.',
+          'guide_download_explanation' => 'Click on the names to download your guide(s)',
+          'guide_name' => 'Happy Guide Nr. {number}',
         ],
         'invoice' => [
           'stats' => 'Statistics',
