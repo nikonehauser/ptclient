@@ -74,7 +74,12 @@ use \Tbmt\Router as R;
 							<h1 class="site-title">
 								<a href="<?=\Tbmt\Router::toBase()?>" style="color:#7E7E7E; font-size: 26pt; font-family: Courier New">
 									<!--<img src="<?=\Tbmt\Router::toImage('logo_title.png')?>" alt="">-->
-									<?=strtoupper($this->textBrandName)?>
+
+									<div class="headlogo">
+										<?php readfile(\Tbmt\Router::toImage('logo.svg')); ?>
+										<span>Betterliving for everyone ltd.</span>
+									</div>
+
 								</a>
 							</h1><!-- // .site-title -->
 						</div><!-- // .logo -->

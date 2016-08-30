@@ -427,7 +427,7 @@ return [
           'address' => 'Address',
           'email' => 'Email',
           'email_none' => '-none-',
-          'bank_account' => 'Bank account',
+          'bank_account' => 'Payment data',
           'bank_recipient' => 'Recipient Name',
           // 'iban' => 'IBAN (International Bank Account Number)',
           'iban' => 'IBAN',

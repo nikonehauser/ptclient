@@ -58,16 +58,25 @@
       <div class="col-md-6">
           <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['bank_account'], 'bottom-30 top-10')?>
 
-          <dl class="dl-horizontal dl-largeSpaced dl-prettyStyled">
-              <dt><?=$this->i18nView['bank_recipient']?></dt>
-              <dd><?=Base::encodeHtml($this->member->getBankRecipient())?></dd>
+          <p>TODO</p>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
 
-              <dt><?=$this->i18nView['iban']?></dt>
-              <dd><?=Base::encodeHtml($this->member->getIban())?></dd>
+          <div style="display: none;">
+            <dl class="dl-horizontal dl-largeSpaced dl-prettyStyled">
+                <dt><?=$this->i18nView['bank_recipient']?></dt>
+                <dd><?=Base::encodeHtml($this->member->getBankRecipient())?></dd>
 
-              <dt><?=$this->i18nView['bic']?></dt>
-              <dd><?=Base::encodeHtml($this->member->getBic())?></dd>
-          </dl>
+                <dt><?=$this->i18nView['iban']?></dt>
+                <dd><?=Base::encodeHtml($this->member->getIban())?></dd>
+
+                <dt><?=$this->i18nView['bic']?></dt>
+                <dd><?=Base::encodeHtml($this->member->getBic())?></dd>
+            </dl>
+          </div>
 
           <?=\Tbmt\view\Factory::buildButton(
             $this->i18nView['change_profile'],
@@ -85,7 +94,7 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row" style="display: none;">
       <div class="col-md-12">
           <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['guides'], 'bottom-30 top-10')?>
 
