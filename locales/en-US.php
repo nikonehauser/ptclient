@@ -292,7 +292,7 @@ return [
           'Who can become a customer with better living',
         ],
         'basic_idea_text' => [
-          'With the Happiness Guide you will find yourself in a great position on the way to a future of happiness. You will be more successfull at work or in your business, be more healthy and bring more happiness to your life.',
+          'With the Happiness Guide you can change your work life, your health and be happier overall. In a 2-week cycle in eight steps our Happiness Guide makes you happy. Step by step you will learn how you make your life better.',
           'Everybody in India can buy the Happiness Guide. For only {member_fee} you get the instruction on how to become a happier person.',
           'Every customer can become active easily (and without any fee or costs) within the “customers recruit new customers” marketing system and earn a constant and {passive_income}.',
           'Only citizens of India are allowed to become customers of ' . $brandName,
