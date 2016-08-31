@@ -8,6 +8,7 @@ $1 $2
  */
 
 $lang = substr(basename(__FILE__), 0, 5);
+$copyrightName = \Tbmt\Config::get('brand.copyright');
 $brandName = \Tbmt\Config::get('brand.name');
 $brandNameShort = \Tbmt\Config::get('brand.short');
 
@@ -169,7 +170,8 @@ return [
         ],
       ],
       'member_login' => 'Customer Login',
-      'copyright_name' => $brandName,
+
+      'copyright_text' => '© Copyright 2016 by '.$copyrightName.' All Rights Reserved.',
 
       'useful_link_contact' => 'Any questions? Just contact us!',
       'useful_link_faq' => 'Frequently asked questions',
@@ -289,13 +291,13 @@ return [
           'The Happiness Guide',
           'Basics',
           'Passive income',
-          'Who can become a customer with better living',
+          'Who can become a customer on Better Living',
         ],
         'basic_idea_text' => [
           'With the Happiness Guide you can change your work life, your health and be happier overall. In a 2-week cycle in eight steps our Happiness Guide makes you happy. Step by step you will learn how you make your life better.',
           'Everybody in India can buy the Happiness Guide. For only {member_fee} you get the instruction on how to become a happier person.',
-          'Every customer can become active easily (and without any fee or costs) within the “customers recruit new customers” marketing system and earn a constant and {passive_income}.',
-          'Only citizens of India are allowed to become customers of ' . $brandName,
+          'Every customer can become active easily (and without any fee or costs) within the “customers recruit customers” marketing system and earn a constant and {passive_income}.',
+          'Only citizens of India are allowed to become customers of ' . $brandName.'.',
         ],
         'basic_idea_highlights' => [
           null,
