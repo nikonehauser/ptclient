@@ -1,0 +1,252 @@
+X-Mozilla-Keys: nonjunk
+Return-Path: <TomVoigt1@gmx.net>
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	alfa3016.alfahosting-server.de
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.3 required=5.0 tests=BAYES_00,
+	FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,HTML_MESSAGE,MIME_HTML_ONLY,
+	RCVD_IN_DNSWL_LOW autolearn=no version=3.3.1
+X-Spam-DCC: : 
+X-Original-To: info@efesus.de
+Delivered-To: web784p1@alfa3016.alfahosting-server.de
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
+	by alfa3016.alfahosting-server.de (Postfix) with ESMTPS id 0F68B55D0055
+	for <info@efesus.de>; Tue, 19 Jan 2016 22:34:28 +0100 (CET)
+Received: from [178.10.195.127] by 3capp-gmx-bs54.server.lan (via HTTP);
+ Tue, 19 Jan 2016 22:34:27 +0100
+MIME-Version: 1.0
+Message-ID: <trinity-50ad5d63-7b3f-4395-b209-e147f73f6a9f-1453239267503@3capp-gmx-bs54>
+From: "Tom Voigt" <TomVoigt1@gmx.net>
+To: info@efesus.de
+Subject: Fw: faq - better living
+Content-Type: text/html; charset=UTF-8
+Date: Tue, 19 Jan 2016 22:34:27 +0100
+Importance: normal
+Sensitivity: Normal
+References: <569EA59E.3010805@efesus.de>
+X-UI-Message-Type: mail
+X-Priority: 3
+X-Provags-ID: V03:K0:BrZkwKN9vrFpY/tFfzi3m+7WUXXnrLn/qssx7ZyDlPK
+ fMYZh5kNwXnKIoaTzd6v51Z4Cap/xpBgFzr/WFIQVaY1USOksY
+ Bo8p3gFfD2Uz/ncQ/O/4PLsiiwV8GAcmPagMscqfTM+r7u1jeG
+ kvT3pFL3inic+ukeDTw7E2lySPiNkg3o334BxH2uurTxYL/621
+ eAHCGbHoWXFOZGEUfvhJPEDJMlFUsHJhcdlfATZk1CYleammQ/
+ /vBWCIn7+BYC/Xm5wbsRBHbY/z5RfMFmAN5lVFhXtKwjt4a+s2 YZVIDQ=
+X-UI-Out-Filterresults: notjunk:1;V01:K0:u9TnK00s+TE=:ZYHifnNqUtlYHmYYf/+BcN
+ UPoSXj7R4PRYmTrZotD4jbKl+BeD3PIo650wEvTZTS8IqoffznqfLbMSHWjrOeDW7EsSk3VBl
+ 5SjzqBn/VtvDOdJAu6g1ApZejVkT/pxHGGjWp9jdc5EabWA75J+X6mnBLxQ4BDw/K0OfepB/j
+ VE6NhRYIX0bWwCPmSdvZXJTrj5iU1q1IAVKHHxtK71JjwomvRnahd3M17k+DI6iNgQjFkYW5m
+ m6wEVi9Kg5P0OW9PmLmrlazPTdVEI8qwq0iGcTmBX4JoU/14P+CkAleIhWLgEhi5lcoLChRrZ
+ XJW/zujq4+3N6BPauXm1750BbqmIucjUglo+Up3oglnvbYjpcxEaxrSATu/KiQi283o2EwOEs
+ NI2cut2WiYjG3Ai+x+4QKbpzZyHvF7etO3wNc+S78FNozxyHD5FZ8LdW26R4/qk9DxeRytxwL
+ 2rJeePMeSA==
+X-Alfa-Virus: check-delete
+X-Alfa-Spam: check
+
+<html><head></head><body><div style="font-family: Verdana;font-size: 12.0px;"><div>
+<div>So, habe jetzt die FAQ &uuml;berarbeitet</div>
+
+<div>bitte einf&uuml;gen</div>
+
+<div>&nbsp;
+<div name="quote" style="margin:10px 5px 5px 10px; padding: 10px 0 10px 10px; border-left:2px solid #C3D9E5; word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;">
+<div style="margin:0 0 10px 0;"><b>Gesendet:</b>&nbsp;Dienstag, 19. Januar 2016 um 22:07 Uhr<br/>
+<b>Von:</b>&nbsp;&quot;Sebastian Glonner&quot; &lt;info@efesus.de&gt;<br/>
+<b>An:</b>&nbsp;&quot;Tom Voigt&quot; &lt;tomvoigt1@gmx.net&gt;<br/>
+<b>Betreff:</b>&nbsp;faq - better living</div>
+
+<div name="quoted-content">hier gilt selbiges. Formatierung nicht ver&auml;ndern!<br/>
+<br/>
+Du siehst. ein eintrag ist die Frage - n&auml;chster eintrag ist die<br/>
+antwort. etc.<br/>
+also [<br/>
+&#39;frag1&#39;,<br/>
+&#39;antwort1&#39;,<br/>
+<br/>
+&#39;frage2&#39;,<br/>
+etc.<br/>
+]<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+&lt;?php<br/>
+<br/>
+return [<br/>
+<br/>
+&#39;Which regions are you doing social projects in?&#39;,<br/>
+<br/>
+&#39;In India. They will be only in those Indian regions where our donators<br/>
+and with that the donations come from.<br/>
+If you have any interesting project suggestions, please do not hesitate<br/>
+to contact us.&#39;,<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+&#39;Can I follow the projects?&#39;,<br/>
+<br/>
+&#39;Yes! The progress will be published on <a href="http://www.shadow-foundation.in" target="_blank">www.shadowfoundation.org</a> and on<br/>
+social media.&#39;,<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+&#39;Why are you based in Kashmir?&#39;,<br/>
+&#39;By chance. But our social projects will be carried out in the regions<br/>
+the donators are from. So by you donation (or location) you can decide<br/>
+where the next projects are going to be.&#39;,<br/>
+<br/>
+<br/>
+&#39;Does Betterliving only operate in Kashmir?&#39;,<br/>
+&#39;No, Betterliving is here for everybody in India. Everyone can be a<br/>
+donator and also receive money with us. So by you donation (or location)<br/>
+you can decide where the next projects are going to be.&#39;,<br/>
+<br/>
+<br/>
+&#39;Is this a chain system?&#39;,<br/>
+<br/>
+&#39;No! It&#39;s definitely more likely to a network as it is known in several direct<br/>
+marketing systems for products and services in different industries.<br/>
+So this network is not really anything new commercially. What is new<br/>
+though, is that we are carrying out social projects with a network like<br/>
+that.<br/>
+So we are using something that internationally has been successful<br/>
+throughout many industries to be able to realize social projects in<br/>
+India. On top of that everybody gets the chance to make a little fortune<br/>
+with minimal effort.<br/>
+Through a new mathematical algorithm, the Betterliving platform prevents<br/>
+the donations and the commissions from stagnating early on, just because a<br/>
+few people do not get more new donators for whatever reason. It really is enough if everybody only<br/>
+recruits three more donators in order to get a quite big amount of money.<br/>
+Even if the average is less than three people who donate, the network<br/>
+and donation flow will not stand still just like the commissions you will get.<br/>
+You can watch the explanation video several times to fully understand<br/>
+how it works. The expansion of your commissions are explained in a realistic<br/>
+an understandable way.<br/>
+In case you recruit three donators yourself you can still top your<br/>
+profit by advertising new donators anytime you want!<br/>
+You will indeed get more payments than you had donated before and on top<br/>
+of that you support social projects in India by doing so.<br/>
+You will receive a lot of money and we can carry out several social<br/>
+projects in India.<br/>
+What more do you want?&#39;,<br/>
+<br/>
+<br/>
+<br/>
+&#39;Why do you need my bank account details?&#39;,<br/>
+<br/>
+&#39;We need your account details in order to weekly transfer your commissions.<br/>
+Betterliving is new and unique because you will be a donator and<br/>
+fundraiser at the same time. As soon as your first recruited donator is<br/>
+on board, you will receive your first commissions.<br/>
+For the first and the second donator you receive 300 Rupees each. From<br/>
+the third one it will be 1500 Rupees each.<br/>
+As soon as you have recruited three donators you get access to the<br/>
+donators&rsquo; network. New donators will be allocated to you who you do<br/>
+not know and most possibly never get to know either.<br/>
+ From this point on donators will be allocated to you anonymously by the<br/>
+network. You receive 1200 Rupees for each of those.<br/>
+As soon as one of these donators advertises one or more others, you can<br/>
+automatically receive many thousand Rupees through the mathematical<br/>
+algorithm.&#39;,<br/>
+<br/>
+<br/>
+<br/>
+&#39;How can I make money without constantly being active?&#39;,<br/>
+<br/>
+&#39;What makes this network so unique is that you will become a well-paid<br/>
+fundraiser being a donator.<br/>
+As soon as you find donators, we will directly transfer your commissions to<br/>
+your account.<br/>
+Also you can get paid for donators that you indirectly have advertised<br/>
+without even knowing them.<br/>
+Of course it cannot run by doing nothing.<br/>
+But all you have to do is recruit three donators. From this point on you<br/>
+get access to the network new donators will be allocated to you who<br/>
+you do not know and most possibly never get to know either.<br/>
+For the first two donators you get 300 Rupees each, from the third on<br/>
+you get 1500 Rupees each and a donator that has been allocated to you<br/>
+makes 1200 Rupees for you!<br/>
+Now this does not sound like a lot of money yet. But through our<br/>
+mathematical algorithm of the network you can automatically receive many<br/>
+thousand Rupees. Just watch the video once again to make it clear.&#39;,<br/>
+<br/>
+<br/>
+<br/>
+&#39;How is the donation paid?&#39;,<br/>
+<br/>
+&#39;As soon as you register to our platform you get an email with your<br/>
+login details and bank account details of the NGO to transfer your<br/>
+money. You are the one who decides how your donation is paid: You can<br/>
+transfer it or make a cash deposit at the bank. Please note that we do<br/>
+not offer payments by credit cards or other online methods in order to<br/>
+avoid fees.<br/>
+You should pay within 10 days. You can start to find new donators with<br/>
+your donator number immediately though. You will get paid for finding<br/>
+new donators after we received your complete donation. It is not<br/>
+possible to offset your donation against the commissions you get for<br/>
+advertising donators.&#39;,<br/>
+<br/>
+<br/>
+&#39;Do I have to find all possible donators immediately?&#39;,<br/>
+<br/>
+&#39;You are the one who decides how many donators you advertise. By<br/>
+donating 5500 Rupees you are authorized to recruit new donators and get<br/>
+paid for finding them. So you can rule whether your payments roll in<br/>
+fast or slowly.<br/>
+For example:<br/>
+You join Betterliving today. You donate and get your donator number. The<br/>
+same week you find three new donators who all donate as well and state<br/>
+your donator number.<br/>
+That is all you do.<br/>
+When every future donator acts the same way you did you will receive<br/>
+38.400.00 Rupees two weeks later and after eight weeks it could be about<br/>
+2.5 million Rupees!<br/>
+You will receive all payments on your private bank account weekly.<br/>
+Of course you can get even more than this: Just advertise more<br/>
+donators. It is all in your hands - if you find more donators you will get<br/>
+higher commissions.&#39;,<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+&#39;Does Betterliving co-operate with any religious or political<br/>
+organization?&#39;,<br/>
+<br/>
+&#39;No!<br/>
+We are completely independent and have nothing to do with any religious,<br/>
+political or other organisations.&#39;,<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+&#39;Can I influence the projects?&#39;,<br/>
+<br/>
+&#39;Yes!<br/>
+Every donator can suggest interesting social projects. Please contact us<br/>
+via project@betterliving.social and tell us about the project you are<br/>
+thinking about. Regarding the amount of emails it will not always be<br/>
+possible to reply to each of them but all suggestions will be collected.<br/>
+A committee from different areas of India will decide which social<br/>
+projects will be carried out.&#39;,<br/>
+<br/>
+<br/>
+&#39;When will I receive my money?&#39;,<br/>
+<br/>
+&#39;We balance your payments and transfer the money to your bank account<br/>
+weekly.<br/>
+In conclusion: If you successfully become involved with us you will<br/>
+receive money every week.&#39;,<br/>
+<br/>
+<br/>
+<br/>
+];<br/>
+<br/>
+?&gt;<br/>
+&nbsp;</div>
+</div>
+</div>
+</div></div></body></html>
+

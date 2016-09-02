@@ -1,0 +1,1578 @@
+X-Mozilla-Keys: nonjunk
+Return-Path: <TomVoigt1@gmx.net>
+X-Spam-Checker-Version: SpamAssassin 3.3.1 (2010-03-16) on
+	alfa3016.alfahosting-server.de
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=AWL,BAYES_00,
+	FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,HTML_MESSAGE,MIME_HTML_ONLY,
+	MISSING_SUBJECT,RCVD_IN_DNSWL_LOW autolearn=no version=3.3.1
+X-Spam-DCC: : 
+X-Original-To: info@efesus.de
+Delivered-To: web784p1@alfa3016.alfahosting-server.de
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
+	by alfa3016.alfahosting-server.de (Postfix) with ESMTPS id 1E4C455D210A
+	for <info@efesus.de>; Wed, 25 Nov 2015 17:33:45 +0100 (CET)
+Received: from [94.218.55.213] by 3capp-gmx-bs32.server.lan (via HTTP); Wed,
+ 25 Nov 2015 17:33:45 +0100
+MIME-Version: 1.0
+Message-ID: <trinity-9ee037ee-9bc7-4530-8339-0974b2f738c5-1448469224656@3capp-gmx-bs32>
+From: "Tom Voigt" <TomVoigt1@gmx.net>
+To: info@efesus.de
+Content-Type: text/html; charset=UTF-8
+Date: Wed, 25 Nov 2015 17:33:45 +0100
+Importance: normal
+Sensitivity: Normal
+X-Priority: 3
+X-Provags-ID: V03:K0:HIL11PMy1LuAcEYMRqzZ4O9+cAhtL59PU8mnCJMKrXt
+ z8FxjgRiJjCmLldPWQJv0kzGJKaSMkQQrb1VgZwhZNTCtxVPJ4
+ jIblZRu/JXtrwuRc6bmLfVd4Ln4U+zTGZRaw6EkDZKUYCilmhm
+ OhE4LrCOdIZKo1aiKYkPzAuhNiUqzi4hZtmAPyAQWPNp8xMmlx
+ D0k2mwhON2MDn+z9yv7L/NbDhE/wt5sx39ZYionRf2RovLUk53
+ qTqORfzsoANdEw+FNwAeb7JakZLcmeTZMYAAWIfi/kPx3/i3xU auAO2w=
+X-UI-Out-Filterresults: notjunk:1;V01:K0:BNAju6Qe/rU=:vCpZTUwcQ/vHozF639t5pD
+ qmuAjeU7P1jSCPiiEEwzVSDi0D0HM3tzcjXH0GMWxVoHlvg8Nl2Sth+P9tbPwjjmRiyTwwXgJ
+ NzguNbQC+w4I9bFbcprDNg+ks2QSu7s3uid93yh8Qy/sSXb986+xSn5AFZrzuUJSxQK74NYHI
+ CQFZ4iSTwMeCfsQmT4/0OTboeXBoN/bc8/vZxyDFhTvZk2t2fFTyTsQO/ymkmWmoSGcFs4TLl
+ 6IC4nuatlg2ArSU/NP5nV2BTSmk2/H/18RoiDT9aRd3dA10L9rOoPIz4XCDODK4QqHAmHDP88
+ nnO+NvOkIq/eWwTn/9e18Z2Y7GRivQK3oOrCD5KeqnkRJTtstBjzYBpWojh2maR551+Nv6QZR
+ xfJcU2VWahJXbnkQPf3eFa1xyYeYhtjAwemYuMhVWtJXCb1WajJlGq4WobylKqJibEGV6oxLp
+ P45uGl0FqQ==
+X-Alfa-Virus: check-delete
+X-Alfa-Spam: check
+
+<html><head></head><body><div style="font-family: Verdana;font-size: 12.0px;"><div>
+<div>&nbsp;</div>
+
+<div>&lt;?php</div>
+
+<div>&#36;brandName = &#92;Tbmt&#92;Config::get(&#39;brand.name&#39;);</div>
+
+<div>&#36;brandNameShort = &#92;Tbmt&#92;Config::get(&#39;brand.short&#39;);</div>
+
+<div>&nbsp;</div>
+
+<div>return [</div>
+
+<div>&nbsp; &#39;common&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;brand_name&#39; =&gt; &#36;brandName,</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;brand_name_short&#39; =&gt; &#39;HYA&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;member_types&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;Donator&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;Sub Promoter&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;Promoter&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;Organization Leader&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;Director&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;Developer&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;CEO&#39;</div>
+
+<div>&nbsp;&nbsp;&nbsp; ],</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;forbidden_countries&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;Norway&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;Sweden&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;Finland&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;Denmark&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;Ireland&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;Iceland&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;Great Britain&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;Belgium&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;Netherlands&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;Luxembourg&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;France&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;Monaco&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;Switzerland&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;Germany&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;Austria&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;Canada&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;USA&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp; ]</div>
+
+<div>&nbsp; ],</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp; /* DATE FORMATS</div>
+
+<div>&nbsp;&nbsp;&nbsp; ---------------------------------------------*/</div>
+
+<div>&nbsp; &#39;date_format_php&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;default&#39; =&gt; &quot;m/d/Y&quot;,</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;short&#39;&nbsp;&nbsp; =&gt; &quot;M. d&quot;,</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;long&#39;&nbsp;&nbsp;&nbsp; =&gt; &quot;F d, Y&quot;,</div>
+
+<div>&nbsp; ],</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp; &#39;datetime_format_php&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;default&#39; =&gt; &quot;m/d/Y H:i&quot;,</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;short&#39;&nbsp;&nbsp; =&gt; &quot;M. d H:i&quot;,</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;long&#39;&nbsp;&nbsp;&nbsp; =&gt; &quot;F d, Y H:i&quot;,</div>
+
+<div>&nbsp; ],</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp; &#39;time_format_php&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;default&#39; =&gt; &quot;H:i&quot;,</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;short&#39;&nbsp;&nbsp; =&gt; &quot;H:i&quot;,</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;long&#39;&nbsp;&nbsp;&nbsp; =&gt; &quot;H:i&quot;,</div>
+
+<div>&nbsp; ],</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp; &#39;currency_format&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;dec_point&#39; =&gt; &#39;.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;thousands_sep&#39; =&gt; &#39;,&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;decimals_count&#39; =&gt; 2,</div>
+
+<div>&nbsp; ],</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp; &#39;currency_symbol&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;EUR&#39; =&gt; &#39;&euro;&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;USD&#39; =&gt; &#39;&#36;&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;INR&#39; =&gt; &#39;&#8377;&#39;,</div>
+
+<div>&nbsp; ],</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp; &#39;currency_name&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;EUR&#39; =&gt; &#39;Euro&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;USD&#39; =&gt; &#39;US Dollar&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;INR&#39; =&gt; &#39;Rupien&#39;,</div>
+
+<div>&nbsp; ],</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp; /* ERRORS</div>
+
+<div>&nbsp;&nbsp;&nbsp; ---------------------------------------------*/</div>
+
+<div>&nbsp; &#39;error&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;greater_zero&#39; =&gt; &#39;Must be greater zero&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;money_numeric&#39; =&gt; &#39;Must be numeric greater or equal zero&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;empty&#39;&nbsp; =&gt; &#39;Can not be empty&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;email&#39;&nbsp; =&gt; &#39;Invalid email address&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;int&#39;&nbsp;&nbsp;&nbsp; =&gt; &#39;Invalid integer&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;accept&#39; =&gt; &#39;Must be accepted&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;password&#39; =&gt; &#39;Invalid password&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;password_conditions&#39; =&gt; &#39;5 characters or more, at least one small</div>
+
+<div>letter and one digit&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;password_unequal&#39; =&gt; &#39;Passwords were not equal&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;referral_member_num&#39; =&gt; &#39;Referrer number does not exist&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;member_num&#39; =&gt; &#39;Donator number does not exist&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;member_num_unpaid&#39; =&gt; &#39;Donator had not paid yet&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;age_of_18&#39; =&gt; &#39;Must be 18 or older&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;referrer_paiment_outstanding&#39; =&gt; &#39;The member exists but we didn&acute;t</div>
+
+<div>receive the member fee yet. Unfornately you have to wait for this</div>
+
+<div>members full membership&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;invitation_code_inexisting&#39; =&gt; &#39;Invitation Code does not exist&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;invitation_code_invalid&#39; =&gt; &#39;Invalid invitation code&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;invitation_code_used&#39; =&gt; &#39;Invitation code already used&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;sub_promoter_to_promoter&#39; =&gt; &#39;Donator is no promoter&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;login&#39; =&gt; &#39;Invalid login credentials&#39;</div>
+
+<div>&nbsp; ],</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp; /* VIEWS</div>
+
+<div>&nbsp;&nbsp;&nbsp; ---------------------------------------------*/</div>
+
+<div>&nbsp; &#39;view&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;common&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;brand_name&#39; =&gt; &#36;brandName,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;brand_name_short&#39; =&gt; &#39;<strong>HYA</strong>&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;email_us&#39; =&gt; &#39;Email us: &#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;navigation_links&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;member&#39; =&gt; &#39;The Idea&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;projects&#39; =&gt; &#39;Home&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;about&#39; =&gt; &#39;Contact&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;account&#39; =&gt; &#39;Profile&#39;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ],</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;navigation_sublinks&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;member&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;index&#39; =&gt; &#39;Donator recruits members&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;system&#39; =&gt; &#39;Our marketing system&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;signup&#39; =&gt; &#39;Sign up&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ],</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;account&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;index&#39; =&gt; &#39;Information&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;invoice&#39; =&gt; &#39;Invoice&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;rtree&#39; =&gt; &#39;Referral Tree&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;htree&#39; =&gt; &#39;Hierarchy Tree&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;logout&#39; =&gt; &#39;Logout&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ],</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;about&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;index&#39; =&gt; &#39;Contact&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;faq&#39; =&gt; &#39;FAQ&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ]</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ],</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;member_login&#39; =&gt; &#39;Donator Login&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;copyright_name&#39; =&gt; &#36;brandName,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;useful_link_contact&#39; =&gt; &#39;Any questions? Just contact us!&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;useful_link_faq&#39; =&gt; &#39;Frequently asked questions&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;useful_link_terms&#39; =&gt; &#39;Terms of Use&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;useful_link_about_us&#39; =&gt; &#39;About us&#39;</div>
+
+<div>&nbsp;&nbsp;&nbsp; ],</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp; /* VIEWS - MEMBER</div>
+
+<div>&nbsp;&nbsp;&nbsp; ---------------------------------------------*/</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;member&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;btn&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;signup&#39; =&gt; &#39;Sign up now&#39;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ],</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;text&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;Donator advertises member&#39;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ],</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;system&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;page_title&#39; =&gt; &#39;Marketing System&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;vs1&#39; =&gt; &#39;Club donator level 1&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;vs2&#39; =&gt; &#39;Club donator level 2&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;notice&#39; =&gt; &#39;Notice&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;signup_now&#39; =&gt; &#39;Sign up now&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;etc&#39; =&gt; &#39;etc.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;intro1&#39; =&gt; &#39;This page will explain our {0} in detail&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;intro1h&#39; =&gt; [&#39;marketing system&#39;],</div>
+
+<div>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&#39;intro2&#39; =&gt; To make it easy <strong>we will follow</strong> a detailed</div>
+
+<div>example&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;you&#39; =&gt; &#39;You&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;head_explanation&#39; =&gt; &#39;Explanation&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;head_part&#39; =&gt; &#39;Step&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;head_illustration&#39; =&gt; &#39;Illustration&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;pdf_explanation&#39; =&gt; There is also an illustrated</div>
+
+<div>explanation in an extra document. If you prefer to read a pdf document, &#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;pdf_explanation_link&#39; =&gt; &#39;just click here&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;1&#39; =&gt; &#39;You become a donator through registering and paying the</div>
+
+<div>contribution of {0}. In our marketing system you will automatically be on</div>
+
+<div>club donator level 1.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;1h&#39; =&gt; [&#39;&#36;_member_fee_&#36;&#39;],</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;1_1&#39; =&gt; &#39;You = donator&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;2&#39; =&gt; &#39;Now you recruit your first two new donators <strong>Durga and </strong></div>
+
+<div><strong>Kamal.&#39;,</strong></div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;3&#39; =&gt; &#39;Thereby you will earn {0} each on level 1, hence altogether</div>
+
+<div>you earn {1}.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;3h&#39; =&gt; [&#39;&#36;_lvl1_&#36;&#39;, &#39;&#36;_2_times_lvl1_&#36;&#39;],</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;4&#39; =&gt; &#39;When you have recruited two new donators successfully,</div>
+
+<div>you automatically get club donator level 2.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;5&#39; =&gt; &#39;Now you recruit your third new donator, <strong>Jivan</strong>.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;6&#39; =&gt; &#39;Thereby you will earn {0} on level 2.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;6h&#39; =&gt; [&#39;&#36;_lvl2_&#36;&#39;],</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;7&#39; =&gt; &#39;For every additional donator you recruit in the</div>
+
+<div>future, you will also earn {0} each.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;7h&#39; =&gt; [&#39;&#36;_lvl2_&#36;&#39;],</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;8&#39; =&gt; &#39;Since <strong>Jivan</strong> is now a donator, he automatically is on</div>
+
+<div>club donator level 1.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;9&#39; =&gt; Should you not be able to recruit any more donators&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;10&#39; =&gt; &#39;but <strong>Jivan</strong> recruits, just like you did before, his first</div>
+
+<div>two new donators, <strong>Rati and Lila</strong>.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;11&#39; =&gt; &#39;<strong> Jivan</strong> thereby earns {0} for each recruited</div>
+
+<div>donator on level 1, thus altogether {1}.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;11r&#39; =&gt; [&#39;&#36;_lvl1_&#36;&#39;, &#39;&#36;_2_times_lvl1_&#36;&#39;],</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;12&#39; =&gt; &#39;You earn {0} for each recruited donator</div>
+
+<div>in this case, thus altogether {1}.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;12h&#39; =&gt; [&#39;&#36;_indirect_&#36;&#39;, &#39;&#36;_2_times_indirect_&#36;&#39;],</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;13&#39; =&gt; &#39;{0}&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;13h&#39; =&gt; [&#39;At this point you already earn money without</div>
+
+<div>being active yourself!&#39;],</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;14&#39; =&gt; {0} &ndash; you have already earned {1} {2}&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;14h&#39; =&gt; [&#39;After just one week&#39;, &#39;&#36;_after_one_week_&#36;&#39;, &#39;and</div>
+
+<div>almost entirely balanced your membership contribution!&#39;],</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;15&#39; =&gt; &#39;<strong> Jivan</strong> automatically gets club donator level 2</div>
+
+<div>with his first two successful recruitings.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;16&#39; =&gt; &#39;As soon as you and <strong>Jivan</strong> have the same club donator level,</div>
+
+<div>you do not get paid when <strong>Jivan</strong> recruits new donators.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;17&#39; =&gt; &#39;However, now <strong>Rati and Lila</strong> are placed into your tree.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;18&#39; =&gt; Because the first two new recruited donators (Rati and Lila) are assigned to the donator (you) that has advertised the recruiting donator (<strong>Jivan</strong>)in the first place.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;19&#39; =&gt; &#39;After Rati and Lila have paid their donatorship fee,</div>
+
+<div>they both are on club donator level 1.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;20&#39; =&gt; &#39;Now Rati and Lila each recruit their first two new</div>
+
+<div style="margin-left:45.8pt;">donators, Devi, Kumar, Gita and Karan.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;21&#39; =&gt; &#39;Thereby Rati and Lila earn {0} for each recruited</div>
+
+<div>donator and you get {1} each, thus altogether you earn {2}.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;21h&#39; =&gt; [&#39;&#36;_lvl1_&#36;&#39;, &#39;&#36;_indirec_&#36;&#39;, &#39;&#36;_4_times_indirect_&#36;&#39;],</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;22&#39; =&gt; &#39;Now Rati and Lila get donator level 2 after their first two successful recruitings.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;23&#39; =&gt; &#39;From now on, you do not earn anything when Rati and Lila recruit new donators.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;24&#39; =&gt; &#39;However, now Devi, Kumar, Gita and Karan are placed</div>
+
+<div>into your tree. As they have already paid their contribution, they are</div>
+
+<div>all on club donator level 1.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;25&#39; =&gt; &#39;Now Devi, Kumar, Gita and Karan recruited their first</div>
+
+<div>two donators each.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;26&#39; =&gt; &#39;Thereby Devi, Kumar, Gita and Karan earn {0} for each</div>
+
+<div>donator and you earn {1} each, thus altogether you earn {2}.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;26h&#39; =&gt; [&#39;&#36;_lvl1_&#36;&#39;, &#39;&#36;_indirec_&#36;&#39;, &#39;&#36;_8_times_indirect_&#36;&#39;],</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;27&#39; =&gt; You now have not only balanced your membership</div>
+
+<div>fee and returned your investment but also earned money on top of</div>
+
+<div>that.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;28&#39; =&gt; &#39;And how long did it take?&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;29&#39; =&gt; &#39;From experience, it takes one day on average, until a</div>
+
+<div>donator recruits a new donator successfully.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;30&#39; =&gt; &#39;Therefore, this example would take 10 to 14 days.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;31&#39; =&gt; &#39;If every future donator only recruits two new</div>
+
+<div>Donators and takes one week on average, your earnings develop as</div>
+
+<div>you can see in the following table:&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;31_week&#39; =&gt; &#39;Week&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;32&#39; =&gt; &#39;{0} you therefore already earned {1} {2}&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;32h&#39; =&gt; [&#39;After approximately ten weeks&#39;, &#39;more than&#39;,</div>
+
+<div>&#39;&#36;_after_10_weeks_&#36;&#39;],</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;33&#39; =&gt; &#39;Of course this will not work infinitely, because the</div>
+
+<div>number of people are naturally limited. There were and are, however,</div>
+
+<div>marketing systems worldwide and in different economic fields that have</div>
+
+<div>created a sheer endless number of prosperous people and are still</div>
+
+<div>creating new ones.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;34&#39; =&gt; &#39;With us, donators who have decided to recruit new</div>
+
+<div>donators, especially&nbsp; early on, you will earn lots and lots of money.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;35&#39; =&gt; &#39;Trustworthy mathematical calculations project that</div>
+
+<div>donators who became active in the first 12 months after starting the</div>
+
+<div>marketing system and at least recruit three new donators, will earn</div>
+
+<div>a total of {0} to {1} in the first 12 months.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;35h&#39; =&gt; [&#39;&#36;_lvl1_&#36;&#39;, &#39;&#36;_lvl1_&#36;&#39;],</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;36&#39; =&gt; &#39;There are no limits: If only one</div>
+
+<div>donator recruits e.g. 10, 15 or 20 or even more donators, naturally</div>
+
+<div>considerably higher earnings are possible.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;37&#39; =&gt; &#39;However, we will also have donators who will just earn a meager amount caused by mediocre effort, for example a few thousand dollars.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;38&#39; =&gt; &#39;Then we will also have donators who will only earn</div>
+
+<div>very few, for example only few hundreds of dollars.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;39&#39; =&gt; &#39;And of course in the future, probably in a few years,</div>
+
+<div>we will also have cases of donators who will not earn anything. Through their contribution they have facilitated the earnings of the other</div>
+
+<div>donators and the development of several social projects and thus</div>
+
+<div>sponsored their {0} directly for the goods of their fellow people.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;39h&#39; =&gt; [&#39;&#36;_member_fee_&#36;&#39;],</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;40&#39; =&gt; Due to the way the system&nbsp; works, you will earn less depending on how near we are to the end of</div>
+
+<div>recruiting. It is mostly unpredictable but someday the system will</div>
+
+<div>stagnate as soon as there are no new donators. That day we will close the</div>
+
+<div>register and start to carry out beneficial projects.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;41&#39; =&gt; &#39;The specific development of your personal profits can</div>
+
+<div>hardly be predicted. However, the possibilities result from each</div>
+
+<div>donator&rsquo;s personal effort.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;42&#39; =&gt; &#39;If you believe that,&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;43&#39; =&gt; &#39;you can recruit at least three new donators&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;44&#39; =&gt; &#39;these donators again can recruit two new donators&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;45&#39; =&gt; &#39;these new donators each can recruit at least two</div>
+
+<div>new donators&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;46&#39; =&gt; &#39;Then your contribution will be</div>
+
+<div>reimbursed within around 15 - 25 days and &nbsp;you additionally will have scored your first profit.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;47&#39; =&gt; &#39;Furthermore, if you believe that over a course of only</div>
+
+<div>three months each new donator at least recruits three new donators,</div>
+
+<div>you will earn lots and lots of money with us and will be able to afford a</div>
+
+<div>whole new living standard.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;48&#39; =&gt; &#39;You will be able to afford things you have never</div>
+
+<div>thought of before. You will be able to support your family, enjoy best</div>
+
+<div>medical care, buy a new car, spend no time thinking about what to live</div>
+
+<div>from when you&rsquo;re old, etc.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;49&#39; =&gt; &#39;Exactly that is the whole purpose of the Betterliving Club!&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;50&#39; =&gt; &#39;Take action now&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;51&#39; =&gt; &#39;You can register for a better life right here:&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ],</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;index&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;page_title&#39; =&gt; &#39;Donators advertise donators&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;basic_idea&#39; =&gt; &#39;Basic idea&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;basic_idea_title&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;Basics&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;Passive income&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;For those who deserve&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ],</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;basic_idea_text&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Everybody can become a donator of the</div>
+
+<div>&#39;.&#36;brandName.&#39;. The {onetime} contribution is only {member_fee}.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;Every donator can advertise new donators for the</div>
+
+<div>&#39;.&#36;brandName.&#39; within the &ldquo;donators recruit new donators&rdquo; marketing</div>
+
+<div>System, thereby achieve a constant and above all {passive_income}.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;Citizens living in rich countries are not allowed to become</div>
+
+<div>a donator of the &#39;.&#36;brandName,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ],</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;basic_idea_highlights&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [&#39;onetime&#39; =&gt; &#39;one-time&#39;, &#39;member_fee&#39; =&gt; &#39;&#36;_member_fee_&#36;&#39;],</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [&#39;passive_income&#39; =&gt; &#39;passive income&#39;],</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; null</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ],</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;forbidden_countries&#39; =&gt; &#39;Forbidden countries&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;why_forbidden_countries&#39; =&gt; &#39;Why these countries are forbidden&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;forbidden_countries_text&#39; =&gt; &#39;Each citizen of those countries</div>
+
+<div>has sufficient access to education, jobs, medical treatments and social</div>
+
+<div>welfare, thus we do not offer these citizens access to the Betterliving club.&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;become_member_title&#39; =&gt; &#39;I want to be donator&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;become_member_text&#39; =&gt; &#39;If you also want to be a donator,</div>
+
+<div>please register on this homepage and pay the membership fee of</div>
+
+<div>{member_fee} within 10 days. This will make you a donator of the</div>
+
+<div>&#39;.&#36;brandName.&#39; and you can use our fantastic marketing system to achieve</div>
+
+<div>a permanent and {passive_income}.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;become_member_highlights&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;passive_income&#39; =&gt; &#39;passive income&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;member_fee&#39; =&gt; &#39;&#36;_member_fee_&#36;&#39;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ],</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;member_starting&#39; =&gt; &#39;Why should I make a donation&#39;,</div>
+
+<div>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#39;member_starting_title&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;Club donator level 1&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;Marketing System&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;Immediately start recruiting&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ],</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;member_starting_text&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;In our &ldquo;Donators advertise new donators&rdquo; marketing system you</div>
+
+<div>automatically are on club donator level 1.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;The meaning of the marketing system will be explained in the following.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;Right after you have finished your registration you can</div>
+
+<div>recruit new donators for the &#39;.&#36;brandName.&#39; via this homepage.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ],</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;member_starting_button&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;What does club donator level 1 mean?&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;Explanation of the marketing system!&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;Yes, I want to sign up!&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ],</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;pdf_explanation_head&#39; =&gt; &#39;Marketing system illustration&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;pdf_explanation&#39; =&gt; &#39;We also prepared an illustrated</div>
+
+<div>explanation in an extra document. Should you prefer reading a pdf document, &#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;pdf_explanation_link&#39; =&gt; &#39;just click here&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ],</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;signup&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;page_title&#39; =&gt; &#39;Sign up to be a donator&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;form_error&#39; =&gt; &#39;Form has invalid fields.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;form_labels&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;contact&#39; =&gt; &#39;Contact&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;address&#39; =&gt; &#39;Address&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;bank_account&#39; =&gt; &#39;Bank Account&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#39;confirm&#39; =&gt; &#39;Confirm&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;referral_member_num&#39; =&gt; &#39;Referrer donator number&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;invitation_code&#39; =&gt; &#39;Invitation Code (optional)&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;firstName&#39; =&gt; &#39;First name&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;lastName&#39; =&gt; &#39;Last name&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;title&#39; =&gt; &#39;Title&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;email&#39; =&gt; &#39;Email&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;age&#39; =&gt; &#39;Age&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;country&#39; =&gt; &#39;Country&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;city&#39; =&gt; &#39;City&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;country&#39; =&gt; &#39;Country&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;iban&#39; =&gt; &#39;IBAN&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;bic&#39; =&gt; &#39;BIC&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;bank_recipient&#39; =&gt; &#39;Recipient&#39;,</div>
+
+<div>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#39;password&#39; =&gt; &#39;Your password&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;password2&#39; =&gt; &#39;Repeat password&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;accept_agbs&#39; =&gt; &#39;I have read and accept the terms and</div>
+
+<div>conditions&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;accept_valid_country&#39; =&gt; &#39;I confirm that I am NOT a citizen of</div>
+
+<div>one of the following countries:&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;not_accepted_countries&#39; =&gt; &#39;&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;submit&#39; =&gt; &#39;Submit&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;bank_account_info&#39; =&gt; &#39;We will never charge your bank</div>
+
+<div>account. But your payments for your referrals will be paid into this</div>
+
+<div>account.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;email_info&#39; =&gt; &#39;You will never receive spam from us. We need</div>
+
+<div>your e-mail address to contact you in case there are problems with transferring money. If you do not have an e-mail address you can register here for free: &#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ]</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ],</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;signupSuccess&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;page_title&#39; =&gt; &#39;Successfully signed up&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;welcome&#39; =&gt; &#39;Welcome to &quot;&#39;.&#36;brandName.&#39;&quot;.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;new_member_num&#39; =&gt; &#39;Your personal donator number is {num}. Make sure to rememeber this number.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;info&#39; =&gt; &#39;You will need it to invite new donators in order to help them and yourself.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ]</div>
+
+<div>&nbsp;&nbsp;&nbsp; ],</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp; /* VIEWS - ACCOUNT</div>
+
+<div>&nbsp;&nbsp;&nbsp; ---------------------------------------------*/</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;account&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;login&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;page_title&#39; =&gt; &#39;Donator Login&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;error&#39; =&gt; &#39;Error&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;password_reset&#39; =&gt; &#39;Forgot your password?&#39;,</div>
+
+<div>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#39;form_labels&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;login&#39; =&gt; &#39;Login&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;num&#39; =&gt; &#39;Donator Number&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;pwd&#39; =&gt; &#39;Password&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;submit&#39; =&gt; &#39;Submit&#39;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ]</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ],</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;index&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;page_title&#39; =&gt; &#39;Profile&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;welcome&#39; =&gt; &#39;Welcome {name}&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;navigation_links&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;index&#39; =&gt; &#39;Information&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;invoice&#39; =&gt; &#39;Invoice&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;rtree&#39; =&gt; &#39;Referral Tree&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;htree&#39; =&gt; &#39;Hierarchy Tree&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;invitation&#39; =&gt; &#39;Invitations&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;bonus_payments&#39; =&gt; &#39;Bonus Payments&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;bonus_levels&#39; =&gt; &#39;Bonus Levels&#39;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ]</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ],</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;tabs&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;index&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;account&#39; =&gt; &#39;Account&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;your_num&#39; =&gt; &#39;Your donator number&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;warning&#39; =&gt; &#39;Warning!&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;tank_you&#39; =&gt; &#39;Thank You!&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;unpaid_text&#39; =&gt; &#39;We have not received your donator fee yet!&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;paid_text&#39; =&gt; &#39;We have received your donator fee.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;address&#39; =&gt; &#39;Address&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;email&#39; =&gt; &#39;Email&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;email_none&#39; =&gt; &#39;-none-&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#39;bank_account&#39; =&gt; &#39;Bank account&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;bank_recipient&#39; =&gt; &#39;Recipient Name&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // &#39;iban&#39; =&gt; &#39;IBAN (International Bank Account Number)&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;iban&#39; =&gt; &#39;IBAN&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // &#39;bic&#39; =&gt; &#39;BIC (Bank Identifier Code)&#39;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;bic&#39; =&gt; &#39;BIC&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;member_type&#39; =&gt; &#39;Membership type&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;bonus_level&#39; =&gt; &#39;Bonus Level&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;change_pwd&#39; =&gt; &#39;Change password&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;welc_not_1&#39; =&gt; &#39;Welcome {name}&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;welc_not_2&#39; =&gt; &#39;This is your profile. You can find</div>
+
+<div>various information here&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;welc_not_3&#39; =&gt; &#39;IMPORTANT! Always remember your donator number! You will need it to login, recruit others etc.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ],</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;invoice&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;stats&#39; =&gt; &#39;Statistics&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;transactions&#39; =&gt; &#39;Transactions (grouped by reason)&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;oustanding_advertised_count&#39; =&gt; &#39;Outstanding advertised</div>
+
+<div>donators count&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;advertised_member_count&#39; =&gt; &#39;Advertised donators count&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;outstanding_total&#39; =&gt; &#39;Total outstanding to be transferred&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;transferred_total&#39; =&gt; &#39;Total transferred&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;custom&#39; =&gt; &#39;--custom--&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;single_amount&#39; =&gt; &#39;Single Amount&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;quantity&#39; =&gt; &#39;Quantity&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;currency&#39; =&gt; &#39;Currency&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;total&#39; =&gt; &#39;Total&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;reason&#39; =&gt; &#39;Reason&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;transaction_reasons&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 =&gt; &#39;Advertised Lvl 1&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 =&gt; &#39;Advertised Lvl 2&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2 =&gt; &#39;Bonus Lvl 2 Indirect&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3 =&gt; &#39;Bonus director&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4 =&gt; &#39;Bonus organization leader&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5 =&gt; &#39;Bonus promoter&#39;,</div>
+
+<div>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6 =&gt; &#39;Bonus IT&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7 =&gt; &#39;Bonus CEO1&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8 =&gt; &#39;Bonus CEO2&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 9 =&gt; &#39;Bonus lawyer&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10 =&gt; &#39;Bonus sub promoter&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1001 =&gt; &#39;Custom bonus payment&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1002 =&gt; &#39;Remaining donator fee&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1003 =&gt; &#39;Transfer to root system&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2000 =&gt; &#39;Custom bonus level payment&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ]</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ],</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;tree&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ],</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;invitation&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;form_title&#39; =&gt; &#39;Create new invitation&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;type&#39; =&gt; &#39;Type&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#39;free_signup&#39; =&gt; &#39;Free registration&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;promoter_num&#39; =&gt; &#39;On the recommendation of promoter (Num)&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;submit&#39; =&gt; &#39;Submit&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;list_title&#39; =&gt; &#39;Invitations&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;hash&#39; =&gt; &#39;Code&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;creation_date&#39; =&gt; &#39;Created&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#39;accepted_date&#39; =&gt; &#39;Accepted&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;signup_success&#39; =&gt; &#39;Successfully created invitation code.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;success&#39; =&gt; &#39;Success!&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;recipient_details&#39; =&gt; &#39;Recipient details&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;member_type&#39; =&gt; &#39;Membership type&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;member_num&#39; =&gt; &#39;Donator number&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;address&#39; =&gt; &#39;Address&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;email&#39; =&gt; &#39;Email&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;email_none&#39; =&gt; &#39;-none-&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ],</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;bonus_payments&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;form_title&#39; =&gt; &#39;Create bonus payment for a donator&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;recipient_num&#39; =&gt; &#39;Donator number who receives this bonus&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;amount&#39; =&gt; &#39;Amount&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;amount_in_currency&#39; =&gt; &#39;Amount in {symbol} ({name})&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;purpose&#39; =&gt; &#39;Purpose&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;validate_form&#39; =&gt; &#39;Validate form&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;submit&#39; =&gt; &#39;Submit&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;recipient_details&#39; =&gt; &#39;Recipient details&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;member_type&#39; =&gt; &#39;Membership type&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;member_num&#39; =&gt; &#39;Donator number&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;address&#39; =&gt; &#39;Address&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;email&#39; =&gt; &#39;Email&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;email_none&#39; =&gt; &#39;-none-&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&#39;list_title&#39; =&gt; &#39;Bonus payments&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;recipient_num_th&#39; =&gt; &#39;Recipient donator number&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;creation_date&#39; =&gt; &#39;Created&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;accepted_date&#39; =&gt; &#39;Accepted&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;signup_success&#39; =&gt; &#39;Successfully created bonus payment.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&#39;success&#39; =&gt; &#39;Success!&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ],</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;bonus_levels&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;form_title&#39; =&gt; &#39;Change bonus level for donator&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;recipient_num&#39; =&gt; &#39;Donator number who receives this bonus</div>
+
+<div>level&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;amount_in_currency&#39; =&gt; &#39;Amount in {symbol} ({name})&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;validate_form&#39; =&gt; &#39;Validate form&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;submit&#39; =&gt; &#39;Submit&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;recipient_details&#39; =&gt; &#39;Recipient details&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;member_type&#39; =&gt; &#39;Membership type&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;bonus_level&#39; =&gt; &#39;Bonus Level&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;member_num&#39; =&gt; &#39;Donator number&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;address&#39; =&gt; &#39;Address&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;email&#39; =&gt; &#39;Email&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;email_none&#39; =&gt; &#39;-none-&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;signup_success&#39; =&gt; &#39;Successfully changed bonus level.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;success&#39; =&gt; &#39;Success!&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;list_title&#39; =&gt; &#39;Bonus donators&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;member_num&#39; =&gt; &#39;Donator number&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;date&#39; =&gt; &#39;Date&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ]</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ]</div>
+
+<div>&nbsp;&nbsp;&nbsp; ],</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp; /* VIEWS - MANAGE</div>
+
+<div>&nbsp;&nbsp;&nbsp; ---------------------------------------------*/</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;manage&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;password_reset&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;page_title&#39; =&gt; &#39;Password reset&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;error&#39; =&gt; &#39;Error!&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;success&#39; =&gt; &#39;Success!&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;success_msg&#39; =&gt; &#39;We have sent you an email with further</div>
+
+<div>instructions.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;form_labels&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;num&#39; =&gt; &#39;Your donator number&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;submit&#39; =&gt; &#39;Reset password&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ]</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ],</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;do_reset_password&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;page_title&#39; =&gt; &#39;Password reset&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;error&#39; =&gt; &#39;Error!&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;error_msg&#39; =&gt; &#39;Invalid reset token&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;success&#39; =&gt; &#39;Success!&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;success_msg&#39; =&gt; &#39;Your new password is:&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ],</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;change_pwd&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;page_title&#39; =&gt; &#39;Change your password&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;error&#39; =&gt; &#39;Error!&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;success&#39; =&gt; &#39;Success!&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;success_msg&#39; =&gt; &#39;We have sent you an email with further</div>
+
+<div>instructions.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;form_labels&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;old_pwd&#39; =&gt; &#39;Current password&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;new_pwd&#39; =&gt; &#39;New password&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;new_repeat&#39; =&gt; &#39;Repeat new password&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;submit&#39; =&gt; &#39;Change password&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ]</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ],</div>
+
+<div>&nbsp;&nbsp;&nbsp; ],</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp; /* VIEWS - PROJECTS</div>
+
+<div>&nbsp;&nbsp;&nbsp; ---------------------------------------------*/</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;projects&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;index&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;page_title&#39; =&gt; &#39;Projects&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;about_us_title&#39; =&gt; &#39;About us and our idea&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;about_us_title2&#39; =&gt; &#39;Help yourself AND others&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;planed_projects_title&#39; =&gt; &#39;Our planned projects for the future&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;affected_countries_title&#39; =&gt; &#39;Countries we want to help&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;why_poor_head&#39; =&gt; &#39;EVER WONDERED WHY INDIA BECAME SO POOR&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;why_poor_quote&#39; =&gt; &#39;A significant fact is</div>
+
+<div>that the parts of India that have been under British control for a long time are the least wealthy today.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;why_poor_quote_author&#39; =&gt; &#39;Jawaharlal Nehru&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;why_poor_quote_author_org&#39; =&gt; &#39;First Prime Minister of India&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;against_poverty_head&#39; =&gt; &#39;We are against poverty&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;against_poverty_sub&#39; =&gt; &#39;We developed this</div>
+
+<div>marketing sytem to change lives to the better&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;we_foundation&#39; =&gt; &#39;Foundation&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;we_foundation_description&#39; =&gt; &#39;The club has been founded for</div>
+
+<div>people who have few to no options to achieve a better life for</div>
+
+<div>themselves. This might be caused by various reasons like economic and political circumstances.</div>
+
+<div>.&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;we_system&#39; =&gt; &#39;Marketing System&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;we_system_description&#39; =&gt; &#39;On the one hand the club offers a</div>
+
+<div>direct way to help yourself through a marketing system and on the other</div>
+
+<div>hand it helps by supporting beneficial social projects.&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;we_fee&#39; =&gt; &#39;One time fee&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;we_fee_description&#39; =&gt; &#39;Both concepts are financed by 100%</div>
+
+<div>from the one-time contributions of the club donators.&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;where_to_go_head&#39; =&gt; &#39;where to go from here&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;service_ms_title&#39; =&gt; &#39;Marketing System&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;service_ms_desc&#39; =&gt; &#39;Sounds great! Where can I get more</div>
+
+<div>information about this marketing system?&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;service_ms_btn&#39; =&gt; &#39;Click here!&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;service_faq_title&#39; =&gt; &#39;I have questions&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;service_faq_desc&#39; =&gt; &#39;No problem, just go to the FAQ section.</div>
+
+<div>You will find answers there&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;service_faq_btn&#39; =&gt; &#39;Go to FAQ&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#39;service_contact_title&#39; =&gt; &#39;I still have questions&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;service_contact_desc&#39; =&gt; &#39;Still no problem! Just contact us and</div>
+
+<div>we will answer any question!&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;service_contact_btn&#39; =&gt; &#39;Contact us&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;service_signup_title&#39; =&gt; &#39;I want to join&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;service_signup_desc&#39; =&gt; &#39;Great! Just follow this link and fill</div>
+
+<div>in the registration form to get started!&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;service_signup_btn&#39; =&gt; &#39;Go to registration,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;pdf_explanation_head&#39; =&gt; &#39;Marketing system illustration&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;pdf_explanation&#39; =&gt; &#39;There is also an illustrated</div>
+
+<div>explanation in an extra document. Should you prefer reading a pdf document, &#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;pdf_explanation_link&#39; =&gt; &#39;just click here&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ],</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;girls_schools&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;page_title&#39; =&gt; &#39;Grils schools&#39;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ]</div>
+
+<div>&nbsp;&nbsp;&nbsp; ],</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp; /* VIEWS - ABOUT</div>
+
+<div>&nbsp;&nbsp;&nbsp; ---------------------------------------------*/</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;about&#39; =&gt; [</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;index&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;page_title&#39; =&gt; &#39;Contact&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;form_title&#39; =&gt; &#39;Contact form&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;form_labels&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;name&#39; =&gt; &#39;Name&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;email&#39; =&gt; &#39;E-Mail&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;subject&#39; =&gt; &#39;Subject&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;message&#39; =&gt; &#39;Message&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;submit&#39; =&gt; &#39;Submit&#39;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ],</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;signup_success&#39; =&gt; &#39;Successfully transferred message. Your request is being processed&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;success&#39; =&gt; &#39;Success!&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ],</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;faq&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;page_title&#39; =&gt; &#39;FAQ&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;welcome_faq&#39; =&gt; &#39;Frequently {0} Questions&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;welcome_faqh&#39; =&gt; [&#39;Asked&#39;],</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;items&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;When do the projects get started?&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;As soon as the first donations are being made the planning process will begin.</div>
+
+<div>After the first two months of running the system, the projects will be started.&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&#39;Can I follow the progressing project?&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;Of course! There will be a news feed on the Betterliving homepage which will be updated weekly.&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;How long does the Betterliving club support the projects?&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;There will be support from the club until the project is fully accomplished. If you are interested in the progress of each project just take a look at the news feed.&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;When will I get paid?&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;As soon as your donation (or your advertised donators&rsquo; donations) have been transferred to the club, your payments will be booked into your account. &#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;What happens if I sign up but do not pay the donator fee?&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;We expect your donation within 14 days. If no payment has taken place during that time, you will not be able to receive any payments yourself.&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;What do you need my email address for?&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;In case you forget your password or there is any problem at all, we have a chance to contact you.&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;How do I pay the donator fee?&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;You will have to transfer the money. Usually, this transfer will take around 2-3 days.&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;I still have questions&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;You can email any question to this address: info@betterliving.social&#39;,</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ]</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ],</div>
+
+<div>&nbsp;&nbsp;&nbsp; ]</div>
+
+<div>&nbsp; ],</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;</div>
+
+<div>&nbsp;&nbsp;&nbsp; /* MAILS</div>
+
+<div>&nbsp;&nbsp;&nbsp; ---------------------------------------------*/</div>
+
+<div>&nbsp; &#39;mail&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp; &#39;password_reset&#39; =&gt; [</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;subject&#39; =&gt; &#39;Password reset&#39;,</div>
+
+<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#39;body&#39; =&gt; &quot;You have lost your {web_page_name} password.</div>
+
+<div>Sorry about that!&#92;n&#92;r</div>
+
+<div>But don&rsquo;t worry! You can use the following link within the next day to</div>
+
+<div>reset your password:&#92;n&#92;r</div>
+
+<div>{link}&#92;n&#92;r</div>
+
+<div>If you don&rsquo;t use this link within 24 hours, it will expire.&#92;n&#92;r</div>
+
+<div>Thanks,&#92;n&#92;r</div>
+
+<div>Your friends at {web_page_name}&quot;</div>
+
+<div>&nbsp;&nbsp;&nbsp; ]</div>
+
+<div>&nbsp; ]</div>
+
+<div>];</div>
+
+<div>&nbsp;</div>
+
+<div>?&gt;</div>
+
+<div>&nbsp;</div>
+</div></div></body></html>
+

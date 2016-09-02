@@ -1,0 +1,108 @@
+X-Mozilla-Keys: nonjunk
+Return-Path: <TomVoigt1@gmx.net>
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+	alfa3016.alfahosting-server.de
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.5 required=5.0 tests=AWL,BAYES_00,
+	FILL_THIS_FORM_FRAUD_PHISH,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,
+	HTML_MESSAGE,MIME_HTML_ONLY,RCVD_IN_DNSWL_LOW,RCVD_IN_MSPIKE_H2,
+	RP_MATCHES_RCVD,T_FILL_THIS_FORM_SHORT,URIBL_BLOCKED autolearn=no
+	autolearn_force=no version=3.4.0
+X-Spam-DCC: : alfa3016 0; Body=1 Fuz1=1 Fuz2=1
+X-Original-To: info@efesus.de
+Delivered-To: web784p1@alfa3016.alfahosting-server.de
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
+	by alfa3016.alfahosting-server.de (Postfix) with ESMTPS id 57E55118DC25
+	for <info@efesus.de>; Mon, 28 Mar 2016 11:22:49 +0200 (CEST)
+Received: from [94.218.195.70] by 3capp-gmx-bs33.server.lan (via HTTP); Mon,
+ 28 Mar 2016 11:22:48 +0200
+MIME-Version: 1.0
+Message-ID: <trinity-6169beb5-21b2-4469-b3b4-7aee0316de70-1459156968681@3capp-gmx-bs33>
+From: "Tom Voigt" <TomVoigt1@gmx.net>
+To: info@efesus.de
+Subject: Emailverlauf
+Content-Type: text/html; charset=UTF-8
+Date: Mon, 28 Mar 2016 11:22:48 +0200
+Importance: normal
+Sensitivity: Normal
+X-Priority: 3
+X-Provags-ID: V03:K0:GEnGT4EWumg2wdo0kj8ry5aJBse6QLb/cwsSB4JM1Xi
+ DGvEacJWdn2AzatC2/f8Zw3oYTfofdFASI8hdE7w81HpIe+tE0
+ ulP4FIoHAtyOLVoSWtbwA3skCnx3wgZqgl5T91DHCaYNh6gMTe
+ YmnSHvGcbYih+FjAWjYB6bn0JtjLSPHjM5kFrmsN/r9D1EvA8z
+ 97qxH6voJXgeEEHqLCAq7PmoFx3wQidLyFe2iHUpfTV5w0nI1x
+ Nw9ou6FcdoMSTZDzp4/UF0P13Cflhe5BoeI/FcTNUhSyPm9eVO B5dwus=
+X-UI-Out-Filterresults: notjunk:1;V01:K0:52Sz+si/068=:AdIhTT7wrvfHVPWGn5L6yv
+ KiHtnMu2oIzd16NzzkJRfooH4ZUTWSIdVfUB7nmtT75z6ab2tk0bhBu2BNn8baXVfmzblubsD
+ 03Za5AwqywDLdW5vsVED9gce4WR/SM4MekHKj31SPevREBKFcgkxoPuzVeyU9fvL5kPL5Kfbg
+ lT/TE6BH145oJnueQmt1hA86rgmHdll1uz/32hyy1JCBI1Cs6CvI5bTvPHQ4eR9Ej9Hq8f/XQ
+ Yb/RH+VBpgKMvKEnoJscwNtEt3DEIDmvLGXwJSc4EM0XHxhTiiSEQBxJZ7YQ6ieFiYSE/L3LX
+ 9Un5EIG5f2iATu8clzN/ZPBZsXtudJKuQneYKbzBsNiQ3QEv39wsEOzeV9BPDwB+lrrTCgifP
+ 1FXbrP9XiY9Sli/kG8vrMEO/DRdamxTBfQxDIpdZ/9kLPPCu3wTjs56rBv1p5RN7/2Va2hOkl
+ EV21n5gCBw==
+X-Alfa-Virus: check-delete
+X-Alfa-Spam: check
+
+<html><head></head><body><div style="font-family: Verdana;font-size: 12.0px;"><div>
+<div style="font-family: Verdana;font-size: 12.0px;">
+<div>&nbsp;
+<div>&nbsp;
+<div style="margin: 10.0px 5.0px 5.0px 10.0px;padding: 10.0px 0 10.0px 10.0px;border-left: 2.0px solid rgb(195,217,229);">
+<div style="margin: 0 0 10.0px 0;"><b>Gesendet:</b>&nbsp;Dienstag, 22. M&auml;rz 2016 um 23:20 Uhr<br/>
+<b>Von:</b>&nbsp;Sales Clevora - &#92;&quot;Call center Indien&#92;&quot; &lt;sales@clevora.in&gt;<br/>
+<b>An:</b>&nbsp;&quot;&#39;Tom Voigt&#39;&quot; &lt;TomVoigt1@gmx.net&gt;<br/>
+<b>Betreff:</b>&nbsp;RE: Bank details</div>
+
+<div>Hi Tom,<br/>
+<br/>
+Below you have the details of your Company Bank, which will be required by<br/>
+you to develop the interface between bank and your payment system.<br/>
+<br/>
+Bank : Hdfc Bank Ltd<br/>
+State : Jammu And Kashmir<br/>
+District : Srinagar<br/>
+Branch : Barzulla Chowk<br/>
+IFSC Code : HDFC0001739 (5th character is zero)<br/>
+MICR Code : 190240006<br/>
+Branch Code : 001739 (Last 6 Characters of the IFSC Code)<br/>
+City : Srinagar<br/>
+Address : Hdfc Bank Ltdbaghat Barzulla Chowksrinagar<br/>
+<br/>
+You need same information from your users, who will donate money to your<br/>
+NGO. So please create a page, where keep this following information<br/>
+available for them.<br/>
+<br/>
+1. Name of the Beneficiary<br/>
+2. Account Number<br/>
+3. Bank Name and Branch<br/>
+4. IFSC Code of their branch.<br/>
+<br/>
+Let me know, what else information you are looking for to build up this<br/>
+interface.<br/>
+<br/>
+Best Regards,<br/>
+<br/>
+Mayank Chandhok<br/>
+<br/>
+<br/>
+<br/>
+-----Original Message-----<br/>
+From: Tom Voigt [mailto:TomVoigt1@gmx.net]<br/>
+Sent: Wednesday, March 23, 2016 2:18 AM<br/>
+To: sales@clevora.in<br/>
+Subject: Bank details<br/>
+<br/>
+Hello Mayank,<br/>
+<br/>
+Please find all the required information attached to this email.<br/>
+<br/>
+Best regards,<br/>
+Tom<br/>
+<br/>
+&nbsp;</div>
+</div>
+</div>
+</div>
+</div>
+</div></div></body></html>
+

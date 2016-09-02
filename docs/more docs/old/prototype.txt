@@ -1,0 +1,68 @@
+Stammbaum - Vergütung - Fragen
+====================
+
+
+* Brauche genaue Beschreibung unter welchen Bedingungen 
+wer welche Vergütung erhält (Model aufschlüsselung)
+* Berücksichtung von Abweichungen von diesem Standard Model notwendig um z.b. Bonuse zu unterstützen? Heisst das:
+  * Bonus Provisionsätze? 
+  * Bonus Provisionszahlungen (einmalig) ?
+  * Wie sollen manuelle Vergütungsstufen aussehen?
+
+* Ein Mitglied hat immer nur 1 einzigen übergeordnetes Mitglied (im folgenden "Parent" genannt)
+* Die Position in meinem Stammbaum bestimmt meine "Vergütungs-Status"
+* Wenn ein Mitglied aufsteigt, wer soll dann der neue Parent sein?
+* Muss der ursprüngliche Parent (von Registrierung) gespeichert werden?
+
+Transaktionsverwaltung - Fragen
+============
+
+* Sollen Provisionen für Mitglieder, Promoter etc. gestaffelt und einmal wöchentlich, monatlich ausgeführt werden? Immer sofortige Ausführung bedeutet unter Umständen langsameres System da (Schnittstelle zur Bank langsam? etc.). Staffeln hat einige Vorteile für das Handling des Geldflusses. Bei sofortiger Durchführung kommen Fragen auf wie: was passiert wenn die Bank nicht erreichbar ist oder die Zahlung aus irgendwelchen Gründen nicht durchgeführt werden kann (in diesem Fall "muss" die Transaktion gespeichert und später durchgeführt werden können)?
+* Ist überhaupt eine Transaktionsverwaltung/Protokollierung gewünscht? Das heisst:
+  * Müssen Geldflüsse aus Rechtlichen (Steuern etc.) festgehalten und dargestellt werden können?
+  * Soll ich als Mitglied, Promoter etc. meine Transaktionen einsehen können? 
+  * Also Konkret: Transparenz aller Transaktionen nötig oder stilles abwickeln im Hintergründ gewünscht?
+
+* Welche Zahlungsmethode sind gewünscht? 
+* Nur Überweisung? Gibt es Einschränkungen welche Banken genutzt werden (Rechersche nötig was automatisierte Prozesse und APIs der Banken betrifft)
+* Stripe - Kreditkartenanbieter - hervorragende technische API (kostspielig)
+* Sepa - Bankeinzug?
+* 
+
+Allgemein - Fragen
+========
+
+* Unterstützung von Mulit-Currency? (Nur Euro und Usd oder mehr?)
+* Liegt es im Interesse des Kunden Daten zu sammeln oder Daten clean zu halten? (Siehe z.B. Registrierung)
+* Ein Promoter, Anwalt ist im technischen Sinne auch nur ein Mitglied mit einer "hohen/bestimmten" Position im Stammbaum. Oder muss zwischen Promoter, Anwalt etc. und "einfachen" Mitgliedern unterschieden werden können?
+
+
+Registrierung - Fragen
+=============
+
+* Email verifizieren? 
+* Datensatz erst mit verifizierte Email anlegen (um Leichen zu vermeiden) oder immer anlegen und Daten sammeln
+* Herkunft/Wohnsitz verifizieren? (Fragwürdig was Aufwand angeht, Personalausweis/Reisepass Kontrolle? z.b. Durch Bild Erkennung? Also Frage: Ist es ein Problem wenn das Mitglied falsche Adressdaten angibt?
+* Liste der zugelassen Länder muss Kunde liefern (Whitelisting). Alternativ Blacklisting: Kunde liefert Liste nicht zugelassener Länder (unsicherer)!
+* Mitgliedsnummer stilllegen -> heißt Löschen? Oder müssen diese Nummern im System behalten werden?
+* Sollen Duplikate vermieden werden? Jede E-Mail nur einmal? Oder gar jeder Wohnsitz/Name nur einmal? Um gegebenenfalls Betrug zu vermeiden? (Ich fake neue Mitglieder für mich um mich selbst im Stammbaum zu pushen?)
+* 
+
+
+Mitglieder - Zahlungsvalidierung
+==============
+
+* erfordert das System eine ständige Validierung der Mitgliedschaft? Zum Beispiel: Soll das System reagieren wenn Mitgliedsbeitrag-Zahlungen ausfallen (auch nach erfolgreicher Registrierung)?
+* Wenn ja wie soll der vorige Fall gehandhabt werden?
+* Gibt es für Mitglieder einen "Account" Bereich? Also Login etc. 
+  * Weiterführend dahingehend: Soll ich mein Bankkonto/Adresse ändern können?
+
+
+Presentation - Design - Fragen
+==============
+
+* Übersetzungen nur English oder müssen vom Kunden geliefert werden?
+* Darstellung der Registrierung / Soziale Projekte?
+  * Werden wir übernehmen? Klären wie ansprechend die Präsentation sein muss? Sollen Mockups erstellt werden, bekommen wir Mockups?
+  * In welcher Form (wie Aufwendig) werden wir den Content der Projekte erhalten? (Text, Bilder)
+  * Also ist es gegebenenfalls nötig ein CMS für diesen Content zu nutzen?

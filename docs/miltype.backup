@@ -1,0 +1,1359 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.3.10
+-- Dumped by pg_dump version 9.4.4
+-- Started on 2016-04-17 10:36:25
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- TOC entry 190 (class 3079 OID 11789)
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- TOC entry 2129 (class 0 OID 0)
+-- Dependencies: 190
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 172 (class 1259 OID 17160)
+-- Name: tbmt_member; Type: TABLE; Schema: public; Owner: miltype; Tablespace: 
+--
+
+CREATE TABLE tbmt_member (
+    id integer NOT NULL,
+    first_name character varying(80) NOT NULL,
+    last_name character varying(80) NOT NULL,
+    num integer NOT NULL,
+    email character varying(80) NOT NULL,
+    title character varying(80) NOT NULL,
+    city character varying(80) NOT NULL,
+    zip_code character varying(80) NOT NULL,
+    country character varying(80) NOT NULL,
+    age smallint NOT NULL,
+    referrer_id integer,
+    parent_id integer,
+    signup_date timestamp with time zone NOT NULL,
+    paid_date timestamp with time zone,
+    funds_level smallint DEFAULT 1 NOT NULL,
+    bank_recipient character varying(120) NOT NULL,
+    iban character varying(80) NOT NULL,
+    bic character varying(80) NOT NULL,
+    type smallint DEFAULT 0 NOT NULL,
+    bonus_ids json DEFAULT '{}'::json NOT NULL,
+    bonus_level double precision DEFAULT 0 NOT NULL,
+    advertised_count integer DEFAULT 0 NOT NULL,
+    outstanding_advertised_count integer DEFAULT 0 NOT NULL,
+    password character varying(80) NOT NULL,
+    transferred_total character varying(255) DEFAULT '[]'::character varying NOT NULL,
+    outstanding_total character varying(255) DEFAULT '[]'::character varying NOT NULL,
+    deletion_date timestamp with time zone,
+    sub_promoter_referral integer
+);
+
+
+ALTER TABLE tbmt_member OWNER TO miltype;
+
+--
+-- TOC entry 177 (class 1259 OID 17222)
+-- Name: tbmt_transfer; Type: TABLE; Schema: public; Owner: miltype; Tablespace: 
+--
+
+CREATE TABLE tbmt_transfer (
+    id integer NOT NULL,
+    member_id integer NOT NULL,
+    amount double precision DEFAULT 0 NOT NULL,
+    currency character varying(3) NOT NULL,
+    state smallint DEFAULT 0 NOT NULL,
+    attempts smallint DEFAULT 0 NOT NULL,
+    execution_date timestamp with time zone,
+    processed_date timestamp with time zone
+);
+
+
+ALTER TABLE tbmt_transfer OWNER TO miltype;
+
+--
+-- TOC entry 188 (class 1259 OID 17332)
+-- Name: last_members_with_transfers; Type: VIEW; Schema: public; Owner: miltype
+--
+
+CREATE VIEW last_members_with_transfers AS
+ SELECT m.id,
+    m.num,
+    m.type
+   FROM (tbmt_member m
+     JOIN tbmt_transfer t ON ((t.member_id = m.id)))
+  WHERE (t.amount > (0)::double precision)
+  ORDER BY m.id DESC
+ LIMIT 500;
+
+
+ALTER TABLE last_members_with_transfers OWNER TO miltype;
+
+--
+-- TOC entry 179 (class 1259 OID 17240)
+-- Name: tbmt_transaction; Type: TABLE; Schema: public; Owner: miltype; Tablespace: 
+--
+
+CREATE TABLE tbmt_transaction (
+    id bigint NOT NULL,
+    transfer_id integer NOT NULL,
+    amount double precision DEFAULT 0 NOT NULL,
+    reason smallint DEFAULT 0 NOT NULL,
+    purpose character varying(255) DEFAULT ''::character varying NOT NULL,
+    related_id integer,
+    date timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE tbmt_transaction OWNER TO miltype;
+
+--
+-- TOC entry 189 (class 1259 OID 17337)
+-- Name: last_transactions_joined; Type: VIEW; Schema: public; Owner: miltype
+--
+
+CREATE VIEW last_transactions_joined AS
+ SELECT ta.id,
+    ta.transfer_id,
+    ta.amount,
+    ta.reason,
+    ta.related_id,
+    ta.date,
+    tf.amount AS trfamount,
+    m.type,
+    m.id AS memid,
+    m.num
+   FROM ((tbmt_transaction ta
+     JOIN tbmt_transfer tf ON ((ta.transfer_id = tf.id)))
+     JOIN tbmt_member m ON ((tf.member_id = m.id)))
+ LIMIT 500;
+
+
+ALTER TABLE last_transactions_joined OWNER TO miltype;
+
+--
+-- TOC entry 187 (class 1259 OID 17317)
+-- Name: tbmt_activity; Type: TABLE; Schema: public; Owner: miltype; Tablespace: 
+--
+
+CREATE TABLE tbmt_activity (
+    id bigint NOT NULL,
+    action smallint NOT NULL,
+    type smallint NOT NULL,
+    date timestamp with time zone NOT NULL,
+    member_id integer,
+    related_id integer,
+    meta text
+);
+
+
+ALTER TABLE tbmt_activity OWNER TO miltype;
+
+--
+-- TOC entry 186 (class 1259 OID 17315)
+-- Name: tbmt_activity_id_seq; Type: SEQUENCE; Schema: public; Owner: miltype
+--
+
+CREATE SEQUENCE tbmt_activity_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE tbmt_activity_id_seq OWNER TO miltype;
+
+--
+-- TOC entry 2130 (class 0 OID 0)
+-- Dependencies: 186
+-- Name: tbmt_activity_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: miltype
+--
+
+ALTER SEQUENCE tbmt_activity_id_seq OWNED BY tbmt_activity.id;
+
+
+--
+-- TOC entry 185 (class 1259 OID 17308)
+-- Name: tbmt_currency; Type: TABLE; Schema: public; Owner: miltype; Tablespace: 
+--
+
+CREATE TABLE tbmt_currency (
+    name character varying(128) NOT NULL,
+    alphabetic_code character varying(3) NOT NULL,
+    numeric_code character varying(3) NOT NULL,
+    minor_unit smallint NOT NULL
+);
+
+
+ALTER TABLE tbmt_currency OWNER TO miltype;
+
+--
+-- TOC entry 175 (class 1259 OID 17208)
+-- Name: tbmt_email_validation; Type: TABLE; Schema: public; Owner: miltype; Tablespace: 
+--
+
+CREATE TABLE tbmt_email_validation (
+    id integer NOT NULL,
+    hash character varying(64) NOT NULL,
+    creationdate integer NOT NULL,
+    meta json DEFAULT '[]'::json NOT NULL
+);
+
+
+ALTER TABLE tbmt_email_validation OWNER TO miltype;
+
+--
+-- TOC entry 174 (class 1259 OID 17206)
+-- Name: tbmt_email_validation_id_seq; Type: SEQUENCE; Schema: public; Owner: miltype
+--
+
+CREATE SEQUENCE tbmt_email_validation_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE tbmt_email_validation_id_seq OWNER TO miltype;
+
+--
+-- TOC entry 2131 (class 0 OID 0)
+-- Dependencies: 174
+-- Name: tbmt_email_validation_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: miltype
+--
+
+ALTER SEQUENCE tbmt_email_validation_id_seq OWNED BY tbmt_email_validation.id;
+
+
+--
+-- TOC entry 182 (class 1259 OID 17273)
+-- Name: tbmt_invitation; Type: TABLE; Schema: public; Owner: miltype; Tablespace: 
+--
+
+CREATE TABLE tbmt_invitation (
+    id integer NOT NULL,
+    hash character varying(64) NOT NULL,
+    member_id integer NOT NULL,
+    type smallint NOT NULL,
+    free_signup smallint NOT NULL,
+    creation_date timestamp with time zone NOT NULL,
+    accepted_date timestamp with time zone,
+    accepted_member_id integer,
+    meta text DEFAULT '[]'::text NOT NULL
+);
+
+
+ALTER TABLE tbmt_invitation OWNER TO miltype;
+
+--
+-- TOC entry 181 (class 1259 OID 17271)
+-- Name: tbmt_invitation_id_seq; Type: SEQUENCE; Schema: public; Owner: miltype
+--
+
+CREATE SEQUENCE tbmt_invitation_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE tbmt_invitation_id_seq OWNER TO miltype;
+
+--
+-- TOC entry 2132 (class 0 OID 0)
+-- Dependencies: 181
+-- Name: tbmt_invitation_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: miltype
+--
+
+ALTER SEQUENCE tbmt_invitation_id_seq OWNED BY tbmt_invitation.id;
+
+
+--
+-- TOC entry 173 (class 1259 OID 17195)
+-- Name: tbmt_member_data; Type: TABLE; Schema: public; Owner: miltype; Tablespace: 
+--
+
+CREATE TABLE tbmt_member_data (
+    member_id integer NOT NULL,
+    fee_reminder_email smallint DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE tbmt_member_data OWNER TO miltype;
+
+--
+-- TOC entry 170 (class 1259 OID 17156)
+-- Name: tbmt_member_id_seq; Type: SEQUENCE; Schema: public; Owner: miltype
+--
+
+CREATE SEQUENCE tbmt_member_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE tbmt_member_id_seq OWNER TO miltype;
+
+--
+-- TOC entry 2133 (class 0 OID 0)
+-- Dependencies: 170
+-- Name: tbmt_member_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: miltype
+--
+
+ALTER SEQUENCE tbmt_member_id_seq OWNED BY tbmt_member.id;
+
+
+--
+-- TOC entry 171 (class 1259 OID 17158)
+-- Name: tbmt_member_num_seq; Type: SEQUENCE; Schema: public; Owner: miltype
+--
+
+CREATE SEQUENCE tbmt_member_num_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE tbmt_member_num_seq OWNER TO miltype;
+
+--
+-- TOC entry 2134 (class 0 OID 0)
+-- Dependencies: 171
+-- Name: tbmt_member_num_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: miltype
+--
+
+ALTER SEQUENCE tbmt_member_num_seq OWNED BY tbmt_member.num;
+
+
+--
+-- TOC entry 180 (class 1259 OID 17255)
+-- Name: tbmt_reserved_paid_event; Type: TABLE; Schema: public; Owner: miltype; Tablespace: 
+--
+
+CREATE TABLE tbmt_reserved_paid_event (
+    unpaid_id integer NOT NULL,
+    paid_id integer NOT NULL,
+    is_free_invitation integer DEFAULT 0 NOT NULL,
+    currency character varying(3) NOT NULL,
+    date timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE tbmt_reserved_paid_event OWNER TO miltype;
+
+--
+-- TOC entry 184 (class 1259 OID 17295)
+-- Name: tbmt_system_stats; Type: TABLE; Schema: public; Owner: miltype; Tablespace: 
+--
+
+CREATE TABLE tbmt_system_stats (
+    id integer NOT NULL,
+    invitation_incrementer character varying(10) DEFAULT '2A15F6'::character varying NOT NULL,
+    signup_count integer DEFAULT 0 NOT NULL,
+    member_count integer DEFAULT 0 NOT NULL,
+    starter_count integer DEFAULT 0 NOT NULL,
+    pm_count integer DEFAULT 0 NOT NULL,
+    ol_count integer DEFAULT 0 NOT NULL,
+    vl_count integer DEFAULT 0 NOT NULL
+);
+
+
+ALTER TABLE tbmt_system_stats OWNER TO miltype;
+
+--
+-- TOC entry 183 (class 1259 OID 17293)
+-- Name: tbmt_system_stats_id_seq; Type: SEQUENCE; Schema: public; Owner: miltype
+--
+
+CREATE SEQUENCE tbmt_system_stats_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE tbmt_system_stats_id_seq OWNER TO miltype;
+
+--
+-- TOC entry 2135 (class 0 OID 0)
+-- Dependencies: 183
+-- Name: tbmt_system_stats_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: miltype
+--
+
+ALTER SEQUENCE tbmt_system_stats_id_seq OWNED BY tbmt_system_stats.id;
+
+
+--
+-- TOC entry 178 (class 1259 OID 17238)
+-- Name: tbmt_transaction_id_seq; Type: SEQUENCE; Schema: public; Owner: miltype
+--
+
+CREATE SEQUENCE tbmt_transaction_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE tbmt_transaction_id_seq OWNER TO miltype;
+
+--
+-- TOC entry 2136 (class 0 OID 0)
+-- Dependencies: 178
+-- Name: tbmt_transaction_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: miltype
+--
+
+ALTER SEQUENCE tbmt_transaction_id_seq OWNED BY tbmt_transaction.id;
+
+
+--
+-- TOC entry 176 (class 1259 OID 17220)
+-- Name: tbmt_transfer_id_seq; Type: SEQUENCE; Schema: public; Owner: miltype
+--
+
+CREATE SEQUENCE tbmt_transfer_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE tbmt_transfer_id_seq OWNER TO miltype;
+
+--
+-- TOC entry 2137 (class 0 OID 0)
+-- Dependencies: 176
+-- Name: tbmt_transfer_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: miltype
+--
+
+ALTER SEQUENCE tbmt_transfer_id_seq OWNED BY tbmt_transfer.id;
+
+
+--
+-- TOC entry 1955 (class 2604 OID 17320)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: miltype
+--
+
+ALTER TABLE ONLY tbmt_activity ALTER COLUMN id SET DEFAULT nextval('tbmt_activity_id_seq'::regclass);
+
+
+--
+-- TOC entry 1934 (class 2604 OID 17211)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: miltype
+--
+
+ALTER TABLE ONLY tbmt_email_validation ALTER COLUMN id SET DEFAULT nextval('tbmt_email_validation_id_seq'::regclass);
+
+
+--
+-- TOC entry 1945 (class 2604 OID 17276)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: miltype
+--
+
+ALTER TABLE ONLY tbmt_invitation ALTER COLUMN id SET DEFAULT nextval('tbmt_invitation_id_seq'::regclass);
+
+
+--
+-- TOC entry 1923 (class 2604 OID 17163)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: miltype
+--
+
+ALTER TABLE ONLY tbmt_member ALTER COLUMN id SET DEFAULT nextval('tbmt_member_id_seq'::regclass);
+
+
+--
+-- TOC entry 1924 (class 2604 OID 17164)
+-- Name: num; Type: DEFAULT; Schema: public; Owner: miltype
+--
+
+ALTER TABLE ONLY tbmt_member ALTER COLUMN num SET DEFAULT nextval('tbmt_member_num_seq'::regclass);
+
+
+--
+-- TOC entry 1949 (class 2604 OID 17298)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: miltype
+--
+
+ALTER TABLE ONLY tbmt_system_stats ALTER COLUMN id SET DEFAULT nextval('tbmt_system_stats_id_seq'::regclass);
+
+
+--
+-- TOC entry 1940 (class 2604 OID 17243)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: miltype
+--
+
+ALTER TABLE ONLY tbmt_transaction ALTER COLUMN id SET DEFAULT nextval('tbmt_transaction_id_seq'::regclass);
+
+
+--
+-- TOC entry 1936 (class 2604 OID 17225)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: miltype
+--
+
+ALTER TABLE ONLY tbmt_transfer ALTER COLUMN id SET DEFAULT nextval('tbmt_transfer_id_seq'::regclass);
+
+
+--
+-- TOC entry 2123 (class 0 OID 17317)
+-- Dependencies: 187
+-- Data for Name: tbmt_activity; Type: TABLE DATA; Schema: public; Owner: miltype
+--
+
+INSERT INTO tbmt_activity (id, action, type, date, member_id, related_id, meta) VALUES (3, 3, 1, '2016-04-10 15:05:59+01', NULL, 15, '{"data":{"referral_member_num":105,"title":"","invitation_code":"2bb47f","lastName":"01","firstName":"Director","age":"25","email":"test1@gmx.de","city":"Test","zip_code":"504299","country":"India","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1","password":"Porsche911","password2":"Porsche911"},"member":{"Id":19,"FirstName":"Director","LastName":"01","Num":null,"Email":"test1@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":15,"ParentId":15,"SignupDate":"1460297157","PaidDate":"1460297157","FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":4,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":0,"Password":"[\"b4ed4f46b55ca67f1460297157\",\"cd84ce2aa54dd91a487f367acd47106912ba1def\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"referer":{"Id":15,"FirstName":"Sales","LastName":"Management","Num":105,"Email":"test35@gmx.de","Title":"","City":"unknown","ZipCode":"504231","Country":"unknown","Age":99,"ReferrerId":null,"ParentId":null,"SignupDate":"1460191180","PaidDate":"1460191180","FundsLevel":2,"BankRecipient":"unknown","Iban":"unknown","Bic":"unknown","Type":5,"BonusIds":"{\"13\":1,\"14\":1,\"15\":1,\"16\":1,\"17\":1,\"18\":1}","BonusLevel":0,"AdvertisedCount":1,"OutstandingAdvertisedCount":0,"Password":"[\"01fd32ff318242231460191180\",\"f3f09a7b995ef66443d010bfb908d2a1002b49fd\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"invitation":{"Id":1,"Hash":"2bb47f","MemberId":15,"Type":4,"FreeSignup":1,"CreationDate":"1460296739","AcceptedDate":"1460297157","AcceptedMemberId":19,"Meta":[]}}');
+INSERT INTO tbmt_activity (id, action, type, date, member_id, related_id, meta) VALUES (4, 3, 1, '2016-04-10 15:15:31+01', NULL, 19, '{"data":{"referral_member_num":1000002,"title":"","invitation_code":"","lastName":"01","firstName":"Spender","age":"25","email":"test2@gmx.de","city":"Test","zip_code":"504299","country":"India","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1","password":"Porsche911","password2":"Porsche911"},"member":{"Id":20,"FirstName":"Spender","LastName":"01","Num":null,"Email":"test2@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":19,"ParentId":19,"SignupDate":"1460297729","PaidDate":null,"FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":0,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1,\"19\":4}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":0,"Password":"[\"60719a141181d65a1460297729\",\"740e9b4999d9fbe50198fd7bd152c86d55ee1201\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"referer":{"Id":19,"FirstName":"Director","LastName":"01","Num":1000002,"Email":"test1@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":15,"ParentId":15,"SignupDate":"1460297157","PaidDate":"1460297157","FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":4,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":1,"Password":"[\"b4ed4f46b55ca67f1460297157\",\"cd84ce2aa54dd91a487f367acd47106912ba1def\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"invitation":null}');
+INSERT INTO tbmt_activity (id, action, type, date, member_id, related_id, meta) VALUES (5, 3, 1, '2016-04-11 12:58:55+01', NULL, 19, '{"data":{"referral_member_num":1000002,"title":"","invitation_code":"","lastName":"02","firstName":"Spender","age":"25","email":"test3@gmx.de","city":"Test","zip_code":"504299","country":"India","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1","password":"Porsche911","password2":"Porsche911"},"member":{"Id":21,"FirstName":"Spender","LastName":"02","Num":null,"Email":"test3@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":19,"ParentId":19,"SignupDate":"1460375933","PaidDate":null,"FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":0,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1,\"19\":4}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":0,"Password":"[\"d3cbeba9c37f7cab1460375933\",\"0916219962c6cf34ad5c0c9610a09e78a29cc46a\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"referer":{"Id":19,"FirstName":"Director","LastName":"01","Num":1000002,"Email":"test1@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":15,"ParentId":15,"SignupDate":"1460297157","PaidDate":"1460297157","FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":4,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1}","BonusLevel":0,"AdvertisedCount":1,"OutstandingAdvertisedCount":1,"Password":"[\"b4ed4f46b55ca67f1460297157\",\"cd84ce2aa54dd91a487f367acd47106912ba1def\"]","TransferredTotal":[],"OutstandingTotal":{"INR":510},"DeletionDate":null,"SubPromoterReferral":null},"invitation":null}');
+INSERT INTO tbmt_activity (id, action, type, date, member_id, related_id, meta) VALUES (6, 3, 1, '2016-04-11 13:04:48+01', NULL, 21, '{"data":{"referral_member_num":1000004,"title":"","invitation_code":"","lastName":"03","firstName":"Spender","age":"25","email":"test4@gmx.de","city":"Test","zip_code":"504299","country":"India","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1","password":"Porsche911","password2":"Porsche911"},"member":{"Id":22,"FirstName":"Spender","LastName":"03","Num":null,"Email":"test4@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":21,"ParentId":21,"SignupDate":"1460376286","PaidDate":null,"FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":0,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1,\"19\":4}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":0,"Password":"[\"e57dc68172d051c91460376286\",\"c46313aa5da61093c281d90a989eb0035389da9c\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"referer":{"Id":21,"FirstName":"Spender","LastName":"02","Num":1000004,"Email":"test3@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":19,"ParentId":15,"SignupDate":"1460375933","PaidDate":"1460376026","FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":0,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1,\"19\":4}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":1,"Password":"[\"d3cbeba9c37f7cab1460375933\",\"0916219962c6cf34ad5c0c9610a09e78a29cc46a\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"invitation":null}');
+INSERT INTO tbmt_activity (id, action, type, date, member_id, related_id, meta) VALUES (7, 3, 1, '2016-04-11 13:06:45+01', NULL, 22, '{"data":{"referral_member_num":1000005,"title":"","invitation_code":"","lastName":"04","firstName":"Spender","age":"25","email":"test5@gmx.de","city":"Test","zip_code":"504299","country":"India","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1","password":"Porsche911","password2":"Porsche911"},"member":{"Id":23,"FirstName":"Spender","LastName":"04","Num":null,"Email":"test5@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":22,"ParentId":22,"SignupDate":"1460376403","PaidDate":null,"FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":0,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1,\"19\":4}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":0,"Password":"[\"471e479a932e77cb1460376403\",\"7dbb2cffdc2216b4d8d35748a30e4ffe133c74da\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"referer":{"Id":22,"FirstName":"Spender","LastName":"03","Num":1000005,"Email":"test4@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":21,"ParentId":21,"SignupDate":"1460376286","PaidDate":null,"FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":0,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1,\"19\":4}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":1,"Password":"[\"e57dc68172d051c91460376286\",\"c46313aa5da61093c281d90a989eb0035389da9c\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"invitation":null}');
+INSERT INTO tbmt_activity (id, action, type, date, member_id, related_id, meta) VALUES (8, 3, 1, '2016-04-11 13:08:29+01', NULL, 23, '{"data":{"referral_member_num":1000006,"title":"","invitation_code":"","lastName":"05","firstName":"Spender","age":"25","email":"test6@gmx.de","city":"Test","zip_code":"504299","country":"India","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1","password":"Porsche911","password2":"Porsche911"},"member":{"Id":24,"FirstName":"Spender","LastName":"05","Num":null,"Email":"test6@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":23,"ParentId":23,"SignupDate":"1460376506","PaidDate":null,"FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":0,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1,\"19\":4}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":0,"Password":"[\"f7e54178fa4bf1701460376506\",\"5ac8a59084fb93640a69c884642d152af698c1cb\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"referer":{"Id":23,"FirstName":"Spender","LastName":"04","Num":1000006,"Email":"test5@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":22,"ParentId":22,"SignupDate":"1460376403","PaidDate":null,"FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":0,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1,\"19\":4}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":1,"Password":"[\"471e479a932e77cb1460376403\",\"7dbb2cffdc2216b4d8d35748a30e4ffe133c74da\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"invitation":null}');
+INSERT INTO tbmt_activity (id, action, type, date, member_id, related_id, meta) VALUES (9, 3, 1, '2016-04-11 13:10:29+01', NULL, 24, '{"data":{"referral_member_num":1000007,"title":"","invitation_code":"","lastName":"06","firstName":"Spender","age":"25","email":"test7@gmx.de","city":"Test","zip_code":"504299","country":"India","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1","password":"Porsche911","password2":"Porsche911"},"member":{"Id":25,"FirstName":"Spender","LastName":"06","Num":null,"Email":"test7@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":24,"ParentId":24,"SignupDate":"1460376626","PaidDate":null,"FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":0,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1,\"19\":4}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":0,"Password":"[\"68317231600ed13d1460376626\",\"a8402a1843346c16e121dbce7b341ccb55f2ad05\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"referer":{"Id":24,"FirstName":"Spender","LastName":"05","Num":1000007,"Email":"test6@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":23,"ParentId":23,"SignupDate":"1460376506","PaidDate":null,"FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":0,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1,\"19\":4}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":1,"Password":"[\"f7e54178fa4bf1701460376506\",\"5ac8a59084fb93640a69c884642d152af698c1cb\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"invitation":null}');
+INSERT INTO tbmt_activity (id, action, type, date, member_id, related_id, meta) VALUES (10, 3, 1, '2016-04-11 14:09:15+01', NULL, 20, '{"data":{"referral_member_num":1000003,"title":"","invitation_code":"","lastName":"07","firstName":"Spender","age":"25","email":"test8@gmx.de","city":"Test","zip_code":"504299","country":"India","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1","password":"Porsche911","password2":"Porsche911"},"member":{"Id":26,"FirstName":"Spender","LastName":"07","Num":null,"Email":"test8@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":20,"ParentId":20,"SignupDate":"1460380153","PaidDate":null,"FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":0,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1,\"19\":4}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":0,"Password":"[\"04c2769088fee0061460380153\",\"f7e46b67c9f1578550af2725f0312087294bf1d2\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"referer":{"Id":20,"FirstName":"Spender","LastName":"01","Num":1000003,"Email":"test2@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":19,"ParentId":15,"SignupDate":"1460297729","PaidDate":"1460297862","FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":0,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1,\"19\":4}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":1,"Password":"[\"60719a141181d65a1460297729\",\"740e9b4999d9fbe50198fd7bd152c86d55ee1201\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"invitation":null}');
+INSERT INTO tbmt_activity (id, action, type, date, member_id, related_id, meta) VALUES (11, 3, 1, '2016-04-11 14:11:08+01', NULL, 26, '{"data":{"referral_member_num":1000009,"title":"","invitation_code":"","lastName":"08","firstName":"Spender","age":"25","email":"test9@gmx.de","city":"Test","zip_code":"504299","country":"India","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1","password":"Porsche911","password2":"Porsche911"},"member":{"Id":27,"FirstName":"Spender","LastName":"08","Num":null,"Email":"test9@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":26,"ParentId":26,"SignupDate":"1460380266","PaidDate":null,"FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":0,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1,\"19\":4}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":0,"Password":"[\"66369a9b5145aebf1460380266\",\"23ac829d2f95133fa7014f1dd173e4f2db12756c\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"referer":{"Id":26,"FirstName":"Spender","LastName":"07","Num":1000009,"Email":"test8@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":20,"ParentId":20,"SignupDate":"1460380153","PaidDate":null,"FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":0,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1,\"19\":4}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":1,"Password":"[\"04c2769088fee0061460380153\",\"f7e46b67c9f1578550af2725f0312087294bf1d2\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"invitation":null}');
+INSERT INTO tbmt_activity (id, action, type, date, member_id, related_id, meta) VALUES (12, 3, 1, '2016-04-11 14:12:32+01', NULL, 27, '{"data":{"referral_member_num":1000010,"title":"","invitation_code":"","lastName":"09","firstName":"Spender","age":"25","email":"test10@gmx.de","city":"Test","zip_code":"504299","country":"India","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1","password":"Porsche911","password2":"Porsche911"},"member":{"Id":28,"FirstName":"Spender","LastName":"09","Num":null,"Email":"test10@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":27,"ParentId":27,"SignupDate":"1460380349","PaidDate":null,"FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":0,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1,\"19\":4}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":0,"Password":"[\"1308e3830e7ef53e1460380349\",\"c3c39ff76ff8a4ed3eeb802382369bb5a9bcaf6f\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"referer":{"Id":27,"FirstName":"Spender","LastName":"08","Num":1000010,"Email":"test9@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":26,"ParentId":26,"SignupDate":"1460380266","PaidDate":null,"FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":0,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1,\"19\":4}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":1,"Password":"[\"66369a9b5145aebf1460380266\",\"23ac829d2f95133fa7014f1dd173e4f2db12756c\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"invitation":null}');
+INSERT INTO tbmt_activity (id, action, type, date, member_id, related_id, meta) VALUES (13, 3, 1, '2016-04-11 14:14:02+01', NULL, 28, '{"data":{"referral_member_num":1000011,"title":"","invitation_code":"","lastName":"10","firstName":"Spender","age":"25","email":"test1@gmx.de","city":"Test","zip_code":"504299","country":"India","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1","password":"Porsche911","password2":"Porsche911"},"member":{"Id":29,"FirstName":"Spender","LastName":"10","Num":null,"Email":"test1@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":28,"ParentId":28,"SignupDate":"1460380440","PaidDate":null,"FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":0,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1,\"19\":4}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":0,"Password":"[\"d507d6fa780e7b7f1460380440\",\"897b0322b0a417be97ec18786f5aca68f5bfe82a\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"referer":{"Id":28,"FirstName":"Spender","LastName":"09","Num":1000011,"Email":"test10@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":27,"ParentId":27,"SignupDate":"1460380349","PaidDate":null,"FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":0,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1,\"19\":4}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":1,"Password":"[\"1308e3830e7ef53e1460380349\",\"c3c39ff76ff8a4ed3eeb802382369bb5a9bcaf6f\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"invitation":null}');
+INSERT INTO tbmt_activity (id, action, type, date, member_id, related_id, meta) VALUES (14, 3, 1, '2016-04-12 08:23:06+01', NULL, 19, '{"data":{"referral_member_num":1000002,"title":"","invitation_code":"","lastName":"11","firstName":"Spender","age":"25","email":"test-12@gmx.de","city":"Test","zip_code":"504299","country":"India","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1","password":"Porsche911","password2":"Porsche911"},"member":{"Id":30,"FirstName":"Spender","LastName":"11","Num":null,"Email":"test-12@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":19,"ParentId":19,"SignupDate":"1460445783","PaidDate":null,"FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":0,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1,\"19\":4}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":0,"Password":"[\"631a191fa4615e5f1460445783\",\"c949345eb623d8d6b4eb5c770ca36e82c92d48c6\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"referer":{"Id":19,"FirstName":"Director","LastName":"01","Num":1000002,"Email":"test1@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":15,"ParentId":null,"SignupDate":"1460297157","PaidDate":"1460297157","FundsLevel":2,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":4,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1}","BonusLevel":0,"AdvertisedCount":2,"OutstandingAdvertisedCount":1,"Password":"[\"b4ed4f46b55ca67f1460297157\",\"cd84ce2aa54dd91a487f367acd47106912ba1def\"]","TransferredTotal":[],"OutstandingTotal":{"INR":1020},"DeletionDate":null,"SubPromoterReferral":null},"invitation":null}');
+INSERT INTO tbmt_activity (id, action, type, date, member_id, related_id, meta) VALUES (15, 3, 1, '2016-04-12 08:29:24+01', NULL, 19, '{"data":{"referral_member_num":1000002,"title":"","invitation_code":"2d5308","lastName":"01","firstName":"Promoter","age":"25","email":"test13@gmx.de","city":"Test","zip_code":"504299","country":"India","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1","password":"Porsche911","password2":"Porsche911"},"member":{"Id":31,"FirstName":"Promoter","LastName":"01","Num":null,"Email":"test13@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":19,"ParentId":19,"SignupDate":"1460446161","PaidDate":"1460446161","FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":2,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1,\"19\":4}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":0,"Password":"[\"18d743935bc07d381460446161\",\"c83547d286ed876fed416e0e4969f709f48f3e2f\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"referer":{"Id":19,"FirstName":"Director","LastName":"01","Num":1000002,"Email":"test1@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":15,"ParentId":null,"SignupDate":"1460297157","PaidDate":"1460297157","FundsLevel":2,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":4,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1}","BonusLevel":0,"AdvertisedCount":4,"OutstandingAdvertisedCount":0,"Password":"[\"b4ed4f46b55ca67f1460297157\",\"cd84ce2aa54dd91a487f367acd47106912ba1def\"]","TransferredTotal":[],"OutstandingTotal":{"INR":2730},"DeletionDate":null,"SubPromoterReferral":null},"invitation":{"Id":2,"Hash":"2d5308","MemberId":19,"Type":2,"FreeSignup":1,"CreationDate":"1460446053","AcceptedDate":"1460446161","AcceptedMemberId":31,"Meta":[]}}');
+INSERT INTO tbmt_activity (id, action, type, date, member_id, related_id, meta) VALUES (16, 3, 1, '2016-04-12 09:18:50+01', NULL, 31, '{"data":{"referral_member_num":1000014,"title":"","invitation_code":"","lastName":"12","firstName":"Spender","age":"25","email":"test14@gmx.de","city":"Test","zip_code":"504299","country":"India","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1","password":"Porsche911","password2":"Porsche911"},"member":{"Id":32,"FirstName":"Spender","LastName":"12","Num":null,"Email":"test14@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":31,"ParentId":31,"SignupDate":"1460449128","PaidDate":null,"FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":0,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1,\"19\":4,\"31\":2}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":0,"Password":"[\"8d849c1e148c345f1460449128\",\"d66822171aee022bfcb2f11748c660832d2fdc06\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"referer":{"Id":31,"FirstName":"Promoter","LastName":"01","Num":1000014,"Email":"test13@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":19,"ParentId":19,"SignupDate":"1460446161","PaidDate":"1460446161","FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":2,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1,\"19\":4}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":1,"Password":"[\"18d743935bc07d381460446161\",\"c83547d286ed876fed416e0e4969f709f48f3e2f\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"invitation":null}');
+INSERT INTO tbmt_activity (id, action, type, date, member_id, related_id, meta) VALUES (17, 3, 1, '2016-04-13 09:54:06+01', NULL, 31, '{"data":{"referral_member_num":1000014,"title":"","invitation_code":"30901a","lastName":"02","firstName":"Promoter","age":"25","email":"test15@gmx.de","city":"Test","zip_code":"504299","country":"India","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1","password":"Porsche911","password2":"Porsche911"},"member":{"Id":33,"FirstName":"Promoter","LastName":"02","Num":null,"Email":"test15@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":19,"ParentId":19,"SignupDate":"1460537643","PaidDate":null,"FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":2,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1,\"19\":4}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":0,"Password":"[\"7b6e5e28937e52961460537643\",\"e4fd8d430927f249a6c88adf6d7dddbbed9daaa4\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"referer":{"Id":31,"FirstName":"Promoter","LastName":"01","Num":1000014,"Email":"test13@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":19,"ParentId":19,"SignupDate":"1460446161","PaidDate":"1460446161","FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":2,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1,\"19\":4}","BonusLevel":0,"AdvertisedCount":1,"OutstandingAdvertisedCount":0,"Password":"[\"18d743935bc07d381460446161\",\"c83547d286ed876fed416e0e4969f709f48f3e2f\"]","TransferredTotal":[],"OutstandingTotal":{"INR":370},"DeletionDate":null,"SubPromoterReferral":null},"invitation":{"Id":4,"Hash":"30901a","MemberId":31,"Type":2,"FreeSignup":0,"CreationDate":"1460537521","AcceptedDate":"1460537643","AcceptedMemberId":33,"Meta":[]}}');
+INSERT INTO tbmt_activity (id, action, type, date, member_id, related_id, meta) VALUES (18, 3, 1, '2016-04-13 10:08:37+01', NULL, 33, '{"data":{"referral_member_num":1000016,"title":"","invitation_code":"","lastName":"13","firstName":"Spender","age":"25","email":"test16@gmx.de","city":"Test","zip_code":"504299","country":"India","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1","password":"Porsche911","password2":"Porsche911"},"member":{"Id":34,"FirstName":"Spender","LastName":"13","Num":null,"Email":"test16@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":33,"ParentId":33,"SignupDate":"1460538515","PaidDate":null,"FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":0,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1,\"19\":4,\"33\":2}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":0,"Password":"[\"ac31b0364615ffed1460538515\",\"ace0d0116b1d38c318530d6c93241609371eee03\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"referer":{"Id":33,"FirstName":"Promoter","LastName":"02","Num":1000016,"Email":"test15@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":19,"ParentId":19,"SignupDate":"1460537643","PaidDate":"1460538007","FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":2,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1,\"19\":4}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":1,"Password":"[\"7b6e5e28937e52961460537643\",\"e4fd8d430927f249a6c88adf6d7dddbbed9daaa4\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"invitation":null}');
+INSERT INTO tbmt_activity (id, action, type, date, member_id, related_id, meta) VALUES (19, 3, 1, '2016-04-13 10:12:58+01', NULL, 19, '{"data":{"referral_member_num":1000002,"title":"","invitation_code":"322ea3","lastName":"01","firstName":"OL","age":"25","email":"test18@gmx.de","city":"Test","zip_code":"504299","country":"India","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1","password":"Porsche911","password2":"Porsche911"},"member":{"Id":35,"FirstName":"OL","LastName":"01","Num":null,"Email":"test18@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":19,"ParentId":19,"SignupDate":"1460538776","PaidDate":"1460538776","FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":3,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1,\"19\":4}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":0,"Password":"[\"4cc8815324f6d73f1460538776\",\"834f4d0dbf688f315d2d073e4667dfa5d5adbf1a\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"referer":{"Id":19,"FirstName":"Director","LastName":"01","Num":1000002,"Email":"test1@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":15,"ParentId":null,"SignupDate":"1460297157","PaidDate":"1460297157","FundsLevel":2,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":4,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1}","BonusLevel":0,"AdvertisedCount":6,"OutstandingAdvertisedCount":0,"Password":"[\"b4ed4f46b55ca67f1460297157\",\"cd84ce2aa54dd91a487f367acd47106912ba1def\"]","TransferredTotal":[],"OutstandingTotal":{"INR":8800},"DeletionDate":null,"SubPromoterReferral":null},"invitation":{"Id":5,"Hash":"322ea3","MemberId":19,"Type":3,"FreeSignup":1,"CreationDate":"1460538678","AcceptedDate":"1460538776","AcceptedMemberId":35,"Meta":[]}}');
+INSERT INTO tbmt_activity (id, action, type, date, member_id, related_id, meta) VALUES (20, 3, 1, '2016-04-13 10:20:10+01', NULL, 35, '{"data":{"referral_member_num":1000018,"title":"","invitation_code":"33cd2c","lastName":"03","firstName":"Promoter","age":"25","email":"test19@gmx.de","city":"Test","zip_code":"504299","country":"India","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1","password":"Porsche911","password2":"Porsche911"},"member":{"Id":36,"FirstName":"Promoter","LastName":"03","Num":null,"Email":"test19@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":35,"ParentId":19,"SignupDate":"1460539208","PaidDate":"1460539208","FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":2,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1,\"19\":4,\"35\":3}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":0,"Password":"[\"2b5a9de8d952c4ca1460539208\",\"8fdea1b45d074b415169f8b485c10f7e56a7d553\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"referer":{"Id":35,"FirstName":"OL","LastName":"01","Num":1000018,"Email":"test18@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":19,"ParentId":19,"SignupDate":"1460538776","PaidDate":"1460538776","FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":3,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1,\"19\":4}","BonusLevel":0,"AdvertisedCount":1,"OutstandingAdvertisedCount":0,"Password":"[\"4cc8815324f6d73f1460538776\",\"834f4d0dbf688f315d2d073e4667dfa5d5adbf1a\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"invitation":{"Id":6,"Hash":"33cd2c","MemberId":35,"Type":2,"FreeSignup":1,"CreationDate":"1460539128","AcceptedDate":"1460539208","AcceptedMemberId":36,"Meta":[]}}');
+INSERT INTO tbmt_activity (id, action, type, date, member_id, related_id, meta) VALUES (21, 3, 1, '2016-04-13 10:47:04+01', NULL, 36, '{"data":{"referral_member_num":1000019,"title":"","invitation_code":"","lastName":"14","firstName":"Spender","age":"25","email":"test20@gmx.de","city":"Test","zip_code":"504299","country":"India","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1","password":"Porsche911","password2":"Porsche911"},"member":{"Id":37,"FirstName":"Spender","LastName":"14","Num":null,"Email":"test20@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":36,"ParentId":36,"SignupDate":"1460540822","PaidDate":null,"FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":0,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1,\"19\":4,\"35\":3,\"36\":2}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":0,"Password":"[\"371c8e288db525421460540822\",\"43872474c2da81b449f3d94cbf165eb70b3e2bc9\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"referer":{"Id":36,"FirstName":"Promoter","LastName":"03","Num":1000019,"Email":"test19@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":35,"ParentId":19,"SignupDate":"1460539208","PaidDate":"1460539208","FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":2,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1,\"19\":4,\"35\":3}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":1,"Password":"[\"2b5a9de8d952c4ca1460539208\",\"8fdea1b45d074b415169f8b485c10f7e56a7d553\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"invitation":null}');
+INSERT INTO tbmt_activity (id, action, type, date, member_id, related_id, meta) VALUES (22, 3, 1, '2016-04-13 18:25:41+01', NULL, 36, '{"data":{"referral_member_num":1000019,"title":"","invitation_code":"","lastName":"15","firstName":"Spender","age":"25","email":"test21@gmx.de","city":"Test","zip_code":"504299","country":"India","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1","password":"Porsche911","password2":"Porsche911"},"member":{"Id":38,"FirstName":"Spender","LastName":"15","Num":null,"Email":"test21@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":36,"ParentId":36,"SignupDate":"1460568338","PaidDate":null,"FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":0,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1,\"19\":4,\"35\":3,\"36\":2}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":0,"Password":"[\"c49d1794b29790ed1460568338\",\"f91deb9703ee9b16c042688bda05b40edb4cb7e7\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"referer":{"Id":36,"FirstName":"Promoter","LastName":"03","Num":1000019,"Email":"test19@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":35,"ParentId":19,"SignupDate":"1460539208","PaidDate":"1460539208","FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":2,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1,\"19\":4,\"35\":3}","BonusLevel":0,"AdvertisedCount":1,"OutstandingAdvertisedCount":1,"Password":"[\"2b5a9de8d952c4ca1460539208\",\"8fdea1b45d074b415169f8b485c10f7e56a7d553\"]","TransferredTotal":[],"OutstandingTotal":{"INR":370},"DeletionDate":null,"SubPromoterReferral":null},"invitation":null}');
+INSERT INTO tbmt_activity (id, action, type, date, member_id, related_id, meta) VALUES (23, 3, 1, '2016-04-13 18:32:02+01', NULL, 36, '{"data":{"referral_member_num":1000019,"title":"","invitation_code":"","lastName":"16","firstName":"Spender","age":"25","email":"Test22@gmx.de","city":"Test","zip_code":"504299","country":"India","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1","password":"Porsche911","password2":"Porsche911"},"member":{"Id":39,"FirstName":"Spender","LastName":"16","Num":null,"Email":"Test22@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":36,"ParentId":36,"SignupDate":"1460568720","PaidDate":null,"FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":0,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1,\"19\":4,\"35\":3,\"36\":2}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":0,"Password":"[\"b3e2703b75c5bb7f1460568720\",\"96da3099862b9fa536c46351d920c27211687f8c\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"referer":{"Id":36,"FirstName":"Promoter","LastName":"03","Num":1000019,"Email":"test19@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":35,"ParentId":null,"SignupDate":"1460539208","PaidDate":"1460539208","FundsLevel":2,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":2,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1,\"19\":4,\"35\":3}","BonusLevel":0,"AdvertisedCount":2,"OutstandingAdvertisedCount":1,"Password":"[\"2b5a9de8d952c4ca1460539208\",\"8fdea1b45d074b415169f8b485c10f7e56a7d553\"]","TransferredTotal":[],"OutstandingTotal":{"INR":740},"DeletionDate":null,"SubPromoterReferral":null},"invitation":null}');
+INSERT INTO tbmt_activity (id, action, type, date, member_id, related_id, meta) VALUES (24, 3, 1, '2016-04-13 18:37:25+01', NULL, 37, '{"data":{"referral_member_num":1000020,"title":"","invitation_code":"","lastName":"17","firstName":"Spender","age":"25","email":"test23@gmx.de","city":"Test","zip_code":"504299","country":"India","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1","password":"Porsche911","password2":"Porsche911"},"member":{"Id":40,"FirstName":"Spender","LastName":"17","Num":null,"Email":"test23@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":37,"ParentId":37,"SignupDate":"1460569042","PaidDate":null,"FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":0,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1,\"19\":4,\"35\":3,\"36\":2}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":0,"Password":"[\"764957a91b34948b1460569042\",\"6099cd9c33639841883a8069e706d37bcc25252e\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"referer":{"Id":37,"FirstName":"Spender","LastName":"14","Num":1000020,"Email":"test20@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":36,"ParentId":19,"SignupDate":"1460540822","PaidDate":"1460540867","FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":0,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1,\"19\":4,\"35\":3,\"36\":2}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":1,"Password":"[\"371c8e288db525421460540822\",\"43872474c2da81b449f3d94cbf165eb70b3e2bc9\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"invitation":null}');
+INSERT INTO tbmt_activity (id, action, type, date, member_id, related_id, meta) VALUES (25, 3, 1, '2016-04-13 18:52:56+01', NULL, 35, '{"data":{"referral_member_num":1000018,"title":"","invitation_code":"","lastName":"18","firstName":"Spender","age":"25","email":"test-24@gmx.de","city":"Test","zip_code":"504299","country":"India","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1","password":"Porsche911","password2":"Porsche911"},"member":{"Id":41,"FirstName":"Spender","LastName":"18","Num":null,"Email":"test-24@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":35,"ParentId":35,"SignupDate":"1460569974","PaidDate":null,"FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":0,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1,\"19\":4,\"35\":3}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":0,"Password":"[\"dca61468030b4db91460569974\",\"477fafc0c9c17a8bbb0ff79f1f9372d4105293d8\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"referer":{"Id":35,"FirstName":"OL","LastName":"01","Num":1000018,"Email":"test18@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":19,"ParentId":19,"SignupDate":"1460538776","PaidDate":"1460538776","FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":3,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1,\"19\":4}","BonusLevel":0,"AdvertisedCount":1,"OutstandingAdvertisedCount":1,"Password":"[\"4cc8815324f6d73f1460538776\",\"834f4d0dbf688f315d2d073e4667dfa5d5adbf1a\"]","TransferredTotal":[],"OutstandingTotal":{"INR":280},"DeletionDate":null,"SubPromoterReferral":null},"invitation":null}');
+INSERT INTO tbmt_activity (id, action, type, date, member_id, related_id, meta) VALUES (26, 3, 1, '2016-04-13 18:55:45+01', NULL, 38, '{"data":{"referral_member_num":1000021,"title":"","invitation_code":"","lastName":"19","firstName":"Spender","age":"25","email":"test25@gmx.de","city":"Test","zip_code":"504299","country":"India","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1","password":"Porsche911","password2":"Porsche911"},"member":{"Id":42,"FirstName":"Spender","LastName":"19","Num":null,"Email":"test25@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":38,"ParentId":38,"SignupDate":"1460570143","PaidDate":null,"FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":0,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1,\"19\":4,\"35\":3,\"36\":2}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":0,"Password":"[\"f71fe4256229ede71460570143\",\"6f7e8ae483a18d85a53b603f489af2c8596bb33c\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"referer":{"Id":38,"FirstName":"Spender","LastName":"15","Num":1000021,"Email":"test21@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":36,"ParentId":19,"SignupDate":"1460568338","PaidDate":"1460568456","FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":0,"BonusIds":"{\"13\":1,\"14\":1,\"15\":5,\"16\":1,\"17\":1,\"18\":1,\"19\":4,\"35\":3,\"36\":2}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":1,"Password":"[\"c49d1794b29790ed1460568338\",\"f91deb9703ee9b16c042688bda05b40edb4cb7e7\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"invitation":null}');
+INSERT INTO tbmt_activity (id, action, type, date, member_id, related_id, meta) VALUES (27, 3, 1, '2016-04-13 19:00:40+01', NULL, 13, '{"data":{"referral_member_num":102,"title":"","invitation_code":"","lastName":"test","firstName":"11111","age":"25","email":"info@efesus.de","city":"Test","zip_code":"504299","country":"India","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1","password":"demo1234","password2":"demo1234"},"member":{"Id":43,"FirstName":"11111","LastName":"test","Num":null,"Email":"info@efesus.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":13,"ParentId":13,"SignupDate":"1460570438","PaidDate":null,"FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":0,"BonusIds":"{\"13\":5,\"14\":1,\"15\":1,\"16\":1,\"17\":1,\"18\":1}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":0,"Password":"[\"fdbff5cd7ce8cde51460570438\",\"ec6d76eec3fead9dca971f82d2b0fd92cbe8e5ea\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"referer":{"Id":13,"FirstName":"Marcus","LastName":"CEO","Num":102,"Email":"niko.neuhauser@gmail.com","Title":"","City":"unknown","ZipCode":"504231","Country":"unknown","Age":99,"ReferrerId":null,"ParentId":null,"SignupDate":"1460191180","PaidDate":"1460191180","FundsLevel":2,"BankRecipient":"unknown","Iban":"unknown","Bic":"unknown","Type":5,"BonusIds":"{\"13\":1,\"14\":1,\"15\":1,\"16\":1,\"17\":1,\"18\":1}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":1,"Password":"[\"86c0cd4fdd7816bb1460191180\",\"26fd02ca7aa3896f9b89aebb496f7a9104dc2529\"]","TransferredTotal":[],"OutstandingTotal":{"INR":55600},"DeletionDate":null,"SubPromoterReferral":null},"invitation":null}');
+INSERT INTO tbmt_activity (id, action, type, date, member_id, related_id, meta) VALUES (28, 3, 1, '2016-04-15 09:30:36+01', NULL, 13, '{"data":{"referral_member_num":102,"title":"","invitation_code":"","lastName":"I.","firstName":"Spender","age":"25","email":"test26@gmx.de","city":"Test","zip_code":"504299","country":"India","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1","password":"Porsche911","password2":"Porsche911"},"member":{"Id":44,"FirstName":"Spender","LastName":"I.","Num":null,"Email":"test26@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":13,"ParentId":13,"SignupDate":"1460709033","PaidDate":null,"FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":0,"BonusIds":"{\"13\":5,\"14\":1,\"15\":1,\"16\":1,\"17\":1,\"18\":1}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":0,"Password":"[\"6022e1474f22f5611460709033\",\"dc63181758b4ffad0562c53894c5b44c6cd3268b\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"referer":{"Id":13,"FirstName":"Marcus","LastName":"CEO","Num":102,"Email":"test34@gmx.de","Title":"","City":"unknown","ZipCode":"504231","Country":"unknown","Age":99,"ReferrerId":null,"ParentId":null,"SignupDate":"1460191180","PaidDate":"1460191180","FundsLevel":2,"BankRecipient":"unknown","Iban":"1234567890\u00df","Bic":"12345678","Type":5,"BonusIds":"{\"13\":1,\"14\":1,\"15\":1,\"16\":1,\"17\":1,\"18\":1}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":2,"Password":"[\"86c0cd4fdd7816bb1460191180\",\"26fd02ca7aa3896f9b89aebb496f7a9104dc2529\"]","TransferredTotal":[],"OutstandingTotal":{"INR":55600},"DeletionDate":null,"SubPromoterReferral":null},"invitation":null}');
+INSERT INTO tbmt_activity (id, action, type, date, member_id, related_id, meta) VALUES (29, 3, 1, '2016-04-15 15:01:11+01', NULL, 13, '{"data":{"referral_member_num":102,"title":"","invitation_code":"356bb5","lastName":"I.","firstName":"Director","age":"25","email":"test17@gmx.de","city":"Test","zip_code":"504299","country":"India","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1","password":"Porsche911","password2":"Porsche911"},"member":{"Id":45,"FirstName":"Director","LastName":"I.","Num":null,"Email":"test17@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":13,"ParentId":13,"SignupDate":"1460728868","PaidDate":null,"FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":4,"BonusIds":"{\"13\":5,\"14\":1,\"15\":1,\"16\":1,\"17\":1,\"18\":1}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":0,"Password":"[\"32c151d25c76ac511460728868\",\"9a9684d1102a6004762b18d0bc66bd0fcde01876\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"referer":{"Id":13,"FirstName":"Marcus","LastName":"CEO","Num":102,"Email":"test34@gmx.de","Title":"","City":"unknown","ZipCode":"504231","Country":"unknown","Age":99,"ReferrerId":null,"ParentId":null,"SignupDate":"1460191180","PaidDate":"1460191180","FundsLevel":2,"BankRecipient":"unknown","Iban":"1234567890\u00df","Bic":"12345678","Type":5,"BonusIds":"{\"13\":1,\"14\":1,\"15\":1,\"16\":1,\"17\":1,\"18\":1}","BonusLevel":0,"AdvertisedCount":1,"OutstandingAdvertisedCount":2,"Password":"[\"86c0cd4fdd7816bb1460191180\",\"26fd02ca7aa3896f9b89aebb496f7a9104dc2529\"]","TransferredTotal":[],"OutstandingTotal":{"INR":59880},"DeletionDate":null,"SubPromoterReferral":null},"invitation":{"Id":7,"Hash":"356bb5","MemberId":13,"Type":4,"FreeSignup":0,"CreationDate":"1460728797","AcceptedDate":"1460728868","AcceptedMemberId":45,"Meta":[]}}');
+INSERT INTO tbmt_activity (id, action, type, date, member_id, related_id, meta) VALUES (30, 3, 1, '2016-04-15 15:08:18+01', NULL, 45, '{"data":{"referral_member_num":1000028,"title":"","invitation_code":"","lastName":"II.","firstName":"Spender","age":"25","email":"test28@gmx.de","city":"Test","zip_code":"504299","country":"India","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1","password":"Porsche911","password2":"Porsche911"},"member":{"Id":46,"FirstName":"Spender","LastName":"II.","Num":null,"Email":"test28@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":45,"ParentId":45,"SignupDate":"1460729296","PaidDate":null,"FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":0,"BonusIds":"{\"13\":5,\"14\":1,\"15\":1,\"16\":1,\"17\":1,\"18\":1,\"45\":4}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":0,"Password":"[\"7d8065ebf42e8ae91460729296\",\"bc01dc06c199f9a18334668cd7e4f3e9795db3c9\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"referer":{"Id":45,"FirstName":"Director","LastName":"I.","Num":1000028,"Email":"test27@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":13,"ParentId":13,"SignupDate":"1460728868","PaidDate":"1460728970","FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":4,"BonusIds":"{\"13\":5,\"14\":1,\"15\":1,\"16\":1,\"17\":1,\"18\":1}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":1,"Password":"[\"32c151d25c76ac511460728868\",\"9a9684d1102a6004762b18d0bc66bd0fcde01876\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"invitation":null}');
+INSERT INTO tbmt_activity (id, action, type, date, member_id, related_id, meta) VALUES (31, 3, 1, '2016-04-15 15:30:40+01', NULL, 46, '{"data":{"referral_member_num":1000029,"title":"","invitation_code":"","lastName":"III.","firstName":"Spender","age":"25","email":"test29@gmx.de","city":"Test","zip_code":"504299","country":"India","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1","password":"Porsche911","password2":"Porsche911"},"member":{"Id":47,"FirstName":"Spender","LastName":"III.","Num":null,"Email":"test29@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":46,"ParentId":46,"SignupDate":"1460730637","PaidDate":null,"FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":0,"BonusIds":"{\"13\":5,\"14\":1,\"15\":1,\"16\":1,\"17\":1,\"18\":1,\"45\":4}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":0,"Password":"[\"3668450a8e1505c21460730637\",\"ffb961dda6f94c26b7e88f8674ce4feee94e0d56\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"referer":{"Id":46,"FirstName":"Spender","LastName":"II.","Num":1000029,"Email":"test28@gmx.de","Title":"","City":"Test","ZipCode":"504299","Country":"India","Age":25,"ReferrerId":45,"ParentId":13,"SignupDate":"1460729296","PaidDate":"1460729430","FundsLevel":1,"BankRecipient":"Test","Iban":"Test","Bic":"Test","Type":0,"BonusIds":"{\"13\":5,\"14\":1,\"15\":1,\"16\":1,\"17\":1,\"18\":1,\"45\":4}","BonusLevel":0,"AdvertisedCount":0,"OutstandingAdvertisedCount":1,"Password":"[\"7d8065ebf42e8ae91460729296\",\"bc01dc06c199f9a18334668cd7e4f3e9795db3c9\"]","TransferredTotal":[],"OutstandingTotal":[],"DeletionDate":null,"SubPromoterReferral":null},"invitation":null}');
+
+
+--
+-- TOC entry 2138 (class 0 OID 0)
+-- Dependencies: 186
+-- Name: tbmt_activity_id_seq; Type: SEQUENCE SET; Schema: public; Owner: miltype
+--
+
+SELECT pg_catalog.setval('tbmt_activity_id_seq', 31, true);
+
+
+--
+-- TOC entry 2121 (class 0 OID 17308)
+-- Dependencies: 185
+-- Data for Name: tbmt_currency; Type: TABLE DATA; Schema: public; Owner: miltype
+--
+
+
+
+--
+-- TOC entry 2111 (class 0 OID 17208)
+-- Dependencies: 175
+-- Data for Name: tbmt_email_validation; Type: TABLE DATA; Schema: public; Owner: miltype
+--
+
+INSERT INTO tbmt_email_validation (id, hash, creationdate, meta) VALUES (1, 'a49911c165c318c4be42090a92efb5b01459886870', 1459886870, '{"mod":"member","act":"signup_submit","referral_member_num":"102","invitation_code":"","title":"","lastName":"Spender","firstName":"Spender","password":"demo1234","password2":"demo1234","email":"info@efesus.de","age":"25","zip_code":"504299","city":"Test","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1"}');
+INSERT INTO tbmt_email_validation (id, hash, creationdate, meta) VALUES (2, '28e0bbad3002a47b3253b952d1c17ce91459887194', 1459887194, '{"mod":"member","act":"signup_submit","referral_member_num":"102","invitation_code":"","title":"","lastName":"Spender","firstName":"Spender","password":"demo1234","password2":"demo1234","email":"info@efesus.de","age":"25","zip_code":"504299","city":"Test","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1"}');
+INSERT INTO tbmt_email_validation (id, hash, creationdate, meta) VALUES (3, '088f5bb400d9f22eeb4fb4768184e72b1460296884', 1460296884, '{"mod":"member","act":"signup_submit","referral_member_num":"105","invitation_code":"2bb47f","title":"","lastName":"01","firstName":"Director","password":"Porsche911","password2":"Porsche911","email":"Test01@gmx.de","age":"25","zip_code":"504299","city":"Test","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1"}');
+INSERT INTO tbmt_email_validation (id, hash, creationdate, meta) VALUES (4, '18e604e90d869e687e96b275dee5dfcc1460297123', 1460297123, '{"mod":"member","act":"signup_submit","referral_member_num":"105","invitation_code":"2bb47f","title":"","lastName":"01","firstName":"Director","password":"Porsche911","password2":"Porsche911","email":"test1@gmx.de","age":"25","zip_code":"504299","city":"Test","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1"}');
+INSERT INTO tbmt_email_validation (id, hash, creationdate, meta) VALUES (5, '3646148e99067a8e2606b9d01529fed21460297703', 1460297703, '{"mod":"member","act":"signup_submit","referral_member_num":"1000002","invitation_code":"","title":"","lastName":"01","firstName":"Spender","password":"Porsche911","password2":"Porsche911","email":"test2@gmx.de","age":"25","zip_code":"504299","city":"Test","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1"}');
+INSERT INTO tbmt_email_validation (id, hash, creationdate, meta) VALUES (6, '4fbd5e76da5c839e9ae805f8f8e1c3141460375806', 1460375806, '{"mod":"member","act":"signup_submit","referral_member_num":"1000002","invitation_code":"","title":"","lastName":"02","firstName":"Spender","password":"Porsche911","password2":"Porsche911","email":"test3@gmx.de","age":"25","zip_code":"504299","city":"Test","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1"}');
+INSERT INTO tbmt_email_validation (id, hash, creationdate, meta) VALUES (7, '40452580c27596eeab1c30de94ba39041460376274', 1460376274, '{"mod":"member","act":"signup_submit","referral_member_num":"1000004","invitation_code":"","title":"","lastName":"03","firstName":"Spender","password":"Porsche911","password2":"Porsche911","email":"test4@gmx.de","age":"25","zip_code":"504299","city":"Test","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1"}');
+INSERT INTO tbmt_email_validation (id, hash, creationdate, meta) VALUES (8, '6adae8a877b95ed913877baf7c2f5b911460376389', 1460376389, '{"mod":"member","act":"signup_submit","referral_member_num":"1000005","invitation_code":"","title":"","lastName":"04","firstName":"Spender","password":"Porsche911","password2":"Porsche911","email":"test5@gmx.de","age":"25","zip_code":"504299","city":"Test","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1"}');
+INSERT INTO tbmt_email_validation (id, hash, creationdate, meta) VALUES (9, '3ada0592b38d31f74a270b65de4437b81460376496', 1460376496, '{"mod":"member","act":"signup_submit","referral_member_num":"1000006","invitation_code":"","title":"","lastName":"05","firstName":"Spender","password":"Porsche911","password2":"Porsche911","email":"test6@gmx.de","age":"25","zip_code":"504299","city":"Test","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1"}');
+INSERT INTO tbmt_email_validation (id, hash, creationdate, meta) VALUES (10, 'cde6d63acaf9686939d3dd0bb14cb8cd1460376615', 1460376615, '{"mod":"member","act":"signup_submit","referral_member_num":"1000007","invitation_code":"","title":"","lastName":"06","firstName":"Spender","password":"Porsche911","password2":"Porsche911","email":"test7@gmx.de","age":"25","zip_code":"504299","city":"Test","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1"}');
+INSERT INTO tbmt_email_validation (id, hash, creationdate, meta) VALUES (11, '83ced4570ad18bcc7a092d53bee7f1f41460380136', 1460380136, '{"mod":"member","act":"signup_submit","referral_member_num":"1000003","invitation_code":"","title":"","lastName":"07","firstName":"Spender","password":"Porsche911","password2":"Porsche911","email":"test8@gmx.de","age":"25","zip_code":"504299","city":"Test","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1"}');
+INSERT INTO tbmt_email_validation (id, hash, creationdate, meta) VALUES (12, 'a22cf22270189a03664585868409c4bb1460380256', 1460380256, '{"mod":"member","act":"signup_submit","referral_member_num":"1000009","invitation_code":"","title":"","lastName":"08","firstName":"Spender","password":"Porsche911","password2":"Porsche911","email":"test9@gmx.de","age":"25","zip_code":"504299","city":"Test","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1"}');
+INSERT INTO tbmt_email_validation (id, hash, creationdate, meta) VALUES (13, '58dbc18f6b08b000b965f31cfd303c8e1460380335', 1460380335, '{"mod":"member","act":"signup_submit","referral_member_num":"1000010","invitation_code":"","title":"","lastName":"09","firstName":"Spender","password":"Porsche911","password2":"Porsche911","email":"test10@gmx.de","age":"25","zip_code":"504299","city":"Test","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1"}');
+INSERT INTO tbmt_email_validation (id, hash, creationdate, meta) VALUES (14, '7ea7c80105958f3211dd78a70f4ff6311460380429', 1460380429, '{"mod":"member","act":"signup_submit","referral_member_num":"1000011","invitation_code":"","title":"","lastName":"10","firstName":"Spender","password":"Porsche911","password2":"Porsche911","email":"test1@gmx.de","age":"25","zip_code":"504299","city":"Test","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1"}');
+INSERT INTO tbmt_email_validation (id, hash, creationdate, meta) VALUES (15, '0ded4cfedfb34b027565e167cd4416511460445764', 1460445764, '{"mod":"member","act":"signup_submit","referral_member_num":"1000002","invitation_code":"","title":"","lastName":"11","firstName":"Spender","password":"Porsche911","password2":"Porsche911","email":"test-12@gmx.de","age":"25","zip_code":"504299","city":"Test","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1"}');
+INSERT INTO tbmt_email_validation (id, hash, creationdate, meta) VALUES (16, 'a54bda921105d213e1998a2d7831caf51460446148', 1460446148, '{"mod":"member","act":"signup_submit","referral_member_num":"1000002","invitation_code":"2d5308","title":"","lastName":"01","firstName":"Promoter","password":"Porsche911","password2":"Porsche911","email":"test13@gmx.de","age":"25","zip_code":"504299","city":"Test","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1"}');
+INSERT INTO tbmt_email_validation (id, hash, creationdate, meta) VALUES (17, 'fa09cd24807fccc867c77e2e8da190cf1460449043', 1460449043, '{"mod":"member","act":"signup_submit","referral_member_num":"1000014","invitation_code":"","title":"","lastName":"12","firstName":"Spender","password":"Porsche911","password2":"Porsche911","email":"test14@gmx.de","age":"25","zip_code":"504299","city":"Test","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1"}');
+INSERT INTO tbmt_email_validation (id, hash, creationdate, meta) VALUES (18, '6ddc26ca3c4dd525051569c2a157994c1460537616', 1460537616, '{"mod":"member","act":"signup_submit","referral_member_num":"1000014","invitation_code":"30901a","title":"","lastName":"02","firstName":"Promoter","password":"Porsche911","password2":"Porsche911","email":"test15@gmx.de","age":"25","zip_code":"504299","city":"Test","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1"}');
+INSERT INTO tbmt_email_validation (id, hash, creationdate, meta) VALUES (19, '92ce3535cf626522ceb87f9fd90ef5581460538503', 1460538503, '{"mod":"member","act":"signup_submit","referral_member_num":"1000016","invitation_code":"","title":"","lastName":"13","firstName":"Spender","password":"Porsche911","password2":"Porsche911","email":"test16@gmx.de","age":"25","zip_code":"504299","city":"Test","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1"}');
+INSERT INTO tbmt_email_validation (id, hash, creationdate, meta) VALUES (20, '4a9dea9644ac27a9ce4b83b129d2b6a61460538764', 1460538764, '{"mod":"member","act":"signup_submit","referral_member_num":"1000002","invitation_code":"322ea3","title":"","lastName":"01","firstName":"OL","password":"Porsche911","password2":"Porsche911","email":"test18@gmx.de","age":"25","zip_code":"504299","city":"Test","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1"}');
+INSERT INTO tbmt_email_validation (id, hash, creationdate, meta) VALUES (21, '0c8a55becdc84bdb18952677d96cd2521460539196', 1460539196, '{"mod":"member","act":"signup_submit","referral_member_num":"1000018","invitation_code":"33cd2c","title":"","lastName":"03","firstName":"Promoter","password":"Porsche911","password2":"Porsche911","email":"test19@gmx.de","age":"25","zip_code":"504299","city":"Test","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1"}');
+INSERT INTO tbmt_email_validation (id, hash, creationdate, meta) VALUES (22, '5210c7d5c1e78d182cb695a93b9c7cc51460540805', 1460540805, '{"mod":"member","act":"signup_submit","referral_member_num":"1000019","invitation_code":"","title":"","lastName":"14","firstName":"Spender","password":"Porsche911","password2":"Porsche911","email":"test20@gmx.de","age":"25","zip_code":"504299","city":"Test","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1"}');
+INSERT INTO tbmt_email_validation (id, hash, creationdate, meta) VALUES (23, 'b40acec8de58479bf58cf0cf1a389eb91460568310', 1460568310, '{"mod":"member","act":"signup_submit","referral_member_num":"1000019","invitation_code":"","title":"","lastName":"15","firstName":"Spender","password":"Porsche911","password2":"Porsche911","email":"test21@gmx.de","age":"25","zip_code":"504299","city":"Test","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1"}');
+INSERT INTO tbmt_email_validation (id, hash, creationdate, meta) VALUES (24, '66d71bb88fcee46828e3c4968535e6341460568699', 1460568699, '{"mod":"member","act":"signup_submit","referral_member_num":"1000019","invitation_code":"","title":"","lastName":"16","firstName":"Spender","password":"Porsche911","password2":"Porsche911","email":"Test22@gmx.de","age":"25","zip_code":"504299","city":"Test","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1"}');
+INSERT INTO tbmt_email_validation (id, hash, creationdate, meta) VALUES (25, 'd2db7c4b474bef6c41144f69d4cb33b81460569029', 1460569029, '{"mod":"member","act":"signup_submit","referral_member_num":"1000020","invitation_code":"","title":"","lastName":"17","firstName":"Spender","password":"Porsche911","password2":"Porsche911","email":"test23@gmx.de","age":"25","zip_code":"504299","city":"Test","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1"}');
+INSERT INTO tbmt_email_validation (id, hash, creationdate, meta) VALUES (26, '8a5611c4ff0253b96d2ab6966ae993ae1460569396', 1460569396, '{"mod":"member","act":"signup_submit","referral_member_num":"1000018","invitation_code":"","title":"","lastName":"18","firstName":"Spender","password":"Porsche911","password2":"Porsche911","email":"test24@gmx.de","age":"25","zip_code":"504299","city":"Test","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1"}');
+INSERT INTO tbmt_email_validation (id, hash, creationdate, meta) VALUES (27, 'b4b9566439988b854704b08b998383e01460569546', 1460569546, '{"mod":"member","act":"signup_submit","referral_member_num":"1000018","invitation_code":"","title":"","lastName":"18","firstName":"Spender","password":"Porsche911","password2":"Porsche911","email":"test24@gmx.de","age":"25","zip_code":"504299","city":"Test","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1"}');
+INSERT INTO tbmt_email_validation (id, hash, creationdate, meta) VALUES (28, '3e00e0edc039b2abb1afeca15f0f8d9f1460569962', 1460569962, '{"mod":"member","act":"signup_submit","referral_member_num":"1000018","invitation_code":"","title":"","lastName":"18","firstName":"Spender","password":"Porsche911","password2":"Porsche911","email":"test-24@gmx.de","age":"25","zip_code":"504299","city":"Test","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1"}');
+INSERT INTO tbmt_email_validation (id, hash, creationdate, meta) VALUES (29, '10a1c2bb250df6b64c2f722c8f7cbce71460570130', 1460570130, '{"mod":"member","act":"signup_submit","referral_member_num":"1000021","invitation_code":"","title":"","lastName":"19","firstName":"Spender","password":"Porsche911","password2":"Porsche911","email":"test25@gmx.de","age":"25","zip_code":"504299","city":"Test","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1"}');
+INSERT INTO tbmt_email_validation (id, hash, creationdate, meta) VALUES (30, '035aaf342220af44fa22dfdd8e1963531460570426', 1460570426, '{"mod":"member","act":"signup_submit","referral_member_num":"102","invitation_code":"","title":"","lastName":"test","firstName":"11111","password":"demo1234","password2":"demo1234","email":"info@efesus.de","age":"25","zip_code":"504299","city":"Test","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1"}');
+INSERT INTO tbmt_email_validation (id, hash, creationdate, meta) VALUES (31, '465669bc5634d55b35581cf4ea360fb31460649791', 1460649791, '{"mod":"member","act":"signup_submit","referral_member_num":"1000018","invitation_code":"","title":"","lastName":"Spender","firstName":"Spender","password":"demo1234","password2":"demo1234","email":"info@efesus.de","age":"25","zip_code":"504299","city":"Test","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1"}');
+INSERT INTO tbmt_email_validation (id, hash, creationdate, meta) VALUES (32, '3d994be9e8a713cabff93cbd80039e0a1460708918', 1460708918, '{"mod":"member","act":"signup_submit","referral_member_num":"102","invitation_code":"","title":"","lastName":"I.","firstName":"Spender","password":"Porsche911","password2":"Porsche911","email":"test26@gmx.de","age":"25","zip_code":"504299","city":"Test","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1"}');
+INSERT INTO tbmt_email_validation (id, hash, creationdate, meta) VALUES (33, 'deccec546216783a77b4c7af7d06a0141460728854', 1460728854, '{"mod":"member","act":"signup_submit","referral_member_num":"102","invitation_code":"356bb5","title":"","lastName":"I.","firstName":"Director","password":"Porsche911","password2":"Porsche911","email":"test17@gmx.de","age":"25","zip_code":"504299","city":"Test","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1"}');
+INSERT INTO tbmt_email_validation (id, hash, creationdate, meta) VALUES (34, 'ee01a9abf98eea853e46eab7ae6f1f561460729264', 1460729264, '{"mod":"member","act":"signup_submit","referral_member_num":"1000028","invitation_code":"","title":"","lastName":"II.","firstName":"Spender","password":"Porsche911","password2":"Porsche911","email":"test28@gmx.de","age":"25","zip_code":"504299","city":"Test","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1"}');
+INSERT INTO tbmt_email_validation (id, hash, creationdate, meta) VALUES (35, '29928d293b541ffc07a943a13fbba2ea1460730618', 1460730618, '{"mod":"member","act":"signup_submit","referral_member_num":"1000029","invitation_code":"","title":"","lastName":"III.","firstName":"Spender","password":"Porsche911","password2":"Porsche911","email":"test29@gmx.de","age":"25","zip_code":"504299","city":"Test","bank_recipient":"Test","iban":"Test","bic":"Test","accept_agbs":"1","accept_valid_country":"1"}');
+
+
+--
+-- TOC entry 2139 (class 0 OID 0)
+-- Dependencies: 174
+-- Name: tbmt_email_validation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: miltype
+--
+
+SELECT pg_catalog.setval('tbmt_email_validation_id_seq', 35, true);
+
+
+--
+-- TOC entry 2118 (class 0 OID 17273)
+-- Dependencies: 182
+-- Data for Name: tbmt_invitation; Type: TABLE DATA; Schema: public; Owner: miltype
+--
+
+INSERT INTO tbmt_invitation (id, hash, member_id, type, free_signup, creation_date, accepted_date, accepted_member_id, meta) VALUES (1, '2bb47f', 15, 4, 1, '2016-04-10 14:58:59+01', '2016-04-10 15:05:57+01', 19, '[]');
+INSERT INTO tbmt_invitation (id, hash, member_id, type, free_signup, creation_date, accepted_date, accepted_member_id, meta) VALUES (2, '2d5308', 19, 2, 1, '2016-04-12 08:27:33+01', '2016-04-12 08:29:21+01', 31, '[]');
+INSERT INTO tbmt_invitation (id, hash, member_id, type, free_signup, creation_date, accepted_date, accepted_member_id, meta) VALUES (3, '2ef191', 15, 4, 1, '2016-04-12 18:14:12+01', NULL, NULL, '[]');
+INSERT INTO tbmt_invitation (id, hash, member_id, type, free_signup, creation_date, accepted_date, accepted_member_id, meta) VALUES (4, '30901a', 31, 2, 0, '2016-04-13 09:52:01+01', '2016-04-13 09:54:03+01', 33, '[]');
+INSERT INTO tbmt_invitation (id, hash, member_id, type, free_signup, creation_date, accepted_date, accepted_member_id, meta) VALUES (5, '322ea3', 19, 3, 1, '2016-04-13 10:11:18+01', '2016-04-13 10:12:56+01', 35, '[]');
+INSERT INTO tbmt_invitation (id, hash, member_id, type, free_signup, creation_date, accepted_date, accepted_member_id, meta) VALUES (6, '33cd2c', 35, 2, 1, '2016-04-13 10:18:48+01', '2016-04-13 10:20:08+01', 36, '[]');
+INSERT INTO tbmt_invitation (id, hash, member_id, type, free_signup, creation_date, accepted_date, accepted_member_id, meta) VALUES (7, '356bb5', 13, 4, 0, '2016-04-15 14:59:57+01', '2016-04-15 15:01:08+01', 45, '[]');
+
+
+--
+-- TOC entry 2140 (class 0 OID 0)
+-- Dependencies: 181
+-- Name: tbmt_invitation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: miltype
+--
+
+SELECT pg_catalog.setval('tbmt_invitation_id_seq', 7, true);
+
+
+--
+-- TOC entry 2108 (class 0 OID 17160)
+-- Dependencies: 172
+-- Data for Name: tbmt_member; Type: TABLE DATA; Schema: public; Owner: miltype
+--
+
+INSERT INTO tbmt_member (id, first_name, last_name, num, email, title, city, zip_code, country, age, referrer_id, parent_id, signup_date, paid_date, funds_level, bank_recipient, iban, bic, type, bonus_ids, bonus_level, advertised_count, outstanding_advertised_count, password, transferred_total, outstanding_total, deletion_date, sub_promoter_referral) VALUES (12, 'root', 'account', 101, 'niko.neuhauser@gmail.com', '', 'unknown', '504231', 'unknown', 99, NULL, NULL, '2016-04-09 09:39:40+01', '2016-04-09 09:39:40+01', 2, 'unknown', 'unknown', 'unknown', -1, '{}', 0, 0, 0, '["478e55993195bd6d1460191180","13d889c0e7a7e5bcf1655bf734b698b8df29d9ae"]', '[]', '[]', NULL, NULL);
+INSERT INTO tbmt_member (id, first_name, last_name, num, email, title, city, zip_code, country, age, referrer_id, parent_id, signup_date, paid_date, funds_level, bank_recipient, iban, bic, type, bonus_ids, bonus_level, advertised_count, outstanding_advertised_count, password, transferred_total, outstanding_total, deletion_date, sub_promoter_referral) VALUES (34, 'Spender', '13', 1000017, 'test16@gmx.de', '', 'Test', '504299', 'India', 25, 33, 19, '2016-04-13 10:08:35+01', '2016-04-13 10:09:13+01', 1, 'Test', 'Test', 'Test', 0, '{"13":1,"14":1,"15":5,"16":1,"17":1,"18":1,"19":4,"33":2}', 0, 0, 0, '["ac31b0364615ffed1460538515","ace0d0116b1d38c318530d6c93241609371eee03"]', '[]', '[]', NULL, NULL);
+INSERT INTO tbmt_member (id, first_name, last_name, num, email, title, city, zip_code, country, age, referrer_id, parent_id, signup_date, paid_date, funds_level, bank_recipient, iban, bic, type, bonus_ids, bonus_level, advertised_count, outstanding_advertised_count, password, transferred_total, outstanding_total, deletion_date, sub_promoter_referral) VALUES (38, 'Spender', '15', 1000021, 'test21@gmx.de', '', 'Test', '504299', 'India', 25, 36, 19, '2016-04-13 18:25:38+01', '2016-04-13 18:27:36+01', 1, 'Test', 'Test', 'Test', 0, '{"13":1,"14":1,"15":5,"16":1,"17":1,"18":1,"19":4,"35":3,"36":2}', 0, 1, 0, '["c49d1794b29790ed1460568338","f91deb9703ee9b16c042688bda05b40edb4cb7e7"]', '[]', '{"INR":300}', NULL, NULL);
+INSERT INTO tbmt_member (id, first_name, last_name, num, email, title, city, zip_code, country, age, referrer_id, parent_id, signup_date, paid_date, funds_level, bank_recipient, iban, bic, type, bonus_ids, bonus_level, advertised_count, outstanding_advertised_count, password, transferred_total, outstanding_total, deletion_date, sub_promoter_referral) VALUES (42, 'Spender', '19', 1000025, 'test25@gmx.de', '', 'Test', '504299', 'India', 25, 38, 19, '2016-04-13 18:55:43+01', '2016-04-13 18:56:01+01', 1, 'Test', 'Test', 'Test', 0, '{"13":1,"14":1,"15":5,"16":1,"17":1,"18":1,"19":4,"35":3,"36":2}', 0, 0, 0, '["f71fe4256229ede71460570143","6f7e8ae483a18d85a53b603f489af2c8596bb33c"]', '[]', '[]', NULL, NULL);
+INSERT INTO tbmt_member (id, first_name, last_name, num, email, title, city, zip_code, country, age, referrer_id, parent_id, signup_date, paid_date, funds_level, bank_recipient, iban, bic, type, bonus_ids, bonus_level, advertised_count, outstanding_advertised_count, password, transferred_total, outstanding_total, deletion_date, sub_promoter_referral) VALUES (28, 'Spender', '09', 1000011, 'test10@gmx.de', '', 'Test', '504299', 'India', 25, 27, 15, '2016-04-11 14:12:29+01', '2016-04-12 12:15:07+01', 1, 'Test', 'Test', 'Test', 0, '{"13":1,"14":1,"15":5,"16":1,"17":1,"18":1,"19":4}', 0, 1, 0, '["1308e3830e7ef53e1460380349","c3c39ff76ff8a4ed3eeb802382369bb5a9bcaf6f"]', '[]', '{"INR":300}', NULL, NULL);
+INSERT INTO tbmt_member (id, first_name, last_name, num, email, title, city, zip_code, country, age, referrer_id, parent_id, signup_date, paid_date, funds_level, bank_recipient, iban, bic, type, bonus_ids, bonus_level, advertised_count, outstanding_advertised_count, password, transferred_total, outstanding_total, deletion_date, sub_promoter_referral) VALUES (29, 'Spender', '10', 1000012, 'test1@gmx.de', '', 'Test', '504299', 'India', 25, 28, 15, '2016-04-11 14:14:00+01', '2016-04-12 08:34:04+01', 1, 'Test', 'Test', 'Test', 0, '{"13":1,"14":1,"15":5,"16":1,"17":1,"18":1,"19":4}', 0, 0, 0, '["d507d6fa780e7b7f1460380440","897b0322b0a417be97ec18786f5aca68f5bfe82a"]', '[]', '[]', NULL, NULL);
+INSERT INTO tbmt_member (id, first_name, last_name, num, email, title, city, zip_code, country, age, referrer_id, parent_id, signup_date, paid_date, funds_level, bank_recipient, iban, bic, type, bonus_ids, bonus_level, advertised_count, outstanding_advertised_count, password, transferred_total, outstanding_total, deletion_date, sub_promoter_referral) VALUES (21, 'Spender', '02', 1000004, 'test3@gmx.de', '', 'Test', '504299', 'India', 25, 19, 15, '2016-04-11 12:58:53+01', '2016-04-11 13:00:26+01', 1, 'Test', 'Test', 'Test', 0, '{"13":1,"14":1,"15":5,"16":1,"17":1,"18":1,"19":4}', 0, 1, 0, '["d3cbeba9c37f7cab1460375933","0916219962c6cf34ad5c0c9610a09e78a29cc46a"]', '[]', '{"INR":300}', NULL, NULL);
+INSERT INTO tbmt_member (id, first_name, last_name, num, email, title, city, zip_code, country, age, referrer_id, parent_id, signup_date, paid_date, funds_level, bank_recipient, iban, bic, type, bonus_ids, bonus_level, advertised_count, outstanding_advertised_count, password, transferred_total, outstanding_total, deletion_date, sub_promoter_referral) VALUES (46, 'Spender', 'II.', 1000029, 'test28@gmx.de', '', 'Test', '504299', 'India', 25, 45, 13, '2016-04-15 15:08:16+01', '2016-04-15 15:10:30+01', 1, 'Test', 'Test', 'Test', 0, '{"13":5,"14":1,"15":1,"16":1,"17":1,"18":1,"45":4}', 0, 1, 0, '["7d8065ebf42e8ae91460729296","bc01dc06c199f9a18334668cd7e4f3e9795db3c9"]', '[]', '{"INR":300}', NULL, NULL);
+INSERT INTO tbmt_member (id, first_name, last_name, num, email, title, city, zip_code, country, age, referrer_id, parent_id, signup_date, paid_date, funds_level, bank_recipient, iban, bic, type, bonus_ids, bonus_level, advertised_count, outstanding_advertised_count, password, transferred_total, outstanding_total, deletion_date, sub_promoter_referral) VALUES (22, 'Spender', '03', 1000005, 'test4@gmx.de', '', 'Test', '504299', 'India', 25, 21, 15, '2016-04-11 13:04:46+01', '2016-04-12 12:15:13+01', 1, 'Test', 'Test', 'Test', 0, '{"13":1,"14":1,"15":5,"16":1,"17":1,"18":1,"19":4}', 0, 1, 0, '["e57dc68172d051c91460376286","c46313aa5da61093c281d90a989eb0035389da9c"]', '[]', '{"INR":300}', NULL, NULL);
+INSERT INTO tbmt_member (id, first_name, last_name, num, email, title, city, zip_code, country, age, referrer_id, parent_id, signup_date, paid_date, funds_level, bank_recipient, iban, bic, type, bonus_ids, bonus_level, advertised_count, outstanding_advertised_count, password, transferred_total, outstanding_total, deletion_date, sub_promoter_referral) VALUES (23, 'Spender', '04', 1000006, 'test5@gmx.de', '', 'Test', '504299', 'India', 25, 22, 15, '2016-04-11 13:06:43+01', '2016-04-12 12:15:02+01', 1, 'Test', 'Test', 'Test', 0, '{"13":1,"14":1,"15":5,"16":1,"17":1,"18":1,"19":4}', 0, 1, 0, '["471e479a932e77cb1460376403","7dbb2cffdc2216b4d8d35748a30e4ffe133c74da"]', '[]', '{"INR":300}', NULL, NULL);
+INSERT INTO tbmt_member (id, first_name, last_name, num, email, title, city, zip_code, country, age, referrer_id, parent_id, signup_date, paid_date, funds_level, bank_recipient, iban, bic, type, bonus_ids, bonus_level, advertised_count, outstanding_advertised_count, password, transferred_total, outstanding_total, deletion_date, sub_promoter_referral) VALUES (24, 'Spender', '05', 1000007, 'test6@gmx.de', '', 'Test', '504299', 'India', 25, 23, 15, '2016-04-11 13:08:26+01', '2016-04-11 19:30:07+01', 1, 'Test', 'Test', 'Test', 0, '{"13":1,"14":1,"15":5,"16":1,"17":1,"18":1,"19":4}', 0, 1, 0, '["f7e54178fa4bf1701460376506","5ac8a59084fb93640a69c884642d152af698c1cb"]', '[]', '{"INR":300}', NULL, NULL);
+INSERT INTO tbmt_member (id, first_name, last_name, num, email, title, city, zip_code, country, age, referrer_id, parent_id, signup_date, paid_date, funds_level, bank_recipient, iban, bic, type, bonus_ids, bonus_level, advertised_count, outstanding_advertised_count, password, transferred_total, outstanding_total, deletion_date, sub_promoter_referral) VALUES (25, 'Spender', '06', 1000008, 'test7@gmx.de', '', 'Test', '504299', 'India', 25, 24, 15, '2016-04-11 13:10:26+01', '2016-04-11 19:29:20+01', 1, 'Test', 'Test', 'Test', 0, '{"13":1,"14":1,"15":5,"16":1,"17":1,"18":1,"19":4}', 0, 0, 0, '["68317231600ed13d1460376626","a8402a1843346c16e121dbce7b341ccb55f2ad05"]', '[]', '[]', NULL, NULL);
+INSERT INTO tbmt_member (id, first_name, last_name, num, email, title, city, zip_code, country, age, referrer_id, parent_id, signup_date, paid_date, funds_level, bank_recipient, iban, bic, type, bonus_ids, bonus_level, advertised_count, outstanding_advertised_count, password, transferred_total, outstanding_total, deletion_date, sub_promoter_referral) VALUES (20, 'Spender', '01', 1000003, 'test2@gmx.de', '', 'Test', '504299', 'India', 25, 19, 15, '2016-04-10 15:15:29+01', '2016-04-10 15:17:42+01', 1, 'Test', 'Test', 'Test', 0, '{"13":1,"14":1,"15":5,"16":1,"17":1,"18":1,"19":4}', 0, 1, 0, '["60719a141181d65a1460297729","740e9b4999d9fbe50198fd7bd152c86d55ee1201"]', '[]', '{"INR":300}', NULL, NULL);
+INSERT INTO tbmt_member (id, first_name, last_name, num, email, title, city, zip_code, country, age, referrer_id, parent_id, signup_date, paid_date, funds_level, bank_recipient, iban, bic, type, bonus_ids, bonus_level, advertised_count, outstanding_advertised_count, password, transferred_total, outstanding_total, deletion_date, sub_promoter_referral) VALUES (30, 'Spender', '11', 1000013, 'test-12@gmx.de', '', 'Test', '504299', 'India', 25, 19, 19, '2016-04-12 08:23:03+01', '2016-04-12 08:23:28+01', 1, 'Test', 'Test', 'Test', 0, '{"13":1,"14":1,"15":5,"16":1,"17":1,"18":1,"19":4}', 0, 0, 0, '["631a191fa4615e5f1460445783","c949345eb623d8d6b4eb5c770ca36e82c92d48c6"]', '[]', '[]', NULL, NULL);
+INSERT INTO tbmt_member (id, first_name, last_name, num, email, title, city, zip_code, country, age, referrer_id, parent_id, signup_date, paid_date, funds_level, bank_recipient, iban, bic, type, bonus_ids, bonus_level, advertised_count, outstanding_advertised_count, password, transferred_total, outstanding_total, deletion_date, sub_promoter_referral) VALUES (35, 'OL', '01', 1000018, 'test18@gmx.de', '', 'Test', '504299', 'India', 25, 19, NULL, '2016-04-13 10:12:56+01', '2016-04-13 10:12:56+01', 2, 'Test', 'Test', 'Test', 3, '{"13":1,"14":1,"15":5,"16":1,"17":1,"18":1,"19":4}', 0, 2, 0, '["4cc8815324f6d73f1460538776","834f4d0dbf688f315d2d073e4667dfa5d5adbf1a"]', '[]', '{"INR":790}', NULL, NULL);
+INSERT INTO tbmt_member (id, first_name, last_name, num, email, title, city, zip_code, country, age, referrer_id, parent_id, signup_date, paid_date, funds_level, bank_recipient, iban, bic, type, bonus_ids, bonus_level, advertised_count, outstanding_advertised_count, password, transferred_total, outstanding_total, deletion_date, sub_promoter_referral) VALUES (43, '11111', 'test', 1000026, 'info@efesus.de', '', 'Test', '504299', 'India', 25, 13, 13, '2016-04-13 19:00:38+01', NULL, 1, 'Test', 'Test', 'Test', 0, '{"13":5,"14":1,"15":1,"16":1,"17":1,"18":1}', 0, 0, 0, '["fdbff5cd7ce8cde51460570438","ec6d76eec3fead9dca971f82d2b0fd92cbe8e5ea"]', '[]', '[]', NULL, NULL);
+INSERT INTO tbmt_member (id, first_name, last_name, num, email, title, city, zip_code, country, age, referrer_id, parent_id, signup_date, paid_date, funds_level, bank_recipient, iban, bic, type, bonus_ids, bonus_level, advertised_count, outstanding_advertised_count, password, transferred_total, outstanding_total, deletion_date, sub_promoter_referral) VALUES (17, 'Taric', 'Wani', 107, 'niko.neuhauser@gmail.com', '', 'unknown', '504231', 'unknown', 99, NULL, NULL, '2016-04-09 09:39:40+01', '2016-04-09 09:39:40+01', 2, 'unknown', 'unknown', 'unknown', 0, '{"13":1,"14":1,"15":1,"16":1,"17":1,"18":1}', 0, 0, 0, '["33ff5fc6fef965a41460191180","3ecac0c95d51e0507c097ddaee09e42b79993df9"]', '[]', '{"INR":1200}', NULL, NULL);
+INSERT INTO tbmt_member (id, first_name, last_name, num, email, title, city, zip_code, country, age, referrer_id, parent_id, signup_date, paid_date, funds_level, bank_recipient, iban, bic, type, bonus_ids, bonus_level, advertised_count, outstanding_advertised_count, password, transferred_total, outstanding_total, deletion_date, sub_promoter_referral) VALUES (47, 'Spender', 'III.', 1000030, 'test29@gmx.de', '', 'Test', '504299', 'India', 25, 46, 13, '2016-04-15 15:30:37+01', '2016-04-15 15:31:05+01', 1, 'Test', 'Test', 'Test', 0, '{"13":5,"14":1,"15":1,"16":1,"17":1,"18":1,"45":4}', 0, 0, 0, '["3668450a8e1505c21460730637","ffb961dda6f94c26b7e88f8674ce4feee94e0d56"]', '[]', '[]', NULL, NULL);
+INSERT INTO tbmt_member (id, first_name, last_name, num, email, title, city, zip_code, country, age, referrer_id, parent_id, signup_date, paid_date, funds_level, bank_recipient, iban, bic, type, bonus_ids, bonus_level, advertised_count, outstanding_advertised_count, password, transferred_total, outstanding_total, deletion_date, sub_promoter_referral) VALUES (39, 'Spender', '16', 1000022, 'Test22@gmx.de', '', 'Test', '504299', 'India', 25, 36, 36, '2016-04-13 18:32:00+01', '2016-04-13 18:32:31+01', 1, 'Test', 'Test', 'Test', 0, '{"13":1,"14":1,"15":5,"16":1,"17":1,"18":1,"19":4,"35":3,"36":2}', 0, 0, 0, '["b3e2703b75c5bb7f1460568720","96da3099862b9fa536c46351d920c27211687f8c"]', '[]', '[]', NULL, NULL);
+INSERT INTO tbmt_member (id, first_name, last_name, num, email, title, city, zip_code, country, age, referrer_id, parent_id, signup_date, paid_date, funds_level, bank_recipient, iban, bic, type, bonus_ids, bonus_level, advertised_count, outstanding_advertised_count, password, transferred_total, outstanding_total, deletion_date, sub_promoter_referral) VALUES (26, 'Spender', '07', 1000009, 'test8@gmx.de', '', 'Test', '504299', 'India', 25, 20, 15, '2016-04-11 14:09:13+01', '2016-04-12 08:37:47+01', 1, 'Test', 'Test', 'Test', 0, '{"13":1,"14":1,"15":5,"16":1,"17":1,"18":1,"19":4}', 0, 1, 0, '["04c2769088fee0061460380153","f7e46b67c9f1578550af2725f0312087294bf1d2"]', '[]', '{"INR":300}', NULL, NULL);
+INSERT INTO tbmt_member (id, first_name, last_name, num, email, title, city, zip_code, country, age, referrer_id, parent_id, signup_date, paid_date, funds_level, bank_recipient, iban, bic, type, bonus_ids, bonus_level, advertised_count, outstanding_advertised_count, password, transferred_total, outstanding_total, deletion_date, sub_promoter_referral) VALUES (31, 'Promoter', '01', 1000014, 'test13@gmx.de', '', 'Test', '504299', 'India', 25, 19, 19, '2016-04-12 08:29:21+01', '2016-04-12 08:29:21+01', 1, 'Test', 'Test', 'Test', 2, '{"13":1,"14":1,"15":5,"16":1,"17":1,"18":1,"19":4}', 0, 1, 0, '["18d743935bc07d381460446161","c83547d286ed876fed416e0e4969f709f48f3e2f"]', '[]', '{"INR":370}', NULL, NULL);
+INSERT INTO tbmt_member (id, first_name, last_name, num, email, title, city, zip_code, country, age, referrer_id, parent_id, signup_date, paid_date, funds_level, bank_recipient, iban, bic, type, bonus_ids, bonus_level, advertised_count, outstanding_advertised_count, password, transferred_total, outstanding_total, deletion_date, sub_promoter_referral) VALUES (32, 'Spender', '12', 1000015, 'test14@gmx.de', '', 'Test', '504299', 'India', 25, 31, 19, '2016-04-12 09:18:48+01', '2016-04-12 09:20:41+01', 1, 'Test', 'Test', 'Test', 0, '{"13":1,"14":1,"15":5,"16":1,"17":1,"18":1,"19":4,"31":2}', 0, 0, 0, '["8d849c1e148c345f1460449128","d66822171aee022bfcb2f11748c660832d2fdc06"]', '[]', '[]', NULL, NULL);
+INSERT INTO tbmt_member (id, first_name, last_name, num, email, title, city, zip_code, country, age, referrer_id, parent_id, signup_date, paid_date, funds_level, bank_recipient, iban, bic, type, bonus_ids, bonus_level, advertised_count, outstanding_advertised_count, password, transferred_total, outstanding_total, deletion_date, sub_promoter_referral) VALUES (27, 'Spender', '08', 1000010, 'test9@gmx.de', '', 'Test', '504299', 'India', 25, 26, 15, '2016-04-11 14:11:06+01', '2016-04-12 08:37:14+01', 1, 'Test', 'Test', 'Test', 0, '{"13":1,"14":1,"15":5,"16":1,"17":1,"18":1,"19":4}', 0, 1, 0, '["66369a9b5145aebf1460380266","23ac829d2f95133fa7014f1dd173e4f2db12756c"]', '[]', '{"INR":300}', NULL, NULL);
+INSERT INTO tbmt_member (id, first_name, last_name, num, email, title, city, zip_code, country, age, referrer_id, parent_id, signup_date, paid_date, funds_level, bank_recipient, iban, bic, type, bonus_ids, bonus_level, advertised_count, outstanding_advertised_count, password, transferred_total, outstanding_total, deletion_date, sub_promoter_referral) VALUES (40, 'Spender', '17', 1000023, 'test23@gmx.de', '', 'Test', '504299', 'India', 25, 37, 19, '2016-04-13 18:37:22+01', '2016-04-13 18:38:06+01', 1, 'Test', 'Test', 'Test', 0, '{"13":1,"14":1,"15":5,"16":1,"17":1,"18":1,"19":4,"35":3,"36":2}', 0, 0, 0, '["764957a91b34948b1460569042","6099cd9c33639841883a8069e706d37bcc25252e"]', '[]', '[]', NULL, NULL);
+INSERT INTO tbmt_member (id, first_name, last_name, num, email, title, city, zip_code, country, age, referrer_id, parent_id, signup_date, paid_date, funds_level, bank_recipient, iban, bic, type, bonus_ids, bonus_level, advertised_count, outstanding_advertised_count, password, transferred_total, outstanding_total, deletion_date, sub_promoter_referral) VALUES (36, 'Promoter', '03', 1000019, 'test19@gmx.de', '', 'Test', '504299', 'India', 25, 35, NULL, '2016-04-13 10:20:08+01', '2016-04-13 10:20:08+01', 2, 'Test', 'Test', 'Test', 2, '{"13":1,"14":1,"15":5,"16":1,"17":1,"18":1,"19":4,"35":3}', 0, 3, 0, '["2b5a9de8d952c4ca1460539208","8fdea1b45d074b415169f8b485c10f7e56a7d553"]', '[]', '{"INR":2450}', NULL, NULL);
+INSERT INTO tbmt_member (id, first_name, last_name, num, email, title, city, zip_code, country, age, referrer_id, parent_id, signup_date, paid_date, funds_level, bank_recipient, iban, bic, type, bonus_ids, bonus_level, advertised_count, outstanding_advertised_count, password, transferred_total, outstanding_total, deletion_date, sub_promoter_referral) VALUES (44, 'Spender', 'I.', 1000027, 'test26@gmx.de', '', 'Test', '504299', 'India', 25, 13, 13, '2016-04-15 09:30:33+01', '2016-04-15 09:32:05+01', 1, 'Test', 'Test', 'Test', 0, '{"13":5,"14":1,"15":1,"16":1,"17":1,"18":1}', 0, 0, 0, '["6022e1474f22f5611460709033","dc63181758b4ffad0562c53894c5b44c6cd3268b"]', '[]', '[]', NULL, NULL);
+INSERT INTO tbmt_member (id, first_name, last_name, num, email, title, city, zip_code, country, age, referrer_id, parent_id, signup_date, paid_date, funds_level, bank_recipient, iban, bic, type, bonus_ids, bonus_level, advertised_count, outstanding_advertised_count, password, transferred_total, outstanding_total, deletion_date, sub_promoter_referral) VALUES (18, 'Projects', 'NGO', 106, 'niko.neuhauser@gmail.com', '', 'unknown', '504231', 'unknown', 99, NULL, NULL, '2016-04-09 09:39:40+01', '2016-04-09 09:39:40+01', 2, 'unknown', 'unknown', 'unknown', 0, '{"13":1,"14":1,"15":1,"16":1,"17":1,"18":1}', 0, 0, 0, '["1dd56687df733fe11460191180","0a81e8faf78637132030c734649a114369051514"]', '[]', '{"INR":13200}', NULL, NULL);
+INSERT INTO tbmt_member (id, first_name, last_name, num, email, title, city, zip_code, country, age, referrer_id, parent_id, signup_date, paid_date, funds_level, bank_recipient, iban, bic, type, bonus_ids, bonus_level, advertised_count, outstanding_advertised_count, password, transferred_total, outstanding_total, deletion_date, sub_promoter_referral) VALUES (14, 'System', 'IT', 104, 'niko.neuhauser@gmail.com', '', 'unknown', '504231', 'unknown', 99, NULL, NULL, '2016-04-09 09:39:40+01', '2016-04-09 09:39:40+01', 2, 'unknown', 'unknown', 'unknown', 0, '{"13":1,"14":1,"15":1,"16":1,"17":1,"18":1}', 0, 0, 0, '["52f4a4b88013fdec1460191180","938fbdda1ab1ab7af65d968fb70fdc8982c7b818"]', '[]', '{"INR":1680}', NULL, NULL);
+INSERT INTO tbmt_member (id, first_name, last_name, num, email, title, city, zip_code, country, age, referrer_id, parent_id, signup_date, paid_date, funds_level, bank_recipient, iban, bic, type, bonus_ids, bonus_level, advertised_count, outstanding_advertised_count, password, transferred_total, outstanding_total, deletion_date, sub_promoter_referral) VALUES (16, 'Organization', 'Executive', 108, 'niko.neuhauser@gmail.com', '', 'unknown', '504231', 'unknown', 99, NULL, NULL, '2016-04-09 09:39:40+01', '2016-04-09 09:39:40+01', 2, 'unknown', 'unknown', 'unknown', 0, '{"13":1,"14":1,"15":1,"16":1,"17":1,"18":1}', 0, 0, 0, '["c5ab0e84825397141460191180","62f0d728ed154ee37e14d1774b655660064b9e93"]', '[]', '{"INR":1200}', NULL, NULL);
+INSERT INTO tbmt_member (id, first_name, last_name, num, email, title, city, zip_code, country, age, referrer_id, parent_id, signup_date, paid_date, funds_level, bank_recipient, iban, bic, type, bonus_ids, bonus_level, advertised_count, outstanding_advertised_count, password, transferred_total, outstanding_total, deletion_date, sub_promoter_referral) VALUES (45, 'Director', 'I.', 1000028, 'test-27@gmx.de', '', 'Test', '504299', 'India', 25, 13, 13, '2016-04-15 15:01:08+01', '2016-04-15 15:02:50+01', 1, 'Test', 'Test', 'Test', 4, '{"13":5,"14":1,"15":1,"16":1,"17":1,"18":1}', 0, 1, 0, '["32c151d25c76ac511460728868","9a9684d1102a6004762b18d0bc66bd0fcde01876"]', '[]', '{"INR":720}', NULL, NULL);
+INSERT INTO tbmt_member (id, first_name, last_name, num, email, title, city, zip_code, country, age, referrer_id, parent_id, signup_date, paid_date, funds_level, bank_recipient, iban, bic, type, bonus_ids, bonus_level, advertised_count, outstanding_advertised_count, password, transferred_total, outstanding_total, deletion_date, sub_promoter_referral) VALUES (37, 'Spender', '14', 1000020, 'test20@gmx.de', '', 'Test', '504299', 'India', 25, 36, 19, '2016-04-13 10:47:02+01', '2016-04-13 10:47:47+01', 1, 'Test', 'Test', 'Test', 0, '{"13":1,"14":1,"15":5,"16":1,"17":1,"18":1,"19":4,"35":3,"36":2}', 0, 1, 0, '["371c8e288db525421460540822","43872474c2da81b449f3d94cbf165eb70b3e2bc9"]', '[]', '{"INR":300}', NULL, NULL);
+INSERT INTO tbmt_member (id, first_name, last_name, num, email, title, city, zip_code, country, age, referrer_id, parent_id, signup_date, paid_date, funds_level, bank_recipient, iban, bic, type, bonus_ids, bonus_level, advertised_count, outstanding_advertised_count, password, transferred_total, outstanding_total, deletion_date, sub_promoter_referral) VALUES (41, 'Spender', '18', 1000024, 'test-24@gmx.de', '', 'Test', '504299', 'India', 25, 35, 19, '2016-04-13 18:52:54+01', '2016-04-13 18:53:34+01', 1, 'Test', 'Test', 'Test', 0, '{"13":1,"14":1,"15":5,"16":1,"17":1,"18":1,"19":4,"35":3}', 0, 0, 0, '["dca61468030b4db91460569974","477fafc0c9c17a8bbb0ff79f1f9372d4105293d8"]', '[]', '[]', NULL, NULL);
+INSERT INTO tbmt_member (id, first_name, last_name, num, email, title, city, zip_code, country, age, referrer_id, parent_id, signup_date, paid_date, funds_level, bank_recipient, iban, bic, type, bonus_ids, bonus_level, advertised_count, outstanding_advertised_count, password, transferred_total, outstanding_total, deletion_date, sub_promoter_referral) VALUES (13, 'Marcus', 'CEO', 102, 'test34@gmx.de', '', 'unknown', '504231', 'unknown', 99, NULL, NULL, '2016-04-09 09:39:40+01', '2016-04-09 09:39:40+01', 2, 'unknown', '1234567890ß', '12345678', 5, '{"13":1,"14":1,"15":1,"16":1,"17":1,"18":1}', 0, 2, 1, '["86c0cd4fdd7816bb1460191180","26fd02ca7aa3896f9b89aebb496f7a9104dc2529"]', '[]', '{"INR":72120}', NULL, NULL);
+INSERT INTO tbmt_member (id, first_name, last_name, num, email, title, city, zip_code, country, age, referrer_id, parent_id, signup_date, paid_date, funds_level, bank_recipient, iban, bic, type, bonus_ids, bonus_level, advertised_count, outstanding_advertised_count, password, transferred_total, outstanding_total, deletion_date, sub_promoter_referral) VALUES (11, 'system', 'account', 100, 'niko.neuhauser@gmail.com', '', 'unknown', '504231', 'unknown', 99, NULL, NULL, '2016-04-09 09:39:40+01', '2016-04-09 09:39:40+01', 2, 'unknown', 'unknown', 'unknown', -1, '{}', 0, 0, 0, '["392d4656b530644c1460191180","cedd9b14ae16e27c64d22e6ea44e87073ca90f78"]', '[]', '{"INR":1920}', NULL, NULL);
+INSERT INTO tbmt_member (id, first_name, last_name, num, email, title, city, zip_code, country, age, referrer_id, parent_id, signup_date, paid_date, funds_level, bank_recipient, iban, bic, type, bonus_ids, bonus_level, advertised_count, outstanding_advertised_count, password, transferred_total, outstanding_total, deletion_date, sub_promoter_referral) VALUES (33, 'Promoter', '02', 1000016, 'test15@gmx.de', '', 'Test', '504299', 'India', 25, 19, 19, '2016-04-13 09:54:03+01', '2016-04-13 10:00:07+01', 1, 'Test', 'Test', 'Test', 2, '{"13":1,"14":1,"15":5,"16":1,"17":1,"18":1,"19":4}', 0, 1, 0, '["7b6e5e28937e52961460537643","e4fd8d430927f249a6c88adf6d7dddbbed9daaa4"]', '[]', '{"INR":370}', NULL, NULL);
+INSERT INTO tbmt_member (id, first_name, last_name, num, email, title, city, zip_code, country, age, referrer_id, parent_id, signup_date, paid_date, funds_level, bank_recipient, iban, bic, type, bonus_ids, bonus_level, advertised_count, outstanding_advertised_count, password, transferred_total, outstanding_total, deletion_date, sub_promoter_referral) VALUES (19, 'Director', '01', 1000002, 'test1@gmx.de', '', 'Test', '504299', 'India', 25, 15, NULL, '2016-04-10 15:05:57+01', '2016-04-10 15:05:57+01', 2, 'Test', 'Test', 'Test', 4, '{"13":1,"14":1,"15":5,"16":1,"17":1,"18":1}', 0, 6, 0, '["b4ed4f46b55ca67f1460297157","cd84ce2aa54dd91a487f367acd47106912ba1def"]', '[]', '{"INR":15220}', NULL, NULL);
+INSERT INTO tbmt_member (id, first_name, last_name, num, email, title, city, zip_code, country, age, referrer_id, parent_id, signup_date, paid_date, funds_level, bank_recipient, iban, bic, type, bonus_ids, bonus_level, advertised_count, outstanding_advertised_count, password, transferred_total, outstanding_total, deletion_date, sub_promoter_referral) VALUES (15, 'Sales', 'Management', 105, 'test35@gmx.de', '', 'unknown', '504231', 'unknown', 99, NULL, NULL, '2016-04-09 09:39:40+01', '2016-04-09 09:39:40+01', 2, 'unknown', 'unknown', 'unknown', 5, '{"13":1,"14":1,"15":1,"16":1,"17":1,"18":1}', 0, 1, 0, '["01fd32ff318242231460191180","f3f09a7b995ef66443d010bfb908d2a1002b49fd"]', '[]', '{"INR":17460}', NULL, NULL);
+
+
+--
+-- TOC entry 2109 (class 0 OID 17195)
+-- Dependencies: 173
+-- Data for Name: tbmt_member_data; Type: TABLE DATA; Schema: public; Owner: miltype
+--
+
+INSERT INTO tbmt_member_data (member_id, fee_reminder_email) VALUES (23, 1);
+INSERT INTO tbmt_member_data (member_id, fee_reminder_email) VALUES (24, 1);
+INSERT INTO tbmt_member_data (member_id, fee_reminder_email) VALUES (25, 1);
+INSERT INTO tbmt_member_data (member_id, fee_reminder_email) VALUES (22, 1);
+INSERT INTO tbmt_member_data (member_id, fee_reminder_email) VALUES (26, 1);
+INSERT INTO tbmt_member_data (member_id, fee_reminder_email) VALUES (27, 1);
+INSERT INTO tbmt_member_data (member_id, fee_reminder_email) VALUES (28, 1);
+INSERT INTO tbmt_member_data (member_id, fee_reminder_email) VALUES (29, 1);
+
+
+--
+-- TOC entry 2141 (class 0 OID 0)
+-- Dependencies: 170
+-- Name: tbmt_member_id_seq; Type: SEQUENCE SET; Schema: public; Owner: miltype
+--
+
+SELECT pg_catalog.setval('tbmt_member_id_seq', 47, true);
+
+
+--
+-- TOC entry 2142 (class 0 OID 0)
+-- Dependencies: 171
+-- Name: tbmt_member_num_seq; Type: SEQUENCE SET; Schema: public; Owner: miltype
+--
+
+SELECT pg_catalog.setval('tbmt_member_num_seq', 1000030, true);
+
+
+--
+-- TOC entry 2116 (class 0 OID 17255)
+-- Dependencies: 180
+-- Data for Name: tbmt_reserved_paid_event; Type: TABLE DATA; Schema: public; Owner: miltype
+--
+
+
+
+--
+-- TOC entry 2120 (class 0 OID 17295)
+-- Dependencies: 184
+-- Data for Name: tbmt_system_stats; Type: TABLE DATA; Schema: public; Owner: miltype
+--
+
+INSERT INTO tbmt_system_stats (id, invitation_incrementer, signup_count, member_count, starter_count, pm_count, ol_count, vl_count) VALUES (2, '2A15F6', 0, 0, 0, 0, 0, 0);
+INSERT INTO tbmt_system_stats (id, invitation_incrementer, signup_count, member_count, starter_count, pm_count, ol_count, vl_count) VALUES (1, '356bb5', 0, 0, 0, 0, 0, 0);
+
+
+--
+-- TOC entry 2143 (class 0 OID 0)
+-- Dependencies: 183
+-- Name: tbmt_system_stats_id_seq; Type: SEQUENCE SET; Schema: public; Owner: miltype
+--
+
+SELECT pg_catalog.setval('tbmt_system_stats_id_seq', 2, true);
+
+
+--
+-- TOC entry 2115 (class 0 OID 17240)
+-- Dependencies: 179
+-- Data for Name: tbmt_transaction; Type: TABLE DATA; Schema: public; Owner: miltype
+--
+
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (1, 1, 300, 0, '', 20, '2016-04-10 15:17:42+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (2, 2, 1200, 2, '', 20, '2016-04-10 15:17:42+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (3, 3, 2780, 7, '', 20, '2016-04-10 15:17:42+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (4, 4, 70, 6, '', 20, '2016-04-10 15:17:42+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (5, 5, 50, 13, '', 20, '2016-04-10 15:17:42+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (6, 6, 50, 14, '', 20, '2016-04-10 15:17:42+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (7, 7, 550, 15, '', 20, '2016-04-10 15:17:42+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (8, 1, 70, 3, '', 20, '2016-04-10 15:17:42+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (9, 2, 210, 12, '', 20, '2016-04-10 15:17:42+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (10, 1, 70, 4, '', 20, '2016-04-10 15:17:42+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (11, 1, 70, 5, '', 20, '2016-04-10 15:17:42+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (12, 8, 80, 1002, '', 20, '2016-04-10 15:17:42+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (13, 1, 300, 0, '', 21, '2016-04-11 13:00:26+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (14, 2, 1200, 2, '', 21, '2016-04-11 13:00:26+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (15, 2, 210, 12, '', 21, '2016-04-11 13:00:26+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (16, 3, 2780, 7, '', 21, '2016-04-11 13:00:26+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (17, 4, 70, 6, '', 21, '2016-04-11 13:00:26+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (18, 5, 50, 13, '', 21, '2016-04-11 13:00:26+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (19, 6, 50, 14, '', 21, '2016-04-11 13:00:26+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (20, 7, 550, 15, '', 21, '2016-04-11 13:00:26+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (21, 1, 70, 3, '', 21, '2016-04-11 13:00:26+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (22, 1, 70, 4, '', 21, '2016-04-11 13:00:26+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (23, 1, 70, 5, '', 21, '2016-04-11 13:00:26+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (24, 8, 80, 1002, '', 21, '2016-04-11 13:00:26+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (25, 1, 1500, 1, '', 30, '2016-04-12 08:23:28+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (26, 2, 210, 12, '', 30, '2016-04-12 08:23:28+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (27, 3, 2780, 7, '', 30, '2016-04-12 08:23:28+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (28, 4, 70, 6, '', 30, '2016-04-12 08:23:28+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (29, 5, 50, 13, '', 30, '2016-04-12 08:23:28+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (30, 6, 50, 14, '', 30, '2016-04-12 08:23:28+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (31, 7, 550, 15, '', 30, '2016-04-12 08:23:28+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (32, 1, 70, 3, '', 30, '2016-04-12 08:23:28+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (33, 1, 70, 4, '', 30, '2016-04-12 08:23:28+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (34, 1, 70, 5, '', 30, '2016-04-12 08:23:28+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (35, 8, 80, 1002, '', 30, '2016-04-12 08:23:28+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (36, 9, 300, 0, '', 26, '2016-04-12 08:37:47+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (37, 2, 1200, 2, '', 26, '2016-04-12 08:37:47+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (38, 2, 210, 12, '', 26, '2016-04-12 08:37:47+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (39, 6, 50, 14, '', 26, '2016-04-12 08:37:47+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (40, 7, 550, 15, '', 26, '2016-04-12 08:37:47+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (41, 3, 2780, 7, '', 26, '2016-04-12 08:37:47+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (42, 4, 70, 6, '', 26, '2016-04-12 08:37:47+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (43, 5, 50, 13, '', 26, '2016-04-12 08:37:47+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (44, 1, 70, 3, '', 26, '2016-04-12 08:37:47+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (45, 1, 70, 4, '', 26, '2016-04-12 08:37:47+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (46, 1, 70, 5, '', 26, '2016-04-12 08:37:47+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (47, 8, 80, 1002, '', 26, '2016-04-12 08:37:47+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (48, 10, 300, 0, '', 27, '2016-04-12 08:37:14+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (49, 2, 1200, 2, '', 27, '2016-04-12 08:37:14+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (50, 6, 50, 14, '', 27, '2016-04-12 08:37:14+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (51, 7, 550, 15, '', 27, '2016-04-12 08:37:14+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (52, 4, 70, 6, '', 27, '2016-04-12 08:37:14+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (53, 3, 2780, 7, '', 27, '2016-04-12 08:37:14+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (54, 5, 50, 13, '', 27, '2016-04-12 08:37:14+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (55, 1, 70, 3, '', 27, '2016-04-12 08:37:14+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (56, 2, 210, 12, '', 27, '2016-04-12 08:37:14+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (57, 1, 70, 4, '', 27, '2016-04-12 08:37:14+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (58, 1, 70, 5, '', 27, '2016-04-12 08:37:14+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (59, 8, 80, 1002, '', 27, '2016-04-12 08:37:14+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (60, 11, 300, 0, '', 32, '2016-04-12 09:20:41+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (61, 1, 1200, 2, '', 32, '2016-04-12 09:20:41+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (62, 6, 50, 14, '', 32, '2016-04-12 09:20:41+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (63, 7, 550, 15, '', 32, '2016-04-12 09:20:41+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (64, 4, 70, 6, '', 32, '2016-04-12 09:20:41+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (65, 3, 2780, 7, '', 32, '2016-04-12 09:20:41+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (66, 5, 50, 13, '', 32, '2016-04-12 09:20:41+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (67, 2, 210, 12, '', 32, '2016-04-12 09:20:41+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (68, 11, 70, 5, '', 32, '2016-04-12 09:20:41+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (69, 1, 70, 3, '', 32, '2016-04-12 09:20:41+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (70, 1, 70, 4, '', 32, '2016-04-12 09:20:41+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (71, 8, 80, 1002, '', 32, '2016-04-12 09:20:41+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (72, 12, 300, 0, '', 28, '2016-04-12 12:15:07+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (73, 2, 1200, 2, '', 28, '2016-04-12 12:15:07+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (74, 6, 50, 14, '', 28, '2016-04-12 12:15:07+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (75, 7, 550, 15, '', 28, '2016-04-12 12:15:07+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (76, 4, 70, 6, '', 28, '2016-04-12 12:15:07+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (77, 3, 2780, 7, '', 28, '2016-04-12 12:15:07+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (78, 5, 50, 13, '', 28, '2016-04-12 12:15:07+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (79, 2, 210, 12, '', 28, '2016-04-12 12:15:07+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (80, 1, 70, 3, '', 28, '2016-04-12 12:15:07+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (81, 1, 70, 4, '', 28, '2016-04-12 12:15:07+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (82, 1, 70, 5, '', 28, '2016-04-12 12:15:07+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (83, 8, 80, 1002, '', 28, '2016-04-12 12:15:07+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (84, 13, 300, 0, '', 29, '2016-04-12 08:34:04+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (85, 2, 1200, 2, '', 29, '2016-04-12 08:34:04+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (86, 6, 50, 14, '', 29, '2016-04-12 08:34:04+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (87, 7, 550, 15, '', 29, '2016-04-12 08:34:04+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (88, 4, 70, 6, '', 29, '2016-04-12 08:34:04+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (89, 3, 2780, 7, '', 29, '2016-04-12 08:34:04+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (90, 5, 50, 13, '', 29, '2016-04-12 08:34:04+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (91, 1, 70, 3, '', 29, '2016-04-12 08:34:04+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (92, 2, 210, 12, '', 29, '2016-04-12 08:34:04+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (93, 1, 70, 4, '', 29, '2016-04-12 08:34:04+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (94, 1, 70, 5, '', 29, '2016-04-12 08:34:04+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (95, 8, 80, 1002, '', 29, '2016-04-12 08:34:04+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (96, 14, 300, 0, '', 22, '2016-04-12 12:15:13+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (97, 2, 1200, 2, '', 22, '2016-04-12 12:15:13+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (98, 6, 50, 14, '', 22, '2016-04-12 12:15:13+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (99, 7, 550, 15, '', 22, '2016-04-12 12:15:13+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (100, 4, 70, 6, '', 22, '2016-04-12 12:15:13+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (101, 3, 2780, 7, '', 22, '2016-04-12 12:15:13+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (102, 5, 50, 13, '', 22, '2016-04-12 12:15:13+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (103, 1, 70, 3, '', 22, '2016-04-12 12:15:13+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (104, 2, 210, 12, '', 22, '2016-04-12 12:15:13+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (105, 1, 70, 4, '', 22, '2016-04-12 12:15:13+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (106, 1, 70, 5, '', 22, '2016-04-12 12:15:13+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (107, 8, 80, 1002, '', 22, '2016-04-12 12:15:13+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (108, 15, 300, 0, '', 23, '2016-04-12 12:15:02+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (109, 2, 1200, 2, '', 23, '2016-04-12 12:15:02+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (110, 6, 50, 14, '', 23, '2016-04-12 12:15:02+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (111, 7, 550, 15, '', 23, '2016-04-12 12:15:02+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (112, 4, 70, 6, '', 23, '2016-04-12 12:15:02+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (113, 3, 2780, 7, '', 23, '2016-04-12 12:15:02+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (114, 5, 50, 13, '', 23, '2016-04-12 12:15:02+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (115, 1, 70, 3, '', 23, '2016-04-12 12:15:02+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (116, 2, 210, 12, '', 23, '2016-04-12 12:15:02+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (117, 1, 70, 4, '', 23, '2016-04-12 12:15:02+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (118, 1, 70, 5, '', 23, '2016-04-12 12:15:02+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (119, 8, 80, 1002, '', 23, '2016-04-12 12:15:02+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (120, 16, 300, 0, '', 24, '2016-04-11 19:30:07+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (121, 2, 1200, 2, '', 24, '2016-04-11 19:30:07+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (122, 6, 50, 14, '', 24, '2016-04-11 19:30:07+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (123, 7, 550, 15, '', 24, '2016-04-11 19:30:07+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (124, 4, 70, 6, '', 24, '2016-04-11 19:30:07+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (125, 3, 2780, 7, '', 24, '2016-04-11 19:30:07+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (126, 5, 50, 13, '', 24, '2016-04-11 19:30:07+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (127, 1, 70, 3, '', 24, '2016-04-11 19:30:07+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (128, 2, 210, 12, '', 24, '2016-04-11 19:30:07+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (129, 1, 70, 4, '', 24, '2016-04-11 19:30:07+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (130, 1, 70, 5, '', 24, '2016-04-11 19:30:07+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (131, 8, 80, 1002, '', 24, '2016-04-11 19:30:07+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (132, 17, 300, 0, '', 25, '2016-04-11 19:29:20+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (133, 2, 1200, 2, '', 25, '2016-04-11 19:29:20+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (134, 6, 50, 14, '', 25, '2016-04-11 19:29:20+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (135, 7, 550, 15, '', 25, '2016-04-11 19:29:20+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (136, 4, 70, 6, '', 25, '2016-04-11 19:29:20+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (137, 3, 2780, 7, '', 25, '2016-04-11 19:29:20+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (138, 5, 50, 13, '', 25, '2016-04-11 19:29:20+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (139, 1, 70, 3, '', 25, '2016-04-11 19:29:20+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (140, 2, 210, 12, '', 25, '2016-04-11 19:29:20+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (141, 1, 70, 4, '', 25, '2016-04-11 19:29:20+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (142, 1, 70, 5, '', 25, '2016-04-11 19:29:20+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (143, 8, 80, 1002, '', 25, '2016-04-11 19:29:20+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (144, 1, 1500, 1, '', 33, '2016-04-13 10:00:07+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (145, 6, 50, 14, '', 33, '2016-04-13 10:00:07+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (146, 7, 550, 15, '', 33, '2016-04-13 10:00:07+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (147, 4, 70, 6, '', 33, '2016-04-13 10:00:07+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (148, 3, 2780, 7, '', 33, '2016-04-13 10:00:07+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (149, 5, 50, 13, '', 33, '2016-04-13 10:00:07+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (150, 2, 210, 12, '', 33, '2016-04-13 10:00:07+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (151, 1, 70, 3, '', 33, '2016-04-13 10:00:07+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (152, 1, 70, 4, '', 33, '2016-04-13 10:00:07+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (153, 1, 70, 5, '', 33, '2016-04-13 10:00:07+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (154, 8, 80, 1002, '', 33, '2016-04-13 10:00:07+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (155, 18, 300, 0, '', 34, '2016-04-13 10:09:13+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (156, 1, 1200, 2, '', 34, '2016-04-13 10:09:13+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (157, 6, 50, 14, '', 34, '2016-04-13 10:09:13+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (158, 18, 70, 5, '', 34, '2016-04-13 10:09:13+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (159, 1, 70, 3, '', 34, '2016-04-13 10:09:13+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (160, 7, 550, 15, '', 34, '2016-04-13 10:09:13+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (161, 4, 70, 6, '', 34, '2016-04-13 10:09:13+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (162, 3, 2780, 7, '', 34, '2016-04-13 10:09:13+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (163, 5, 50, 13, '', 34, '2016-04-13 10:09:13+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (164, 2, 210, 12, '', 34, '2016-04-13 10:09:13+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (165, 1, 70, 4, '', 34, '2016-04-13 10:09:13+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (166, 8, 80, 1002, '', 34, '2016-04-13 10:09:13+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (167, 19, 300, 0, '', 37, '2016-04-13 10:47:47+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (168, 1, 1200, 2, '', 37, '2016-04-13 10:47:47+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (169, 6, 50, 14, '', 37, '2016-04-13 10:47:47+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (170, 20, 70, 4, '', 37, '2016-04-13 10:47:47+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (171, 19, 70, 5, '', 37, '2016-04-13 10:47:47+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (172, 7, 550, 15, '', 37, '2016-04-13 10:47:47+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (173, 4, 70, 6, '', 37, '2016-04-13 10:47:47+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (174, 3, 2780, 7, '', 37, '2016-04-13 10:47:47+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (175, 5, 50, 13, '', 37, '2016-04-13 10:47:47+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (176, 2, 210, 12, '', 37, '2016-04-13 10:47:47+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (177, 1, 70, 3, '', 37, '2016-04-13 10:47:47+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (178, 8, 80, 1002, '', 37, '2016-04-13 10:47:47+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (179, 19, 300, 0, '', 38, '2016-04-13 18:27:36+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (180, 1, 1200, 2, '', 38, '2016-04-13 18:27:36+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (181, 20, 70, 4, '', 38, '2016-04-13 18:27:36+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (182, 6, 50, 14, '', 38, '2016-04-13 18:27:36+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (183, 19, 70, 5, '', 38, '2016-04-13 18:27:36+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (184, 7, 550, 15, '', 38, '2016-04-13 18:27:36+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (185, 4, 70, 6, '', 38, '2016-04-13 18:27:36+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (186, 3, 2780, 7, '', 38, '2016-04-13 18:27:36+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (187, 5, 50, 13, '', 38, '2016-04-13 18:27:36+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (188, 2, 210, 12, '', 38, '2016-04-13 18:27:36+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (189, 1, 70, 3, '', 38, '2016-04-13 18:27:36+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (190, 8, 80, 1002, '', 38, '2016-04-13 18:27:36+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (191, 19, 1500, 1, '', 39, '2016-04-13 18:32:31+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (192, 20, 70, 4, '', 39, '2016-04-13 18:32:31+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (193, 6, 50, 14, '', 39, '2016-04-13 18:32:31+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (194, 19, 70, 5, '', 39, '2016-04-13 18:32:31+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (195, 1, 70, 3, '', 39, '2016-04-13 18:32:31+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (196, 7, 550, 15, '', 39, '2016-04-13 18:32:31+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (197, 4, 70, 6, '', 39, '2016-04-13 18:32:31+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (198, 3, 2780, 7, '', 39, '2016-04-13 18:32:31+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (199, 5, 50, 13, '', 39, '2016-04-13 18:32:31+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (200, 2, 210, 12, '', 39, '2016-04-13 18:32:31+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (201, 8, 80, 1002, '', 39, '2016-04-13 18:32:31+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (202, 21, 300, 0, '', 40, '2016-04-13 18:38:06+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (203, 1, 1200, 2, '', 40, '2016-04-13 18:38:06+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (204, 20, 70, 4, '', 40, '2016-04-13 18:38:06+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (205, 6, 50, 14, '', 40, '2016-04-13 18:38:06+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (206, 19, 70, 5, '', 40, '2016-04-13 18:38:06+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (207, 1, 70, 3, '', 40, '2016-04-13 18:38:06+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (208, 7, 550, 15, '', 40, '2016-04-13 18:38:06+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (209, 4, 70, 6, '', 40, '2016-04-13 18:38:06+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (210, 3, 2780, 7, '', 40, '2016-04-13 18:38:06+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (211, 5, 50, 13, '', 40, '2016-04-13 18:38:06+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (212, 2, 210, 12, '', 40, '2016-04-13 18:38:06+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (213, 8, 80, 1002, '', 40, '2016-04-13 18:38:06+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (214, 20, 300, 0, '', 41, '2016-04-13 18:53:34+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (215, 1, 1200, 2, '', 41, '2016-04-13 18:53:34+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (216, 6, 50, 14, '', 41, '2016-04-13 18:53:34+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (217, 20, 70, 4, '', 41, '2016-04-13 18:53:34+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (218, 7, 550, 15, '', 41, '2016-04-13 18:53:34+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (219, 4, 70, 6, '', 41, '2016-04-13 18:53:34+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (220, 3, 2780, 7, '', 41, '2016-04-13 18:53:34+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (221, 5, 50, 13, '', 41, '2016-04-13 18:53:34+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (222, 2, 210, 12, '', 41, '2016-04-13 18:53:34+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (223, 1, 70, 3, '', 41, '2016-04-13 18:53:34+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (224, 20, 70, 5, '', 41, '2016-04-13 18:53:34+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (225, 8, 80, 1002, '', 41, '2016-04-13 18:53:34+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (226, 22, 300, 0, '', 42, '2016-04-13 18:56:01+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (227, 1, 1200, 2, '', 42, '2016-04-13 18:56:01+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (228, 6, 50, 14, '', 42, '2016-04-13 18:56:01+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (229, 20, 70, 4, '', 42, '2016-04-13 18:56:01+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (230, 19, 70, 5, '', 42, '2016-04-13 18:56:01+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (231, 3, 2780, 7, '', 42, '2016-04-13 18:56:01+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (232, 5, 50, 13, '', 42, '2016-04-13 18:56:01+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (233, 2, 210, 12, '', 42, '2016-04-13 18:56:01+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (234, 1, 70, 3, '', 42, '2016-04-13 18:56:01+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (235, 7, 550, 15, '', 42, '2016-04-13 18:56:01+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (236, 4, 70, 6, '', 42, '2016-04-13 18:56:01+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (237, 8, 80, 1002, '', 42, '2016-04-13 18:56:01+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (238, 3, 1500, 1, '', 44, '2016-04-15 09:32:05+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (239, 6, 50, 14, '', 44, '2016-04-15 09:32:05+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (240, 4, 70, 6, '', 44, '2016-04-15 09:32:05+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (241, 3, 2780, 7, '', 44, '2016-04-15 09:32:05+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (242, 5, 50, 13, '', 44, '2016-04-15 09:32:05+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (243, 2, 210, 12, '', 44, '2016-04-15 09:32:05+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (244, 7, 550, 15, '', 44, '2016-04-15 09:32:05+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (245, 2, 70, 4, '', 44, '2016-04-15 09:32:05+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (246, 2, 70, 5, '', 44, '2016-04-15 09:32:05+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (247, 2, 70, 3, '', 44, '2016-04-15 09:32:05+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (248, 8, 80, 1002, '', 44, '2016-04-15 09:32:05+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (249, 3, 1500, 1, '', 45, '2016-04-15 15:02:50+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (250, 6, 50, 14, '', 45, '2016-04-15 15:02:50+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (251, 2, 210, 12, '', 45, '2016-04-15 15:02:50+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (252, 7, 550, 15, '', 45, '2016-04-15 15:02:50+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (253, 3, 2780, 7, '', 45, '2016-04-15 15:02:50+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (254, 4, 70, 6, '', 45, '2016-04-15 15:02:50+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (255, 5, 50, 13, '', 45, '2016-04-15 15:02:50+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (256, 2, 70, 4, '', 45, '2016-04-15 15:02:50+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (257, 2, 70, 5, '', 45, '2016-04-15 15:02:50+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (258, 2, 70, 3, '', 45, '2016-04-15 15:02:50+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (259, 8, 80, 1002, '', 45, '2016-04-15 15:02:50+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (260, 23, 300, 0, '', 46, '2016-04-15 15:10:30+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (261, 3, 1200, 2, '', 46, '2016-04-15 15:10:30+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (262, 6, 50, 14, '', 46, '2016-04-15 15:10:30+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (263, 2, 210, 12, '', 46, '2016-04-15 15:10:30+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (264, 7, 550, 15, '', 46, '2016-04-15 15:10:30+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (265, 23, 70, 3, '', 46, '2016-04-15 15:10:30+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (266, 4, 70, 6, '', 46, '2016-04-15 15:10:30+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (267, 3, 2780, 7, '', 46, '2016-04-15 15:10:30+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (268, 5, 50, 13, '', 46, '2016-04-15 15:10:30+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (269, 23, 70, 4, '', 46, '2016-04-15 15:10:30+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (270, 23, 70, 5, '', 46, '2016-04-15 15:10:30+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (271, 8, 80, 1002, '', 46, '2016-04-15 15:10:30+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (272, 24, 300, 0, '', 47, '2016-04-15 15:31:05+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (273, 3, 1200, 2, '', 47, '2016-04-15 15:31:05+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (274, 6, 50, 14, '', 47, '2016-04-15 15:31:05+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (275, 2, 210, 12, '', 47, '2016-04-15 15:31:05+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (276, 7, 550, 15, '', 47, '2016-04-15 15:31:05+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (277, 4, 70, 6, '', 47, '2016-04-15 15:31:05+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (278, 5, 50, 13, '', 47, '2016-04-15 15:31:05+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (279, 23, 70, 3, '', 47, '2016-04-15 15:31:05+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (280, 3, 2780, 7, '', 47, '2016-04-15 15:31:05+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (281, 23, 70, 4, '', 47, '2016-04-15 15:31:05+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (282, 23, 70, 5, '', 47, '2016-04-15 15:31:05+01');
+INSERT INTO tbmt_transaction (id, transfer_id, amount, reason, purpose, related_id, date) VALUES (283, 8, 80, 1002, '', 47, '2016-04-15 15:31:05+01');
+
+
+--
+-- TOC entry 2144 (class 0 OID 0)
+-- Dependencies: 178
+-- Name: tbmt_transaction_id_seq; Type: SEQUENCE SET; Schema: public; Owner: miltype
+--
+
+SELECT pg_catalog.setval('tbmt_transaction_id_seq', 283, true);
+
+
+--
+-- TOC entry 2113 (class 0 OID 17222)
+-- Dependencies: 177
+-- Data for Name: tbmt_transfer; Type: TABLE DATA; Schema: public; Owner: miltype
+--
+
+INSERT INTO tbmt_transfer (id, member_id, amount, currency, state, attempts, execution_date, processed_date) VALUES (12, 27, 300, 'INR', 0, 0, NULL, NULL);
+INSERT INTO tbmt_transfer (id, member_id, amount, currency, state, attempts, execution_date, processed_date) VALUES (21, 37, 300, 'INR', 0, 0, NULL, NULL);
+INSERT INTO tbmt_transfer (id, member_id, amount, currency, state, attempts, execution_date, processed_date) VALUES (13, 28, 300, 'INR', 0, 0, NULL, NULL);
+INSERT INTO tbmt_transfer (id, member_id, amount, currency, state, attempts, execution_date, processed_date) VALUES (18, 33, 370, 'INR', 0, 0, NULL, NULL);
+INSERT INTO tbmt_transfer (id, member_id, amount, currency, state, attempts, execution_date, processed_date) VALUES (24, 46, 300, 'INR', 0, 0, NULL, NULL);
+INSERT INTO tbmt_transfer (id, member_id, amount, currency, state, attempts, execution_date, processed_date) VALUES (6, 17, 1200, 'INR', 0, 0, NULL, NULL);
+INSERT INTO tbmt_transfer (id, member_id, amount, currency, state, attempts, execution_date, processed_date) VALUES (2, 15, 17460, 'INR', 0, 0, NULL, NULL);
+INSERT INTO tbmt_transfer (id, member_id, amount, currency, state, attempts, execution_date, processed_date) VALUES (7, 18, 13200, 'INR', 0, 0, NULL, NULL);
+INSERT INTO tbmt_transfer (id, member_id, amount, currency, state, attempts, execution_date, processed_date) VALUES (4, 14, 1680, 'INR', 0, 0, NULL, NULL);
+INSERT INTO tbmt_transfer (id, member_id, amount, currency, state, attempts, execution_date, processed_date) VALUES (5, 16, 1200, 'INR', 0, 0, NULL, NULL);
+INSERT INTO tbmt_transfer (id, member_id, amount, currency, state, attempts, execution_date, processed_date) VALUES (14, 21, 300, 'INR', 0, 0, NULL, NULL);
+INSERT INTO tbmt_transfer (id, member_id, amount, currency, state, attempts, execution_date, processed_date) VALUES (9, 20, 300, 'INR', 0, 0, NULL, NULL);
+INSERT INTO tbmt_transfer (id, member_id, amount, currency, state, attempts, execution_date, processed_date) VALUES (3, 13, 72120, 'INR', 0, 0, NULL, NULL);
+INSERT INTO tbmt_transfer (id, member_id, amount, currency, state, attempts, execution_date, processed_date) VALUES (23, 45, 720, 'INR', 0, 0, NULL, NULL);
+INSERT INTO tbmt_transfer (id, member_id, amount, currency, state, attempts, execution_date, processed_date) VALUES (22, 38, 300, 'INR', 0, 0, NULL, NULL);
+INSERT INTO tbmt_transfer (id, member_id, amount, currency, state, attempts, execution_date, processed_date) VALUES (8, 11, 1920, 'INR', 0, 0, NULL, NULL);
+INSERT INTO tbmt_transfer (id, member_id, amount, currency, state, attempts, execution_date, processed_date) VALUES (20, 35, 790, 'INR', 0, 0, NULL, NULL);
+INSERT INTO tbmt_transfer (id, member_id, amount, currency, state, attempts, execution_date, processed_date) VALUES (19, 36, 2450, 'INR', 0, 0, NULL, NULL);
+INSERT INTO tbmt_transfer (id, member_id, amount, currency, state, attempts, execution_date, processed_date) VALUES (15, 22, 300, 'INR', 0, 0, NULL, NULL);
+INSERT INTO tbmt_transfer (id, member_id, amount, currency, state, attempts, execution_date, processed_date) VALUES (10, 26, 300, 'INR', 0, 0, NULL, NULL);
+INSERT INTO tbmt_transfer (id, member_id, amount, currency, state, attempts, execution_date, processed_date) VALUES (1, 19, 15220, 'INR', 0, 0, NULL, NULL);
+INSERT INTO tbmt_transfer (id, member_id, amount, currency, state, attempts, execution_date, processed_date) VALUES (16, 23, 300, 'INR', 0, 0, NULL, NULL);
+INSERT INTO tbmt_transfer (id, member_id, amount, currency, state, attempts, execution_date, processed_date) VALUES (11, 31, 370, 'INR', 0, 0, NULL, NULL);
+INSERT INTO tbmt_transfer (id, member_id, amount, currency, state, attempts, execution_date, processed_date) VALUES (17, 24, 300, 'INR', 0, 0, NULL, NULL);
+
+
+--
+-- TOC entry 2145 (class 0 OID 0)
+-- Dependencies: 176
+-- Name: tbmt_transfer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: miltype
+--
+
+SELECT pg_catalog.setval('tbmt_transfer_id_seq', 24, true);
+
+
+--
+-- TOC entry 1980 (class 2606 OID 17314)
+-- Name: currency_numeric_code_UNIQUE; Type: CONSTRAINT; Schema: public; Owner: miltype; Tablespace: 
+--
+
+ALTER TABLE ONLY tbmt_currency
+    ADD CONSTRAINT "currency_numeric_code_UNIQUE" UNIQUE (numeric_code);
+
+
+--
+-- TOC entry 1963 (class 2606 OID 17219)
+-- Name: email_validation_hash_UNIQUE; Type: CONSTRAINT; Schema: public; Owner: miltype; Tablespace: 
+--
+
+ALTER TABLE ONLY tbmt_email_validation
+    ADD CONSTRAINT "email_validation_hash_UNIQUE" UNIQUE (hash);
+
+
+--
+-- TOC entry 1957 (class 2606 OID 17194)
+-- Name: member_num_UNIQUE; Type: CONSTRAINT; Schema: public; Owner: miltype; Tablespace: 
+--
+
+ALTER TABLE ONLY tbmt_member
+    ADD CONSTRAINT "member_num_UNIQUE" UNIQUE (num);
+
+
+--
+-- TOC entry 1985 (class 2606 OID 17325)
+-- Name: tbmt_activity_pkey; Type: CONSTRAINT; Schema: public; Owner: miltype; Tablespace: 
+--
+
+ALTER TABLE ONLY tbmt_activity
+    ADD CONSTRAINT tbmt_activity_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1982 (class 2606 OID 17312)
+-- Name: tbmt_currency_pkey; Type: CONSTRAINT; Schema: public; Owner: miltype; Tablespace: 
+--
+
+ALTER TABLE ONLY tbmt_currency
+    ADD CONSTRAINT tbmt_currency_pkey PRIMARY KEY (alphabetic_code);
+
+
+--
+-- TOC entry 1965 (class 2606 OID 17217)
+-- Name: tbmt_email_validation_pkey; Type: CONSTRAINT; Schema: public; Owner: miltype; Tablespace: 
+--
+
+ALTER TABLE ONLY tbmt_email_validation
+    ADD CONSTRAINT tbmt_email_validation_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1976 (class 2606 OID 17282)
+-- Name: tbmt_invitation_pkey; Type: CONSTRAINT; Schema: public; Owner: miltype; Tablespace: 
+--
+
+ALTER TABLE ONLY tbmt_invitation
+    ADD CONSTRAINT tbmt_invitation_pkey PRIMARY KEY (id, hash);
+
+
+--
+-- TOC entry 1961 (class 2606 OID 17200)
+-- Name: tbmt_member_data_pkey; Type: CONSTRAINT; Schema: public; Owner: miltype; Tablespace: 
+--
+
+ALTER TABLE ONLY tbmt_member_data
+    ADD CONSTRAINT tbmt_member_data_pkey PRIMARY KEY (member_id);
+
+
+--
+-- TOC entry 1959 (class 2606 OID 17177)
+-- Name: tbmt_member_pkey; Type: CONSTRAINT; Schema: public; Owner: miltype; Tablespace: 
+--
+
+ALTER TABLE ONLY tbmt_member
+    ADD CONSTRAINT tbmt_member_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1974 (class 2606 OID 17260)
+-- Name: tbmt_reserved_paid_event_pkey; Type: CONSTRAINT; Schema: public; Owner: miltype; Tablespace: 
+--
+
+ALTER TABLE ONLY tbmt_reserved_paid_event
+    ADD CONSTRAINT tbmt_reserved_paid_event_pkey PRIMARY KEY (unpaid_id, paid_id);
+
+
+--
+-- TOC entry 1978 (class 2606 OID 17307)
+-- Name: tbmt_system_stats_pkey; Type: CONSTRAINT; Schema: public; Owner: miltype; Tablespace: 
+--
+
+ALTER TABLE ONLY tbmt_system_stats
+    ADD CONSTRAINT tbmt_system_stats_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1972 (class 2606 OID 17248)
+-- Name: tbmt_transaction_pkey; Type: CONSTRAINT; Schema: public; Owner: miltype; Tablespace: 
+--
+
+ALTER TABLE ONLY tbmt_transaction
+    ADD CONSTRAINT tbmt_transaction_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1969 (class 2606 OID 17230)
+-- Name: tbmt_transfer_pkey; Type: CONSTRAINT; Schema: public; Owner: miltype; Tablespace: 
+--
+
+ALTER TABLE ONLY tbmt_transfer
+    ADD CONSTRAINT tbmt_transfer_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1983 (class 1259 OID 17331)
+-- Name: idx_activity_related_id; Type: INDEX; Schema: public; Owner: miltype; Tablespace: 
+--
+
+CREATE INDEX idx_activity_related_id ON tbmt_activity USING btree (member_id);
+
+
+--
+-- TOC entry 1970 (class 1259 OID 17254)
+-- Name: idx_transaction_related_id; Type: INDEX; Schema: public; Owner: miltype; Tablespace: 
+--
+
+CREATE INDEX idx_transaction_related_id ON tbmt_transaction USING btree (related_id);
+
+
+--
+-- TOC entry 1966 (class 1259 OID 17237)
+-- Name: idx_transfer_currency; Type: INDEX; Schema: public; Owner: miltype; Tablespace: 
+--
+
+CREATE INDEX idx_transfer_currency ON tbmt_transfer USING btree (currency);
+
+
+--
+-- TOC entry 1967 (class 1259 OID 17236)
+-- Name: idx_transfer_state; Type: INDEX; Schema: public; Owner: miltype; Tablespace: 
+--
+
+CREATE INDEX idx_transfer_state ON tbmt_transfer USING btree (state);
+
+
+--
+-- TOC entry 1996 (class 2606 OID 17326)
+-- Name: fk_activity_member; Type: FK CONSTRAINT; Schema: public; Owner: miltype
+--
+
+ALTER TABLE ONLY tbmt_activity
+    ADD CONSTRAINT fk_activity_member FOREIGN KEY (member_id) REFERENCES tbmt_member(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- TOC entry 1995 (class 2606 OID 17288)
+-- Name: fk_invitation_accepted_member; Type: FK CONSTRAINT; Schema: public; Owner: miltype
+--
+
+ALTER TABLE ONLY tbmt_invitation
+    ADD CONSTRAINT fk_invitation_accepted_member FOREIGN KEY (accepted_member_id) REFERENCES tbmt_member(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- TOC entry 1994 (class 2606 OID 17283)
+-- Name: fk_invitation_member; Type: FK CONSTRAINT; Schema: public; Owner: miltype
+--
+
+ALTER TABLE ONLY tbmt_invitation
+    ADD CONSTRAINT fk_invitation_member FOREIGN KEY (member_id) REFERENCES tbmt_member(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- TOC entry 1989 (class 2606 OID 17201)
+-- Name: fk_member_data_member; Type: FK CONSTRAINT; Schema: public; Owner: miltype
+--
+
+ALTER TABLE ONLY tbmt_member_data
+    ADD CONSTRAINT fk_member_data_member FOREIGN KEY (member_id) REFERENCES tbmt_member(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 1987 (class 2606 OID 17183)
+-- Name: fk_member_parent; Type: FK CONSTRAINT; Schema: public; Owner: miltype
+--
+
+ALTER TABLE ONLY tbmt_member
+    ADD CONSTRAINT fk_member_parent FOREIGN KEY (parent_id) REFERENCES tbmt_member(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- TOC entry 1986 (class 2606 OID 17178)
+-- Name: fk_member_referrer; Type: FK CONSTRAINT; Schema: public; Owner: miltype
+--
+
+ALTER TABLE ONLY tbmt_member
+    ADD CONSTRAINT fk_member_referrer FOREIGN KEY (referrer_id) REFERENCES tbmt_member(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- TOC entry 1988 (class 2606 OID 17188)
+-- Name: fk_member_sub_promoter_referral; Type: FK CONSTRAINT; Schema: public; Owner: miltype
+--
+
+ALTER TABLE ONLY tbmt_member
+    ADD CONSTRAINT fk_member_sub_promoter_referral FOREIGN KEY (sub_promoter_referral) REFERENCES tbmt_member(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- TOC entry 1993 (class 2606 OID 17266)
+-- Name: fk_tbmt_reserved_paid_event_paid_member; Type: FK CONSTRAINT; Schema: public; Owner: miltype
+--
+
+ALTER TABLE ONLY tbmt_reserved_paid_event
+    ADD CONSTRAINT fk_tbmt_reserved_paid_event_paid_member FOREIGN KEY (paid_id) REFERENCES tbmt_member(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- TOC entry 1992 (class 2606 OID 17261)
+-- Name: fk_tbmt_reserved_paid_event_unpaid_member; Type: FK CONSTRAINT; Schema: public; Owner: miltype
+--
+
+ALTER TABLE ONLY tbmt_reserved_paid_event
+    ADD CONSTRAINT fk_tbmt_reserved_paid_event_unpaid_member FOREIGN KEY (unpaid_id) REFERENCES tbmt_member(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+--
+-- TOC entry 1991 (class 2606 OID 17249)
+-- Name: fk_transaction_transfer; Type: FK CONSTRAINT; Schema: public; Owner: miltype
+--
+
+ALTER TABLE ONLY tbmt_transaction
+    ADD CONSTRAINT fk_transaction_transfer FOREIGN KEY (transfer_id) REFERENCES tbmt_transfer(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 1990 (class 2606 OID 17231)
+-- Name: fk_transfer_member; Type: FK CONSTRAINT; Schema: public; Owner: miltype
+--
+
+ALTER TABLE ONLY tbmt_transfer
+    ADD CONSTRAINT fk_transfer_member FOREIGN KEY (member_id) REFERENCES tbmt_member(id) ON UPDATE CASCADE ON DELETE SET NULL;
+
+
+-- Completed on 2016-04-17 10:36:35
+
+--
+-- PostgreSQL database dump complete
+--
+

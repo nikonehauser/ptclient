@@ -1,0 +1,9 @@
+Hello CCAvenue Team, 
+
+we are about to implement some club like website in india. 
+Our club members have to pay a club fee to us and in return will receive arbitary amounts of special bonuses back from us in dependence of various actions.
+
+We are currently searching a payment gateway which is able to handle this scenario. 
+
+We are sure that ccavenue can handle the payment of the fee of the club members to us. 
+But we are not sure if we are able to send arbitary amounts back to our club members?
