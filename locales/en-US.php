@@ -212,7 +212,7 @@ return [
 
         '',
 
-        '1' => 'As you are a customer of Better Living you will automatically be in a "customer" position in our marketing system.',
+        '1' => 'As you are a customer of '.$brandName.' you will automatically be in a "customer" position in our marketing system.',
         '1h' => ['$_member_fee_$'],
         '1_1' => 'You = Customer',
 
@@ -291,7 +291,7 @@ return [
           'The Happiness Guide',
           'Basics',
           'Passive income',
-          'Who can become a customer on Better Living',
+          'Who can become a customer on '.$brandName,
         ],
         'basic_idea_text' => [
           'With the Happiness Guide you can change your work life, your health and be happier overall. In a 2-week cycle in eight steps our Happiness Guide makes you happy. Step by step you will learn how you make your life better.',

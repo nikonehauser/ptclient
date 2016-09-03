@@ -63,10 +63,10 @@ return [
   "guides_count" => 8,
 
 
-  "brand.copyright" => "Better living for everyone ltd.",
-  "brand.name" => "Help Yourself Association",
-  "brand.short" => "HYA",
-  "brand.mail" => "info@hya.net",
+  "brand.copyright" => "Betterliving for everyone ltd.",
+  "brand.name" => "Betterliving",
+  "brand.short" => "BL",
+  "brand.mail" => "info@betterliving.social",
 
 
   "mail.smtp_secure" => "ssl",
