@@ -602,15 +602,15 @@ class BonusSpreadingTest extends Tbmt_Tests_DatabaseTestCase {
     $ceo = Member::getByNum(\SystemStats::ACCOUNT_NUM_CEO1);
     $it = Member::getByNum(\SystemStats::ACCOUNT_NUM_IT);
     $sylvheim = Member::getByNum(\SystemStats::ACCOUNT_SYLVHEIM);
-    $taric = Member::getByNum(\SystemStats::ACCOUNT_TARIC_WANI);
+    $executive = Member::getByNum(\SystemStats::ACCOUNT_EXECUTIVE);
 
     $ceo_total = new TransactionTotalsAssertions($ceo, $this);
     $it_total = new TransactionTotalsAssertions($it, $this);
     $sylvheim_total = new TransactionTotalsAssertions($sylvheim, $this);
-    $taric_total = new TransactionTotalsAssertions($taric, $this);
+    $executive_total = new TransactionTotalsAssertions($executive, $this);
 
     // Any advertise any
-    $any = DbEntityHelper::createSignupMember($taric);
+    $any = DbEntityHelper::createSignupMember($executive);
 
     $ceo_total->add(Transaction::REASON_CEO1_BONUS, 1);
     $ceo_total->add(Transaction::REASON_VL_BONUS, 1);

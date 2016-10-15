@@ -1,6 +1,24 @@
 CURRENT - TODOS
 ===============
 
+convert postgresql JSON columns to mysql =>
+
+tbmt_email_validation.meta
+tbmt_member.member_id
+
+
+* happiness guide -> zusammen schreiben -> Happinessguide
+* pdf aktualisieren
+* pdf screenshot aktualisieren
+
+* happiness guide 2 hat 2 versionen, eine für jemand der noch keinen geworben
+hat und eine für jemand der schon geworben hat
+
+* happiness guide als emails versenden,
+* neuer guide alle 2 wochen
+
+* domain umziehen, strato killen, also domain log runterziehen
+
  - im account eine erläuterung bereit stellen wie genau überwiesen werden muss!
    Verwendungs zweck etc.
 

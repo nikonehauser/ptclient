@@ -16,7 +16,14 @@ class DbEntityHelper {
 
   static public function truncateDatabase(PropelPDO $con = null) {
     self::truncateTables([
-      MemberPeer::TABLE_NAME
+      MemberPeer::TABLE_NAME,
+      MemberDataPeer::TABLE_NAME,
+      InvitationPeer::TABLE_NAME,
+      ActivityPeer::TABLE_NAME,
+      EmailValidationPeer::TABLE_NAME,
+      ReservedPaidEventPeer::TABLE_NAME,
+      TransactionPeer::TABLE_NAME,
+      TransferPeer::TABLE_NAME,
     ], $con ? $con : self::$con);
   }
 
@@ -24,7 +31,7 @@ class DbEntityHelper {
     if ( !$con )
       $con = self::$con;
 
-    $con->exec('TRUNCATE TABLE '.implode(',', $tables). ' RESTART IDENTITY CASCADE');
+    $con->exec('set foreign_key_checks=0; TRUNCATE TABLE '.implode(',', $tables).';');
   }
 
   static private $memberDefaults = [
@@ -40,6 +47,7 @@ class DbEntityHelper {
     'Iban'          => 'unknown',
     'Bic'           => 'unknown',
     'Password'      => 'demo1234',
+    'BonusIds'      => '{}',
   ];
 
   static public $memberSignup = [
@@ -55,6 +63,7 @@ class DbEntityHelper {
     'iban'           => 'unknown',
     'bic'            => 'unknown',
     'password'       => 'demo1234',
+    'BonusIds'      => '{}',
   ];
 
   static private $memberInvitation = [
@@ -73,6 +82,7 @@ class DbEntityHelper {
     'password2'       => 'demo1234',
     'accept_agbs'          => '1',
     'accept_valid_country' => '1',
+    'BonusIds'      => '{}',
   ];
 
   static public function createMember(Member $referralMember = null, array $data = array()) {
@@ -86,6 +96,9 @@ class DbEntityHelper {
     $member->setSignupDate($now)
       ->setPaidDate($now + 100000)
       ->save(self::$con);
+
+    $member->setNum($member->getId() + 1000000);
+    $member->save(self::$con);
 
     return $member;
   }

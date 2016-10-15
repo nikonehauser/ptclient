@@ -114,17 +114,6 @@ class SystemSetup {
       'FundsLevel'=> \Member::FUNDS_LEVEL2
     ]);
 
-    /* Setup - TARIC WANI
-    ---------------------------------------------*/
-    // $taricWani = self::createMember(null, [
-    //   'FirstName' => 'Taric',
-    //   'LastName'  => 'Wani',
-    //   'Email'     => $IT_SPECIALIST_EMAIL,
-    //   'Num'       => \SystemStats::ACCOUNT_TARIC_WANI,
-    //   'Type'      => \Member::TYPE_MEMBER,
-    //   'FundsLevel'=> \Member::FUNDS_LEVEL2
-    // ]);
-
     /* Setup - REASON_NGO_PROJECTS
     ---------------------------------------------*/
     // $ngoProjects = self::createMember(null, [
@@ -171,7 +160,7 @@ class SystemSetup {
 
     /* SET auto increment counter for member numbers
     ---------------------------------------------*/
-    $sql = "SELECT setval('tbmt_member_num_seq', 1000001);";
+    $sql = "ALTER TABLE tbmt_member AUTO_INCREMENT=1000001";
     $stmt = self::$con->prepare($sql);
     $stmt->execute();
 

@@ -52,7 +52,6 @@ class Member extends BaseMember
   static public $NUM_TO_BONUS_REASON = [
     SystemStats::ACCOUNT_EXECUTIVE => Transaction::REASON_EXECUTIVE,
     SystemStats::ACCOUNT_NGO_PROJECTS => Transaction::REASON_NGO_PROJECTS,
-    SystemStats::ACCOUNT_TARIC_WANI => Transaction::REASON_TARIC_WANI,
   ];
 
   static public $SIGNUP_FORM_FIELDS = [
@@ -176,7 +175,6 @@ class Member extends BaseMember
       $member
         ->setFirstName($data['firstName'])
         ->setLastName($data['lastName'])
-        // ->setNum() autoincrement
         ->setEmail($data['email'])
         ->setTitle($data['title'])
         ->setCity($data['city'])
@@ -189,6 +187,7 @@ class Member extends BaseMember
         ->setBic($data['bic'])
         ->setPassword($data['password'])
         ->setSignupDate($now)
+        ->setBonusIds('{}')
         ->setPaidDate(null);
 
       $wasFreeInvitation = false;
@@ -220,6 +219,7 @@ class Member extends BaseMember
 
       $member->setReferrerMember($referrerMember, $con);
       $member->save($con);
+      $member->setNum($member->getId() + 1000000);
 
       if ( $invitation ) {
         $invitation->setAcceptedMemberId($member->getId());
@@ -237,6 +237,8 @@ class Member extends BaseMember
         \Tbmt\MailHelper::sendSignupConfirm($member);
         \Tbmt\MailHelper::sendNewRecruitmentCongrats($referrerMember, $member);
       }
+
+      $member->save($con);
 
       if ( !$con->commit() )
         throw new Exception('Could not commit transaction');
