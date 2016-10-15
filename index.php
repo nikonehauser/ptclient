@@ -1,5 +1,6 @@
 <?php
 
+// aasdf
 namespace Tbmt;
 
 define('BASE_DIR', dirname(__FILE__).DIRECTORY_SEPARATOR);
