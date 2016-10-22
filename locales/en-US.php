@@ -142,6 +142,8 @@ return [
         'member' => 'The Idea',
         'projects' => 'Home',
         'about' => 'About Us',
+        'about' => 'About Us',
+        'impressum' => 'Impressum',
         'account' => 'Profile',
       ],
       'navigation_sublinks' => [
@@ -176,7 +178,8 @@ return [
       'useful_link_contact' => 'Any questions? Just contact us!',
       'useful_link_faq' => 'Frequently asked questions',
       'useful_link_terms' => 'Terms of use',
-      'useful_link_about_us' => 'About',
+      'useful_link_about_us' => 'About Us',
+      'useful_link_impressum' => 'Impressum',
     ],
 
     /* VIEWS - MEMBER
@@ -708,6 +711,15 @@ return [
         'welcome_faqh' => ['Asked'],
 
         'items' => $faqItems,
+      ],
+    ],
+
+    /* VIEWS - IMPRESSUM
+    ---------------------------------------------*/
+    'impressum' => [
+
+      'index' => [
+        'page_title' => 'Impressum',
       ],
     ],
   ],

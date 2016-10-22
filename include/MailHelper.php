@@ -434,6 +434,8 @@ class MailHelper {
     $mail->SMTPSecure = Config::get('mail.smtp_secure');
     $mail->isSMTP();
 
+$mail->SMTPDebug = 3;
+
     $mail->Host = Config::get('mail.smtp_host');
     $mail->Port = Config::get('mail.smtp_port');
     $mail->SMTPAuth = true;

@@ -12,7 +12,7 @@ class Index extends Base {
     $linkNames = $this->i18nView['navigation_links'];
     $subLinkNames = $this->i18nView['navigation_sublinks'];
     $this->navigationLinks = [];
-    foreach (['projects', 'member', 'about', 'account'] as $linkName) {
+    foreach (['projects', 'member', 'about', 'impressum', 'account'] as $linkName) {
       $locale = $linkNames[$linkName];
 
       $sublinks = null;
@@ -54,6 +54,7 @@ class Index extends Base {
       'road',
       'lightbulb-o',
       'envelope',
+      'legal',
       'user',
     ];
 

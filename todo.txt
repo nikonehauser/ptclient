@@ -1,13 +1,7 @@
 CURRENT - TODOS
 ===============
 
-convert postgresql JSON columns to mysql =>
-
-tbmt_email_validation.meta
-tbmt_member.member_id
-
-
-* happiness guide -> zusammen schreiben -> Happinessguide
+* indische karte ändern
 * pdf aktualisieren
 * pdf screenshot aktualisieren
 
@@ -17,14 +11,10 @@ hat und eine für jemand der schon geworben hat
 * happiness guide als emails versenden,
 * neuer guide alle 2 wochen
 
-* domain umziehen, strato killen, also domain log runterziehen
-
  - im account eine erläuterung bereit stellen wie genau überwiesen werden muss!
    Verwendungs zweck etc.
 
  - zahlung an die head leute? die richtigen Konten müssen eingetragen werden?
-
- - More Promiment SIGNUP
 
  - FAQ - letzter punkt aktualisieren: "How is the price for the Happiness Guide to pay?"
 
