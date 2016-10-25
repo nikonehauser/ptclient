@@ -291,7 +291,7 @@ return [
 
         'basic_idea' => 'Basic idea',
         'basic_idea_title' => [
-          'The Happiness Guide',
+          'Happiness Guide',
           'Basics',
           'Passive income',
           'Who can become a customer on '.$brandName,
