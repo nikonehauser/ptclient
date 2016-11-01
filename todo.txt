@@ -1,7 +1,6 @@
 CURRENT - TODOS
 ===============
 
-* indische karte ändern
 * pdf aktualisieren
 * pdf screenshot aktualisieren
 
