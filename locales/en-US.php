@@ -149,19 +149,13 @@ return [
       'navigation_sublinks' => [
         'projects' => [
           '1' => ['index', 'Video Explanation', 'video_explanation'],
-          '2' => ['index', 'PDF Explanation', 'pdf_explanation']
         ],
         'member' => [
-          'index' => 'Customers recruit customers',
-          'system' => 'Our marketing system',
+          'index' => 'A views things to know',
           'signup' => 'Sign up',
         ],
         'account' => [
           'index' => 'Information',
-          'invoice' => 'Invoice',
-          'rtree' => 'Referral Tree',
-          'htree' => 'Funds Level Tree',
-          'btree' => 'Bonus Hierarchy',
           'logout' => 'Logout',
         ],
         'about' => [
@@ -287,20 +281,16 @@ return [
       ],
 
       'index' => [
-        'page_title' => 'Customers recruit customers',
+        'page_title' => 'A views things to know',
 
         'basic_idea' => 'Basic idea',
         'basic_idea_title' => [
           'Happiness Guide',
           'Basics',
-          'Passive income',
-          'Who can become a customer on '.$brandName,
         ],
         'basic_idea_text' => [
           'With the Happiness Guide you can change your work life, your health and be happier overall. In a 2-week cycle in eight steps our Happiness Guide makes you happy. Step by step you will learn how you make your life better.',
-          'Everybody in India can buy the Happiness Guide. For only {member_fee} you get the instruction on how to become a happier person.',
-          'Every customer can become active easily (and without any fee or costs) within the “customers recruit customers” marketing system and earn a constant and {passive_income}.',
-          'Only citizens of India are allowed to become customers of ' . $brandName.'.',
+          'Everybody can buy the Happiness Guide. For only {member_fee} you get the instruction on how to become a happier person.'
         ],
         'basic_idea_highlights' => [
           null,
@@ -309,8 +299,8 @@ return [
           null,
         ],
 
-        'become_member_title' => 'I want to be customer',
-        'become_member_text' => 'If you also want to be a customer, please register on this homepage and purchase the Happiness Guide for {member_fee}. As soon as the payment has been transferred, you are a customer and you will receive the Happiness Guide for your ' . $brandName . '. At this point you can use the fantastic marketing system to achieve a permanent and {passive_income}.',
+        'become_member_title' => 'I want to be happy',
+        'become_member_text' => 'If you also want to be a customer, please register on this homepage and purchase the Happiness Guide for {member_fee}. As soon as the payment has been transferred, you are a customer and you will receive the Happiness Guide for your ' . $brandName . '.',
         'become_member_highlights' => [
           'passive_income' => 'passive income',
           'member_fee' => '$_member_fee_$',
@@ -320,30 +310,17 @@ return [
         'member_starting' => 'Why should I become a customer?',
         'member_starting_title' => [
           'Happiness Guide',
-          'Your additional advantage as a customer',
-          'Marketing System',
-          'Immediately start recruiting',
         ],
         'member_starting_text' => [
           'With the Happiness Guide you can change your work life, your health and be happier overall.',
-          'In our “customers recruit customers” marketing system you are on the level “customer” automatically.',
-          'How the marketing system works will be explained in the following.',
-          'Right after you have finished your registration you can recruit new customers for ' . $brandName . ' via this homepage.',
         ],
         'member_starting_button' => [
           '',
-          'What does "customer" mean?',
-          'Explanation of the marketing system',
-          'Yes, I want to sign up!',
         ],
-
-        'pdf_explanation_head' => 'Marketing system illustration',
-        'pdf_explanation' => 'We also prepared an illustrated explanation in an extra document. If you prefer reading a pdf document, ',
-        'pdf_explanation_link' => 'just click here',
       ],
 
       'signup' => [
-        'page_title' => 'Sign up to be a customer',
+        'page_title' => 'Sign up to get your Happiness Guide',
         'form_error' => 'Form has invalid fields.',
         'referral_member_num_help' => 'This is the customer number of the person who recruited you. This person will also receive a reward for your purchase. In order to join, you need somebody to invite you with their customer number.',
         'invitation_code_help' => 'This code is NOT required. You may have received a special invitation code from the person who invited you. This code may be linked with a bonus or similar things.',
@@ -411,14 +388,6 @@ return [
         'welcome' => 'Welcome {name}',
         'navigation_links' => [
           'index' => 'Information',
-          'invoice' => 'Invoice',
-          'rtree' => 'Referrer Tree',
-          'htree' => 'Funds Level Tree',
-          'btree' => 'Bonus Hierarchy',
-          'invitation' => 'Invitations',
-          'bonus_payments' => 'Bonus Payments',
-          'bonus_levels' => 'Bonus Levels',
-          'dev_paying' => 'DevTest Paying'
         ],
       ],
       'tabs' => [
@@ -637,24 +606,14 @@ return [
         'why_poor_quote_author_org' => 'First Prime Minister of India',
 
         'against_poverty_head' => 'We are against poverty',
-        'against_poverty_sub' => 'We developed the Happiness Guide and this marketing system to make lives better',
+        'against_poverty_sub' => 'We developed the Happiness Guide to make lives better',
         'we_foundation' => 'The Company',
         'we_foundation_description' => "$brandName has been founded for people who have few to no options to achieve a better life. This could be caused by reasons like economic and political circumstances.",
 
         'we_mission' => 'Our mission',
         'we_mission_description' => 'With the Happness Guide we want everyone to have important information about being happy. This way everybody can have a better life in the future.',
 
-        'we_system' => 'Marketing System',
-        'we_system_description' => "Our marketing system offers a huge opportunity to immediately start a better and happier life. No special education is required. With a little effort and just a little time all customers can earn a lot of money with a few recommendations. It really is the easiest system to earn money ever.",
-
-        'we_fee' => 'Financing',
-        'we_fee_description' => '100% of the marketing system is sponsored by our profit. So if the system profits, the customers profit.',
-
         'where_to_go_head' => 'where to go from here',
-
-        'service_ms_title' => 'Marketing System',
-        'service_ms_desc' => 'Sounds great! Where can I get more information about this marketing system?',
-        'service_ms_btn' => 'Click here!',
 
         'service_faq_title' => 'I have questions',
         'service_faq_desc' => 'No problem, just go to the FAQ section. You will find answers there',
@@ -664,12 +623,12 @@ return [
         'service_contact_desc' => 'That is still no problem! Just contact us and we will answer any question!',
         'service_contact_btn' => 'Contact us',
 
-        'service_signup_title' => 'I want to join',
+        'service_signup_title' => 'Yes I want it',
         'service_signup_desc' => 'Great! Just follow this link and fill in the registration form to get started!',
-        'service_signup_btn' => 'Go to registration',
+        'service_signup_btn' => 'Get our Happiness Guide',
 
-        'video_explanation_head' => 'Marketing system video',
-        'video_explanation' => 'We also prepared a video. Explaining our goals in detail.',
+        'video_explanation_head' => 'Our video presentation',
+        'video_explanation' => 'We are working on the video, be prepared!',
 
         'pdf_explanation_head' => 'Marketing system illustration',
         'pdf_explanation' => 'There is also an illustrated explanation in an extra document. If you prefer reading a pdf document, ',

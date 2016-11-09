@@ -39,46 +39,6 @@ use \Tbmt\Router as R;
                                 and happier direction.
                             </div>
                         </li>
-
-                        <!-- SLIDE  -->
-                        <li data-transition="random-static" data-slotamount="7" data-masterspeed="300"  data-saveperformance="off" >
-                            <!-- MAIN IMAGE -->
-                            <img src="<?=R::toImage('placeholder/transparent.png')?>"  alt=""  data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat">
-                            <!-- LAYERS -->
-
-                            <!-- LAYER NR. 1 -->
-                            <div class="tp-caption sfb stl" data-x="40" data-y="40"  data-speed="600" data-start="500" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="600" style="z-index: 2;">
-                                <img src="<?=R::toImage('placeholder/slide_1.png')?>" alt="">
-                            </div>
-
-                            <!-- LAYER NR. 2 -->
-                            <div class="tp-caption small_title sft stb tp-resizeme" data-x="567" data-y="180"  data-speed="600" data-start="500" data-easing="Power3.easeInOut" data-splitin="none" data-splitout="none" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="600" style="z-index: 3; max-width: auto; max-height: auto; white-space: nowrap; text-align: center;">
-                                Say hello to your future with much more <br>happiness and a passive income
-                            </div>
-
-                            <!-- LAYER NR. 3 -->
-                            <div class="tp-caption erika_big_title hd randomrotate tp-resizeme" data-x="600" data-y="260"  data-speed="600" data-start="500" data-easing="Power3.easeInOut" data-splitin="none" data-splitout="none" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" style="z-index: 4; max-width: auto; max-height: auto; white-space: nowrap;">
-                                <span style="text-transform:lowercase;">I</span>Self Help
-                            </div>
-
-                            <!-- LAYER NR. 4 -->
-                            <div class="tp-caption hidden-sm hidden-xs black_p sfb stt tp-resizeme" data-x="590" data-y="320"  data-speed="600" data-start="500" data-easing="Power3.easeInOut" data-splitin="none" data-splitout="none" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="600" style="z-index: 5; max-width: auto; max-height: auto;">
-                                Our marketing system works for your happy life.<br>
-                                It`s based on trustworthy mathematical calculations.<br>
-                                Take action now and sign up for a better<br> life for you and everybody who you love.<br>
-                            </div>
-
-                            <!-- LAYER NR. 5 -->
-                            <div class="tp-caption black sfr tp-resizeme" data-x="665" data-y="420"  data-speed="600" data-start="500" data-easing="Power3.easeInOut" data-splitin="none" data-splitout="none" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="600" style="z-index: 6; max-width: auto; max-height: auto; white-space: nowrap;">
-                                <a class="button" href="<?=R::toModule('member', 'signup')?>"><span>Signup</span></a>
-                            </div>
-
-                            <!-- LAYER NR. 6 -->
-                            <div class="tp-caption black sfl tp-resizeme" data-x="765" data-y="420"  data-speed="600" data-start="500" data-easing="Power3.easeInOut" data-splitin="none" data-splitout="none" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="600" style="z-index: 7; max-width: auto; max-height: auto; white-space: nowrap;">
-                                <a class="button black" href="<?=R::toModule('member', 'system')?>"><span>Marketing System</span></a>
-                            </div>
-                        </li>
-
                         <!-- SLIDE  -->
                         <!--
                         <li data-transition="random-static" data-slotamount="7" data-masterspeed="300"  data-saveperformance="off" >
@@ -280,8 +240,8 @@ use \Tbmt\Router as R;
     <div class="col-md-12">
     <?=\Tbmt\view\Factory::buildTakeActionBox(
       '',
-      $this->i18nView['video_explanation'],
-      '<iframe width="100%" height="350" src="https://www.youtube.com/embed/3gxrbpBLgGo" frameborder="0" allowfullscreen></iframe>'
+      '',
+      '<div style="width: 100%; height: 350px;" >'.$this->i18nView['video_explanation'].'</div>'
     )?>
     </div>
   </div>
@@ -305,7 +265,7 @@ use \Tbmt\Router as R;
 
         <div class="col-md-6 hidden-xs hidden-sm" >
           <div class="element text-right" style="margin: 0px 60px -10px 0px;">
-            <img src="<?=R::toImage('helping-hand.png')?>" alt="" style="height: 400px;">
+            <img src="<?=R::toImage('helping-hand.png')?>" alt="" style="height: 300px;">
           </div><!-- // .element -->
         </div><!-- // .col-md-6 -->
 
@@ -316,40 +276,11 @@ use \Tbmt\Router as R;
             <h1 class="bottom-10 top-20 white"><?=$this->i18nView['we_mission']?></h1>
             <p class="white"><?=$this->i18nView['we_mission_description']?></p>
 
-            <h1 class="bottom-10 top-20 white"><?=$this->i18nView['we_system']?></h1>
-            <p class="white"><?=$this->i18nView['we_system_description']?></p>
-
-            <h1 class="bottom-10 top-20 white"><?=$this->i18nView['we_fee']?></h1>
-            <p class=" white"><?=$this->i18nView['we_fee_description']?></p>
-
             <div class="bottom-30"></div>
         </div><!-- // .col-md-6 -->
 
         </div><!-- // .row -->
     </div><!-- // .container -->
-</div>
-
-<div class="container bottom-40" id="pdf_explanation">
-
-  <div class="heading-area text-center bottom-30 top-40">
-    <h4 class="heading large"><?=$this->i18nView['pdf_explanation_head']?></h4>
-  </div>
-
-  <div class="row nospace service-color-area">
-    <div class="col-md-8" style="padding: 15px;">
-    <?=\Tbmt\view\Factory::buildTakeActionBox(
-      '','', '<image style="margin-left: 50%; width: 450px; transform:translateX(-50%);" src="'.\Tbmt\Router::toImage('pdf_preview.png').'"/>'
-    )?>
-    </div>
-
-    <div class="col-md-4" style="padding: 15px;">
-
-    <?=\Tbmt\view\Factory::testimonial(
-      $this->i18nView['pdf_explanation'].'<a href="'.\Tbmt\Router::toModule('download', 'illustration').'" style="color:#EF4A43;">'.
-        $this->i18nView['pdf_explanation_link'].'</a>'
-    )?>
-    </div>
-  </div>
 </div>
 
 <div class="container bottom-40">
@@ -359,25 +290,7 @@ use \Tbmt\Router as R;
   </div>
 
   <div class="row nospace service-color-area">
-      <div class="col-md-3">
-        <div class="service-box fadein" style="height: 224px;">
-          <a href="<?=\Tbmt\Router::toModule('member', 'system')?>">
-            <div class="service-icon" style="opacity: 1; margin-top: 0px;">
-                <i class="pe-7s-study"></i>
-            </div><!-- // service-icon -->
-
-            <div class="service-content top-10">
-                <h3 class="bottom-10 service-title"><?=$this->i18nView['service_ms_title']?></h3>
-                <p><?=$this->i18nView['service_ms_desc']?></p>
-            </div><!-- // .service-content -->
-
-            <div class="service-action top-20">
-                <?=\Tbmt\view\Factory::buildButton($this->i18nView['service_ms_btn'], \Tbmt\Router::toModule('member', 'system'), 'white stroke')?>
-            </div><!-- // .service-action -->
-          </a>
-        </div><!-- // .service-box -->
-    </div>
-      <div class="col-md-3">
+      <div class="col-md-4">
         <div class="service-box fadein" style="height: 224px;">
           <a href="<?=\Tbmt\Router::toModule('about', 'faq')?>">
             <div class="service-icon" style="opacity: 1; margin-top: 0px;">
@@ -395,7 +308,7 @@ use \Tbmt\Router as R;
           </a>
         </div><!-- // .service-box -->
     </div>
-      <div class="col-md-3">
+      <div class="col-md-4">
         <div class="service-box fadein" style="height: 224px;">
           <a href="<?=\Tbmt\Router::toModule('about')?>">
             <div class="service-icon" style="opacity: 1; margin-top: 0px;">
@@ -413,7 +326,7 @@ use \Tbmt\Router as R;
           </a>
         </div><!-- // .service-box -->
     </div>
-      <div class="col-md-3">
+      <div class="col-md-4">
         <div class="service-box fadein" style="height: 224px;">
           <a href="<?=\Tbmt\Router::toModule('member', 'signup')?>">
             <div class="service-icon" style="opacity: 1; margin-top: 0px;">

@@ -17,23 +17,7 @@ class AccountIndex extends Base {
 
     $linkNames = $this->i18nView['navigation_links'];
     $this->navigationLinks = [];
-    $arr = ['index', 'invoice', 'rtree', 'htree'];
-
-    $memberType = $this->member->getType();
-    if ( $memberType > \Member::TYPE_PROMOTER )
-      $arr[] = 'btree';
-
-    if ( $memberType > \Member::TYPE_MEMBER )
-      $arr[] = 'invitation';
-
-    if ( $memberType >= \Member::TYPE_SALES_MANAGER ) {
-      $arr[] = 'bonus_payments';
-      $arr[] = 'bonus_levels';
-
-    }
-
-    if ( \Tbmt\Config::get('devmode', \Tbmt\TYPE_BOOL, false) )
-      $arr[] = 'dev_paying';
+    $arr = ['index'];
 
     foreach ($arr as $linkName) {
       $locale = $linkNames[$linkName];
