@@ -4,12 +4,6 @@
 
   <?php
 
-    $this->formLabels['referral_member_num'] = $this->formLabels['referral_member_num'].
-      '  <a data-toggle="popover" data-content="'.$this->i18nView['referral_member_num_help'].'" style="font-size:larger;"><i class="fa fa-question-circle"></i></a>';
-
-    $this->formLabels['invitation_code'] = $this->formLabels['invitation_code'].
-      '  <a data-toggle="popover" data-content="'.$this->i18nView['invitation_code_help'].'" style="font-size:larger;"><i class="fa fa-question-circle"></i></a>';
-
     $formBuilder = new \Tbmt\FormBuilder('signupForm', $this->formLabels, $this->formVal, $this->formErrors);
 
   ?>
@@ -26,7 +20,7 @@
         <?=\Tbmt\view\Factory::buildHeadingArea($this->formLabels['contact'], 'bottom-30')?>
 
       <div class="sheet">
-        <div class="row">
+        <div class="row" style="display:none;">
 
           <div class="col-md-6">
             <?php echo $formBuilder->buildFieldGroup('referral_member_num',

@@ -126,7 +126,7 @@ return [
 
     'login' => 'Invalid login credentials',
 
-    'india_pincode' => 'This is no valid pin code from India.',
+    'india_pincode' => 'This is no valid zip code from India.',
   ],
 
     /* VIEWS
@@ -325,7 +325,7 @@ return [
         'referral_member_num_help' => 'This is the customer number of the person who recruited you. This person will also receive a reward for your purchase. In order to join, you need somebody to invite you with their customer number.',
         'invitation_code_help' => 'This code is NOT required. You may have received a special invitation code from the person who invited you. This code may be linked with a bonus or similar things.',
         'form_labels' => [
-          'contact' => 'Contact',
+          'contact' => 'Registration Form',
           'address' => 'Address',
           'bank_account' => 'Bank Account',
           'confirm' => 'Confirm',
@@ -354,7 +354,7 @@ return [
           'submit' => 'Submit',
 
           'bank_account_info' => 'We will never charge your bank account. Only the payments for your referrals will be paid into this account.',
-          'email_info' => 'You will never receive any spam from us. We need your e-mail address to contact you in case there are problems with transferring money. If you do not have an e-mail address you can register here for free: ',
+          'email_info' => 'You will never receive any spam from us. We need your e-mail address to inform you about your Happiness Guide availability. If you do not have an e-mail address you can register one for free at: ',
         ],
       ],
 
