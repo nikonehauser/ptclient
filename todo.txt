@@ -1,6 +1,9 @@
 CURRENT - TODOS
 ===============
 
+
+* paypal transaction number -> create our own cycle
+
 * pdf aktualisieren
 * pdf screenshot aktualisieren
 

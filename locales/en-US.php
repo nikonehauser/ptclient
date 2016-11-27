@@ -141,7 +141,7 @@ return [
       'navigation_links' => [
         'member' => 'The Idea',
         'projects' => 'Home',
-        'about' => 'About Us',
+        'guide' => 'Happiness Guide',
         'about' => 'About Us',
         'impressum' => 'Impressum',
         'account' => 'Profile',
@@ -670,6 +670,15 @@ return [
         'welcome_faqh' => ['Asked'],
 
         'items' => $faqItems,
+      ],
+    ],
+
+    /* VIEWS - GUIDE
+    ---------------------------------------------*/
+    'guide' => [
+
+      'index' => [
+        'page_title' => 'Happiness Guide',
       ],
     ],
 
