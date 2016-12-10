@@ -42,6 +42,8 @@ set foreign_key_checks=0;
 
     `deletion_date` timestamp  NULL ,
 
+    `is_extend` smallint NOT NULL default 0 ,
+
     `sub_promoter_referral` BIGINT(20) UNSIGNED NULL ,
 
     PRIMARY KEY (`id`) ,
@@ -203,6 +205,7 @@ set foreign_key_checks=0;
   CREATE TABLE IF NOT EXISTS  `tbmt_system_stats` (
     `id` serial NOT NULL ,
     `invitation_incrementer` VARCHAR(10) NOT NULL default '2A15F6',
+    `invoice_number` int NOT NULL default 1,
     `signup_count` int NOT NULL default 0,
     `member_count` int NOT NULL default 0,
     `starter_count` int NOT NULL default 0,
@@ -267,3 +270,28 @@ set foreign_key_checks=0;
 
   CREATE INDEX idx_activity_related_id ON `tbmt_activity` (member_id);
 
+
+-- -----------------------------------------------------
+-- Table `payment`
+-- -----------------------------------------------------
+  DROP TABLE IF EXISTS `tbmt_payment` CASCADE;
+
+  CREATE TABLE IF NOT EXISTS  `tbmt_payment` (
+    `id` serial NOT NULL ,
+    `status` int NOT NULL ,
+    `type` varchar(128) NOT NULL ,
+    `date` timestamp  NOT NULL ,
+    `member_id` BIGINT(20) UNSIGNED NOT NULL ,
+    `invoice_number` varchar(128) NOT NULL ,
+    `gateway_payment_id` varchar(255) NOT NULL ,
+    `meta` TEXT NULL,
+    PRIMARY KEY (`id`) ,
+    CONSTRAINT `fk_payment_member`
+      FOREIGN KEY (`member_id`)
+      REFERENCES `tbmt_member` (`id`)
+      ON DELETE CASCADE
+      ON UPDATE CASCADE
+  );
+
+  ALTER TABLE tbmt_payment
+    ADD UNIQUE (invoice_number);

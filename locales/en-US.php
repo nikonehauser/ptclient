@@ -50,6 +50,18 @@ return [
       'Canada',
       'USA',
     ],
+
+    'purchase_agreemensts' => 'You agree with our {terms}, {privacy} and {cancelation_right}!',
+    'terms' => 'Terms of Use',
+    'privacy' => 'Data Privacy Notice',
+    'cancelation_right' => 'Rights of Cancelation'
+  ],
+
+
+  'payment' => [
+    'item_name' => 'Happiness Guide',
+    'item_description' => 'Digital PDF download serie (consists of 8 chapters).',
+    'transaction_description' => 'Happiness Guide (digital PDF download)',
   ],
 
 
@@ -115,6 +127,7 @@ return [
 
     'referral_member_num' => 'Referrer number does not exist',
     'member_num' => 'Customer number does not exist',
+    'member_email' => 'Email does not exist',
     'member_num_unpaid' => 'Customer has not paid yet',
     'age_of_18' => 'Must be 18 or older',
     'referrer_paiment_outstanding' => 'The customer exists but we didn´t receive the donation yet. Unfortunately you have to wait for this customer’s donation',
@@ -374,6 +387,7 @@ return [
         'page_title' => 'Customer login',
         'error' => 'Error',
         'password_reset' => 'Forgot your password?',
+        'link_to_signup' => 'No account? Just follow this link to signup!',
         'form_labels' => [
           'login' => 'Login',
 
@@ -396,8 +410,8 @@ return [
           'your_num' => 'Your customer number',
           'warning' => 'Warning!',
           'tank_you' => 'Thank You!',
-          'unpaid_text' => 'We have not received your donation yet!',
-          'paid_text' => 'We have received your donation.',
+          'unpaid_text' => 'You have not purchase our Happiness Guide yet!',
+          'paid_text' => 'You purchased our Happiness Guide successfully.',
           'address' => 'Address',
           'email' => 'Email',
           'email_none' => '-none-',
@@ -545,7 +559,7 @@ return [
         'success' => 'Success!',
         'success_msg' => 'We have sent you an email with further instructions.',
         'form_labels' => [
-          'num' => 'Your customer number',
+          'num' => 'Your email address',
           'submit' => 'Reset password',
         ],
       ],
@@ -679,6 +693,36 @@ return [
 
       'index' => [
         'page_title' => 'Happiness Guide',
+        'want_purchase' => 'Do you want to purchase our Happiness Guide?',
+        'require_login' => 'Dont hesitate, you need to signup and login then',
+        'signup_button' => 'Got to signup',
+        'login_button' => 'Got to login',
+
+        'popup_purchase_loading_text' => 'Processing your purchase',
+        'popup_purchase_cancel_text' => 'The purchase could not be completed',
+
+        'popup_purchase_head' => 'Purchase Happines Guide',
+        'popup_purchase_text1' => 'We are happy that you are following us to a better live!',
+        'popup_purchase_text2' => 'Please read following notes carefully',
+        'popup_purchase_text3' => 'You are about to purchase a {0}! You wont receive any physical objects!',
+        'popup_purchase_text3_val' => ['digital download'],
+        'popup_purchase_text4' => 'The format of our Happines Guide is PDF. You can find a free to use {0}.',
+        'popup_purchase_text4_val' => ['pdf reader here'],
+        'popup_purchase_text5' => 'You will regularly receive our Happines Guide per Email (PDF file attached).',
+        'popup_purchase_text6' => 'You can download the PDF from within your login area as often as you like.',
+        'popup_purchase_text7' => 'We guarantee an available {0}. But much likely longer. This is just a safety clause for us if we might close this service. So we can not guarantee lifetime download service.',
+        'popup_purchase_text7_val' => ['download for at least 2 months'],
+        'popup_purchase_text8' => 'The costs are {0}. Please refer to PayPal for eventual {1}. PayPal will charge this extra effort from you!',
+        'popup_purchase_text8_val' => ['__', 'currency exchange rates'],
+        'popup_purchase_text9' => 'You can find all these notes and many more in our {0}.',
+        'popup_purchase_text9_val' => ['FAQ section'],
+        'popup_purchase_text10' => 'If you have more questions, don\'t hesitate {0}',
+        'popup_purchase_text10_val' => ['to contact us'],
+
+        'popup_purchase_text11' => 'Since you are purchasing a digital download there is NO RIGHT OF CANCELATION',
+        'popup_purchase_submit' => 'Complete Purchase Now',
+        'popup_purchase_cancel' => 'Cancel Purchase',
+        'popup_purchase_close' => 'Close',
       ],
     ],
 

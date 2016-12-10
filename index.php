@@ -32,7 +32,7 @@ try {
   Session::commit();
 
   if ( $actionResult instanceof ControllerActionResult ) {
-    $actionResult->execute();
+    $actionResult->dispatch();
   } else {
     if ( !is_array($actionResult) ) {
       $actionResult = [

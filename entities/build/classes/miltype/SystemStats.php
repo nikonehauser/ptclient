@@ -28,7 +28,7 @@ class SystemStats extends BaseSystemStats {
   const ACCOUNT_EXECUTIVE = 108;
 
   static public function getIncreasedInvitationIncrementer(PropelPDO $con) {
-    $systemStats = SystemStatsQuery::create()->findOneById(1);
+    $systemStats = self::getStats();
 
     $inc = hexdec($systemStats->getInvitationIncrementer());
     $inc += 106121;
@@ -38,6 +38,26 @@ class SystemStats extends BaseSystemStats {
     $systemStats->save($con);
 
     return $inc;
+  }
+
+  static public function getIncreasedInvoiceNumber(PropelPDO $con) {
+    $systemStats = self::getStats();
+
+    $inc = (int)$systemStats->getInvoiceNumber();
+    $inc += 1;
+
+    $systemStats->setInvoiceNumber($inc);
+    $systemStats->save($con);
+
+    return 'INV_' + (1000000 + $inc);
+  }
+
+  static private function getStats() {
+    $systemStats = SystemStatsQuery::create()->findOneById(1);
+    if ( !$systemStats )
+      throw new Exception('IllegalSystemState: Did not initialize application');
+
+    return $systemStats;
   }
 
   static private $systemAccount;

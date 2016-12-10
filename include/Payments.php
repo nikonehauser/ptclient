@@ -13,6 +13,9 @@ use PayPal\Api\Transaction;
 use PayPal\Api\ExecutePayment;
 use PayPal\Api\PaymentExecution;
 
+
+use \Transaction as TransactionEntity;
+
 class Payments {
   static public function executePayPalPayment($paymentId, $payerId) {
     $apiContext = self::getApiContext();
@@ -30,7 +33,14 @@ class Payments {
 
   }
 
-  static public function createPayPal() {
+  static public function getPaypal($paymentId) {
+    $apiContext = self::getApiContext();
+    return Payment::get($paymentId, $apiContext);
+  }
+
+  static public function createPayPal($invoiceNumber, \PropelPDO $con) {
+    $i18n = Localizer::get('payment');
+
     // ### Payer
     // A resource representing a Payer that funds a payment
     // For direct credit card payments, set payment method
@@ -42,12 +52,12 @@ class Payments {
     // (Optional) Lets you specify item wise
     // information
     $item1 = new Item();
-    $item1->setName('Happines Guide')
-        ->setDescription('Ground Coffee 40 oz')
-        ->setCurrency('EUR')
+    $item1->setName($i18n['item_name'])
+        ->setDescription($i18n['item_description'])
+        ->setCurrency(TransactionEntity::$BASE_CURRENCY)
         ->setQuantity(1)
         ->setTax(0)
-        ->setPrice(89.0);
+        ->setPrice(TransactionEntity::$MEMBER_FEE);
 
     $itemList = new ItemList();
     $itemList->setItems(array($item1));
@@ -57,8 +67,8 @@ class Payments {
     // You can also specify additional details
     // such as shipping, tax.
     $amount = new Amount();
-    $amount->setCurrency("EUR")
-        ->setTotal(89.0);
+    $amount->setCurrency(TransactionEntity::$BASE_CURRENCY)
+        ->setTotal(TransactionEntity::$MEMBER_FEE);
 
     // ### Transaction
     // A transaction defines the contract of a
@@ -67,14 +77,14 @@ class Payments {
     $transaction = new Transaction();
     $transaction->setAmount($amount)
         ->setItemList($itemList)
-        ->setDescription("Payment description")
-        ->setInvoiceNumber(uniqid());
+        ->setDescription($i18n['transaction_description'])
+        ->setInvoiceNumber($invoiceNumber);
 
     // ### Redirect urls
     // Set the urls that the buyer must be redirected to after
     // payment approval/ cancellation.
-    $success = Router::toModule('guide', 'exec_ppp', ['result' => true]);
-    $failure = Router::toModule('guide', 'exec_ppp', ['result' => false]);
+    $success = Router::toModule('account', 'index');
+    $failure = Router::toModule('guide', 'index', ['purchase_failed' => true]);
     $redirectUrls = new RedirectUrls();
     $redirectUrls->setReturnUrl($success)
         ->setCancelUrl($failure);

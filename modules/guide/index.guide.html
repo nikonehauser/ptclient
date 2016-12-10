@@ -1,3 +1,10 @@
+<?php
+
+  $this->i18nView['popup_purchase_text8_val'][0] =
+    \Tbmt\Localizer::currencyFormat(\Transaction::$MEMBER_FEE, \Transaction::$BASE_CURRENCY);
+
+?>
+
 <?=Tbmt\view\Factory::buildPageTitle($this->i18nView['page_title'])?>
 
 <div class="container">
@@ -7,57 +14,289 @@
   </div>
 
   <div class="row bottom-30 top-30 sheet">
+    <?php
 
-      <p>add beautiful previews</p>
+      if ( $this->purchaseFailedMessage ) {
+        echo \Tbmt\view\Factory::buildNotification(
+          $this->i18nView['popup_purchase_cancel_text'],
+          '',
+          'notice top'
+        );
+      }
+    ?>
+
+
+  <!--
+    *
+    * beautify purchae content
+    *
+    ************************************
+  -->
+
+    <p>add beautiful previews</p>
+
+  <!--
+    *
+    * handle the actual purchase things
+    *
+    ************************************
+  -->
+    <?php if ( $this->member && $this->member->hadPaid() ): ?>
+      <div>
+        You are already owning our Happiness Guide,
+        <a href="<?php echo \Tbmt\Router::toModule('account'); ?>">follow this link to your account to
+        download our guide!</a>
+      </div>
+
+    <?php elseif ( $this->member && !$this->member->hadPaid() ): ?>
 
       <div id="paypal-button"></div>
-  </div>
-</div>
 
-<script src="https://www.paypalobjects.com/api/checkout.js" data-version-4></script>
-<script>
-    paypal.Button.render({
+      <!-- Modal -->
+      <div class="modal fade" id="purchase-loading-dialog" tabindex="-1" role="dialog" data-backdrop="static">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="contact-modal">
+              <div id="contact">
+                <div class="bottom-20 text-center contact-modeal-heading">
+                  <h3 class="white heading bottom-0"><?php echo $this->i18nView['popup_purchase_loading_text']; ?></h3>
+                </div>
+                <br>
+                <div class="text-center">
+                  <?=Tbmt\view\Factory::buildLoadingIndicator()?>
+                </div>
+                <br>
+              </div><!-- // #contact -->
+            </div><!-- // #contact-modal -->
+          </div><!-- // .modal-content -->
+        </div><!-- // .modal-dialog -->
+      </div><!-- // .modal -->
 
-// Paypal Sandbox app
-// Sandbox Accountfinance-facilitator@betterliving.social
-// Access Tokenaccess_token$sandbox$v5gvxz5kr5k5jfnc$d305ed5f6b76631c9f1533d4e158b18d
-// Expiry Date15 Nov 2026
+      <!-- Modal -->
+      <div class="modal fade" id="purchase-cancelation-dialog" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="contact-modal">
 
-        env: 'sandbox', // Specify 'sandbox' for the test environment
-        client: {
-            sandbox: 'AViDHwZfNbaqBZCRRFaPcOdA6ARynGxeaX_cyIX-eCUPWE_W6aF-AQgvr0L1kGsotnNvZeAtp4WWV5qD',
-        },
+              <div id="contact">
 
-        payment: function(resolve, reject) {
-            // Set up the payment here, when the buyer clicks on the button
-            var env    = this.props.env;
-            var client = this.props.client;
+                  <div class="bottom-20 text-center contact-modeal-heading">
+                    <h3 class="white heading bottom-0"><?php echo $this->i18nView['popup_purchase_head']; ?></h3>
+                  </div>
 
-            var CREATE_PAYMENT_URL = '<?php echo $this->createPPPUrl; ?>';
+                  <h3 class="text-center"><?=$this->i18nView['popup_purchase_cancel_text']?></h3>
 
-            paypal.request.post(CREATE_PAYMENT_URL)
+                  <p id="purchase-cancelation-errorinfo"></p>
+
+                  <div class="contact-modeal-footer top-20">
+                    <?=Tbmt\view\Factory::buildButtonTag($this->i18nView['popup_purchase_close'], 'black pull-right', 'times', ['data-dismiss' => 'modal'])?>
+                    <div class="clearfix"></div>
+                  </div><!-- // .contact-modeal-footer -->
+
+              </div><!-- // #contact -->
+            </div><!-- // #contact-modal -->
+          </div><!-- // .modal-content -->
+        </div><!-- // .modal-dialog -->
+      </div><!-- // .modal -->
+
+      <!-- Modal -->
+      <div class="modal fade" id="purchase-confirmation-dialog" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="contact-modal">
+
+              <div id="contact">
+
+                  <div class="bottom-20 text-center contact-modeal-heading">
+                    <h3 class="white heading bottom-0"><?php echo $this->i18nView['popup_purchase_head']; ?></h3>
+                  </div><!-- // .contact-modeal-heading -->
+
+                  <p><?=$this->i18nView['popup_purchase_text1']?></p>
+
+                  <h3><?=$this->i18nView['popup_purchase_text2']?></h3>
+                  <ul>
+                    <li><?=\Tbmt\Localizer::insert(
+                      $this->i18nView['popup_purchase_text3'],
+                      $this->i18nView['popup_purchase_text3_val'],
+                      true,
+                      '<span class="highlight label yellow">{_val_}</span>'
+                    )?></li>
+                    <li><?=\Tbmt\Localizer::insert(
+                      $this->i18nView['popup_purchase_text4'],
+                      $this->i18nView['popup_purchase_text4_val'],
+                      true,
+                      '<a class="highlight label yellow" href="https://get.adobe.com/de/reader/" target="_blank">{_val_} <i class="fa fa-external-link"></i></a>'
+                    )?></li>
+                    <li><?=$this->i18nView['popup_purchase_text5']?></li>
+                    <li><?=$this->i18nView['popup_purchase_text6']?></li>
+                    <li><?=\Tbmt\Localizer::insert(
+                      $this->i18nView['popup_purchase_text7'],
+                      $this->i18nView['popup_purchase_text7_val'],
+                      true,
+                      '<span class="highlight label yellow">{_val_}</span>'
+                    )?></li>
+                    <li><?=\Tbmt\Localizer::insert(
+                      $this->i18nView['popup_purchase_text8'],
+                      $this->i18nView['popup_purchase_text8_val'],
+                      true,
+                      '<span class="highlight label yellow">{_val_}</span>'
+                    )?></li>
+                    <li><?=\Tbmt\Localizer::insert(
+                      $this->i18nView['popup_purchase_text9'],
+                      $this->i18nView['popup_purchase_text9_val'],
+                      true,
+                      '<a class="highlight label green" href="'.\Tbmt\Router::toModule('about', 'faq').'" target="_blank">{_val_} <i class="fa fa-external-link"></i></a>'
+                    )?></li>
+                    <li><?=\Tbmt\Localizer::insert(
+                      $this->i18nView['popup_purchase_text10'],
+                      $this->i18nView['popup_purchase_text10_val'],
+                      true,
+                      '<a class="highlight label blue" href="'.\Tbmt\Router::toModule('about', 'contact').'" target="_blank">{_val_} <i class="fa fa-external-link"></i></a>'
+                    )?></li>
+                    <li><?=$this->i18nView['popup_purchase_text11']?></li>
+                  </ul>
+
+                  <p><?=Tbmt\view\Factory::buildPurchaseAgreements()?></p>
+
+                  <div class="contact-modeal-footer top-20 text-center">
+                    <?=Tbmt\view\Factory::buildButtonTag($this->i18nView['popup_purchase_submit'], '', 'shopping-cart', ['id' => 'purchase-confirmation-button'])?>
+                    <?=Tbmt\view\Factory::buildButtonTag($this->i18nView['popup_purchase_cancel'], 'black', 'times', ['data-dismiss' => 'modal', 'id' => 'purchase-cancelation-button'])?>
+                  </div><!-- // .contact-modeal-footer -->
+
+              </div><!-- // #contact -->
+            </div><!-- // #contact-modal -->
+          </div><!-- // .modal-content -->
+        </div><!-- // .modal-dialog -->
+      </div><!-- // .modal -->
+
+
+      <script src="https://www.paypalobjects.com/api/checkout.js" data-version-4></script>
+      <script>
+        (function() {
+
+          var CREATE_PAYMENT_URL = '<?php echo $this->createPPPUrl; ?>';
+          var EXECUTE_PAYMENT_URL = '<?php echo $this->executePPPUrl; ?>';
+          var CANCEL_PAYMENT_URL = '<?php echo $this->cancelPPPUrl; ?>';
+          var REDIRECT_SUCCESS_URL = '<?php echo $this->redirectSuccessUrl; ?>';
+
+          var cancelPopup = jQuery('#purchase-cancelation-dialog');
+          var confirmPopup = jQuery('#purchase-confirmation-dialog');
+          var loadingPopup = jQuery('#purchase-loading-dialog');
+
+          /**
+           * [showError description]
+           * @param  {[type]} text
+           * @return {[type]}
+           */
+          var showError = function(text) {
+            jQuery('#purchase-cancelation-errorinfo').html(text);
+            confirmPopup.modal('hide');
+            loadingPopup.modal('hide');
+            cancelPopup.modal('show');
+          };
+
+          /**
+           * [onError description]
+           * @param  {[type]} data
+           * @return {[type]}
+           */
+          var onError = function(data) {
+            showError('');
+            paypal.request.post(CANCEL_PAYMENT_URL, data);
+          };
+
+          /**
+           *
+           */
+          var authorizedPayPalData;
+          var doConfirm = function() {
+            var confirmData = {
+              paymentID: authorizedPayPalData.paymentID,
+              payerID: authorizedPayPalData.payerID
+            };
+
+            paypal.request.post(EXECUTE_PAYMENT_URL, confirmData)
                 .then(function(data) {
-                  resolve(data.paymentID);
+                  window.location.href = REDIRECT_SUCCESS_URL;
                 })
                 .catch(function(err) {
-                  reject(err);
+                  confirmData.error = err;
+                  onError(confirmData);
                 });
-        },
 
-        onAuthorize: function(data, actions) {
-            var EXECUTE_PAYMENT_URL = '<?php echo $this->executePPPUrl; ?>';
+            confirmPopup.modal('hide');
+          };
 
-            paypal.request.post(EXECUTE_PAYMENT_URL,
-                  { paymentID: data.paymentID, payerID: data.payerID }
-                )
-                .then(function(data) { /* Go to a success page */ })
-                .catch(function(err) { /* Go to an error page  */ });
-       },
 
-        onCancel: function(data, actions) {
-            // Execute the payment here, when the buyer approves the transaction
-            console.log('onCancel');
-       }
+          jQuery('#purchase-confirmation-button').on('click', doConfirm);
 
-    }, '#paypal-button');
-</script>
+          jQuery('#purchase-cancelation-button').on('click', function() {
+            onError({paymentID: authorizedPayPalData.paymentID, cause: 'user'});
+          });
+
+          paypal.Button.render({
+
+              env: 'sandbox', // Specify 'sandbox' for the test environment
+              client: {
+                  sandbox: 'AViDHwZfNbaqBZCRRFaPcOdA6ARynGxeaX_cyIX-eCUPWE_W6aF-AQgvr0L1kGsotnNvZeAtp4WWV5qD',
+              },
+
+              payment: function(resolve, reject) {
+                  paypal.request.post(CREATE_PAYMENT_URL)
+                      .then(function(data) {
+                        resolve(data.paymentID);
+                      })
+                      .catch(function(err) {
+                        reject(err);
+                      });
+              },
+
+              onAuthorize: function(data, actions) {
+                  authorizedPayPalData = data;
+                  confirmPopup.modal('show');
+              },
+
+              onCancel: function(data, actions) {
+                  data.cause = 'user';
+                  onError(data);
+              }
+
+          }, '#paypal-button');
+
+        })();
+      </script>
+
+
+    <?php endif; ?>
+  </div>
+
+
+  <!--
+    *
+    * login buttons
+    *
+    ************************************
+  -->
+  <?php if ( !$this->member ): ?>
+
+    <div class="row bottom-30 top-30">
+      <?php echo \Tbmt\view\Factory::buildInfoBox(
+        $this->i18nView['want_purchase'],
+        $this->i18nView['require_login'],
+        \Tbmt\view\Factory::buildButton(
+            $this->i18nView['signup_button'],
+            \Tbmt\Router::toModule('member', 'signup'),
+            'blue pull-right'
+          ).
+          \Tbmt\view\Factory::buildButton(
+            $this->i18nView['login_button'],
+            \Tbmt\Router::toModule('account'),
+            'yellow pull-right right-10'
+        ),
+        'action'
+      ); ?>
+
+    </div>
+  <?php endif; ?>
+
+</div>

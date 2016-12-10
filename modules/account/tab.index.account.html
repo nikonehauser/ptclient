@@ -17,36 +17,10 @@
   ?>
 
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-12">
           <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['account'], 'bottom-30 top-10')?>
 
           <dl class="dl-horizontal dl-largeSpaced dl-prettyStyled">
-              <?php
-              if ( $this->member->getType() > \Member::TYPE_MEMBER ) {
-                echo '<dt>'.$this->i18nView['member_type'].'</dt>
-                  <dd>'.$this->i18nCommon['member_types'][$this->member->getType()].'</dd>';
-
-              }
-              ?>
-
-              <dt><?=$this->i18nView['your_num']?></dt>
-              <dd><?=$this->member->getNum()?></dd>
-
-              <?php
-              if ( $this->member->getBonusLevel() > 0 ) {
-                echo '<dt>'.$this->i18nView['bonus_level'].'</dt>
-                  <dd>+ '.\Tbmt\Localizer::currencyFormat($this->member->getBonusLevel(),
-                        [\Transaction::$BASE_CURRENCY]
-                      ).'</dd>';
-
-              }
-              ?>
-
-              <dt><?=$this->i18nView['address']?></dt>
-              <dd>
-                  <?=\Tbmt\view\Factory::buildMemberAddress($this->member)?>
-              </dd>
-
               <dt><?=$this->i18nView['email']?></dt>
               <dd>
                   <?=$this->member->getEmail() ?
@@ -54,29 +28,6 @@
                   '<em class="text-muted">'.$this->i18nView['email_none'].'</em>'?>
               </dd>
           </dl>
-      </div>
-      <div class="col-md-6">
-          <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['bank_account'], 'bottom-30 top-10')?>
-
-          <p>TODO</p>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
-
-          <div style="display: none;">
-            <dl class="dl-horizontal dl-largeSpaced dl-prettyStyled">
-                <dt><?=$this->i18nView['bank_recipient']?></dt>
-                <dd><?=Base::encodeHtml($this->member->getBankRecipient())?></dd>
-
-                <dt><?=$this->i18nView['iban']?></dt>
-                <dd><?=Base::encodeHtml($this->member->getIban())?></dd>
-
-                <dt><?=$this->i18nView['bic']?></dt>
-                <dd><?=Base::encodeHtml($this->member->getBic())?></dd>
-            </dl>
-          </div>
 
           <?=\Tbmt\view\Factory::buildButton(
             $this->i18nView['change_profile'],
@@ -94,7 +45,7 @@
       </div>
     </div>
 
-    <div class="row" style="display: none;">
+    <div class="row top-40" >
       <div class="col-md-12">
           <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['guides'], 'bottom-30 top-10')?>
 

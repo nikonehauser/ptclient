@@ -53,13 +53,26 @@ class ControllerDispatcher {
 
 
 abstract class ControllerActionResult {
+
+  private $httpStatus = 200;
+
   private $data;
+
   public function __construct($data) {
     $this->data = $data;
   }
 
   protected function getData() {
     return $this->data;
+  }
+
+  public function setHttpStatusCode($code) {
+    $this->httpStatus = $code;
+  }
+
+  public function dispatch() {
+    http_response_code($this->httpStatus);
+    $this->execute();
   }
 
   abstract public function execute();

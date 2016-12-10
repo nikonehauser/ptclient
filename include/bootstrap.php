@@ -87,6 +87,9 @@ try {
 
 define('BOOTSTRAP_DONE', true);
 define('DEVELOPER_MODE', Config::get('devmode', TYPE_BOOL, false));
+define('EXTEND_MARKTING_SYSTEM', Config::get('extended.marketing.member', TYPE_BOOL, false));
+
+\Member::loadStrategy(EXTEND_MARKTING_SYSTEM);
 
 MailHelper::$MAILS_DISABLED = Config::get('disable_email_distribution', TYPE_BOOL, false);
 
