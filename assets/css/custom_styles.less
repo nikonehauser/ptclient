@@ -94,7 +94,6 @@
   }
 
   position: relative;
-  z-index: -1;
   &:after {
     display: block;
     content: "";
@@ -128,25 +127,6 @@
   background: -ms-linear-gradient(45deg,  @backgRoundColorFrom 0%,@backgRoundColorTo 80%, @backgRoundColorTo2 95%); /* IE10+ */
   background: linear-gradient(45deg,  @backgRoundColorFrom 0%,@backgRoundColorTo 80%, @backgRoundColorTo2 95%); /* W3C */
 
-  position: relative;
-  &:before {
-    display: block;
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-
-    // background: url("@{imagePath}footer_lodyas_bright.png");
-    // opacity: .6;
-    z-index: 1;
-  }
-
-  &>* {
-    position: relative;
-    z-index: 2;
-  }
 }
 
 .heading-area-panel {

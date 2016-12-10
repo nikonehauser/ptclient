@@ -21,6 +21,7 @@ class Cron {
         ->filterByPaidDate(null, \Criteria::ISNULL)
         ->filterBySignupDate($twoWeeksAgo, \Criteria::LESS_THAN)
         ->filterByDeletionDate(null, \Criteria::ISNULL)
+        ->filterByIsExtended(1)
         ->find($con);
 
       $result .= "Remove unpaid user job:\n\n";
@@ -67,6 +68,7 @@ class Cron {
 
     try {
       $unpaidMembers = \MemberQuery::create()
+        ->filterByIsExtended(1)
         // member has not paid
         ->filterByPaidDate(null, \Criteria::ISNULL)
         // signup is 7 days ago or later
@@ -129,6 +131,16 @@ class Cron {
 
     return $result;
 
+  }
+
+  /**
+   * Remind all unpaid members after 7 days.
+   *
+   * @return
+   */
+  public static function payoutMembers($now = null) {
+    // get members to payout
+    Payouts::transfer();
   }
 }
 

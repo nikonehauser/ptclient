@@ -4,6 +4,15 @@ namespace Tbmt\view;
 
 class Factory {
 
+  static function buildAttributes(array $attributes) {
+    $attr = '';
+    foreach ( $attributes as $name => $val ) {
+      $attr .= ' '.$name.'="'.e($val).'"';
+    }
+
+    return $attr;
+  }
+
   static $fmtMemberFeeStr;
   static function buildFmtMemberFeeStr() {
     if ( ! self::$fmtMemberFeeStr )
@@ -44,12 +53,49 @@ class Factory {
    * @param  integer $size
    * @return [type]
    */
+  static function buildButtonTag($text, $type = '', $icon = '', array $attributes = []) {
+    if ( $icon !== '' )
+      $icon = '<span class="icon"><i class="icon-right fa fa-'.$icon.'"></i></span>';
+
+    if ( $attributes )
+      $attributes = self::buildAttributes($attributes);
+    else
+      $attributes = '';
+
+// <button id="submit" class="button"><span>Send your message</span><span class="icon"><i class="fa fa-send"></i></span></button>
+    return <<<END
+<button$attributes class="button $type"><span>$text</span>$icon</button>
+END;
+  }
+
+
+  /**
+   * [buildHeadingArea description]
+   * @param  [type]  $title
+   * @param  string  $classes
+   * @param  integer $size
+   * @return [type]
+   */
   static function buildButton($text, $href, $type = '', $icon = '', $target = '') {
     if ( $icon !== '' )
       $icon = '<i class="icon-right fa fa-'.$icon.'"></i>';
 
     return <<<END
 <a href="$href" $target class="button $type text-center"><span>$text $icon</span></a>
+END;
+  }
+
+
+  /**
+   * [buildHeadingArea description]
+   * @param  [type]  $title
+   * @param  string  $classes
+   * @param  integer $size
+   * @return [type]
+   */
+  static function buildLink($text, $href, $type = '', $target = '') {
+    return <<<END
+<a href="$href" $target class="$type">$text</a>
 END;
   }
 
@@ -350,6 +396,32 @@ END;
     $zipCode $city<br>
     $country
 </address>
+END;
+  }
+
+  /**
+   * [buildPurchaseAgreements description]
+   * @return [type]
+   */
+  static function buildPurchaseAgreements() {
+    return \Tbmt\Localizer::getInsert('common.purchase_agreemensts',
+      [
+        'terms' => ''.self::buildLink(\Tbmt\Localizer::get('common.terms'), \Tbmt\Router::toModule('about', 'terms'), '', 'target="_blank"'),
+        'privacy' => ''.self::buildLink(\Tbmt\Localizer::get('common.privacy'), \Tbmt\Router::toModule('about', 'privacy'), '', 'target="_blank"'),
+        'cancelation_right' => ''.self::buildLink(\Tbmt\Localizer::get('common.cancelation_right'), \Tbmt\Router::toModule('about', 'cancelation_right'), '', 'target="_blank"'),
+      ],
+      false
+    );
+  }
+
+  /**
+   * loading indicator
+   * @param  \Member $member
+   * @return [type]
+   */
+  static function buildLoadingIndicator() {
+    return <<<END
+<i class="fa fa-spinner fa-spin"></i>
 END;
   }
 

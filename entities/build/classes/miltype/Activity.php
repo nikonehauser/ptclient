@@ -17,9 +17,16 @@ class Activity extends BaseActivity
 {
   const ACT_ACCOUNT_BONUS_LEVEL = 1;
   const ACT_ACCOUNT_BONUS_PAYMENT = 2;
+
   const ACT_MEMBER_SIGNUP = 3;
+  const ACT_MEMBER_PAYMENT_CREATE = 4;
+  const ACT_MEMBER_PAYMENT_EXEC = 5;
+  const ACT_MEMBER_PAYMENT_CANCEL = 6;
+  const ACT_MEMBER_PAYMENT_CANCEL_BY_USER = 7;
+  const ACT_MEMBER_PAYMENT_CANCEL_UNKNOWN = 8;
 
   const ARR_RESULT_RETURN_KEY = '__return';
+  const ARR_RELATED_RETURN_KEY = '__related';
 
   const MK_BONUS_PAYMENT_AMOUNT = 'amount';
 
@@ -37,9 +44,16 @@ class Activity extends BaseActivity
       $res = $return = call_user_func_array($callable, $arrArgs);
       $resIsArray = is_array($res);
 
-      if ( $resIsArray && isset($res[self::ARR_RESULT_RETURN_KEY]) ) {
-        $return = $res[self::ARR_RESULT_RETURN_KEY];
-        unset($res[self::ARR_RESULT_RETURN_KEY]);
+      if ( $resIsArray ) {
+        if ( isset($res[self::ARR_RESULT_RETURN_KEY]) ) {
+          $return = $res[self::ARR_RESULT_RETURN_KEY];
+          unset($res[self::ARR_RESULT_RETURN_KEY]);
+        }
+
+        if ( !$related && isset($res[self::ARR_RELATED_RETURN_KEY]) ) {
+          $related = $res[self::ARR_RELATED_RETURN_KEY];
+          unset($res[self::ARR_RELATED_RETURN_KEY]);
+        }
       }
 
       self::insert($action, self::TYPE_SUCCESS,
@@ -79,10 +93,12 @@ class Activity extends BaseActivity
     else if ( is_numeric($creator) )
       $activity->setMemberId($creator);
 
-    if ( $related instanceof Member ) {
-      $activity->setRelatedId($related->getId());
-    } else if ( is_numeric($related) )
-      $activity->setRelatedId($related);
+    if ( $related ) {
+      if ( is_numeric($related) )
+        $activity->setRelatedId($related);
+      else if ( is_callable($related, 'getId') )
+        $activity->setRelatedId($related->getId());
+    }
 
     $activity
       ->setAction($action)

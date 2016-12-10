@@ -17,7 +17,7 @@ spl_autoload_register(function ($name) {
 });
 
 \set_error_handler(function($errno, $errstr, $errfile, $errline) {
- throw new \ErrorException($errstr, 0, $errno, $errfile, $errline);
+  throw new \ErrorException($errstr, 0, $errno, $errfile, $errline);
 });
 
 define('PROJECT_NAME', 'miltype');
@@ -35,6 +35,8 @@ define('API_DIR', BASE_DIR.'api'.DIRECTORY_SEPARATOR);
 define('MODULES_DIR', BASE_DIR.'modules'.DIRECTORY_SEPARATOR);
 define('VIEWS_DIR', BASE_DIR.'views'.DIRECTORY_SEPARATOR);
 define('LOCALES_DIR', BASE_DIR.'locales'.DIRECTORY_SEPARATOR);
+
+require LIB_DIR.'functions.php';
 
 require INC_DIR.'Exceptions.php';
 require INC_DIR.'Val.php';
@@ -85,7 +87,12 @@ try {
 
 define('BOOTSTRAP_DONE', true);
 define('DEVELOPER_MODE', Config::get('devmode', TYPE_BOOL, false));
+define('EXTEND_MARKTING_SYSTEM', Config::get('extended.marketing.member', TYPE_BOOL, false));
+
+\Member::loadStrategy(EXTEND_MARKTING_SYSTEM);
 
 MailHelper::$MAILS_DISABLED = Config::get('disable_email_distribution', TYPE_BOOL, false);
+
+require VENDOR_DIR.'autoload.php';
 
 ?>

@@ -66,6 +66,24 @@ class ManageController extends BaseController {
   }
 
   static public function validateChangeBankingForm(\Member $login, array $data = array())  {
+    if ( !$login->isExtended() ) {
+      $existingFields = [
+        'title'          => true,
+        'lastName'       => true,
+        'firstName'      => true,
+        'email'          => true,
+      ];
+
+      self::$CHANGE_PROFILE_FORM_FIELDS = array_intersect_key(
+        self::$CHANGE_PROFILE_FORM_FIELDS,
+        $existingFields
+      );
+      self::$CHANGE_PROFILE_FORM_FILTERS = array_intersect_key(
+        self::$CHANGE_PROFILE_FORM_FILTERS,
+        $existingFields
+      );
+    }
+
     $data = self::initChangeBankingForm($data);
     $res = \Tbmt\Validator::getErrors($data, self::$CHANGE_PROFILE_FORM_FILTERS);
     if ( $res !== false )
@@ -75,11 +93,11 @@ class ManageController extends BaseController {
   }
 
   static private $PASSWORD_RESET_FORM_FIELDS = [
-    'num' => [\Tbmt\TYPE_INT, ''],
+    'num' => [\Tbmt\TYPE_STRING, ''],
   ];
 
   static private $PASSWORD_RESET_FORM_FILTERS = [
-    'num' => \Tbmt\Validator::FILTER_NOT_EMPTY,
+    'num' => \FILTER_VALIDATE_EMAIL,
   ];
 
   static public function initPasswordResetForm(array $data = array()) {
@@ -95,9 +113,9 @@ class ManageController extends BaseController {
 
     $recipient = \MemberQuery::create()
       ->filterByDeletionDate(null, \Criteria::ISNULL)
-      ->findOneByNum($data['num']);
+      ->findOneByEmail($data['num']);
     if ( $recipient == null ) {
-      return [false, ['num' => \Tbmt\Localizer::get('error.member_num')], null];
+      return [false, ['num' => \Tbmt\Localizer::get('error.member_email')], null];
     }
 
     return [true, $data, $recipient];
@@ -241,11 +259,15 @@ class ManageController extends BaseController {
     $login->setLastName($data['lastName']);
     $login->setFirstName($data['firstName']);
     $login->setEmail($data['email']);
-    $login->setCity($data['city']);
-    $login->setZipCode($data['zip_code']);
-    $login->setBic($data['bic']);
-    $login->setIban($data['iban']);
-    $login->setBankRecipient($data['bank_recipient']);
+
+    if ( $login->isExtended() ) {
+      $login->setCity($data['city']);
+      $login->setZipCode($data['zip_code']);
+      $login->setBic($data['bic']);
+      $login->setIban($data['iban']);
+      $login->setBankRecipient($data['bank_recipient']);
+    }
+
     $login->save();
 
     return ControllerDispatcher::renderModuleView(

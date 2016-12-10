@@ -8,7 +8,6 @@ class MemberController extends BaseController {
 
   protected $actions = [
     'index' => true,
-    'system' => true,
     'signup' => true,
     'signup_submit' => true,
     'signupSuccess' => true,
