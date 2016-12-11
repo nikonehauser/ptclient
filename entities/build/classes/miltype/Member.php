@@ -95,7 +95,7 @@ class Member extends BaseMember
     return [
       'data' => $data,
       'member' => $member->toArray(),
-      'referer' => $referrerMember->toArray(),
+      'referer' => $referrerMember ? $referrerMember->toArray() : null,
       'invitation' => $invitation ? $invitation->toArray() : null,
       Activity::ARR_RESULT_RETURN_KEY => $member
     ];

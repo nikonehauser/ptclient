@@ -42,7 +42,7 @@ set foreign_key_checks=0;
 
     `deletion_date` timestamp  NULL ,
 
-    `is_extend` smallint NOT NULL default 0 ,
+    `is_extended` smallint NOT NULL default 0 ,
 
     `sub_promoter_referral` BIGINT(20) UNSIGNED NULL ,
 

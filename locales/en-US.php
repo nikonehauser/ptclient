@@ -375,8 +375,7 @@ return [
         'page_title' => 'Successfully signed up',
         'hello' => "Welcome to $brandName",
         'signup_text1' => "Thank you for signing up. You are one step away from becomming member of $brandName!",
-        'signup_text2' => 'We have sent a confirmation link to your email address. You need to verify your email address by clicking on the link in the registration email. This is required to complete the registration.',
-        'signup_text3' => 'This process guarantees valid email addresses for you and us. Because this is the only way how we can contact you if we run into problems transferring your bonus!'
+        'signup_text2' => 'We have sent a confirmation link to your email address. You need to verify your email address by clicking on the link in the registration email. This is required to complete the registration.'
       ],
     ],
 
@@ -429,12 +428,13 @@ return [
 
           'welc_not_1' => 'Welcome {name}',
           'welc_not_2' => 'This is your profile. You can find various information here',
-          'welc_not_3' => 'IMPORTANT! Always remember your customer number! You will need it to login, recruit others etc.',
 
           'guides' => 'Your Happy Guides',
           'guides_not_available' => 'You have no guide enabled yet.',
           'guide_download_explanation' => 'Click on the names to download your guide(s)',
           'guide_name' => 'Happy Guide Nr. {number}',
+
+          'purchase_now' => 'Purchase the Happiness Guide now',
         ],
         'invoice' => [
           'stats' => 'Statistics',
