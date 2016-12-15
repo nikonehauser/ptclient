@@ -723,6 +723,8 @@ return [
         'popup_purchase_submit' => 'Complete Purchase Now',
         'popup_purchase_cancel' => 'Cancel Purchase',
         'popup_purchase_close' => 'Close',
+
+        'extended_system_user_note' => 'Your are an special customer to us. If you purchase this happy guide you will get access to the marketing system at: {url}',
       ],
     ],
 

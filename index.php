@@ -29,6 +29,7 @@ try {
 
     Session::setLogin($nonce->getMember());
     $nonce->delete();
+    header('Location: '.Router::toModule('guide'));
   }
 
   /* Dispatch controller

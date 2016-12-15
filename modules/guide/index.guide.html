@@ -14,6 +14,7 @@
   </div>
 
   <div class="row bottom-30 top-30 sheet">
+  <div class="col-md-12">
     <?php
 
       if ( $this->purchaseFailedMessage ) {
@@ -51,6 +52,14 @@
     <?php elseif ( $this->member && !$this->member->hadPaid() ): ?>
 
       <div id="paypal-button"></div>
+
+      <?php if ( $this->member->isExtended() ): ?>
+        <?=\Tbmt\view\Factory::testimonial(
+          \Tbmt\Localizer::insert($this->i18nView['extended_system_user_note'], [
+            'url' => \Tbmt\Config::get('extended.system.url')
+          ])
+        )?>
+      <?php endif; ?>
 
       <!-- Modal -->
       <div class="modal fade" id="purchase-loading-dialog" tabindex="-1" role="dialog" data-backdrop="static">
@@ -268,6 +277,7 @@
 
 
     <?php endif; ?>
+  </div>
   </div>
 
 
