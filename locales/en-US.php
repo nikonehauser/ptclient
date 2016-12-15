@@ -361,7 +361,7 @@ return [
           'password2' => 'Repeat password',
 
           'accept_agbs' => 'I have read and accepted the terms and conditions',
-          'accept_valid_country' => 'I confirm that I am citizen of India',
+          'accept_valid_country' => 'I confirm that I am resident of India',
           'not_accepted_countries' => '',
 
           'submit' => 'Submit',

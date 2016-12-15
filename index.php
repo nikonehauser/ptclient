@@ -11,6 +11,26 @@ try {
 
   Session::start();
 
+  $nonce = isset($_REQUEST['nonce']) ? $_REQUEST['nonce'] : null;
+  if ( $nonce ) {
+    $nonce = \NonceQuery::create()->findOneByNonce($nonce);
+    if ( !$nonce )
+      exit('<h1>PermissionDenied</h1>');
+
+    $now = time();
+    if ( $now > $nonce->getDate() )
+      exit('<h1>PermissionDenied</h1>');
+
+    $login = Session::getLogin();
+    if ( $login ) {
+      Session::terminate();
+      Session::start();
+    }
+
+    Session::setLogin($nonce->getMember());
+    $nonce->delete();
+  }
+
   /* Dispatch controller
   ---------------------------------------------*/
   list(
