@@ -40,10 +40,6 @@ class GuideController extends BaseController {
       return $action;
     }
 
-      $action = new ControllerActionAjax(["eror" => "PermissionDeniedException"]);
-      $action->setHttpStatusCode(500);
-      return $action;
-
     $con = \Propel::getConnection();
     $payment = \Activity::exec(
       /*callable*/[$this, 'activity_createPPP'],
