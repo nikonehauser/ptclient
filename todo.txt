@@ -2,7 +2,23 @@ CURRENT - TODOS
 ===============
 
 
-* paypal transaction number -> create our own cycle
+
+* mitgliedsnummer -> sha token
+
+* invitations auch das token mitgeben
+
+* invitations mit soforting lvl2 einbauen
+
+* vidoes einbinden
+
+* referral number und invitation code anders
+
+* citizen -> resident
+
+* link mit denen er andere anmelden kann im profil anzeigen
+
+
+
 
 * pdf aktualisieren
 * pdf screenshot aktualisieren
@@ -25,6 +41,15 @@ hat und eine für jemand der schon geworben hat
 Offen an Tom:
 
  - PDF als quittung
+
+
+CRONJOBS
+========
+
+* clear nonces
+* emails happy guide
+* remove unpaid
+* email remember unpaid
 
 Fragen
 ======

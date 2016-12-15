@@ -3,6 +3,10 @@
 namespace Tbmt;
 
 class Cron {
+  public static function clearNonces() {
+    \NonceQuery::create()->filterByDate(time(), \Criteria::GREATER_EQUAL)->delete();
+  }
+
   public static function removeUnpaid($now = null, $allowedSeconds = 1209600) {
     $con = \Propel::getConnection();
 

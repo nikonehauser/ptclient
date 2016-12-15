@@ -9,7 +9,29 @@ try {
 
   require BASE_DIR.'include'.DIRECTORY_SEPARATOR.'bootstrap.php';
 
+  $isAllowed = false;
   Session::start();
+  $login = Session::getLogin();
+  if ( $login ) {
+    $isAllowed = true;
+  } else {
+    if ( Session::hasValidToken() ) {
+      $isAllowed = true;
+    } else {
+      $token = isset($_REQUEST['tkn']) ? $_REQUEST['tkn'] : null;
+      if ( $token ) {
+        $res = \Member::getByHash($token);
+        if ( $res != null && $res instanceof \Member && $res->isExtended() ) {
+          $isAllowed = true;
+          Session::setValidToken($token);
+        }
+      }
+    }
+  }
+
+  if ( $isAllowed !== true ) {
+    die('<h1>Permission Denied</h1>');
+  }
 
   /* Dispatch controller
   ---------------------------------------------*/

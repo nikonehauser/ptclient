@@ -463,6 +463,8 @@ return [
           'guides_not_available' => 'You have no guide enabled yet.',
           'guide_download_explanation' => 'Click on the names to download your guide(s)',
           'guide_name' => 'Happy Guide Nr. {number}',
+
+          'purchase_now' => 'Purchase the Happiness Guide now',
         ],
         'invoice' => [
           'stats' => 'Statistics',

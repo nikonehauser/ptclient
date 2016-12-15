@@ -9,11 +9,12 @@ class MemberSignup extends Base {
 
     $data = isset($params['formVal']) ? $params['formVal'] : $_REQUEST;
 
-    $this->referralNumDisabled = !empty($_REQUEST['referral_member_num']);
+    $data['referral_member_num'] = \Tbmt\Session::hasValidToken();
+    $this->referralNumDisabled = true;
 
     if ( DEVELOPER_MODE === true ) {
       $data = array_merge([
-        'referral_member_num'  => '102',
+        // 'referral_member_num'  => '102',
         'title'                => '',
         'invitation_code'      => '',
         'lastName'             => 'Spender ',

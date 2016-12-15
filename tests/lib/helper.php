@@ -97,6 +97,7 @@ class DbEntityHelper {
       ->setPaidDate($now + 100000)
       ->save(self::$con);
 
+    $member->setHash(\Member::calcHash($member));
     $member->setNum($member->getId() + 1000000);
     $member->save(self::$con);
 

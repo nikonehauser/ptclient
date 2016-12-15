@@ -29,7 +29,7 @@ class Index extends Base {
           array_push($sublinks, [
             \Tbmt\Router::toModule($linkName, $action).$anchor,
             $name,
-            $action === CURRENT_MODULE_ACTION ? true : false
+            defined('CURRENT_MODULE_ACTION') && $action === CURRENT_MODULE_ACTION ? true : false
           ]);
         }
       }
@@ -37,7 +37,7 @@ class Index extends Base {
       array_push($this->navigationLinks, [
         \Tbmt\Router::toModule($linkName),
         $locale,
-        $linkName === CURRENT_MODULE ? true : false,
+        defined('CURRENT_MODULE') && $linkName === CURRENT_MODULE ? true : false,
         $sublinks
       ]);
     }

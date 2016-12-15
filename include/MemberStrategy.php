@@ -95,7 +95,10 @@ class SimpleMemberStrategy extends MemberStrategy {
         ->setIban('')
         ->setBic('')
         ->setNum(0)
-        ->setIsExtended(0)
+        ->setIsExtended(0);
+
+      $member
+        ->setHash(\Member::calcHash($member))
         ->save($con);
 
     if ( !$con->commit() )
@@ -164,6 +167,7 @@ class ExtendedMemberStrategy extends SimpleMemberStrategy {
   ];
 
   public function validateSignupForm(array $data = array()) {
+    $data['referral_member_num'] = Session::hasValidToken();
     $data = $this->initSignupForm($data);
 
     if ( $data['password'] !== $data['password2'] )
@@ -175,10 +179,11 @@ class ExtendedMemberStrategy extends SimpleMemberStrategy {
 
     // Validate member number exists
     $parentMember = \MemberQuery::create()
-      ->filterByDeletionDate(null, Criteria::ISNULL)
+      ->filterByDeletionDate(null, \Criteria::ISNULL)
       ->filterByType(\Member::TYPE_SYSTEM, \Criteria::NOT_EQUAL)
-      ->findOneByNum($data['referral_member_num']);
-    if ( $parentMember == null || $parentMember->getNum() == 0) {
+      ->findOneByHash($data['referral_member_num'])
+      ->findOneByIsExtended(1);
+    if ( $parentMember == null || $parentMember->getNum() == 0 ) {
       return [false, ['referral_member_num' => \Tbmt\Localizer::get('error.referral_member_num')], null, null];
 
     }
@@ -234,6 +239,8 @@ class ExtendedMemberStrategy extends SimpleMemberStrategy {
         ->setBonusIds('{}')
         ->setPaidDate(null)
         ->setIsExtended(1);
+
+      $member->setHash(\Member::calcHash($member));
 
       $wasFreeInvitation = false;
 

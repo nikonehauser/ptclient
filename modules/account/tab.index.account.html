@@ -94,27 +94,44 @@
       </div>
     </div>
 
-    <div class="row" style="display: none;">
+    <div class="row top-40" >
       <div class="col-md-12">
-          <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['guides'], 'bottom-30 top-10')?>
-
-        <div style="padding-left: 25px;" class="widget category">
-          <?php
-
-          if ( !$this->guidesCount ) {
-            echo \Tbmt\view\Factory::buildNotification($this->i18nView['guides_not_available'], '', 'info');
-          } else {
-            echo '<ul>';
-            for ( $i = 1; $i <= $this->guidesCount; $i++ ) {
-              echo '<li><a target="_blank" href="'.\Tbmt\Router::toModule('download', 'guide', ['number' => $i]).'">'.
-                \Tbmt\Localizer::insert($this->i18nView['guide_name'], ['number' => $i]).
-                '</a></li>';
-            }
-
-            echo '</ul>';
-          }
-
-          ?>
-        </div>
+        <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['guides'], 'bottom-30 top-10')?>
       </div>
+    </div>
+
+    <div class="row" >
+      <?php if ( !$this->guidesCount ) : ?>
+
+        <div class="col-md-6">
+          <?php echo \Tbmt\view\Factory::buildNotification($this->i18nView['guides_not_available'], '', 'info'); ?>
+        </div>
+        <div class="col-md-6">
+          <?=\Tbmt\view\Factory::buildButton(
+            $this->i18nView['purchase_now'],
+            \Tbmt\Router::toModule('guide'),
+            ' green stroke',
+            'shopping-cart'
+          )?>
+        </div>
+
+      <?php else: ?>
+
+        <div class="col-md-12">
+
+          <div style="padding-left: 25px;" class="widget category">
+
+            <ul><?php
+
+              for ( $i = 1; $i <= $this->guidesCount; $i++ ) {
+                echo '<li><a target="_blank" href="'.\Tbmt\Router::toModule('download', 'guide', ['number' => $i]).'">'.
+                  \Tbmt\Localizer::insert($this->i18nView['guide_name'], ['number' => $i]).
+                  '</a></li>';
+              }
+
+            ?></ul>
+          </div>
+        </div>
+
+      <?php endif; ?>
     </div>
