@@ -89,7 +89,6 @@ class Member extends BaseMember
     return self::$strategyImpl->createFromSignup($data, $referrerMember, $invitation, $con);
   }
 
-
   static public function activity_createFromSignup($data, $referrerMember, Invitation $invitation = null, PropelPDO $con) {
     $member = self::createFromSignup($data, $referrerMember, $invitation, $con);
     return [
@@ -138,12 +137,27 @@ class Member extends BaseMember
     return $member;
   }
 
+  static public function getByHash($hash) {
+    $member = MemberQuery::create()
+      ->filterByDeletionDate(null, Criteria::ISNULL)
+      ->findOneByHash($hash);
+
+    if ( !$member )
+      throw new Exception('Coud not find member: '.$hash);
+
+    return $member;
+  }
+
   static public function getTransactionReasonByType($type) {
     if ( !isset(self::$TYPE_TO_BONUS_REASON[$type]) ) {
       return null;
     }
 
     return self::$TYPE_TO_BONUS_REASON[$type];
+  }
+
+  static public function calcHash(\Member $member) {
+    return sha1($member->getFirstName().$member->getLastName().$member->getEmail().uniqid().microtime());
   }
 
   public function getTransactionReasonByMemberType() {

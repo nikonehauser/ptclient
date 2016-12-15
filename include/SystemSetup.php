@@ -27,6 +27,7 @@ class SystemSetup {
     'Password'      => 'demo1234',
     'SignupDate'    => 0,
     'PaidDate'      => 0,
+    'IsExtended'    => 1,
   ];
 
   static public function createMember(\Member $referralMember = null, array $data = array()) {
@@ -38,6 +39,8 @@ class SystemSetup {
     $member->fromArray(array_merge(self::$memberDefaults, $data));
     if ( $referralMember )
       $member->setReferrerMember($referralMember, self::$con);
+
+    $member->setHash(\Member::calcHash($member));
 
     $member->save(self::$con);
     return $member;

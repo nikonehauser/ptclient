@@ -4,6 +4,7 @@ namespace Tbmt;
 
 final class Session {
 
+  const KEY_SECRET_TOKEN = '__KEY_SECRET_TOKEN';
   const KEY_USER_ID = 'user_id';
   const KEY_SIGNUP_MSG = 'show_signup_msg';
 
@@ -33,7 +34,10 @@ final class Session {
   static public function login($num, $pwd) {
     $member = \MemberQuery::create()
       ->filterByDeletionDate(null, \Criteria::ISNULL)
-      ->findOneByNum($num);
+      ->filterByNum($num)
+      ->filterByIsExtended(Config::get('extended.marketing.member', TYPE_BOOL, false))
+      ->findOne();
+
     if ( !$member )
       return false;
 
@@ -56,6 +60,14 @@ final class Session {
     }
 
     return self::$user;
+  }
+
+  static public function hasValidToken() {
+    return isset($_SESSION[self::KEY_SECRET_TOKEN]) ? $_SESSION[self::KEY_SECRET_TOKEN] : false;
+  }
+
+  static public function setValidToken($tkn) {
+    self::set(self::KEY_SECRET_TOKEN, $tkn);
   }
 
   static public function get($key, $type = TYPE_STRING, $default = false) {
