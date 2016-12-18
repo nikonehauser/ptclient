@@ -1,5 +1,25 @@
 <?=Tbmt\view\Factory::buildPageTitle($this->i18nView['page_title'])?>
 
+
+<?php if ( !\Tbmt\Session::hasValidToken() ) : ?>
+
+    <div class="container top-40 bottom-40">
+
+      <div class="sheet">
+        <div class="row">
+          <div class="col-md-12">
+
+            <?php echo \Tbmt\view\Factory::buildNotification($this->i18nView['token_missing'], '', 'notice top'); ?>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+<?php else: ?>
+
+
 <form action="<?=\Tbmt\Router::toModule('member', 'signup_submit')?>" method="post">
 
   <?php
@@ -148,10 +168,11 @@
               <?php echo $formBuilder->buildFieldGroup('accept_valid_country', 'checkbox'); ?>
           </div>
 
-        <div class="col-md-12">
-          <?=\Tbmt\view\Factory::buildSubmitBtn($this->formLabels['submit'], 'blue top-20')?>
-        </div>
+          <div class="col-md-12">
+            <?=\Tbmt\view\Factory::buildSubmitBtn($this->formLabels['submit'], 'blue top-20')?>
+          </div>
 
+        </div>
       </div>
     </div>
 </form>
@@ -165,3 +186,5 @@ jQuery(document).ready(function($) {
   })
 });
 </script>
+
+<?php endif; ?>

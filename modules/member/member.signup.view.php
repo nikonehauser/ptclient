@@ -9,9 +9,6 @@ class MemberSignup extends Base {
 
     $data = isset($params['formVal']) ? $params['formVal'] : $_REQUEST;
 
-    $data['referral_member_num'] = \Tbmt\Session::hasValidToken();
-    $this->referralNumDisabled = true;
-
     if ( DEVELOPER_MODE === true ) {
       $data = array_merge([
         // 'referral_member_num'  => '102',
@@ -34,7 +31,10 @@ class MemberSignup extends Base {
       ], $data);
     }
 
+    $data['referral_member_num'] = \Tbmt\Session::hasValidToken();
     $this->formVal = \Member::initSignupForm($data);
+
+    $this->referralNumDisabled = true;
 
     $this->formErrors = isset($params['formErrors']) ? $params['formErrors'] : [];
 

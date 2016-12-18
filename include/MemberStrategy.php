@@ -123,7 +123,7 @@ class SimpleMemberStrategy extends MemberStrategy {
 class ExtendedMemberStrategy extends SimpleMemberStrategy {
 
   public $SIGNUP_FORM_FIELDS = [
-    'referral_member_num'  => [\Tbmt\TYPE_INT, ''],
+    'referral_member_num'  => \Tbmt\TYPE_STRING,
     'title'                => \Tbmt\TYPE_STRING,
     'invitation_code'      => \Tbmt\TYPE_STRING,
     'lastName'             => \Tbmt\TYPE_STRING,
@@ -166,6 +166,10 @@ class ExtendedMemberStrategy extends SimpleMemberStrategy {
     'password'             => \Tbmt\Validator::FILTER_PASSWORD,
   ];
 
+  public function initSignupForm(array $data = array()) {
+    return \Tbmt\Arr::initMulti($data, $this->SIGNUP_FORM_FIELDS);
+  }
+
   public function validateSignupForm(array $data = array()) {
     $data['referral_member_num'] = Session::hasValidToken();
     $data = $this->initSignupForm($data);
@@ -181,7 +185,7 @@ class ExtendedMemberStrategy extends SimpleMemberStrategy {
     $parentMember = \MemberQuery::create()
       ->filterByDeletionDate(null, \Criteria::ISNULL)
       ->filterByType(\Member::TYPE_SYSTEM, \Criteria::NOT_EQUAL)
-      ->findOneByHash($data['referral_member_num'])
+      ->filterByHash($data['referral_member_num'])
       ->findOneByIsExtended(1);
     if ( $parentMember == null || $parentMember->getNum() == 0 ) {
       return [false, ['referral_member_num' => \Tbmt\Localizer::get('error.referral_member_num')], null, null];

@@ -58,18 +58,16 @@ try {
     if ( $member && $member->isExtended() )
       $isAllowed = true;
 
-  } else {
-    if ( Session::hasValidToken() ) {
+  } else if ( Session::hasValidToken() ) {
+    $isAllowed = true;
+  }
+
+  $token = isset($_REQUEST['tkn']) ? $_REQUEST['tkn'] : null;
+  if ( $token ) {
+    $res = \Member::getByHash($token, false);
+    if ( $res && $res instanceof \Member && $res->isExtended() ) {
       $isAllowed = true;
-    } else {
-      $token = isset($_REQUEST['tkn']) ? $_REQUEST['tkn'] : null;
-      if ( $token ) {
-        $res = \Member::getByHash($token);
-        if ( $res != null && $res instanceof \Member && $res->isExtended() ) {
-          $isAllowed = true;
-          Session::setValidToken($token);
-        }
-      }
+      Session::setValidToken($token);
     }
   }
 

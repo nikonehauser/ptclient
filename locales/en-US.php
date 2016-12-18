@@ -156,6 +156,7 @@ return [
         'projects' => 'Home',
         'about' => 'About Us',
         'impressum' => 'Impressum',
+        'signup' => 'Signup',
         'account' => 'Profile',
       ],
       'navigation_sublinks' => [
@@ -355,6 +356,7 @@ return [
       'signup' => [
         'page_title' => 'Sign up to be a customer',
         'form_error' => 'Form has invalid fields.',
+        'token_missing' => 'Missing valid exclusive invitation code. Please visit the invitation link you got from your referrer.',
         'referral_member_num_help' => 'This is the customer number of the person who recruited you. This person will also receive a reward for your purchase. In order to join, you need somebody to invite you with their customer number.',
         'invitation_code_help' => 'This code is NOT required. You may have received a special invitation code from the person who invited you. This code may be linked with a bonus or similar things.',
         'form_labels' => [

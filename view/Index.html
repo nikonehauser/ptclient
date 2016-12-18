@@ -89,6 +89,7 @@ use \Tbmt\Router as R;
 
 						<div class="social-info pull-right hidden-xs hidden-sm">
 							<ul class="social textcolor list-unstyled">
+								<li class="facebook active"><a href="<?php echo R::toModule('member', 'signup'); ?>">Signup</a></li>
 								<li class="mail active"><a href="mailto:<?=$this->textBrandMail?>"><i class="fa fa-envelope"></i><span><?=$this->textBrandMail?></span></a></li>
 								<li class="facebook active"><a href="<?=\Tbmt\Router::toModule('about', 'faq')?>"><i class="fa fa-question-circle"></i><span>FAQ</span></a></li>
 							</ul><!-- // .social -->
@@ -131,7 +132,6 @@ use \Tbmt\Router as R;
 						echo '</li>';
 					}
 					?>
-
 								</ul><!-- // .clearfix -->
 							</nav><!-- // nav -->
 						</div><!-- // .site-menu-container -->
