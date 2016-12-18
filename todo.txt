@@ -1,6 +1,7 @@
 CURRENT - TODOS
 ===============
 
+* signup auf den neuen hash wert anpassen, referre number entfernent etc.
 
 
 * mitgliedsnummer -> sha token

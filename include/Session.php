@@ -35,7 +35,6 @@ final class Session {
     $member = \MemberQuery::create()
       ->filterByDeletionDate(null, \Criteria::ISNULL)
       ->filterByNum($num)
-      ->filterByIsExtended(Config::get('extended.marketing.member', TYPE_BOOL, false))
       ->findOne();
 
     if ( !$member )
