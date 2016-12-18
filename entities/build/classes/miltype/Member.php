@@ -137,12 +137,12 @@ class Member extends BaseMember
     return $member;
   }
 
-  static public function getByHash($hash) {
+  static public function getByHash($hash, $strict = true) {
     $member = MemberQuery::create()
       ->filterByDeletionDate(null, Criteria::ISNULL)
       ->findOneByHash($hash);
 
-    if ( !$member )
+    if ( !$member && $strict )
       throw new Exception('Coud not find member: '.$hash);
 
     return $member;
