@@ -34,9 +34,42 @@ class AccountController extends BaseController {
       }
     }
 
-    if ( !Session::getLogin() ) {
+    $member = Session::getLogin();
+    if ( !$member ) {
       Session::terminate();
       return new ControllerActionRedirect(Router::toBase());
+    }
+
+    if ( Config::get('extended.marketing.member', TYPE_BOOL, false) ) {
+      // is extended system
+      //
+      if ( $member->isExtended() ) {
+        // fine, nothing todo
+        //
+      } else {
+        // no access for standard user to extended system
+        return ControllerDispatcher::renderModuleView(
+          self::MODULE_NAME,
+          'login',
+          ['formVal' => ['num' => $num]]
+        );
+      }
+
+    } else {
+      // is product system
+      //
+      if ( $member->isExtended() ) {
+        // redirect to marketing system
+        //
+        $nonce = \Nonce::create($member);
+        $url = Config::get('extended.system.url')."?mod=account&nonce=".$nonce->getNonce();
+        return new ControllerActionRedirect($url);
+
+      } else {
+        // fine, nothing todo
+
+      }
+
     }
 
     return parent::dispatchAction($action, $params);
