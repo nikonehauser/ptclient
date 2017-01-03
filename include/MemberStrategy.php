@@ -59,6 +59,14 @@ class SimpleMemberStrategy extends MemberStrategy {
     if ( $res !== false )
       return [false, $res, null, null];
 
+    // Validate member number exists
+    // $emailExistsMember = \MemberQuery::create()
+    //   ->filterByDeletionDate(null, \Criteria::ISNULL)
+    //   ->findOneByEmail($data['email']);
+    // if ( $emailExistsMember ) {
+    //   return [false, ['email' => \Tbmt\Localizer::get('error.email_exists')], null, null];
+    // }
+
     if ( !isset($data['email']) )
       $data['email'] = '';
 
@@ -95,7 +103,8 @@ class SimpleMemberStrategy extends MemberStrategy {
         ->setIban('')
         ->setBic('')
         ->setNum(0)
-        ->setIsExtended(0);
+        ->setIsExtended(0)
+        ->save($con);
 
       $member
         ->setHash(\Member::calcHash($member))
@@ -192,6 +201,15 @@ class ExtendedMemberStrategy extends SimpleMemberStrategy {
       return [false, ['referral_member_num' => \Tbmt\Localizer::get('error.referral_member_num')], null, null];
 
     }
+
+    // Validate member number exists
+    $emailExistsMember = \MemberQuery::create()
+      ->filterByDeletionDate(null, \Criteria::ISNULL)
+      ->findOneByEmail($data['email']);
+    if ( $emailExistsMember ) {
+      return [false, ['email' => \Tbmt\Localizer::get('error.email_exists')], null, null];
+    }
+
     // else if ( $parentMember->hadPaid() ) {
     //   return [false, ['referral_member_num' => \Tbmt\Localizer::get('error.referrer_paiment_outstanding')], null];
     // }
@@ -243,7 +261,9 @@ class ExtendedMemberStrategy extends SimpleMemberStrategy {
         ->setSignupDate($now)
         ->setBonusIds('{}')
         ->setPaidDate(null)
-        ->setIsExtended(1);
+        ->setIsExtended(1)
+        ->setNum(0)
+        ->save($con);
 
       $member->setHash(\Member::calcHash($member));
 

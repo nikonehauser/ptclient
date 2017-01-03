@@ -15,7 +15,16 @@
     }
   ?>
 
-    <div class="row">
+    <div class="row top-40">
+      <div class="col-md-12">
+        <?=\Tbmt\view\Factory::buildHeadingArea('IMPORTANT', 'bottom-30')?>
+        <p>This number <span class="highlight blue"><?php echo $this->member->getNum(); ?></span> is your member number!</p>
+        <p>Remember it! You need this number to login!</p>
+
+      </div>
+    </div>
+
+    <div class="row top-40">
       <div class="col-md-12">
           <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['account'], 'bottom-30 top-10')?>
 
