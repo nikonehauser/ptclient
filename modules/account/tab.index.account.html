@@ -6,17 +6,73 @@
         \Tbmt\Localizer::insert($this->i18nView['welc_not_1'], ['name' => \Tbmt\view\Factory::buildMemberFullNameString($this->member)]),
         '',
         'success top',
-        '<p>'.$this->i18nView['welc_not_2'].'</p>'.
-        '<p>'.$this->i18nView['welc_not_3'].'</p>'
+        '<p>'.$this->i18nView['welc_not_2'].'</p>'
       );
-    } else if ( !$this->member->hadPaid() ) {
+    }
+
+    if ( false && !$this->member->hadPaid() ) {
       echo \Tbmt\view\Factory::buildNotification($this->i18nView['unpaid_text'], $this->i18nView['warning'], 'warning top');
+
+      ?>
+
+      <div class="row top-40">
+        <div class="col-md-12">
+          <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['gettingstarted'], 'bottom-30')?>
+          <h3>You have done your firts step towards a better future.</h3>
+          <p>What you have to do next is to purchase our Happiness Guide. This will grant you access to hour marketing system.</p>
+          <p>If you want more information, no problem! Just follow these links:</p>
+          <ul>
+            <li><a class="highlighted" href="<?php echo \Tbmt\Router::toModule('about', 'faq'); ?>">you can browse our FAQ's</a></li>
+            <li><a class="highlighted" href="<?php echo \Tbmt\Router::toModule('about', 'contact'); ?>">you can ask any question with our contact form</a></li>
+          </ul>
+
+        </div>
+      </div>
+
+      <div class="row bottom-20">
+        <div class="col-md-12">
+
+          <h3 class="top-20">Want to go on? Nice! Then follow the red button:</h3>
+
+          <?=\Tbmt\view\Factory::buildButton(
+            $this->i18nView['purchase_now'],
+            \Tbmt\Router::toModule('guide'),
+            ' ',
+            'shopping-cart'
+          )?>
+
+          <p>After your purchase you will get all you need back here!</p>
+        </div>
+      </div>
+
+      <?php
+
     } else {
       echo \Tbmt\view\Factory::buildNotification($this->i18nView['paid_text'], $this->i18nView['tank_you'], 'info top');
+
+      ?>
+
+      <div class="row top-40">
+        <div class="col-md-12">
+          <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['purchasedtitle'], 'bottom-30')?>
+
+          <h3>Very good decision!</h3>
+          <p>This is your exclusive invitation link:</p>
+          <pre><?php echo \Tbmt\Config::get('extended.system.url')."?tkn=".$this->member->getHash(); ?></pre>
+          <p>Use this link to invite more people and earn the systems rewards.</p>
+
+          <?=\Tbmt\view\Factory::buildHeadingArea('IMPORTANT', 'top-40 bottom-30')?>
+          <p>This number <span class="highlight blue"><?php echo $this->member->getNum(); ?></span> is your member number!</p>
+          <p>Remember it! You need this number to login here!</p>
+
+        </div>
+      </div>
+
+      <?php
     }
   ?>
 
-    <div class="row">
+    <div class="row top-40">
       <div class="col-md-6">
           <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['account'], 'bottom-30 top-10')?>
 
@@ -103,16 +159,8 @@
     <div class="row" >
       <?php if ( !$this->guidesCount ) : ?>
 
-        <div class="col-md-6">
+        <div class="col-md-12">
           <?php echo \Tbmt\view\Factory::buildNotification($this->i18nView['guides_not_available'], '', 'info'); ?>
-        </div>
-        <div class="col-md-6">
-          <?=\Tbmt\view\Factory::buildButton(
-            $this->i18nView['purchase_now'],
-            \Tbmt\Router::toModule('guide'),
-            ' green stroke',
-            'shopping-cart'
-          )?>
         </div>
 
       <?php else: ?>

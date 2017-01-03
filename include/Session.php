@@ -37,6 +37,13 @@ final class Session {
       ->filterByNum($num)
       ->findOne();
 
+    if ( !$member ) {
+      $member = \MemberQuery::create()
+        ->filterByDeletionDate(null, \Criteria::ISNULL)
+        ->filterByEmail($num)
+        ->findOne();
+    }
+
     if ( !$member )
       return false;
 

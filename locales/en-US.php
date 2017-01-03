@@ -437,6 +437,8 @@ return [
       'tabs' => [
         'index' => [
           'account' => 'Account',
+          'gettingstarted' => 'Getting started',
+          'purchasedtitle' => 'Welcome on board',
           'your_num' => 'Your customer number',
           'warning' => 'Warning!',
           'tank_you' => 'Thank You!',

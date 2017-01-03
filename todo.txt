@@ -1,18 +1,18 @@
 CURRENT - TODOS
 ===============
 
-* signup auf den neuen hash wert anpassen, referre number entfernent etc.
+* signup auf den neuen hash wert anpassen, referre number entfernen stattdessen anzeigen:
+  "herzlichen glückwunsch, sie wurden eingeladen von: "
 
 
-* mitgliedsnummer -> sha token
+* mitgliedsnummer + sha token
 
-* invitations auch das token mitgeben
-
-* invitations mit soforting lvl2 einbauen
+* invitations mit sofort lvl2 einbauen
 
 * vidoes einbinden
 
-* referral number und invitation code anders
+* referral number ist mit einer invitation unnötig, da dieser code ja schon den referral beinhaltet
+* invitations auch das token mitgeben
 
 * citizen -> resident
 
