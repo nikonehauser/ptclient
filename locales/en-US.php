@@ -393,7 +393,7 @@ return [
         'form_labels' => [
           'login' => 'Login',
 
-          'num' => 'Customer Number',
+          'num' => 'Your email address',
           'pwd' => 'Password',
 
           'submit' => 'Submit',

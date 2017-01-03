@@ -99,6 +99,7 @@ class SimpleMemberStrategy extends MemberStrategy {
 
       $member
         ->setHash(\Member::calcHash($member))
+        ->setNum($member->getId() + 1000000)
         ->save($con);
 
     if ( !$con->commit() )
