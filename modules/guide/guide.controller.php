@@ -89,6 +89,7 @@ class GuideController extends BaseController {
     if ( !$payment ) {
       \Activity::insert(
         \Activity::ACT_MEMBER_PAYMENT_CANCEL_UNKNOWN,
+        \Activity::TYPE_FAILURE,
         $login,
         null,
         $_REQUEST,
@@ -144,6 +145,7 @@ class GuideController extends BaseController {
       // log unknown
       \Activity::insert(
         \Activity::ACT_MEMBER_PAYMENT_CANCEL_UNKNOWN,
+        \Activity::TYPE_FAILURE,
         $login,
         null,
         $_REQUEST,
@@ -160,6 +162,7 @@ class GuideController extends BaseController {
     if ( !$payment ) {
       \Activity::insert(
         \Activity::ACT_MEMBER_PAYMENT_CANCEL_UNKNOWN,
+        \Activity::TYPE_FAILURE,
         $login,
         null,
         $_REQUEST,
@@ -177,6 +180,7 @@ class GuideController extends BaseController {
 
       \Activity::insert(
         \Activity::ACT_MEMBER_PAYMENT_CANCEL_BY_USER,
+        \Activity::TYPE_FAILURE,
         $login,
         $payment,
         $_REQUEST,
@@ -193,6 +197,7 @@ class GuideController extends BaseController {
 
     \Activity::insert(
       \Activity::ACT_MEMBER_PAYMENT_CANCEL,
+      \Activity::TYPE_FAILURE,
       $login,
       $payment,
       $_REQUEST,
