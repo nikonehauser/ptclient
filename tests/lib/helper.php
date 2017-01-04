@@ -8,6 +8,8 @@ class DbEntityHelper {
 
   static private $it_member = null;
 
+  static private $emailCounter = 0;
+
   static public $currency = 'USD';
 
   static public function setCon(PropelPDO $con) {
@@ -39,7 +41,6 @@ class DbEntityHelper {
     'LastName'      => 'unknown',
     'FirstName'     => 'unknown',
     'Age'           => 99,
-    'Email'         => 'niko.neuhauser@gmail.com',
     'City'          => 'unknown',
     'Country'       => 'unknown',
     'ZipCode'       => '504231',
@@ -47,6 +48,7 @@ class DbEntityHelper {
     'Iban'          => 'unknown',
     'Bic'           => 'unknown',
     'Password'      => 'demo1234',
+    'IsExtended'    => 1,
     'BonusIds'      => '{}',
   ];
 
@@ -55,7 +57,6 @@ class DbEntityHelper {
     'lastName'       => 'unknown',
     'firstName'      => 'unknown',
     'age'            => 99,
-    'email'         => 'niko.neuhauser@gmail.com',
     'city'           => 'unknown',
     'country'        => 'unknown',
     'zip_code'       => '504231',
@@ -71,7 +72,6 @@ class DbEntityHelper {
     'lastName'       => 'unknown',
     'firstName'      => 'unknown',
     'age'            => 99,
-    'email'          => 'unknown@un.de',
     'city'           => 'unknown',
     'country'        => 'unknown',
     'zip_code'       => '504231',
@@ -82,11 +82,14 @@ class DbEntityHelper {
     'password2'       => 'demo1234',
     'accept_agbs'          => '1',
     'accept_valid_country' => '1',
+    'IsExtended'    => 1,
     'BonusIds'      => '{}',
   ];
 
   static public function createMember(Member $referralMember = null, array $data = array()) {
     $member = new Member();
+
+    self::$emailCounter++;
 
     $member->fromArray(array_merge(self::$memberDefaults, $data));
     if ( $referralMember )
@@ -99,6 +102,7 @@ class DbEntityHelper {
 
     $member->setHash(\Member::calcHash($member));
     $member->setNum($member->getId() + 1000000);
+    $member->setEmail(self::$emailCounter.$member->getId().uniqid().'@un.de');
     $member->save(self::$con);
 
     return $member;
@@ -118,7 +122,11 @@ class DbEntityHelper {
   }
 
   static public function createSignupMember(Member $referralMember, $receivedPaiment = true, array $data = array()) {
-    $member = Member::createFromSignup(array_merge(self::$memberSignup, $data), $referralMember, null, self::$con);
+    self::$emailCounter++;
+    $data = array_merge(self::$memberSignup, $data);
+    $data['email'] = self::$emailCounter.uniqid().'@un.de';
+
+    $member = Member::createFromSignup($data, $referralMember, null, self::$con);
 
     if ( $receivedPaiment )
       $member->onReceivedMemberFee(self::$currency, time(), false, self::$con);
@@ -130,7 +138,10 @@ class DbEntityHelper {
     if ( is_numeric($invitationData) )
       $invitationData = ['type' => $invitationData];
 
+    self::$emailCounter++;
     $data = array_merge(self::$memberInvitation, $data);
+    $data['email'] = self::$emailCounter.uniqid().'@un.de';
+
     /* Create invitation
     ---------------------------------------------*/
     $invitation = Invitation::create(
@@ -143,7 +154,7 @@ class DbEntityHelper {
     ---------------------------------------------*/
     list($valid, $data, $referralMember, $invitation)
       = \Member::validateSignupForm(array_merge($data, [
-        'referral_member_num' => $referrer->getNum(),
+        'referral_member_num' => $referrer->getHash(),
         'invitation_code' => $invitation->getHash(),
       ]));
 

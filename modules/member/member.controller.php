@@ -24,6 +24,9 @@ class MemberController extends BaseController {
 
   public function action_signup_submit() {
     $formErrors = [];
+    $data = array_merge($_REQUEST, [
+      'referral_member_num' => Session::hasValidToken()
+    ]);
     list($valid, $data, $referralMember, $invitation) = \Member::validateSignupForm($_REQUEST);
     if ( $valid !== true ) {
       return ControllerDispatcher::renderModuleView(

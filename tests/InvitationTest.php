@@ -13,7 +13,6 @@ class InvitationTest extends Tbmt_Tests_DatabaseTestCase {
     'lastName'       => 'unknown',
     'firstName'      => 'unknown',
     'age'            => 99,
-    'email'          => 'unknown@un.de',
     'city'           => 'unknown',
     'country'        => 'unknown',
     'zip_code'       => '504231',
@@ -50,7 +49,8 @@ class InvitationTest extends Tbmt_Tests_DatabaseTestCase {
     ---------------------------------------------*/
     list($valid, $data, $referralMember, $invitation)
       = \Member::validateSignupForm(array_merge(self::$singupFormData, [
-        'referral_member_num' => $marketingLeader->getNum(),
+        'email'          => 'unknowninvitation1@un1.de',
+        'referral_member_num' => $marketingLeader->getHash(),
         'invitation_code' => $invitation->getHash(),
       ]));
 
@@ -66,7 +66,8 @@ class InvitationTest extends Tbmt_Tests_DatabaseTestCase {
     ---------------------------------------------*/
     list($valid, $data, $referralMember, $invitation)
       = \Member::validateSignupForm(array_merge(self::$singupFormData, [
-        'referral_member_num' => $marketingLeader->getNum(),
+        'email'          => 'unknowninvitation2@un2.de',
+        'referral_member_num' => $marketingLeader->getHash(),
         'invitation_code' => $invitation->getHash(),
       ]));
 
@@ -99,7 +100,8 @@ class InvitationTest extends Tbmt_Tests_DatabaseTestCase {
     ---------------------------------------------*/
     list($valid, $data, $referralMember, $invitation)
       = \Member::validateSignupForm(array_merge(self::$singupFormData, [
-        'referral_member_num' => $marketingLeader->getNum(),
+        'email'          => 'unknowninvitation3@un3.de',
+        'referral_member_num' => $marketingLeader->getHash(),
         'invitation_code' => $invitation->getHash(),
       ]));
 
@@ -137,7 +139,8 @@ class InvitationTest extends Tbmt_Tests_DatabaseTestCase {
     ---------------------------------------------*/
     list($valid, $data, $referralMember, $invitation)
       = \Member::validateSignupForm(array_merge(self::$singupFormData, [
-        'referral_member_num' => $marketingLeader->getNum(),
+        'email'          => 'unknowninvitation4@un4.de',
+        'referral_member_num' => $marketingLeader->getHash(),
         'invitation_code' => $invitation->getHash(),
       ]));
 
@@ -175,7 +178,9 @@ class InvitationTest extends Tbmt_Tests_DatabaseTestCase {
     $marketingLeader2 = DbEntityHelper::createMemberWithInvitation(
       $marketingLeader,
       Member::TYPE_MARKETINGLEADER,
-      self::$singupFormData
+      array_merge(self::$singupFormData, [
+        'email'          => 'unknowninvitation5@un5.de'
+      ])
     );
 
     /* Assert proper member type
