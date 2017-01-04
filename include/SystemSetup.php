@@ -17,7 +17,6 @@ class SystemSetup {
     'LastName'      => 'unknown',
     'FirstName'     => 'unknown',
     'Age'           => 99,
-    'Email'         => 'niko.neuhauser@gmail.com',
     'City'          => 'unknown',
     'Country'       => 'unknown',
     'ZipCode'       => '504231',
@@ -56,7 +55,11 @@ class SystemSetup {
    *
    */
   static public function doSetup() {
-    $IT_SPECIALIST_EMAIL = 'niko.neuhauser@gmail.com';
+    $financeEmail = 'finance1@betterliving.social';
+    $ceoEmail = 'finance2@betterliving.social';
+    $itEmail = 'niko.neuhauser@gmail.com';
+    $sylvheimEmail = 'finance3@betterliving.social';
+    $executiveEmail = 'finance4@betterliving.social';
 
 
     /* Setup - SYSTEM ACCOUNT
@@ -64,7 +67,7 @@ class SystemSetup {
     self::createMember(null, [
       'LastName'  => 'account',
       'FirstName' => 'system',
-      'Email'     => $IT_SPECIALIST_EMAIL,
+      'Email'     => $financeEmail,
       'Num'       => \SystemStats::ACCOUNT_NUM_SYSTEM,
       'Type'      => \Member::TYPE_SYSTEM,
       'FundsLevel'=> \Member::FUNDS_LEVEL2
@@ -76,7 +79,7 @@ class SystemSetup {
     $ceo1 = self::createMember(null, [
       'FirstName' => 'Marcus',
       'LastName'  => 'CEO',
-      'Email'     => $IT_SPECIALIST_EMAIL,
+      'Email'     => $ceoEmail,
       'Num'       => \SystemStats::ACCOUNT_NUM_CEO1,
       'Type'      => \Member::TYPE_CEO,
       'FundsLevel'=> \Member::FUNDS_LEVEL2
@@ -88,7 +91,7 @@ class SystemSetup {
     $it = self::createMember(null, [
       'FirstName' => 'System',
       'LastName'  => 'IT',
-      'Email'     => $IT_SPECIALIST_EMAIL,
+      'Email'     => $itEmail,
       'Num'       => \SystemStats::ACCOUNT_NUM_IT,
       'Type'      => \Member::TYPE_ITSPECIALIST,
       'FundsLevel'=> \Member::FUNDS_LEVEL2
@@ -100,7 +103,7 @@ class SystemSetup {
       'ReferrerId' => $ceo1->getId(),
       'FirstName' => 'Sales',
       'LastName'  => 'Management',
-      'Email'     => 'test35@gmx.de',
+      'Email'     => $sylvheimEmail,
       'Num'       => \SystemStats::ACCOUNT_SYLVHEIM,
       'Type'      => \Member::TYPE_SALES_MANAGER,
       'FundsLevel'=> \Member::FUNDS_LEVEL2
@@ -111,7 +114,7 @@ class SystemSetup {
     $executive = self::createMember(null, [
       'FirstName' => 'Administration',
       'LastName'  => 'Executive',
-      'Email'     => $IT_SPECIALIST_EMAIL,
+      'Email'     => $executiveEmail,
       'Num'       => \SystemStats::ACCOUNT_EXECUTIVE,
       'Type'      => \Member::TYPE_MEMBER,
       'FundsLevel'=> \Member::FUNDS_LEVEL2
