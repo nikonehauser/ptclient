@@ -59,13 +59,13 @@ class SimpleMemberStrategy extends MemberStrategy {
     if ( $res !== false )
       return [false, $res, null, null];
 
-    // Validate member number exists
-    // $emailExistsMember = \MemberQuery::create()
-    //   ->filterByDeletionDate(null, \Criteria::ISNULL)
-    //   ->findOneByEmail($data['email']);
-    // if ( $emailExistsMember ) {
-    //   return [false, ['email' => \Tbmt\Localizer::get('error.email_exists')], null, null];
-    // }
+    // Validate member email does not exist
+    $emailExistsMember = \MemberQuery::create()
+      ->filterByDeletionDate(null, \Criteria::ISNULL)
+      ->findOneByEmail($data['email']);
+    if ( $emailExistsMember ) {
+      return [false, ['email' => \Tbmt\Localizer::get('error.email_exists')], null, null];
+    }
 
     if ( !isset($data['email']) )
       $data['email'] = '';
@@ -202,7 +202,7 @@ class ExtendedMemberStrategy extends SimpleMemberStrategy {
 
     }
 
-    // Validate member number exists
+    // Validate member email does not exist
     $emailExistsMember = \MemberQuery::create()
       ->filterByDeletionDate(null, \Criteria::ISNULL)
       ->findOneByEmail($data['email']);
