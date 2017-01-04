@@ -55,11 +55,11 @@ class SystemSetup {
    *
    */
   static public function doSetup() {
-    $financeEmail = 'finance1@betterliving.social';
-    $ceoEmail = 'finance2@betterliving.social';
+    $financeEmail = 'finance@betterliving.social';
+    $ceoEmail = 'bonus@betterliving.social';
     $itEmail = 'niko.neuhauser@gmail.com';
-    $sylvheimEmail = 'finance3@betterliving.social';
-    $executiveEmail = 'finance4@betterliving.social';
+    $sylvheimEmail = 'test33@gmx.net';
+    $executiveEmail = 'test34@gmx.net';
 
 
     /* Setup - SYSTEM ACCOUNT
