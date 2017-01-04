@@ -231,6 +231,7 @@
             confirmPopup.modal('hide');
           };
 
+          var paypalPaymentIdFromCreation = null;
 
           jQuery('#purchase-confirmation-button').on('click', doConfirm);
 
@@ -246,9 +247,11 @@
               },
 
               payment: function(resolve, reject) {
+                  paypalPaymentIdFromCreation = null;
                   loadingPopup.modal('show');
                   paypal.request.post(CREATE_PAYMENT_URL)
                       .then(function(data) {
+                        paypalPaymentIdFromCreation = data.paymentID;
                         resolve(data.paymentID);
                       })
                       .catch(function(err) {
@@ -263,6 +266,9 @@
 
               onCancel: function(data, actions) {
                   data.cause = 'user';
+                  if ( !data.paymentID && paypalPaymentIdFromCreation )
+                    data.paymentID = paypalPaymentIdFromCreation;
+
                   onError(data);
               }
 
