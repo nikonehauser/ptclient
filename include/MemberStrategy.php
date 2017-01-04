@@ -181,7 +181,6 @@ class ExtendedMemberStrategy extends SimpleMemberStrategy {
   }
 
   public function validateSignupForm(array $data = array()) {
-    $data['referral_member_num'] = Session::hasValidToken();
     $data = $this->initSignupForm($data);
 
     if ( $data['password'] !== $data['password2'] )

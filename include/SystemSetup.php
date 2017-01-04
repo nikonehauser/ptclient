@@ -8,6 +8,8 @@ class SystemSetup {
    */
   static protected $con = null;
 
+  static protected $emailCounter = 1;
+
   static public function setCon(\PropelPDO $con) {
     self::$con = $con;
   }
