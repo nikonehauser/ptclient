@@ -10,7 +10,7 @@
       );
     }
 
-    if ( false && !$this->member->hadPaid() ) {
+    if ( !$this->member->hadPaid() ) {
       echo \Tbmt\view\Factory::buildNotification($this->i18nView['unpaid_text'], $this->i18nView['warning'], 'warning top');
 
       ?>
