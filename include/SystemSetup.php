@@ -163,9 +163,9 @@ class SystemSetup {
 
     /* SET auto increment counter for member numbers
     ---------------------------------------------*/
-    $sql = "ALTER TABLE tbmt_member AUTO_INCREMENT=1000001";
-    $stmt = self::$con->prepare($sql);
-    $stmt->execute();
+    // $sql = "ALTER TABLE tbmt_member AUTO_INCREMENT=1000001";
+    // $stmt = self::$con->prepare($sql);
+    // $stmt->execute();
 
     /* Setup - SYSTEM STATS
     ---------------------------------------------*/

@@ -157,7 +157,7 @@ class Member extends BaseMember
   }
 
   static public function calcHash(\Member $member) {
-    return sha1($member->getFirstName().$member->getLastName().$member->getEmail().uniqid().microtime());
+    return sha1($member->getId().$member->getFirstName().$member->getLastName().$member->getEmail().uniqid().microtime());
   }
 
   public function getTransactionReasonByMemberType() {

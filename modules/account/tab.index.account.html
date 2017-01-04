@@ -61,16 +61,21 @@
           <pre><?php echo \Tbmt\Config::get('extended.system.url')."?tkn=".$this->member->getHash(); ?></pre>
           <p>Use this link to invite more people and earn the systems rewards.</p>
 
-          <?=\Tbmt\view\Factory::buildHeadingArea('IMPORTANT', 'top-40 bottom-30')?>
-          <p>This number <span class="highlight blue"><?php echo $this->member->getNum(); ?></span> is your member number!</p>
-          <p>Remember it! You need this number to login here!</p>
-
         </div>
       </div>
 
       <?php
     }
   ?>
+
+    <div class="row top-40">
+      <div class="col-md-12">
+        <?=\Tbmt\view\Factory::buildHeadingArea('IMPORTANT', 'bottom-30')?>
+        <p>This number <span class="highlight blue"><?php echo $this->member->getNum(); ?></span> is your member number!</p>
+        <p>Remember it! You need this number to login!</p>
+
+      </div>
+    </div>
 
     <div class="row top-40">
       <div class="col-md-6">

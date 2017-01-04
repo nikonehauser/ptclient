@@ -68,6 +68,9 @@ set foreign_key_checks=0;
   ALTER TABLE tbmt_member
     ADD UNIQUE (num);
 
+  ALTER TABLE tbmt_member
+    ADD UNIQUE (email);
+
 -- -----------------------------------------------------
 -- Table `member_data`
 -- -----------------------------------------------------

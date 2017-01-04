@@ -119,6 +119,7 @@ return [
     'money_numeric' => 'Must be numeric greater or equal zero',
     'empty' => 'Can not be empty',
     'email' => 'Invalid email address',
+    'email_exists' => 'Email address exists',
     'int' => 'Invalid integer',
     'accept' => 'Must be accepted',
     'password' => 'Invalid password',
