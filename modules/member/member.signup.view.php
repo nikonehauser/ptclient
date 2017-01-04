@@ -13,13 +13,13 @@ class MemberSignup extends Base {
 
     if ( DEVELOPER_MODE === true ) {
       $data = array_merge([
-        'referral_member_num'  => '102',
+        // 'referral_member_num'  => '102',
         'title'                => '',
         'invitation_code'      => '',
-        'lastName'             => 'Spender ',
-        'firstName'            => 'Spender ',
+        'lastName'             => 'Member ',
+        'firstName'            => 'Member ',
         'age'                  => '25',
-        'email'                => 'info@efesus.de',
+        'email'                => '',
         'city'                 => 'Test',
         'zip_code'             => '504299',
         'country'              => 'India',
