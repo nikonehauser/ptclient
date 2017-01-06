@@ -77,6 +77,10 @@ class Member extends BaseMember
     self::$strategyImpl = \Tbmt\MemberStrategy::get($extended);
   }
 
+  static public function getValidReferrerByHash($hash) {
+    return self::$strategyImpl->getValidReferrerByHash($hash);
+  }
+
   static public function initSignupForm(array $data = array()) {
     return self::$strategyImpl->initSignupForm($data);
   }

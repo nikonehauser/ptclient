@@ -402,6 +402,31 @@ class MailHelper {
     );
   }
 
+  static public function sendPublicPasswordResetLink(\Member $member) {
+    $email = $member->getEmail();
+    $locale = Localizer::get('mail.password_reset');
+
+    $num = $member->getNum();
+    $now = time();
+    $email = $member->getEmail();
+
+    $href = Router::toModule('manage', 'do_reset_password', [
+      '3591f374b308cb3932260b45d5709a4c' => 'true',
+      'num' => $num,
+      'exp' => time(),
+      'hash' => Cryption::getPasswordResetToken($num, $now, $email)
+    ]);
+
+    return self::send(
+      $email,
+      \Tbmt\view\Factory::buildMemberFullNameString($member),
+      $locale['subject'],
+      Localizer::insert($locale['body'], [
+        'link' => $href
+      ], false)
+    );
+  }
+
   static public function sendPasswordResetLink(\Member $member) {
     $email = $member->getEmail();
     $locale = Localizer::get('mail.password_reset');
