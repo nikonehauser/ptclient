@@ -421,8 +421,25 @@ END;
    */
   static function buildLoadingIndicator() {
     return <<<END
-<i class="fa fa-spinner fa-spin"></i>
+<i class="fa fa-cog fa-spin"></i>
 END;
+  }
+
+  /**
+   * [buildProductPrice description]
+   * @return [type]
+   */
+  static function buildProductPrice() {
+    return \Tbmt\Localizer::currencyFormat(\Transaction::$MEMBER_FEE, \Tbmt\Localizer::get('currency_symbol.'.\Transaction::$BASE_CURRENCY));
+  }
+
+  /**
+   * [buildProductPrice description]
+   * @return [type]
+   */
+  static function buildProductPdf() {
+      return \Tbmt\Localizer::get('common.pdf_explanation').'<a href="'.\Tbmt\Router::toModule('download', 'illustration').'" style="color:#EF4A43;">'.
+        \Tbmt\Localizer::get('common.pdf_explanation_link').'</a>';
   }
 
 }

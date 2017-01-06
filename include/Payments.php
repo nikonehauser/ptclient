@@ -20,17 +20,28 @@ class Payments {
   static public function executePayPalPayment($paymentId, $payerId) {
     $apiContext = self::getApiContext();
 
-    $payment = Payment::get($paymentId, $apiContext);
-    // ### Payment Execute
-    // PaymentExecution object includes information necessary
-    // to execute a PayPal account payment.
-    // The payer_id is added to the request query parameters
-    // when the user is redirected from paypal back to your site
-    $execution = new PaymentExecution();
-    $execution->setPayerId($payerId);
+    try {
+      $payment = Payment::get($paymentId, $apiContext);
 
-    return $payment->execute($execution, $apiContext);
+      if ( !$payment )
+        throw new \Exception('Could not retrieve payment from paypal');
 
+      // ### Payment Execute
+      // PaymentExecution object includes information necessary
+      // to execute a PayPal account payment.
+      // The payer_id is added to the request query parameters
+      // when the user is redirected from paypal back to your site
+      $execution = new PaymentExecution();
+      $execution->setPayerId($payerId);
+
+      // error_log(print_r($payment->toArray(), true));
+      $payment->execute($execution, $apiContext);
+      // error_log(print_r($payment->toArray(), true));
+
+      return [$payment, null];
+    } catch(\Exception $e) {
+      return [$payment, $e];
+    }
   }
 
   static public function getPaypal($paymentId) {

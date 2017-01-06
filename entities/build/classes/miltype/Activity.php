@@ -27,6 +27,7 @@ class Activity extends BaseActivity
 
   const ARR_RESULT_RETURN_KEY = '__return';
   const ARR_RELATED_RETURN_KEY = '__related';
+  const ARR_EXCEPTION_RETURN_KEY = '__exception';
 
   const MK_BONUS_PAYMENT_AMOUNT = 'amount';
 
@@ -34,6 +35,14 @@ class Activity extends BaseActivity
   const TYPE_FAILURE = 2;
 
   static public $_ActivityExceptions = [];
+
+  static public function execAjax($callable, $arrArgs, $action, $creator = null, $related = null, PropelPDO $con) {
+    try {
+      return new \Tbmt\ControllerActionAjax(self::exec($callable, $arrArgs, $action, $creator, $related, $con));
+    } catch(Exception $e) {
+      return new \Tbmt\ControllerActionAjax(['error' => $e->getMessage()]);
+    }
+  }
 
   static public function exec($callable, $arrArgs, $action, $creator = null, $related = null, PropelPDO $con) {
     if ( !$con->beginTransaction() )
@@ -45,6 +54,12 @@ class Activity extends BaseActivity
       $resIsArray = is_array($res);
 
       if ( $resIsArray ) {
+        if ( isset($res[self::ARR_EXCEPTION_RETURN_KEY]) ) {
+          $exception = $res[self::ARR_EXCEPTION_RETURN_KEY];
+          unset($res[self::ARR_EXCEPTION_RETURN_KEY]);
+          throw $exception;
+        }
+
         if ( isset($res[self::ARR_RESULT_RETURN_KEY]) ) {
           $return = $res[self::ARR_RESULT_RETURN_KEY];
           unset($res[self::ARR_RESULT_RETURN_KEY]);

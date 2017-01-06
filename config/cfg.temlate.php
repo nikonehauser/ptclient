@@ -12,6 +12,8 @@ return [
   "base_currency" => "INR",
   "member_fee" => 75.3,
 
+  "invoice_number_prefix" => "INV_";
+
   "amounts" => [
     // const REASON_ADVERTISED_LVL1     = 0;
     "0" => 300,

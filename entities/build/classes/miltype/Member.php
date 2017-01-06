@@ -432,11 +432,13 @@ class Member extends BaseMember
    *
    */
   public function onReceivedMemberFee($currency, $when, $freeFromInvitation, PropelPDO $con) {
-    if ( !$this->isExtended() )
-      return;
-
     if ( $this->hadPaid() )
       throw new \Exception('Paid member receiving fee again!');
+
+    if ( !$this->isExtended() ) {
+      $this->setPaidDate($when);
+      return;
+    }
 
     $referrer = $this->getReferrerMember();
     if ( !$referrer ) {

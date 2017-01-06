@@ -49,7 +49,7 @@ class SystemStats extends BaseSystemStats {
     $systemStats->setInvoiceNumber($inc);
     $systemStats->save($con);
 
-    return 'INV_' + (1000000 + $inc);
+    return \Tbmt\Config::get('invoice_number_prefix') . (1000000 + $inc) . date('YmdHis');
   }
 
   static private function getStats() {
