@@ -49,6 +49,10 @@ class SimpleMemberStrategy extends MemberStrategy {
     return \Tbmt\Arr::initMulti($data, $this->SIGNUP_FORM_FIELDS);
   }
 
+  public function getValidReferrerByHash($hash) {
+    return true;
+  }
+
   public function validateSignupForm(array $data = array()) {
     $data = $this->initSignupForm($data);
 
@@ -180,6 +184,19 @@ class ExtendedMemberStrategy extends SimpleMemberStrategy {
     return \Tbmt\Arr::initMulti($data, $this->SIGNUP_FORM_FIELDS);
   }
 
+  public function getValidReferrerByHash($hash) {
+    $member = \MemberQuery::create()
+      ->filterByDeletionDate(null, \Criteria::ISNULL)
+      ->filterByType(\Member::TYPE_SYSTEM, \Criteria::NOT_EQUAL)
+      ->filterByHash($hash)
+      ->findOneByIsExtended(1);
+
+    if ( $member && $member->getNum() != 0 )
+      return $member;
+
+    return null;
+  }
+
   public function validateSignupForm(array $data = array()) {
     $data = $this->initSignupForm($data);
 
@@ -191,12 +208,8 @@ class ExtendedMemberStrategy extends SimpleMemberStrategy {
       return [false, $res, null, null];
 
     // Validate member number exists
-    $parentMember = \MemberQuery::create()
-      ->filterByDeletionDate(null, \Criteria::ISNULL)
-      ->filterByType(\Member::TYPE_SYSTEM, \Criteria::NOT_EQUAL)
-      ->filterByHash($data['referral_member_num'])
-      ->findOneByIsExtended(1);
-    if ( $parentMember == null || $parentMember->getNum() == 0 ) {
+    $parentMember = $this->getValidReferrerByHash($data['referral_member_num']);
+    if ( !$parentMember ) {
       return [false, ['referral_member_num' => \Tbmt\Localizer::get('error.referral_member_num')], null, null];
 
     }

@@ -2,14 +2,14 @@
 
 namespace Tbmt;
 
+ini_set('max_execution_time', 120);
+
 define('BASE_DIR', dirname(__FILE__).DIRECTORY_SEPARATOR);
 
+require BASE_DIR.'include'.DIRECTORY_SEPARATOR.'bootstrap.php';
+require BASE_DIR.'auth.php';
+
 try {
-
-  require BASE_DIR.'include'.DIRECTORY_SEPARATOR.'bootstrap.php';
-
-  require BASE_DIR.'auth.php';
-
 
   /* Dispatch controller
   ---------------------------------------------*/

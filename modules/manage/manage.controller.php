@@ -143,16 +143,21 @@ class ManageController extends BaseController {
     if ( !empty($data['num']) || !empty($data['exp']) || !empty($data['hash']) ) {
       $member = \Member::getByNum($data['num']);
 
-      if ( $member && Cryption::validatePasswordResetToken(
-          $data['num'],
-          $data['exp'],
-          $member->getEmail(),
-          $data['hash']
-        ) && intval($data['exp']) + 3600 * 24 >= time() ) {
+      if ( $member &&
+          $member->getNum() == $data['num'] &&
+          Cryption::validatePasswordResetToken(
+            $data['num'],
+            $data['exp'],
+            $member->getEmail(),
+            $data['hash']
+          ) &&
+          intval($data['exp']) + 3600 * 24 >= time() ) {
         $newPassword = bin2hex(mcrypt_create_iv(8, MCRYPT_DEV_URANDOM));
 
         $member->setPassword($newPassword);
         $member->save();
+      } else {
+        throw new InvalidDataException();
       }
     }
 

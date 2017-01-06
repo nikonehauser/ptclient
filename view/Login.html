@@ -20,16 +20,35 @@
 			width: 250px;
 			margin-bottom: 20px;
 		}
+
+		p.danger, p.success {
+			font-size: 26px;
+		}
+
+		p.danger {
+			color: red;
+		}
+
+		p.success {
+			color: green;
+		}
 	</style>
 
 </head>
 <body>
 
 <div style="width: 300px; margin:auto;">
-	<form action="" method="post" >
-		<h1>Restricted Area</h1>
 
+
+	<!-- login form -->
+	<h1>Restricted Area</h1>
+
+	<form action="" method="post" >
 		<input type="hidden" name="CoPOEStGHS0EAJP5ijX7" value="true"/>
+
+		<?php if ( $this->loginMessage ) : ?>
+			<p class="danger"><?php echo $this->loginMessage; ?></p>
+		<?php endif; ?>
 
 		<div>Login Credentials</div>
 		<div><input type="text" name="name" placeholder="Login identification" /></div>
@@ -40,6 +59,27 @@
 		<p>This is an exclusive platform, for invited users only.</p>
 		<p>If you want to signup, than please use your invitation link.</p>
 	</form>
+
+
+	<!-- password reset form -->
+	<h3>Password forgotten?</h3>
+
+	<?php if ( $this->resetMessage ) : ?>
+		<p class="danger"><?php echo $this->resetMessage; ?></p>
+	<?php endif; ?>
+
+	<?php if ( $this->resetMailMessage ) : ?>
+		<p class="success"><?php echo $this->resetMailMessage; ?></p>
+	<?php endif; ?>
+
+	<form action="" method="post" >
+		<input type="hidden" name="MQYmYS5YFuhGQOXJxtHh" value="true"/>
+
+		<div>Enter your email, we will send you a link to generate a new password to that very email address:</div>
+		<div><input type="text" name="email" placeholder="email@example.com" /></div>
+		<div><input type="submit" value="submit" /></div>
+	</form>
+
 </div>
 
 </body>

@@ -90,11 +90,14 @@ set foreign_key_checks=0;
 -- -----------------------------------------------------
 -- Table `email_validation`
 -- -----------------------------------------------------
+  DROP TABLE IF EXISTS `tbmt_email_validation` CASCADE;
+
   CREATE TABLE IF NOT EXISTS  `tbmt_email_validation` (
     `id` serial NOT NULL ,
     `hash` varchar (64) not null ,
     `creationdate` integer not null ,
     `meta` TEXT NOT NULL,
+    `accepted_date` timestamp NULL ,
     PRIMARY KEY (`id`)
   );
 

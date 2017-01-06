@@ -1,28 +1,20 @@
 CURRENT - TODOS
 ===============
 
-* signup auf den neuen hash wert anpassen, referre number entfernen stattdessen anzeigen:
-  "herzlichen glückwunsch, sie wurden eingeladen von: "
+* wenn papyal payment ausgeführt wird und "processing purchase lade popup da ist" und dann ein fehler auftritt
+muss das auch angezeigt werden!
 
-
-* mitgliedsnummer + sha token
 
 * invitations mit sofort lvl2 einbauen
 
+
 * vidoes einbinden
+
 
 * referral number ist mit einer invitation unnötig, da dieser code ja schon den referral beinhaltet
 * invitations auch das token mitgeben
 
-* citizen -> resident
 
-* link mit denen er andere anmelden kann im profil anzeigen
-
-
-
-
-* pdf aktualisieren
-* pdf screenshot aktualisieren
 
 * happiness guide 2 hat 2 versionen, eine für jemand der noch keinen geworben
 hat und eine für jemand der schon geworben hat

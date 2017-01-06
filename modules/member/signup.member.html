@@ -1,14 +1,14 @@
 <?=Tbmt\view\Factory::buildPageTitle($this->i18nView['page_title'])?>
 
 
-<?php if ( !\Tbmt\Session::hasValidToken() ) : ?>
+<?php if ( !$this->referrerMember ) : ?>
 
     <div class="container top-40 bottom-40">
 
       <div class="sheet">
         <div class="row">
           <div class="col-md-12">
-
+            <p>You can not sign up</p>
             <?php echo \Tbmt\view\Factory::buildNotification($this->i18nView['token_missing'], '', 'notice top'); ?>
 
           </div>
@@ -23,9 +23,6 @@
 <form action="<?=\Tbmt\Router::toModule('member', 'signup_submit')?>" method="post">
 
   <?php
-
-    $this->formLabels['referral_member_num'] = $this->formLabels['referral_member_num'].
-      '  <a data-toggle="popover" data-content="'.$this->i18nView['referral_member_num_help'].'" style="font-size:larger;"><i class="fa fa-question-circle"></i></a>';
 
     $this->formLabels['invitation_code'] = $this->formLabels['invitation_code'].
       '  <a data-toggle="popover" data-content="'.$this->i18nView['invitation_code_help'].'" style="font-size:larger;"><i class="fa fa-question-circle"></i></a>';
@@ -49,13 +46,16 @@
         <div class="row">
 
           <div class="col-md-6">
-            <?php echo $formBuilder->buildFieldGroup('referral_member_num',
-              'text', // type
-              null, // label
-              null, // value
-              null, // error
-              $this->referralNumDisabled !== true ? [] : ['disabled' => true]
-            ); ?>
+            <div class="field">
+              <label for="signupFormreferral_member_num"><?php echo $this->formLabels['referral_member_num']; ?></label>
+              <p class="help-block">
+                <?php echo \Tbmt\view\Factory::buildMemberFullNameString($this->referrerMember); ?> - (Number: <?php echo $this->referrerMember->getNum(); ?>)
+              </p>
+
+              <?php if ( !empty($this->formErrors['referral_member_num']) ) {
+                echo '<div class="has-error"><p class="help-block text-danger">'.$this->formErrors['referral_member_num'].'</p></div>';
+              } ?>
+            </div>
 
           </div>
           <div class="col-md-6">

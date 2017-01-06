@@ -27,7 +27,8 @@ class MemberController extends BaseController {
     $data = array_merge($_REQUEST, [
       'referral_member_num' => Session::hasValidToken()
     ]);
-    list($valid, $data, $referralMember, $invitation) = \Member::validateSignupForm($_REQUEST);
+
+    list($valid, $data, $referralMember, $invitation) = \Member::validateSignupForm($data);
     if ( $valid !== true ) {
       return ControllerDispatcher::renderModuleView(
         self::MODULE_NAME,
@@ -40,7 +41,7 @@ class MemberController extends BaseController {
     $mail = $data['email'];
 
     $con = \Propel::getConnection();
-    $emailValidation = \EmailValidation::create($now, $mail, $_REQUEST, $con);
+    $emailValidation = \EmailValidation::create($now, $mail, $data, $con);
     MailHelper::sendEmailValidation(
       $mail,
       (empty($data['title']) ? '' : $data['title'].' ').$data['firstName'].' '.$data['lastName'],
@@ -59,9 +60,14 @@ class MemberController extends BaseController {
     if ( !$emailValidation )
       throw new InvalidDataException('Sorry the provided registration hash is invalid!');
 
-    list($valid, $data, $referralMember, $invitation) = \Member::validateSignupForm(json_decode($emailValidation->getMeta(), true));
-    if ( $valid !== true )
-      throw new \Exception('Doh, something is wrong with the registration data!');
+    if ( $emailValidation->getAcceptedDate() )
+      throw new InvalidDataException('Your account was created already, just login!');
+
+    $data = json_decode($emailValidation->getMeta(), true);
+    list($valid, $data, $referralMember, $invitation) = \Member::validateSignupForm($data);
+    if ( $valid !== true ) {
+      throw new InvalidDataException('Doh, something is wrong with the registration data!');
+    }
 
     $con = \Propel::getConnection();
     $member = \Activity::exec(
@@ -78,6 +84,9 @@ class MemberController extends BaseController {
       $con
     );
     $member->reload(false, $con);
+
+    $emailValidation->setAcceptedDate(time());
+    $emailValidation->save($con);
 
     Session::setLogin($member);
     Session::set(Session::KEY_SIGNUP_MSG, true);

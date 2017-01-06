@@ -7,6 +7,14 @@ use Http\Config;
 
 use Exception;
 
+class Logger {
+  public function debug($msg) {
+    print_r('<pre>');
+    print_r($msg);
+    print_r('</pre>');
+  }
+}
+
 class Client {
 
   static private $bodyLessMethods = ['GET', 'HEAD'];
@@ -22,6 +30,7 @@ class Client {
 
   public function __construct(Config $config) {
     $this->config = $config;
+    $this->logger = new Logger();
   }
 
   /* --------------- Setting functions --------------- */
@@ -54,7 +63,7 @@ class Client {
       : $this->config->getHeaders();
 
     // apply basic http authentication from config
-    $auth = $this->config->getBasicAuthentication();
+    $auth = $this->config->getAuthentication();
     if ( $auth && !isset($headers['Authorization']) )
       $headers['Authorization'] = $auth;
 
@@ -103,13 +112,24 @@ class Client {
       curl_setopt($ch, CURLINFO_HEADER_OUT, true);
     }
 
+    $curlHeaders = $this->getCurlHeaders($headers);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, $this->getCurlHeaders($headers));
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $curlHeaders);
 
     // disable SSL verification, if needed
     if ($this->config->getSSLVerification() === false) {
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+    }
+
+    if ( $this->logger ) {
+      $this->logger->debug([
+        'method' => $method,
+        'url' => $url,
+        'requestHeaders' => $headers,
+        'curlRequestHeaders' => $curlHeaders,
+
+      ]);
     }
 
     //Execute Curl Request
@@ -162,9 +182,6 @@ class Client {
       $responseHeaders,
       $result
     );
-
-    if ( $this->logger )
-      $this->logger->debug('request -> '.print_r(['url' => $strUrl, 'ctx' => $arrContentOptions, 'response' => $response->toString()], true));
 
     return $response;
   }

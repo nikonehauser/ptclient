@@ -6,9 +6,9 @@ class Config {
 
   private $headers = [];
   private $contentType = 'application/x-www-form-urlencoded';
-  private $basicAuthorization;
+  private $httpAuthorization;
   private $SSLVerification = true;
-  private $timeout = 10;
+  private $timeout = 100;
 
   public function __construct() {}
 
@@ -22,12 +22,17 @@ class Config {
   }
 
   public function setBasicAuthentication($user, $password) {
-    $this->basicAuthorization = 'Basic '.base64_encode($user.':'.$password);
+    $this->httpAuthorization = 'Basic '.base64_encode($user.':'.$password);
     return $this;
   }
 
-  public function getBasicAuthentication() {
-    return $this->basicAuthorization;
+  public function setBearerAuthentication($token) {
+    $this->httpAuthorization = 'Bearer '.$token;
+    return $this;
+  }
+
+  public function getAuthentication() {
+    return $this->httpAuthorization;
   }
 
   public function setHeaders(array $headers) {

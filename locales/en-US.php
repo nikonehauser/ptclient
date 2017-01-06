@@ -357,7 +357,7 @@ return [
       'signup' => [
         'page_title' => 'Sign up to be a customer',
         'form_error' => 'Form has invalid fields.',
-        'token_missing' => 'Missing valid exclusive invitation code. Please visit the invitation link you got from your referrer.',
+        'token_missing' => 'Missing valid exclusive invitation code. Please visit the invitation link you got from your referrer and come back to this signup.',
         'referral_member_num_help' => 'This is the customer number of the person who recruited you. This person will also receive a reward for your purchase. In order to join, you need somebody to invite you with their customer number.',
         'invitation_code_help' => 'This code is NOT required. You may have received a special invitation code from the person who invited you. This code may be linked with a bonus or similar things.',
         'form_labels' => [
@@ -366,7 +366,7 @@ return [
           'bank_account' => 'Bank Account',
           'confirm' => 'Confirm',
 
-          'referral_member_num' => 'Referrer customer number',
+          'referral_member_num' => 'Congratulations, you were invited by:',
           'invitation_code' => 'Invitation code (optional)',
           'firstName' => 'First name',
           'lastName' => 'Last name',
@@ -384,7 +384,7 @@ return [
           'password2' => 'Repeat password',
 
           'accept_agbs' => 'I have read and accepted the terms and conditions',
-          'accept_valid_country' => 'I confirm that I am citizen of India',
+          'accept_valid_country' => 'I confirm that I am resident of India',
           'not_accepted_countries' => '',
 
           'submit' => 'Submit',

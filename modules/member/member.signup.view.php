@@ -33,6 +33,7 @@ class MemberSignup extends Base {
 
     $data['referral_member_num'] = \Tbmt\Session::hasValidToken();
     $this->formVal = \Member::initSignupForm($data);
+    $this->referrerMember = \Member::getValidReferrerByHash($data['referral_member_num']);
 
     $this->referralNumDisabled = true;
 
