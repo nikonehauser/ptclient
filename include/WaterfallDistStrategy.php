@@ -19,8 +19,7 @@ class WaterfallDistStrategy extends DistributionStrategy {
 
     $newAdvertisedCount = $referrer->convertOutstandingAdvertisedCount(1);
     if ( $newAdvertisedCount == self::FUNDS_LEVEL_UPDATE_WITH ) {
-      $referrer->setFundsLevel(\Member::FUNDS_LEVEL2);
-      $referrer->setMemberRelatedByParentId(null);
+      $this->raiseFundsLevel($referrer);
       MailHelper::sendFundsLevelUpgrade($referrer, $member);
     }
 
@@ -31,6 +30,17 @@ class WaterfallDistStrategy extends DistributionStrategy {
       $memberFee->addRemainingToAccounts($when, $con);
     }
 
+  }
+
+  /**
+   * NOTE: Caller is supposed to save the changes to the user!
+   *
+   * @param  \Member $referrer
+   * @return [type]
+   */
+  public function raiseFundsLevel(\Member $referrer) {
+    $referrer->setFundsLevel(\Member::FUNDS_LEVEL2);
+    $referrer->setMemberRelatedByParentId(null);
   }
 
   /**

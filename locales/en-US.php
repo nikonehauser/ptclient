@@ -711,6 +711,7 @@ return [
         'product_tab_pdf' => 'PDF',
 
         'popup_purchase_loading_text' => 'Processing your purchase',
+        'popup_purchase_success_text' => 'Purchase completed',
         'popup_purchase_cancel_text' => 'The purchase could not be completed',
 
         'popup_purchase_head' => 'Purchase Happines Guide',

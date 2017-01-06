@@ -19,6 +19,7 @@ class Invitation extends BaseInvitation
   static public $INVITATION_FORM_FIELDS = [
     'type'        => \Tbmt\TYPE_INT,
     'free_signup' => \Tbmt\TYPE_BOOL,
+    'lvl2_signup' => \Tbmt\TYPE_BOOL,
     'promoter_num' => \Tbmt\TYPE_STRING,
     'promoter_id' => \Tbmt\TYPE_STRING,
   ];
@@ -69,11 +70,17 @@ class Invitation extends BaseInvitation
       ]);
     }
 
+    if ( $login->getType() < \Member::TYPE_CEO ) {
+      // only CEOs can
+      $data['lvl2_signup'] = 0;
+    }
+
     $invitation
       ->setHash($hash)
       ->setMemberId($login->getId())
       ->setType($type)
       ->setFreeSignup(isset($data['free_signup']) && $data['free_signup'] ? 1 : 0)
+      ->setLvl2Signup(isset($data['lvl2_signup']) && $data['lvl2_signup'] ? 1 : 0)
       ->setCreationDate(time())
       ->save($con);
 

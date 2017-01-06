@@ -20,6 +20,10 @@ class SingleDistStrategy extends DistributionStrategy {
     $memberFee->addRemainingToAccounts($when, $con);
   }
 
+  public function raiseFundsLevel(\Member $referrer) {
+
+  }
+
   /**
    * Distribute provisions for member signup.
    *

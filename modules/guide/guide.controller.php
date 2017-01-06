@@ -35,13 +35,13 @@ class GuideController extends BaseController {
     if ( !$login ) {
       Session::terminate();
 
-      $action = new ControllerActionAjax("PermissionDeniedException");
+      $action = new ControllerActionAjax(['error' => 'PermissionDeniedException']);
       $action->setHttpStatusCode(403);
       return $action;
     }
 
     $con = \Propel::getConnection();
-    $payment = \Activity::exec(
+    return \Activity::execAjax(
       /*callable*/[$this, 'activity_createPPP'],
       /*func args*/[
         $login,
@@ -52,8 +52,6 @@ class GuideController extends BaseController {
       /*activity.related*/null,
       $con
     );
-
-    return new ControllerActionAjax(['paymentID' => $payment->getId()]);
   }
 
 
@@ -67,7 +65,7 @@ class GuideController extends BaseController {
     if ( !$login ) {
       Session::terminate();
 
-      $action = new ControllerActionAjax("PermissionDeniedException");
+      $action = new ControllerActionAjax(['error' => 'PermissionDeniedException']);
       $action->setHttpStatusCode(403);
       return $action;
     }
@@ -78,34 +76,16 @@ class GuideController extends BaseController {
     ]);
 
     if ( !$data['paymentID'] || !$data['payerID'] ) {
-      $action = new ControllerActionAjax("Bad Request");
+      $action = new ControllerActionAjax(['error' => 'Bad Request']);
       $action->setHttpStatusCode(400);
       return $action;
     }
 
-    $payment = \PaymentQuery::create()->findOneByGatewayPaymentId($data['paymentID']);
-
-    // log unknown payment
-    if ( !$payment ) {
-      \Activity::insert(
-        \Activity::ACT_MEMBER_PAYMENT_CANCEL_UNKNOWN,
-        \Activity::TYPE_FAILURE,
-        $login,
-        null,
-        $_REQUEST,
-        null,
-        $con
-      );
-
-      return new ControllerActionAjax('Received unknown payment id');
-    }
-
     $con = \Propel::getConnection();
-    \Activity::exec(
+    return \Activity::execAjax(
       /*callable*/[$this, 'activity_execPPP'],
       /*func args*/[
         $login,
-        $payment,
         $data['paymentID'],
         $data['payerID'],
         $con
@@ -115,9 +95,6 @@ class GuideController extends BaseController {
       /*activity.related*/null,
       $con
     );
-
-    return new ControllerActionAjax(true);
-
   }
 
   /**
@@ -229,8 +206,8 @@ class GuideController extends BaseController {
 
     return [
       'paypalPayment' => $payPalPayment->toArray(),
-      \Activity::ARR_RELATED_RETURN_KEY => $payment,
-      \Activity::ARR_RESULT_RETURN_KEY => $payPalPayment
+      \Activity::ARR_RELATED_RETURN_KEY => ['paymentID' => $payment->getId()],
+      \Activity::ARR_RESULT_RETURN_KEY => ['paymentID' => $payPalPayment->getId()]
     ];
   }
 
@@ -240,29 +217,57 @@ class GuideController extends BaseController {
    *
    * @return [type]
    */
-  public function activity_execPPP(\Member $member, \Payment $payment, $paypalPaymentId, $paypalPayerId, \PropelPDO $con) {
-    $payment
-      ->setStatus(\Payment::STATUS_EXECUTED)
-      ->save($con);
+  public function activity_execPPP(\Member $member, $paypalPaymentId, $paypalPayerId, \PropelPDO $con) {
+    $payment = \PaymentQuery::create()->findOneByGatewayPaymentId($paypalPaymentId);
 
-    $payPalPayment = \Tbmt\Payments::executePayPalPayment($paypalPaymentId, $paypalPayerId);
+    // log unknown payment
+    if ( !$payment ) {
+      throw new \Exception('Received unknown payment id');
+    }
 
-    $payment
-      ->setMeta([$payPalPayment->toArray()])
-      ->save($con);
+    $exception = null;
+    try {
+      list($payPalPayment, $exception) = \Tbmt\Payments::executePayPalPayment($paypalPaymentId, $paypalPayerId);
 
-    $member->onReceivedMemberFee(
-      \Transaction::$BASE_CURRENCY, // currency
-      time(), // when
-      $member->getFreeInvitation() === 1, // was free invitation
-      $con
-    );
+      if ( $exception )
+        throw $exception;
 
-    return [
-      'paypalPayment' => $payPalPayment->toArray(),
+      $payment
+        ->setStatus(\Payment::STATUS_EXECUTED)
+        ->setMeta([$payPalPayment->toArray()])
+        ->save($con);
+
+      $member->onReceivedMemberFee(
+        \Transaction::$BASE_CURRENCY, // currency
+        time(), // when
+        $member->getFreeInvitation() === 1, // was free invitation
+        $con
+      );
+
+      $member->save($con);
+    } catch(\Exception $e) {
+      $exception = $e;
+    }
+
+    $result = [
+      'paypalPayment' => $payPalPayment ? $payPalPayment->toArray() : null,
       \Activity::ARR_RELATED_RETURN_KEY => $payment,
-      \Activity::ARR_RESULT_RETURN_KEY => $payPalPayment
+      \Activity::ARR_RESULT_RETURN_KEY => true
     ];
+
+    if ( $exception ) {
+      $result[\Activity::ARR_EXCEPTION_RETURN_KEY] = $exception;
+
+      if ( $exception instanceof \PayPal\Exception\PayPalConnectionException ) {
+        $result['PayPalConnectionException'] = [
+          'code' => $exception->getCode(),
+          'data' => $exception->getData(),
+        ];
+      }
+
+    }
+
+    return $result;
   }
 
 }

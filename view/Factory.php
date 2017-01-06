@@ -421,7 +421,7 @@ END;
    */
   static function buildLoadingIndicator() {
     return <<<END
-<i class="fa fa-spinner fa-spin"></i>
+<i class="fa fa-cog fa-spin"></i>
 END;
   }
 
