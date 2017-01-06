@@ -1,15 +1,16 @@
 CURRENT - TODOS
 ===============
 
-* wenn papyal payment ausgeführt wird und "processing purchase lade popup da ist" und dann ein fehler auftritt
-muss das auch angezeigt werden!
+* im paypal account die currency receiving optionen einstellen siehe:
+https://developer.paypal.com/docs/classic/api/currency_codes/#payment-receiving-preferences
 
+* wer kann alles jemand auf lvl2 einladen?
 
-* invitations mit sofort lvl2 einbauen
+* invitations mit sofort lvl2 muss unbedingt gescheit getestet werden
+
 
 
 * vidoes einbinden
-
 
 * referral number ist mit einer invitation unnötig, da dieser code ja schon den referral beinhaltet
 * invitations auch das token mitgeben

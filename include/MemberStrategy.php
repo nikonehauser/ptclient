@@ -318,6 +318,10 @@ class ExtendedMemberStrategy extends SimpleMemberStrategy {
           $member->onReceivedMemberFee(\Transaction::$BASE_CURRENCY, $now, true, $con);
       }
 
+      if ( $invitation && $invitation->getLvl2Signup() ) {
+        \Tbmt\DistributionStrategy::getInstance()->raiseFundsLevel($member);
+      }
+
       if ( $wasFreeInvitation ) {
         \Tbmt\MailHelper::sendFreeSignupConfirm($member);
         \Tbmt\MailHelper::sendNewFreeRecruitmentCongrats($referrerMember, $member);

@@ -187,6 +187,7 @@ set foreign_key_checks=0;
     `member_id` BIGINT(20) UNSIGNED NOT NULL ,
     `type` smallint NOT NULL ,
     `free_signup` smallint NOT NULL ,
+    `lvl2_signup` smallint NOT NULL ,
     `creation_date` timestamp  NOT NULL ,
     `accepted_date` timestamp  NULL ,
     `accepted_member_id` BIGINT(20) UNSIGNED NULL ,
@@ -203,6 +204,9 @@ set foreign_key_checks=0;
       ON DELETE CASCADE
       ON UPDATE CASCADE
   );
+
+  ALTER TABLE tbmt_invitation
+    ADD UNIQUE (hash);
 
 -- -----------------------------------------------------
 -- Table `system_stats`

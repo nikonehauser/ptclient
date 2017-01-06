@@ -24,6 +24,8 @@ abstract class DistributionStrategy {
 
   abstract public function updateTreeByFundsLevel(\Member $referrer, \Member $advertisedMember);
 
+  abstract public function raiseFundsLevel(\Member $referrer);
+
 }
 
 ?>

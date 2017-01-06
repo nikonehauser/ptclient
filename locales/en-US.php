@@ -516,6 +516,7 @@ return [
           'form_title' => 'Create new invitation',
           'type' => 'Type',
           'free_signup' => 'Free registration',
+          'lvl2_signup' => 'Advance invitee to lvl 2',
           'promoter_num' => 'On the recommendation of promoter (Num)',
           'submit' => 'Submit',
           'restricted_to_lvl2' => 'You need to invite two customers to unlock invitations',

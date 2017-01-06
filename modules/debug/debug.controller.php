@@ -8,6 +8,7 @@ class DebugController extends BaseController {
 
   protected $actions = [
     'allinvoices' => true,
+    'activities' => true,
     'printmail' => true,
   ];
 
@@ -118,6 +119,76 @@ class DebugController extends BaseController {
     }
 
     $result .= '</tbody></table></div></div>';
+
+    return $result;
+  }
+
+  public function action_activities() {
+    $activities = \ActivityQuery::create()->limit(100)->orderBy(\ActivityPeer::DATE, \Criteria::DESC)->find();
+
+    $result = '<div class="container"><div class="row sheet">
+      <table class="table2Activities table" id="table2Activities">
+        <tbody>
+            <tr>
+              <th>ID</th>
+              <th>Type</th>
+              <th>Action</th>
+              <th>Member</th>
+              <th>Member</th>
+              <th>Related</th>
+              <th>Date</th>
+            </tr>';
+
+    $types = [
+      \Activity::TYPE_SUCCESS => 'success',
+      \Activity::TYPE_FAILURE => 'failure',
+    ];
+
+    $actions = [
+      \Activity::ACT_ACCOUNT_BONUS_LEVEL => 'account_bonus_level',
+      \Activity::ACT_ACCOUNT_BONUS_PAYMENT => 'account_bonus_payment',
+
+      \Activity::ACT_MEMBER_SIGNUP => 'signup',
+
+      \Activity::ACT_MEMBER_PAYMENT_CREATE => 'payment_create',
+      \Activity::ACT_MEMBER_PAYMENT_EXEC => 'payment_exec',
+      \Activity::ACT_MEMBER_PAYMENT_CANCEL => 'payment_cancel',
+      \Activity::ACT_MEMBER_PAYMENT_CANCEL_BY_USER => 'payment_cancel_by_user',
+      \Activity::ACT_MEMBER_PAYMENT_CANCEL_UNKNOWN => 'payment_cancel_unknown',
+    ];
+
+    $reasons = \Tbmt\Localizer::get('view.account.tabs.invoice.transaction_reasons');
+
+    foreach ($activities as $activity) {
+      $result .= '<tr class="js-togglemeta '.($activity->getType() == 2 ? 'danger' : '').'">';
+      $result .= '<td><b>'.$activity->getId().'</b></td>';
+      $result .= '<td>'.$types[$activity->getType()].'</td>';
+      $result .= '<td>'.$actions[$activity->getAction()].'</td>';
+      $result .= '<td>'.$activity->getMemberId().'</td>';
+      $result .= '<td>'.$activity->getRelatedId().'</td>';
+      $result .= '<td>'.date('r', $activity->getDate()).'</td>';
+      $result .= '</tr>';
+
+      $result .= '<tr class="togglemeta '.($activity->getType() == 2 ? 'danger' : '').'">';
+      $result .= '<td colspan="6"><pre>'.print_r($activity->getMeta(), true).'</pre></td>';
+      $result .= '</tr>';
+    }
+
+    $result .= '</tbody></table></div></div>';
+
+    $result .= <<<END
+<script>
+  var table = jQuery('#table2Activities');
+  table.click(function(event) {
+    var row = jQuery(event.target).parents('tr');
+    if ( row.hasClass('js-togglemeta') ) {
+      row.toggleClass('open');
+    } else if ( row.hasClass('togglemeta') ) {
+      row.prev().toggleClass('open');
+    }
+  });
+</script>
+END;
 
     return $result;
   }

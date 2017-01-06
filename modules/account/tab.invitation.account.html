@@ -29,6 +29,8 @@
 
               <?php echo $formBuilder->buildFieldGroup('free_signup', 'checkbox'); ?>
 
+              <?php echo $formBuilder->buildFieldGroup('lvl2_signup', 'checkbox'); ?>
+
             <div class="field">
               <?=\Tbmt\view\Factory::buildSubmitBtn($this->i18nView['submit'], 'blue')?>
             </div>
@@ -103,6 +105,7 @@
               <th><?=$this->i18nView['hash']?></th>
               <th><?=$this->i18nView['type']?></th>
               <th><?=$this->i18nView['free_signup']?></th>
+              <th><?=$this->i18nView['lvl2_signup']?></th>
               <th><?=$this->i18nView['creation_date']?></th>
               <th><?=$this->i18nView['accepted_date']?></th>
             </tr>
@@ -114,6 +117,7 @@
             echo '<td class="code">'.$invitation->getHash().'</td>';
             echo '<td>'.$memberTypes[$invitation->getType()].'</td>';
             echo '<td>'.($invitation->getFreeSignup() ? '<i class="fa fa-check" />' : '<i class="fa fa-times" />').'</td>';
+            echo '<td>'.($invitation->getLvl2Signup() ? '<i class="fa fa-check" />' : '<i class="fa fa-times" />').'</td>';
             echo '<td>'.date($this->invitationDateFormat, $invitation->getCreationDate('U')).'</td>';
             echo '<td>'.($invitation->getAcceptedDate() ? '<i class="fa fa-check" />' : '<i class="fa fa-times" />').'</td>';
           echo '</tr>';
