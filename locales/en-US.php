@@ -707,7 +707,7 @@ return [
         'signup_button' => 'Got to signup',
         'login_button' => 'Got to login',
 
-        'product_tab_video' => 'Vidoe',
+        'product_tab_video' => 'Video',
         'product_tab_pdf' => 'PDF',
 
         'popup_purchase_loading_text' => 'Processing your purchase',

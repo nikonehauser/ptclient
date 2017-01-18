@@ -310,7 +310,7 @@ use \Tbmt\Router as R;
     </div>
       <div class="col-md-4">
         <div class="service-box fadein" style="height: 224px;">
-          <a href="<?=\Tbmt\Router::toModule('about')?>">
+          <a href="<?=\Tbmt\Router::toModule('about', 'contact')?>">
             <div class="service-icon" style="opacity: 1; margin-top: 0px;">
                 <i class="pe-7s-mail"></i>
             </div><!-- // service-icon -->
@@ -321,7 +321,7 @@ use \Tbmt\Router as R;
             </div><!-- // .service-content -->
 
             <div class="service-action top-20">
-                <?=\Tbmt\view\Factory::buildButton($this->i18nView['service_contact_btn'], \Tbmt\Router::toModule('about'), 'white stroke')?>
+                <?=\Tbmt\view\Factory::buildButton($this->i18nView['service_contact_btn'], \Tbmt\Router::toModule('about', 'contact'), 'white stroke')?>
             </div><!-- // .service-action -->
           </a>
         </div><!-- // .service-box -->
