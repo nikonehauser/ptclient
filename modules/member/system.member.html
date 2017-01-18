@@ -166,7 +166,8 @@ END;
 
   <div class="">
   <?=\Tbmt\view\Factory::testimonial(
-    $this->i18nView['pdf_explanation'].'<a href="'.\Tbmt\Router::toModule('download', 'illustration').'" style="color:#EF4A43;">'.$this->i18nView['pdf_explanation_link'].'</a>'
+    $this->i18nView['pdf_explanation'].'<a href="'.\Tbmt\Router::toModule('download', 'illustration').'" style="color:#EF4A43;">'.$this->i18nView['pdf_explanation_link'].'</a><br>'.
+    $this->i18nView['video_explanation'].'<a href="'.\Tbmt\Router::toModule('projects', 'index').'#video_explanation" style="color:#EF4A43;">'.$this->i18nView['video_explanation_link'].'</a>'
   )?>
   </div>
 

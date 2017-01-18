@@ -226,6 +226,8 @@ return [
 
         'pdf_explanation' => 'There is also an illustrated explanation in an extra document. If you prefer to read a pdf document, ',
         'pdf_explanation_link' => 'just click here',
+        'video_explanation' => 'Otherwise we have prepared a video. Just follow this ',
+        'video_explanation_link' => 'link',
 
         '',
 

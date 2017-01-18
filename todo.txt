@@ -1,6 +1,10 @@
 CURRENT - TODOS
 ===============
 
+* im account, feature machen damit man seinen einladungs link ganz einfach über email an freunde schicken kann.
+
+* Die Emails, die wir versenden, sollten ansprechender formatiert werden.
+
 * im paypal account die currency receiving optionen einstellen siehe:
 https://developer.paypal.com/docs/classic/api/currency_codes/#payment-receiving-preferences
 
@@ -8,6 +12,9 @@ https://developer.paypal.com/docs/classic/api/currency_codes/#payment-receiving-
 
 * invitations mit sofort lvl2 muss unbedingt gescheit getestet werden
 
+
+* den signup um eine checkbox erweitern mit dem hinweis:
+Bitte beachte, dass wir Dir nur Provisionen überweisen können, wenn alle Felder vollständig und korrekt ausgefüllt sind. Selbst kleinste Fehler führen dazu, dass die Banken die Überweisung nicht ausführen werden. Bitte kontrolliere deshalb nach der Eingabe nochmals gewissenhaft, ob alle Daten korrekt eingetragen sind.
 
 
 * vidoes einbinden

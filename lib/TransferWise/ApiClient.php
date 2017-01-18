@@ -35,13 +35,13 @@ class ApiClient {
 // -d 'client_id=sampleid' \
 // -d 'code=[CODE]' \
 // -d 'redirect_uri=https://example.com' \
-// 'https://api.transferwise.com/oauth/token'
+// 'https://test-restgw.transferwise.com/oauth/token/oauth/token'
 
 //   "transferwise.clientid" => "f09420ea-3ede-406e-ada8-3baad070d5a3",
 //   "transferwise.clientsecret" => "52952974-6223-44ae-83bb-4f88610782469",
 //   "transferwise.authcode" => "kwrPmh"
 
-// curl -u 'f09420ea-3ede-406e-ada8-3baad070d5a3:52952974-6223-44ae-83bb-4f88610782469' -d 'grant_type=authorization_code' -d 'client_id=f09420ea-3ede-406e-ada8-3baad070d5a3' -d 'code=kwrPmh' -d 'redirect_uri=http://efesus.de' 'https://api.transferwise.com/oauth/token'
+// curl -u 'f09420ea-3ede-406e-ada8-3baad070d5a3:52952974-6223-44ae-83bb-4f88610782469' -d 'grant_type=authorization_code' -d 'client_id=f09420ea-3ede-406e-ada8-3baad070d5a3' -d 'code=kwrPmh' -d 'redirect_uri=http://efesus.de' 'https://test-restgw.transferwise.com/oauth/token'
 
     $response = $this->client->request([
       'method' => 'post',
