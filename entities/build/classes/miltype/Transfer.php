@@ -26,6 +26,7 @@ class Transfer extends BaseTransfer {
 
   const STATE_IN_EXECUTION = 2;
   const STATE_DONE = 3;
+  const STATE_FAILED = 4;
 
   /**
    * Adds the given amount to this transfer.
@@ -39,9 +40,9 @@ class Transfer extends BaseTransfer {
     return $transaction;
   }
 
-  public function executeTransfer(Member $transferOwner) {
+  public function executeTransfer() {
     $amount = $this->getAmount();
-    $transferOwner->transferOutstandingTotal($amount, $this->getCurrency());
+    $this->getMember()->transferOutstandingTotal($amount, $this->getCurrency());
     $this->setState(self::STATE_DONE);
   }
 

@@ -271,6 +271,9 @@ class ManageController extends BaseController {
       $login->setBic($data['bic']);
       $login->setIban($data['iban']);
       $login->setBankRecipient($data['bank_recipient']);
+
+      // Force account update in transferwise
+      $login->setTransferwiseSync(0);
     }
 
     $login->save();

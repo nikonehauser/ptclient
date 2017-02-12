@@ -47,6 +47,9 @@ set foreign_key_checks=0;
 
     `sub_promoter_referral` BIGINT(20) UNSIGNED NULL ,
 
+    `transferwise_id` BIGINT(20) UNSIGNED NULL ,
+    `transferwise_sync` smallint not null default 0 ,
+
     PRIMARY KEY (`id`) ,
     CONSTRAINT `fk_member_referrer`
       FOREIGN KEY (`referrer_id`)
@@ -116,8 +119,9 @@ set foreign_key_checks=0;
     `currency` varchar(3) not null ,
     `state` smallint not null default 0 ,
     `attempts` smallint not null default 0 ,
-    `execution_date` timestamp  NULL ,
-    `processed_date` timestamp  NULL ,
+    `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `execution_date` timestamp NULL ,
+    `processed_date` timestamp NULL , -- not in use at the moment?
     PRIMARY KEY (`id`) ,
     CONSTRAINT `fk_transfer_member`
       FOREIGN KEY (`member_id`)
@@ -128,6 +132,29 @@ set foreign_key_checks=0;
 
   CREATE INDEX idx_transfer_state ON `tbmt_transfer` (state);
   CREATE INDEX idx_transfer_currency ON `tbmt_transfer` (currency);
+
+
+-- -----------------------------------------------------
+-- Table `payout`
+-- -----------------------------------------------------
+  DROP TABLE IF EXISTS `tbmt_payout` CASCADE;
+
+  CREATE TABLE IF NOT EXISTS `tbmt_payout` (
+    `id` serial NOT NULL ,
+    `transfer_id` BIGINT(20) UNSIGNED NOT NULL ,
+    `result` smallint default 1 NOT NULL ,
+    `extern_id` BIGINT(20) UNSIGNED NULL ,
+    `intern_meta` text not null ,
+    `extern_meta` text not null ,
+    `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`) ,
+    CONSTRAINT `fk_payout_transfer`
+      FOREIGN KEY (`transfer_id`)
+      REFERENCES `tbmt_transfer` (`id`)
+      ON DELETE CASCADE
+      ON UPDATE CASCADE
+  );
+
 
 -- -----------------------------------------------------
 -- Table `transaction`

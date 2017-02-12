@@ -1,6 +1,22 @@
 CURRENT - TODOS
 ===============
 
+# update
+cfg - log path eintragen
+datenbank updaten
+propel entities update
+  "transferwise.target.currency" => "IND",
+  "transferwise.target.country" => "IN",
+
+
+# todos
+
+* log die payout meta data in die logger datei!
+* schaffe eine verknüpfungen von den log dateien zu ihren entitäten
+  member, transfer, etc
+
+* nur indische accounts mit transferwise!? how to handle the accounts of all referrer people
+
 * im account, feature machen damit man seinen einladungs link ganz einfach über email an freunde schicken kann.
 
 * Die Emails, die wir versenden, sollten ansprechender formatiert werden.

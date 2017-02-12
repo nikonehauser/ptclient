@@ -29,7 +29,10 @@ class AccountIndex extends Base {
     if ( $memberType >= \Member::TYPE_SALES_MANAGER ) {
       $arr[] = 'bonus_payments';
       $arr[] = 'bonus_levels';
+    }
 
+    if ( $memberType > \Member::TYPE_CEO ) {
+      $arr[] = 'total_invoice';
     }
 
     if ( \Tbmt\Config::get('devmode', \Tbmt\TYPE_BOOL, false) )

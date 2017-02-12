@@ -4,16 +4,9 @@ namespace Http;
 
 use Http\Response;
 use Http\Config;
+use Tbmt\Logger;
 
 use Exception;
-
-class Logger {
-  public function debug($msg) {
-    print_r('<pre>');
-    print_r($msg);
-    print_r('</pre>');
-  }
-}
 
 class Client {
 
@@ -30,7 +23,7 @@ class Client {
 
   public function __construct(Config $config) {
     $this->config = $config;
-    $this->logger = new Logger();
+    // $this->logger = new Logger();
   }
 
   /* --------------- Setting functions --------------- */
@@ -122,15 +115,12 @@ class Client {
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
     }
 
-    if ( $this->logger ) {
-      $this->logger->debug([
-        'method' => $method,
-        'url' => $url,
-        'requestHeaders' => $headers,
-        'curlRequestHeaders' => $curlHeaders,
-
-      ]);
-    }
+    $this->log([
+      'method' => $method,
+      'url' => $url,
+      'requestHeaders' => $headers,
+      'curlRequestHeaders' => $curlHeaders,
+    ]);
 
     //Execute Curl Request
     $result = curl_exec($ch);
@@ -177,13 +167,23 @@ class Client {
     // }
 
     $response = new Response(
+      $method,
       $url,
+      $params,
       $httpStatus,
       $responseHeaders,
+      $headers,
       $result
     );
 
     return $response;
+  }
+
+  private function log($data) {
+    if ( !$this->logger )
+      return;
+
+    $this->logger->debug(print_r($data, true));
   }
 
   private function getCurlHeaders($headers) {

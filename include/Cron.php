@@ -137,15 +137,6 @@ class Cron {
 
   }
 
-  /**
-   * Remind all unpaid members after 7 days.
-   *
-   * @return
-   */
-  public static function payoutMembers($now = null) {
-    // get members to payout
-    Payouts::transfer();
-  }
 }
 
 

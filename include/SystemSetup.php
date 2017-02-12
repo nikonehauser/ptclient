@@ -21,8 +21,8 @@ class SystemSetup {
     'Country'       => 'unknown',
     'ZipCode'       => '504231',
     'BankRecipient' => 'unknown',
-    'Iban'          => 'unknown',
-    'Bic'           => 'unknown',
+    'Iban'          => 'BKID0004062', // any india bank for testing [a-zA-Z0-9]{5,20}
+    'Bic'           => 'BKID0004062', // any india bank for testing
     'Password'      => 'demo1234',
     'SignupDate'    => 0,
     'PaidDate'      => 0,

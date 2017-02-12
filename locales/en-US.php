@@ -434,7 +434,8 @@ return [
           'invitation' => 'Invitations',
           'bonus_payments' => 'Bonus Payments',
           'bonus_levels' => 'Bonus Levels',
-          'dev_paying' => 'DevTest Paying'
+          'dev_paying' => 'DevTest Paying',
+          'total_invoice' => 'Total Invoice'
         ],
       ],
       'tabs' => [

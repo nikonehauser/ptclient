@@ -1,12 +1,98 @@
-<?=Tbmt\view\Factory::buildPageTitle('test')?>
+<?=Tbmt\view\Factory::buildPageTitle('TransferWise')?>
 
 <div class="container">
 
-  <div class="heading-area text-center bottom-30 top-30" style="display: none;">
-    <h4 class="heading large">This project is managed and produced by <?=Tbmt\Config::get('brand.copyright')?> (<?=Tbmt\Config::get('brand.name')?>).</h4>
-  </div>
+  <a href="<?php echo \Tbmt\Router::toModule('pay', 'payouts'); ?>" class="button"><span>EXECUTE PAYMENTS</span></a>
+
+  <?php if ( $this->data['exception'] ) : ?>
+    <div class="row bottom-30 top-30">
+      <div class="col-md-12">
+        <?=\Tbmt\view\Factory::buildHeadingArea('Exception')?>
+        <pre><?php echo $this->data['exception']; ?></pre>
+      </div>
+    </div>
+  <?php endif; ?>
+
 
   <div class="row bottom-30 top-30">
-    <pre><?php echo $this->data; ?></pre>
+    <div class="col-md-12">
+      <?=\Tbmt\view\Factory::buildHeadingArea('Auth Code')?>
+      <pre><?php echo $this->data['code']; ?></pre>
+    </div>
   </div>
+
+
+  <div class="row bottom-30 top-30">
+    <div class="col-md-12">
+      <?=\Tbmt\view\Factory::buildHeadingArea('Oauth link')?>
+      <a href="<?php echo $this->data['oauth_url']; ?>"><?php echo $this->data['oauth_url']; ?></a>
+    </div>
+  </div>
+
+
+  <div class="row bottom-30 top-30">
+    <div class="col-md-12">
+      <?=\Tbmt\view\Factory::buildHeadingArea('access_token')?>
+        <pre><?php echo $this->data['access_token']; ?></pre>
+    </div>
+  </div>
+
+
+  <div class="row bottom-30 top-30">
+    <div class="col-md-12">
+      <?=\Tbmt\view\Factory::buildHeadingArea('Results')?>
+
+      <a href="<?php echo $this->data['exec_payments_url']; ?>" class="button"><span>EXECUTE PAYMENTS</span></a>
+
+      <?php if ( !empty($this->data['results']['executed']) ) : ?>
+        <?php
+        $executed = $this->data['results']['executed'];
+        unset($this->data['results']['executed']);
+        ?>
+
+        <h3>Executed:</h3>
+        <p>executed: <?php echo isset($executed['successfulPayouts']) ? $executed['successfulPayouts'] : 'null';?></p>
+        <p>failed: <?php echo isset($executed['failedPayouts']) ? $executed['failedPayouts'] : 'null';?></p>
+
+      <?php endif; ?>
+
+      <?php if ( !empty($this->data['results']['transfers']) ) : ?>
+        <h3>Transfers:</h3>
+        <table class="table2Debug" style="width: auto;">
+          <tr>
+            <th>Member</th>
+            <th>Total</th>
+            <!--
+            <th>Reasons Total</th>
+            <th>Quantity</th>
+            <th>Reasons</th>
+            -->
+          </tr>
+          <?php
+            $transfers = $this->data['results']['transfers'];
+            unset($this->data['results']['transfers']);
+            foreach( $transfers as $data ) : ?>
+
+            <tr>
+              <td><?php echo $this->renderMemberName($data[0]); ?></td>
+              <td><?php echo \Tbmt\Localizer::numFormat($data[1]->getAmount()); ?></td>
+
+            </tr>
+
+          <?php endforeach; ?>
+        </table>
+
+      <?php endif; ?>
+      <pre><?php echo print_r($this->data['results'], true); ?></pre>
+    </div>
+  </div>
+
+
+  <div class="row bottom-30 top-30">
+    <div class="col-md-12">
+      <?=\Tbmt\view\Factory::buildHeadingArea('LOGS')?>
+      <pre><?php echo print_r($this->data['log'], true); ?></pre>
+    </div>
+  </div>
+
 </div>
