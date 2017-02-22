@@ -48,6 +48,24 @@ class Index extends Base {
       $accountLinks = &$this->navigationLinks[count($this->navigationLinks)-1];
       $accountLinks[1] = $this->i18nView['member_login'];
       unset($accountLinks[3]);
+
+    } else {
+      $login = \Tbmt\Session::getLogin();
+      if ( $login->getType() === \Member::TYPE_ITSPECIALIST ) {
+        array_push($this->navigationLinks, [
+          \Tbmt\Router::toModule('pay'),
+          'Debug',
+          false,
+          [
+            [\Tbmt\Router::toModule('pay', 'index'),
+            'Do Payouts',
+            false],
+            [\Tbmt\Router::toModule('pay', 'payouts'),
+            'Debug Payouts',
+            false]
+          ]
+        ]);
+      }
     }
 
     $this->navigationIcons = [
@@ -56,6 +74,7 @@ class Index extends Base {
       'envelope',
       'legal',
       'user',
+      'ban',
     ];
 
     $this->baseUrl = \Tbmt\Router::toBase();
