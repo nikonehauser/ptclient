@@ -3,17 +3,23 @@ CURRENT - TODOS
 
 # update
 cfg - log path eintragen
+cfg - file lock path eintragen
 datenbank updaten
 propel entities update
-  "transferwise.target.currency" => "IND",
+  "transferwise.target.currency" => "IND", => "INR"
   "transferwise.target.country" => "IN",
 
 
 # todos
 
-* log die payout meta data in die logger datei!
+* automatische benachrichtigung wenn überweisung fehlschlägt ...
+
+* fragen zu markus weiterleiten ...
+
 * schaffe eine verknüpfungen von den log dateien zu ihren entitäten
   member, transfer, etc
+
+* file lock den payment prozess um mehrfachaufrufungen zu verhindern
 
 * nur indische accounts mit transferwise!? how to handle the accounts of all referrer people
 

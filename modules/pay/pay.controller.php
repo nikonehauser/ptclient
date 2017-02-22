@@ -170,81 +170,89 @@ class PayController extends BaseController {
     if ( count($transfers) <= 0 )
       return ["nothing do to"];
 
-    $logger->debug(null, $transfers);
+    $lock = new Flock(Config::get('lock.payout.path'));
+    try {
+      $lock->acquire();
 
-    list($personal, $business) = $transApi->ensureRequiredProfiles();
-    $bussinessProfileId = $business['id'];
+      $logger->debug(null, $transfers);
 
-    $sourceCurrency = \Transaction::$BASE_CURRENCY;
-    $targetCurrency = Config::get("transferwise.target.currency");
-    $targetCountry = Config::get("transferwise.target.country");
+      list($personal, $business) = $transApi->ensureRequiredProfiles();
+      $bussinessProfileId = $business['id'];
 
-    foreach ( $transfers as $dbTransfer ) {
-      $payoutInternMeta = [];
-      $payoutExternMeta = [];
-      $payoutResultState = \Payout::RESULT_UNKNOWN;
-      $payoutExternId = null;
-      $newDbTransferState = $dbTransfer->getState();
+      $sourceCurrency = \Transaction::$BASE_CURRENCY;
+      $targetCurrency = Config::get("transferwise.target.currency");
+      $targetCountry = Config::get("transferwise.target.country");
 
-      try {
-        $member = $dbTransfer->getMember();
+      foreach ( $transfers as $dbTransfer ) {
+        $payoutInternMeta = [];
+        $payoutExternMeta = [];
+        $payoutResultState = \Payout::RESULT_UNKNOWN;
+        $payoutExternId = null;
+        $newDbTransferState = $dbTransfer->getState();
 
-        list($payoutInternMeta['quote'], $quote) = $transApi->createQuote(
-          $bussinessProfileId,
-          $sourceCurrency,
-          $targetCurrency,
-          $dbTransfer->getAmount()
-        );
+        try {
+          $member = $dbTransfer->getMember();
 
-        $payoutExternMeta['quote'] = $quote;
+          list($payoutInternMeta['quote'], $quote) = $transApi->createQuote(
+            $bussinessProfileId,
+            $sourceCurrency,
+            $targetCurrency,
+            $dbTransfer->getAmount()
+          );
 
-        list($payoutInternMeta['account'], $account) = $transApi->ensureQuoteAccount(
-          $member,
-          $bussinessProfileId,
-          $quote,
-          $targetCountry
-        );
+          $payoutExternMeta['quote'] = $quote;
 
-        $payoutExternMeta['account'] = $account;
+          list($payoutInternMeta['account'], $account) = $transApi->ensureQuoteAccount(
+            $member,
+            $bussinessProfileId,
+            $quote,
+            $targetCountry
+          );
 
-        $transfer = $transApi->createTransfer(
-          $account['id'],
-          $quote['id']
-        );
+          $payoutExternMeta['account'] = $account;
 
-        $payoutExternMeta['transfer'] = $transfer;
-        $payoutExternId = $transfer['id'];
+          $transfer = $transApi->createTransfer(
+            $account['id'],
+            $quote['id']
+          );
 
-        $dbTransfer->executeTransfer();
+          $payoutExternMeta['transfer'] = $transfer;
+          $payoutExternId = $transfer['id'];
 
-        $payoutResultState = \Payout::RESULT_SUCCESS;
-        $successfulPayouts++;
+          $dbTransfer->executeTransfer();
 
-      } catch(\Exception $e) {
-        $payoutResultState = \Payout::RESULT_FAILED;
-        $dbTransfer->setState(\Transfer::STATE_FAILED);
-        $payoutInternMeta['exception'] = $e->__toString();
-        $failedPayouts++;
+          $payoutResultState = \Payout::RESULT_SUCCESS;
+          $successfulPayouts++;
+
+        } catch(\Exception $e) {
+          $payoutResultState = \Payout::RESULT_FAILED;
+          $dbTransfer->setState(\Transfer::STATE_FAILED);
+          $payoutInternMeta['exception'] = $e->__toString();
+          $failedPayouts++;
+        }
+
+        $dbTransfer->setAttempts($dbTransfer->getAttempts() + 1);
+        $dbTransfer->save($con);
+
+        $payout = new \Payout();
+        $payout
+          ->setTransfer($dbTransfer)
+          ->setResult($payoutResultState)
+          // -> setCreationDate(time()) -- sql defaults to current_timestamp
+          ->setInternMeta(json_encode($payoutInternMeta))
+          ->setExternMeta(json_encode($payoutExternMeta))
+          ->setExternId($payoutExternId)
+          ->save($con);
       }
 
-      $dbTransfer->setAttempts($dbTransfer->getAttempts() + 1);
-      $dbTransfer->save($con);
-
-      $payout = new \Payout();
-      $payout
-        ->setTransfer($dbTransfer)
-        ->setResult($payoutResultState)
-        // -> setCreationDate(time()) -- sql defaults to current_timestamp
-        ->setInternMeta(json_encode($payoutInternMeta))
-        ->setExternMeta(json_encode($payoutExternMeta))
-        ->setExternId($payoutExternId)
-        ->save($con);
+      return ['executed' => [
+        'successfulPayouts' => $successfulPayouts,
+        'failedPayouts' => $failedPayouts,
+      ]];
+    } catch (\Exception $e) {
+      $lock->release();
+      throw $e;
     }
-
-    return ['executed' => [
-      'successfulPayouts' => $successfulPayouts,
-      'failedPayouts' => $failedPayouts,
-    ]];
   }
 }
 
