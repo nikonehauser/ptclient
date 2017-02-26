@@ -250,7 +250,10 @@ class Member extends BaseMember
 
     $this->save($con);
 
-    return [\Activity::MK_BONUS_PAYMENT_AMOUNT => $amount];
+    return [
+      \Activity::MK_BONUS_PAYMENT_AMOUNT => $amount,
+      \Activity::MK_BONUS_PAYMENT_CUSTOMER => $this->getNum()
+    ];
   }
 
   /**

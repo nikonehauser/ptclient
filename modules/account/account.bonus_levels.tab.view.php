@@ -26,33 +26,42 @@ class AccountBonus_levelsTab extends Base {
     $this->formErrors = isset($params['formErrors']) ? $params['formErrors'] : [];
     $this->successmsg = isset($params['successmsg']) ? true : false;
 
-    $query = \MemberQuery::create()
-      // ->filterByBonusLevel(0, \Criteria::GREATER_THAN)
-      ->joinActivity()
-      ->select([
-          'Num',
-          'BonusLevel',
-          'Activity.Meta',
-          'Activity.Date'
-        ])
-      ->where('Activity.MemberId = ?', $this->member->getId())
-      ->orderBy('Activity.Date', \Criteria::DESC)
-      ->limit(100);
-    $objBonusMembers = $query->find();
+    // $query = \MemberQuery::create()
+    //   // ->filterByBonusLevel(0, \Criteria::GREATER_THAN)
+    //   ->joinActivity()
+    //   ->select([
+    //       'BonusLevel',
+    //       'Activity.Meta',
+    //       'Activity.Date'
+    //     ])
+    //   ->where('Activity.MemberId = ?', $this->member->getId())
+    //   ->orderBy('Activity.Date', \Criteria::DESC)
+    //   ->limit(100);
+
+
+    $objBonusMembers = \ActivityQuery::create()
+      ->filterByType(\Activity::ACT_ACCOUNT_BONUS_LEVEL)
+      ->filterByMemberId($this->member->getId())
+      ->orderBy(\ActivityPeer::DATE, \Criteria::DESC)
+      ->find();
 
     $arrBonusMembers = [];
     $currencySymbol = \Tbmt\Localizer::get('currency_symbol.'.\Transaction::$BASE_CURRENCY);
     $dateFormat = \Tbmt\Localizer::get('datetime_format_php.long');
-    foreach ( $objBonusMembers as $bonusMembers ) {
-      $meta = json_decode($bonusMembers['Activity.Meta'], true);
+    foreach ( $objBonusMembers as $bonusMembersActivity ) {
+      $meta = $bonusMembersActivity->getMeta();
       $amount = isset($meta[\Activity::MK_BONUS_PAYMENT_AMOUNT]) ?
         \Tbmt\Localizer::currencyFormat($meta[\Activity::MK_BONUS_PAYMENT_AMOUNT], $currencySymbol) :
         ' - ';
 
+      $memberNum = isset($meta[\Activity::MK_BONUS_PAYMENT_CUSTOMER]) ?
+        $meta[\Activity::MK_BONUS_PAYMENT_CUSTOMER] :
+        ' - ';
+
       $arrBonusMembers[] = [
-        $bonusMembers['Num'],
+        $memberNum,
         $amount,
-        (new \DateTime($bonusMembers['Activity.Date']))->format($dateFormat)
+        date($dateFormat, $bonusMembersActivity->getDate())
       ];
     }
 

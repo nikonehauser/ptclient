@@ -30,6 +30,7 @@ class Activity extends BaseActivity
   const ARR_EXCEPTION_RETURN_KEY = '__exception';
 
   const MK_BONUS_PAYMENT_AMOUNT = 'amount';
+  const MK_BONUS_PAYMENT_CUSTOMER = 'customer';
 
   const TYPE_SUCCESS = 1;
   const TYPE_FAILURE = 2;
@@ -111,7 +112,7 @@ class Activity extends BaseActivity
     if ( $related ) {
       if ( is_numeric($related) )
         $activity->setRelatedId($related);
-      else if ( is_callable($related, 'getId') )
+      else if ( method_exists($related, 'getId') )
         $activity->setRelatedId($related->getId());
     }
 
