@@ -118,6 +118,7 @@ set foreign_key_checks=0;
     `amount` float default 0 NOT NULL ,
     `currency` varchar(3) not null ,
     `state` smallint not null default 0 ,
+    `state_history` text ,
     `attempts` smallint not null default 0 ,
     `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `execution_date` timestamp NULL ,
@@ -146,6 +147,7 @@ set foreign_key_checks=0;
     `extern_id` BIGINT(20) UNSIGNED NULL ,
     `intern_meta` text not null ,
     `extern_meta` text not null ,
+    `failed_reason` text not null default '',
     `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`) ,
     CONSTRAINT `fk_payout_transfer`

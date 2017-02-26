@@ -4,6 +4,29 @@ return [
 
 
 
+    'transfer_failed' => [
+      'subject' => 'IMPORTANT - Transfer failed! Please check your account data.',
+      'body' => "Hello {fullname},
+
+unfortunately we could not transfer your bonus. Our transfer service returned the
+following error:
+
+----------------
+{transfer_error}
+----------------
+
+But you do not need to worry. It is not lost!
+Just go to your account and double check your account data.
+After that we will try to transfer your rewards again.
+
+If your account data are correct than just contact us. We will take care
+of that!
+",
+    ],
+
+
+
+
     'password_reset' => [
       'subject' => 'Password reset',
       'body' => "You have lost your $brandName password. Sorry about that!

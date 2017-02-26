@@ -28,6 +28,10 @@ class Response {
   //   return $this->headers[0];
   // }
 
+  public function getParams() {
+    return $this->url;
+  }
+
   public function getUrl() {
     return $this->url;
   }
@@ -47,7 +51,7 @@ class Response {
     if ( $err === JSON_ERROR_NONE )
       return $res;
 
-    throw new \Exception('Error decoding json: '.json_last_error_msg());
+    throw new ResponseException($this, 'Error decoding json: '.json_last_error_msg());
   }
 
   public function getHeaders() {

@@ -274,6 +274,23 @@ class ManageController extends BaseController {
 
       // Force account update in transferwise
       $login->setTransferwiseSync(0);
+
+      // Update last rejected/failed transfer state to retrigger transfer upon
+      // this profile update.
+      $lastPayout = \PayoutQuery::create()
+        ->useTransferQuery()
+          ->filterByMember($login)
+        ->endUse()
+        ->orderBy(\PayoutPeer::CREATION_DATE, \Criteria::DESC)
+        ->limit(1)
+        ->findOne();
+
+      if ( $lastPayout && $lastPayout->isCustomerFailure() ) {
+        $transfer = $lastPayout->getTransfer();
+        $transfer->setState(\Transfer::STATE_IN_EXECUTION);
+        $transfer->save();
+      }
+
     }
 
     $login->save();

@@ -4,6 +4,7 @@ namespace TransferWise;
 
 use Http\Client;
 use Http\Config;
+use Http\ResponseException;
 
 class ApiClient {
 
@@ -232,7 +233,7 @@ class ApiClient {
 
     $body = [
       'profile' => $profileId,
-      'accountHolderName' => \Tbmt\view\Factory::buildMemberFullNameString($member),
+      'accountHolderName' => $member->getBankRecipient(),
       'currency' => $quote['target'],
       'country' => $targetCountry,
       'type' => 'indian',
@@ -257,7 +258,9 @@ class ApiClient {
 
         $body['fetchSynchronized'] = true;
 
-        return [$body, $account];
+        $this->log('FETCHED ACCOUNT:', $account);
+
+        return [$body, $account, null];
       } catch (\Exception $e) {
         $errorFetchSynchronized = $e->__toString();
       }
@@ -268,16 +271,25 @@ class ApiClient {
 
     $this->log('CREATE ACCOUNT:', $body);
 
-    $account = $this->validateJsonResponse($this->client->request([
-      'method' => 'post',
-      'url' => $this->apiurl.'accounts',
-      'body' => $body
-    ]));
+    $account = null;
+    $exception = null;
+    try {
+      $account = $this->validateJsonResponse($this->client->request([
+        'method' => 'post',
+        'url' => $this->apiurl.'accounts',
+        'body' => $body
+      ]));
+    } catch (\Exception $e) {
+      $exception = $e;
+    }
+
+    $member->setTransferwiseSync(1);
+    $member->save();
 
     if ( $errorFetchSynchronized !== false )
       $body['fetchSynchronized'] = $errorFetchSynchronized;
 
-    return [$body, $account];
+    return [$body, $account, $exception];
   }
 
   private function getAccountRequirements($quote) {
@@ -309,15 +321,21 @@ class ApiClient {
       'rateType' => 'FIXED'
     ];
 
-    $quote = $this->validateJsonResponse($this->client->request([
-      'method' => 'post',
-      'url' => $this->apiurl.'quotes',
-      'body' => $body
-    ]));
+    $quote = null;
+    $exception = null;
+    try {
+      $quote = $this->validateJsonResponse($this->client->request([
+        'method' => 'post',
+        'url' => $this->apiurl.'quotes',
+        'body' => $body
+      ]));
+    } catch (\Exception $e) {
+      $exception = $e;
+    }
 
-    $this->log('CREATE QUOTE:', $body, $quote);
+    $this->log('CREATE QUOTE:', $body, $quote, $exception);
 
-    return [$body, $quote];
+    return [$body, $quote, $exception];
   }
 
   public function createTransfer($targetAccountId, $quoteId) {
@@ -329,15 +347,21 @@ class ApiClient {
       ]
     ];
 
-    $transfer = $this->validateJsonResponse($this->client->request([
-      'method' => 'post',
-      'url' => $this->apiurl.'transfers',
-      'body' => $body
-    ]));
+    $transfer = null;
+    $exception = null;
+    try {
+      $transfer = $this->validateJsonResponse($this->client->request([
+        'method' => 'post',
+        'url' => $this->apiurl.'transfers',
+        'body' => $body
+      ]));
+    } catch (\Exception $e) {
+      $exception = $e;
+    }
 
-    $this->log('CREATE TRANFER:', $body, $transfer);
+    $this->log('CREATE TRANFER:', $body, $transfer, $exception);
 
-    return $transfer;
+    return [$body, $transfer, $exception];
   }
 
   private function validateJsonResponse($response) {
@@ -346,7 +370,7 @@ class ApiClient {
 
     // $this->log($response->toString());
 
-    throw new \Exception('Invalid TransferWise Response: '.$response->toString());
+    throw new ResponseException($response, 'Invalid TransferWise Response: '.$response->toString());
   }
 
   private function log() {

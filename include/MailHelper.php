@@ -13,7 +13,7 @@ class MailHelper {
     return Localizer::numFormat(\Transaction::getAmountForReason($transactinoReason), 0);
   }
 
-  static public function sendException(\Exception $e) {
+  static public function sendException(\Exception $e, $text = '') {
     $body = "Exception: \n\r".$e->getMessage()."\n\r\n\r".
       "Stack: \n\r".$e->getTraceAsString()."\n\r\n\r".
       "Request: \n\r".json_encode($_REQUEST, JSON_PRETTY_PRINT)."\n\r\n\r".
@@ -24,6 +24,10 @@ class MailHelper {
 
     if ( class_exists('Activity') && count(\Activity::$_ActivityExceptions) > 0 ) {
       $body .= "ActivityExceptions: \n\r".json_encode(\Activity::$_ActivityExceptions, JSON_PRETTY_PRINT)."\n\r\n\r";
+    }
+
+    if ( $text ) {
+      $body .= "MESSAGE: \n\r".$text."\n\r\n\r";
     }
 
     return self::send(
@@ -447,6 +451,21 @@ class MailHelper {
       $locale['subject'],
       Localizer::insert($locale['body'], [
         'link' => $href
+      ], false)
+    );
+  }
+
+  static public function sendFailedPayoutTransfer(\Member $member, \Payout $payout) {
+    $locale = Localizer::get('mail.transfer_failed');
+
+    $recipientFullName = \Tbmt\view\Factory::buildMemberFullNameString($member);
+    return self::send(
+      $member->getEmail(),
+      $recipientFullName,
+      $locale['subject'],
+      Localizer::insert($locale['body'], [
+        'fullname' => $recipientFullName,
+        'transfer_error' => $payout->getFailedReason()
       ], false)
     );
   }

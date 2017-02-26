@@ -441,9 +441,17 @@ return [
       'tabs' => [
         'index' => [
           'account' => 'Account',
+          'payoutfailed' => 'The credit transfer failed!',
+          'payoutfailed_reason' => 'The credit transfer failed for the following reason:',
+          'payoutfailed_text1' => 'Please check your bank account information before contacting us. In most cases it is just a wrong character.',
+          'payoutfailed_text2' => 'The following bank account was used:',
+          'payoutfailed_text3' => 'Either way don\'t worry. Your reward is not lost. We will retry to transfer after you updated your bank account information!',
+          'transfer_state_pending' => 'Your credit transfer state is pending. Your bank account information need to be checked.',
+          'transfer_state_restored' => 'Your credit transfer state is back in active state. Your transfer will be done within the next period.',
           'gettingstarted' => 'Getting started',
           'purchasedtitle' => 'Welcome on board',
           'your_num' => 'Your customer number',
+          'attention' => 'Attention!',
           'warning' => 'Warning!',
           'tank_you' => 'Thank You!',
           'unpaid_text' => 'You have not purchase our Happiness Guide yet!',

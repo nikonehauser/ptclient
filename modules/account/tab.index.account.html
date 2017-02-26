@@ -10,6 +10,42 @@
       );
     }
 
+    if ( $this->payoutFailed ) {
+      ?>
+
+      <div class="row top-40">
+        <div class="col-md-12">
+          <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['attention'], 'bottom-30')?>
+
+          <?=\Tbmt\view\Factory::buildNotification($this->i18nView['payoutfailed'], $this->i18nView['attention'], 'notice top')?>
+
+          <h3><?=$this->i18nView['payoutfailed_reason']?></h3>
+
+          <pre class="wordwrap"><?=$this->payoutFailed->getFailedReaonsText()?></pre>
+
+          <p><?=$this->i18nView['payoutfailed_text1']?></p>
+          <p><?=$this->i18nView['payoutfailed_text2']?></p>
+
+          <pre class="wordwrap"><?=$this->payoutFailed->getBankAccountText()?></pre>
+
+          <p><?=$this->i18nView['payoutfailed_text3']?></p>
+
+          <?php if ( $this->payoutFailed->getTransfer()->getState() === \Transfer::STATE_IN_EXECUTION ) : ?>
+            <?=\Tbmt\view\Factory::buildNotification($this->i18nView['transfer_state_restored'], $this->i18nView['tank_you'], 'success top')?>
+
+          <?php else : ?>
+            <?=\Tbmt\view\Factory::buildNotification($this->i18nView['transfer_state_pending'], $this->i18nView['warning'], 'warning top')?>
+
+          <?php endif; ?>
+
+        </div>
+      </div>
+
+
+      <?php
+    }
+
+
     if ( !$this->member->hadPaid() ) {
       echo \Tbmt\view\Factory::buildNotification($this->i18nView['unpaid_text'], $this->i18nView['warning'], 'warning top');
 
@@ -48,18 +84,18 @@
       <?php
 
     } else {
-      echo \Tbmt\view\Factory::buildNotification($this->i18nView['paid_text'], $this->i18nView['tank_you'], 'info top');
-
       ?>
 
-      <div class="row top-40">
+      <div class="row top-20">
         <div class="col-md-12">
           <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['purchasedtitle'], 'bottom-30')?>
 
+          <?=\Tbmt\view\Factory::buildNotification($this->i18nView['paid_text'], $this->i18nView['tank_you'], 'info top')?>
+
           <h3>Very good decision!</h3>
           <p>This is your exclusive invitation link:</p>
-          <pre><?php echo \Tbmt\Config::get('extended.system.url')."?tkn=".$this->member->getHash().'#video_explanation'; ?></pre>
-          <p>Use this link to invite more people and earn the systems rewards.</p>
+          <pre class="wordwrap"><?php echo \Tbmt\Config::get('extended.system.url')."?tkn=".$this->member->getHash().'#video_explanation'; ?></pre>
+          <p>Use this link to invite your friends and earn the systems rewards.</p>
 
         </div>
       </div>
@@ -119,25 +155,16 @@
       <div class="col-md-6">
           <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['bank_account'], 'bottom-30 top-10')?>
 
-          <p>TODO</p>
-          <br>
-          <br>
-          <br>
-          <br>
-          <br>
+          <dl class="dl-horizontal dl-largeSpaced dl-prettyStyled">
+              <dt><?=$this->i18nView['bank_recipient']?></dt>
+              <dd><?=Base::encodeHtml($this->member->getBankRecipient())?></dd>
 
-          <div style="display: none;">
-            <dl class="dl-horizontal dl-largeSpaced dl-prettyStyled">
-                <dt><?=$this->i18nView['bank_recipient']?></dt>
-                <dd><?=Base::encodeHtml($this->member->getBankRecipient())?></dd>
+              <dt><?=$this->i18nView['iban']?></dt>
+              <dd><?=Base::encodeHtml($this->member->getIban())?></dd>
 
-                <dt><?=$this->i18nView['iban']?></dt>
-                <dd><?=Base::encodeHtml($this->member->getIban())?></dd>
-
-                <dt><?=$this->i18nView['bic']?></dt>
-                <dd><?=Base::encodeHtml($this->member->getBic())?></dd>
-            </dl>
-          </div>
+              <dt><?=$this->i18nView['bic']?></dt>
+              <dd><?=Base::encodeHtml($this->member->getBic())?></dd>
+          </dl>
 
           <?=\Tbmt\view\Factory::buildButton(
             $this->i18nView['change_profile'],

@@ -2,10 +2,16 @@ CURRENT - TODOS
 ===============
 
 # update
+
 cfg - log path eintragen
 cfg - file lock path eintragen
+
 datenbank updaten
+
+datenbank schema hat sich geändert
 propel entities update
+
+- config updaten
   "transferwise.target.currency" => "IND", => "INR"
   "transferwise.target.country" => "IN",
 
@@ -39,8 +45,6 @@ https://developer.paypal.com/docs/classic/api/currency_codes/#payment-receiving-
 Bitte beachte, dass wir Dir nur Provisionen überweisen können, wenn alle Felder vollständig und korrekt ausgefüllt sind. Selbst kleinste Fehler führen dazu, dass die Banken die Überweisung nicht ausführen werden. Bitte kontrolliere deshalb nach der Eingabe nochmals gewissenhaft, ob alle Daten korrekt eingetragen sind.
 
 
-* vidoes einbinden
-
 * referral number ist mit einer invitation unnötig, da dieser code ja schon den referral beinhaltet
 * invitations auch das token mitgeben
 
@@ -64,6 +68,12 @@ hat und eine für jemand der schon geworben hat
 Offen an Tom:
 
  - PDF als quittung
+
+
+NICE TO HAVE
+============
+
+- view listing all payouts for the customer
 
 
 CRONJOBS

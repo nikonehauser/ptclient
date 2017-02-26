@@ -53,6 +53,7 @@
         <h3>Executed:</h3>
         <p>executed: <?php echo isset($executed['successfulPayouts']) ? $executed['successfulPayouts'] : 'null';?></p>
         <p>failed: <?php echo isset($executed['failedPayouts']) ? $executed['failedPayouts'] : 'null';?></p>
+        <p>unknown: <?php echo isset($executed['unknownPayouts']) ? $executed['unknownPayouts'] : 'null';?></p>
 
       <?php endif; ?>
 

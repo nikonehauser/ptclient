@@ -70,4 +70,18 @@ class Transfer extends BaseTransfer {
     $transaction->save($con);
     return $transaction;
   }
+
+  public function setState($v) {
+    $history = $this->getStateHistory();
+    if ( !$history )
+      $history = [];
+    else
+      $history = json_decode($history, true);
+
+    $history[] = date('Y-m-d H:i:s').' ## '.$this->getState();
+
+    $this->setStateHistory(json_encode($history));
+
+    return parent::setState($v);
+  } // setState()
 }

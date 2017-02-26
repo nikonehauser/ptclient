@@ -37,6 +37,8 @@ class PayPayouts extends Base {
       $result .= '<b>Extern Meta</b>';
       $result .= '<pre>'.print_r(json_decode($payout->getExternMeta(), true), true).'</pre>';
       $result .= '</td></tr>';
+
+      $result .= '<tr><td colspan="2">------------------------------------<br>------------------------------------</td></tr>';
     }
 
     $result .= '</tbody></table></div></div>';

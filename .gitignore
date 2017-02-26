@@ -8,4 +8,4 @@
 /entities/runtime-conf.xml
 /entities/build.properties
 /vendor
-/logs
+/var

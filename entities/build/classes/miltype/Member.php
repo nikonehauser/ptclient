@@ -338,8 +338,8 @@ class Member extends BaseMember
 
   public function transferOutstandingTotal($doubleAmount, $currency) {
     $v = $this->getOutstandingTotal();
-    if ( !isset($v[$currency]) || $v[$currency] < $doubleAmount )
-      throw new \Exception('Can not transfer non existing amount.');
+    if ( !isset($v[$currency]) )
+      $v[$currency] = 0;
 
     $v[$currency] -= $doubleAmount;
     $this->setOutstandingTotal($v);

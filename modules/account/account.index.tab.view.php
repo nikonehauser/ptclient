@@ -35,6 +35,19 @@ class AccountIndexTab extends Base {
         $guidesCount = $maxCount;
     }
 
+    $this->payoutFailed = false;
+    $lastPayout = \PayoutQuery::create()
+      ->useTransferQuery()
+        ->filterByMember($this->member)
+      ->endUse()
+      ->orderBy(\PayoutPeer::CREATION_DATE, \Criteria::DESC)
+      ->limit(1)
+      ->findOne();
+
+    if ( $lastPayout && $lastPayout->isCustomerFailure() ) {
+      $this->payoutFailed = $lastPayout;
+    }
+
     $this->guidesCount = $guidesCount;
 
     return $this->renderFile(

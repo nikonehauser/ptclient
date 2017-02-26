@@ -126,32 +126,34 @@
         </div>
       </div>
 
-<div style="display: none">
-      <!--
-        BANK ACCOUNT
-        *************************** -->
-          <?=\Tbmt\view\Factory::buildHeadingArea($this->formLabels['bank_account'])?>
+      <?php if ( EXTEND_MARKTING_SYSTEM ) : ?>
+        <!--
+          BANK ACCOUNT
+          *************************** -->
+            <?=\Tbmt\view\Factory::buildHeadingArea($this->formLabels['bank_account'])?>
 
-      <div class="sheet">
-        <div class="row">
+        <div class="sheet">
+          <div class="row">
 
-          <div class="col-md-12">
-            <p><?=$this->formLabels['bank_account_info']?></p>
-          </div>
+            <div class="col-md-12">
+              <p><?=$this->formLabels['bank_account_info']?></p>
+            </div>
 
-          <div class="col-md-12">
-              <?php echo $formBuilder->buildFieldGroup('bank_recipient'); ?>
-          </div>
+            <div class="col-md-12">
+                <?php echo $formBuilder->buildFieldGroup('bank_recipient'); ?>
+            </div>
 
-          <div class="col-md-6">
-              <?php echo $formBuilder->buildFieldGroup('iban'); ?>
-          </div>
-          <div class="col-md-6">
-              <?php echo $formBuilder->buildFieldGroup('bic'); ?>
+            <div class="col-md-6">
+                <?php echo $formBuilder->buildFieldGroup('iban'); ?>
+            </div>
+            <div class="col-md-6">
+                <?php echo $formBuilder->buildFieldGroup('bic'); ?>
+            </div>
           </div>
         </div>
-      </div>
-</div>
+
+      <?php endif; ?>
+
       <!--
         CONFIRM
         *************************** -->

@@ -1,6 +1,6 @@
 <?php
 
-namespace Zeyosinc\Http;
+namespace Http;
 
 class ResponseException extends \Exception {
   private $response;
@@ -12,7 +12,7 @@ class ResponseException extends \Exception {
 
   public function buildMessage(Response $response) {
     $str = '';
-    $str .= $response->getStatus();
+    $str .= $response->getStatusCode();
     $str .= "\nURL:\n".$response->getUrl();
     $str .= "\nPARAMS:\n".var_export($response->getParams(), true);
     $str .= "\nRESPONSE HEADER:\n".var_export($response->getHeaders(), true);

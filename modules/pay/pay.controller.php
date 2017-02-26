@@ -45,6 +45,7 @@ class PayController extends BaseController {
       $data['code'] = Session::get('transferwise_auth_code');
 
     $createLogFile = true;
+    $sendLogAsEmail = false;
     $con = \Propel::getConnection();
 
     try {
@@ -75,8 +76,15 @@ class PayController extends BaseController {
         $data['access_token'] = $access_token;
 
         if ( $data['doexec'] ) {
-          $data['results'] = $this->executeTransfers($transApi, $logger, $con);
+          $resultCounts = $this->executeTransfers($transApi, $logger, $con);
           $data['results']['wasExecution'] = true;
+          $data['results'] = $resultCounts;
+
+          if ( !empty($resultCounts['unknownPayouts']) || !empty($resultCounts['failedPayouts']) ) {
+            $sendLogAsEmail = true;
+          } else {
+            $createLogFile = false;
+          }
 
         } else {
           $createLogFile = false;
@@ -95,6 +103,9 @@ class PayController extends BaseController {
         $data['log']
       );
     }
+
+    if ( $sendLogAsEmail )
+      MailHelper::sendException($e, $data['log']);
 
     return ControllerDispatcher::renderModuleView(
       self::MODULE_NAME,
@@ -122,7 +133,7 @@ class PayController extends BaseController {
               ." ".\TransferPeer::STATE." = ".\Transfer::STATE_IN_EXECUTION
               ." WHERE"
               ." ".\TransferPeer::AMOUNT." >= $minAmountRequired"
-              ." AND ".\TransferPeer::STATE." in (".\Transfer::STATE_COLLECT.", ".\Transfer::STATE_RESERVED.")"
+              ." AND ".\TransferPeer::STATE." in (".\Transfer::STATE_COLLECT.", ".\Transfer::STATE_COLLECT.")"
               ." AND ".\TransferPeer::CREATION_DATE." <= :date_lastmonth"
               ." LIMIT 10";
       $stmt = $con->prepare($sql);
@@ -165,6 +176,7 @@ class PayController extends BaseController {
   private function executeTransfers(\TransferWise\ApiClient $transApi, $logger, \PropelPDO $con) {
     $successfulPayouts = 0;
     $failedPayouts = 0;
+    $unknownPayouts = 0;
 
     $transfers = $this->getTransferInExecution($con);
     if ( count($transfers) <= 0 )
@@ -188,53 +200,87 @@ class PayController extends BaseController {
         $payoutExternMeta = [];
         $payoutResultState = \Payout::RESULT_UNKNOWN;
         $payoutExternId = null;
+        $failedReason = null;
         $newDbTransferState = $dbTransfer->getState();
 
-        try {
-          $member = $dbTransfer->getMember();
+        $member = $dbTransfer->getMember();
 
-          list($payoutInternMeta['quote'], $quote) = $transApi->createQuote(
+        try {
+          //
+          // CREATE QUOTE
+          //
+          list($internQuote, $quote, $exception) = $transApi->createQuote(
             $bussinessProfileId,
             $sourceCurrency,
             $targetCurrency,
             $dbTransfer->getAmount()
           );
 
+          $payoutInternMeta['quote'] = $internQuote;
           $payoutExternMeta['quote'] = $quote;
+          if ( $exception )
+            throw $exception;
 
-          list($payoutInternMeta['account'], $account) = $transApi->ensureQuoteAccount(
+          //
+          // HANDLE ACCOUNT
+          //
+          list($internAccount, $account, $exception) = $transApi->ensureQuoteAccount(
             $member,
             $bussinessProfileId,
             $quote,
             $targetCountry
           );
 
+          $payoutInternMeta['account'] = $internAccount;
           $payoutExternMeta['account'] = $account;
+          if ( $exception ) {
+            $payoutResultState = \Payout::RESULT_FAILED;
+            throw $exception;
+          }
 
-          $transfer = $transApi->createTransfer(
+          //
+          // CREATE TRANSFER
+          //
+          list($internTransfer, $transfer, $exception) = $transApi->createTransfer(
             $account['id'],
             $quote['id']
           );
 
+          $payoutInternMeta['transfer'] = $internTransfer;
           $payoutExternMeta['transfer'] = $transfer;
-          $payoutExternId = $transfer['id'];
 
-          $dbTransfer->executeTransfer();
+          if ( $exception ) {
+            $payoutResultState = \Payout::RESULT_FAILED;
+            throw $exception;
+          }
 
           $payoutResultState = \Payout::RESULT_SUCCESS;
+          $payoutExternId = $transfer['id'];
+          $dbTransfer->executeTransfer();
           $successfulPayouts++;
 
         } catch(\Exception $e) {
-          $payoutResultState = \Payout::RESULT_FAILED;
           $dbTransfer->setState(\Transfer::STATE_FAILED);
           $payoutInternMeta['exception'] = $e->__toString();
-          $failedPayouts++;
+
+          if ( $e instanceof \Http\ResponseException ) {
+            $failedReason = print_r($e->getResponse()->getContent(), true);
+          }
+
         }
 
         $dbTransfer->setAttempts($dbTransfer->getAttempts() + 1);
         $dbTransfer->save($con);
 
         $payout = new \Payout();
+
+        if ( $payoutResultState === \Payout::RESULT_FAILED ) {
+          $payout->setFailedReason($failedReason);
+          $failedPayouts++;
+        } else if ( $payoutResultState === \Payout::RESULT_UNKNOWN ) {
+          $unknownPayouts++;
+        }
+
         $payout
           ->setTransfer($dbTransfer)
           ->setResult($payoutResultState)
@@ -243,15 +289,23 @@ class PayController extends BaseController {
           ->setExternMeta(json_encode($payoutExternMeta))
           ->setExternId($payoutExternId)
           ->save($con);
+
+        if ( $payoutResultState === \Payout::RESULT_FAILED ) {
+          \Tbmt\MailHelper::sendFailedPayoutTransfer($member, $payout);
+        }
+
       }
 
       return ['executed' => [
         'successfulPayouts' => $successfulPayouts,
+        'unknownPayouts' => $unknownPayouts,
         'failedPayouts' => $failedPayouts,
       ]];
     } catch (\Exception $e) {
-      $lock->release();
       throw $e;
+    } finally {
+      $lock->release();
+
     }
   }
 }
