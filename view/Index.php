@@ -60,6 +60,9 @@ class Index extends Base {
             [\Tbmt\Router::toModule('pay', 'index'),
             'Do Payouts',
             false],
+            [\Tbmt\Router::toModule('pay', 'check'),
+            'Check Payouts',
+            false],
             [\Tbmt\Router::toModule('pay', 'payouts'),
             'Debug Payouts',
             false]

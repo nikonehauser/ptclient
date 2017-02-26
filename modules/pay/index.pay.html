@@ -3,6 +3,7 @@
 <div class="container">
 
   <a href="<?php echo \Tbmt\Router::toModule('pay', 'payouts'); ?>" class="button" style="float:right;"><span>SHOW PAYOUTS</span></a>
+  <a href="<?php echo \Tbmt\Router::toModule('pay', 'check'); ?>" class="button yellow" style="float:right;"><span>CHECK PAYOUTS</span></a>
 
   <?php if ( $this->data['exception'] ) : ?>
     <div class="row bottom-30 top-30">

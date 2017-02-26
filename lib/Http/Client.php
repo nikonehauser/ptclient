@@ -26,6 +26,10 @@ class Client {
     // $this->logger = new Logger();
   }
 
+  public function getConfig() {
+    return $this->config;
+  }
+
   /* --------------- Setting functions --------------- */
 
   public function setLogger($logger) {

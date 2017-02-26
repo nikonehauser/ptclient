@@ -8,8 +8,6 @@ use Http\ResponseException;
 
 class ApiClient {
 
-
-
   private $client;
   private $clienturl;
   private $apiurl;
@@ -20,20 +18,16 @@ class ApiClient {
   private $access_token;
   private $refresh_token;
 
-  public function __construct($clienturl, $clientid, $clientsecret, $redirectUrl, $access_token, $refresh_token) {
+  public function __construct($clienturl, $clientid, $clientsecret, $redirectUrl) {
     $config = new Config();
     $config->setSSLVerification(false);
-
-    if ( $refresh_token ) {
-      $config->setBearerAuthentication($access_token);
-    } else {
-      $config->setBasicAuthentication($clientid, $clientsecret);
-    }
 
     $config->setHeaders([
       'accept' => 'application/json',
       'Content-Type' => 'application/json'
     ]);
+
+    $config->setBasicAuthentication($clientid, $clientsecret);
 
     $this->client = new Client($config);
 
@@ -46,8 +40,6 @@ class ApiClient {
     $this->clientid = $clientid;
     $this->clientsecret = $clientsecret;
     $this->redirectUrl = $redirectUrl;
-    $this->access_token = $access_token;
-    $this->refresh_token = $refresh_token;
   }
 
   public function setLogger($logger) {
@@ -63,7 +55,7 @@ class ApiClient {
     ], null, '&');
   }
 
-  public function manageAuthorization($authcode, $access_token, $refresh_token) {
+  public function manageAuthorization($authcode, $access_token, $refresh_token, $expirationTime) {
     // #1 get authorization code
     //
     // https://test-restgw.transferwise.com/oauth/authorize?response_type=code&client_id=f09420ea-3ede-406e-ada8-3baad070d5a3&redirect_uri=http://www.betterliving.social/
@@ -117,14 +109,39 @@ class ApiClient {
       if ( isset($json['access_token'], $json['refresh_token']) ) {
         $access_token = $json['access_token'];
         $refresh_token = $json['refresh_token'];
+        $expirationTime = time() + intval($json['expires_in']);
       } else {
         throw new \Exception('Unexpected response retrieving transferwise access_token.');
       }
+
+    } else if ( $refresh_token && $expirationTime < time() ) {
+      $response = $this->client->request([
+        'method' => 'POST',
+        'url' => $this->clienturl.'oauth/token',
+        'headers' => [
+          'Content-Type' => 'application/x-www-form-urlencoded'
+        ],
+        'body' => [
+          'grant_type' => 'refresh_token',
+          'refresh_token' => $refresh_token
+        ]
+      ]);
+
+      $json = $this->validateJsonResponse($response);
+      if ( isset($json['access_token'], $json['refresh_token']) ) {
+        $access_token = $json['access_token'];
+        $refresh_token = $json['refresh_token'];
+        $expirationTime = time() + intval($json['expires_in']);
+      } else {
+        throw new \Exception('Unexpected response refreshing transferwise access_token.');
+      }
+
     }
 
     $this->access_token = $access_token;
     $this->refresh_token = $refresh_token;
-    return [$access_token, $refresh_token];
+    $this->client->getConfig()->setBearerAuthentication($access_token);
+    return [$access_token, $refresh_token, $expirationTime];
   }
 
   public function ensureRequiredProfiles() {
