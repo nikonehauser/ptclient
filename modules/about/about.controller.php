@@ -53,12 +53,38 @@ class AboutController extends BaseController {
       );
     }
 
+    $fullName = $data['name'];
+
+    $recipient = null;
+    $login = Session::getLogin();
+    if ( $login ) {
+      $fullName = \Tbmt\view\Factory::buildMemberFullNameString($login);
+      $referrer = $login->getMemberRelatedByReferrerId();
+      if ( $referrer ) {
+        $recipient = $referrer->getEmail();
+      }
+    } else {
+      $token = Session::hasValidToken();
+      if ( !empty($token) ) {
+        $referrer = \Member::getValidReferrerByHash($token);
+        if ( $referrer ) {
+          $recipient = $referrer->getEmail();
+        }
+      }
+    }
+
+    if ( !$recipient )
+      $recipient = Config::get('contact_mail_recipient');
+
+    $bodyPrefix = "Betterliving member \"$fullName\" has a question:\n\r\n\r";
+
     MailHelper::sendContactFormMail(
+      $recipient,
       $data['email'],
       $data['phone'],
       $data['name'],
       $data['subject'],
-      $data['message']
+      $bodyPrefix.$data['message']
     );
 
     return ControllerDispatcher::renderModuleView(
