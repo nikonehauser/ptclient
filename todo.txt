@@ -1,65 +1,63 @@
+UPDATE SERVER - TODO
+=====================
+
+
 CURRENT - TODOS
 ===============
 
-# update
+* try catch to log console/network output to catch those nasty errors during paypal purchase ...
 
-
-# todos
-
-* try catch to log console/network output to catch those nasty errors ...
-
-* tom: absprechend der bonuse, auch wegen ungeraden zahlen
+* tom: absprechen der bonuse, auch wegen ungeraden zahlen
 
 * nur indische accounts mit transferwise!? how to handle the accounts of all referrer people
 
 * im account, feature machen damit man seinen einladungs link ganz einfach über email an freunde schicken kann.
-
-* Die Emails, die wir versenden, sollten ansprechender formatiert werden.
-
-* im paypal account die currency receiving optionen einstellen siehe:
-https://developer.paypal.com/docs/classic/api/currency_codes/#payment-receiving-preferences
-
-* wer kann alles jemand auf lvl2 einladen?
-
-* invitations mit sofort lvl2 muss unbedingt gescheit getestet werden
-
-
-* den signup um eine checkbox erweitern mit dem hinweis:
-Bitte beachte, dass wir Dir nur Provisionen überweisen können, wenn alle Felder vollständig und korrekt ausgefüllt sind. Selbst kleinste Fehler führen dazu, dass die Banken die Überweisung nicht ausführen werden. Bitte kontrolliere deshalb nach der Eingabe nochmals gewissenhaft, ob alle Daten korrekt eingetragen sind.
-
-
-* referral number ist mit einer invitation unnötig, da dieser code ja schon den referral beinhaltet
-* invitations auch das token mitgeben
-
-
 
 * fragen zu markus weiterleiten ... seine email in config eintragen!
 
 * happiness guide 2 hat 2 versionen, eine für jemand der noch keinen geworben
 hat und eine für jemand der schon geworben hat
 
-* happiness guide als emails versenden,
 * neuer guide alle 2 wochen
 
- - im account eine erläuterung bereit stellen wie genau überwiesen werden muss!
-   Verwendungs zweck etc.
 
- - zahlung an die head leute? die richtigen Konten müssen eingetragen werden?
+Go LIVE:
+============
 
- - FAQ - letzter punkt aktualisieren: "How is the price for the Happiness Guide to pay?"
+* im paypal account die currency receiving optionen einstellen siehe:
+https://developer.paypal.com/docs/classic/api/currency_codes/#payment-receiving-preferences
 
- - email feld2 kopie damit nichts falsch eingegeben wird
+* zahlung an die head leute? die richtigen Konten müssen eingetragen werden?
+
 
 Offen an Tom:
+============
 
- - PDF als quittung
+* happiness gudies link/name einfügen kann er vergessen -> pdfs updaten!
+
+* FAQ - letzter punkt aktualisieren: "How is the price for the Happiness Guide to pay?"
+* PDF als quittung
 
 
 NICE TO HAVE
 ============
 
-- view listing all payouts for the customer
+* happiness guide als emails versenden,
 
+* invitations per email versenden (unbedingt auch den referral hash mitgeben)
+
+* view listing all payouts for the customer
+
+* den signup um eine checkbox erweitern mit dem hinweis:
+Bitte beachte, dass wir Dir nur Provisionen überweisen können, wenn alle Felder vollständig und korrekt ausgefüllt sind. Selbst kleinste Fehler führen dazu, dass die Banken die Überweisung nicht ausführen werden. Bitte kontrolliere deshalb nach der Eingabe nochmals gewissenhaft, ob alle Daten korrekt eingetragen sind.
+
+ - (schwachsinn) email feld2 kopie damit nichts falsch eingegeben wird
+
+- sitemap
+
+- handle emails asynchron/multithreaded
+
+- handle mail to invalid/non existing email address
 
 CRONJOBS
 ========
@@ -68,6 +66,8 @@ CRONJOBS
 * emails happy guide
 * remove unpaid
 * email remember unpaid
+* check payouts states
+
 
 Fragen
 ======
@@ -93,28 +93,11 @@ TODOS
 
 - how to für benutzer: überweisung durchführen mit EIGENER nummer als verwendungszweck
 
-NICE TO HAVE
-============
-
-- immediately load and show member when entering referral_member_num on signup
-
-- sitemap
-
-- handle emails asynchron/multithreaded
-
-- handle mail to invalid/non existing email address
-
 
 Profiling
 =========
 EXPLAIN ANALYZE VERBOSE UPDATE tbmt_transfer SET state=0 WHERE tbmt_transfer.state=1 AND tbmt_transfer.member_id=1000004;
 
-
-TOM
-===
-- about content schreiben
-- agbs??
--
 
 
 Quality handling

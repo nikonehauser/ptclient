@@ -68,6 +68,9 @@ class Index extends Base {
             false],
             [\Tbmt\Router::toModule('pay', 'list'),
             'List TransferWise Transfers',
+            false],
+            [\Tbmt\Router::toModule('debug', 'activities'),
+            'List Activities',
             false]
           ]
         ]);

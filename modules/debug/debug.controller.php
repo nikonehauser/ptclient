@@ -17,6 +17,10 @@ class DebugController extends BaseController {
     if ( !\Tbmt\Config::get('devmode', \Tbmt\TYPE_BOOL, false) )
       throw new \PageNotFoundException();
 
+    $login = Session::getLogin();
+    if ( !$login || $login->getType() !== \Member::TYPE_ITSPECIALIST )
+      throw new PermissionDeniedException();
+
     return parent::dispatchAction($action, $params);
   }
 
@@ -26,15 +30,31 @@ class DebugController extends BaseController {
 
   public function action_printmail() {
     if ( empty($_REQUEST['mail']) )
-      throw new Exception('Missing param "mail"');
+      throw new \Exception('Missing param "mail"');
 
+    $embed = !empty($_REQUEST['embed']);
     $mail = $_REQUEST['mail'];
+
+    $embedUrl = Router::toModule('debug', 'printmail', [
+      'mail' => $mail,
+      'embed' => 1
+    ]);
 
     MailHelper::$DEBUG_PRINT = true;
     $mail = $this->getMail($mail);
-    return '<pre>'.
-      $mail[2]."\n\n".$mail[3].
-      '</pre>';
+
+    if ( $embed ) {
+      echo $mail[3];
+      exit;
+    }
+
+    return '<div class="container"><h1>Html</h1>'.
+      '<iframe src="'.$embedUrl.'" style="height: 600px; width: 100%;"></iframe>'.
+      '<h1>Plain Text</h1>'.
+      '<pre>'.
+      $mail[2]."\n\n".$mail[4].
+      '</pre>'.
+      '</div>';
   }
 
   private function getMail($name) {
