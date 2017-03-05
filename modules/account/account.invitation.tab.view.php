@@ -35,6 +35,8 @@ class AccountInvitationTab extends Base {
 
     $this->invitationDateFormat = \Tbmt\Localizer::get('datetime_format_php.long');
 
+    $this->canInviteWithFundsLvl2 = \Invitation::canInviteWithFundsLvl2($this->member);
+
     return $this->renderFile(
       dirname(__FILE__).DIRECTORY_SEPARATOR.'tab.invitation.account.html',
       $params

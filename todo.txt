@@ -8,12 +8,7 @@ CURRENT - TODOS
 
 * try catch to log console/network output to catch those nasty errors ...
 
-    `is_cusomter_failure` smallint default 1 NOT NULL ,
-
-* invitation advance to level 2 nur CEO einblenden
-
 * tom: absprechend der bonuse, auch wegen ungeraden zahlen
-
 
 * fragen zu markus weiterleiten ...
 
