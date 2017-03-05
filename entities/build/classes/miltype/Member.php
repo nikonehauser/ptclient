@@ -203,23 +203,6 @@ class Member extends BaseMember
     return $this->getAdvertisedCount() + $this->getOutstandingAdvertisedCount();
   }
 
-  public function getOutstandingTotal() {
-    return json_decode(parent::getOutstandingTotal(), true);
-  }
-
-  public function setOutstandingTotal($v) {
-    parent::setOutstandingTotal(json_encode($v));
-  }
-
-  public function getTransferredTotal() {
-    return json_decode(parent::getTransferredTotal(), true);
-  }
-
-  public function setTransferredTotal($v) {
-    parent::setTransferredTotal(json_encode($v));
-    return $this;
-  }
-
   public function getFirstDueDate() {
     return strtotime(\Tbmt\Config::get('duedate_first'), $this->getSignupDate());
   }
@@ -250,7 +233,10 @@ class Member extends BaseMember
 
     $this->save($con);
 
-    return [\Activity::MK_BONUS_PAYMENT_AMOUNT => $amount];
+    return [
+      \Activity::MK_BONUS_PAYMENT_AMOUNT => $amount,
+      \Activity::MK_BONUS_PAYMENT_CUSTOMER => $this->getNum()
+    ];
   }
 
   /**
@@ -324,37 +310,6 @@ class Member extends BaseMember
   }
 
   /**
-   * Adds the given amount to this transfer.
-   * @param [type] $intAmount
-   */
-  public function addOutstandingTotal($doubleAmount, $currency) {
-    $v = $this->getOutstandingTotal();
-    if ( !isset($v[$currency]) )
-      $v[$currency] = 0;
-
-    $v[$currency] += $doubleAmount;
-    $this->setOutstandingTotal($v);
-  }
-
-  public function transferOutstandingTotal($doubleAmount, $currency) {
-    $v = $this->getOutstandingTotal();
-    if ( !isset($v[$currency]) || $v[$currency] < $doubleAmount )
-      throw new \Exception('Can not transfer non existing amount.');
-
-    $v[$currency] -= $doubleAmount;
-    $this->setOutstandingTotal($v);
-
-    $v = $this->getTransferredTotal();
-    if ( !isset($v[$currency]) )
-      $v[$currency] = 0;
-
-    $newTransferredTotal = $v[$currency] += $doubleAmount;
-    $this->setTransferredTotal($v);
-
-    return $newTransferredTotal;
-  }
-
-  /**
    * Get one Transfer::STATE_COLLECT transfer to bundle. If none exists one
    * will be created. If the users state is NOT paid the state will set
    * to Transfer::STATE_RESERVED.
@@ -404,6 +359,31 @@ class Member extends BaseMember
     }
 
     return $transfer;
+  }
+
+  public function getOutstandingTotal(PropelPDO $con = null) {
+    if ( $con == null )
+      $con = \Propel::getConnection();
+
+    $sql = "SELECT SUM(".TransferPeer::AMOUNT.") as amount, ".TransferPeer::CURRENCY." FROM ".TransferPeer::TABLE_NAME." WHERE"
+            ." member_id = :member_id"
+            // ." AND state in (:state1, :state2)"
+            ." GROUP BY ".TransferPeer::MEMBER_ID.", ".TransferPeer::CURRENCY;
+    $stmt = $con->prepare($sql);
+    $stmt->execute(array(
+      ':member_id' => $this->getId(),
+      // ':state1' => Transfer::STATE_COLLECT,
+      // ':state2' => Transfer::STATE_RESERVED
+    ));
+
+    $formatter = new PropelStatementFormatter();
+    $res = $formatter->format($stmt);
+    $sum = [];
+    foreach ( $res as $vals ) {
+      $sum[$vals['currency']] = $vals['amount'];
+    }
+
+    return $sum;
   }
 
   public function getOpenCollectingTransfers(PropelPDO $con) {

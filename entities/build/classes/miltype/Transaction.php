@@ -105,7 +105,6 @@ class Transaction extends BaseTransaction {
     $when = time();
 
     $amount = $data['amount'];
-    $recipient->addOutstandingTotal($amount, self::$BASE_CURRENCY);
     $transaction = $currentTransfer->addAmount($amount)
       ->setReason(Transaction::REASON_CUSTOM_BONUS)
       ->setPurpose($data['purpose'])

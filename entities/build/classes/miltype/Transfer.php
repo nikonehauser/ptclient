@@ -26,6 +26,7 @@ class Transfer extends BaseTransfer {
 
   const STATE_IN_EXECUTION = 2;
   const STATE_DONE = 3;
+  const STATE_FAILED = 4;
 
   /**
    * Adds the given amount to this transfer.
@@ -39,14 +40,7 @@ class Transfer extends BaseTransfer {
     return $transaction;
   }
 
-  public function executeTransfer(Member $transferOwner) {
-    $amount = $this->getAmount();
-    $transferOwner->transferOutstandingTotal($amount, $this->getCurrency());
-    $this->setState(self::STATE_DONE);
-  }
-
   public function createTransaction(Member $transferOwner, $amount, $reason, $relatedId, $when, PropelPDO $con) {
-    $transferOwner->addOutstandingTotal($amount, $this->getCurrency());
     $transaction = $this->addAmount($amount);
     $transaction->setReason($reason);
     $transaction->setRelatedId($relatedId);
@@ -61,12 +55,39 @@ class Transfer extends BaseTransfer {
     else
       $amount = Transaction::getAmountForReason($reason);
 
-    $transferOwner->addOutstandingTotal($amount, $this->getCurrency());
     $transaction = $this->addAmount($amount);
     $transaction->setReason($reason);
     $transaction->setRelatedId($advertisedMemberId);
     $transaction->setDate($when);
     $transaction->save($con);
     return $transaction;
+  }
+
+  public function setState($v) {
+    $history = $this->getStateHistory();
+    if ( !$history )
+      $history = [];
+    else
+      $history = json_decode($history, true);
+
+    $history[] = date('Y-m-d H:i:s').' ## '.$v;
+
+    $this->setStateHistory(json_encode($history));
+
+    return parent::setState($v);
+  }
+
+  public function setExecutionDate($v) {
+    $history = $this->getExecutionDateHistory();
+    if ( !$history )
+      $history = [];
+    else
+      $history = json_decode($history, true);
+
+    $history[] = $v;
+
+    $this->setExecutionDateHistory(json_encode($history));
+
+    return parent::setExecutionDate($v);
   }
 }
