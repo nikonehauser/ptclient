@@ -390,14 +390,14 @@ class MailHelper {
   }
 
 
-  static public function sendContactFormMail($fromMail, $fromPhone, $fromName, $subject, $body) {
+  static public function sendContactFormMail($mailRecipient, $fromMail, $fromPhone, $fromName, $subject, $body) {
     $body = "From mail: $fromMail\n\r".
       "From phone: $fromPhone\n\r".
       "From name: $fromName\n\r\n\r".
       "Body:\n\r$body\n\r";
 
     return self::send(
-      Config::get('contact_mail_recipient'),
+      $mailRecipient,
       null,
       ' - Contact Form - '.$subject,
       $body,

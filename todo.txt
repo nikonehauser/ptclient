@@ -10,8 +10,6 @@ CURRENT - TODOS
 
 * tom: absprechend der bonuse, auch wegen ungeraden zahlen
 
-* fragen zu markus weiterleiten ...
-
 * nur indische accounts mit transferwise!? how to handle the accounts of all referrer people
 
 * im account, feature machen damit man seinen einladungs link ganz einfach über email an freunde schicken kann.
@@ -34,6 +32,8 @@ Bitte beachte, dass wir Dir nur Provisionen überweisen können, wenn alle Felde
 * invitations auch das token mitgeben
 
 
+
+* fragen zu markus weiterleiten ... seine email in config eintragen!
 
 * happiness guide 2 hat 2 versionen, eine für jemand der noch keinen geworben
 hat und eine für jemand der schon geworben hat
