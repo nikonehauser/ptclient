@@ -22,7 +22,8 @@ class Payout extends BasePayout
 
   public function isCustomerFailure() {
     $result = $this->getResult();
-    return $result == self::RESULT_FAILED || $result == self::RESULT_REJECTED;
+    return ($result == self::RESULT_FAILED || $result == self::RESULT_REJECTED) &&
+      $this->getIsCustomerFailure() == 1;
   }
 
   public function getBankAccountText() {

@@ -55,6 +55,7 @@
         <p>executed: <?php echo isset($executed['successfulPayouts']) ? $executed['successfulPayouts'] : 'null';?></p>
         <p>failed: <?php echo isset($executed['failedPayouts']) ? $executed['failedPayouts'] : 'null';?></p>
         <p>unknown: <?php echo isset($executed['unknownPayouts']) ? $executed['unknownPayouts'] : 'null';?></p>
+        <p>customerFailed: <?php echo isset($executed['customerFailedPayouts']) ? $executed['customerFailedPayouts'] : 'null';?></p>
 
       <?php endif; ?>
 

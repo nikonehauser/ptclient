@@ -3,26 +3,17 @@ CURRENT - TODOS
 
 # update
 
-datenbank updaten
-
-datenbank schema hat sich geändert
-propel entities update
-
-cfg:
-  "lock.payout.check.path" => "C:/xampp/htdocs/ptclient/var/payout.check.lock",
-  "transferwise.transfer.reference" => "Betterliving Payout",
-
 
 # todos
 
-* smallint default 1 NOT NULL ,
+* try catch to log console/network output to catch those nasty errors ...
+
+    `is_cusomter_failure` smallint default 1 NOT NULL ,
 
 * invitation advance to level 2 nur CEO einblenden
 
 * tom: absprechend der bonuse, auch wegen ungeraden zahlen
 
-
-* automatische benachrichtigung wenn überweisung fehlschlägt nur wenn account invalid
 
 * fragen zu markus weiterleiten ...
 

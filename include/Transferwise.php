@@ -230,6 +230,7 @@ class Transferwise {
     $successfulPayouts = 0;
     $failedPayouts = 0;
     $unknownPayouts = 0;
+    $customerFailedPayouts = 0;
 
     $transfers = $this->getTransferInExecution($con);
     if ( count($transfers) <= 0 )
@@ -260,6 +261,7 @@ class Transferwise {
         $payoutExternId = null;
         $payoutExternStatus = '';
         $failedReason = null;
+        $isCustomerFailure = 0;
 
         $member = $dbTransfer->getMember();
         $memberReference = $member->getNum();
@@ -294,6 +296,7 @@ class Transferwise {
           $payoutExternMeta['account'] = $account;
           if ( $exception ) {
             $payoutResultState = \Payout::RESULT_FAILED;
+            $isCustomerFailure = 1;
             throw $exception;
           }
 
@@ -335,30 +338,40 @@ class Transferwise {
         try {
           $payout = new \Payout();
 
-          if ( $payoutResultState === \Payout::RESULT_FAILED ) {
-            $payout->setFailedReason($failedReason);
+          $payout
+            ->setTransfer($dbTransfer)
+            ->setResult($payoutResultState)
+            ->setCreationDate(time())
+            ->setStateCheckDate(time())
+            ->setInternMeta(json_encode($payoutInternMeta))
+            ->setExternMeta(json_encode($payoutExternMeta))
+            ->setExternId($payoutExternId)
+            ->setExternState($payoutExternStatus)
+            ->setIsCusomterFailure($isCustomerFailure);
+
+          if ( $payout->isCustomerFailure() ) {
+            $customerFailedPayouts++;
+          } else if ( $payoutResultState === \Payout::RESULT_FAILED ) {
             $failedPayouts++;
           } else if ( $payoutResultState === \Payout::RESULT_UNKNOWN ) {
             $unknownPayouts++;
           }
 
-          $payout
-            ->setTransfer($dbTransfer)
-            ->setResult($payoutResultState)
-            // -> setCreationDate(time()) -- sql defaults to current_timestamp
-            ->setInternMeta(json_encode($payoutInternMeta))
-            ->setExternMeta(json_encode($payoutExternMeta))
-            ->setExternId($payoutExternId)
-            ->setExternState($payoutExternStatus)
-            ->save($con);
+          if ( $failedReason )
+            $payout->setFailedReason($failedReason);
+
+          $payout->save($con);
 
           $dbTransfer->setExecutionDate(time());
           $dbTransfer->setAttempts($dbTransfer->getAttempts() + 1);
           $dbTransfer->save($con);
 
-          if ( $payoutResultState === \Payout::RESULT_FAILED ) {
+          $member->save($con);
+
+          if ( $payout->isCustomerFailure() ) {
             \Tbmt\MailHelper::sendFailedPayoutTransfer($member, $payout);
           }
+
         } catch(\Exception $e) {
           $this->log("CATCHED PAYOUT CREATION: ", $e, [
             "transferId" => $dbTransfer->getId(),
@@ -378,6 +391,7 @@ class Transferwise {
         'successfulPayouts' => $successfulPayouts,
         'unknownPayouts' => $unknownPayouts,
         'failedPayouts' => $failedPayouts,
+        'customerFailedPayouts' => $customerFailedPayouts,
       ]];
     } catch (\Exception $e) {
       throw $e;
