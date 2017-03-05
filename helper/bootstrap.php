@@ -5,4 +5,6 @@
 
   require BASE_DIR.'tests/lib/helper.php';
 
+  DbEntityHelper::setCurrency(Tbmt\Config::get('base_currency'));
+
 ?>

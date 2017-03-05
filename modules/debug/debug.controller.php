@@ -7,6 +7,7 @@ class DebugController extends BaseController {
   const MODULE_NAME = 'debug';
 
   protected $actions = [
+    'index' => true,
     'allinvoices' => true,
     'activities' => true,
     'printmail' => true,
@@ -17,6 +18,10 @@ class DebugController extends BaseController {
       throw new \PageNotFoundException();
 
     return parent::dispatchAction($action, $params);
+  }
+
+  public function action_index() {
+    return $this->action_activities();
   }
 
   public function action_printmail() {

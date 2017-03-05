@@ -12,7 +12,7 @@ class BaseController {
     if ( !isset($this->actions[$action]) )
       throw new PageNotFoundException();
 
-    if ( !is_callable([$this, "$this->actionPrefix$action"]) ) {
+    if ( !method_exists($this, "$this->actionPrefix$action") ) {
       return ControllerDispatcher::renderModuleView(
         static::MODULE_NAME,
         $action

@@ -286,8 +286,6 @@ class ApiClient {
     // We do not dynamically receive account requirements all the time
     // $requirements = $this->getAccountRequirements($quote);
 
-    $this->log('CREATE ACCOUNT:', $body);
-
     $account = null;
     $exception = null;
     try {
@@ -305,6 +303,8 @@ class ApiClient {
 
     if ( $errorFetchSynchronized !== false )
       $body['fetchSynchronized'] = $errorFetchSynchronized;
+
+    $this->log('CREATE ACCOUNT:', $body, $account, $exception);
 
     return [$body, $account, $exception];
   }
@@ -355,12 +355,12 @@ class ApiClient {
     return [$body, $quote, $exception];
   }
 
-  public function createTransfer($targetAccountId, $quoteId) {
+  public function createTransfer($targetAccountId, $quoteId, $reference) {
     $body = [
       'targetAccount' => $targetAccountId,
       'quote' => $quoteId,
       'details' => [
-        'reference' => 'bla'
+        'reference' => $reference
       ]
     ];
 
@@ -379,6 +379,20 @@ class ApiClient {
     $this->log('CREATE TRANFER:', $body, $transfer, $exception);
 
     return [$body, $transfer, $exception];
+  }
+
+  public function getTransfer($transferId) {
+    return $this->validateJsonResponse($this->client->request([
+      'method' => 'get',
+      'url' => $this->apiurl.'transfers/'.$transferId
+    ]));
+  }
+
+  public function listTransfers() {
+    return $this->validateJsonResponse($this->client->request([
+      'method' => 'get',
+      'url' => $this->apiurl.'transfers'
+    ]));
   }
 
   private function validateJsonResponse($response) {

@@ -10,13 +10,17 @@ class Logger {
 
     $msgs = [];
     foreach ( $args as $arg ) {
-      if ( is_callable([$arg, 'toArray']))
+      if ( method_exists($arg, 'toArray'))
         $arg = $arg->toArray();
+      else if ( method_exists($arg, 'toString'))
+        $arg = $arg->toString();
+      else if ( method_exists($arg, '__toString'))
+        $arg = $arg->__toString();
 
       $msgs[] = print_r($arg, true);
     }
 
-    $this->messages[] = date('Y-m-d H:i:sr').': '.$group.implode("\n", $msgs);
+    $this->messages[] = date('Y-m-d H:i:s').': '.$group.implode("\n", $msgs);
   }
 
   public function out() {

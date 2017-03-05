@@ -12,6 +12,10 @@ class DbEntityHelper {
 
   static public $currency = 'USD';
 
+  static public function setCurrency($currency) {
+    self::$currency = $currency;
+  }
+
   static public function setCon(PropelPDO $con) {
     self::$con = $con;
   }

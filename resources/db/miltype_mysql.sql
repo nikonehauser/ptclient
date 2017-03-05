@@ -38,9 +38,6 @@ set foreign_key_checks=0;
 
     `password` varchar(80) NOT NULL ,
 
-    `transferred_total` varchar(255) NOT NULL default '[]' ,
-    `outstanding_total` varchar(255) NOT NULL default '[]' ,
-
     `deletion_date` timestamp  NULL ,
 
     `is_extended` smallint NOT NULL default 0 ,
@@ -49,6 +46,7 @@ set foreign_key_checks=0;
 
     `transferwise_id` BIGINT(20) UNSIGNED NULL ,
     `transferwise_sync` smallint not null default 0 ,
+    `transfer_freezed` smallint not null default 0 ,
 
     PRIMARY KEY (`id`) ,
     CONSTRAINT `fk_member_referrer`
@@ -118,11 +116,11 @@ set foreign_key_checks=0;
     `amount` float default 0 NOT NULL ,
     `currency` varchar(3) not null ,
     `state` smallint not null default 0 ,
-    `state_history` text ,
+    `state_history` text NULL,
     `attempts` smallint not null default 0 ,
     `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `execution_date` timestamp NULL ,
-    `processed_date` timestamp NULL , -- not in use at the moment?
+    `execution_date_history` text NULL ,
     PRIMARY KEY (`id`) ,
     CONSTRAINT `fk_transfer_member`
       FOREIGN KEY (`member_id`)
@@ -144,11 +142,17 @@ set foreign_key_checks=0;
     `id` serial NOT NULL ,
     `transfer_id` BIGINT(20) UNSIGNED NOT NULL ,
     `result` smallint default 1 NOT NULL ,
+    `result_history` text NULL ,
+    `is_cusomter_failure` smallint default 1 NOT NULL ,
+    `extern_state` varchar(255) default '' NOT NULL ,
+    `extern_state_history` text NULL ,
     `extern_id` BIGINT(20) UNSIGNED NULL ,
     `intern_meta` text not null ,
     `extern_meta` text not null ,
     `failed_reason` text not null default '',
     `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `state_check_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `state_check_date_history` text NULL ,
     PRIMARY KEY (`id`) ,
     CONSTRAINT `fk_payout_transfer`
       FOREIGN KEY (`transfer_id`)

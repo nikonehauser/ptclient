@@ -30,7 +30,7 @@
 
           <p><?=$this->i18nView['payoutfailed_text3']?></p>
 
-          <?php if ( $this->payoutFailed->getTransfer()->getState() === \Transfer::STATE_IN_EXECUTION ) : ?>
+          <?php if ( $this->member->getTransferFreezed() == 0 ) : ?>
             <?=\Tbmt\view\Factory::buildNotification($this->i18nView['transfer_state_restored'], $this->i18nView['tank_you'], 'success top')?>
 
           <?php else : ?>

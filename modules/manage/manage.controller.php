@@ -260,46 +260,60 @@ class ManageController extends BaseController {
       );
     }
 
-    $login->setTitle($data['title']);
-    $login->setLastName($data['lastName']);
-    $login->setFirstName($data['firstName']);
-    $login->setEmail($data['email']);
+    $con = \Propel::getConnection();
+    if ( !$con->beginTransaction() )
+      throw new \Exception('Could not begin transaction');
 
-    if ( $login->isExtended() ) {
-      $login->setCity($data['city']);
-      $login->setZipCode($data['zip_code']);
-      $login->setBic($data['bic']);
-      $login->setIban($data['iban']);
-      $login->setBankRecipient($data['bank_recipient']);
+    try {
+      $login->setTitle($data['title']);
+      $login->setLastName($data['lastName']);
+      $login->setFirstName($data['firstName']);
+      $login->setEmail($data['email']);
 
-      // Force account update in transferwise
-      $login->setTransferwiseSync(0);
+      if ( $login->isExtended() ) {
+        $login->setCity($data['city']);
+        $login->setZipCode($data['zip_code']);
+        $login->setBic($data['bic']);
+        $login->setIban($data['iban']);
+        $login->setBankRecipient($data['bank_recipient']);
 
-      // Update last rejected/failed transfer state to retrigger transfer upon
-      // this profile update.
-      $lastPayout = \PayoutQuery::create()
-        ->useTransferQuery()
-          ->filterByMember($login)
-        ->endUse()
-        ->orderBy(\PayoutPeer::CREATION_DATE, \Criteria::DESC)
-        ->limit(1)
-        ->findOne();
+        // Force account update in transferwise
+        $login->setTransferwiseSync(0);
 
-      if ( $lastPayout && $lastPayout->isCustomerFailure() ) {
-        $transfer = $lastPayout->getTransfer();
-        $transfer->setState(\Transfer::STATE_IN_EXECUTION);
-        $transfer->save();
+        // Update last rejected/failed transfer state to retrigger transfer upon
+        // this profile update.
+        if ( $login->getTransferFreezed() == 1 ) {
+          $failedTransfers = \TransferQuery::create()
+            ->filterByMember($login)
+            ->filterByState(\Transfer::STATE_FAILED)
+            ->find();
+
+          foreach ( $failedTransfers as $transfer ) {
+            $transfer->setState(\Transfer::STATE_IN_EXECUTION);
+            $transfer->save($con);
+          }
+
+          $login->setTransferFreezed(0);
+        }
+
       }
 
+      $login->save($con);
+
+      if ( !$con->commit() )
+        throw new \Exception('Could not commit transaction');
+
+      return ControllerDispatcher::renderModuleView(
+        self::MODULE_NAME,
+        'change_profile',
+        ['successmsg' => true]
+      );
+
+    } catch (\Exception $e) {
+        $con->rollBack();
+
+        throw $e;
     }
-
-    $login->save();
-
-    return ControllerDispatcher::renderModuleView(
-      self::MODULE_NAME,
-      'change_profile',
-      ['successmsg' => true]
-    );
   }
 }
 

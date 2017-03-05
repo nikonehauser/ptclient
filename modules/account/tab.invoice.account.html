@@ -10,10 +10,6 @@
 
       <dt><?=$this->i18nView['outstanding_total']?></dt>
       <dd><?=\Tbmt\view\Factory::currencyArrToString($this->member->getOutstandingTotal())?></dd>
-
-      <dt><?=$this->i18nView['transferred_total']?></dt>
-      <dd><?=\Tbmt\view\Factory::currencyArrToString($this->member->getTransferredTotal())?></dd>
-
   </dl>
 
   <?php

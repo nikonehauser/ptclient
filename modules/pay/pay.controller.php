@@ -9,7 +9,8 @@ class PayController extends BaseController {
   protected $actions = [
     'index' => true,
     'payouts' => true,
-    'check' => true
+    'check' => true,
+    'list' => true
   ];
 
   public function dispatchAction($action, $params) {
@@ -22,6 +23,10 @@ class PayController extends BaseController {
 
   public function action_check() {
     return '<pre>'.print_r(Transferwise::checkPayouts(), true).'</pre>';
+  }
+
+  public function action_list() {
+    return '<pre>'.print_r(Transferwise::listPayouts(), true).'</pre>';
   }
 
   public function action_index() {

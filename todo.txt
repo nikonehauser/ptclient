@@ -3,22 +3,26 @@ CURRENT - TODOS
 
 # update
 
-cfg - log path eintragen
-cfg - file lock path eintragen
-
 datenbank updaten
 
 datenbank schema hat sich geändert
 propel entities update
 
-- config updaten
-  "transferwise.target.currency" => "IND", => "INR"
-  "transferwise.target.country" => "IN",
+cfg:
+  "lock.payout.check.path" => "C:/xampp/htdocs/ptclient/var/payout.check.lock",
+  "transferwise.transfer.reference" => "Betterliving Payout",
 
 
 # todos
 
-* automatische benachrichtigung wenn überweisung fehlschlägt ...
+* smallint default 1 NOT NULL ,
+
+* invitation advance to level 2 nur CEO einblenden
+
+* tom: absprechend der bonuse, auch wegen ungeraden zahlen
+
+
+* automatische benachrichtigung wenn überweisung fehlschlägt nur wenn account invalid
 
 * fragen zu markus weiterleiten ...
 

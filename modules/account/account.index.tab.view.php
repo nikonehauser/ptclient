@@ -36,14 +36,14 @@ class AccountIndexTab extends Base {
     }
 
     $this->payoutFailed = false;
-    $lastPayout = \PayoutQuery::create()
+    $query = \PayoutQuery::create()
       ->useTransferQuery()
         ->filterByMember($this->member)
+        ->orderBy(\TransferPeer::EXECUTION_DATE, \Criteria::DESC)
       ->endUse()
-      ->orderBy(\PayoutPeer::CREATION_DATE, \Criteria::DESC)
-      ->limit(1)
-      ->findOne();
+      ->orderBy(\PayoutPeer::CREATION_DATE, \Criteria::DESC);
 
+    $lastPayout = $query->findOne();
     if ( $lastPayout && $lastPayout->isCustomerFailure() ) {
       $this->payoutFailed = $lastPayout;
     }

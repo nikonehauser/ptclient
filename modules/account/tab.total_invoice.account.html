@@ -26,8 +26,7 @@
           <th>Type</th>
           <th>Advertised</th>
           <th>Paid Advertised</th>
-          <th>Transferred total</th>
-          <th>Outstanding total</th>
+          <th>Total earned</th>
         </tr>
     <?php
     $memberTypes = \Tbmt\Localizer::get('common.member_types');
@@ -36,13 +35,7 @@
 
     foreach ( $this->members as $i => $member ) {
 
-      $transferredTotal = $member->getTransferredTotal();
       $outstandingTotal = $member->getOutstandingTotal();
-
-      if ( isset($transferredTotal[$baseCurrency]) )
-        $transferredTotal = $transferredTotal[$baseCurrency];
-      else
-        $transferredTotal = 0;
 
       if ( isset($outstandingTotal[$baseCurrency]) )
         $outstandingTotal = $outstandingTotal[$baseCurrency];
@@ -63,7 +56,6 @@
         echo '<td>'.$memberTypes[$member->getType()].'</td>';
         echo '<td>'.$member->getOutstandingAdvertisedCount().'</td>';
         echo '<td>'.$member->getAdvertisedCount().'</td>';
-        echo '<td>'.\Tbmt\Localizer::numFormat($transferredTotal).'</td>';
         echo '<td>'.\Tbmt\Localizer::numFormat($outstandingTotal).'</td>';
       echo '</tr>';
     }
