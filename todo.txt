@@ -1,6 +1,16 @@
 UPDATE SERVER - TODO
 =====================
 
+* update database and propel entities
+
+NEW
+====
+
+50 euro mindestwert für überweisung nötig
+
+free registration nur für CEO und Sales Manager
+
+
 
 CURRENT - TODOS
 ===============
@@ -15,10 +25,13 @@ CURRENT - TODOS
 
 * fragen zu markus weiterleiten ... seine email in config eintragen!
 
+
 * happiness guide 2 hat 2 versionen, eine für jemand der noch keinen geworben
 hat und eine für jemand der schon geworben hat
 
 * neuer guide alle 2 wochen
+
+* emails links formatieren ... use markdown?
 
 
 Go LIVE:
@@ -36,6 +49,7 @@ Offen an Tom:
 * happiness gudies link/name einfügen kann er vergessen -> pdfs updaten!
 
 * FAQ - letzter punkt aktualisieren: "How is the price for the Happiness Guide to pay?"
+
 * PDF als quittung
 
 

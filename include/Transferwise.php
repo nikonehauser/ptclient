@@ -12,7 +12,7 @@ class Transferwise {
 
   static public function cronPayouts() {
     $transferwise = self::getInstance();
-    $transferwise->prepareTransfers();
+    $transferwise->prepareTransfers(\Propel::getConnection());
     return $transferwise->run(null, true);
   }
 
@@ -159,7 +159,7 @@ class Transferwise {
     return $data;
   }
 
-  private function prepareTransfers() {
+  private function prepareTransfers(\PropelPDO $con) {
     $minAmountRequired = Config::get("transferwise.execute.payouts.min.amount", TYPE_INT);
     $whenCondition = strtotime(Config::get("transferwise.execute.payouts.after.strtotime"));
 
@@ -193,7 +193,7 @@ class Transferwise {
   }
 
   private function viewPrepareTransfers(\TransferWise\ApiClient $transApi, \PropelPDO $con) {
-    $this->prepareTransfers();
+    $this->prepareTransfers($con);
     $transfers = $this->getTransferInExecution($con);
 
     if ( count($transfers) <= 0 )

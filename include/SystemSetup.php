@@ -111,14 +111,14 @@ class SystemSetup {
 
     /* Setup - EXECUTIVE
     ---------------------------------------------*/
-    $executive = self::createMember(null, [
-      'FirstName' => 'Administration',
-      'LastName'  => 'Executive',
-      'Email'     => $executiveEmail,
-      'Num'       => \SystemStats::ACCOUNT_EXECUTIVE,
-      'Type'      => \Member::TYPE_MEMBER,
-      'FundsLevel'=> \Member::FUNDS_LEVEL2
-    ]);
+    // $executive = self::createMember(null, [
+    //   'FirstName' => 'Administration',
+    //   'LastName'  => 'Executive',
+    //   'Email'     => $executiveEmail,
+    //   'Num'       => \SystemStats::ACCOUNT_EXECUTIVE,
+    //   'Type'      => \Member::TYPE_MEMBER,
+    //   'FundsLevel'=> \Member::FUNDS_LEVEL2
+    // ]);
 
     /* Setup - REASON_NGO_PROJECTS
     ---------------------------------------------*/
@@ -136,7 +136,7 @@ class SystemSetup {
     $topLvlBonusIds = json_encode([
       $ceo1->getId() => $ceo1->getType(),
       $it->getId() => $it->getType(),
-      $executive->getId() => $executive->getType(),
+      // $executive->getId() => $executive->getType(),
       // $taricWani->getId() => $taricWani->getType(),
       // $ngoProjects->getId() => $ngoProjects->getType()
     ]);
@@ -145,7 +145,7 @@ class SystemSetup {
       $ceo1->getId() => $ceo1->getType(),
       $it->getId() => $it->getType(),
       $sylvheim->getId() => $sylvheim->getType(),
-      $executive->getId() => $executive->getType(),
+      // $executive->getId() => $executive->getType(),
       // $taricWani->getId() => $taricWani->getType(),
       // $ngoProjects->getId() => $ngoProjects->getType()
     ]);
@@ -153,14 +153,14 @@ class SystemSetup {
     $ceo1->setBonusIds($topLvlBonusIds);
     $it->setBonusIds($topLvlBonusIds);
     $sylvheim->setBonusIds($salesManagerBonusIds);
-    $executive->setBonusIds($topLvlBonusIds);
+    // $executive->setBonusIds($topLvlBonusIds);
     // $taricWani->setBonusIds($topLvlBonusIds);
     // $ngoProjects->setBonusIds($topLvlBonusIds);
 
     $ceo1->save(self::$con);
     $it->save(self::$con);
     $sylvheim->save(self::$con);
-    $executive->save(self::$con);
+    // $executive->save(self::$con);
     // $taricWani->save(self::$con);
     // $ngoProjects->save(self::$con);
 

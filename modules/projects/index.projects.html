@@ -270,26 +270,9 @@ use \Tbmt\Router as R;
   </div>
 </div>
 
-<div class="container bottom-40" id="video_explanation">
-
-  <div class="heading-area text-center bottom-30 top-40">
-    <h4 class="heading large"><?=$this->i18nView['video_explanation_head']?></h4>
-  </div>
-
-  <div class="row">
-    <div class="col-md-12">
-    <?=\Tbmt\view\Factory::buildTakeActionBox(
-      '',
-      $this->i18nView['video_explanation'],
-      '<iframe width="100%" height="350" src="https://www.youtube.com/embed/533FxsXcrNk" frameborder="0" allowfullscreen></iframe>'
-    )?>
-    </div>
-  </div>
-</div>
-
 
 <!--
-  ABOUT US
+  WE ARE AGAINST POVERTY
   *************************** -->
 <div class="section-bgwrap" style="background-color: rgba(145, 145, 145, 0.9);">
     <div class="container white">
@@ -329,6 +312,29 @@ use \Tbmt\Router as R;
     </div><!-- // .container -->
 </div>
 
+<!--
+  VIDEO MARKETING SYSTEM
+  *************************** -->
+<div class="container bottom-40" id="video_explanation">
+
+  <div class="heading-area text-center bottom-30 top-40">
+    <h4 class="heading large"><?=$this->i18nView['video_explanation_head']?></h4>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+    <?=\Tbmt\view\Factory::buildTakeActionBox(
+      '',
+      $this->i18nView['video_explanation'],
+      '<iframe width="100%" height="350" src="https://www.youtube.com/embed/VpQv-K4CIyg" frameborder="0" allowfullscreen></iframe>'
+    )?>
+    </div>
+  </div>
+</div>
+
+<!--
+  ILLUSTRATION MARKETING SYSTEM
+  *************************** -->
 <div class="container bottom-40" id="pdf_explanation">
 
   <div class="heading-area text-center bottom-30 top-40">
@@ -352,6 +358,78 @@ use \Tbmt\Router as R;
   </div>
 </div>
 
+<!--
+  VIDEO HAPPINES GUIDE
+  *************************** -->
+<div class="container bottom-40" id="hg_video_explanation">
+
+  <div class="heading-area text-center bottom-30 top-40">
+    <h4 class="heading large">Happines Guide Video</h4>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+    <?=\Tbmt\view\Factory::buildTakeActionBox(
+      '',
+      'Introduction video to our Happines Guide',
+      '<iframe width="100%" height="350" src="https://www.youtube.com/embed/klPM6ZQKKfs" frameborder="0" allowfullscreen></iframe>'
+    )?>
+    </div>
+  </div>
+</div>
+
+<!--
+  ILLUSTRATION HAPPINES GUIDE
+  *************************** -->
+<div class="container bottom-40" id="hg_pdf_explanation">
+
+  <div class="heading-area text-center bottom-30 top-40">
+    <h4 class="heading large">Happines Guide ILLUSTRATION</h4>
+  </div>
+
+  <div class="row nospace service-color-area">
+    <div class="col-md-8" style="padding: 15px;">
+    <?=\Tbmt\view\Factory::buildTakeActionBox(
+      '','', '<image style="margin-left: 50%; width: 450px; transform:translateX(-50%);" src="'.\Tbmt\Router::toImage('product.jpg').'"/>'
+    )?>
+    </div>
+
+    <div class="col-md-4" style="padding: 15px;">
+
+    <?=\Tbmt\view\Factory::testimonial(
+      $this->i18nView['pdf_explanation'].'<a href="'.\Tbmt\Router::toModule('download', 'hgillustration').'" style="color:#EF4A43;">'.
+        $this->i18nView['pdf_explanation_link'].'</a>'
+    )?>
+    </div>
+  </div>
+</div>
+
+
+<!--
+  VIDEO MARKETING SYSTEM LONG
+  *************************** -->
+<div class="container bottom-40" id="video_explanation_extended">
+
+  <div class="heading-area text-center bottom-30 top-40">
+    <h4 class="heading large">Marketing System Video - Detailed version</h4>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+    <?=\Tbmt\view\Factory::buildTakeActionBox(
+      '',
+      'Introduction video to our Happines Guide',
+      '<iframe width="100%" height="350" src="https://www.youtube.com/embed/bs3lMrPgWts" frameborder="0" allowfullscreen></iframe>'
+    )?>
+    </div>
+  </div>
+</div>
+
+
+
+<!--
+  BOTTOM BOXES
+  *************************** -->
 <div class="container bottom-40">
 
   <div class="heading-area text-center bottom-30 top-40">
@@ -359,7 +437,7 @@ use \Tbmt\Router as R;
   </div>
 
   <div class="row nospace service-color-area">
-      <div class="col-md-3">
+      <div class="col-md-4">
         <div class="service-box fadein" style="height: 224px;">
           <a href="<?=\Tbmt\Router::toModule('member', 'system')?>">
             <div class="service-icon" style="opacity: 1; margin-top: 0px;">
@@ -377,7 +455,7 @@ use \Tbmt\Router as R;
           </a>
         </div><!-- // .service-box -->
     </div>
-      <div class="col-md-3">
+      <div class="col-md-4">
         <div class="service-box fadein" style="height: 224px;">
           <a href="<?=\Tbmt\Router::toModule('about', 'faq')?>">
             <div class="service-icon" style="opacity: 1; margin-top: 0px;">
@@ -395,7 +473,7 @@ use \Tbmt\Router as R;
           </a>
         </div><!-- // .service-box -->
     </div>
-      <div class="col-md-3">
+      <div class="col-md-4">
         <div class="service-box fadein" style="height: 224px;">
           <a href="<?=\Tbmt\Router::toModule('about', 'contact')?>">
             <div class="service-icon" style="opacity: 1; margin-top: 0px;">
@@ -409,24 +487,6 @@ use \Tbmt\Router as R;
 
             <div class="service-action top-20">
                 <?=\Tbmt\view\Factory::buildButton($this->i18nView['service_contact_btn'], \Tbmt\Router::toModule('about', 'contact'), 'white stroke')?>
-            </div><!-- // .service-action -->
-          </a>
-        </div><!-- // .service-box -->
-    </div>
-      <div class="col-md-3">
-        <div class="service-box fadein" style="height: 224px;">
-          <a href="<?=\Tbmt\Router::toModule('member', 'signup')?>">
-            <div class="service-icon" style="opacity: 1; margin-top: 0px;">
-                <i class="pe-7s-albums"></i>
-            </div><!-- // service-icon -->
-
-            <div class="service-content top-10">
-                <h3 class="bottom-10 service-title"><?=$this->i18nView['service_signup_title']?></h3>
-                <p><?=$this->i18nView['service_signup_desc']?></p>
-            </div><!-- // .service-content -->
-
-            <div class="service-action top-20">
-                <?=\Tbmt\view\Factory::buildButton($this->i18nView['service_signup_btn'], \Tbmt\Router::toModule('member', 'signup'), 'white stroke')?>
             </div><!-- // .service-action -->
           </a>
         </div><!-- // .service-box -->

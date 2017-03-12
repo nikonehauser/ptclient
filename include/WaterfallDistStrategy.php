@@ -26,7 +26,7 @@ class WaterfallDistStrategy extends DistributionStrategy {
     $referrer->save($con);
 
     if ( !$freeFromInvitation ) {
-      $memberFee->checkRemainGreaterZero();
+      //$memberFee->checkRemainGreaterZero();
       $memberFee->addRemainingToAccounts($when, $con);
     }
 

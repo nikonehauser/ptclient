@@ -24,6 +24,8 @@
 
   <?php
 
+    $this->formLabels['accept_agbs'] = Tbmt\view\Factory::buildPurchaseAgreements();
+
     $this->formLabels['invitation_code'] = $this->formLabels['invitation_code'].
       '  <a data-toggle="popover" data-content="'.$this->i18nView['invitation_code_help'].'" style="font-size:larger;"><i class="fa fa-question-circle"></i></a>';
 
@@ -137,6 +139,10 @@
 
             <div class="col-md-12">
               <p><?=$this->formLabels['bank_account_info']?></p>
+            </div>
+
+            <div class="col-md-12">
+              <p>Please take good care and double check your your account data. We will not take responsibility for wrong transfers due to wrong account data.</p>
             </div>
 
             <div class="col-md-12">

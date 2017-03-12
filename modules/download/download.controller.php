@@ -8,6 +8,7 @@ class DownloadController extends BaseController {
 
   protected $actions = [
     'illustration' => true,
+    'hgillustration' => true,
     'guide' => true
   ];
 
@@ -16,6 +17,14 @@ class DownloadController extends BaseController {
       'name' => 'better.live.illustration.pdf',
       'contentType' => 'application/pdf',
       'path' => Router::toPublicResource('illustration.pdf')
+    ]);
+  }
+
+  public function action_hgillustration() {
+    return new ControllerActionDownload([
+      'name' => 'happines.guide.illustration.pdf',
+      'contentType' => 'application/pdf',
+      'path' => Router::toPublicResource('hgillustration.pdf')
     ]);
   }
 
