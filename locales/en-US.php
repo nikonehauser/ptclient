@@ -51,7 +51,7 @@ return [
       'USA',
     ],
 
-    'purchase_agreemensts' => 'You agree with our {terms}, {privacy} and {cancelation_right}!',
+    'purchase_agreemensts' => 'You agree with our {terms}!',
     'terms' => 'Terms of Use',
     'privacy' => 'Data Privacy Notice',
     'cancelation_right' => 'Rights of Cancelation',
