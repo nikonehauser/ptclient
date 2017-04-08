@@ -28,9 +28,59 @@ class DebugController extends BaseController {
     return $this->action_activities();
   }
 
+  private function getMailParams() {
+    $con = \Propel::getConnection();
+
+    $member102 = \Member::getByNum('102');
+    $member105 = \Member::getByNum('105');
+    $member102->setReferrerId($member105->getId());
+
+    $member_lvl1 = $member102->copy();
+    $member_lvl1->setFundsLevel(\Member::FUNDS_LEVEL1);
+
+    $member_paidCount1 = $member102->copy();
+    $member_paidCount1->setAdvertisedCount(1);
+
+    $member_paidCount2 = $member102->copy();
+    $member_paidCount2->setAdvertisedCount(2);
+
+    $member_paidCount3 = $member102->copy();
+    $member_paidCount3->setAdvertisedCount(3);
+
+    $now = time();
+
+    $emailValidation = \EmailValidation::create($now, 'efesus133@gmail.com', [], $con);
+    $emailValidation->delete();
+
+    return [
+      'EmailValidation_#1' => ['efesus133@gmail.com', 'efesus133', $emailValidation],
+      'SignupConfirm_#2' => [$member102],
+      'FeeIncome_#3' => [$member102],
+      'SignupConfirmInvitation_bonus_#4' => [$member_lvl1, false],
+      'SignupConfirmInvitation_freeAndlvl2_#5' => [$member102, true],
+      'SignupConfirmInvitation_free_#6' => [$member_lvl1, true],
+      'NewRecruitmentCongrats_#7' => [$member102, $member105],
+      'FeeIncomeReferrer_count1_#8' => [$member_paidCount1, $member105],
+      'FeeIncomeReferrer_count2_#9' => [$member_paidCount2, $member105],
+      'FeeIncomeReferrer_premium_#10' => [$member_paidCount3, $member105],
+      'HgAvailable_#11' => [$member102],
+
+    ];
+  }
+
   public function action_printmail() {
+    $mails = $this->getMailParams();
+    $mailsLinksHtml = '<h1>Mails</h1><div class="bottom-30"><ul>';
+    foreach ($mails as $name => $arrParams) {
+      $mailsLinksHtml .= '<li><a href="'.Router::toModule('debug', 'printmail', [
+        'mail' => $name
+      ]).'">'.$name.'</a></li>';
+    }
+
+    $mailsLinksHtml .= '</ul></div>';
+
     if ( empty($_REQUEST['mail']) )
-      throw new \Exception('Missing param "mail"');
+      return '<div class="container">'.$mailsLinksHtml.'</div>';
 
     $embed = !empty($_REQUEST['embed']);
     $mail = $_REQUEST['mail'];
@@ -41,14 +91,14 @@ class DebugController extends BaseController {
     ]);
 
     MailHelper::$DEBUG_PRINT = true;
-    $mail = $this->getMail($mail);
+    $mail = $this->getMail($mail, $mails[$mail]);
 
     if ( $embed ) {
       echo $mail[3];
       exit;
     }
 
-    return '<div class="container"><h1>Html</h1>'.
+    return '<div class="container">'.$mailsLinksHtml.'<h1>Html</h1>'.
       '<iframe src="'.$embedUrl.'" style="height: 600px; width: 100%;"></iframe>'.
       '<h1>Plain Text</h1>'.
       '<pre>'.
@@ -57,40 +107,12 @@ class DebugController extends BaseController {
       '</div>';
   }
 
-  private function getMail($name) {
-    switch ($name) {
-      case 'FundsLevelUpgrade':
-        return MailHelper::sendFundsLevelUpgrade(
-          \Member::getByNum('102'),
-          \Member::getByNum('105')
-        );
+  private function getMail($name, $arrParams) {
+    $name = explode('_', $name);
+    if ( is_array($name) )
+      $name = $name[0];
 
-      case 'FeeIncomeReferrer':
-        return MailHelper::sendFeeIncomeReferrer(
-          \Member::getByNum('102'),
-          \Member::getByNum('105')
-        );
-
-      case 'FeeIncome':
-        $member102 = \Member::getByNum('102');
-        $member102->setReferrerId(\Member::getByNum('105')->getId());
-        // Do not save!!
-        return MailHelper::sendFeeIncome(
-          $member102
-        );
-      case 'FreeSignupConfirm':
-        $member102 = \Member::getByNum('102');
-        $member102->setReferrerId(\Member::getByNum('105')->getId());
-        // Do not save!!
-        return MailHelper::sendFreeSignupConfirm(
-          $member102
-        );
-      case 'NewFreeRecruitmentCongrats':
-        return MailHelper::sendNewFreeRecruitmentCongrats(
-          \Member::getByNum('102'),
-          \Member::getByNum('105')
-        );
-    }
+    return call_user_func_array(['Tbmt\\MailHelper', 'send'.$name], $arrParams);
   }
 
   public function action_allinvoices() {

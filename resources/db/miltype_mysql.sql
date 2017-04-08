@@ -48,6 +48,8 @@ set foreign_key_checks=0;
     `transferwise_sync` smallint not null default 0 ,
     `transfer_freezed` smallint not null default 0 ,
 
+    `hg_week` smallint not null default 1 ,
+
     PRIMARY KEY (`id`) ,
     CONSTRAINT `fk_member_referrer`
       FOREIGN KEY (`referrer_id`)

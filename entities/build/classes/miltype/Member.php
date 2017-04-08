@@ -433,9 +433,6 @@ class Member extends BaseMember
         \Tbmt\MailHelper::sendFeeIncome($this);
     }
 
-    if ( !$freeFromInvitation )
-      \Tbmt\MailHelper::sendFeeIncomeReferrer($referrer, $this);
-
     if ( $referrer && !$referrer->hadPaid() ) {
       // if the parent hasnt paid yet. reserve this event until his fee is
       // comming in or we kick him from the list.
@@ -530,6 +527,27 @@ class Member extends BaseMember
 
     $this->setDeletionDate(time());
     $this->save($con);
+  }
+
+  public function notifyNewHappinessGuide($secondsPerGuide, $now = null, PropelPDO $con = null) {
+    if ( !$now )
+      $now = time();
+
+    $hgWeek = $this->getHgWeek();
+    $paidDate = $this->getPaidDate();
+    $diff = $now - $paidDate;
+
+    $count = ($diff / $secondsPerGuide) + 1;
+    $changed = false;
+
+    for ( ; $hgWeek <= $count; $hgWeek++ ) {
+      $changed = true;
+      $this->setHgWeek($hgWeek);
+      \Tbmt\MailHelper::sendHgAvailable($this);
+    }
+
+    if ( $changed )
+      $this->save($con);
   }
 }
 

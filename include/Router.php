@@ -85,17 +85,22 @@ class Router {
     return self::$configsPath.$path;
   }
 
-  static public function toVideo() {
+  static public function toVideo(\Member $member = null) {
+    $params = [];
+    if ( $member )
+      $params['tkn'] = $member->getHash();
+
     return self::toModule(
       Config::get('video.module'),
-      Config::get('video.action')
+      Config::get('video.action'),
+      $params
     ).'#'.Config::get('video.anchor');
   }
 
   static public function toSignup(\Member $referrer = null) {
     $arrParams = [];
     if ( $referrer )
-      $arrParams['referral_member_num'] = $referrer->getNum();
+      $arrParams['tkn'] = $referrer->getHash();
 
     return self::toModule('member', 'signup', $arrParams);
   }

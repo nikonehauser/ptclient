@@ -38,87 +38,28 @@ Note: Link expires within 24 hours.",
 
 
 
+/**
+ * #1
+ *
+ **/
     'email_validation' => [
-      'subject' => 'Registration Email Validation',
-      'body' => "Hello {fullname},
+      'subject' => 'Registration Validation',
+      'body' =>
+"Hello {fullname},
+
 thank you for signing up to $brandName!
+
 Just open the following link in your favourite web browser to complete your registration:
-{link}
+
+[Betterliving Email Validation]({link})
+
 Note: Link expires within 24 hours.",
+
     ],
 
 
-
-
-
 /**
- * #1_1
- * Der neue Spender erhält eine umfassende Begrüßungsemail, diese mail bezieht
- * sich auf kostenlose einladungen.
- *
- * params:
- *   fullname,
- *   member_id,
- *   member_type,
- *   referrer_fullname,
- *   video_link,
- *   signup_link,
- *   after6weeksamount
- *
- */
-  'free_signup_confirm' => [
-
-    'subject' => 'Welcome to Betterliving',
-
-    'body' => "Dear {fullname},
-
-Welcome to Betterliving – You’re now registered at Betterliving.social!
-{referrer_fullname} recommended you and wants you to profit from Betterliving.
-We’re happy you followed his recommendation.
-
-You were invited as a special guest!
-You are \"{member_type}\". So you can earn even more than normal customers!
-
-Most probably {referrer_fullname} has already told you it is possible to earn money with Betterliving.
-Please watch the video
-{video_link}
-for more information. As soon as you recommend friends to Betterliving you
-will receive commissions from Betterliving.
-From your third recommendation on, the commission will go up to +400%.
-The video will show you how high your income can become.
-Let it surprise you and let all your friends know about this opportunity.
-What would you do if you and your friends owned commissions of more than {after6weeksamount} Dollar?
-If you have any idea about how you would spend money and you
-grudge your friends the same, make sure you tell them about Betterliving.
-Just share the video
-{video_link}
-and let them know you are on board as well.
-Don’t forget to give them your personal costumer number \"{member_id}\".
-Because you can only be identified and get commissions if they will fill in
-this costumer number when they are signing up for Betterliving.
-So what are you waiting for?
-Enjoy the opportunity of making a fortune while being social!
-Maybe you don’t know how to let your friends know about this.
-In this case just copy the following and send it to all your best friends via email:
-__________________________________________
-Dear friend,
-a short time ago I was told about the opportunity to make money by using the Happiness Guide.
-It’s super easy and just genius.
-I would like to let you know about this opportunity and how you can get a lot of money as well.
-Just watch this video
-http://betterliving.social?mod=projects&act=index#video_explanation
-for me. I have already donated to Betterliving and I’d be happy if you did so, too.
-In order to join, just click here:
-{signup_link}
-___________________________________________
-
-We wish you the very best and hope you’ll get rich soon!"
-
-  ],
-
-
-/**
- * #1
+ * #2
  * Der neue Spender erhält eine umfassende Begrüßungsemail mit Anweisungen, wohin er welchen Betrag bis wann überweisen soll.
  *
  * params:
@@ -134,18 +75,21 @@ We wish you the very best and hope you’ll get rich soon!"
 
     'subject' => 'Welcome to Betterliving',
 
-    'body' => "Dear {fullname}
+    'body' => "Dear {fullname},
 
-Welcome to Betterliving. {recruiter} recommended you and wants you to profit from Betterliving.
+welcome to Betterliving. {recruiter} recommended you and wants you to profit from Betterliving.
 We’re happy you followed {recruiter}’s recommendation.
+
 In order to make you a part of Betterliving and to offer you all opportunities it is necessary for you to purchase the Happiness Guide.
-Please transfer {fmt_member_fee} to the following bank account until {duedate}:
 
-{bankaccount}
+Please pay the price of {fmt_member_fee} via PayPal now, otherwise we cannot confirm your registration.
 
-Always indicate your personal customer number \"{member_id}\" as intended purpose for the transfer.
+To get hold of the Happiness Guide, just click on the button “Purchase your Happiness Guide now”.
+After that, click on “PayPal” and complete the payment of {fmt_member_fee}.
+In case you do not own a PayPal account, please register on their website [PayPal](https://paypal.com).
+
 As soon as we have received your payment, you are going to get to know
-helpful secrets about how to make a fortune with $brandName."
+helpful secrets about how to make a fortune with $brandName.",
   ],
 
 
@@ -153,35 +97,87 @@ helpful secrets about how to make a fortune with $brandName."
 
 
 /**
- * #2_1
- * Der Tippgeber dieses neuen Spenders erhält auch eine Email, diese mail bezieht
- * sich auf kostenlose einladungen.
+ * #3
+ * Der neue Spender erhält eine Email. Hierin wird sich einerseits für die Spende bedankt und andererseits darauf hingewiesen, dass wenn er weitere Spender gewinnt, er nicht nur die Projekte der NGO fördert, sondern er und alle von ihm empfohlenen Spender auch sehr viel Geld verdienen können.
  *
  * params:
  *   fullname,
  *   member_id,
- *   recruited_fullname,
+ *   referrer_fullname,
  *   video_link,
+ *   signup_link,
+ *   after6weeksamount
  *
  */
-  'new_free_recruitment_congrats' => [
+  'fee_income' => [
 
-    'subject' => 'The next step to make a fortune with Betterliving',
+    'subject' => 'The secret of Betterliving',
 
-    'body' => "Dear {fullname}
+    'body' =>
 
-Congratulations on your successful invitation!
-We have been informed that you invited {recruited_fullname} to Betterliving.
-{recruited_fullname} has successfully signed up.
-We wish you the best at finding new customers for Betterliving.
-Just share the video
-{video_link}
-with your friends and tell everybody about the great opportunity of making money by being social.
-It’s enough if every customer recommends three more customers.
-You can show {recruited_fullname} how easy it is.
-That way you can support each other in making a fortune.
-Take good care that your friends use your costumer number \"{member_id}\"
-when they are signing up."
+"Dear {fullname}
+
+thanks for purchasing the Happiness Guide!
+
+{referrer_fullname} has probably told you about making a lot of money very easily with Betterliving by recommending it to other people.
+
+That is why they want you to register and buy the Happiness Guide for {fmt_member_fee}.
+We are glad you followed the recommendation!
+
+Please watch the video [Marketingsystem of Betterliving]({video_link}) for more information.
+
+As you can see, you will receive commissions as soon as you successfully recommend Betterliving to your friends or anybody in your life.
+
+From the third successful recommendation your bonus will increase to over 500%!
+
+Plus, you only need three people to register and buy the Guide in order to have a passive income.
+
+Make use of this fantastic marketing system today and tell all your friends about this genius opportunity.
+
+What would you do if you and your friends earned {after6weeksamount} after six weeks already?
+
+If you do not know how to spend your money: Trust me, as soon as you have got it, you will know what beautiful things you want to spend it on.
+
+Show this video [Marketingsystem of Betterliving]({video_link}) as many people as possible.
+
+And do not forget to tell them you’re in already!
+
+So what are you waiting for?
+
+Enjoy the opportunity not only to make a fortune for yourself, but also to give your loved one the same opportunity!
+
+Maybe you don’t know how to let your friends know about this.
+
+In this case just copy the following and send it to all your best friends via email:
+__________________________________________
+Dear friend,
+
+a short time ago I was told about the opportunity to make money by using the Happiness Guide.
+
+It’s super easy and just genius.
+
+I would like to let you know about this opportunity and how you can get a lot of money as well.
+
+Just watch this video [Marketingsystem of Betterliving]({video_link}) for me. I am already customer by Betterliving and I’d be happy if you did so, too.
+
+In order to join, just click here:
+[Betterliving Signup]({signup_link})
+___________________________________________
+
+This is your client identification number (ID): \"{member_id}\".
+
+Remember it to log into your account.
+
+That is where your private details are saved; just like the bank account you want us to transfer your commissions to. You can always update those.
+
+On top, you can take a look at all of the commissions you’ve already received, the ones you are going to get in the future and an overview of all of your recommendations.
+
+Long story short: This is where you can find any information about your success in this fantastic marketing system.
+
+Of course you can also find the download links to your Happiness Guides here. The first part is ready to download already. Over the next few months, you will be able to download all of the missing parts to complete the Happiness Guide – until you own all eight parts.
+
+We wish you the very best and hope you’ll get rich soon!"
+
 
   ],
 
@@ -190,7 +186,103 @@ when they are signing up."
 
 
 /**
- * #2
+ * #4
+ * #5
+ * #6
+ *
+ * params:
+ *   fullname,
+ *   member_id,
+ *   referrer_fullname,
+ *   video_link,
+ *   signup_link,
+ *   after6weeksamount
+ *   member_type_name
+ *   member_type_bonus
+ *
+ */
+  'signup_confirm_invitation' => [
+
+    'subject' => 'Welcome to Betterliving – You are now a special member at www.get-a-better.life.social!',
+
+    'body' =>
+
+"Dear {fullname}
+
+{referrer_fullname} has probably told you about making a lot of money very easily with Betterliving by recommending it to other people.
+
+That is why they want you to register and buy the Happiness Guide for {fmt_member_fee}.
+We are glad you followed the recommendation!
+
+
+By the way, {referrer_fullname} has invited you to be a special client!
+
+Because of their personal invitation, you have been registered in the position \"{member_type_name}\".
+
+That means: {free_invitation} For every client we get because of your recommendation, you will receive a bonus of {member_type_bonus} each on top of the money you will make with our official marketing system. All about that is in the following video: [Marketingsystem of Betterliving]({video_link}).
+
+This video shows how your income with Betterliving is going to evolve. And again: This is what you will earn on top of the bonus listed above as \"{member_type_name}\".
+
+As you can see, you will receive commissions as soon as you successfully recommend Betterliving to your friends or anybody in your life.
+
+From the third successful recommendation your bonus will increase to over 500%!
+
+{lvl2text}
+
+Make use of this fantastic marketing system today and tell all your friends about this genius opportunity.
+
+What would you do if you and your friends earned {after6weeksamount} after six weeks already?
+
+If you do not know how to spend your money: Trust me, as soon as you have got it, you will know what beautiful things you want to spend it on.
+
+Show this video [Marketingsystem of Betterliving]({video_link}) as many people as possible.
+
+And do not forget to tell them you’re in already!
+
+So what are you waiting for?
+
+Enjoy the opportunity not only to make a fortune for yourself, but also to give your loved one the same opportunity!
+
+Maybe you don’t know how to let your friends know about this.
+
+In this case just copy the following and send it to all your best friends via email:
+__________________________________________
+Dear friend,
+
+a short time ago I was told about the opportunity to make money by using the Happiness Guide.
+
+It’s super easy and just genius.
+
+I would like to let you know about this opportunity and how you can get a lot of money as well.
+
+Just watch this video [Marketingsystem of Betterliving]({video_link}) for me. I am already customer by Betterliving and I’d be happy if you did so, too.
+
+In order to join, just click here: [Betterliving Signup]({signup_link})
+___________________________________________
+
+This is your client identification number (ID): \"{member_id}\".
+
+Remember it to log into your account.
+
+That is where your private details are saved; just like the bank account you want us to transfer your commissions to. You can always update those.
+
+On top, you can take a look at all of the commissions you’ve already received, the ones you are going to get in the future and an overview of all of your recommendations.
+
+Long story short: This is where you can find any information about your success in this fantastic marketing system.
+
+Of course you can also find the download links to your Happiness Guides here. The first part is ready to download already. Over the next few months, you will be able to download all of the missing parts to complete the Happiness Guide – until you own all eight parts.
+
+We wish you the very best and hope you’ll get rich soon!"
+
+
+  ],
+
+
+
+
+
+/**
+ * #7
  * Der Tippgeber dieses neuen Spenders erhält auch eine Email. Hier wird er über diese Registrierung namentlich informiert. Zudem wird ihm zur …ten erfolgreichen Registrierung gratuliert und das weitere entsprechende Szenarium aufgezeigt.
  *
  * params:
@@ -206,28 +298,268 @@ when they are signing up."
 
     'subject' => 'The next step to make a fortune with Betterliving',
 
-    'body' => "Dear {fullname}
+    'body' =>
 
-Congratulations on your successful {recommendation_count} recommendation!
-We have been informed that you invited {recruited_fullname} to Betterliving.
-{recruited_fullname} has successfully signed up for Betterliving.
-Most probably you have already told him to purchase the Happiness Guide within 7 days, until the {duedate}.
-This is important for you as you will get commissions for their purchase.
-If possible, please ask him whether the donation has already been made.
-For sure you have seen the video
-{video_link}
-about how to make a fortune with Betterliving.
-It’s enough if every customer recommends three more customers.
-You can show {recruited_fullname} how easy it is.
-That way you can support each other in making a fortune.
-We wish you the best at finding new customers for the Happiness Guide.
-Just share the video
-{video_link}
-with your friends and tell everybody about the great opportunity of making money by being social.
-Take good care that your friends use your customer number \"{member_id}\"
-when they are signing up."
+"**Congratulations on your successful {recommendation_count} recommendation!**
+
+Dear {fullname},
+
+{recruited_fullname} has registered at Betterliving because of your recommendation.
+
+Contact {recruited_fullname} and help them get their first 10 people to join Betterliving. If they can do it, you will earn thousands of Euros just by that.
+
+As you can see, it is not difficult to recommend Betterliving successfully and earn a lot of money by doing so.
+
+The more people you recommend, the faster you will have a passive income.
+
+So tell 10 people about it today, tomorrow and the day after and you will become rich – guaranteed! There’s no other way.
+
+Just take another look at the video: [Marketingsystem of Betterliving]({video_link})
+
+So what are you waiting for?
+
+Enjoy the opportunity of making a fortune!
+
+Maybe you don’t know how to let your friends know about this.
+
+In this case just copy the following and send it to all – really all - your best friends via email:
+__________________________________________
+Dear friend,
+
+a short time ago I was told about the opportunity to make money by using the Happiness Guide.
+
+It’s super easy and just genius.
+
+I would like to let you know about this opportunity and how you can get a lot of money as well.
+
+Just watch this video [Marketingsystem of Betterliving]({video_link}) for me. I am already customer by Betterliving and I’d be happy if you did so, too.
+
+In order to join, just click here: [Betterliving Signup]({signup_link})
+___________________________________________
+
+We wish you the very best and hope you’ll be rich soon!
+"
 
   ],
+
+
+
+
+
+/**
+ * #8
+ *
+ * params:
+ *   fullname,
+ *   recruited_fullname,
+ *   recruited_firstname,
+ *   provision_amount,
+ *   adv2amount,
+ *   video_link,
+ *   paid_recommendation_count,
+ *   min_payout_amount
+ *
+ */
+  'fee_income_referrer_first' => [
+
+    'subject' => 'The next step to your personal fortune',
+
+    'body' =>
+
+"Dear {fullname},
+
+your {paid_recommendation_count} recommended customer {recruited_fullname} has purchased the Happiness Guide.
+
+Thank you for sharing the opportunity with {recruited_firstname}.
+
+You will get a commission for {recruited_firstname}’s purchase.
+
+You will receive {provision_amount} for {recruited_firstname}’s purchase.
+
+You want to earn even more? Make sure you find two friends who join Betterliving.
+
+This will make you a premium customer. That means your commission will go up +500% to {adv2amount} and secures a passive income for the future!
+
+This is proved in the explanation video [Marketingsystem of Betterliving]({video_link}) at 1:35.
+
+You are going to see that in your upcoming invoice as well.
+
+From your third recommended customer who signs up and purchases the Happiness Guide the door to your private wellbeing will be wide open.
+
+We’re wishing best of luck finding new customers and have fun spending the commissions you will receive.
+
+Please note that we only transfer commissions at a minimum of {min_payout_amount}. For more information, have a look at our terms of use.",
+
+  ],
+
+
+
+
+
+/**
+ * #9
+ *
+ * params:
+ *   fullname,
+ *   adv2amount,
+ *   adv1amount,
+ *   advindirectamount,
+ *   recruited_firstname,
+ *   provision_amount,
+ *   recruited_fullname,
+ *   video_link,
+ *   after6weeksamount,
+ *   min_payout_amount
+ *
+ */
+  'fee_income_referrer_second' => [
+
+    'subject' => 'The next step to your personal fortune',
+
+    'body' =>
+
+"Dear {fullname},
+
+CONGRATULATIONS! You made it.
+
+By recommending your second customer you have become a premium customer of Betterliving.
+
+You will receive {provision_amount} for {recruited_firstname}’s purchase.
+
+From now on you will receive {adv2amount} for every future customer.
+
+So what do you need to know now?
+
+You know you have received {adv1amount} for the first two customers.
+
+Betterliving always pays a commission of {adv2amount} for each customer, so as a premium costumer you will always get the difference of {advindirectamount} for the first two customers of your recommended friends.
+
+If you take a look at 2:50 in the video [Marketingsystem of Betterliving]({video_link})
+
+You can replace “Jivan” with {recruited_fullname}.
+
+If you want to make sure you make a lot of money in a short time, here’s how it works:
+
+Well firstly, you can always go on finding new customers.
+
+You will always receive {adv2amount} each.
+
+Secondly, and this is even more interesting, show all your recommended customers how to become premium costumers as well.
+
+The video [Marketingsystem of Betterliving]({video_link}) shows what will happen when {recruited_fullname} finds two friends who also recommend two others at 8:12
+
+After six weeks you will find a total amount of {after6weeksamount} Euro in your bank account.
+
+In order to make lots of money, all you have to do is:
+1. Make three friends join Betterliving to become a premium customer and receive a passive income
+2. Show your three friends how to become premium clients themselves
+3. Find even more friends to join
+
+You can multiply your commission with each of your friends when they become a premium customer, too. Your friends will have a great income being premium costumers and you have done well in making a fortune for you and your family.
+
+Good luck!
+
+Please note that we only transfer commissions at a minimum of {min_payout_amount}. For more information, have a look at our terms of use."
+
+
+  ],
+
+
+
+
+
+/**
+ * #10
+ *
+ * params:
+ *   fullname,
+ *   paid_recommendation_count,
+ *   recruited_fullname,
+ *   recruited_firstname,
+ *   provision_amount,
+ *   min_payout_amount
+ *
+ */
+  'fee_income_referrer_premium' => [
+
+    'subject' => 'Your {paid_recommendation_count} Step to your personal Fortune',
+
+    'body' =>
+
+"Dear {fullname},
+
+your {paid_recommendation_count} recommended customer {recruited_fullname} has purchased the Happiness Guide.
+
+Thank you for sharing the opportunity with {recruited_firstname}.
+
+You will get a commission for {recruited_firstname}’s purchase.
+
+You will receive {provision_amount} for {recruited_firstname}’s purchase.
+
+You are going to see that in your upcoming invoice as well.
+
+We’re wishing best of luck finding new customers and have fun spending the commissions you will receive.
+
+Please note that we only transfer commissions at a minimum of {min_payout_amount}. For more information, have a look at our terms of use.",
+
+  ],
+
+
+
+
+
+/**
+ * #11
+ *
+ * params:
+ *   fullname,
+ *   hg_count,
+ *   member_id,
+ *
+ */
+  'hg_available' => [
+
+    'subject' => 'The "{hg_count}" part of your Happiness Guide is ready to download!',
+
+    'body' =>
+
+"Dear {fullname},
+
+today the \"{hg_count}\" part of your happiness guide is ready to download.
+
+Please log in with your personal client ID {member_id}. After doing so you can download the new part of the Happiness Guide!
+
+Have fun reading it!
+
+May all your personal dreams come true.",
+
+  ],
+
+
+/*****************************************************************
+###################################################################
+###################################################################
+###################################################################
+###################################################################
+###################################################################
+###################################################################
+###################################################################
+###################################################################
+###################################################################
+###################################################################
+###################################################################
+###################################################################
+###################################################################
+###################################################################
+###################################################################
+###################################################################
+###################################################################
+###################################################################
+###################################################################
+###################################################################
+*******************************************************************/
+
+
 
 
 
@@ -422,112 +754,6 @@ The personal customer number \"{member_id}\" should always be given as intended 
 By the way, {recruited_fullname} has already been diligent and has successfully recommended more customers.
 Now all {recruited_firstname} has to do is make their purchase within 7 days so you will get paid!
 Thank you for the support, we hope you will successfully find new customers for us and your passive income."
-
-  ],
-
-
-
-
-
-/**
- * #7
- * Der neue Spender erhält eine Email. Hierin wird sich einerseits für die Spende bedankt und andererseits darauf hingewiesen, dass wenn er weitere Spender gewinnt, er nicht nur die Projekte der NGO fördert, sondern er und alle von ihm empfohlenen Spender auch sehr viel Geld verdienen können.
- *
- * params:
- *   fullname,
- *   member_id,
- *   referrer_fullname,
- *   video_link,
- *   signup_link,
- *   after6weeksamount
- *
- */
-  'fee_income' => [
-
-    'subject' => 'The secret of Betterliving',
-
-    'body' => "Dear {fullname},
-
-thanks for purchasing the Happiness Guide!
-Now here is our secret which maybe isn’t a secret anymore for you:
-
-Maybe {referrer_fullname} has already told you it is possible to earn money with Betterliving.
-Please watch the video
-{video_link}
-for more information. As soon as you recommend two friends to Betterliving you
-will receive commissions from Betterliving.
-From your third recommendation on the commission will go up to +400%.
-The video will show you how high your income can be.
-Let it surprise you and let all your friends know about this opportunity.
-What would you do if you and your friends owned commissions of more than {after6weeksamount} dollar?
-If you have any idea about how you would spend money and you
-grudge your friends the same, make sure you tell them about Betterliving.
-Just share the video
-{video_link}
-and let them know you are on board as well.
-Don’t forget to give them your personal customer number \"{member_id}\".
-Because you can only be identified and get commissions if they fill in
-your number when they are signing up for Betterliving.
-So what are you waiting for?
-Enjoy the opportunity of making a fortune!
-Maybe you don’t know how to let your friends know about this.
-In this case just copy the following and send it to all your best friends via email:
-__________________________________________
-Dear friend,
-a short time ago I was told about the opportunity to make money by purchasing the Happiness Guide.
-It’s super easy and just genius.
-I would like to let you know about this opportunity and how you can make a lot of money as well.
-Just watch this video
-{video_link}
-for me. I have already purchased it and I’d be happy if you did so, too.
-In order to join, just click here:
-{signup_link}
-___________________________________________
-
-We wish you the very best and hope you’ll be rich soon!"
-
-  ],
-
-
-
-
-
-/**
- * #8
- * Der Tippgeber dieses Spenders erhält auch eine Email. Hiermit wird er informiert, dass seine Empfehlung (namentlich genannt) ihre Spende geleistet hat und er einen Betrag in Höhe von …. INR in der nächsten Abrechnung hierfür vergütet erhält. Zudem wird ihm zum …ten erfolgreichen Spender gratuliert und das weitere entsprechende Szenarium aufgezeigt.
- *
- * params:
- *   fullname,
- *   recruited_fullname,
- *   recruited_firstname,
- *   video_link,
- *   memberfee_amount,
- *   member_id
- *
- *
- *  TODO
- */
-  'fee_income_referrer' => [
-
-    'subject' => 'The next step to your personal fortune ',
-
-    'body' => "Dear {fullname},
-
-your recommended customer {recruited_fullname} has purchased the Happiness Guide.
-Thank you for sharing the opportunity with {recruited_firstname}.
-You will get a commission for {recruited_firstname}’s purchase.
-You will receive {provision_amount} Dollar for {recruited_firstname}’s purchase.",
-
-    'level1_addition' =>
-"You want to earn even more? Make sure you find three friends who join Betterliving.
-This will make you a premium customer. That means your commission will go up +400% to {adv2amount} Dollar!
-This is proved in the explanation video
-{video_link}
-at 4:09.
-You are going to see that in your upcoming invoice as well.
-From the third recommended customer who signs up using your personal customer number \"{member_id}\"
-and purchases the Happiness Guide the door to your private wellbeing will be wide open.
-We’re wishing best of luck finding new customers and have fun spending the commissions you will receive."
 
   ],
 

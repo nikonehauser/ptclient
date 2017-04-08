@@ -142,11 +142,11 @@ class Localizer {
     return number_format($num, $decimals !== false ? $decimals : self::$decimalsCount, self::$decPoint, self::$thousandsSep);
   }
 
-  static public function currencyFormat($num, $currency, $decimals = false) {
+  static public function currencyFormat($num, $currency, $decimals = false, $space = '&nbsp;') {
     if ( is_array($currency) )
       $currency = self::$arrData['currency_symbol'][$currency[0]];
 
-    return $currency.'&nbsp;'.self::numFormat($num, $decimals !== false ? $decimals : self::$decimalsCount, self::$decPoint, self::$thousandsSep);
+    return $currency.$space.self::numFormat($num, $decimals !== false ? $decimals : self::$decimalsCount, self::$decPoint, self::$thousandsSep);
   }
 
   static public function countInWords($count) {

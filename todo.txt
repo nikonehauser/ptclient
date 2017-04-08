@@ -1,41 +1,37 @@
 UPDATE SERVER - TODO
 =====================
 
-* update database and propel entities
 
-NEW
-====
+* update cfg:
+remove: transferwise.persistence.file
 
-50 euro mindestwert für überweisung nötig
+* composer update
 
-free registration nur für CEO und Sales Manager
+* update propel entities
+
+* update product code base?
 
 
 
 CURRENT - TODOS
 ===============
 
-* try catch to log console/network output to catch those nasty errors during paypal purchase ...
+* create hg cron job
 
-* tom: absprechen der bonuse, auch wegen ungeraden zahlen
+* try catch to log console/network output to catch those nasty errors during paypal purchase ...
 
 * nur indische accounts mit transferwise!? how to handle the accounts of all referrer people
 
 * im account, feature machen damit man seinen einladungs link ganz einfach über email an freunde schicken kann.
 
-* fragen zu markus weiterleiten ... seine email in config eintragen!
-
-
 * happiness guide 2 hat 2 versionen, eine für jemand der noch keinen geworben
 hat und eine für jemand der schon geworben hat
-
-* neuer guide alle 2 wochen
-
-* emails links formatieren ... use markdown?
 
 
 Go LIVE:
 ============
+
+* fragen zu markus weiterleiten ... seine email in config eintragen!
 
 * im paypal account die currency receiving optionen einstellen siehe:
 https://developer.paypal.com/docs/classic/api/currency_codes/#payment-receiving-preferences

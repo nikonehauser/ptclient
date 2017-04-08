@@ -30,6 +30,7 @@ class PayController extends BaseController {
   }
 
   public function action_index() {
+    return 'TODO';
     $data = Arr::initMulti($_REQUEST, [
       'code' => \Tbmt\TYPE_STRING,
       'doexec' => \Tbmt\TYPE_BOOL,

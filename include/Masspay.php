@@ -2,26 +2,21 @@
 
 namespace Tbmt;
 
-/**
- * @deprecated
-*/
-class __Transferwise {
+class Masspay {
 
   static private function getInstance() {
-    return new Transferwise(
-      Config::get('transferwise.persistence.file')
-    );
+    return new Masspay();
   }
 
   static public function cronPayouts() {
-    $transferwise = self::getInstance();
-    $transferwise->prepareTransfers(\Propel::getConnection());
-    return $transferwise->run(null, true);
+    $masspay = self::getInstance();
+    $masspay->prepareTransfers(\Propel::getConnection());
+    return $masspay->run(null, true);
   }
 
   static public function payouts($code = null, $exec = false) {
-    $transferwise = self::getInstance();
-    return $transferwise->run($code, $exec);
+    $masspay = self::getInstance();
+    return $masspay->run($code, $exec);
   }
 
   static public function checkPayouts() {
@@ -47,9 +42,9 @@ class __Transferwise {
   }
 
   static public function listPayouts() {
-    $transferwise = self::getInstance();
+    $masspay = self::getInstance();
     try {
-      $transApi = $transferwise->getApiClient();
+      $transApi = $masspay->getApiClient();
       return $transApi->listTransfers();
 
     } catch (\Exception $e) {

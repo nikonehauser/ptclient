@@ -322,14 +322,12 @@ class ExtendedMemberStrategy extends SimpleMemberStrategy {
         \Tbmt\DistributionStrategy::getInstance()->raiseFundsLevel($member);
       }
 
-      if ( $wasFreeInvitation ) {
-        \Tbmt\MailHelper::sendFreeSignupConfirm($member);
-        \Tbmt\MailHelper::sendNewFreeRecruitmentCongrats($referrerMember, $member);
+      \Tbmt\MailHelper::sendNewRecruitmentCongrats($referrerMember, $member);
 
-      } else {
+      if ( $invitation != null )
+        \Tbmt\MailHelper::sendSignupConfirmInvitation($member, $wasFreeInvitation);
+      else
         \Tbmt\MailHelper::sendSignupConfirm($member);
-        \Tbmt\MailHelper::sendNewRecruitmentCongrats($referrerMember, $member);
-      }
 
       $member->save($con);
 

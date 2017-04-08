@@ -52,8 +52,14 @@ class Cron {
     return $result;
   }
 
+  public function notifyNewHappyGuide($now = null) {
+
+  }
+
   /**
    * Remind all unpaid members after 7 days.
+   *
+   * @deprecated
    *
    * @return
    */
