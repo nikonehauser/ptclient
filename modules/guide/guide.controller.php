@@ -226,6 +226,7 @@ class GuideController extends BaseController {
     }
 
     $exception = null;
+    $payPalPayment = null;
     try {
       list($payPalPayment, $exception) = \Tbmt\Payments::executePayPalPayment($paypalPaymentId, $paypalPayerId);
 
