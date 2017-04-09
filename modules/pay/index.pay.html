@@ -2,8 +2,10 @@
 
 <div class="container">
 
+<!--
   <a href="<?php echo \Tbmt\Router::toModule('pay', 'payouts'); ?>" class="button" style="float:right;"><span>SHOW PAYOUTS</span></a>
   <a href="<?php echo \Tbmt\Router::toModule('pay', 'check'); ?>" class="button yellow" style="float:right;"><span>CHECK PAYOUTS</span></a>
+-->
 
   <?php if ( $this->data['exception'] ) : ?>
     <div class="row bottom-30 top-30">
@@ -15,35 +17,11 @@
   <?php endif; ?>
 
 
-  <div class="row bottom-30 top-30">
-    <div class="col-md-12">
-      <?=\Tbmt\view\Factory::buildHeadingArea('Auth Code')?>
-      <pre><?php echo $this->data['code']; ?></pre>
-    </div>
-  </div>
-
-
-  <div class="row bottom-30 top-30">
-    <div class="col-md-12">
-      <?=\Tbmt\view\Factory::buildHeadingArea('Oauth link')?>
-      <a href="<?php echo $this->data['oauth_url']; ?>"><?php echo $this->data['oauth_url']; ?></a>
-    </div>
-  </div>
-
-
-  <div class="row bottom-30 top-30">
-    <div class="col-md-12">
-      <?=\Tbmt\view\Factory::buildHeadingArea('access_token')?>
-        <pre><?php echo $this->data['access_token']; ?></pre>
-    </div>
-  </div>
-
-
-  <div class="row bottom-30 top-30">
+  <div class="row bottom-30">
     <div class="col-md-12">
       <?=\Tbmt\view\Factory::buildHeadingArea('Results')?>
 
-      <a href="<?php echo $this->data['exec_payments_url']; ?>" class="button"><span>EXECUTE PAYMENTS</span></a>
+      <a href="<?php echo $this->data['exec_payments_url']; ?>" class="button" style="float:right;"><span>CREATE EXCEL</span></a>
 
       <?php if ( !empty($this->data['results']['executed']) ) : ?>
         <?php
@@ -53,14 +31,11 @@
 
         <h3>Executed:</h3>
         <p>executed: <?php echo isset($executed['successfulPayouts']) ? $executed['successfulPayouts'] : 'null';?></p>
-        <p>failed: <?php echo isset($executed['failedPayouts']) ? $executed['failedPayouts'] : 'null';?></p>
-        <p>unknown: <?php echo isset($executed['unknownPayouts']) ? $executed['unknownPayouts'] : 'null';?></p>
-        <p>customerFailed: <?php echo isset($executed['customerFailedPayouts']) ? $executed['customerFailedPayouts'] : 'null';?></p>
 
       <?php endif; ?>
 
       <?php if ( !empty($this->data['results']['transfers']) ) : ?>
-        <h3>Transfers:</h3>
+        <h3>Prepared Transfers:</h3>
         <table class="table2Debug" style="width: auto;">
           <tr>
             <th>Member</th>

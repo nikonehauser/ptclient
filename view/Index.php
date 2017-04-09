@@ -64,7 +64,7 @@ class Index extends Base {
             // 'Check Payouts',
             // false],
             [\Tbmt\Router::toModule('pay', 'payouts'),
-            'Debug Payouts',
+            'List Payouts',
             false],
             // [\Tbmt\Router::toModule('pay', 'list'),
             // 'List TransferWise Transfers',

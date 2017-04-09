@@ -9,8 +9,6 @@ class PayController extends BaseController {
   protected $actions = [
     'index' => true,
     'payouts' => true,
-    'check' => true,
-    'list' => true
   ];
 
   public function dispatchAction($action, $params) {
@@ -21,23 +19,12 @@ class PayController extends BaseController {
     return parent::dispatchAction($action, $params);
   }
 
-  public function action_check() {
-    return '<pre>'.print_r(Transferwise::checkPayouts(), true).'</pre>';
-  }
-
-  public function action_list() {
-    return '<pre>'.print_r(Transferwise::listPayouts(), true).'</pre>';
-  }
-
   public function action_index() {
-    return 'TODO';
     $data = Arr::initMulti($_REQUEST, [
-      'code' => \Tbmt\TYPE_STRING,
       'doexec' => \Tbmt\TYPE_BOOL,
     ]);
 
-    $data = Transferwise::payouts(
-      $data['code'],
+    $data = Masspay::payouts(
       $data['doexec']
     );
 

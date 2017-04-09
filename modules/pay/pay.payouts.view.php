@@ -6,46 +6,30 @@ class PayPayouts extends Base {
 
   public function render(array $params = array()) {
     $payouts = \PayoutQuery::create()
-      ->useTransferQuery()
-        ->joinMember()
-      ->endUse()
       ->orderBy(\PayoutPeer::CREATION_DATE, \Criteria::DESC)
+      ->limit(20)
       ->find();
 
     $result = '<div class="container"><div class="row sheet">
       <table class="table2Activities table" id="table2Activities">
         <tbody>
             <tr>
-              <th>Member</th>
-              <th>Result State</th>
               <th>Date</th>
+              <th>Download Count</th>
+              <th>Excel</th>
             </tr>';
 
-    $types = [
-      \Payout::RESULT_UNKNOWN => 'unknown',
-      \Payout::RESULT_SUCCESS => 'success',
-      \Payout::RESULT_FAILED => 'failure',
-      \Payout::RESULT_REJECTED => 'rejected',
-    ];
-
     foreach ($payouts as $payout) {
-      $member = $payout->getTransfer()->getMember();
+      # $member = $payout->getTransfer()->getMember();
 
-      $result .= '<tr class="js-togglemeta '.($payout->getResult() == \Payout::RESULT_FAILED ? 'danger' : '').'">';
-      $result .= '<td>'.$member->getNum().' - '.$member->getFirstName().' - '.$member->getLastName().'</td>';
-      $result .= '<td>'.$types[$payout->getResult()].'</td>';
+      $result .= '<tr>';
+      # $result .= '<td>'.$member->getNum().' - '.$member->getFirstName().' - '.$member->getLastName().'</td>';
       $result .= '<td>'.date('r', $payout->getCreationDate()).'</td>';
+      $result .= '<td>'.$payout->getDownloadCount().'</td>';
+      $result .= '<td><a href="'.\Tbmt\Router::toModule('download', 'payout', ['id' => $payout->getId()]).'">'.$payout->getMasspayFile().'</a></td>';
       $result .= '</tr>';
 
-      $result .= '<tr class="togglemeta '.($payout->getResult() == \Payout::RESULT_FAILED ? 'danger' : '').'">';
-      $result .= '<td colspan="3">';
-      $result .= '<b>Intern Meta</b>';
-      $result .= '<pre>'.print_r(json_decode($payout->getInternMeta(), true), true).'</pre>';
-      $result .= '<b>Extern Meta</b>';
-      $result .= '<pre>'.print_r(json_decode($payout->getExternMeta(), true), true).'</pre>';
-      $result .= '</td></tr>';
-
-      $result .= '<tr><td colspan="3">------------------------------------<br>------------------------------------</td></tr>';
+      # $result .= '<tr><td colspan="3">------------------------------------<br>------------------------------------</td></tr>';
     }
 
     $result .= '</tbody></table></div></div>';

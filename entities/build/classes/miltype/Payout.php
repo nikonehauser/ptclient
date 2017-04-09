@@ -26,55 +26,6 @@ class Payout extends BasePayout
       $this->getIsCustomerFailure() == 1;
   }
 
-  public function getBankAccountText() {
-    $externMeta = json_decode($this->getExternMeta(), true);
-
-    // if ( !empty($externMeta['account']) ) {
-    //   $account = $externMeta['account'];
-    // } else {
-
-    $internMeta = json_decode($this->getInternMeta(), true);
-    if ( !empty($internMeta['account']) ) {
-      $account = $internMeta['account'];
-    }
-
-    if ( !$account || empty($account['details']) ) {
-      return '_NOT_AVAILABLE_';
-    }
-
-    $result = [];
-    foreach ( $account['details'] as $key => $val ) {
-      if ( $key === 'legalType' || is_array($val) || empty($val) )
-        continue;
-
-      $result[] = "$key: $val";
-    }
-
-    return implode("\r", $result);
-  }
-
-  public function getFailedReaonsText() {
-    try {
-      $data = json_decode($this->getFailedReason(), true);
-      if ( !empty($data['errors']) ) {
-        $message = '';
-        foreach ( $data['errors'] as $value ) {
-          if ( !empty($value['code']) )
-            $message .= "\rCode: ".$value['code'];
-
-          if ( !empty($value['message']) )
-            $message .= "\rMessage: ".$value['message'];
-        }
-
-        if ( $message )
-          return $message;
-      }
-
-    } catch (\Exception $e) {}
-
-    return $this->getFailedReason();
-  }
-
   public function setResult($v) {
     $history = $this->getResultHistory();
     if ( !$history )
@@ -87,19 +38,5 @@ class Payout extends BasePayout
     $this->setResultHistory(json_encode($history));
 
     return parent::setResult($v);
-  }
-
-  public function setExternState($v) {
-    $history = $this->getExternStateHistory();
-    if ( !$history )
-      $history = [];
-    else
-      $history = json_decode($history, true);
-
-    $history[] = date('Y-m-d H:i:s').' ## '.$v;
-
-    $this->setExternStateHistory(json_encode($history));
-
-    return parent::setExternState($v);
   }
 }

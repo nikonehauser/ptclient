@@ -271,6 +271,8 @@ class ManageController extends BaseController {
       $login->setEmail($data['email']);
 
       if ( $login->isExtended() ) {
+        $login->setProfileVersion($login->getProfileVersion() + 1);
+
         $login->setCity($data['city']);
         $login->setZipCode($data['zip_code']);
         $login->setBic($data['bic']);

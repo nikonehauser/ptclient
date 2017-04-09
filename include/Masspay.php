@@ -14,31 +14,9 @@ class Masspay {
     return $masspay->run(null, true);
   }
 
-  static public function payouts($code = null, $exec = false) {
+  static public function payouts($exec = false) {
     $masspay = self::getInstance();
-    return $masspay->run($code, $exec);
-  }
-
-  static public function checkPayouts() {
-    $limit = Config::get("transferwise.check.payouts.limit", TYPE_INT);
-
-    $whenCondition = strtotime(Config::get("transferwise.check.payouts.limit"));
-    return date("r", strtotime('now'));
-    $lock = new Flock(Config::get('lock.payout.check.path'));
-    try {
-      $lock->acquire();
-    } catch (\Exception $e) {
-      return ["locked"];
-    }
-
-    try {
-      // SELECT payouts
-
-    } catch (\Exception $e) {
-
-    }
-
-    return '';
+    return $masspay->run($exec);
   }
 
   static public function listPayouts() {
@@ -52,92 +30,34 @@ class Masspay {
     }
   }
 
-  private $persistenceFile;
-
-  public function __construct($persistenceFile) {
-    $this->persistenceFile = $persistenceFile;
+  public function __construct() {
     $this->logger = new Logger();
   }
 
-  public function getPersistetTokens() {
-    if ( file_exists($this->persistenceFile) ) {
-      return json_decode(file_get_contents($this->persistenceFile), true);
-    }
-
-    return [
-      'code' => '',
-      'access_token' => '',
-      'refresh_token' => '',
-      'expiration_time' => '',
-    ];
-  }
-
-  public function persistTokens($code, $access_token, $refresh_token, $expiration_time) {
-    file_put_contents($this->persistenceFile, json_encode([
-      'code' => $code,
-      'access_token' => $access_token,
-      'refresh_token' => $refresh_token,
-      'expiration_time' => $expiration_time,
-    ]));
-  }
-
-  public function run($code = null, $exec = false) {
-    $data = $this->getPersistetTokens();
-    $data['exception'] = false;
-    $data['results'] = '';
-
-    if ( $code )
-      $data['code'] = $code;
-
+  public function run($exec = false) {
     $createLogFile = true;
     $sendLogAsEmail = false;
     $con = \Propel::getConnection();
 
+    $data['results'] = [];
+    $data['exception'] = false;
     try {
-      $transApi = new \TransferWise\ApiClient(
-        Config::get('transferwise.clienturl'),
-        Config::get('transferwise.clientid'),
-        Config::get('transferwise.clientsecret'),
-        Config::get('transferwise.redirect_target')
-      );
 
-      $transApi->setLogger($this->logger);
+      if ( $exec ) {
+        $resultCounts = $this->executeTransfers($con);
+        $data['results']['wasExecution'] = true;
+        $data['results'] = $resultCounts;
 
-      $data['oauth_url'] = $transApi->getOauthUrl();
+        $createLogFile = false;
 
-      if ( !empty($data['code']) ) {
-        list($access_token, $refresh_token, $expirationTime) = $transApi->manageAuthorization(
-          $data['code'],
-          $data['access_token'],
-          $data['refresh_token'],
-          $data['expiration_time']
-        );
+      } else {
+        // always prepare all available transfers
+        $this->prepareTransfers($con);
 
-        $this->persistTokens(
-          $data['code'],
-          $access_token,
-          $refresh_token,
-          $expirationTime
-        );
-
-        $data['access_token'] = $access_token;
-
-        if ( $exec ) {
-          $resultCounts = $this->executeTransfers($transApi, $con);
-          $data['results']['wasExecution'] = true;
-          $data['results'] = $resultCounts;
-
-          if ( !empty($resultCounts['unknownPayouts']) || !empty($resultCounts['failedPayouts']) ) {
-            $sendLogAsEmail = true;
-          } else {
-            $createLogFile = false;
-          }
-
-        } else {
-          $createLogFile = false;
-          $data['results'] = $this->viewPrepareTransfers($transApi, $con);
-        }
+        $createLogFile = false;
+        $data['results'] = $this->viewPreparedTransfers($con);
       }
+
     } catch (\Exception $e) {
       $data['exception'] = $e->__toString();
     }
@@ -146,7 +66,7 @@ class Masspay {
 
     if ( $createLogFile ) {
       file_put_contents(
-        Config::get("logs.path").'transferwise_'.(new \DateTime())->format('Y-m-d_H-i-s').'_'.uniqid(),
+        Config::get("logs.path").'payouts_'.(new \DateTime())->format('Y-m-d_H-i-s').'_'.uniqid(),
         $data['log']
       );
     }
@@ -158,8 +78,8 @@ class Masspay {
   }
 
   private function prepareTransfers(\PropelPDO $con) {
-    $minAmountRequired = Config::get("transferwise.execute.payouts.min.amount", TYPE_INT);
-    $whenCondition = strtotime(Config::get("transferwise.execute.payouts.after.strtotime"));
+    $minAmountRequired = Config::get("payout.execute.payouts.min.amount", TYPE_INT);
+    $whenCondition = strtotime(Config::get("payout.execute.payouts.after.strtotime"));
 
     /*
     $sql = "SELECT count(*) FROM ".\TransferPeer::TABLE_NAME
@@ -190,8 +110,7 @@ class Masspay {
 
   }
 
-  private function viewPrepareTransfers(\TransferWise\ApiClient $transApi, \PropelPDO $con) {
-    $this->prepareTransfers($con);
+  private function viewPreparedTransfers(\PropelPDO $con) {
     $transfers = $this->getTransferInExecution($con);
 
     if ( count($transfers) <= 0 )
@@ -209,10 +128,11 @@ class Masspay {
   }
 
   private function getTransferInExecution(\PropelPDO $con) {
-    $limit = Config::get("transferwise.execute.payouts.limit", TYPE_INT);
+    $limit = Config::get("payout.execute.payouts.limit", TYPE_INT);
     // SELECT * FROM ... FOR UPDATE
     // to ensure consistency through table row lock
-    $sql = "SELECT * FROM ".\TransferPeer::TABLE_NAME." WHERE"
+    $sql = "SELECT * FROM ".\TransferPeer::TABLE_NAME
+            ." WHERE"
             ." ".\TransferPeer::STATE." = ".\Transfer::STATE_IN_EXECUTION
             ." ORDER BY ".\TransferPeer::STATE." desc"
             ." LIMIT $limit";
@@ -224,7 +144,7 @@ class Masspay {
     return $formatter->format($stmt);
   }
 
-  private function executeTransfers(\TransferWise\ApiClient $transApi, \PropelPDO $con) {
+  private function executeTransfers(\PropelPDO $con) {
     $successfulPayouts = 0;
     $failedPayouts = 0;
     $unknownPayouts = 0;
@@ -241,182 +161,56 @@ class Masspay {
       return ["locked"];
     }
 
+    if ( !$con->beginTransaction() )
+      throw new Exception('Could not begin transaction');
+
     try {
+      $payout = new \Payout();
+
+      $payout
+        ->setCreationDate(time())
+        ->save($con);
+
       $this->log("EXECUTE TRANSFERS: ", $transfers);
 
-      list($personal, $business) = $transApi->ensureRequiredProfiles();
-      $bussinessProfileId = $business['id'];
-
       $sourceCurrency = \Transaction::$BASE_CURRENCY;
-      $targetCurrency = Config::get("transferwise.target.currency");
-      $targetCountry = Config::get("transferwise.target.country");
-      $configReference = Config::get("transferwise.transfer.reference");
+      $targetCurrency = Config::get("payout.target.currency");
+      $targetCountry = Config::get("payout.target.country");
+      $configReference = Config::get("payout.transfer.reference");
+
+      $successfulPayouts = 0;
+
+      $masspayExcel = new MasspayExcel();
 
       foreach ( $transfers as $dbTransfer ) {
-        $payoutInternMeta = [];
-        $payoutExternMeta = [];
-        $payoutResultState = \Payout::RESULT_UNKNOWN;
-        $payoutExternId = null;
-        $payoutExternStatus = '';
-        $failedReason = null;
-        $isCustomerFailure = 0;
+        $successfulPayouts++;
 
-        $member = $dbTransfer->getMember();
-        $memberReference = $member->getNum();
+        $masspayExcel->addTransfer($dbTransfer, $sourceCurrency, $configReference);
 
-        try {
-          //
-          // CREATE QUOTE
-          //
-          list($internQuote, $quote, $exception) = $transApi->createQuote(
-            $bussinessProfileId,
-            $sourceCurrency,
-            $targetCurrency,
-            $dbTransfer->getAmount()
-          );
-
-          $payoutInternMeta['quote'] = $internQuote;
-          $payoutExternMeta['quote'] = $quote;
-          if ( $exception )
-            throw $exception;
-
-          //
-          // HANDLE ACCOUNT
-          //
-          list($internAccount, $account, $exception) = $transApi->ensureQuoteAccount(
-            $member,
-            $bussinessProfileId,
-            $quote,
-            $targetCountry
-          );
-
-          $payoutInternMeta['account'] = $internAccount;
-          $payoutExternMeta['account'] = $account;
-          if ( $exception ) {
-            $payoutResultState = \Payout::RESULT_FAILED;
-            $isCustomerFailure = 1;
-            throw $exception;
-          }
-
-          //
-          // CREATE TRANSFER
-          //
-          list($internTransfer, $transfer, $exception) = $transApi->createTransfer(
-            $account['id'],
-            $quote['id'],
-            "$configReference $memberReference"
-          );
-
-          $payoutInternMeta['transfer'] = $internTransfer;
-          $payoutExternMeta['transfer'] = $transfer;
-
-          if ( $exception ) {
-            $payoutResultState = \Payout::RESULT_FAILED;
-            throw $exception;
-          }
-
-          $payoutResultState = \Payout::RESULT_SUCCESS;
-          $payoutExternId = $transfer['id'];
-
-          $payoutExternStatus = $transfer['status'];
-          $dbTransfer->setState(\Transfer::STATE_DONE);
-          $successfulPayouts++;
-
-        } catch(\Exception $e) {
-          $dbTransfer->setState(\Transfer::STATE_FAILED);
-          $payoutInternMeta['exception'] = $e->__toString();
-
-          if ( $e instanceof \Http\ResponseException ) {
-            $failedReason = print_r($e->getResponse()->getContent(), true);
-          }
-
-          $member->setTransferFreezed(1);
-        }
-
-        try {
-          $payout = new \Payout();
-
-          $payout
-            ->setTransfer($dbTransfer)
-            ->setResult($payoutResultState)
-            ->setCreationDate(time())
-            ->setStateCheckDate(time())
-            ->setInternMeta(json_encode($payoutInternMeta))
-            ->setExternMeta(json_encode($payoutExternMeta))
-            ->setExternId($payoutExternId)
-            ->setExternState($payoutExternStatus)
-            ->setIsCusomterFailure($isCustomerFailure);
-
-          if ( $payout->isCustomerFailure() ) {
-            $customerFailedPayouts++;
-          } else if ( $payoutResultState === \Payout::RESULT_FAILED ) {
-            $failedPayouts++;
-          } else if ( $payoutResultState === \Payout::RESULT_UNKNOWN ) {
-            $unknownPayouts++;
-          }
-
-          if ( $failedReason )
-            $payout->setFailedReason($failedReason);
-
-          $payout->save($con);
-
-          $dbTransfer->setExecutionDate(time());
-          $dbTransfer->setAttempts($dbTransfer->getAttempts() + 1);
-          $dbTransfer->save($con);
-
-          $member->save($con);
-
-          if ( $payout->isCustomerFailure() ) {
-            \Tbmt\MailHelper::sendFailedPayoutTransfer($member, $payout);
-          }
-
-        } catch(\Exception $e) {
-          $this->log("CATCHED PAYOUT CREATION: ", $e, [
-            "transferId" => $dbTransfer->getId(),
-            "result" => $payoutResultState,
-            "internMeta" => $payoutInternMeta,
-            "externMeta" => $payoutExternMeta,
-            "externId" => $payoutExternId,
-            "externStatus" => $payoutExternStatus
-          ]);
-
-          throw $e;
-        }
-
+        $dbTransfer->setExecutionDate(time());
+        $dbTransfer->setState(\Transfer::STATE_DONE);
+        $dbTransfer->setPayout($payout);
+        $dbTransfer->setAttempts($dbTransfer->getAttempts() + 1);
+        $dbTransfer->save($con);
       }
 
+      $filename = $masspayExcel->save();
+      $payout->setMasspayFile($filename);
+      $payout->save($con);
+
+      if ( !$con->commit() )
+        throw new Exception('Could not commit transaction');
+
       return ['executed' => [
-        'successfulPayouts' => $successfulPayouts,
-        'unknownPayouts' => $unknownPayouts,
-        'failedPayouts' => $failedPayouts,
-        'customerFailedPayouts' => $customerFailedPayouts,
+        'successfulPayouts' => $successfulPayouts
       ]];
     } catch (\Exception $e) {
+      $con->rollBack();
       throw $e;
     } finally {
       $lock->release();
 
     }
-  }
-
-  private function getApiClient() {
-    $data = $this->getPersistetTokens();
-
-    $transApi = new \TransferWise\ApiClient(
-      Config::get('transferwise.clienturl'),
-      Config::get('transferwise.clientid'),
-      Config::get('transferwise.clientsecret'),
-      Config::get('transferwise.redirect_target')
-    );
-
-    $transApi->manageAuthorization(
-      $data['code'],
-      $data['access_token'],
-      $data['refresh_token'],
-      $data['expiration_time']
-    );
-
-    return $transApi;
   }
 
   private function log() {

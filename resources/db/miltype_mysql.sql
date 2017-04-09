@@ -12,9 +12,10 @@ set foreign_key_checks=0;
     `num` INT UNSIGNED NOT NULL,
     `email` VARCHAR(80) NOT NULL ,
     `title` VARCHAR(80) NOT NULL ,
-    `city` VARCHAR(80) NOT NULL ,
+    `street` VARCHAR(180) NOT NULL ,
+    `city` VARCHAR(180) NOT NULL ,
     `zip_code` VARCHAR(80) NOT NULL ,
-    `country` VARCHAR(80) NOT NULL ,
+    `country` VARCHAR(180) NOT NULL ,
     `age` smallint not null ,
     `referrer_id` BIGINT(20) UNSIGNED NULL , -- this is the never changing member who recruited this member
     `parent_id` BIGINT(20) UNSIGNED NULL , -- this is the changing parent who receives provisions for my recruitings
@@ -24,7 +25,7 @@ set foreign_key_checks=0;
 
     `free_invitation` smallint NOT NULL default 0,
 
-    `bank_recipient` VARCHAR(120) NOT NULL ,
+    `bank_recipient` VARCHAR(180) NOT NULL ,
     `iban` VARCHAR(80) NOT NULL ,
     `bic` VARCHAR(80) NOT NULL ,
 
@@ -44,8 +45,7 @@ set foreign_key_checks=0;
 
     `sub_promoter_referral` BIGINT(20) UNSIGNED NULL ,
 
-    `transferwise_id` BIGINT(20) UNSIGNED NULL ,
-    `transferwise_sync` smallint not null default 0 ,
+    `profile_version` int not null default 0 ,
     `transfer_freezed` smallint not null default 0 ,
 
     `hg_week` smallint not null default 1 ,
@@ -123,10 +123,16 @@ set foreign_key_checks=0;
     `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `execution_date` timestamp NULL ,
     `execution_date_history` text NULL ,
+    `payout_id` BIGINT(20) UNSIGNED NULL ,
     PRIMARY KEY (`id`) ,
     CONSTRAINT `fk_transfer_member`
       FOREIGN KEY (`member_id`)
       REFERENCES `tbmt_member` (`id`)
+      ON DELETE CASCADE
+      ON UPDATE CASCADE ,
+    CONSTRAINT `fk_transfer_payout`
+      FOREIGN KEY (`payout_id`)
+      REFERENCES `tbmt_payout` (`id`)
       ON DELETE CASCADE
       ON UPDATE CASCADE
   );
@@ -142,25 +148,10 @@ set foreign_key_checks=0;
 
   CREATE TABLE IF NOT EXISTS `tbmt_payout` (
     `id` serial NOT NULL ,
-    `transfer_id` BIGINT(20) UNSIGNED NOT NULL ,
-    `result` smallint default 1 NOT NULL ,
-    `result_history` text NULL ,
-    `is_cusomter_failure` smallint default 0 NOT NULL ,
-    `extern_state` varchar(255) default '' NOT NULL ,
-    `extern_state_history` text NULL ,
-    `extern_id` BIGINT(20) UNSIGNED NULL ,
-    `intern_meta` text not null ,
-    `extern_meta` text not null ,
-    `failed_reason` text not null default '',
     `creation_date` timestamp NOT NULL ,
-    `state_check_date` timestamp NOT NULL ,
-    `state_check_date_history` text NULL ,
-    PRIMARY KEY (`id`) ,
-    CONSTRAINT `fk_payout_transfer`
-      FOREIGN KEY (`transfer_id`)
-      REFERENCES `tbmt_transfer` (`id`)
-      ON DELETE CASCADE
-      ON UPDATE CASCADE
+    `masspay_file` varchar(200) NULL ,
+    `download_count` int NOT NULL default 0 ,
+    PRIMARY KEY (`id`)
   );
 
 

@@ -1,20 +1,23 @@
 UPDATE SERVER - TODO
 =====================
 
-
-* update cfg:
-remove: transferwise.persistence.file
-
-* composer update
-
-* update propel entities
-
-* update product code base?
+update
+======
+* propel entities
+* config updaten
 
 
+Fragen
+=======
+* excel: currency is source currency?
+* excel: costs?
+* fehlerhafte überweisung -> email -> wie sieht die email aus?
+* excel: decimal point = ',' in every case?
 
 CURRENT - TODOS
 ===============
+
+* embed logo image: http://stackoverflow.com/questions/9110091/base64-encoded-images-in-email-signatures/9110164#9110164
 
 * create hg cron job
 

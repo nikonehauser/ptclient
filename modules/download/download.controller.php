@@ -9,7 +9,8 @@ class DownloadController extends BaseController {
   protected $actions = [
     'illustration' => true,
     'hgillustration' => true,
-    'guide' => true
+    'guide' => true,
+    'payout' => true
   ];
 
   public function action_illustration() {
@@ -38,6 +39,30 @@ class DownloadController extends BaseController {
       'name' => "happy_guide$number.$extension",
       'contentType' => 'plain/text',
       'path' => Router::toPublicResource("happy_guide$number.$extension")
+    ]);
+  }
+
+  public function action_payout() {
+    $login = Session::getLogin();
+    if ( !$login || $login->getType() !== \Member::TYPE_ITSPECIALIST )
+      throw new PermissionDeniedException();
+
+    $id = !empty($_REQUEST['id']) ? $_REQUEST['id'] : null;
+    if ( !$id )
+      throw new Tbmt\InvalidDataException('Missing id');
+
+    $payout = \PayoutQuery::create()->findOneById($id);
+    if ( !$payout )
+      throw new Tbmt\InvalidDataException('Unknown id');
+
+    $filename = $payout->getMasspayFile();
+    $payout->setDownloadCount($payout->getDownloadCount() + 1);
+    $payout->save();
+
+    return new ControllerActionDownload([
+      'name' => "$filename",
+      'contentType' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      'path' => Config::get('payout.files.dir').$filename
     ]);
   }
 }
