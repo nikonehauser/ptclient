@@ -3,8 +3,7 @@ UPDATE SERVER - TODO
 
 update
 ======
-* propel entities
-* config updaten
+
 
 
 Fragen
@@ -12,7 +11,10 @@ Fragen
 * excel: currency is source currency?
 * excel: costs?
 * fehlerhafte überweisung -> email -> wie sieht die email aus?
-* excel: decimal point = ',' in every case?
+
+* nur sales manager kann frei einladen
+* nur lvl2 leute können einladen
+
 
 CURRENT - TODOS
 ===============
