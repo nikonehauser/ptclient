@@ -19,6 +19,10 @@ Fragen
 CURRENT - TODOS
 ===============
 
+* das rausfliegen testen
+
+* guides updaten
+
 * embed logo image: http://stackoverflow.com/questions/9110091/base64-encoded-images-in-email-signatures/9110164#9110164
 
 * create hg cron job

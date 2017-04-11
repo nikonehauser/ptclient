@@ -626,4 +626,44 @@ class BonusSpreadingTest extends Tbmt_Tests_DatabaseTestCase {
     $sylvheim_total->assertTotals();
 
   }
+
+
+    /**
+     *
+     */
+  public function testCanReadCorrectTreeDependantBonusAmount() {
+    $sylvheim = Member::getByNum(\SystemStats::ACCOUNT_SYLVHEIM);
+
+    $marketingLeader = DbEntityHelper::createMemberWithInvitation(
+      $sylvheim,
+      Member::TYPE_MARKETINGLEADER,
+      array_merge(self::$singupFormData, [
+        'email'          => 'unknowninvitationMarkt5@un5.de'
+      ])
+    );
+    $marketingLeader->reload(self::$propelCon);
+
+    $any1 = DbEntityHelper::createSignupMember($marketingLeader);
+    $any2 = DbEntityHelper::createSignupMember($marketingLeader);
+    $any3 = DbEntityHelper::createSignupMember($marketingLeader);
+
+    // marketing leader gets 1 + orgleader + promoter = 3 euro
+    $this->assertEquals(3, $any3->calculateBonusAmountForPremiumParent($marketingLeader, self::$propelCon));
+
+
+    // add a promoter
+    $promoter = DbEntityHelper::createMemberWithInvitation(
+      $marketingLeader,
+      Member::TYPE_PROMOTER,
+      array_merge(self::$singupFormData, [
+        'email'          => 'unknowninvitationProm5@un5.de'
+      ])
+    );
+
+    $any4 = DbEntityHelper::createSignupMember($promoter);
+    $any5 = DbEntityHelper::createSignupMember($promoter);
+    $any6 = DbEntityHelper::createSignupMember($promoter);
+
+    $this->assertEquals(2, $any6->calculateBonusAmountForPremiumParent($marketingLeader, self::$propelCon));
+  }
 }

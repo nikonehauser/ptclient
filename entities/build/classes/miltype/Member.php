@@ -549,6 +549,70 @@ class Member extends BaseMember
     if ( $changed )
       $this->save($con);
   }
+
+  public function calculateBonusAmountForPremiumParent($premiumParentMember, \PropelPDO $con) {
+    // $this -> is one user in the parents tree
+    // $parent is a premium user, e.g. orgleader
+    $bonusByIds = \MemberBonusIds::toArray($this->getBonusIds());
+    if ( !is_array($bonusByIds) || !isset($bonusByIds[$premiumParentMember->getId()]) )
+      return 0;
+
+    // Each member carries all members which receive bonus for his signup
+    $bonusIds = array_keys($bonusByIds);
+    if ( count($bonusIds) === 0 )
+      return 0;
+
+    $relatedId = $this->getId();
+
+    // Select all bonus members
+    $bonusMembers = MemberQuery::create()
+      ->filterByDeletionDate(null, Criteria::ISNULL)
+      ->filterById($bonusIds, Criteria::IN)
+      ->find($con);
+
+    $spreadBonuses = [];
+    foreach ( $bonusMembers as $member ) {
+      $type = $member->getType();
+      $spreadBonuses[$type] = $member;
+    }
+
+    $propagateBonuses = [
+      Member::TYPE_PROMOTER,
+      Member::TYPE_ORGLEADER,
+      Member::TYPE_MARKETINGLEADER,
+      Member::TYPE_SALES_MANAGER,
+      Member::TYPE_CEO,
+    ];
+
+    $sum = \Transaction::getAmountForReason(
+      \Member::getTransactionReasonByType($premiumParentMember->getType())
+    );
+
+    $collectUnspreadBonusus = [];
+    foreach ( $propagateBonuses as $memberType ) {
+      if ( !isset($spreadBonuses[$memberType]) ) {
+        // This bonus is unspread, so collect it to give it to the next higher
+        // existing member type
+        $collectUnspreadBonusus[] = $memberType;
+      } else {
+        $member = $spreadBonuses[$memberType];
+
+        if ( $member->getId() == $premiumParentMember->getId() ) {
+          foreach ($collectUnspreadBonusus as $memberType) {
+            $sum += \Transaction::getAmountForReason(
+              \Member::getTransactionReasonByType($memberType)
+            );
+          }
+
+          return $sum;
+        }
+        // Reset
+        $collectUnspreadBonusus = [];
+      }
+    }
+
+    return $sum;
+  }
 }
 
 class MemberBonusIds {

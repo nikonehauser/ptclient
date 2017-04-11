@@ -24,13 +24,13 @@ return [
 // next
 'How can I make money without constantly being active?',
 
-'<p>What makes this marketing system so unique is that you become a well-paid recommendation giver. As soon as you find customers, we will directly transfer your commissions to your privat payment gateway account.</p>
+'<p>What makes this marketing system so unique is that you become a well-paid recommendation giver. As soon as you find customers, we will directly transfer your commissions to your privat bank account.</p>
 
 <p>Also you can get paid for customers that you  have recruited indirectly - without even knowing them. Of course it does not work by doing nothing. But all there is to do is recruit three customers.</p>
 
-<p>From this point on you get access to the marketing system. New customers will be allocated to you, you don`t know these people and most possibly you won`t ever get to know them. For the first two customers you get $ 4.00 each, from the third on you get $ 24.00 each and a customer that has been allocated to you makes $ 20.00 for you!</p>
+<p>From this point on you get access to the marketing system. New customers will be allocated to you, you don`t know these people and most possibly you won`t ever get to know them. For the first two customers you get € 4.00 each, from the third on you get € 24.00 each and a customer that has been allocated to you makes € 20.00 for you!</p>
 
-<p>Now this does not sound like a lot of money yet. But the the marketing system´s mathematical algorithm lets youreceive many thousand US-Dollars automatically. Just watch the video once again to make it clear.</p>',
+<p>Now this does not sound like a lot of money yet. But the the marketing system´s mathematical algorithm lets youreceive many thousand Euros automatically. Just watch the video once again to make it clear.</p>',
 
 
 // next
@@ -40,24 +40,15 @@ return [
 
 <p>For example: If you joined Betterliving today and by doing so you became a customer of Betterliving. You paid the purchase price for the Happiness guide and got your customer number. The same week you´d find three new customers who all became customers of Betterliving as well and stated your customer number. That would be it.</p>
 
-<p>If every future customer acted the way you did, you would receive $ 640.00 two weeks later and after eight weeks it could be about $ 30,000.00 per week! You will receive all payments on your private payment gateway account weekly. Of course you can get even more than this: Just recruit more customers. It is all in your hands - if you find more customers you will get higher commissions.</p>',
+<p>If every future customer acted the way you did, you would receive € 640.00 two weeks later and after eight weeks it could be about € 30,000.00 per week! You will receive all payments on your private bank account weekly. Of course you can get even more than this: Just recruit more customers. It is all in your hands - if you find more customers you will get higher commissions.</p>',
 
 
 // next
 'When will I receive my commissions?',
 
-'<p>We balance your payments and transfer the money to your private payment gateway account weekly. In conclusion: If you are successful, you will receive money every week.</p>
+'<p>We balance your payments and transfer the money to your private bank account weekly. In conclusion: If you are successful, you will receive money every week.</p>
 
 <p>Please note: You will get paid only after we received your complete purchase price for your own Happiness Guide. It is not possible to offset your purchase price against the commissions you get for recruited customers.</p>',
-
-
-// next
-'How is the price for the Happiness Guide to pay?',
-
-'<p>As soon as you register to our platform you get an email with your login details. Now you can transfer via our payment gateway your purchase price to us. You should pay within 7 days.</p>
-
-<p>It´s very important to write your customer number in your purchase price transfer. Without this number we can not identify you. You can start to find new customers with your customer number immediately though. You will get paid for finding new customers after we received your complete purchase price. It is not possible to offset your purchase price against the commissions you get for recruited customers.
-</p>',
 
 
 

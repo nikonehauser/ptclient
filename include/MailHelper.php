@@ -143,7 +143,7 @@ class MailHelper {
         'referrer_fullname' => $referrer_fullname,
         'video_link' => \Tbmt\Router::toVideo($member),
         'signup_link' => \Tbmt\Router::toSignup($member),
-        'after6weeksamount' => self::getLocalizedAmount(300000, 0)
+        'after6weeksamount' => self::getLocalizedAmount(10000, 0)
       ], false)
     );
   }
@@ -178,7 +178,7 @@ class MailHelper {
         'referrer_fullname' => $referrer_fullname,
         'video_link' => \Tbmt\Router::toVideo($member),
         'signup_link' => \Tbmt\Router::toSignup($member),
-        'after6weeksamount' => self::getLocalizedAmount(300000, 0),
+        'after6weeksamount' => self::getLocalizedAmount(10000, 0),
 
         'free_invitation' => ($wasFreeInvitation
           ? Localizer::get('mails.free_invitation')
@@ -326,7 +326,7 @@ class MailHelper {
         'adv2amount' => self::getLocalizedTRACurency(\Transaction::REASON_ADVERTISED_LVL2),
         'adv1amount' => self::getLocalizedTRACurency(\Transaction::REASON_ADVERTISED_LVL1),
         'advindirectamount' => self::getLocalizedTRACurency(\Transaction::REASON_ADVERTISED_INDIRECT),
-        'after6weeksamount' => self::getLocalizedAmount(300000, 0),
+        'after6weeksamount' => self::getLocalizedAmount(10000, 0),
         'min_payout_amount' => self::getLocalizedAmount(Config::get('payout.execute.payouts.min.amount')),
 
       ], false)
@@ -604,21 +604,6 @@ class MailHelper {
       $locale['subject'],
       Localizer::insert($locale['body'], [
         'link' => $href
-      ], false)
-    );
-  }
-
-  static public function sendFailedPayoutTransfer(\Member $member, \Payout $payout) {
-    $locale = Localizer::get('mail.transfer_failed');
-
-    $recipientFullName = \Tbmt\view\Factory::buildMemberFullNameString($member);
-    return self::send(
-      $member->getEmail(),
-      $recipientFullName,
-      $locale['subject'],
-      Localizer::insert($locale['body'], [
-        'fullname' => $recipientFullName,
-        'transfer_error' => $payout->getFailedReason()
       ], false)
     );
   }

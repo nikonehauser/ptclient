@@ -37,7 +37,7 @@ class AccountIndexTab extends Base {
 
     $this->guidesCount = 0;
     if ( $this->member->hadPaid() )
-      $this->member->getHgWeek();
+      $this->guidesCount = $this->member->getHgWeek();
 
     return $this->renderFile(
       dirname(__FILE__).DIRECTORY_SEPARATOR.'tab.index.account.html',

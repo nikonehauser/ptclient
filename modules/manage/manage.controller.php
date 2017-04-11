@@ -279,9 +279,6 @@ class ManageController extends BaseController {
         $login->setIban($data['iban']);
         $login->setBankRecipient($data['bank_recipient']);
 
-        // Force account update in transferwise
-        $login->setTransferwiseSync(0);
-
         // Update last rejected/failed transfer state to retrigger transfer upon
         // this profile update.
         if ( $login->getTransferFreezed() == 1 ) {
