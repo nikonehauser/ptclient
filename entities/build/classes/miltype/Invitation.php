@@ -17,7 +17,7 @@ class Invitation extends BaseInvitation
 {
 
   static public function canInviteWithFundsLvl2(\Member $member) {
-    return $member->getType() >= \Member::TYPE_CEO;
+    return $member->getType() >= \Member::TYPE_SALES_MANAGER;
   }
 
   static public $INVITATION_FORM_FIELDS = [
