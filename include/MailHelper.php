@@ -220,7 +220,7 @@ class MailHelper {
       Localizer::insert($locale['body'], [
         'fullname' => $fullName,
         'member_id' => $num,
-        'recommendation_count' => \Tbmt\Localizer::countInWords($referrer->getOutstandingAdvertisedCount()),
+        'recommendation_count' => \Tbmt\Localizer::countInWords($referrer->getAdvertisedCountTotal()),
         'recruited_fullname' => $recruitedFullName,
         'video_link' => \Tbmt\Router::toVideo($referrer),
         'duedate' => \Tbmt\Localizer::dateLong($recruited->getFirstDueDate()),
