@@ -60,6 +60,12 @@ return [
     'pdf_explanation_link' => 'just click here',
   ],
 
+  'mails' => [
+    'lvl2invitation' => 'Because of the special invitation you’re a “Premium Customer” already. That means you will earn {lvl2bonus} instead of {lvl1bonus} for each new client from the start.',
+    'standardinvitation' => 'Plus, you only need three people to register and buy the Guide in order to have a passive income.',
+    'free_invitation' => 'You will receive the Happiness Guide for free. Also: '
+  ],
+
 
   'payment' => [
     'item_name' => 'Happiness Guide',
@@ -71,6 +77,7 @@ return [
     /* DATE FORMATS
     ---------------------------------------------*/
   'count' => [
+    '0' => '0',
     '1' => 'first',
     '2' => 'second',
     '3' => 'third',
