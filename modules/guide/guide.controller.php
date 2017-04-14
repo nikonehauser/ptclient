@@ -82,8 +82,7 @@ class GuideController extends BaseController {
     }
 
     $con = \Propel::getConnection();
-
-    $result = \Activity::execAjax(
+    return \Activity::execAjax(
       /*callable*/[$this, 'activity_execPPP'],
       /*func args*/[
         $login,
@@ -96,22 +95,6 @@ class GuideController extends BaseController {
       /*activity.related*/null,
       $con
     );
-
-    if ( !empty($result['result']) && !empty($result['payment']) && $result['result'] === true ) {
-      \Activity::execAjax(
-        /*callable*/[$this, 'activity_finalizePPP'],
-        /*func args*/[
-          $login,
-          $con
-        ],
-        /*activity.action*/\Activity::ACT_MEMBER_PAYMENT_EXEC,
-        /*activity.member*/$login,
-        /*activity.related*/null,
-        $con
-      );
-    }
-
-    return $result;
   }
 
   /**
@@ -254,21 +237,27 @@ class GuideController extends BaseController {
         ->setStatus(\Payment::STATUS_EXECUTED)
         ->setMeta([$payPalPayment->toArray()])
         ->save($con);
+
+      $member->onReceivedMemberFee(
+        \Transaction::$BASE_CURRENCY, // currency
+        time(), // when
+        $member->getFreeInvitation() === 1, // was free invitation
+        $con
+      );
+
+      $member->save($con);
     } catch(\Exception $e) {
       $exception = $e;
     }
 
     $result = [
       'paypalPayment' => $payPalPayment ? $payPalPayment->toArray() : null,
-      'payment' => $payment instanceof \Payment ? $payment : null ,
-      'result' => true,
       \Activity::ARR_RELATED_RETURN_KEY => $payment,
       \Activity::ARR_RESULT_RETURN_KEY => true
     ];
 
     if ( $exception ) {
-      $result[\Activity::ARR_EXCEPTION_RETURN_KEY] = $exception;#
-      $result['result'] = false;
+      $result[\Activity::ARR_EXCEPTION_RETURN_KEY] = $exception;
 
       if ( $exception instanceof \PayPal\Exception\PayPalConnectionException ) {
         $result['PayPalConnectionException'] = [
@@ -280,23 +269,6 @@ class GuideController extends BaseController {
     }
 
     return $result;
-  }
-
-
-  /**
-   * Handle cancel.
-   *
-   * @return [type]
-   */
-  public function activity_finalizePPP(\Member $member, \PropelPDO $con) {
-    $member->onReceivedMemberFee(
-      \Transaction::$BASE_CURRENCY, // currency
-      time(), // when
-      $member->getFreeInvitation() === 1, // was free invitation
-      $con
-    );
-
-    $member->save($con);
   }
 
 }
