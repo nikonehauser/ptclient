@@ -20,6 +20,7 @@ class Payments {
   static public function executePayPalPayment($paymentId, $payerId) {
     $apiContext = self::getApiContext();
 
+    $payment = null;
     try {
       $payment = Payment::get($paymentId, $apiContext);
 

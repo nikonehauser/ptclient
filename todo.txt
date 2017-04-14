@@ -12,12 +12,20 @@ Fragen
 * excel: costs?
 * fehlerhafte überweisung -> email -> wie sieht die email aus?
 
-* nur sales manager kann frei einladen
-* nur lvl2 leute können einladen
-
 
 CURRENT - TODOS
 ===============
+
+* nur sales manager kann lvl2 einladen
+* nur lvl2 leute können einladen
+* email checken
+* hochzählen in den emails testen
+
+* bonus zahlungen nicht mehr benennen sondern sagen das er einen bonus kriegt
+
+* tests machen
+
+* Fwd: Falsche Email an eine Bonusstufe mit Free Registration und LVL2
 
 * das rausfliegen testen
 
