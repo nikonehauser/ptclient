@@ -13,6 +13,23 @@ class MailHelper {
     return Localizer::numFormat(\Transaction::getAmountForReason($transactinoReason), 0);
   }
 
+  static public function getLocalizedTRACurency($transactinoReason, $decimals = false, $space = ' ') {
+    return self::getLocalizedAmount(
+      \Transaction::getAmountForReason($transactinoReason),
+      $decimals,
+      $space
+    );
+  }
+
+  static public function getLocalizedAmount($amount, $decimals = false, $space = ' ') {
+    return Localizer::currencyFormat(
+      $amount,
+      Localizer::get('currency_symbol.'.\Transaction::$BASE_CURRENCY),
+      $decimals,
+      $space
+    );
+  }
+
   static public function sendException(\Exception $e, $text = '') {
     $body = "Exception: \n\r".$e->getMessage()."\n\r\n\r".
       "Stack: \n\r".$e->getTraceAsString()."\n\r\n\r".
@@ -38,6 +55,14 @@ class MailHelper {
     );
   }
 
+  /**
+   * #1
+   *
+   * @param  [type]           $recipientEmail
+   * @param  [type]           $recipientFullName
+   * @param  \EmailValidation $emailValidation
+   * @return [type]
+   */
   static public function sendEmailValidation($recipientEmail, $recipientFullName, \EmailValidation $emailValidation) {
     $locale = Localizer::get('mail.email_validation');
 
@@ -57,41 +82,9 @@ class MailHelper {
   }
 
 
-  /**
-   * #1_1
-   *
-   * @param  \Member        $member
-   * @param  PropelPDO|null $con
-   * @return [type]
-   */
-  static public function sendFreeSignupConfirm(\Member $member, PropelPDO $con = null) {
-    $email = $member->getEmail();
-    $locale = Localizer::get('mail.free_signup_confirm');
-
-    $num = $member->getNum();
-    $fullName = \Tbmt\view\Factory::buildMemberFullNameString($member);
-
-    $referrer = $member->getReferrerMember($con);
-    $referrerFullName = \Tbmt\view\Factory::buildMemberFullNameString($referrer);
-
-    return self::send(
-      $email,
-      $fullName,
-      $locale['subject'],
-      Localizer::insert($locale['body'], [
-        'fullname' => $fullName,
-        'member_id' => $num,
-        'member_type' => Localizer::get('common.member_types')[$member->getType()],
-        'referrer_fullname' => $referrerFullName,
-        'video_link' => \Tbmt\Router::toVideo(),
-        'signup_link' => \Tbmt\Router::toSignup($member),
-        'after6weeksamount' => Localizer::numFormat(300000, 0)
-      ], false)
-    );
-  }
 
   /**
-   * #1
+   * #2
    *
    * @param  \Member        $member
    * @param  PropelPDO|null $con
@@ -122,21 +115,21 @@ class MailHelper {
     );
   }
 
-
   /**
-   * #2_1
-   * @param  \Member $referrer
-   * @param  \Member $recruited
+   * #3
+   *
+   * @param  \Member $member
    * @return [type]
    */
-  static public function sendNewFreeRecruitmentCongrats(\Member $referrer, \Member $recruited) {
-    $email = $referrer->getEmail();
-    $locale = Localizer::get('mail.new_free_recruitment_congrats');
+  static public function sendFeeIncome(\Member $member) {
+    $email = $member->getEmail();
+    $locale = Localizer::get('mail.fee_income');
 
-    $num = $referrer->getNum();
-    $fullName = \Tbmt\view\Factory::buildMemberFullNameString($referrer);
+    $referrer = $member->getReferrerMember();
 
-    $recruitedFullName = \Tbmt\view\Factory::buildMemberFullNameString($recruited);
+    $num = $member->getNum();
+    $fullName = \Tbmt\view\Factory::buildMemberFullNameString($member);
+    $referrer_fullname = \Tbmt\view\Factory::buildMemberFullNameString($referrer);
 
     return self::send(
       $email,
@@ -144,16 +137,69 @@ class MailHelper {
       $locale['subject'],
       Localizer::insert($locale['body'], [
         'fullname' => $fullName,
+        'fmt_member_fee' => \Tbmt\view\Factory::buildFmtMemberFeeStr(),
+
         'member_id' => $num,
-        'recruited_fullname' => $recruitedFullName,
-        'video_link' => \Tbmt\Router::toVideo(),
+        'referrer_fullname' => $referrer_fullname,
+        'video_link' => \Tbmt\Router::toVideo($member),
+        'signup_link' => \Tbmt\Router::toSignup($member),
+        'after6weeksamount' => self::getLocalizedAmount(10000, 0)
+      ], false)
+    );
+  }
+
+  /**
+   * #4
+   * #5
+   * #6
+   *
+   * @param  \Member $member
+   * @return [type]
+   */
+  static public function sendSignupConfirmInvitation(\Member $member, $wasFreeInvitation) {
+    $email = $member->getEmail();
+    $locale = Localizer::get('mail.signup_confirm_invitation');
+
+    $referrer = $member->getReferrerMember();
+
+    $num = $member->getNum();
+    $fullName = \Tbmt\view\Factory::buildMemberFullNameString($member);
+    $referrer_fullname = \Tbmt\view\Factory::buildMemberFullNameString($referrer);
+
+    return self::send(
+      $email,
+      $fullName,
+      $locale['subject'],
+      Localizer::insert($locale['body'], [
+        'fullname' => $fullName,
+        'fmt_member_fee' => \Tbmt\view\Factory::buildFmtMemberFeeStr(),
+
+        'member_id' => $num,
+        'referrer_fullname' => $referrer_fullname,
+        'video_link' => \Tbmt\Router::toVideo($member),
+        'signup_link' => \Tbmt\Router::toSignup($member),
+        'after6weeksamount' => self::getLocalizedAmount(10000, 0),
+
+        'free_invitation' => ($wasFreeInvitation
+          ? Localizer::get('mails.free_invitation')
+          : ''),
+
+        'lvl2text' => ($member->getFundsLevel() === \Member::FUNDS_LEVEL2
+          ? Localizer::getInsert('mails.lvl2invitation', [
+              'lvl2bonus' => self::getLocalizedTRACurency(\Transaction::REASON_ADVERTISED_LVL2),
+              'lvl1bonus' => self::getLocalizedTRACurency(\Transaction::REASON_ADVERTISED_LVL1)
+            ])
+          : Localizer::get('mails.standardinvitation')),
+
+        'member_type_name' => Localizer::get('common.member_types.'.$member->getType()),
+        'member_type_bonus' => self::getLocalizedTRACurency($member->getTransactionReasonByType($member->getType()))
       ], false)
     );
   }
 
 
   /**
-   * #2
+   * #7
    * @param  \Member $referrer
    * @param  \Member $recruited
    * @return [type]
@@ -174,16 +220,219 @@ class MailHelper {
       Localizer::insert($locale['body'], [
         'fullname' => $fullName,
         'member_id' => $num,
-        'recommendation_count' => \Tbmt\Localizer::countInWords($referrer->getAdvertisedCountTotal()),
+        'recommendation_count' => \Tbmt\Localizer::countInWords($referrer->getOutstandingAdvertisedCount()),
         'recruited_fullname' => $recruitedFullName,
-        'video_link' => \Tbmt\Router::toVideo(),
-        'duedate' => \Tbmt\Localizer::dateLong($recruited->getFirstDueDate())
+        'video_link' => \Tbmt\Router::toVideo($referrer),
+        'duedate' => \Tbmt\Localizer::dateLong($recruited->getFirstDueDate()),
+        'signup_link' => \Tbmt\Router::toSignup($referrer)
       ], false)
     );
   }
 
   /**
-   * #3
+   * #8
+   * #9
+   * #10
+   * @param  \Member $member
+   * @return [type]
+   */
+  static public function sendFeeIncomeReferrer(\Member $referrer, \Member $recruited) {
+    $count = $referrer->getAdvertisedCount();
+    if ( $count == 1 ) {
+      return self::sendFirstFeeIncomeReferrer($referrer, $recruited);
+    } else if ( $count == 2 ) {
+      return self::sendSecondFeeIncomeReferrer($referrer, $recruited);
+    }
+
+    return self::sendPremiumFeeIncomeReferrer($referrer, $recruited);
+  }
+
+  /**
+   * #8
+   * @param  \Member $member
+   * @return [type]
+   */
+  static private function sendFirstFeeIncomeReferrer(\Member $referrer, \Member $recruited) {
+    $email = $referrer->getEmail();
+    $locale = Localizer::get('mail.fee_income_referrer_first');
+
+    $fullName = \Tbmt\view\Factory::buildMemberFullNameString($referrer);
+    $recruited_fullname = \Tbmt\view\Factory::buildMemberFullNameString($recruited);
+
+    if ( $referrer->getFundsLevel() == \Member::FUNDS_LEVEL2 )
+      $provision = self::getLocalizedTRACurency(\Transaction::REASON_ADVERTISED_LVL2);
+    else
+      $provision = self::getLocalizedTRACurency(\Transaction::REASON_ADVERTISED_LVL1);
+
+    $body = $locale['body'];
+
+    return self::send(
+      $email,
+      $fullName,
+      $locale['subject'],
+      Localizer::insert($body, [
+        'fullname' => $fullName,
+        'recruited_fullname' => $recruited_fullname,
+        'recruited_firstname' => $recruited->getFirstName(),
+        'video_link' => \Tbmt\Router::toVideo($referrer),
+        'provision_amount' => $provision,
+        'adv2amount' => self::getLocalizedTRACurency(\Transaction::REASON_ADVERTISED_LVL2),
+        'min_payout_amount' => self::getLocalizedAmount(Config::get('payout.execute.payouts.min.amount')),
+        'paid_recommendation_count' => \Tbmt\Localizer::countInWords($referrer->getAdvertisedCount()),
+      ], false)
+    );
+  }
+
+  /**
+   * #9
+ *   fullname,
+ *   adv2amount,
+ *   adv1amount,
+ *   advindirectamount,
+ *   recruited_firstname,
+ *   provision_amount,
+ *   recruited_fullname,
+ *   video_link,
+ *   after6weeksamount,
+ *   min_payout_amount
+ *
+   * @param  \Member $member
+   * @return [type]
+   */
+  static private function sendSecondFeeIncomeReferrer(\Member $referrer, \Member $recruited) {
+    $email = $referrer->getEmail();
+    $locale = Localizer::get('mail.fee_income_referrer_second');
+
+    $fullName = \Tbmt\view\Factory::buildMemberFullNameString($referrer);
+    $recruited_fullname = \Tbmt\view\Factory::buildMemberFullNameString($recruited);
+
+    if ( $referrer->getFundsLevel() == \Member::FUNDS_LEVEL2 )
+      $provision = self::getLocalizedTRACurency(\Transaction::REASON_ADVERTISED_LVL2);
+    else
+      $provision = self::getLocalizedTRACurency(\Transaction::REASON_ADVERTISED_LVL1);
+
+    $body = $locale['body'];
+
+    return self::send(
+      $email,
+      $fullName,
+      $locale['subject'],
+      Localizer::insert($body, [
+        'fullname' => $fullName,
+        'recruited_fullname' => $recruited_fullname,
+        'recruited_firstname' => $recruited->getFirstName(),
+        'video_link' => \Tbmt\Router::toVideo($referrer),
+        'provision_amount' => $provision,
+        'adv2amount' => self::getLocalizedTRACurency(\Transaction::REASON_ADVERTISED_LVL2),
+        'adv1amount' => self::getLocalizedTRACurency(\Transaction::REASON_ADVERTISED_LVL1),
+        'advindirectamount' => self::getLocalizedTRACurency(\Transaction::REASON_ADVERTISED_INDIRECT),
+        'after6weeksamount' => self::getLocalizedAmount(10000, 0),
+        'min_payout_amount' => self::getLocalizedAmount(Config::get('payout.execute.payouts.min.amount')),
+
+      ], false)
+    );
+  }
+
+  /**
+   * #10
+ *   fullname,
+ *   paid_recommendation_count,
+ *   recruited_fullname,
+ *   recruited_firstname,
+ *   provision_amount,
+ *   min_payout_amount
+ *
+   * @param  \Member $member
+   * @return [type]
+   */
+  static private function sendPremiumFeeIncomeReferrer(\Member $referrer, \Member $recruited) {
+    $email = $referrer->getEmail();
+    $locale = Localizer::get('mail.fee_income_referrer_premium');
+
+    $fullName = \Tbmt\view\Factory::buildMemberFullNameString($referrer);
+    $recruited_fullname = \Tbmt\view\Factory::buildMemberFullNameString($recruited);
+
+    if ( $referrer->getFundsLevel() == \Member::FUNDS_LEVEL2 )
+      $provision = self::getLocalizedTRACurency(\Transaction::REASON_ADVERTISED_LVL2);
+    else
+      $provision = self::getLocalizedTRACurency(\Transaction::REASON_ADVERTISED_LVL1);
+
+    $body = $locale['body'];
+
+    return self::send(
+      $email,
+      $fullName,
+      Localizer::insert($locale['subject'], ['paid_recommendation_count' => \Tbmt\Localizer::countInWords($referrer->getAdvertisedCount())]),
+      Localizer::insert($body, [
+        'fullname' => $fullName,
+        'recruited_fullname' => $recruited_fullname,
+        'recruited_firstname' => $recruited->getFirstName(),
+        'video_link' => \Tbmt\Router::toVideo($referrer),
+        'provision_amount' => $provision,
+        'min_payout_amount' => self::getLocalizedAmount(Config::get('payout.execute.payouts.min.amount')),
+        'paid_recommendation_count' => \Tbmt\Localizer::countInWords($referrer->getAdvertisedCount()),
+
+      ], false)
+    );
+  }
+
+  /**
+   * #11
+ *   fullname,
+ *   hg_count,
+ *   member_id,
+ *
+   * @param  \Member $member
+   * @return [type]
+   */
+  static public function sendHgAvailable(\Member $member) {
+    $email = $member->getEmail();
+    $locale = Localizer::get('mail.hg_available');
+
+    $fullName = \Tbmt\view\Factory::buildMemberFullNameString($member);
+    $body = $locale['body'];
+
+    return self::send(
+      $email,
+      $fullName,
+      Localizer::insert($locale['subject'], ['hg_count' => $member->getHgWeek()]),
+      Localizer::insert($body, [
+        'fullname' => $fullName,
+        'member_id' => $member->getNum(),
+        'hg_count' => $member->getHgWeek()
+
+      ], false)
+    );
+  }
+
+
+
+/*****************************************************************
+###################################################################
+###################################################################
+###################################################################
+###################################################################
+###################################################################
+###################################################################
+###################################################################
+###################################################################
+###################################################################
+###################################################################
+###################################################################
+###################################################################
+###################################################################
+###################################################################
+###################################################################
+###################################################################
+###################################################################
+###################################################################
+###################################################################
+###################################################################
+*******************************************************************/
+
+  /**
+   * @deprecated
+   *
    * @param  \Member $member
    * @return [type]
    */
@@ -202,7 +451,7 @@ class MailHelper {
         'fullname' => $fullName,
         'member_id' => $num,
         'signup_date' => \Tbmt\Localizer::dateLong($member->getSignupDate()),
-        'video_link' => \Tbmt\Router::toVideo(),
+        'video_link' => \Tbmt\Router::toVideo($member),
         'bankaccount' => \Tbmt\view\Factory::buildBankAccountStr(),
         'duedate_second' => \Tbmt\Localizer::dateLong($member->getSecondDueDate())
       ], false)
@@ -259,8 +508,8 @@ class MailHelper {
         'signup_date' => \Tbmt\Localizer::dateLong($member->getSignupDate()),
         'duedate_second' => \Tbmt\Localizer::dateLong($member->getSecondDueDate()),
         'bankaccount' => \Tbmt\view\Factory::buildBankAccountStr(),
-        'video_link' => \Tbmt\Router::toVideo(),
-        'advindirectamount' => self::getLocalizedTRA(\Transaction::REASON_ADVERTISED_INDIRECT)
+        'video_link' => \Tbmt\Router::toVideo($member),
+        'advindirectamount' => self::getLocalizedTRACurency(\Transaction::REASON_ADVERTISED_INDIRECT)
       ], false)
     );
   }
@@ -289,102 +538,6 @@ class MailHelper {
         'recruited_firstname' => $recruited->getFirstName(),
         'recruited_signup_date' => \Tbmt\Localizer::dateLong($recruited->getSignupDate()),
         'bankaccount' => \Tbmt\view\Factory::buildBankAccountStr(),
-      ], false)
-    );
-  }
-
-  /**
-   * #7
-   * @param  \Member $member
-   * @return [type]
-   */
-  static public function sendFeeIncome(\Member $member) {
-    $email = $member->getEmail();
-    $locale = Localizer::get('mail.fee_income');
-
-    $referrer = $member->getReferrerMember();
-
-    $num = $member->getNum();
-    $fullName = \Tbmt\view\Factory::buildMemberFullNameString($member);
-    $referrer_fullname = \Tbmt\view\Factory::buildMemberFullNameString($referrer);
-
-    return self::send(
-      $email,
-      $fullName,
-      $locale['subject'],
-      Localizer::insert($locale['body'], [
-        'fullname' => $fullName,
-        'member_id' => $num,
-        'referrer_fullname' => $referrer_fullname,
-        'video_link' => \Tbmt\Router::toVideo(),
-        'signup_link' => \Tbmt\Router::toSignup($member),
-        'after6weeksamount' => Localizer::numFormat(300000, 0)
-      ], false)
-    );
-  }
-
-  /**
-   * #8
-   * @param  \Member $member
-   * @return [type]
-   */
-  static public function sendFeeIncomeReferrer(\Member $referrer, \Member $recruited) {
-    $email = $referrer->getEmail();
-    $locale = Localizer::get('mail.fee_income_referrer');
-
-    $fullName = \Tbmt\view\Factory::buildMemberFullNameString($referrer);
-    $recruited_fullname = \Tbmt\view\Factory::buildMemberFullNameString($recruited);
-
-    if ( $referrer->getFundsLevel() == \Member::FUNDS_LEVEL2 )
-      $provision = self::getLocalizedTRA(\Transaction::REASON_ADVERTISED_LVL2);
-    else
-      $provision = self::getLocalizedTRA(\Transaction::REASON_ADVERTISED_LVL1);
-
-    $body = $locale['body'];
-    if ( $referrer->getFundsLevel() == \Member::FUNDS_LEVEL1 )
-      $body .= "\n".$locale['level1_addition'];
-
-    return self::send(
-      $email,
-      $fullName,
-      $locale['subject'],
-      Localizer::insert($body, [
-        'fullname' => $fullName,
-        'recruited_fullname' => $recruited_fullname,
-        'recruited_firstname' => $recruited->getFirstName(),
-        'video_link' => \Tbmt\Router::toVideo(),
-        'provision_amount' => $provision,
-        'adv2amount' => self::getLocalizedTRA(\Transaction::REASON_ADVERTISED_LVL2),
-        'memberfee_amount' => Localizer::numFormat(\Transaction::$MEMBER_FEE, 0),
-        'member_id' => $referrer->getNum(),
-      ], false)
-    );
-  }
-
-  /**
-   * #9
-   * @param  \Member $member
-   * @return [type]
-   */
-  static public function sendFundsLevelUpgrade(\Member $referrer, \Member $recruited) {
-    $email = $referrer->getEmail();
-    $locale = Localizer::get('mail.funds_level_upgrade');
-
-    $fullName = \Tbmt\view\Factory::buildMemberFullNameString($referrer);
-    $recruited_fullname = \Tbmt\view\Factory::buildMemberFullNameString($recruited);
-
-    return self::send(
-      $email,
-      $fullName,
-      $locale['subject'],
-      Localizer::insert($locale['body'], [
-        'fullname' => $fullName,
-        'recruited_fullname' => $recruited_fullname,
-        'video_link' => \Tbmt\Router::toVideo(),
-        'adv1amount' => self::getLocalizedTRA(\Transaction::REASON_ADVERTISED_LVL1),
-        'adv2amount' => self::getLocalizedTRA(\Transaction::REASON_ADVERTISED_LVL2),
-        'advindirectamount' => self::getLocalizedTRA(\Transaction::REASON_ADVERTISED_INDIRECT),
-        'after6weeksamount' => Localizer::numFormat(300000, 0)
       ], false)
     );
   }
@@ -455,21 +608,6 @@ class MailHelper {
     );
   }
 
-  static public function sendFailedPayoutTransfer(\Member $member, \Payout $payout) {
-    $locale = Localizer::get('mail.transfer_failed');
-
-    $recipientFullName = \Tbmt\view\Factory::buildMemberFullNameString($member);
-    return self::send(
-      $member->getEmail(),
-      $recipientFullName,
-      $locale['subject'],
-      Localizer::insert($locale['body'], [
-        'fullname' => $recipientFullName,
-        'transfer_error' => $payout->getFailedReason()
-      ], false)
-    );
-  }
-
   static public function send($address, $name, $subject, $body, $fromMail = null, $fromName = null) {
     if ( self::$MAILS_DISABLED === true )
       return true;
@@ -496,14 +634,16 @@ class MailHelper {
     if ( !$fromName )
       $fromName = Config::get('mail.sender_name');
 
-    $body .= "\n\n".Config::get('mail.signature')."\n";
+    $body .= "\n\r<br>".Config::get('mail.signature')."\n";
+
+    $htmlBody = (new \Parsedown())->text($body);
 
     $mail->setFrom($fromMail, $fromName);
     $mail->addReplyTo(Config::get('mail.reply_mail'), 'Do not Reply');
     $mail->addAddress($address, $name);
 
     $mail->Subject = Config::get('mail.subject_prefix').' '.$subject;
-    $mail->Body = self::bodyToHtml($body);
+    $mail->Body = self::bodyToHtml($htmlBody);
     $mail->AltBody = $body;
 
     if ( self::$DEBUG_PRINT === true )
@@ -517,8 +657,10 @@ class MailHelper {
   }
 
   static private function bodyToHtml($body) {
-    $body = str_replace("\n\r", "<br>", $body);
-    $body = str_replace("\n", "<br>", $body);
+    // $body = str_replace("\n\r", "<br>", $body);
+    // $body = str_replace("\n", "<br>", $body);
+
+    $homeUrl = Router::toBase();
 
     return <<<EOL
 <html>
@@ -533,6 +675,7 @@ class MailHelper {
     #body {
       background-color: #ededed;
       width:100%;
+      min-height: 500px;
       color: #666;
       font-family: 'Open Sans', Helvetica, Arial;
     }
@@ -540,17 +683,27 @@ class MailHelper {
       background-color: white;
       box-shadow: 0px 0px 4px rgba(0,0,0,.3);
     }
+    p, ol {
+      margin-bottom: .8em;
+    }
+    a {
+      color: blue;
+    }
+
+    ol {
+      padding-left: 40px;
+    }
   </style>
 </head>
 <body>
 
   <table id="body">
     <tr><td>&nbsp;</td></tr>
-    <tr><td align="center" style="max-width: 924px; width:100%;">
+    <tr><td align="center" style="width:100%;">
 
-  <table id="content">
+  <table id="content" style="max-width: 700px;">
     <tr><td style=" padding: 15px;">
-                <a href="http://localsystem.social/index.php" style="color:#7E7E7E; text-decoration: none; font-size: 26px; font-family: Courier New">
+                <a href="$homeUrl" style="color:#7E7E7E; text-decoration: none; font-size: 26px; font-family: Courier New">
                     <svg style="vertical-align:middle;" class="headlogo" xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="180 95 123 75" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none">
   <g id="surface2" transform="matrix(0.7235366885919756,0,0,0.7235366885919756,68.07473142651779,49.96389087769876)">
     <path style="stroke:none;fill-rule:evenodd;fill:rgb(14.901961%,16.078431%,31.372549%);fill-opacity:1" d="M 288.949219 117.199219 C 287.617188 121.066406 285.832031 124.351562 283.601562 127.050781 C 279.667969 131.750000 274.898438 135.464844 269.300781 138.199219 C 263.699219 140.933594 257.066406 142.765625 249.398438 143.699219 L 245.898438 144.148438 L 248.851562 146.101562 C 253.785156 149.398438 258.566406 151.867188 263.199219 153.500000 C 267.832031 155.132812 272.382812 155.949219 276.851562 155.949219 C 279.082031 155.949219 281.351562 155.750000 283.648438 155.351562 C 287.015625 154.714844 290.183594 153.433594 293.148438 151.500000 C 296.148438 149.566406 299.000000 147.250000 301.699219 144.550781 C 304.398438 141.882812 307.035156 139.101562 309.601562 136.199219 L 309.750000 136.050781 C 311.683594 133.917969 313.566406 131.898438 315.398438 130.000000 L 316.699219 128.699219 L 315.050781 127.898438 C 312.785156 126.800781 310.464844 125.617188 308.101562 124.351562 L 307.898438 124.250000 C 305.066406 122.750000 302.199219 121.300781 299.300781 119.898438 C 296.398438 118.500000 293.500000 117.332031 290.601562 116.398438 L 289.351562 116.000000 L 288.949219 117.199219 "></path>

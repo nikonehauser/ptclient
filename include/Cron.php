@@ -52,8 +52,14 @@ class Cron {
     return $result;
   }
 
+  public function notifyNewHappyGuide($now = null) {
+
+  }
+
   /**
    * Remind all unpaid members after 7 days.
+   *
+   * @deprecated
    *
    * @return
    */
@@ -137,15 +143,6 @@ class Cron {
 
   }
 
-  /**
-   * Remind all unpaid members after 7 days.
-   *
-   * @return
-   */
-  public static function payoutMembers($now = null) {
-    // get members to payout
-    Payouts::transfer();
-  }
 }
 
 
