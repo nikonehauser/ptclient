@@ -180,6 +180,8 @@ class DebugController extends BaseController {
       \Activity::ACT_MEMBER_PAYMENT_CANCEL => 'payment_cancel',
       \Activity::ACT_MEMBER_PAYMENT_CANCEL_BY_USER => 'payment_cancel_by_user',
       \Activity::ACT_MEMBER_PAYMENT_CANCEL_UNKNOWN => 'payment_cancel_unknown',
+      \Activity::ACT_MEMBER_PAYMENT_FINALIZE => 'payment_finalze',
+
     ];
 
     $reasons = \Tbmt\Localizer::get('view.account.tabs.invoice.transaction_reasons');

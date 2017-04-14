@@ -433,9 +433,6 @@ class Member extends BaseMember
         \Tbmt\MailHelper::sendFeeIncome($this);
     }
 
-    if ( !$freeFromInvitation )
-      \Tbmt\MailHelper::sendFeeIncomeReferrer($referrer, $this);
-
     if ( $referrer && !$referrer->hadPaid() ) {
       // if the parent hasnt paid yet. reserve this event until his fee is
       // comming in or we kick him from the list.
@@ -530,6 +527,91 @@ class Member extends BaseMember
 
     $this->setDeletionDate(time());
     $this->save($con);
+  }
+
+  public function notifyNewHappinessGuide($secondsPerGuide, $now = null, PropelPDO $con = null) {
+    if ( !$now )
+      $now = time();
+
+    $hgWeek = $this->getHgWeek();
+    $paidDate = $this->getPaidDate();
+    $diff = $now - $paidDate;
+
+    $count = ($diff / $secondsPerGuide) + 1;
+    $changed = false;
+
+    for ( ; $hgWeek <= $count; $hgWeek++ ) {
+      $changed = true;
+      $this->setHgWeek($hgWeek);
+      \Tbmt\MailHelper::sendHgAvailable($this);
+    }
+
+    if ( $changed )
+      $this->save($con);
+  }
+
+  public function calculateBonusAmountForPremiumParent($premiumParentMember, \PropelPDO $con) {
+    // $this -> is one user in the parents tree
+    // $parent is a premium user, e.g. orgleader
+    $bonusByIds = \MemberBonusIds::toArray($this->getBonusIds());
+    if ( !is_array($bonusByIds) || !isset($bonusByIds[$premiumParentMember->getId()]) )
+      return 0;
+
+    // Each member carries all members which receive bonus for his signup
+    $bonusIds = array_keys($bonusByIds);
+    if ( count($bonusIds) === 0 )
+      return 0;
+
+    $relatedId = $this->getId();
+
+    // Select all bonus members
+    $bonusMembers = MemberQuery::create()
+      ->filterByDeletionDate(null, Criteria::ISNULL)
+      ->filterById($bonusIds, Criteria::IN)
+      ->find($con);
+
+    $spreadBonuses = [];
+    foreach ( $bonusMembers as $member ) {
+      $type = $member->getType();
+      $spreadBonuses[$type] = $member;
+    }
+
+    $propagateBonuses = [
+      Member::TYPE_PROMOTER,
+      Member::TYPE_ORGLEADER,
+      Member::TYPE_MARKETINGLEADER,
+      Member::TYPE_SALES_MANAGER,
+      Member::TYPE_CEO,
+    ];
+
+    $sum = \Transaction::getAmountForReason(
+      \Member::getTransactionReasonByType($premiumParentMember->getType())
+    );
+
+    $collectUnspreadBonusus = [];
+    foreach ( $propagateBonuses as $memberType ) {
+      if ( !isset($spreadBonuses[$memberType]) ) {
+        // This bonus is unspread, so collect it to give it to the next higher
+        // existing member type
+        $collectUnspreadBonusus[] = $memberType;
+      } else {
+        $member = $spreadBonuses[$memberType];
+
+        if ( $member->getId() == $premiumParentMember->getId() ) {
+          foreach ($collectUnspreadBonusus as $memberType) {
+            $sum += \Transaction::getAmountForReason(
+              \Member::getTransactionReasonByType($memberType)
+            );
+          }
+
+          return $sum;
+        }
+        // Reset
+        $collectUnspreadBonusus = [];
+      }
+    }
+
+    return $sum;
   }
 }
 

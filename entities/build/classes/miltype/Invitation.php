@@ -16,6 +16,10 @@
 class Invitation extends BaseInvitation
 {
 
+  static public function canInviteWithFundsLvl2(\Member $member) {
+    return $member->getType() >= \Member::TYPE_CEO;
+  }
+
   static public $INVITATION_FORM_FIELDS = [
     'type'        => \Tbmt\TYPE_INT,
     'free_signup' => \Tbmt\TYPE_BOOL,
@@ -70,7 +74,7 @@ class Invitation extends BaseInvitation
       ]);
     }
 
-    if ( $login->getType() < \Member::TYPE_CEO ) {
+    if ( !self::canInviteWithFundsLvl2($login) ) {
       // only CEOs can
       $data['lvl2_signup'] = 0;
     }
