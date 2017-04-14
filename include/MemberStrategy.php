@@ -112,7 +112,7 @@ class SimpleMemberStrategy extends MemberStrategy {
 
       $member
         ->setHash(\Member::calcHash($member))
-        ->setNum($member->getId() + 1000000)
+        ->setNum($member->getId() + 1425300)
         ->save($con);
 
     if ( !$con->commit() )
@@ -308,7 +308,7 @@ class ExtendedMemberStrategy extends SimpleMemberStrategy {
 
       $member->setReferrerMember($referrerMember, $con);
       $member->save($con);
-      $member->setNum($member->getId() + 1000000);
+      $member->setNum($member->getId() + 1425300);
 
       if ( $invitation ) {
         $invitation->setAcceptedMemberId($member->getId());

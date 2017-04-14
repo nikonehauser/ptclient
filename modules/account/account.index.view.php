@@ -23,7 +23,7 @@ class AccountIndex extends Base {
     if ( $memberType > \Member::TYPE_PROMOTER )
       $arr[] = 'btree';
 
-    if ( $memberType > \Member::TYPE_MEMBER )
+    if ( $memberType > \Member::TYPE_MEMBER && $this->member->getFundsLevel() == \Member::FUNDS_LEVEL2)
       $arr[] = 'invitation';
 
     if ( $memberType >= \Member::TYPE_SALES_MANAGER ) {

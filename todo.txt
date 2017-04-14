@@ -5,6 +5,14 @@ update
 ======
 
 
+last done
+=========
+* email checken
+* hochzählen in den emails testen
+* bonus zahlungen nicht mehr benennen sondern sagen das er einen bonus kriegt
+* nur lvl2 leute können einladen
+
+
 
 Fragen
 =======
@@ -16,17 +24,6 @@ Fragen
 CURRENT - TODOS
 ===============
 
-* nur sales manager kann lvl2 einladen
-* nur lvl2 leute können einladen
-* email checken
-* hochzählen in den emails testen
-
-* bonus zahlungen nicht mehr benennen sondern sagen das er einen bonus kriegt
-
-* tests machen
-
-* Fwd: Falsche Email an eine Bonusstufe mit Free Registration und LVL2
-
 * das rausfliegen testen
 
 * guides updaten
@@ -36,8 +33,6 @@ CURRENT - TODOS
 * create hg cron job
 
 * try catch to log console/network output to catch those nasty errors during paypal purchase ...
-
-* nur indische accounts mit transferwise!? how to handle the accounts of all referrer people
 
 * im account, feature machen damit man seinen einladungs link ganz einfach über email an freunde schicken kann.
 

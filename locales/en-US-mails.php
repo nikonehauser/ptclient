@@ -197,9 +197,9 @@ By the way, {referrer_fullname} has invited you to be a special client!
 
 Because of their personal invitation, you have been registered in the position \"{member_type_name}\".
 
-That means: {free_invitation} For every client we get because of your recommendation, you will receive a bonus of {member_type_bonus} each on top of the money you will make with our official marketing system. All about that is in the following video: [Marketingsystem of Betterliving]({video_link}).
+That means: {free_invitation} For every client we get because of your recommendation, you will receive a bonus amount on top of the money you will make with our official marketing system. All about that is in the following video: [Marketingsystem of Betterliving]({video_link}).
 
-This video shows how your income with Betterliving is going to evolve. And again: This is what you will earn on top of the bonus listed above as \"{member_type_name}\".
+This video shows how your income with Betterliving is going to evolve. And again: This is what you will earn on top of the bonus as \"{member_type_name}\".
 
 As you can see, you will receive commissions as soon as you successfully recommend Betterliving to your friends or anybody in your life.
 
