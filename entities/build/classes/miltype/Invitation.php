@@ -16,7 +16,8 @@
 class Invitation extends BaseInvitation
 {
 
-  static public function canInviteWithFundsLvl2(\Member $member) {
+  // canInviteWithFundsLvl2
+  static public function canInviteWithOptions(\Member $member) {
     return $member->getType() >= \Member::TYPE_SALES_MANAGER;
   }
 
@@ -74,9 +75,10 @@ class Invitation extends BaseInvitation
       ]);
     }
 
-    if ( !self::canInviteWithFundsLvl2($login) ) {
+    if ( !self::canInviteWithOptions($login) ) {
       // only CEOs can
       $data['lvl2_signup'] = 0;
+      $data['free_signup'] = 0;
     }
 
     $invitation

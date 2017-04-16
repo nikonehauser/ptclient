@@ -56,6 +56,7 @@ if ( !$baseUrl )
 
 Localizer::load(LOCALES_DIR);
 Router::init($baseUrl, '');
+RouterToMarketing::init(Config::get('extended.system.url'), '');
 
 /* Setup propel
 ---------------------------------------------*/

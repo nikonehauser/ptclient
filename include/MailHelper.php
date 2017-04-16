@@ -66,7 +66,7 @@ class MailHelper {
   static public function sendEmailValidation($recipientEmail, $recipientFullName, \EmailValidation $emailValidation) {
     $locale = Localizer::get('mail.email_validation');
 
-    $href = Router::toModule('member', 'confirm_email_registration', [
+    $href = RouterToMarketing::toModule('member', 'confirm_email_registration', [
       'hash' => $emailValidation->getHash()
     ]);
 
@@ -141,8 +141,8 @@ class MailHelper {
 
         'member_id' => $num,
         'referrer_fullname' => $referrer_fullname,
-        'video_link' => \Tbmt\Router::toVideo($member),
-        'signup_link' => \Tbmt\Router::toSignup($member),
+        'video_link' => \Tbmt\RouterToMarketing::toVideo($member),
+        'signup_link' => \Tbmt\RouterToMarketing::toSignup($member),
         'after6weeksamount' => self::getLocalizedAmount(10000, 0)
       ], false)
     );
@@ -176,8 +176,8 @@ class MailHelper {
 
         'member_id' => $num,
         'referrer_fullname' => $referrer_fullname,
-        'video_link' => \Tbmt\Router::toVideo($member),
-        'signup_link' => \Tbmt\Router::toSignup($member),
+        'video_link' => \Tbmt\RouterToMarketing::toVideo($member),
+        'signup_link' => \Tbmt\RouterToMarketing::toSignup($member),
         'after6weeksamount' => self::getLocalizedAmount(10000, 0),
 
         'free_invitation' => ($wasFreeInvitation
@@ -222,9 +222,9 @@ class MailHelper {
         'member_id' => $num,
         'recommendation_count' => \Tbmt\Localizer::countInWords($referrer->getAdvertisedCountTotal()),
         'recruited_fullname' => $recruitedFullName,
-        'video_link' => \Tbmt\Router::toVideo($referrer),
+        'video_link' => \Tbmt\RouterToMarketing::toVideo($referrer),
         'duedate' => \Tbmt\Localizer::dateLong($recruited->getFirstDueDate()),
-        'signup_link' => \Tbmt\Router::toSignup($referrer)
+        'signup_link' => \Tbmt\RouterToMarketing::toSignup($referrer)
       ], false)
     );
   }
@@ -274,7 +274,7 @@ class MailHelper {
         'fullname' => $fullName,
         'recruited_fullname' => $recruited_fullname,
         'recruited_firstname' => $recruited->getFirstName(),
-        'video_link' => \Tbmt\Router::toVideo($referrer),
+        'video_link' => \Tbmt\RouterToMarketing::toVideo($referrer),
         'provision_amount' => $provision,
         'adv2amount' => self::getLocalizedTRACurency(\Transaction::REASON_ADVERTISED_LVL2),
         'min_payout_amount' => self::getLocalizedAmount(Config::get('payout.execute.payouts.min.amount')),
@@ -321,7 +321,7 @@ class MailHelper {
         'fullname' => $fullName,
         'recruited_fullname' => $recruited_fullname,
         'recruited_firstname' => $recruited->getFirstName(),
-        'video_link' => \Tbmt\Router::toVideo($referrer),
+        'video_link' => \Tbmt\RouterToMarketing::toVideo($referrer),
         'provision_amount' => $provision,
         'adv2amount' => self::getLocalizedTRACurency(\Transaction::REASON_ADVERTISED_LVL2),
         'adv1amount' => self::getLocalizedTRACurency(\Transaction::REASON_ADVERTISED_LVL1),
@@ -367,7 +367,7 @@ class MailHelper {
         'fullname' => $fullName,
         'recruited_fullname' => $recruited_fullname,
         'recruited_firstname' => $recruited->getFirstName(),
-        'video_link' => \Tbmt\Router::toVideo($referrer),
+        'video_link' => \Tbmt\RouterToMarketing::toVideo($referrer),
         'provision_amount' => $provision,
         'min_payout_amount' => self::getLocalizedAmount(Config::get('payout.execute.payouts.min.amount')),
         'paid_recommendation_count' => \Tbmt\Localizer::countInWords($referrer->getAdvertisedCount()),
@@ -451,7 +451,7 @@ class MailHelper {
         'fullname' => $fullName,
         'member_id' => $num,
         'signup_date' => \Tbmt\Localizer::dateLong($member->getSignupDate()),
-        'video_link' => \Tbmt\Router::toVideo($member),
+        'video_link' => \Tbmt\RouterToMarketing::toVideo($member),
         'bankaccount' => \Tbmt\view\Factory::buildBankAccountStr(),
         'duedate_second' => \Tbmt\Localizer::dateLong($member->getSecondDueDate())
       ], false)
@@ -508,7 +508,7 @@ class MailHelper {
         'signup_date' => \Tbmt\Localizer::dateLong($member->getSignupDate()),
         'duedate_second' => \Tbmt\Localizer::dateLong($member->getSecondDueDate()),
         'bankaccount' => \Tbmt\view\Factory::buildBankAccountStr(),
-        'video_link' => \Tbmt\Router::toVideo($member),
+        'video_link' => \Tbmt\RouterToMarketing::toVideo($member),
         'advindirectamount' => self::getLocalizedTRACurency(\Transaction::REASON_ADVERTISED_INDIRECT)
       ], false)
     );
@@ -567,7 +567,7 @@ class MailHelper {
     $now = time();
     $email = $member->getEmail();
 
-    $href = Router::toModule('manage', 'do_reset_password', [
+    $href = RouterToMarketing::toModule('manage', 'do_reset_password', [
       '3591f374b308cb3932260b45d5709a4c' => 'true',
       'num' => $num,
       'exp' => time(),
@@ -592,7 +592,7 @@ class MailHelper {
     $now = time();
     $email = $member->getEmail();
 
-    $href = Router::toModule('manage', 'do_reset_password', [
+    $href = RouterToMarketing::toModule('manage', 'do_reset_password', [
       'num' => $num,
       'exp' => time(),
       'hash' => Cryption::getPasswordResetToken($num, $now, $email)
@@ -660,7 +660,7 @@ class MailHelper {
     // $body = str_replace("\n\r", "<br>", $body);
     // $body = str_replace("\n", "<br>", $body);
 
-    $homeUrl = Router::toBase();
+    $homeUrl = RouterToMarketing::toBase();
 
     return <<<EOL
 <html>

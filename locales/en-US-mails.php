@@ -454,7 +454,7 @@ Please note that we only transfer commissions at a minimum of {min_payout_amount
  *   paid_recommendation_count,
  *   recruited_fullname,
  *   recruited_firstname,
- *   provision_amount,
+ *   provision,
  *   min_payout_amount
  *
  */
@@ -472,7 +472,7 @@ Thank you for sharing the opportunity with {recruited_firstname}.
 
 You will get a commission for {recruited_firstname}’s purchase.
 
-You will receive {provision_amount} for {recruited_firstname}’s purchase.
+{provision}
 
 You are going to see that in your upcoming invoice as well.
 
