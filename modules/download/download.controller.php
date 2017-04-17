@@ -20,15 +20,22 @@ class DownloadController extends BaseController {
   }
 
   public function action_guide() {
+    $member = Session::getLogin();
+    if ( !$member || !$member->hadPaid() ) {
+      throw new Tbmt\PermissionDeniedException();
+    }
+
     $number = $_REQUEST['number'];
     if ( !in_array($number, [1, 2, 3, 4, 5, 6, 7, 8]) )
       throw new Tbmt\PermissionDeniedException();
 
-    $extension = 'txt';
+    $namePrefix = 'hg_part_';
+    $extension = 'pdf';
+    $contentType = 'application/pdf';
     return new ControllerActionDownload([
-      'name' => "happy_guide$number.$extension",
-      'contentType' => 'plain/text',
-      'path' => Router::toPublicResource("happy_guide$number.$extension")
+      'name' => "hg_part$number.$extension",
+      'contentType' => $contentType,
+      'path' => Router::toPublicResource("$namePrefix$number.$extension")
     ]);
   }
 }

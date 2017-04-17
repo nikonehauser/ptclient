@@ -123,7 +123,11 @@ class MailHelper {
    */
   static public function sendFeeIncome(\Member $member) {
     $email = $member->getEmail();
-    $locale = Localizer::get('mail.fee_income');
+    $locale = Localizer::get(
+      $member->isExtended()
+      ? 'mail.fee_income'
+      : 'mail.fee_income_tbmt_product'
+    );
 
     $referrer = $member->getReferrerMember();
 
@@ -279,6 +283,7 @@ class MailHelper {
         'adv2amount' => self::getLocalizedTRACurency(\Transaction::REASON_ADVERTISED_LVL2),
         'min_payout_amount' => self::getLocalizedAmount(Config::get('payout.execute.payouts.min.amount')),
         'paid_recommendation_count' => \Tbmt\Localizer::countInWords($referrer->getAdvertisedCount()),
+        'profile_url' => \Tbmt\Router::toModule('account'),
       ], false)
     );
   }
