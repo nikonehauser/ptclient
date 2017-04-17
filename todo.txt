@@ -7,10 +7,6 @@ update
 
 last done
 =========
-* email checken
-* hochzählen in den emails testen
-* bonus zahlungen nicht mehr benennen sondern sagen das er einen bonus kriegt
-* nur lvl2 leute können einladen
 
 
 
@@ -24,17 +20,15 @@ Fragen
 CURRENT - TODOS
 ===============
 
+* überweisung testen
+
 * das rausfliegen testen
 
-* guides updaten
+* pdf quitting
 
-* embed logo image: http://stackoverflow.com/questions/9110091/base64-encoded-images-in-email-signatures/9110164#9110164
+* buchhaltung ?
 
 * create hg cron job
-
-* try catch to log console/network output to catch those nasty errors during paypal purchase ...
-
-* im account, feature machen damit man seinen einladungs link ganz einfach über email an freunde schicken kann.
 
 * happiness guide 2 hat 2 versionen, eine für jemand der noch keinen geworben
 hat und eine für jemand der schon geworben hat
@@ -54,15 +48,12 @@ https://developer.paypal.com/docs/classic/api/currency_codes/#payment-receiving-
 Offen an Tom:
 ============
 
-* happiness gudies link/name einfügen kann er vergessen -> pdfs updaten!
-
-* FAQ - letzter punkt aktualisieren: "How is the price for the Happiness Guide to pay?"
-
-* PDF als quittung
-
 
 NICE TO HAVE
 ============
+* im account, feature machen damit man seinen einladungs link ganz einfach über email an freunde schicken kann.
+
+* embed logo image: http://stackoverflow.com/questions/9110091/base64-encoded-images-in-email-signatures/9110164#9110164
 
 * happiness guide als emails versenden,
 

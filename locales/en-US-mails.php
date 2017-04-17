@@ -160,7 +160,48 @@ We wish you the very best and hope you’ll get rich soon!"
   ],
 
 
+/**
+ * #3 for tbmtproduct
+ *
+ * params:
+ *   fullname,
+ *   member_id,
+ *   referrer_fullname,
+ *   video_link,
+ *   signup_link,
+ *   after6weeksamount
+ *
+ */
+  'fee_income_tbmt_product' => [
 
+    'subject' => 'The secret of Betterliving',
+
+    'body' =>
+"Dear {fullname},
+
+We are happy to welcome you to Betterliving.
+
+You have purchased your Happiness Guide today, thank you!
+
+That’s why the first part of your Happiness Guide is ready for you to download.
+
+This is your client identification number (ID): \"{member_id}\".
+
+Keep your number in a safe place; you will need it to log in on [www.betterliving.social](https://www.betterliving.social).
+
+In order to download the first part of your Happiness Guide, just log in now.
+
+After the first part, there will be the following parts ready for you to download every two weeks. This will go on until you own the complete Guide with all eight parts.
+
+We are going to send you an email to remind you of the download as soon as a new part is there for you.
+
+You will definitely become more successful in life with the Happiness Guides, health, wealth and luck will be yours.
+
+From the bottom of our hearts, us – team Betterliving – wish you the very best and, of course, lots of success with your Happiness Guide.
+
+May all your wishes come true."
+
+  ],
 
 
 /**
@@ -335,7 +376,8 @@ We wish you the very best and hope you’ll be rich soon!
  *   adv2amount,
  *   video_link,
  *   paid_recommendation_count,
- *   min_payout_amount
+ *   min_payout_amount,
+ *   profile_url
  *
  */
   'fee_income_referrer_first' => [
@@ -365,6 +407,9 @@ You are going to see that in your upcoming invoice as well.
 From your third recommended customer who signs up and purchases the Happiness Guide the door to your private wellbeing will be wide open.
 
 We’re wishing best of luck finding new customers and have fun spending the commissions you will receive.
+
+Please recheck whether your bank account details are correct. You can do so by logging in on {profile_url} with your ID and check your information. By clicking “change profile” you can correct your bank account details.
+
 
 Please note that we only transfer commissions at a minimum of {min_payout_amount}. For more information, have a look at our terms of use.",
 

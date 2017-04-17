@@ -30,11 +30,20 @@ class DownloadController extends BaseController {
   }
 
   public function action_guide() {
+    $member = Session::getLogin();
+    if ( !$member || !$member->hadPaid() ) {
+      throw new Tbmt\PermissionDeniedException();
+    }
+
     $number = $_REQUEST['number'];
     if ( !in_array($number, [1, 2, 3, 4, 5, 6, 7, 8]) )
       throw new Tbmt\PermissionDeniedException();
 
-    $namePrefix = 'hg_part';
+    if ( $number == 2 && $member->getAdvertisedCountTotal() == 0 ) {
+      $number = '2_n';
+    }
+
+    $namePrefix = 'hg_part_';
     $extension = 'pdf';
     $contentType = 'application/pdf';
     return new ControllerActionDownload([
