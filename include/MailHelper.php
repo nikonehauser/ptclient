@@ -252,7 +252,7 @@ class MailHelper {
    * @param  \Member $member
    * @return [type]
    */
-  static public function sendFeeIncomeReferrer(\Member $referrer, \Member $recruited) {
+  static public function sendFeeIncomeReferrer(\Member $referrer, \Member $recruited, $wasFreeInvitation) {
     $count = $referrer->getAdvertisedCount();
     if ( $count == 1 ) {
       return self::sendFirstFeeIncomeReferrer($referrer, $recruited);
@@ -260,7 +260,7 @@ class MailHelper {
       return self::sendSecondFeeIncomeReferrer($referrer, $recruited);
     }
 
-    return self::sendPremiumFeeIncomeReferrer($referrer, $recruited);
+    return self::sendPremiumFeeIncomeReferrer($referrer, $recruited, $wasFreeInvitation);
   }
 
   /**
@@ -368,7 +368,7 @@ class MailHelper {
    * @param  \Member $member
    * @return [type]
    */
-  static private function sendPremiumFeeIncomeReferrer(\Member $referrer, \Member $recruited) {
+  static private function sendPremiumFeeIncomeReferrer(\Member $referrer, \Member $recruited, $wasFreeInvitation) {
     $email = $referrer->getEmail();
     $locale = Localizer::get('mail.fee_income_referrer_premium');
 
@@ -391,10 +391,12 @@ class MailHelper {
         'recruited_fullname' => $recruited_fullname,
         'recruited_firstname' => $recruited->getFirstName(),
         'video_link' => \Tbmt\RouterToMarketing::toVideo($referrer),
-        'provision_amount' => $provision,
         'min_payout_amount' => self::getLocalizedAmount(Config::get('payout.execute.payouts.min.amount')),
         'paid_recommendation_count' => \Tbmt\Localizer::countInWords($referrer->getAdvertisedCount()),
-
+        'provision' => $wasFreeInvitation ? '' : \Tbmt\Localizer::insert('You will receive {provision_amount} for {recruited_firstname}’s purchase.', [
+            'provision_amount' => $provision,
+            'recruited_firstname' => $recruited->getFirstName(),
+        ])."\n\n"
       ], false),
       null,
       null,
