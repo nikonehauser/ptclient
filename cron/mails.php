@@ -1,6 +1,6 @@
 <?php
 
 require './bootstrap.php';
-\Tbmt\Cron::run('email_reminder');
+\Tbmt\Cron::run('mails');
 
 ?>

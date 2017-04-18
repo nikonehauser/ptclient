@@ -352,3 +352,32 @@ set foreign_key_checks=0;
       ON UPDATE CASCADE
   );
 
+
+
+-- -----------------------------------------------------
+-- Table `payment`
+-- -----------------------------------------------------
+  DROP TABLE IF EXISTS `tbmt_mail` CASCADE;
+
+  CREATE TABLE IF NOT EXISTS `tbmt_mail` (
+    `id` BIGINT(20) UNSIGNED NULL ,
+    `status` int NOT NULL default 0,
+    `recipients` text NULL ,
+    `froms` text NULL ,
+    `reply_tos` text NULL ,
+    `subject` text NULL ,
+    `body` text NULL ,
+    `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `attempts` int NOT NULL default 0,
+    `incidents` text NULL ,
+    `has_incidents` int NOT NULL default 0,
+    `recipient_id` BIGINT(20) UNSIGNED NULL ,
+
+    PRIMARY KEY (`id`) ,
+    CONSTRAINT `fk_recipient_id_member`
+      FOREIGN KEY (`recipient_id`)
+      REFERENCES `tbmt_member` (`id`)
+      ON DELETE CASCADE
+      ON UPDATE CASCADE
+  );
+

@@ -111,7 +111,10 @@ class MailHelper {
         'fmt_member_fee' => \Tbmt\view\Factory::buildFmtMemberFeeStr(),
         'bankaccount' => \Tbmt\view\Factory::buildBankAccountStr(),
         'duedate' => \Tbmt\Localizer::dateLong($member->getFirstDueDate())
-      ], false)
+      ], false),
+      null,
+      null,
+      $member->getId()
     );
   }
 
@@ -148,7 +151,10 @@ class MailHelper {
         'video_link' => \Tbmt\RouterToMarketing::toVideo($member),
         'signup_link' => \Tbmt\RouterToMarketing::toSignup($member),
         'after6weeksamount' => self::getLocalizedAmount(10000, 0)
-      ], false)
+      ], false),
+      null,
+      null,
+      $member->getId()
     );
   }
 
@@ -197,7 +203,10 @@ class MailHelper {
 
         'member_type_name' => Localizer::get('common.member_types.'.$member->getType()),
         'member_type_bonus' => self::getLocalizedTRACurency($member->getTransactionReasonByType($member->getType()))
-      ], false)
+      ], false),
+      null,
+      null,
+      $member->getId()
     );
   }
 
@@ -229,7 +238,10 @@ class MailHelper {
         'video_link' => \Tbmt\RouterToMarketing::toVideo($referrer),
         'duedate' => \Tbmt\Localizer::dateLong($recruited->getFirstDueDate()),
         'signup_link' => \Tbmt\RouterToMarketing::toSignup($referrer)
-      ], false)
+      ], false),
+      null,
+      null,
+      $referrer->getId()
     );
   }
 
@@ -284,7 +296,10 @@ class MailHelper {
         'min_payout_amount' => self::getLocalizedAmount(Config::get('payout.execute.payouts.min.amount')),
         'paid_recommendation_count' => \Tbmt\Localizer::countInWords($referrer->getAdvertisedCount()),
         'profile_url' => \Tbmt\Router::toModule('account'),
-      ], false)
+      ], false),
+      null,
+      null,
+      $referrer->getId()
     );
   }
 
@@ -334,7 +349,10 @@ class MailHelper {
         'after6weeksamount' => self::getLocalizedAmount(10000, 0),
         'min_payout_amount' => self::getLocalizedAmount(Config::get('payout.execute.payouts.min.amount')),
 
-      ], false)
+      ], false),
+      null,
+      null,
+      $referrer->getId()
     );
   }
 
@@ -377,7 +395,10 @@ class MailHelper {
         'min_payout_amount' => self::getLocalizedAmount(Config::get('payout.execute.payouts.min.amount')),
         'paid_recommendation_count' => \Tbmt\Localizer::countInWords($referrer->getAdvertisedCount()),
 
-      ], false)
+      ], false),
+      null,
+      null,
+      $referrer->getId()
     );
   }
 
@@ -406,7 +427,10 @@ class MailHelper {
         'member_id' => $member->getNum(),
         'hg_count' => $member->getHgWeek()
 
-      ], false)
+      ], false),
+      null,
+      null,
+      $member->getId()
     );
   }
 
@@ -459,7 +483,10 @@ class MailHelper {
         'video_link' => \Tbmt\RouterToMarketing::toVideo($member),
         'bankaccount' => \Tbmt\view\Factory::buildBankAccountStr(),
         'duedate_second' => \Tbmt\Localizer::dateLong($member->getSecondDueDate())
-      ], false)
+      ], false),
+      null,
+      null,
+      $member->getId()
     );
   }
 
@@ -487,7 +514,10 @@ class MailHelper {
         'recruited_firstname' => $recruited->getFirstName(),
         'recruited_signup_date' => \Tbmt\Localizer::dateLong($recruited->getSignupDate()),
         'bankaccount' => \Tbmt\view\Factory::buildBankAccountStr(),
-      ], false)
+      ], false),
+      null,
+      null,
+      $referrer->getId()
     );
   }
 
@@ -515,7 +545,10 @@ class MailHelper {
         'bankaccount' => \Tbmt\view\Factory::buildBankAccountStr(),
         'video_link' => \Tbmt\RouterToMarketing::toVideo($member),
         'advindirectamount' => self::getLocalizedTRACurency(\Transaction::REASON_ADVERTISED_INDIRECT)
-      ], false)
+      ], false),
+      null,
+      null,
+      $member->getId()
     );
   }
 
@@ -543,7 +576,10 @@ class MailHelper {
         'recruited_firstname' => $recruited->getFirstName(),
         'recruited_signup_date' => \Tbmt\Localizer::dateLong($recruited->getSignupDate()),
         'bankaccount' => \Tbmt\view\Factory::buildBankAccountStr(),
-      ], false)
+      ], false),
+      null,
+      null,
+      $referrer->getId()
     );
   }
 
@@ -585,7 +621,10 @@ class MailHelper {
       $locale['subject'],
       Localizer::insert($locale['body'], [
         'link' => $href
-      ], false)
+      ], false),
+      null,
+      null,
+      $member->getId()
     );
   }
 
@@ -609,29 +648,16 @@ class MailHelper {
       $locale['subject'],
       Localizer::insert($locale['body'], [
         'link' => $href
-      ], false)
+      ], false),
+      null,
+      null,
+      $member->getId()
     );
   }
 
-  static public function send($address, $name, $subject, $body, $fromMail = null, $fromName = null) {
+  static public function send($address, $name, $subject, $body, $fromMail = null, $fromName = null, $recipientId = null) {
     if ( self::$MAILS_DISABLED === true )
       return true;
-
-    $mail = new \PHPMailer(true);
-    $mail->SMTPSecure = Config::get('mail.smtp_secure');
-    $mail->isSMTP();
-
-    $debugLevel = Config::get('mail.debug_level');
-    if ( $debugLevel != '' )
-      $mail->SMTPDebug = $debugLevel;
-
-    $mail->Host = Config::get('mail.smtp_host');
-    $mail->Port = Config::get('mail.smtp_port');
-    $mail->SMTPAuth = true;
-    $mail->Username = Config::get('mail.username');
-    $mail->Password = Config::get('mail.password');
-    $mail->Timeout = Config::get('mail.timeout');
-    $mail->CharSet = Config::get('mail.charset', TYPE_STRING, 'utf-8');
 
     if ( !$fromMail )
       $fromMail = Config::get('mail.sender_mail');
@@ -640,28 +666,26 @@ class MailHelper {
       $fromName = Config::get('mail.sender_name');
 
     $body .= "\n\r<br>".Config::get('mail.signature')."\n";
+    $subject = Config::get('mail.subject_prefix').' '.$subject;
 
-    $htmlBody = (new \Parsedown())->text($body);
+    if ( self::$DEBUG_PRINT === true ) {
+      $htmlBody = (new \Parsedown())->text($body);
+      return [$address, $name, $subject, self::bodyToHtml($htmlBody), $body];
+    }
 
-    $mail->setFrom($fromMail, $fromName);
-    $mail->addReplyTo(Config::get('mail.reply_mail'), 'Do not Reply');
-    $mail->addAddress($address, $name);
+    MailQueue::put(
+      [[$fromMail, $fromName]],
+      [[$address, $name]],
+      [Config::get('mail.reply_mail'), 'Do not Reply'],
+      $subject,
+      $body,
+      $recipientId
+    );
 
-    $mail->Subject = Config::get('mail.subject_prefix').' '.$subject;
-    $mail->Body = self::bodyToHtml($htmlBody);
-    $mail->AltBody = $body;
-
-    if ( self::$DEBUG_PRINT === true )
-      return [$address, $name, $mail->Subject, $mail->Body, $mail->AltBody];
-
-    $boolResult = $mail->send();
-    if(!$boolResult)
-      throw new Exception('Mailer Error: '.$mail->ErrorInfo);
-
-    return $boolResult;
+    return true;
   }
 
-  static private function bodyToHtml($body) {
+  static public function bodyToHtml($body) {
     // $body = str_replace("\n\r", "<br>", $body);
     // $body = str_replace("\n", "<br>", $body);
 

@@ -3,11 +3,41 @@
 namespace Tbmt;
 
 class Cron {
-  public static function clearNonces() {
+
+  public static function run($job) {
+    $start = time();
+    $log = '';
+
+    $lock = new Flock(Config::get('lock.cron.path').'cron.'.$job.'.lock');
+    if ( !$lock->acquire() ) {
+      $log .= '--locked--';
+    } else {
+      try {
+        $log .= call_user_func_array(['Tbmt\\Cron', "job_$job"], []);
+      } catch (\Exception $e) {
+        $log .= $e->__toString();
+      } finally {
+        $lock->release();
+
+      }
+    }
+
+    file_put_contents(
+      Config::get('logs.path').'cron.logs',
+      (new \DateTime())->format('Y-m-d H-i-s').' :: '.(time() - $start).'s :: ['.$job.'] : '.$log."\n",
+      FILE_APPEND
+    );
+  }
+
+  private static function job_mails() {
+    return MailQueue::run();
+  }
+
+  private static function job_clearnonces() {
     \NonceQuery::create()->filterByDate(time(), \Criteria::GREATER_EQUAL)->delete();
   }
 
-  public static function removeUnpaid($now = null, $allowedSeconds = 1209600) {
+  private static function job_remove_unpaid($now = null, $allowedSeconds = 1209600) {
     $con = \Propel::getConnection();
 
     if ( !$con->beginTransaction() )
@@ -52,7 +82,7 @@ class Cron {
     return $result;
   }
 
-  public function notifyNewHappyGuide($now = null) {
+  private function job_notify_new_guide($now = null) {
 
   }
 
@@ -63,7 +93,7 @@ class Cron {
    *
    * @return
    */
-  public static function emailReminder($now = null, $allowedDays = '-7 days') {
+  private static function job_email_reminder($now = null, $allowedDays = '-7 days') {
     $con = \Propel::getConnection();
 
     if ( !$con->beginTransaction() )
