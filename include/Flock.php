@@ -21,14 +21,16 @@ class Flock {
 
   public function acquire() {
     if ( file_exists($this->path) )
-      throw new \Exception('Already locked.');
+      return false;
 
     $this->handle = fopen($this->path, 'x');
     if ( $this->handle === false )
-      throw new \Exception('Could not obtain lock file.');
+      return false;
 
     if ( flock($this->handle, LOCK_EX | LOCK_NB) === false )
-      throw new \Exception('Could not obtain lock.');
+      return false;
+
+    return true;
   }
 
   public function release() {

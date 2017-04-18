@@ -155,11 +155,9 @@ class Masspay {
       return ["nothing do to"];
 
     $lock = new Flock(Config::get('lock.payout.path'));
-    try {
-      $lock->acquire();
-    } catch (\Exception $e) {
+
+    if ( !$lock->acquire() )
       return ["locked"];
-    }
 
     if ( !$con->beginTransaction() )
       throw new Exception('Could not begin transaction');

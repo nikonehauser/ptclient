@@ -29,7 +29,7 @@ class WaterfallDistStrategy extends DistributionStrategy {
       $memberFee->addRemainingToAccounts($when, $con);
     }
 
-    MailHelper::sendFeeIncomeReferrer($referrer, $member);
+    MailHelper::sendFeeIncomeReferrer($referrer, $member, $freeFromInvitation);
   }
 
   /**
