@@ -36,7 +36,7 @@ class AccountIndexTab extends Base {
     }
 
     $this->guidesCount = 0;
-    if ( $this->member->hadPaid() )
+    if ( $this->member->isMarkedAsPaid() )
       $this->guidesCount = $this->member->getHgWeek();
 
     return $this->renderFile(

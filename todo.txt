@@ -4,9 +4,6 @@ UPDATE SERVER - TODO
 update
 ======
 
-* update propel entities
-* add cfg: lock.cron.path
-
 
 last done
 =========

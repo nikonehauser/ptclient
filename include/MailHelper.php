@@ -238,7 +238,7 @@ class MailHelper {
       $fullName,
       $locale['subject'],
       Localizer::insert($locale['body'], [
-        'fullname' => $member->getFirstName(),
+        'fullname' => $referrer->getFirstName(),
         'member_id' => $num,
         'recommendation_count' => \Tbmt\Localizer::countInWords($referrer->getAdvertisedCountTotal()),
         'recruited_fullname' => $recruitedFullName,
@@ -294,7 +294,7 @@ class MailHelper {
       $fullName,
       $locale['subject'],
       Localizer::insert($body, [
-        'fullname' => $member->getFirstName(),
+        'fullname' => $referrer->getFirstName(),
         'recruited_fullname' => $recruited_fullname,
         'recruited_firstname' => $recruited->getFirstName(),
         'video_link' => \Tbmt\RouterToMarketing::toVideo($referrer),
@@ -345,7 +345,7 @@ class MailHelper {
       $fullName,
       $locale['subject'],
       Localizer::insert($body, [
-        'fullname' => $member->getFirstName(),
+        'fullname' => $referrer->getFirstName(),
         'recruited_fullname' => $recruited_fullname,
         'recruited_firstname' => $recruited->getFirstName(),
         'video_link' => \Tbmt\RouterToMarketing::toVideo($referrer),
@@ -394,7 +394,7 @@ class MailHelper {
       $fullName,
       Localizer::insert($locale['subject'], ['paid_recommendation_count' => \Tbmt\Localizer::countInWords($referrer->getAdvertisedCount())]),
       Localizer::insert($body, [
-        'fullname' => $member->getFirstName(),
+        'fullname' => $referrer->getFirstName(),
         'recruited_fullname' => $recruited_fullname,
         'recruited_firstname' => $recruited->getFirstName(),
         'video_link' => \Tbmt\RouterToMarketing::toVideo($referrer),
@@ -517,7 +517,7 @@ class MailHelper {
       $fullName,
       Localizer::insert($locale['subject'], ['recruited_fullname' => $recruited_fullname]),
       Localizer::insert($locale['body'], [
-        'fullname' => $member->getFirstName(),
+        'fullname' => $referrer->getFirstName(),
         'member_id' => $num,
         'recruited_fullname' => $recruited_fullname,
         'recruited_firstname' => $recruited->getFirstName(),
@@ -579,7 +579,7 @@ class MailHelper {
       $fullName,
       Localizer::insert($locale['subject'], ['recruited_fullname' => $recruited_fullname]),
       Localizer::insert($locale['body'], [
-        'fullname' => $member->getFirstName(),
+        'fullname' => $referrer->getFirstName(),
         'member_id' => $num,
         'recruited_fullname' => $recruited_fullname,
         'recruited_firstname' => $recruited->getFirstName(),
