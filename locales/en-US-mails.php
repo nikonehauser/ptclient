@@ -93,7 +93,7 @@ helpful secrets about how to make a fortune with $brandName.",
 
     'body' =>
 
-"Dear {fullname}
+"Dear {fullname},
 
 thanks for purchasing the Happiness Guide!
 
@@ -226,7 +226,7 @@ May all your wishes come true."
 
     'body' =>
 
-"Dear {fullname}
+"Dear {fullname},
 
 {referrer_fullname} has probably told you about making a lot of money very easily with Betterliving by recommending it to other people.
 
@@ -469,7 +469,7 @@ You will always receive {adv2amount} each.
 
 Secondly, and this is even more interesting, show all your recommended customers how to become premium costumers as well.
 
-The video [Marketingsystem of Betterliving]({video_link}) shows what will happen when {recruited_fullname} finds two friends who also recommend two others at 8:12
+The video [Marketingsystem of Betterliving]({video_link}) shows what will happen when {recruited_fullname} finds two friends who also recommend two others at 4:12
 
 After six weeks you will find a total amount of {after6weeksamount} Euro in your bank account.
 
