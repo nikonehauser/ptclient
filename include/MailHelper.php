@@ -282,7 +282,7 @@ class MailHelper {
     $fullName = \Tbmt\view\Factory::buildMemberFullNameString($referrer);
     $recruited_fullname = \Tbmt\view\Factory::buildMemberFullNameString($recruited);
 
-    if ( $referrer->getFundsLevel() == \Member::FUNDS_LEVEL2 )
+    if ( $referrer->getAdvertisedCount() > 2 && $referrer->getFundsLevel() == \Member::FUNDS_LEVEL2 )
       $provision = self::getLocalizedTRACurency(\Transaction::REASON_ADVERTISED_LVL2);
     else
       $provision = self::getLocalizedTRACurency(\Transaction::REASON_ADVERTISED_LVL1);
@@ -333,7 +333,7 @@ class MailHelper {
     $fullName = \Tbmt\view\Factory::buildMemberFullNameString($referrer);
     $recruited_fullname = \Tbmt\view\Factory::buildMemberFullNameString($recruited);
 
-    if ( $referrer->getFundsLevel() == \Member::FUNDS_LEVEL2 )
+    if ( $referrer->getAdvertisedCount() > 2 && $referrer->getFundsLevel() == \Member::FUNDS_LEVEL2 )
       $provision = self::getLocalizedTRACurency(\Transaction::REASON_ADVERTISED_LVL2);
     else
       $provision = self::getLocalizedTRACurency(\Transaction::REASON_ADVERTISED_LVL1);
@@ -382,7 +382,7 @@ class MailHelper {
     $fullName = \Tbmt\view\Factory::buildMemberFullNameString($referrer);
     $recruited_fullname = \Tbmt\view\Factory::buildMemberFullNameString($recruited);
 
-    if ( $referrer->getFundsLevel() == \Member::FUNDS_LEVEL2 )
+    if ( $referrer->getAdvertisedCount() > 2 && $referrer->getFundsLevel() == \Member::FUNDS_LEVEL2 )
       $provision = self::getLocalizedTRACurency(\Transaction::REASON_ADVERTISED_LVL2);
     else
       $provision = self::getLocalizedTRACurency(\Transaction::REASON_ADVERTISED_LVL1);
