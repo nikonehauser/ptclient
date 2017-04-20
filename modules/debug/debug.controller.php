@@ -62,7 +62,7 @@ class DebugController extends BaseController {
       'NewRecruitmentCongrats_#7' => [$member102, $member105],
       'FeeIncomeReferrer_count1_#8' => [$member_paidCount1, $member105],
       'FeeIncomeReferrer_count2_#9' => [$member_paidCount2, $member105],
-      'FeeIncomeReferrer_premium_#10' => [$member_paidCount3, $member105, true],
+      'FeeIncomeReferrer_premium_#10' => [$member_paidCount3, $member105, false],
       'HgAvailable_#11' => [$member102],
 
     ];

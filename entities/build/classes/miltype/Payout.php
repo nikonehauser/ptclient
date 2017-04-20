@@ -21,22 +21,6 @@ class Payout extends BasePayout
   const RESULT_REJECTED = 4;
 
   public function isCustomerFailure() {
-    $result = $this->getResult();
-    return ($result == self::RESULT_FAILED || $result == self::RESULT_REJECTED) &&
-      $this->getIsCustomerFailure() == 1;
-  }
-
-  public function setResult($v) {
-    $history = $this->getResultHistory();
-    if ( !$history )
-      $history = [];
-    else
-      $history = json_decode($history, true);
-
-    $history[] = date('Y-m-d H:i:s').' ## '.$v;
-
-    $this->setResultHistory(json_encode($history));
-
-    return parent::setResult($v);
+    return false;
   }
 }

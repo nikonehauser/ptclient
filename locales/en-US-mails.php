@@ -517,9 +517,7 @@ Thank you for sharing the opportunity with {recruited_firstname}.
 
 You will get a commission for {recruited_firstname}’s purchase.
 
-{provision}
-
-You are going to see that in your upcoming invoice as well.
+{provision}You are going to see that in your upcoming invoice as well.
 
 We’re wishing best of luck finding new customers and have fun spending the commissions you will receive.
 

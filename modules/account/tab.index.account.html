@@ -10,43 +10,7 @@
       );
     }
 
-    if ( $this->payoutFailed ) {
-      ?>
-
-      <div class="row top-40">
-        <div class="col-md-12">
-          <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['attention'], 'bottom-30')?>
-
-          <?=\Tbmt\view\Factory::buildNotification($this->i18nView['payoutfailed'], $this->i18nView['attention'], 'notice top')?>
-
-          <h3><?=$this->i18nView['payoutfailed_reason']?></h3>
-
-          <pre class="wordwrap"><?=$this->payoutFailed->getFailedReaonsText()?></pre>
-
-          <p><?=$this->i18nView['payoutfailed_text1']?></p>
-          <p><?=$this->i18nView['payoutfailed_text2']?></p>
-
-          <pre class="wordwrap"><?=$this->payoutFailed->getBankAccountText()?></pre>
-
-          <p><?=$this->i18nView['payoutfailed_text3']?></p>
-
-          <?php if ( $this->member->getTransferFreezed() == 0 ) : ?>
-            <?=\Tbmt\view\Factory::buildNotification($this->i18nView['transfer_state_restored'], $this->i18nView['tank_you'], 'success top')?>
-
-          <?php else : ?>
-            <?=\Tbmt\view\Factory::buildNotification($this->i18nView['transfer_state_pending'], $this->i18nView['warning'], 'warning top')?>
-
-          <?php endif; ?>
-
-        </div>
-      </div>
-
-
-      <?php
-    }
-
-
-    if ( !$this->member->hadPaid() ) {
+    if ( !$this->member->isMarkedAsPaid() ) {
       echo \Tbmt\view\Factory::buildNotification($this->i18nView['unpaid_text'], $this->i18nView['warning'], 'warning top');
 
       ?>

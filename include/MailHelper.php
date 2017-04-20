@@ -66,9 +66,16 @@ class MailHelper {
   static public function sendEmailValidation($recipientEmail, $recipientFullName, \EmailValidation $emailValidation) {
     $locale = Localizer::get('mail.email_validation');
 
-    $href = RouterToMarketing::toModule('member', 'confirm_email_registration', [
-      'hash' => $emailValidation->getHash()
-    ]);
+    if ( Config::get('extended.marketing.member') ) {
+      $href = RouterToMarketing::toModule('member', 'confirm_email_registration', [
+        'hash' => $emailValidation->getHash()
+      ]);
+
+    } else {
+      $href = RouterToProduct::toModule('member', 'confirm_email_registration', [
+        'hash' => $emailValidation->getHash()
+      ]);
+    }
 
     return self::send(
       $recipientEmail,
@@ -105,7 +112,7 @@ class MailHelper {
       $fullName,
       $locale['subject'],
       Localizer::insert($locale['body'], [
-        'fullname' => $fullName,
+        'fullname' => $member->getFirstName(),
         'member_id' => $num,
         'recruiter' => $referrerFullName,
         'fmt_member_fee' => \Tbmt\view\Factory::buildFmtMemberFeeStr(),
@@ -143,7 +150,7 @@ class MailHelper {
       $fullName,
       $locale['subject'],
       Localizer::insert($locale['body'], [
-        'fullname' => $fullName,
+        'fullname' => $member->getFirstName(),
         'fmt_member_fee' => \Tbmt\view\Factory::buildFmtMemberFeeStr(),
 
         'member_id' => $num,
@@ -181,7 +188,7 @@ class MailHelper {
       $fullName,
       $locale['subject'],
       Localizer::insert($locale['body'], [
-        'fullname' => $fullName,
+        'fullname' => $member->getFirstName(),
         'fmt_member_fee' => \Tbmt\view\Factory::buildFmtMemberFeeStr(),
 
         'member_id' => $num,
@@ -231,7 +238,7 @@ class MailHelper {
       $fullName,
       $locale['subject'],
       Localizer::insert($locale['body'], [
-        'fullname' => $fullName,
+        'fullname' => $member->getFirstName(),
         'member_id' => $num,
         'recommendation_count' => \Tbmt\Localizer::countInWords($referrer->getAdvertisedCountTotal()),
         'recruited_fullname' => $recruitedFullName,
@@ -287,7 +294,7 @@ class MailHelper {
       $fullName,
       $locale['subject'],
       Localizer::insert($body, [
-        'fullname' => $fullName,
+        'fullname' => $member->getFirstName(),
         'recruited_fullname' => $recruited_fullname,
         'recruited_firstname' => $recruited->getFirstName(),
         'video_link' => \Tbmt\RouterToMarketing::toVideo($referrer),
@@ -338,7 +345,7 @@ class MailHelper {
       $fullName,
       $locale['subject'],
       Localizer::insert($body, [
-        'fullname' => $fullName,
+        'fullname' => $member->getFirstName(),
         'recruited_fullname' => $recruited_fullname,
         'recruited_firstname' => $recruited->getFirstName(),
         'video_link' => \Tbmt\RouterToMarketing::toVideo($referrer),
@@ -387,7 +394,7 @@ class MailHelper {
       $fullName,
       Localizer::insert($locale['subject'], ['paid_recommendation_count' => \Tbmt\Localizer::countInWords($referrer->getAdvertisedCount())]),
       Localizer::insert($body, [
-        'fullname' => $fullName,
+        'fullname' => $member->getFirstName(),
         'recruited_fullname' => $recruited_fullname,
         'recruited_firstname' => $recruited->getFirstName(),
         'video_link' => \Tbmt\RouterToMarketing::toVideo($referrer),
@@ -425,7 +432,7 @@ class MailHelper {
       $fullName,
       Localizer::insert($locale['subject'], ['hg_count' => $member->getHgWeek()]),
       Localizer::insert($body, [
-        'fullname' => $fullName,
+        'fullname' => $member->getFirstName(),
         'member_id' => $member->getNum(),
         'hg_count' => $member->getHgWeek()
 
@@ -479,7 +486,7 @@ class MailHelper {
       $fullName,
       $locale['subject'],
       Localizer::insert($locale['body'], [
-        'fullname' => $fullName,
+        'fullname' => $member->getFirstName(),
         'member_id' => $num,
         'signup_date' => \Tbmt\Localizer::dateLong($member->getSignupDate()),
         'video_link' => \Tbmt\RouterToMarketing::toVideo($member),
@@ -510,7 +517,7 @@ class MailHelper {
       $fullName,
       Localizer::insert($locale['subject'], ['recruited_fullname' => $recruited_fullname]),
       Localizer::insert($locale['body'], [
-        'fullname' => $fullName,
+        'fullname' => $member->getFirstName(),
         'member_id' => $num,
         'recruited_fullname' => $recruited_fullname,
         'recruited_firstname' => $recruited->getFirstName(),
@@ -540,7 +547,7 @@ class MailHelper {
       $fullName,
       $locale['subject'],
       Localizer::insert($locale['body'], [
-        'fullname' => $fullName,
+        'fullname' => $member->getFirstName(),
         'member_id' => $num,
         'signup_date' => \Tbmt\Localizer::dateLong($member->getSignupDate()),
         'duedate_second' => \Tbmt\Localizer::dateLong($member->getSecondDueDate()),
@@ -572,7 +579,7 @@ class MailHelper {
       $fullName,
       Localizer::insert($locale['subject'], ['recruited_fullname' => $recruited_fullname]),
       Localizer::insert($locale['body'], [
-        'fullname' => $fullName,
+        'fullname' => $member->getFirstName(),
         'member_id' => $num,
         'recruited_fullname' => $recruited_fullname,
         'recruited_firstname' => $recruited->getFirstName(),

@@ -360,7 +360,7 @@ set foreign_key_checks=0;
   DROP TABLE IF EXISTS `tbmt_mail` CASCADE;
 
   CREATE TABLE IF NOT EXISTS `tbmt_mail` (
-    `id` BIGINT(20) UNSIGNED NULL ,
+    `id` serial NOT NULL ,
     `status` int NOT NULL default 0,
     `recipients` text NULL ,
     `froms` text NULL ,

@@ -23,7 +23,13 @@ Fragen
 CURRENT - TODOS
 ===============
 
-* überweisung testen
+* tom die url geben um mails abzuschicken
+
+* .htdocss datei anlegen was alles andere als index.php verbietet
+
+* 4 euro statt 24 euro
+
+
 
 * das rausfliegen testen
 
