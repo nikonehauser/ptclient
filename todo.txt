@@ -20,8 +20,6 @@ Fragen
 CURRENT - TODOS
 ===============
 
-* tom die url geben um mails abzuschicken
-
 * .htdocss datei anlegen was alles andere als index.php verbietet
 
 

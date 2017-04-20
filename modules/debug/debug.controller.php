@@ -18,7 +18,7 @@ class DebugController extends BaseController {
       throw new \PageNotFoundException();
 
     $login = Session::getLogin();
-    if ( !$login || $login->getType() !== \Member::TYPE_ITSPECIALIST )
+    if ( !$login || $login->getType() < \Member::TYPE_SALES_MANAGER )
       throw new PermissionDeniedException();
 
     return parent::dispatchAction($action, $params);
