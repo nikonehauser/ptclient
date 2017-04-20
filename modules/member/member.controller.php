@@ -39,7 +39,7 @@ class MemberController extends BaseController {
     $emailValidation = \EmailValidation::create($now, $mail, $_REQUEST, $con);
     MailHelper::sendEmailValidation(
       $mail,
-      (empty($data['title']) ? '' : $data['title'].' ').$data['firstName'].' '.$data['lastName'],
+      $data['firstName'],
       $emailValidation
     );
 

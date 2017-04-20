@@ -95,7 +95,7 @@ class MasspayExcel {
       $this->formatPrice($transfer->getAmount()), # 'Amount',
       $currency, # 'Currency',
       $memberReference, # 'Reason for payment',
-      '???', # 'Costs',
+      'SHA', # 'Costs',
       '', # 'Correspondent bank',
       '', # 'Correspondent bank SWIFT/BIC',
       '', # 'Correspondent bank address'
