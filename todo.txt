@@ -24,9 +24,6 @@ CURRENT - TODOS
 
 * .htdocss datei anlegen was alles andere als index.php verbietet
 
-* 4 euro statt 24 euro
-
-
 
 * das rausfliegen testen
 
@@ -38,6 +35,8 @@ CURRENT - TODOS
 
 * happiness guide 2 hat 2 versionen, eine für jemand der noch keinen geworben
 hat und eine für jemand der schon geworben hat
+
+* remove_unpaid zeit entsprechen auf 7 tage setzen
 
 
 Go LIVE:

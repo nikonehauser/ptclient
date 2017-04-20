@@ -19,11 +19,12 @@ class CronController extends BaseController {
   }
 
   public function action_firstreminder() {
-    return '<pre style="display:block; min-height: 500px;">'.Cron::emailReminder(time(), 'now').'</pre>';
+
+    return '<pre style="display:block; min-height: 500px;">'.Cron::run('email_reminder', [time(), 0]).'</pre>';
   }
 
   public function action_removeUnpaid() {
-    return '<pre style="display:block; min-height: 500px;">'.Cron::removeUnpaid(time(), 'now').'</pre>';
+    return '<pre style="display:block; min-height: 500px;">'.Cron::run('remove_unpaid', [time(), 0]).'</pre>';
   }
 }
 
