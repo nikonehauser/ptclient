@@ -19,9 +19,11 @@ Fragen
 
 CURRENT - TODOS
 ===============
+* ein promoter lädt ein promoter ein, der zweite bekommt keine email mit aufforderung zu zahlen
+
+* paypal button zur registrierung
 
 * .htdocss datei anlegen was alles andere als index.php verbietet
-
 
 * das rausfliegen testen
 

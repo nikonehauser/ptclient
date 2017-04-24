@@ -160,6 +160,7 @@ return [
       'email_us' => 'Email us: ',
 
       'navigation_links' => [
+        'exp_videos' => 'Explanation videos',
         'member' => 'The Idea',
         'projects' => 'Home',
         'about' => 'About Us',
@@ -179,6 +180,11 @@ return [
 
        */
       'navigation_sublinks' => [
+        'exp_videos' => [
+          'index' => 'Login and pay',
+          'fromto' => 'From first mail to premium customer in 3 days',
+          'backoffice' => 'The Backoffice of Betterliving',
+        ],
         'projects' => [
           '1' => ['index', 'Marketing System Video Explanation', 'video_explanation'],
           '2' => ['index', 'Marketing System PDF Explanation', 'pdf_explanation'],
@@ -219,6 +225,18 @@ return [
 
     /* VIEWS - MEMBER
     ---------------------------------------------*/
+    'exp_videos' => [
+      'index' => [
+        'page_title' => 'Explanation videos',
+      ],
+      'fromto' => [
+        'page_title' => 'Explanation videos',
+      ],
+      'backoffice' => [
+        'page_title' => 'Explanation videos',
+      ],
+    ],
+
     'member' => [
       'btn' => [
         'signup' => 'Sign up now',
