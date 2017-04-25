@@ -85,7 +85,7 @@ class BonusLevelTest extends Tbmt_Tests_DatabaseTestCase {
 
     /* $m1 gets bonus level 3 now
     ---------------------------------------------*/
-    $m1->activity_setBonusLevel(3.29, self::$propelCon);
+    $m1->activity_setBonusLevel(3, self::$propelCon);
 
     /* further recruiting requires the bonus of the member applied
     ---------------------------------------------*/
@@ -116,17 +116,17 @@ class BonusLevelTest extends Tbmt_Tests_DatabaseTestCase {
     /**
      * @expectedException \Tbmt\ProvisionExceedMemberFeeException
      */
-  public function testProvisionExceedMemberFreeException() {
-    $marketingLeader = DbEntityHelper::createMember(null, [
-      'type' => Member::TYPE_MARKETINGLEADER,
-      'LastName' => 'vl'
-    ]);
-    $marketingLeader->reload(self::$propelCon);
+  // public function testProvisionExceedMemberFreeException() {
+  //   $marketingLeader = DbEntityHelper::createMember(null, [
+  //     'type' => Member::TYPE_MARKETINGLEADER,
+  //     'LastName' => 'vl'
+  //   ]);
+  //   $marketingLeader->reload(self::$propelCon);
 
-    $m1 = DbEntityHelper::createSignupMember($marketingLeader, true, ['lastName' => 'm1']);
-    $m1->activity_setBonusLevel(\Tbmt\Config::get('member_fee', \Tbmt\TYPE_FLOAT, 100) + 10, self::$propelCon);
+  //   $m1 = DbEntityHelper::createSignupMember($marketingLeader, true, ['lastName' => 'm1']);
+  //   $m1->activity_setBonusLevel(\Tbmt\Config::get('member_fee', \Tbmt\TYPE_FLOAT, 100) + 10, self::$propelCon);
 
-    $m1_3 = DbEntityHelper::createSignupMember($m1, true, ['lastName' => 'm1_3']);
-  }
+  //   $m1_3 = DbEntityHelper::createSignupMember($m1, true, ['lastName' => 'm1_3']);
+  // }
 
 }

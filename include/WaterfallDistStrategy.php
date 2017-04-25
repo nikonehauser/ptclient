@@ -7,7 +7,6 @@ class WaterfallDistStrategy extends DistributionStrategy {
   const FUNDS_LEVEL_UPDATE_WITH = 2;
 
   public function onReceivedMemberFee(\Member $member, \Member $referrer, $currency, $when, $freeFromInvitation, \PropelPDO $con) {
-    // TODO - replace config value with real received value from bank transaction
     $memberFee = new \Tbmt\MemberFee(\Tbmt\Config::get('member_fee'), $member, $currency);
 
     // @see resources/snowball.txt - processes - P2
@@ -115,8 +114,12 @@ class WaterfallDistStrategy extends DistributionStrategy {
       // bonus ids of this member either.
       // Since he is now "beyond the tree of another member" just apply
       // his new parent bonus ids.
-      if ( $referrerParent )
-        $advertisedMember->setBonusIds($referrerParent->getBonusIds());
+      //
+      // NACHTRAG: I dont remember why this was here before, but for know
+      // it seems totaly right, not to rewrite the bonus ids?!!!
+      //
+      // if ( $referrerParent )
+      //   $advertisedMember->setBonusIds($referrerParent->getBonusIds());
 
 
     } else { // if ( $this->getFundsLevel() >= Member::FUNDS_LEVEL2 ) {

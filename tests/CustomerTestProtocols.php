@@ -67,7 +67,8 @@ class CustomerTestProtocolsTest extends Tbmt_Tests_DatabaseTestCase {
 
     $sylvheim_total->add(Transaction::REASON_ADVERTISED_INDIRECT);
     $sylvheim_total->add(Transaction::REASON_SYLVHEIM);
-    $sylvheim_total->add(Transaction::REASON_VL_BONUS);
+
+    $director_total->add(Transaction::REASON_VL_BONUS);
 
     $orgleader_total->add(Transaction::REASON_ADVERTISED_LVL1);
     $orgleader_total->add(Transaction::REASON_OL_BONUS);
@@ -85,8 +86,10 @@ class CustomerTestProtocolsTest extends Tbmt_Tests_DatabaseTestCase {
 
     $sylvheim_total->add(Transaction::REASON_ADVERTISED_INDIRECT);
     $sylvheim_total->add(Transaction::REASON_SYLVHEIM);
-    $sylvheim_total->add(Transaction::REASON_VL_BONUS);
-    $sylvheim_total->add(Transaction::REASON_OL_BONUS);
+
+    $director_total->add(Transaction::REASON_VL_BONUS);
+
+    $orgleader_total->add(Transaction::REASON_OL_BONUS);
 
     $promoter_total->add(Transaction::REASON_ADVERTISED_LVL1);
     $promoter_total->add(Transaction::REASON_PM_BONUS);

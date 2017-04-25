@@ -37,7 +37,9 @@ class DbEntityHelper {
     if ( !$con )
       $con = self::$con;
 
-    $con->exec('set foreign_key_checks=0; TRUNCATE TABLE '.implode(',', $tables).';');
+    foreach ($tables as $key => $table) {
+      $con->exec('set foreign_key_checks=0; TRUNCATE TABLE '.$table.';');
+    }
   }
 
   static private $memberDefaults = [
@@ -181,6 +183,20 @@ class DbEntityHelper {
 
   static public function resetBonusMembers() {
     self::$it_member = null;
+  }
+
+  static public function printBonusIds(Member $member) {
+    $ids = json_decode($member->getBonusIds(), true);
+    $arr = [];
+    foreach ($ids as $memberId => $type) {
+      $bonusMember = MemberQuery::create()->findOneById($memberId);
+      $arr[$bonusMember->getId().'-'.$bonusMember->getLastname()] = \Tbmt\Localizer::get('common.member_types.'.$type);
+    }
+
+    print_r('<pre>');
+    print_r([$arr]);
+    print_r('</pre>');
+
   }
 
   static public function setUpBonusMembers($doReset = true, $options = false) {
@@ -397,7 +413,7 @@ class TransactionTotalsAssertions {
     $reasons = $i18nView['transaction_reasons'];
 
     $result = [];
-    $transactions = $transfer->getTransactions();
+    $transactions = $transfer->getTransactions(TransactionQuery::create()->orderBy(TransactionPeer::DATE, Criteria::ASC));
     foreach ( $transactions as $trans ) {
       $result[] = [
         'id'     => $trans->getId(),

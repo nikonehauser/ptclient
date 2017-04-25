@@ -602,15 +602,13 @@ class BonusSpreadingTest extends Tbmt_Tests_DatabaseTestCase {
     $ceo = Member::getByNum(\SystemStats::ACCOUNT_NUM_CEO1);
     $it = Member::getByNum(\SystemStats::ACCOUNT_NUM_IT);
     $sylvheim = Member::getByNum(\SystemStats::ACCOUNT_SYLVHEIM);
-    $executive = Member::getByNum(\SystemStats::ACCOUNT_EXECUTIVE);
 
     $ceo_total = new TransactionTotalsAssertions($ceo, $this);
     $it_total = new TransactionTotalsAssertions($it, $this);
     $sylvheim_total = new TransactionTotalsAssertions($sylvheim, $this);
-    $executive_total = new TransactionTotalsAssertions($executive, $this);
 
     // Any advertise any
-    $any = DbEntityHelper::createSignupMember($executive);
+    $any = DbEntityHelper::createSignupMember($it);
 
     $ceo_total->add(Transaction::REASON_CEO1_BONUS, 1);
     $ceo_total->add(Transaction::REASON_VL_BONUS, 1);
@@ -619,6 +617,7 @@ class BonusSpreadingTest extends Tbmt_Tests_DatabaseTestCase {
     $ceo_total->add(Transaction::REASON_SYLVHEIM, 1);
 
     $it_total->add(Transaction::REASON_IT_BONUS, 1);
+    $it_total->add(Transaction::REASON_ADVERTISED_LVL2, 1);
     // Sylvhelm gets nothing here!
 
     $ceo_total->assertTotals();
@@ -665,5 +664,131 @@ class BonusSpreadingTest extends Tbmt_Tests_DatabaseTestCase {
     $any6 = DbEntityHelper::createSignupMember($promoter);
 
     $this->assertEquals(2, $any6->calculateBonusAmountForPremiumParent($marketingLeader, self::$propelCon));
+  }
+
+  public function testLvl2InvitationBonusSpreading() {
+    $ceo = Member::getByNum(\SystemStats::ACCOUNT_NUM_CEO1);
+    $ceo_total = new TransactionTotalsAssertions($ceo, $this);
+
+    // director mit freier lvl2 einladung von ceo
+    $director = DbEntityHelper::createMemberWithInvitation($ceo, [
+      'type' => Member::TYPE_MARKETINGLEADER,
+      'lvl2_signup' => true,
+      'free_signup' => true,
+    ], [
+      'lastName' => 'director'
+    ]);
+    $director_total = new TransactionTotalsAssertions($director, $this);
+
+    $this->assertEquals(Member::FUNDS_LEVEL2, $director->getFundsLevel());
+    $ceo_total->assertTotals();
+
+    //
+    // director wirbt 1 promoter
+    //
+    $prom1 = DbEntityHelper::createMemberWithInvitation($director, Member::TYPE_PROMOTER, [
+      'lastName' => 'promoter'
+    ]);
+    $prom1_total = new TransactionTotalsAssertions($prom1, $this);
+
+    $director_total->add(Transaction::REASON_VL_BONUS, 1);
+    $director_total->add(Transaction::REASON_OL_BONUS, 1);
+    $director_total->add(Transaction::REASON_PM_BONUS, 1);
+    $director_total->add(Transaction::REASON_ADVERTISED_LVL2, 1);
+
+    $ceo_total->add(Transaction::REASON_SYLVHEIM);
+    $ceo_total->add(Transaction::REASON_CEO1_BONUS, 1);
+
+    $director_total->assertTotals();
+    $ceo_total->assertTotals();
+
+    //
+    // promoter wirbt 1 customer
+    //
+    $customer1 = DbEntityHelper::createSignupMember($prom1);
+    $customer1_total = new TransactionTotalsAssertions($customer1, $this);
+
+    $director_total->add(Transaction::REASON_VL_BONUS, 1);
+    $director_total->add(Transaction::REASON_OL_BONUS, 1);
+    $director_total->add(Transaction::REASON_ADVERTISED_INDIRECT, 1);
+
+    $prom1_total->add(Transaction::REASON_PM_BONUS, 1);
+    $prom1_total->add(Transaction::REASON_ADVERTISED_LVL1, 1);
+
+    $ceo_total->add(Transaction::REASON_SYLVHEIM, 1);
+    $ceo_total->add(Transaction::REASON_CEO1_BONUS, 1);
+
+    $director_total->assertTotals();
+    $ceo_total->assertTotals();
+    $prom1_total->assertTotals();
+
+    //
+    // customer 1 wirbt 2 customer
+    //
+    DbEntityHelper::createSignupMember($customer1);
+    DbEntityHelper::createSignupMember($customer1);
+
+    $director_total->add(Transaction::REASON_VL_BONUS, 2);
+    $director_total->add(Transaction::REASON_OL_BONUS, 2);
+    $director_total->add(Transaction::REASON_ADVERTISED_INDIRECT, 2);
+
+    $prom1_total->add(Transaction::REASON_PM_BONUS, 2);
+
+    $customer1_total->add(Transaction::REASON_ADVERTISED_LVL1, 2);
+
+    $ceo_total->add(Transaction::REASON_SYLVHEIM, 2);
+    $ceo_total->add(Transaction::REASON_CEO1_BONUS, 2);
+
+    $director_total->assertTotals();
+    $ceo_total->assertTotals();
+    $prom1_total->assertTotals();
+    $customer1_total->assertTotals();
+
+    //
+    // customer 1 wirbt seinen dritten
+    //
+    $customer4 = DbEntityHelper::createSignupMember($customer1);
+    $customer4_total = new TransactionTotalsAssertions($customer4, $this);
+
+    $director_total->add(Transaction::REASON_VL_BONUS, 1);
+    $director_total->add(Transaction::REASON_OL_BONUS, 1);
+
+    $prom1_total->add(Transaction::REASON_PM_BONUS, 1);
+
+    $customer1_total->add(Transaction::REASON_ADVERTISED_LVL2, 1);
+
+    $ceo_total->add(Transaction::REASON_SYLVHEIM, 1);
+    $ceo_total->add(Transaction::REASON_CEO1_BONUS, 1);
+
+    $director_total->assertTotals();
+    $ceo_total->assertTotals();
+    $prom1_total->assertTotals();
+    $customer1_total->assertTotals();
+    $customer4_total->assertTotals();
+
+
+    //
+    // customer 4 wirbt 2 customer
+    //
+    DbEntityHelper::createSignupMember($customer4);
+    DbEntityHelper::createSignupMember($customer4);
+
+    $ceo_total->add(Transaction::REASON_SYLVHEIM, 2);
+    $ceo_total->add(Transaction::REASON_CEO1_BONUS, 2);
+
+    $director_total->add(Transaction::REASON_VL_BONUS, 2);
+    $director_total->add(Transaction::REASON_OL_BONUS, 2);
+
+    $prom1_total->add(Transaction::REASON_PM_BONUS, 2);
+
+    $customer4_total->add(Transaction::REASON_ADVERTISED_LVL1, 2);
+    $customer1_total->add(Transaction::REASON_ADVERTISED_INDIRECT, 2);
+
+    $director_total->assertTotals();
+    $ceo_total->assertTotals();
+    $prom1_total->assertTotals();
+    $customer1_total->assertTotals();
+    $customer4_total->assertTotals();
+
   }
 }

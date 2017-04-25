@@ -28,7 +28,7 @@ return [
       4 => 'Director',
       5 => 'Sales Manager',
       6 => 'CEO',
-      7 => 'Developer',
+      7 => 'IT Speciallist',
     ],
 
     'forbidden_countries' => [

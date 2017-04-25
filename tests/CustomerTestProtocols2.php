@@ -7,6 +7,13 @@ class CustomerTestProtocols2Test extends Tbmt_Tests_DatabaseTestCase {
   //   DbEntityHelper::truncateDatabase($con);
 
   // }
+  //
+  static public function setUpBeforeClass() {
+    $con = Propel::getConnection();
+    DbEntityHelper::setCon($con);
+    DbEntityHelper::truncateDatabase($con);
+
+  }
 
   private $totals = [];
 
@@ -34,13 +41,20 @@ class CustomerTestProtocols2Test extends Tbmt_Tests_DatabaseTestCase {
      */
     $director1 = DbEntityHelper::createMemberWithInvitation($sylvheim, [
         'type' => \Member::TYPE_MARKETINGLEADER,
-        'free_signup' => 1
     ], [
         'firstName' => 'Director',
         'lastName' => '01'
     ]);
     $director1_total = new TransactionTotalsAssertions($director1, $this);
     $this->totals['director1'] = $director1_total;
+
+    $sylvheim_total->add(Transaction::REASON_ADVERTISED_LVL2);
+    $sylvheim_total->add(Transaction::REASON_SYLVHEIM);
+    $sylvheim_total->add(Transaction::REASON_PM_BONUS);
+    $sylvheim_total->add(Transaction::REASON_VL_BONUS);
+    $sylvheim_total->add(Transaction::REASON_OL_BONUS);
+
+    $CEO_total->add(Transaction::REASON_CEO1_BONUS);
 
     $this->assertTotals();
 
@@ -104,9 +118,10 @@ class CustomerTestProtocols2Test extends Tbmt_Tests_DatabaseTestCase {
 
     $sylvheim_total->add(Transaction::REASON_ADVERTISED_INDIRECT);
     $sylvheim_total->add(Transaction::REASON_SYLVHEIM);
-    $sylvheim_total->add(Transaction::REASON_PM_BONUS);
-    $sylvheim_total->add(Transaction::REASON_VL_BONUS);
-    $sylvheim_total->add(Transaction::REASON_OL_BONUS);
+
+    $director1_total->add(Transaction::REASON_PM_BONUS);
+    $director1_total->add(Transaction::REASON_VL_BONUS);
+    $director1_total->add(Transaction::REASON_OL_BONUS);
 
     $spender02_total->add(Transaction::REASON_ADVERTISED_LVL1);
 
@@ -126,9 +141,10 @@ class CustomerTestProtocols2Test extends Tbmt_Tests_DatabaseTestCase {
 
     $sylvheim_total->add(Transaction::REASON_ADVERTISED_INDIRECT);
     $sylvheim_total->add(Transaction::REASON_SYLVHEIM);
-    $sylvheim_total->add(Transaction::REASON_PM_BONUS);
-    $sylvheim_total->add(Transaction::REASON_VL_BONUS);
-    $sylvheim_total->add(Transaction::REASON_OL_BONUS);
+
+    $director1_total->add(Transaction::REASON_PM_BONUS);
+    $director1_total->add(Transaction::REASON_VL_BONUS);
+    $director1_total->add(Transaction::REASON_OL_BONUS);
 
     $spender03_total->add(Transaction::REASON_ADVERTISED_LVL1);
 
@@ -148,9 +164,10 @@ class CustomerTestProtocols2Test extends Tbmt_Tests_DatabaseTestCase {
 
     $sylvheim_total->add(Transaction::REASON_ADVERTISED_INDIRECT);
     $sylvheim_total->add(Transaction::REASON_SYLVHEIM);
-    $sylvheim_total->add(Transaction::REASON_PM_BONUS);
-    $sylvheim_total->add(Transaction::REASON_VL_BONUS);
-    $sylvheim_total->add(Transaction::REASON_OL_BONUS);
+
+    $director1_total->add(Transaction::REASON_PM_BONUS);
+    $director1_total->add(Transaction::REASON_VL_BONUS);
+    $director1_total->add(Transaction::REASON_OL_BONUS);
 
     $spender04_total->add(Transaction::REASON_ADVERTISED_LVL1);
 
@@ -170,9 +187,10 @@ class CustomerTestProtocols2Test extends Tbmt_Tests_DatabaseTestCase {
 
     $sylvheim_total->add(Transaction::REASON_ADVERTISED_INDIRECT);
     $sylvheim_total->add(Transaction::REASON_SYLVHEIM);
-    $sylvheim_total->add(Transaction::REASON_PM_BONUS);
-    $sylvheim_total->add(Transaction::REASON_VL_BONUS);
-    $sylvheim_total->add(Transaction::REASON_OL_BONUS);
+
+    $director1_total->add(Transaction::REASON_PM_BONUS);
+    $director1_total->add(Transaction::REASON_VL_BONUS);
+    $director1_total->add(Transaction::REASON_OL_BONUS);
 
     $spender05_total->add(Transaction::REASON_ADVERTISED_LVL1);
 
@@ -192,9 +210,10 @@ class CustomerTestProtocols2Test extends Tbmt_Tests_DatabaseTestCase {
 
     $sylvheim_total->add(Transaction::REASON_ADVERTISED_INDIRECT);
     $sylvheim_total->add(Transaction::REASON_SYLVHEIM);
-    $sylvheim_total->add(Transaction::REASON_PM_BONUS);
-    $sylvheim_total->add(Transaction::REASON_VL_BONUS);
-    $sylvheim_total->add(Transaction::REASON_OL_BONUS);
+
+    $director1_total->add(Transaction::REASON_PM_BONUS);
+    $director1_total->add(Transaction::REASON_VL_BONUS);
+    $director1_total->add(Transaction::REASON_OL_BONUS);
 
     $spender01_total->add(Transaction::REASON_ADVERTISED_LVL1);
 
@@ -214,9 +233,10 @@ class CustomerTestProtocols2Test extends Tbmt_Tests_DatabaseTestCase {
 
     $sylvheim_total->add(Transaction::REASON_ADVERTISED_INDIRECT);
     $sylvheim_total->add(Transaction::REASON_SYLVHEIM);
-    $sylvheim_total->add(Transaction::REASON_PM_BONUS);
-    $sylvheim_total->add(Transaction::REASON_VL_BONUS);
-    $sylvheim_total->add(Transaction::REASON_OL_BONUS);
+
+    $director1_total->add(Transaction::REASON_PM_BONUS);
+    $director1_total->add(Transaction::REASON_VL_BONUS);
+    $director1_total->add(Transaction::REASON_OL_BONUS);
 
     $spender07_total->add(Transaction::REASON_ADVERTISED_LVL1);
 
@@ -236,9 +256,10 @@ class CustomerTestProtocols2Test extends Tbmt_Tests_DatabaseTestCase {
 
     $sylvheim_total->add(Transaction::REASON_ADVERTISED_INDIRECT);
     $sylvheim_total->add(Transaction::REASON_SYLVHEIM);
-    $sylvheim_total->add(Transaction::REASON_PM_BONUS);
-    $sylvheim_total->add(Transaction::REASON_VL_BONUS);
-    $sylvheim_total->add(Transaction::REASON_OL_BONUS);
+
+    $director1_total->add(Transaction::REASON_PM_BONUS);
+    $director1_total->add(Transaction::REASON_VL_BONUS);
+    $director1_total->add(Transaction::REASON_OL_BONUS);
 
     $spender08_total->add(Transaction::REASON_ADVERTISED_LVL1);
 
@@ -258,9 +279,10 @@ class CustomerTestProtocols2Test extends Tbmt_Tests_DatabaseTestCase {
 
     $sylvheim_total->add(Transaction::REASON_ADVERTISED_INDIRECT);
     $sylvheim_total->add(Transaction::REASON_SYLVHEIM);
-    $sylvheim_total->add(Transaction::REASON_PM_BONUS);
-    $sylvheim_total->add(Transaction::REASON_VL_BONUS);
-    $sylvheim_total->add(Transaction::REASON_OL_BONUS);
+
+    $director1_total->add(Transaction::REASON_PM_BONUS);
+    $director1_total->add(Transaction::REASON_VL_BONUS);
+    $director1_total->add(Transaction::REASON_OL_BONUS);
 
     $spender09_total->add(Transaction::REASON_ADVERTISED_LVL1);
 
@@ -292,14 +314,22 @@ class CustomerTestProtocols2Test extends Tbmt_Tests_DatabaseTestCase {
      * free invitation, no bonuses
      */
     $promoter01 = DbEntityHelper::createMemberWithInvitation($director1, [
-        'type' => \Member::TYPE_PROMOTER,
-        'free_signup' => 1
+        'type' => \Member::TYPE_PROMOTER
     ], [
         'firstName' => 'promoter',
         'lastName' => '01'
     ]);
     $promoter01_total = new TransactionTotalsAssertions($promoter01, $this);
     $this->totals['promoter01'] = $promoter01_total;
+
+    $director1_total->add(Transaction::REASON_ADVERTISED_LVL2);
+    $director1_total->add(Transaction::REASON_PM_BONUS);
+    $director1_total->add(Transaction::REASON_VL_BONUS);
+    $director1_total->add(Transaction::REASON_OL_BONUS);
+
+    $sylvheim_total->add(Transaction::REASON_SYLVHEIM);
+
+    $CEO_total->add(Transaction::REASON_CEO1_BONUS);
 
     $this->assertTotals();
 
@@ -377,14 +407,22 @@ class CustomerTestProtocols2Test extends Tbmt_Tests_DatabaseTestCase {
      * free invitation, no bonuses
      */
     $ol01 = DbEntityHelper::createMemberWithInvitation($director1, [
-        'type' => \Member::TYPE_ORGLEADER,
-        'free_signup' => 1
+        'type' => \Member::TYPE_ORGLEADER
     ], [
         'firstName' => 'ol',
         'lastName' => '02'
     ]);
     $ol01_total = new TransactionTotalsAssertions($ol01, $this);
     $this->totals['ol01'] = $ol01_total;
+
+    $director1_total->add(Transaction::REASON_ADVERTISED_LVL2);
+    $director1_total->add(Transaction::REASON_PM_BONUS);
+    $director1_total->add(Transaction::REASON_VL_BONUS);
+    $director1_total->add(Transaction::REASON_OL_BONUS);
+
+    $sylvheim_total->add(Transaction::REASON_SYLVHEIM);
+
+    $CEO_total->add(Transaction::REASON_CEO1_BONUS);
 
     $this->assertTotals();
 
@@ -457,14 +495,20 @@ class CustomerTestProtocols2Test extends Tbmt_Tests_DatabaseTestCase {
      *
      */
     $directorI = DbEntityHelper::createMemberWithInvitation($CEO, [
-        'type' => \Member::TYPE_MARKETINGLEADER,
-        'free_signup' => 1
+        'type' => \Member::TYPE_MARKETINGLEADER
     ], [
         'firstName' => 'Director',
         'lastName' => 'I'
     ]);
     $directorI_total = new TransactionTotalsAssertions($directorI, $this);
     $this->totals['directorI'] = $directorI_total;
+
+    $CEO_total->add(Transaction::REASON_ADVERTISED_LVL2);
+    $CEO_total->add(Transaction::REASON_PM_BONUS);
+    $CEO_total->add(Transaction::REASON_VL_BONUS);
+    $CEO_total->add(Transaction::REASON_OL_BONUS);
+    $CEO_total->add(Transaction::REASON_SYLVHEIM);
+    $CEO_total->add(Transaction::REASON_CEO1_BONUS);
 
     $this->assertTotals();
 
@@ -502,9 +546,10 @@ class CustomerTestProtocols2Test extends Tbmt_Tests_DatabaseTestCase {
     $CEO_total->add(Transaction::REASON_CEO1_BONUS);
     $CEO_total->add(Transaction::REASON_ADVERTISED_INDIRECT);
     $CEO_total->add(Transaction::REASON_SYLVHEIM);
-    $CEO_total->add(Transaction::REASON_VL_BONUS);
-    $CEO_total->add(Transaction::REASON_OL_BONUS);
-    $CEO_total->add(Transaction::REASON_PM_BONUS);
+
+    $directorI_total->add(Transaction::REASON_PM_BONUS);
+    $directorI_total->add(Transaction::REASON_VL_BONUS);
+    $directorI_total->add(Transaction::REASON_OL_BONUS);
 
     $spenderII_total->add(Transaction::REASON_ADVERTISED_LVL1);
 
