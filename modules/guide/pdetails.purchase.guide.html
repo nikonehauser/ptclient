@@ -35,7 +35,7 @@
       *
       ************************************
     -->
-    <?php if ( $this->member && $this->member->hadPaid() ): ?>
+    <?php if ( false && $this->member && $this->member->hadPaid() ): ?>
 
       <?php echo \Tbmt\view\Factory::buildInfoBox(
         $this->i18nView['purchased_already'],
@@ -44,9 +44,19 @@
         ''
       ); ?>
 
-    <?php elseif ( $this->member && !$this->member->hadPaid() ): ?>
+    <?php elseif ( $this->member && $this->member->hadPaid() ): ?>
 
-      <div id="paypal-button"></div>
+      <div class="row">
+
+        <div class="col-sm-6 top-20" style="text-align: center;">
+          <div id="paypal-button"></div>
+        </div>
+        <div class="col-sm-6 bottom-20" style="text-align: center;">
+          <div><?=$this->i18nView['paypal_register_text']?></div>
+          <a class="paypal-register-button" href="https://www.paypal.com" target="_blank"><?=$this->i18nView['paypal_register_button']?></a>
+        </div>
+
+      </div>
 
       <?php if ( $this->member->isExtended() ): ?>
         <?=\Tbmt\view\Factory::testimonial(

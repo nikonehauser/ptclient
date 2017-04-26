@@ -714,6 +714,9 @@ return [
         'signup_button' => 'Got to signup',
         'login_button' => 'Got to login',
 
+        'paypal_register_text' => 'You don\'t have a PayPal Account?',
+        'paypal_register_button' => 'Register PayPal Account for free',
+
         'product_tab_video' => 'Video',
         'product_tab_pdf' => 'PDF',
 
