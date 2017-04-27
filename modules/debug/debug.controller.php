@@ -11,14 +11,18 @@ class DebugController extends BaseController {
     'allinvoices' => true,
     'activities' => true,
     'printmail' => true,
+    'loadtest' => true,
   ];
 
   public function dispatchAction($action, $params) {
     if ( !\Tbmt\Config::get('devmode', \Tbmt\TYPE_BOOL, false) )
       throw new \PageNotFoundException();
 
+    if ( $action === 'loadtest' )
+      return parent::dispatchAction($action, $params);
+
     $login = Session::getLogin();
-    if ( !$login || $login->getType() < \Member::TYPE_SALES_MANAGER )
+    if ( $action !== 'loadtest' && !$login || $login->getType() < \Member::TYPE_SALES_MANAGER )
       throw new PermissionDeniedException();
 
     return parent::dispatchAction($action, $params);
@@ -238,6 +242,23 @@ class DebugController extends BaseController {
 END;
 
     return $result;
+  }
+
+  public function action_loadtest() {
+    require dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'tests'.DIRECTORY_SEPARATOR.'lib'.DIRECTORY_SEPARATOR.'helper.php';
+
+    $count = \MemberQuery::create()->count();
+
+    $parentId = rand(1, $count);
+
+    $parent = \MemberQuery::create()->findOneById($parentId);
+
+    $con = \Propel::getConnection();
+    \DbEntityHelper::setCon($con);
+
+    \DbEntityHelper::createSignupMember($parent);
+
+    return 'true';
   }
 }
 
