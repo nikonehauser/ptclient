@@ -173,9 +173,9 @@ class MailHelper {
    * @param  \Member $member
    * @return [type]
    */
-  static public function sendSignupConfirmInvitation(\Member $member, $wasFreeInvitation) {
+  static public function sendInvitationFeeIncome(\Member $member, $wasFreeInvitation) {
     $email = $member->getEmail();
-    $locale = Localizer::get('mail.signup_confirm_invitation');
+    $locale = Localizer::get('mail.invitation_fee_income');
 
     $referrer = $member->getReferrerMember();
 
@@ -282,7 +282,7 @@ class MailHelper {
     $fullName = \Tbmt\view\Factory::buildMemberFullNameString($referrer);
     $recruited_fullname = \Tbmt\view\Factory::buildMemberFullNameString($recruited);
 
-    if ( $referrer->getAdvertisedCount() > 2 && $referrer->getFundsLevel() == \Member::FUNDS_LEVEL2 )
+    if ( $referrer->getFundsLevel() == \Member::FUNDS_LEVEL2 )
       $provision = self::getLocalizedTRACurency(\Transaction::REASON_ADVERTISED_LVL2);
     else
       $provision = self::getLocalizedTRACurency(\Transaction::REASON_ADVERTISED_LVL1);
@@ -333,7 +333,7 @@ class MailHelper {
     $fullName = \Tbmt\view\Factory::buildMemberFullNameString($referrer);
     $recruited_fullname = \Tbmt\view\Factory::buildMemberFullNameString($recruited);
 
-    if ( $referrer->getAdvertisedCount() > 2 && $referrer->getFundsLevel() == \Member::FUNDS_LEVEL2 )
+    if ( $referrer->getFundsLevel() == \Member::FUNDS_LEVEL2 )
       $provision = self::getLocalizedTRACurency(\Transaction::REASON_ADVERTISED_LVL2);
     else
       $provision = self::getLocalizedTRACurency(\Transaction::REASON_ADVERTISED_LVL1);
@@ -382,7 +382,7 @@ class MailHelper {
     $fullName = \Tbmt\view\Factory::buildMemberFullNameString($referrer);
     $recruited_fullname = \Tbmt\view\Factory::buildMemberFullNameString($recruited);
 
-    if ( $referrer->getAdvertisedCount() > 2 && $referrer->getFundsLevel() == \Member::FUNDS_LEVEL2 )
+    if ( $referrer->getFundsLevel() == \Member::FUNDS_LEVEL2 )
       $provision = self::getLocalizedTRACurency(\Transaction::REASON_ADVERTISED_LVL2);
     else
       $provision = self::getLocalizedTRACurency(\Transaction::REASON_ADVERTISED_LVL1);
@@ -400,9 +400,13 @@ class MailHelper {
         'video_link' => \Tbmt\RouterToMarketing::toVideo($referrer),
         'min_payout_amount' => self::getLocalizedAmount(Config::get('payout.execute.payouts.min.amount')),
         'paid_recommendation_count' => \Tbmt\Localizer::countInWords($referrer->getAdvertisedCount()),
-        'provision' => $wasFreeInvitation ? '' : \Tbmt\Localizer::insert('You will receive {provision_amount} for {recruited_firstname}’s purchase.', [
-            'provision_amount' => $provision,
-            'recruited_firstname' => $recruited->getFirstName(),
+        'provision' => \Tbmt\Localizer::insert(
+            $wasFreeInvitation
+            ? 'Remember, {recruited_firstname} got a free invitation. Therefore no provision was spread.'
+            : 'You will receive {provision_amount} for {recruited_firstname}’s purchase. You are going to see that in your upcoming invoice as well.',
+            [
+              'provision_amount' => $provision,
+              'recruited_firstname' => $recruited->getFirstName(),
         ])."\n\n"
       ], false),
       null,

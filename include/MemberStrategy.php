@@ -324,10 +324,10 @@ class ExtendedMemberStrategy extends SimpleMemberStrategy {
 
       \Tbmt\MailHelper::sendNewRecruitmentCongrats($referrerMember, $member);
 
-      if ( $invitation != null )
-        \Tbmt\MailHelper::sendSignupConfirmInvitation($member, $wasFreeInvitation);
-      else
+      if ( !$invitation || $wasFreeInvitation )
         \Tbmt\MailHelper::sendSignupConfirm($member);
+      else
+        \Tbmt\MailHelper::sendInvitationFeeIncome($member, $wasFreeInvitation);
 
       $member->save($con);
 

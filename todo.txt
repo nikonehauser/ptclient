@@ -16,25 +16,17 @@ Fragen
 * excel: costs?
 * fehlerhafte überweisung -> email -> wie sieht die email aus?
 
+* button farben von rot auf grün?
+  schwarz auf whatever
 
 CURRENT - TODOS
 ===============
-* ein promoter lädt ein promoter ein, der zweite bekommt keine email mit aufforderung zu zahlen
-
-* paypal button zur registrierung
-
-* .htdocss datei anlegen was alles andere als index.php verbietet
 
 * das rausfliegen testen
 
 * pdf quitting
 
-* buchhaltung ?
-
 * create hg cron job
-
-* happiness guide 2 hat 2 versionen, eine für jemand der noch keinen geworben
-hat und eine für jemand der schon geworben hat
 
 * remove_unpaid zeit entsprechen auf 7 tage setzen
 

@@ -67,7 +67,13 @@ After that, click on “PayPal” and complete the payment of {fmt_member_fee}.
 In case you do not own a PayPal account, please register on their website [PayPal](https://paypal.com).
 
 As soon as we have received your payment, you are going to get to know
-helpful secrets about how to make a fortune with $brandName.",
+helpful secrets about how to make a fortune with $brandName.
+
+If you want to log in into your account at Betterliving in the future you have to visit our website http://www.betterliving.social.
+
+There you have to push the button \"Customer Login\".
+
+Then you enter your email address and your personal password and push \"SUBMIT\".",
   ],
 
 
@@ -220,13 +226,15 @@ May all your wishes come true."
  *   member_type_bonus
  *
  */
-  'signup_confirm_invitation' => [
+  'invitation_fee_income' => [
 
     'subject' => 'Welcome to Betterliving – You are now a special member at www.get-a-better.life.social!',
 
     'body' =>
 
 "Dear {fullname},
+
+thanks for purchasing the Happiness Guide!
 
 {referrer_fullname} has probably told you about making a lot of money very easily with Betterliving by recommending it to other people.
 
@@ -458,7 +466,7 @@ Betterliving always pays a commission of {adv2amount} for each customer, so as a
 
 If you take a look at 2:50 in the video [Marketingsystem of Betterliving]({video_link})
 
-You can replace “Jivan” with {recruited_fullname}.
+You can replace “Jivan” with your next recommended Customer.
 
 If you want to make sure you make a lot of money in a short time, here’s how it works:
 
@@ -468,7 +476,7 @@ You will always receive {adv2amount} each.
 
 Secondly, and this is even more interesting, show all your recommended customers how to become premium costumers as well.
 
-The video [Marketingsystem of Betterliving]({video_link}) shows what will happen when {recruited_fullname} finds two friends who also recommend two others at 4:00
+The video [Marketingsystem of Betterliving]({video_link}) shows what will happen when your next recommended Customer finds two friends who also recommend two others at 4:00
 
 After six weeks you will find a total amount of € {after6weeksamount} in your bank account.
 
@@ -516,7 +524,7 @@ Thank you for sharing the opportunity with {recruited_firstname}.
 
 You will get a commission for {recruited_firstname}’s purchase.
 
-{provision}You are going to see that in your upcoming invoice as well.
+{provision}
 
 We’re wishing best of luck finding new customers and have fun spending the commissions you will receive.
 
