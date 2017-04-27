@@ -4,7 +4,7 @@ namespace Tbmt;
 
 class Cron {
 
-  public static function run($job) {
+  public static function run($job, array $arrParams = []) {
     $start = time();
     $log = '';
 
@@ -13,7 +13,7 @@ class Cron {
       $log .= '--locked--';
     } else {
       try {
-        $log .= call_user_func_array(['Tbmt\\Cron', "job_$job"], []);
+        $log .= call_user_func_array(['Tbmt\\Cron', "job_$job"], $arrParams);
       } catch (\Exception $e) {
         $log .= $e->__toString();
       } finally {

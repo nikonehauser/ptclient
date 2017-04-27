@@ -417,6 +417,9 @@ class Member extends BaseMember
 
     if ( !$this->isExtended() ) {
       $this->setPaidDate($when);
+      if ( !$this->isMarkedAsPaid() )
+        \Tbmt\MailHelper::sendFeeIncome($this);
+
       return;
     }
 
@@ -429,8 +432,12 @@ class Member extends BaseMember
       // Prevent multiple income of the same message. Because this situation
       // can ocure more often because of the removal of not paying members
       // {@see $this->fireReservedReceivedMemberFeeEvents}
-      if ( !$freeFromInvitation )
-        \Tbmt\MailHelper::sendFeeIncome($this);
+      if ( !$freeFromInvitation ) {
+        if ($this->getType() > self::TYPE_MEMBER )
+          \Tbmt\MailHelper::sendInvitationFeeIncome($this);
+        else
+          \Tbmt\MailHelper::sendFeeIncome($this);
+      }
     }
 
     if ( $referrer && !$referrer->hadPaid() ) {

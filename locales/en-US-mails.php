@@ -38,7 +38,7 @@ Note: Link expires within 24 hours.",
 
 /**
  * #2
- * Der neue Spender erhält eine umfassende Begrüßungsemail mit Anweisungen, wohin er welchen Betrag bis wann überweisen soll.
+ * Der neue Customer, auch Customer in einer Bonusstufe erhält eine umfassende Begrüßungsemail mit Anweisungen, wohin er welchen Betrag bis wann überweisen soll.
  *
  * params:
  *   fullname,
@@ -67,7 +67,13 @@ After that, click on “PayPal” and complete the payment of {fmt_member_fee}.
 In case you do not own a PayPal account, please register on their website [PayPal](https://paypal.com).
 
 As soon as we have received your payment, you are going to get to know
-helpful secrets about how to make a fortune with $brandName.",
+helpful secrets about how to make a fortune with $brandName.
+
+If you want to log in into your account at Betterliving in the future you have to visit our website http://www.betterliving.social.
+
+There you have to push the button \"Customer Login\".
+
+Then you enter your email address and your personal password and push \"SUBMIT\".",
   ],
 
 
@@ -220,7 +226,7 @@ May all your wishes come true."
  *   member_type_bonus
  *
  */
-  'signup_confirm_invitation' => [
+  'invitation_fee_income' => [
 
     'subject' => 'Welcome to Betterliving – You are now a special member at www.get-a-better.life.social!',
 
@@ -228,11 +234,12 @@ May all your wishes come true."
 
 "Dear {fullname},
 
+thanks for purchasing the Happiness Guide!
+
 {referrer_fullname} has probably told you about making a lot of money very easily with Betterliving by recommending it to other people.
 
 That is why they want you to register and buy the Happiness Guide for {fmt_member_fee}.
 We are glad you followed the recommendation!
-
 
 By the way, {referrer_fullname} has invited you to be a special client!
 
@@ -325,13 +332,13 @@ Dear {fullname},
 
 {recruited_fullname} has registered at Betterliving because of your recommendation.
 
-Contact {recruited_fullname} and help them get their first 10 people to join Betterliving. If they can do it, you will earn thousands of Euros just by that.
+Contact {recruited_fullname} and help them get their first 10 people to join Betterliving. If they can do it, you can earn thousands of Euros just by that.
 
 As you can see, it is not difficult to recommend Betterliving successfully and earn a lot of money by doing so.
 
 The more people you recommend, the faster you will have a passive income.
 
-So tell 10 people about it today, tomorrow and the day after and you will become rich – guaranteed! There’s no other way.
+So tell 10 people about it today, tomorrow and the day after and you can become rich – guaranteed! There’s no other way.
 
 Just take another look at the video: [Marketingsystem of Betterliving]({video_link})
 
@@ -459,7 +466,7 @@ Betterliving always pays a commission of {adv2amount} for each customer, so as a
 
 If you take a look at 2:50 in the video [Marketingsystem of Betterliving]({video_link})
 
-You can replace “Jivan” with {recruited_fullname}.
+You can replace “Jivan” with your next recommended Customer.
 
 If you want to make sure you make a lot of money in a short time, here’s how it works:
 
@@ -469,9 +476,9 @@ You will always receive {adv2amount} each.
 
 Secondly, and this is even more interesting, show all your recommended customers how to become premium costumers as well.
 
-The video [Marketingsystem of Betterliving]({video_link}) shows what will happen when {recruited_fullname} finds two friends who also recommend two others at 4:12
+The video [Marketingsystem of Betterliving]({video_link}) shows what will happen when your next recommended Customer finds two friends who also recommend two others at 4:00
 
-After six weeks you will find a total amount of {after6weeksamount} Euro in your bank account.
+After six weeks you will find a total amount of € {after6weeksamount} in your bank account.
 
 In order to make lots of money, all you have to do is:
 1. Make three friends join Betterliving to become a premium customer and receive a passive income
@@ -517,7 +524,7 @@ Thank you for sharing the opportunity with {recruited_firstname}.
 
 You will get a commission for {recruited_firstname}’s purchase.
 
-{provision}You are going to see that in your upcoming invoice as well.
+{provision}
 
 We’re wishing best of luck finding new customers and have fun spending the commissions you will receive.
 
@@ -640,7 +647,7 @@ We wish you a carefree and pleasant future life with your great passive income o
 
 /**
  * #4
- * Der neue registrierte Spender erhält eine Email, in der das Datum seiner Registrierung genannt wird und wir bis dato keinen Geldeingang verzeichnen konnten. Dann wird er daran erinnert, sein Kauf unter Angabe seiner ID spätestens innerhalb von sieben Tagen zu leisten. Hier wird noch einmal kurz auf die tollen Projekte der NGO und recht ausführlich auf die Verdienstmöglichkeit für ihn und seine Freunde, Bekannten und Verwandte hingewiesen.
+ * Nach Zahlung einse Customers in einer Bonusstufe erhält er eine Email, in der Begrüßung wird, eine Musteremail zum Einladen von Bekannten, Hinweis auf seine Bonusstufe, ID für Teilnehmerlogin.
  *
  * params:
  *   fullname,
@@ -800,13 +807,14 @@ Thank you for the support, we hope you will successfully find new customers for 
 
 CONGRATULATIONS! You made it.
 By recommending your second customer you have become a premium customer of Betterliving.
+You will receive € 4.00 for {recruited_fullname´s}. purchase.
 From now on you will receive {adv2amount} Dollar for every future customer.
 So what do you need to know now?
 You know you have received {adv1amount} Dollar for the first two customers.
 Betterliving always pays a commission of {adv2amount} Dollar for each customer,
 so as a premium costumer you will always get the difference of {advindirectamount} Dollar
 for the first two customers of your recommended friends.
-If you take a look at 4:22 – 4:33 in the video
+If you take a look at 2:50 in the video
 {video_link}
 you can replace “Jivan” with {recruited_fullname}.
 If you want to make sure you make a lot of money in a short time, here’s how it works:
@@ -815,7 +823,7 @@ You will always receive {adv2amount} Dollar each.
 Secondly, and this is even more interesting, show all your recommended customers how to become premium costumers as well.
 The video
 {video_link}
-shows what will happen when {recruited_fullname} finds two friends who also recommend two others at 4:40.
+shows what will happen when {recruited_fullname} finds two friends who also recommend two others at 4:00.
 After six weeks you will find a total amount of {after6weeksamount} Dollar in your bank account.
 
 In order to make lots of money, all you have to do is:
