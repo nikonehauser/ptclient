@@ -252,7 +252,8 @@ END;
     $parentId = rand(1, $count-1);
 
     $parent = \MemberQuery::create()
-      ->limit(1, $parentId)
+      ->limit(1)
+      ->offset($parentId)
       ->findOne();
 
     $con = \Propel::getConnection();
