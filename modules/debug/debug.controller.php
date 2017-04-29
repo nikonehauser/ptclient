@@ -255,10 +255,11 @@ END;
 
     $con = \Propel::getConnection();
     \DbEntityHelper::setCon($con);
+    \DbEntityHelper::setCurrency(\Transaction::$BASE_CURRENCY);
 
     \DbEntityHelper::createSignupMember($parent);
 
-    return 'true';
+    return new \Tbmt\ControllerActionAjax('k23l45hkj2hasdn');
   }
 }
 

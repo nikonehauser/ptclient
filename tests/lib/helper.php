@@ -10,7 +10,7 @@ class DbEntityHelper {
 
   static private $emailCounter = 0;
 
-  static public $currency = 'USD';
+  static public $currency = 'EUR';
 
   static public function setCurrency($currency) {
     self::$currency = $currency;
