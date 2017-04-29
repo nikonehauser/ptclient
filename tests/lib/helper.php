@@ -132,13 +132,46 @@ class DbEntityHelper {
     $data = array_merge(self::$memberSignup, $data);
     $data['email'] = self::$emailCounter.uniqid().'@un.de';
 
-    $member = Member::createFromSignup($data, $referralMember, null, self::$con);
+    if ( $insideActivity )
+      $member = Member::createFromSignup($data, $referralMember, null, self::$con);
+    else
+      $member = Member::createFromSignup($data, $referralMember, null, self::$con);
 
     if ( $receivedPaiment )
       $member->onReceivedMemberFee(self::$currency, time(), false, self::$con);
 
     return $member;
   }
+
+  static public function createSignupMemberInActivity(Member $referralMember, $receivedPaiment = true, array $data = array()) {
+    self::$emailCounter++;
+    $data = array_merge(self::$memberSignup, $data);
+    $data['email'] = self::$emailCounter.uniqid().'@un.de';
+
+    $con = self::$con;
+    $member = \Activity::exec(
+      /*callable*/['\\Member', 'activity_createFromSignup'],
+      /*func args*/[
+        $data,
+        $referralMember,
+        null,
+        $con
+      ],
+      /*activity.action*/\Activity::ACT_MEMBER_SIGNUP,
+      /*activity.member*/null,
+      /*activity.related*/$referralMember,
+      $con
+    );
+
+    if ( $receivedPaiment ) {
+      $member->reload(false, $con);
+      $member->onReceivedMemberFee(self::$currency, time(), false, self::$con);
+    }
+
+    return $member;
+  }
+
+
 
   static public function createMemberWithInvitation($referrer, $invitationData, $data = []) {
     if ( is_numeric($invitationData) )

@@ -260,7 +260,7 @@ END;
     \DbEntityHelper::setCon($con);
     \DbEntityHelper::setCurrency(\Transaction::$BASE_CURRENCY);
 
-    \DbEntityHelper::createSignupMember($parent);
+    \DbEntityHelper::createSignupMemberInActivity($parent);
 
     return new \Tbmt\ControllerActionAjax('k23l45hkj2hasdn');
   }

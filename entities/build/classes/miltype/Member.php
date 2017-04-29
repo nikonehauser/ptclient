@@ -332,8 +332,7 @@ class Member extends BaseMember
             ." member_id = :member_id AND"
             ." currency = :currency AND"
             ." state in (".Transfer::STATE_COLLECT.", ".Transfer::STATE_RESERVED.")"
-            ." ORDER BY state desc"
-            ." FOR UPDATE";
+            ." ORDER BY state desc";
     $stmt = $con->prepare($sql);
     $stmt->execute(array(
       ':member_id' => $this->getId(),
@@ -384,22 +383,6 @@ class Member extends BaseMember
     }
 
     return $sum;
-  }
-
-  public function getOpenCollectingTransfers(PropelPDO $con) {
-    $sql = "SELECT * FROM ".TransferPeer::TABLE_NAME." WHERE"
-            ." member_id = :member_id AND"
-            ." state = :state"
-            ." FOR UPDATE";
-    $stmt = $con->prepare($sql);
-    $stmt->execute(array(
-      ':member_id' => $this->getId(),
-      ':state' => Transfer::STATE_COLLECT
-    ));
-
-    $formatter = new PropelObjectFormatter();
-    $formatter->setClass('Transfer');
-    return $formatter->format($stmt);
   }
 
   /**
