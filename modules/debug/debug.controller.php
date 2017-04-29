@@ -249,10 +249,10 @@ END;
 
     $count = \MemberQuery::create()->count();
 
-    $parentId = rand(1, $count);
+    $parentId = rand(1, $count-1);
 
     $parent = \MemberQuery::create()
-      ->limit($parentId)
+      ->limit(1, $parentId)
       ->findOne();
 
     $con = \Propel::getConnection();
