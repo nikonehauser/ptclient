@@ -251,7 +251,9 @@ END;
 
     $parentId = rand(1, $count);
 
-    $parent = \MemberQuery::create()->findOneById($parentId);
+    $parent = \MemberQuery::create()
+      ->limit($parentId)
+      ->findOne();
 
     $con = \Propel::getConnection();
     \DbEntityHelper::setCon($con);
