@@ -249,12 +249,14 @@ END;
 
     $count = \MemberQuery::create()->count();
 
-    $parentId = rand(1, $count-1);
+    // $parentId = rand(1, $count-1);
 
-    $parent = \MemberQuery::create()
-      ->limit(1)
-      ->offset($parentId)
-      ->findOne();
+    // $parent = \MemberQuery::create()
+    //   ->limit(1)
+    //   ->offset($parentId)
+    //   ->findOne();
+
+    $parent = \MemberQuery::create()->findOneById(3);
 
     $con = \Propel::getConnection();
     \DbEntityHelper::setCon($con);

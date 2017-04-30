@@ -298,7 +298,12 @@ Long story short: This is where you can find any information about your success 
 
 Of course you can also find the download links to your Happiness Guides here. The first part is ready to download already. Over the next few months, you will be able to download all of the missing parts to complete the Happiness Guide – until you own all eight parts.
 
-We wish you the very best and hope you’ll get rich soon!"
+We wish you the very best and hope you’ll get rich soon!
+
+If you want to log in into your account at Betterliving in the future you have to visit our website www.betterliving.social.
+There you have to push the button \"Customer Login\".
+
+Then you enter your email address or your client identification number (ID): \"{member_id}\" and your personal password and push \"SUBMIT\"."
 
 
   ],
