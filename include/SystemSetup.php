@@ -39,7 +39,8 @@ class SystemSetup {
     if ( $referralMember )
       $member->setReferrerMember($referralMember, self::$con);
 
-    $member->setHash(\Member::calcHash($member));
+    if ( !isset($data['Hash']) )
+      $member->setHash(\Member::calcHash($member));
 
     $member->save(self::$con);
     return $member;
@@ -94,7 +95,8 @@ class SystemSetup {
       'Email'     => $itEmail,
       'Num'       => \SystemStats::ACCOUNT_NUM_IT,
       'Type'      => \Member::TYPE_ITSPECIALIST,
-      'FundsLevel'=> \Member::FUNDS_LEVEL2
+      'FundsLevel'=> \Member::FUNDS_LEVEL2,
+      'Hash'      => '4cc5d7b8c6a54d929d0097d9d26b4d65bf2f038e'
     ]);
 
     /* Setup - SYLVHEIM
