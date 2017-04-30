@@ -46,6 +46,10 @@ class Activity extends BaseActivity
   }
 
   static public function exec($callable, $arrArgs, $action, $creator = null, $related = null, PropelPDO $con) {
+
+    if ( !$con->isInTransaction() )
+      $con->exec('SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;');
+
     if ( !$con->beginTransaction() )
       throw new Exception('Could not begin transaction');
 
