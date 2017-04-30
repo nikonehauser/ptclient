@@ -69,10 +69,22 @@ set_include_path(
 );
 
 require_once LIB_DIR.'/propel/runtime/lib/Propel.php';
+require_once 'Log.php';
 
 try {
   \Propel::init(ENTITIES_DIR.'build'.DIRECTORY_SEPARATOR.'conf'.DIRECTORY_SEPARATOR.PROJECT_NAME.'-conf.php');
   \Propel::getDB()->setCharset(\Propel::getConnection(), 'UTF8');
+
+  if ( false ) {
+    \Propel::getConnection()->useDebug(true);
+    \Propel::setLogger(
+      \Log::singleton($type = 'file', $name = './propel.log', $ident = 'propel', $conf = array(), $level = PEAR_LOG_DEBUG)
+    );
+    $config = \Propel::getConfiguration(\PropelConfiguration::TYPE_OBJECT);
+    $config->setParameter('debugpdo.logging.details.method.enabled', true);
+    $config->setParameter('debugpdo.logging.details.time.enabled', true);
+    $config->setParameter('debugpdo.logging.details.mem.enabled', true);
+  }
 
   \Transaction::initAmounts(
     Config::get('amounts', TYPE_ARRAY),

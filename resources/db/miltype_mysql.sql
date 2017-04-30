@@ -9,7 +9,7 @@ set foreign_key_checks=0;
     `hash` VARCHAR(40) NOT NULL ,
     `first_name` VARCHAR(80) NOT NULL ,
     `last_name` VARCHAR(80) NOT NULL ,
-    `num` BIGINT UNSIGNED NOT NULL,
+    `num` BIGINT UNSIGNED NULL,
     `email` VARCHAR(80) NOT NULL ,
     `title` VARCHAR(80) NOT NULL ,
     `street` VARCHAR(180) NOT NULL ,

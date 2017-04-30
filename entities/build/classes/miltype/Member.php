@@ -446,7 +446,9 @@ class Member extends BaseMember
     );
 
     $this->fireReservedReceivedMemberFeeEvents($con);
-    $this->save($con);
+
+    // It is the callers responsibility to save this member
+    // $this->save();
   }
 
   public function reserveReceivedMemberFeeEvent($paidMember, $currency, $when, $freeFromInvitation, PropelPDO $con) {

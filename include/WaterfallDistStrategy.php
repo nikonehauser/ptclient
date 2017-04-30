@@ -29,6 +29,9 @@ class WaterfallDistStrategy extends DistributionStrategy {
     }
 
     MailHelper::sendFeeIncomeReferrer($referrer, $member, $freeFromInvitation);
+
+    // It is the callers responsibility to save this member
+    // $member->save();
   }
 
   /**
