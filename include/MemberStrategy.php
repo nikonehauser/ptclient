@@ -274,7 +274,7 @@ class ExtendedMemberStrategy extends SimpleMemberStrategy {
         ->setBonusIds('{}')
         ->setPaidDate(null)
         ->setIsExtended(1)
-        ->setNum(0)
+        ->setNum(null)
         ->save($con);
 
       $member->setHash(\Member::calcHash($member));
@@ -307,7 +307,6 @@ class ExtendedMemberStrategy extends SimpleMemberStrategy {
       }
 
       $member->setReferrerMember($referrerMember, $con);
-      $member->save($con);
       $member->setNum($member->getId() + 1425300);
 
       if ( $invitation ) {
@@ -322,24 +321,25 @@ class ExtendedMemberStrategy extends SimpleMemberStrategy {
         \Tbmt\DistributionStrategy::getInstance()->raiseFundsLevel($member);
       }
 
+      $referrerMember->save($con);
+      $member->save($con);
+
       \Tbmt\MailHelper::sendNewRecruitmentCongrats($referrerMember, $member);
 
-      if ( !$invitation || $wasFreeInvitation )
+      if ( !$invitation || !$wasFreeInvitation )
         \Tbmt\MailHelper::sendSignupConfirm($member);
       else
         \Tbmt\MailHelper::sendInvitationFeeIncome($member, $wasFreeInvitation);
 
-      $member->save($con);
-
       if ( !$con->commit() )
         throw new \Exception('Could not commit transaction');
+
+      return $member;
 
     } catch (\Exception $e) {
         $con->rollBack();
         throw $e;
     }
-
-    return $member;
   }
 
 
