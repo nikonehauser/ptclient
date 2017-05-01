@@ -143,7 +143,12 @@ class MailHelper {
 
     $num = $member->getNum();
     $fullName = \Tbmt\view\Factory::buildMemberFullNameString($member);
-    $referrer_fullname = \Tbmt\view\Factory::buildMemberFullNameString($referrer);
+
+    $referrer_fullname = (
+      $referrer
+      ? \Tbmt\view\Factory::buildMemberFullNameString($referrer);
+      : ''
+    );
 
     return self::send(
       $email,
