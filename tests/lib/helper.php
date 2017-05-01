@@ -167,8 +167,18 @@ class DbEntityHelper {
 
     if ( $receivedPaiment ) {
       $member->reload(false, $con);
+
+      if ( !$con->beginTransaction() )
+        throw new \Exception('Could not begin transaction');
+
+      $con->exec('SET AUTOCOMMIT = 0;');
+
       $member->onReceivedMemberFee(self::$currency, time(), false, self::$con);
       $member->save(self::$con);
+
+      if ( !$con->commit() )
+        throw new \Exception('Could not commit transaction');
+
     }
 
     return $member;

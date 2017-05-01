@@ -277,6 +277,9 @@ class ExtendedMemberStrategy extends SimpleMemberStrategy {
         ->setNum(null)
         ->save($con);
 
+      $con->query('SELECT id FROM tbmt_member WHERE id = '.$member->getId().' FOR UPDATE;')->fetchAll();
+      $con->query('SELECT id FROM tbmt_member WHERE id = '.$referrerMember->getId().' FOR UPDATE;')->fetchAll();
+
       $member->setHash(\Member::calcHash($member));
 
       $wasFreeInvitation = false;
