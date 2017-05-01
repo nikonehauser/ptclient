@@ -391,6 +391,8 @@ class Member extends BaseMember
       if ( !$this->hadPaid() ) {
         $transfer->setState(Transfer::STATE_RESERVED);
       }
+
+      $transfer->save($con);
     }
 
     return $transfer;
@@ -452,7 +454,7 @@ class Member extends BaseMember
       // {@see $this->fireReservedReceivedMemberFeeEvents}
       if ( !$freeFromInvitation ) {
         if ($this->getType() > self::TYPE_MEMBER )
-          \Tbmt\MailHelper::sendInvitationFeeIncome($this);
+          \Tbmt\MailHelper::sendInvitationFeeIncome($this, $freeFromInvitation);
         else
           \Tbmt\MailHelper::sendFeeIncome($this);
       }

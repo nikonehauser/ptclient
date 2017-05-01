@@ -32,8 +32,24 @@ class Transfer extends BaseTransfer {
    * Adds the given amount to this transfer.
    * @param [type] $intAmount
    */
-  public function addAmount($intAmount) {
-    $this->setAmount($this->getAmount() + $intAmount);
+  public function addAmount($intAmount, PropelPDO $con) {
+    // required for atomic concurrent update
+    $con->exec('UPDATE '.\TransferPeer::TABLE_NAME.
+      ' SET '.
+        \TransferPeer::AMOUNT.' = '.
+          \TransferPeer::AMOUNT.' + '.((float)$intAmount)
+      .' WHERE '.\TransferPeer::ID.' = '.$this->getId()
+      .';');
+
+    $currentAmount = $con->query(
+      'SELECT '
+        .\TransferPeer::AMOUNT
+      .' FROM '.\TransferPeer::TABLE_NAME
+      .' WHERE '.\TransferPeer::ID.' = '.$this->getId()
+      .';'
+    )->fetch(PDO::FETCH_NUM)[0];
+
+    $this->setAmount($currentAmount);
     $transaction = new Transaction();
     $transaction->setTransfer($this);
     $transaction->setAmount($intAmount);
@@ -41,7 +57,7 @@ class Transfer extends BaseTransfer {
   }
 
   public function createTransaction(Member $transferOwner, $amount, $reason, $relatedId, $when, PropelPDO $con) {
-    $transaction = $this->addAmount($amount);
+    $transaction = $this->addAmount($amount, $con);
     $transaction->setReason($reason);
     $transaction->setRelatedId($relatedId);
     $transaction->setDate($when);
@@ -55,7 +71,7 @@ class Transfer extends BaseTransfer {
     else
       $amount = Transaction::getAmountForReason($reason);
 
-    $transaction = $this->addAmount($amount);
+    $transaction = $this->addAmount($amount, $con);
     $transaction->setReason($reason);
     $transaction->setRelatedId($advertisedMemberId);
     $transaction->setDate($when);

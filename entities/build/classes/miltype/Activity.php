@@ -46,8 +46,13 @@ class Activity extends BaseActivity
   }
 
   static public function exec($callable, $arrArgs, $action, $creator = null, $related = null, PropelPDO $con) {
+    $isInTransaction = $con->isInTransaction();
+
     if ( !$con->beginTransaction() )
       throw new Exception('Could not begin transaction');
+
+    if ( !$isInTransaction )
+      $con->exec('SET AUTOCOMMIT = 0;');
 
     try {
       $resIsArray = $res = false;
