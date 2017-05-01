@@ -270,13 +270,13 @@ END;
 
     $parentId = rand(1, $count-1);
 
-    // $parent = \MemberQuery::create()
-    //   ->filterByPaidDate(1, \Criteria::GREATER_THAN)
-    //   ->limit(1)
-    //   ->offset($parentId)
-    //   ->findOne();
+    $parent = \MemberQuery::create()
+      ->filterByPaidDate(1, \Criteria::GREATER_THAN)
+      ->limit(1)
+      ->offset($parentId)
+      ->findOne();
 
-    $parent = \MemberQuery::create()->findOneById(3);
+    // $parent = \MemberQuery::create()->findOneById(3);
 
     $con = \Propel::getConnection();
     \DbEntityHelper::setCon($con);
