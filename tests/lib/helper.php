@@ -137,8 +137,10 @@ class DbEntityHelper {
 
     $member = Member::createFromSignup($data, $referralMember, null, self::$con);
 
-    if ( $receivedPaiment )
+    if ( $receivedPaiment ) {
       $member->onReceivedMemberFee(self::$currency, time(), false, self::$con);
+      $member->save(self::$con);
+    }
 
     return $member;
   }
@@ -166,6 +168,7 @@ class DbEntityHelper {
     if ( $receivedPaiment ) {
       $member->reload(false, $con);
       $member->onReceivedMemberFee(self::$currency, time(), false, self::$con);
+      $member->save(self::$con);
     }
 
     return $member;
@@ -200,8 +203,10 @@ class DbEntityHelper {
     $member = \Member::createFromSignup($data, $referrer, $invitation, self::$con);
     $member->reload(self::$con);
 
-    if ( !isset($invitationData['free_signup']) || !$invitationData['free_signup'] )
+    if ( !isset($invitationData['free_signup']) || !$invitationData['free_signup'] ) {
       $member->onReceivedMemberFee(self::$currency, time(), false, self::$con);
+      $member->save(self::$con);
+    }
 
     return $member;
   }
@@ -212,6 +217,7 @@ class DbEntityHelper {
 
   static public function fireReceivedMemberFee(Member $member, $now) {
     $member->onReceivedMemberFee(self::$currency, $now, false, self::$con);
+    $member->save(self::$con);
   }
 
   static public function resetBonusMembers() {

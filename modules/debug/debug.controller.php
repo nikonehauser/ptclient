@@ -282,7 +282,11 @@ END;
     \DbEntityHelper::setCon($con);
     \DbEntityHelper::setCurrency(\Transaction::$BASE_CURRENCY);
 
-    \DbEntityHelper::createSignupMemberInActivity($parent);
+    $member = \DbEntityHelper::createSignupMemberInActivity($parent);
+
+    $member->reload(false);
+    if ( !$member->getPaidDate() )
+      return new \Tbmt\ControllerActionAjax('throw_k23l45hkj2hasdn');
 
     return new \Tbmt\ControllerActionAjax('k23l45hkj2hasdn');
   }

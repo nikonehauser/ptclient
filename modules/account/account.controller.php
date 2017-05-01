@@ -315,7 +315,7 @@ class AccountController extends BaseController {
         false,
         $con
       );
-
+      $member->save($con);
       if ( !$con->commit() )
         throw new Exception('Could not commit transaction');
 
