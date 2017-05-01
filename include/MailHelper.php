@@ -260,11 +260,13 @@ class MailHelper {
    * @return [type]
    */
   static public function sendFeeIncomeReferrer(\Member $referrer, \Member $recruited, $wasFreeInvitation) {
-    $count = $referrer->getAdvertisedCount();
-    if ( $count == 1 ) {
-      return self::sendFirstFeeIncomeReferrer($referrer, $recruited);
-    } else if ( $count == 2 ) {
-      return self::sendSecondFeeIncomeReferrer($referrer, $recruited);
+    if ( $referrer->getFundsLevel() == \Member::FUNDS_LEVEL1 ) {
+      $count = $referrer->getAdvertisedCount();
+      if ( $count == 1 ) {
+        return self::sendFirstFeeIncomeReferrer($referrer, $recruited);
+      } else if ( $count == 2 ) {
+        return self::sendSecondFeeIncomeReferrer($referrer, $recruited);
+      }
     }
 
     return self::sendPremiumFeeIncomeReferrer($referrer, $recruited, $wasFreeInvitation);
@@ -402,7 +404,7 @@ class MailHelper {
         'paid_recommendation_count' => \Tbmt\Localizer::countInWords($referrer->getAdvertisedCount()),
         'provision' => \Tbmt\Localizer::insert(
             $wasFreeInvitation
-            ? 'Remember, {recruited_firstname} got a free invitation. Therefore no provision was spread.'
+            ? 'Remember, {recruited_firstname} got a free invitation. Therefore no provision were spread.'
             : 'You will receive {provision_amount} for {recruited_firstname}’s purchase. You are going to see that in your upcoming invoice as well.',
             [
               'provision_amount' => $provision,
