@@ -101,7 +101,13 @@ set foreign_key_checks=0;
     `creationdate` integer not null ,
     `meta` TEXT NOT NULL,
     `accepted_date` timestamp NULL ,
-    PRIMARY KEY (`id`)
+    `member_id` BIGINT(20) UNSIGNED NULL ,
+    PRIMARY KEY (`id`) ,
+    CONSTRAINT `fk_email_validation_member`
+      FOREIGN KEY (`member_id`)
+      REFERENCES `tbmt_member` (`id`)
+      ON DELETE CASCADE
+      ON UPDATE CASCADE
   );
 
   ALTER TABLE tbmt_email_validation

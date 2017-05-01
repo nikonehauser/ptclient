@@ -60,8 +60,10 @@ class MemberController extends BaseController {
     if ( !$emailValidation )
       throw new InvalidDataException('Sorry the provided registration hash is invalid!');
 
-    if ( $emailValidation->getAcceptedDate() )
-      throw new InvalidDataException('Your account was created already, just login!');
+    if ( $emailValidation->getAcceptedDate() ) {
+      Session::setLogin($emailValidation->getMember());
+      return new ControllerActionRedirect(Router::toModule('account'));
+    }
 
     $data = json_decode($emailValidation->getMeta(), true);
     list($valid, $data, $referralMember, $invitation) = \Member::validateSignupForm($data);
@@ -86,6 +88,7 @@ class MemberController extends BaseController {
     $member->reload(false, $con);
 
     $emailValidation->setAcceptedDate(time());
+    $emailValidation->setMember($member);
     $emailValidation->save($con);
 
     Session::setLogin($member);
