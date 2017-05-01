@@ -381,3 +381,4 @@ set foreign_key_checks=0;
       ON UPDATE CASCADE
   );
 
+set foreign_key_checks=1;

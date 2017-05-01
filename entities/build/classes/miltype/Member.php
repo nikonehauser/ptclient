@@ -285,8 +285,10 @@ class Member extends BaseMember
     if ( $bonusIds )
       $this->setBonusIds($bonusIds);
 
-    $referrer->addOutstandingAdvertisedCount(1);
-    $referrer->save($con);
+    $referrer->changeOutstandingAdvertisedCount('+ 1', $con);
+
+    // The caller is responsibel for saving this the referrer member
+    // $referrer->save($con);
   }
 
   public function getReferrerMember(PropelPDO $con = null) {
@@ -297,13 +299,47 @@ class Member extends BaseMember
     return $this->getMemberRelatedByParentId($con);
   }
 
-  public function addOutstandingAdvertisedCount($int) {
-    $this->setOutstandingAdvertisedCount($this->getOutstandingAdvertisedCount() + $int);
+  public function changeOutstandingAdvertisedCount($val, PropelPDO $con) {
+    // required for atomic concurrent update
+    $con->exec('UPDATE '.\MemberPeer::TABLE_NAME.
+      ' SET '.
+        \MemberPeer::OUTSTANDING_ADVERTISED_COUNT.' = '.
+          \MemberPeer::OUTSTANDING_ADVERTISED_COUNT.' '.$val
+      .' WHERE '.\MemberPeer::ID.' = '.$this->getId()
+      .';');
+
+    // required to fix propel object
+    $this->setOutstandingAdvertisedCount(
+      $con->query(
+        'SELECT '
+          .\MemberPeer::OUTSTANDING_ADVERTISED_COUNT
+        .' FROM '.\MemberPeer::TABLE_NAME
+        .' WHERE '.\MemberPeer::ID.' = '.$this->getId()
+        .';'
+      )->fetch(PDO::FETCH_NUM)[0]
+    );
   }
 
-  public function convertOutstandingAdvertisedCount($int) {
-    $this->setOutstandingAdvertisedCount($this->getOutstandingAdvertisedCount() - $int);
-    $newAdvertisedCount = $this->getAdvertisedCount() + $int;
+  public function convertOutstandingAdvertisedCount($int, PropelPDO $con) {
+    $this->changeOutstandingAdvertisedCount('-'.$int, $con);
+
+    // required for atomic concurrent update
+    $con->exec('UPDATE '.\MemberPeer::TABLE_NAME.
+      ' SET '.
+        \MemberPeer::ADVERTISED_COUNT.' = '.
+          \MemberPeer::ADVERTISED_COUNT.' + '.$int
+      .' WHERE '.\MemberPeer::ID.' = '.$this->getId()
+      .';');
+
+    $newAdvertisedCount = $con->query(
+      'SELECT '
+        .\MemberPeer::ADVERTISED_COUNT
+      .' FROM '.\MemberPeer::TABLE_NAME
+      .' WHERE '.\MemberPeer::ID.' = '.$this->getId()
+      .';'
+    )->fetch(PDO::FETCH_NUM)[0];
+
+    // required to fix propel object
     $this->setAdvertisedCount($newAdvertisedCount);
 
     return $newAdvertisedCount;
@@ -355,6 +391,8 @@ class Member extends BaseMember
       if ( !$this->hadPaid() ) {
         $transfer->setState(Transfer::STATE_RESERVED);
       }
+
+      $transfer->save($con);
     }
 
     return $transfer;
@@ -400,8 +438,7 @@ class Member extends BaseMember
 
     if ( !$this->isExtended() ) {
       $this->setPaidDate($when);
-      if ( !$this->isMarkedAsPaid() )
-        \Tbmt\MailHelper::sendFeeIncome($this);
+      \Tbmt\MailHelper::sendFeeIncome($this);
 
       return;
     }
@@ -417,7 +454,7 @@ class Member extends BaseMember
       // {@see $this->fireReservedReceivedMemberFeeEvents}
       if ( !$freeFromInvitation ) {
         if ($this->getType() > self::TYPE_MEMBER )
-          \Tbmt\MailHelper::sendInvitationFeeIncome($this);
+          \Tbmt\MailHelper::sendInvitationFeeIncome($this, $freeFromInvitation);
         else
           \Tbmt\MailHelper::sendFeeIncome($this);
       }

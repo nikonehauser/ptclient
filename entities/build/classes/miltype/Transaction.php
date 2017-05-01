@@ -105,7 +105,7 @@ class Transaction extends BaseTransaction {
     $when = time();
 
     $amount = $data['amount'];
-    $transaction = $currentTransfer->addAmount($amount)
+    $transaction = $currentTransfer->addAmount($amount, $con)
       ->setReason(Transaction::REASON_CUSTOM_BONUS)
       ->setPurpose($data['purpose'])
       ->setRelatedId($login->getId())

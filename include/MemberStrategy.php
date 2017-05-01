@@ -321,14 +321,15 @@ class ExtendedMemberStrategy extends SimpleMemberStrategy {
         \Tbmt\DistributionStrategy::getInstance()->raiseFundsLevel($member);
       }
 
+      $referrerMember->save($con);
+      $member->save($con);
+
       \Tbmt\MailHelper::sendNewRecruitmentCongrats($referrerMember, $member);
 
       if ( !$invitation || !$wasFreeInvitation )
         \Tbmt\MailHelper::sendSignupConfirm($member);
       else
         \Tbmt\MailHelper::sendInvitationFeeIncome($member, $wasFreeInvitation);
-
-      $member->save($con);
 
       if ( !$con->commit() )
         throw new \Exception('Could not commit transaction');
