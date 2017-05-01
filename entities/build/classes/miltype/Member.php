@@ -285,8 +285,10 @@ class Member extends BaseMember
     if ( $bonusIds )
       $this->setBonusIds($bonusIds);
 
-    $referrer->addOutstandingAdvertisedCount(1);
-    $referrer->save($con);
+    $referrer->changeOutstandingAdvertisedCount('+ 1', $con);
+
+    // The caller is responsibel for saving this the referrer member
+    // $referrer->save($con);
   }
 
   public function getReferrerMember(PropelPDO $con = null) {
@@ -297,13 +299,47 @@ class Member extends BaseMember
     return $this->getMemberRelatedByParentId($con);
   }
 
-  public function addOutstandingAdvertisedCount($int) {
-    $this->setOutstandingAdvertisedCount($this->getOutstandingAdvertisedCount() + $int);
+  public function changeOutstandingAdvertisedCount($val, PropelPDO $con) {
+    // required for atomic concurrent update
+    $con->exec('UPDATE '.\MemberPeer::TABLE_NAME.
+      ' SET '.
+        \MemberPeer::OUTSTANDING_ADVERTISED_COUNT.' = '.
+          \MemberPeer::OUTSTANDING_ADVERTISED_COUNT.' '.$val
+      .' WHERE '.\MemberPeer::ID.' = '.$this->getId()
+      .';');
+
+    // required to fix propel object
+    $this->setOutstandingAdvertisedCount(
+      $con->query(
+        'SELECT '
+          .\MemberPeer::OUTSTANDING_ADVERTISED_COUNT
+        .' FROM '.\MemberPeer::TABLE_NAME
+        .' WHERE '.\MemberPeer::ID.' = '.$this->getId()
+        .';'
+      )->fetch(PDO::FETCH_NUM)[0]
+    );
   }
 
-  public function convertOutstandingAdvertisedCount($int) {
-    $this->setOutstandingAdvertisedCount($this->getOutstandingAdvertisedCount() - $int);
-    $newAdvertisedCount = $this->getAdvertisedCount() + $int;
+  public function convertOutstandingAdvertisedCount($int, PropelPDO $con) {
+    $this->changeOutstandingAdvertisedCount('-'.$int, $con);
+
+    // required for atomic concurrent update
+    $con->exec('UPDATE '.\MemberPeer::TABLE_NAME.
+      ' SET '.
+        \MemberPeer::ADVERTISED_COUNT.' = '.
+          \MemberPeer::ADVERTISED_COUNT.' + '.$int
+      .' WHERE '.\MemberPeer::ID.' = '.$this->getId()
+      .';');
+
+    $newAdvertisedCount = $con->query(
+      'SELECT '
+        .\MemberPeer::ADVERTISED_COUNT
+      .' FROM '.\MemberPeer::TABLE_NAME
+      .' WHERE '.\MemberPeer::ID.' = '.$this->getId()
+      .';'
+    )->fetch(PDO::FETCH_NUM)[0];
+
+    // required to fix propel object
     $this->setAdvertisedCount($newAdvertisedCount);
 
     return $newAdvertisedCount;
@@ -332,8 +368,7 @@ class Member extends BaseMember
             ." member_id = :member_id AND"
             ." currency = :currency AND"
             ." state in (".Transfer::STATE_COLLECT.", ".Transfer::STATE_RESERVED.")"
-            ." ORDER BY state desc"
-            ." FOR UPDATE";
+            ." ORDER BY state desc";
     $stmt = $con->prepare($sql);
     $stmt->execute(array(
       ':member_id' => $this->getId(),
@@ -386,22 +421,6 @@ class Member extends BaseMember
     return $sum;
   }
 
-  public function getOpenCollectingTransfers(PropelPDO $con) {
-    $sql = "SELECT * FROM ".TransferPeer::TABLE_NAME." WHERE"
-            ." member_id = :member_id AND"
-            ." state = :state"
-            ." FOR UPDATE";
-    $stmt = $con->prepare($sql);
-    $stmt->execute(array(
-      ':member_id' => $this->getId(),
-      ':state' => Transfer::STATE_COLLECT
-    ));
-
-    $formatter = new PropelObjectFormatter();
-    $formatter->setClass('Transfer');
-    return $formatter->format($stmt);
-  }
-
   /**
    * Set user as paid and spread provisions.
    *
@@ -417,8 +436,7 @@ class Member extends BaseMember
 
     if ( !$this->isExtended() ) {
       $this->setPaidDate($when);
-      if ( !$this->isMarkedAsPaid() )
-        \Tbmt\MailHelper::sendFeeIncome($this);
+      \Tbmt\MailHelper::sendFeeIncome($this);
 
       return;
     }
@@ -463,7 +481,9 @@ class Member extends BaseMember
     );
 
     $this->fireReservedReceivedMemberFeeEvents($con);
-    $this->save($con);
+
+    // It is the callers responsibility to save this member
+    // $this->save();
   }
 
   public function reserveReceivedMemberFeeEvent($paidMember, $currency, $when, $freeFromInvitation, PropelPDO $con) {
