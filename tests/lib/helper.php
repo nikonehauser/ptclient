@@ -111,6 +111,9 @@ class DbEntityHelper {
     $member->setEmail(self::$emailCounter.$member->getId().uniqid().'@un.de');
     $member->save(self::$con);
 
+    if ( $referralMember )
+      $referralMember->save(self::$con);
+
     return $member;
   }
 
@@ -132,10 +135,7 @@ class DbEntityHelper {
     $data = array_merge(self::$memberSignup, $data);
     $data['email'] = self::$emailCounter.uniqid().'@un.de';
 
-    if ( $insideActivity )
-      $member = Member::createFromSignup($data, $referralMember, null, self::$con);
-    else
-      $member = Member::createFromSignup($data, $referralMember, null, self::$con);
+    $member = Member::createFromSignup($data, $referralMember, null, self::$con);
 
     if ( $receivedPaiment )
       $member->onReceivedMemberFee(self::$currency, time(), false, self::$con);
@@ -146,7 +146,7 @@ class DbEntityHelper {
   static public function createSignupMemberInActivity(Member $referralMember, $receivedPaiment = true, array $data = array()) {
     self::$emailCounter++;
     $data = array_merge(self::$memberSignup, $data);
-    $data['email'] = self::$emailCounter.uniqid().'@un.de';
+    $data['email'] = self::$emailCounter.uniqid('', true).microtime().'@un.de';
 
     $con = self::$con;
     $member = \Activity::exec(

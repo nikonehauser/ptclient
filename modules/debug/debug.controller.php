@@ -12,13 +12,14 @@ class DebugController extends BaseController {
     'activities' => true,
     'printmail' => true,
     'loadtest' => true,
+    'inctest' => true,
   ];
 
   public function dispatchAction($action, $params) {
     if ( !\Tbmt\Config::get('devmode', \Tbmt\TYPE_BOOL, false) )
       throw new \PageNotFoundException();
 
-    if ( $action === 'loadtest' )
+    if ( $action === 'loadtest' || $action === 'inctest' )
       return parent::dispatchAction($action, $params);
 
     $login = Session::getLogin();
@@ -175,9 +176,25 @@ class DebugController extends BaseController {
   }
 
   public function action_activities() {
-    $activities = \ActivityQuery::create()->limit(100)->orderBy(\ActivityPeer::DATE, \Criteria::DESC)->find();
+    $type = isset($_REQUEST['type']) ? $_REQUEST['type'] : 1;
+
+    $typeButton = '<a class="button " href="'.
+      Router::toModule('debug', 'activities', ['type' => ($type != 2 ? 2 : 0)])
+      .'">'.($type != 2 ? 'Switch to failures' : 'Switch to all').'</a>';
+
+    $query = \ActivityQuery::create()
+      ->limit(100)
+      ->orderBy(\ActivityPeer::DATE, \Criteria::DESC);
+
+    if ( $type > 1 )
+      $query->filterByType(2);
+
+    $activities = $query->find();
 
     $result = '<div class="container"><div class="row sheet">
+
+      '.$typeButton.'
+
       <table class="table2Activities table" id="table2Activities">
         <tbody>
             <tr>
@@ -230,7 +247,7 @@ class DebugController extends BaseController {
     $result .= <<<END
 <script>
   var table = jQuery('#table2Activities');
-  table.click(function(event) {
+  table.dblclick(function(event) {
     var row = jQuery(event.target).parents('tr');
     if ( row.hasClass('js-togglemeta') ) {
       row.toggleClass('open');
@@ -247,16 +264,19 @@ END;
   public function action_loadtest() {
     require dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'tests'.DIRECTORY_SEPARATOR.'lib'.DIRECTORY_SEPARATOR.'helper.php';
 
-    $count = \MemberQuery::create()->count();
+    $count = \MemberQuery::create()
+      ->filterByPaidDate(1, \Criteria::GREATER_THAN)
+      ->count();
 
     $parentId = rand(1, $count-1);
 
-    $parent = \MemberQuery::create()
-      ->limit(1)
-      ->offset($parentId)
-      ->findOne();
+    // $parent = \MemberQuery::create()
+    //   ->filterByPaidDate(1, \Criteria::GREATER_THAN)
+    //   ->limit(1)
+    //   ->offset($parentId)
+    //   ->findOne();
 
-    // $parent = \MemberQuery::create()->findOneById(3);
+    $parent = \MemberQuery::create()->findOneById(3);
 
     $con = \Propel::getConnection();
     \DbEntityHelper::setCon($con);
@@ -265,6 +285,55 @@ END;
     \DbEntityHelper::createSignupMemberInActivity($parent);
 
     return new \Tbmt\ControllerActionAjax('k23l45hkj2hasdn');
+  }
+
+  public function action_inctest() {
+    $con = \Propel::getConnection();
+
+    $con->exec('start transaction;');
+
+    $stmt = $con->prepare('select signup_count FROM tbmt_system_stats where id = 1 for update;');
+    $stmt->execute();
+    $res = $stmt->fetch()[0];
+
+    sleep(0.5);
+
+    $con->exec('UPDATE tbmt_system_stats SET  signup_count = '.($res+1).' where id = 1;');
+
+    $con->exec('commit;');
+
+    // $stmt = $con->prepare($sql);
+    // $stmt->execute(array(
+    //   ':member_id' => $this->getId(),
+    //   ':currency' => $currency
+    // ));
+
+    // print_r('<pre>');
+    // print_r($res);
+    // print_r('</pre>');
+
+
+      return new \Tbmt\ControllerActionAjax('inctest_k23l45hkj2hasdn');
+
+    if ( !$con->beginTransaction() )
+      throw new Exception('Could not begin transaction');
+
+    try {
+
+      $systemStats = \SystemStatsQuery::create()->findOneById(1);
+      $systemStats->setSignupCount($systemStats->getSignupCount() +1);
+      $systemStats->save();
+
+      if ( !$con->commit() )
+        throw new Exception('Could not commit transaction');
+
+      return new \Tbmt\ControllerActionAjax('inctest_k23l45hkj2hasdn');
+    } catch (Exception $e) {
+        $con->rollBack();
+
+        throw $e;
+    }
+
   }
 }
 

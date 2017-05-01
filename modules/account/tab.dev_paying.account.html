@@ -31,28 +31,4 @@
         'target="_blank"'
       )?>
 
-      <table class="table">
-        <tbody>
-          <?php
-
-          if ( count($this->members) === 0 ) {
-            echo '<tr><td>Kein unbezahlten Mitglieder vorhanden';
-            echo '</td></tr>';
-          } else {
-
-            foreach ($this->members as $member) {
-              echo '<tr><td>'.$member->getNum().\Tbmt\view\Factory::buildButton(
-                'Geldeingang türken',
-                \Tbmt\Router::toModule(\Tbmt\AccountController::MODULE_NAME, 'do_dev_paying', [
-                  'fake_income_num' => $member->getNum()
-                ]),
-                'blue left-10'
-              );
-              echo '</td></tr>';
-            }
-          }
-
-          ?>
-        </tbody>
-      </table>
   </div>

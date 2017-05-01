@@ -24,6 +24,8 @@ class MailQueue {
   }
 
   static public function run($limit = 100) {
+    $isDebugMode = \Tbmt\Config::get('devmode', \Tbmt\TYPE_BOOL, false);
+
     $errors = 0;
     $success = 0;
 
@@ -52,7 +54,7 @@ class MailQueue {
       if ( $result === true ) {
         $success++;
 
-        if ( $mail->hasIncidents() ) {
+        if ( $mail->hasIncidents() || $isDebugMode ) {
           $mail->setStatus(\Mail::STATUS_SEND);
           $mail->save();
         } else {
