@@ -9,8 +9,6 @@ class WaterfallDistStrategy extends DistributionStrategy {
   public function onReceivedMemberFee(\Member $member, \Member $referrer, $currency, $when, $freeFromInvitation, \PropelPDO $con) {
     $memberFee = new \Tbmt\MemberFee(\Tbmt\Config::get('member_fee'), $member, $currency);
 
-    MailHelper::sendFeeIncomeReferrer($referrer, $member, $freeFromInvitation);
-
     // @see resources/snowball.txt - processes - P2
 
     if ( !$freeFromInvitation )
@@ -19,6 +17,10 @@ class WaterfallDistStrategy extends DistributionStrategy {
     $this->updateTreeByFundsLevel($referrer, $member);
 
     $newAdvertisedCount = $referrer->convertOutstandingAdvertisedCount(1, $con);
+
+    // before raising funds level! but after applying the advertised count
+    MailHelper::sendFeeIncomeReferrer($referrer, $member, $freeFromInvitation);
+
     if ( $newAdvertisedCount == self::FUNDS_LEVEL_UPDATE_WITH ) {
       $this->raiseFundsLevel($referrer);
     }
