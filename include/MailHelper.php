@@ -146,7 +146,7 @@ class MailHelper {
 
     $referrer_fullname = (
       $referrer
-      ? \Tbmt\view\Factory::buildMemberFullNameString($referrer);
+      ? \Tbmt\view\Factory::buildMemberFullNameString($referrer)
       : ''
     );
 
