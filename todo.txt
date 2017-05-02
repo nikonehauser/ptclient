@@ -8,11 +8,8 @@ update
 Fragen
 =======
 * excel: currency is source currency?
-* excel: costs?
+* excel: was ist bei den konten angekommen?
 * fehlerhafte überweisung -> email -> wie sieht die email aus?
-
-* button farben von rot auf grün?
-  schwarz auf whatever
 
 CURRENT - TODOS
 ===============
@@ -29,12 +26,10 @@ CURRENT - TODOS
 Go LIVE:
 ============
 
-* fragen zu markus weiterleiten ... seine email in config eintragen!
-
 * im paypal account die currency receiving optionen einstellen siehe:
 https://developer.paypal.com/docs/classic/api/currency_codes/#payment-receiving-preferences
 
-* zahlung an die head leute? die richtigen Konten müssen eingetragen werden?
+* zahlung an die head leute? die richtigen Konten müssen eingetragen werden!
 
 
 Offen an Tom:
@@ -44,6 +39,9 @@ Offen an Tom:
 NICE TO HAVE
 ============
 * im account, feature machen damit man seinen einladungs link ganz einfach über email an freunde schicken kann.
+
+* button farben von rot auf grün?
+  schwarz auf whatever
 
 * embed logo image: http://stackoverflow.com/questions/9110091/base64-encoded-images-in-email-signatures/9110164#9110164
 

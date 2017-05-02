@@ -173,6 +173,10 @@ class Cron {
 
   }
 
+  private static function job_rotate() {
+    return 'check rotation';
+  }
+
 }
 
 
