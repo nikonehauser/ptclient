@@ -14,11 +14,15 @@ Fragen
 CURRENT - TODOS
 ===============
 
-* das rausfliegen testen
+* investigate mysql deadlock
 
-* pdf quitting
+* cronjob: clear nonces
 
-* create hg cron job
+* cronjob: logrotation
+
+* cronjob: send failed activites per mail
+
+* cronjob: new happiness guides
 
 * remove_unpaid zeit entsprechen auf 7 tage setzen
 

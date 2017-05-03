@@ -227,13 +227,13 @@ return [
     ---------------------------------------------*/
     'exp_videos' => [
       'index' => [
-        'page_title' => 'Explanation videos',
+        'page_title' => 'Explanation videos - Login and pay',
       ],
       'fromto' => [
-        'page_title' => 'Explanation videos',
+        'page_title' => 'Explanation videos - From first mail to premium customer',
       ],
       'backoffice' => [
-        'page_title' => 'Explanation videos',
+        'page_title' => 'Explanation videos - The backoffice of Betterliving',
       ],
     ],
 

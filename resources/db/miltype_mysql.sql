@@ -303,6 +303,7 @@ set foreign_key_checks=0;
     `member_id` BIGINT(20) UNSIGNED NULL DEFAULT NULL,
     `related_id` INT NULL DEFAULT NULL,
     `meta` TEXT NULL,
+    `notified` SMALLINT NOT NULL  default 0,
     PRIMARY KEY (`id`) ,
     CONSTRAINT `fk_activity_member`
       FOREIGN KEY (`member_id`)
