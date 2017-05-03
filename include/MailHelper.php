@@ -454,6 +454,58 @@ class MailHelper {
     );
   }
 
+  /**
+   * #12
+ *   fullname,
+ *   hg_count,
+ *   member_id,
+ *
+   * @param  \Member $member
+   * @return [type]
+   */
+  static public function sendInvoice(\Member $member, \Payment $payment) {
+    $email = $member->getEmail();
+    $locale = Localizer::get('mail.invoice');
+
+    $fullName = \Tbmt\view\Factory::buildMemberFullNameString($member);
+    $body = $locale['body'];
+
+    $address = \Tbmt\view\Factory::buildMemberAddress($member);
+
+    if ( !$payment ) {
+      $payment = \PaymentQuery::create()
+        ->filterByMember($member)
+        ->filterByStatus(\Payment::STATUS_EXECUTED)
+        ->orderBy(\PaymentPeer::DATE, \Criteria::DESC)
+        ->findOne();
+    }
+
+    $invoiceNumber = $payment->getInvoiceNumber();
+    $invoiceDate = \Tbmt\Localizer::dateDefault($payment->getDate());
+    $customerNumber = $member->getNum();
+
+    $price = \Tbmt\view\Factory::buildFmtMemberFeeStr();
+
+    return self::send(
+      $email,
+      $fullName,
+      Localizer::insert($locale['subject'], ['hg_count' => $member->getHgWeek()]),
+      Localizer::insert($body, [
+        'fullname' => $fullName,
+        'member_id' => $member->getNum(),
+        'membership_fee' => $price,
+        'invoice_number' => $invoiceNumber,
+        'invoice_date' => $invoiceDate,
+        'customer_number' => $member->getNum(),
+        'address' => $address
+
+      ], false),
+      null,
+      null,
+      $member->getId()
+    );
+  }
+
 
 
 /*****************************************************************
@@ -675,7 +727,7 @@ class MailHelper {
     );
   }
 
-  static public function send($address, $name, $subject, $body, $fromMail = null, $fromName = null, $recipientId = null) {
+  static public function send($address, $name, $subject, $body, $fromMail = null, $fromName = null, $recipientId = null, $additionalStyles = null) {
     if ( self::$MAILS_DISABLED === true )
       return true;
 
@@ -741,6 +793,19 @@ class MailHelper {
 
     ol {
       padding-left: 40px;
+    }
+
+    .invoiceTable {
+      width: 100%;
+      color: black;
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    .invoiceTable th {
+      background-color: #999;
+    }
+    .invoiceTable td, .invoiceTable td {
+      padding: 5px;
     }
   </style>
 </head>

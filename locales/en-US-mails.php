@@ -298,7 +298,12 @@ Long story short: This is where you can find any information about your success 
 
 Of course you can also find the download links to your Happiness Guides here. The first part is ready to download already. Over the next few months, you will be able to download all of the missing parts to complete the Happiness Guide – until you own all eight parts.
 
-We wish you the very best and hope you’ll get rich soon!"
+We wish you the very best and hope you’ll get rich soon!
+
+If you want to log in into your account at Betterliving in the future you have to visit our website www.betterliving.social.
+There you have to push the button \"Customer Login\".
+
+Then you enter your email address or your client identification number (ID): \"{member_id}\" and your personal password and push \"SUBMIT\"."
 
 
   ],
@@ -560,6 +565,72 @@ Please log in with your personal client ID {member_id}. After doing so you can d
 Have fun reading it!
 
 May all your personal dreams come true.",
+
+  ],
+
+
+
+
+
+/**
+ * #12
+ *
+ * params:
+ *
+ */
+  'invoice' => [
+
+    'subject' => 'Invoice',
+
+    'body' =>
+
+"{fullname}<br>
+{address}<br>
+<br>
+<br>
+<h1>Invoice</h1>
+<br>
+<br>
+<br>
+<strong>Invoice Number:</strong> {invoice_number}<br>
+<strong>Invoice Date:</strong> {invoice_date}<br>
+<strong>Customer Number:</strong> {customer_number}<br>
+<br>
+<table class=\"invoiceTable\" border=1>
+  <tr>
+    <th>Pos</th>
+    <th>Product</th>
+    <th>VAT</th>
+    <th>Single Price</th>
+    <th>Quantity</th>
+    <th>Total Price</th>
+  </tr>
+
+  <tr>
+    <td>1</td>
+    <td>Happiness Guide</td>
+    <td>0 %</td>
+    <td>{membership_fee}</td>
+    <td>1</td>
+    <td>{membership_fee}</td>
+  </tr>
+</table><br>
+The total amount has been paid via PayPal.<br>
+<br>
+<br>
+<br>
+<hr>
+<br>
+<center style=\"font-size: smaller;\">
+Betterliving For Everyone Ltd<br>
+SWQ 3141 Malta, Swieqi - Noel Muscat & Co - Triq L-Imghazel <br>
+Registration number: C 76973 - VAT registrations number: MT23625003<br>
+www.betterliving.social - info@betterliving.social<br>
+</center>
+<br>
+<hr>
+<br>
+",
 
   ],
 

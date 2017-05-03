@@ -40,6 +40,13 @@ class GuideController extends BaseController {
       return $action;
     }
 
+    if ( $login->isMarkedAsPaid() ) {
+      $action = new ControllerActionAjax(['error' => 'PermissionDeniedException']);
+      $action->setHttpStatusCode(403);
+      return $action;
+
+    }
+
     $con = \Propel::getConnection();
     return \Activity::execAjax(
       /*callable*/[$this, 'activity_createPPP'],
@@ -82,17 +89,39 @@ class GuideController extends BaseController {
     }
 
     $con = \Propel::getConnection();
+    $result = [];
+
+    try {
+      // return new \Tbmt\ControllerActionAjax(self::exec($callable, $arrArgs, $action, $creator, $related, $con));
+      $result = \Activity::exec(
+        /*callable*/[$this, 'activity_execPPP'],
+        /*func args*/[
+          $login,
+          $data['paymentID'],
+          $data['payerID'],
+          $con
+        ],
+        /*activity.action*/\Activity::ACT_MEMBER_PAYMENT_EXEC,
+        /*activity.member*/$login,
+        /*activity.related*/null,
+        $con
+      );
+    } catch(Exception $e) {
+      return new \Tbmt\ControllerActionAjax(['error' => $e->getMessage()]);
+    }
+
+    $payment = isset($result['payment']) ? $result['payment'] : null;
+
     return \Activity::execAjax(
-      /*callable*/[$this, 'activity_execPPP'],
+      /*callable*/[$this, 'activity_processSuccessfullPPP'],
       /*func args*/[
         $login,
-        $data['paymentID'],
-        $data['payerID'],
+        $payment,
         $con
       ],
-      /*activity.action*/\Activity::ACT_MEMBER_PAYMENT_EXEC,
+      /*activity.action*/\Activity::ACT_MEMBER_PAYMENT_FINALIZE,
       /*activity.member*/$login,
-      /*activity.related*/null,
+      /*activity.related*/$payment,
       $con
     );
   }
@@ -213,7 +242,6 @@ class GuideController extends BaseController {
 
 
   /**
-   * Handle cancel.
    *
    * @return [type]
    */
@@ -233,44 +261,58 @@ class GuideController extends BaseController {
       if ( $exception )
         throw $exception;
 
+      // prevent any error here!
+      // just persist the successfull paypal payment
+      // process the payment after successfully persisting the most important status
+
       $payment
         ->setStatus(\Payment::STATUS_EXECUTED)
-        ->setMeta([$payPalPayment->toArray()])
         ->save($con);
 
-      $member->onReceivedMemberFee(
-        \Transaction::$BASE_CURRENCY, // currency
-        time(), // when
-        $member->getFreeInvitation() === 1, // was free invitation
-        $con
-      );
-
+      $member->setPaidDate(time());
       $member->save($con);
+
     } catch(\Exception $e) {
       $exception = $e;
     }
 
     $result = [
       'paypalPayment' => $payPalPayment ? $payPalPayment->toArray() : null,
-      \Activity::ARR_RELATED_RETURN_KEY => $payment,
-      \Activity::ARR_RESULT_RETURN_KEY => true
+      'payment' => $payment,
+      \Activity::ARR_RELATED_RETURN_KEY => $payment
     ];
 
     if ( $exception ) {
       $result[\Activity::ARR_EXCEPTION_RETURN_KEY] = $exception;
-
-      if ( $exception instanceof \PayPal\Exception\PayPalConnectionException ) {
-        $result['PayPalConnectionException'] = [
-          'code' => $exception->getCode(),
-          'data' => $exception->getData(),
-        ];
-      }
-
     }
 
     return $result;
   }
 
+
+  /**
+   *
+   * @return [type]
+   */
+  public function activity_processSuccessfullPPP(\Member $member, \Payment $payment, \PropelPDO $con) {
+    MailHelper::sendInvoice($member, $payment);
+
+    $member->setPaidDate(null); // Reset the state, set previously
+
+    $member->onReceivedMemberFee(
+      \Transaction::$BASE_CURRENCY, // currency
+      time(), // when
+      $member->getFreeInvitation() === 1, // was free invitation
+      $con
+    );
+
+    $member->save($con);
+
+    return [
+      \Activity::ARR_RELATED_RETURN_KEY => $payment,
+      \Activity::ARR_RESULT_RETURN_KEY => true
+    ];
+  }
 }
 
 ?>

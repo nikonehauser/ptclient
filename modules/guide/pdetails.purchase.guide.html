@@ -35,7 +35,7 @@
       *
       ************************************
     -->
-    <?php if ( $this->member && $this->member->hadPaid() ): ?>
+    <?php if ( $this->member && $this->member->isMarkedAsPaid() ): ?>
 
       <?php echo \Tbmt\view\Factory::buildInfoBox(
         $this->i18nView['purchased_already'],
@@ -44,7 +44,7 @@
         ''
       ); ?>
 
-    <?php elseif ( $this->member && !$this->member->hadPaid() ): ?>
+    <?php elseif ( $this->member && !$this->member->isMarkedAsPaid() ): ?>
 
       <div class="row">
 
