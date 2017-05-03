@@ -489,7 +489,7 @@ class MailHelper {
     return self::send(
       $email,
       $fullName,
-      Localizer::insert($locale['subject'], ['hg_count' => $member->getHgWeek()]),
+      Localizer::insert($locale['subject'], ['invoice_number' => $invoiceNumber]),
       Localizer::insert($body, [
         'fullname' => $fullName,
         'member_id' => $member->getNum(),
