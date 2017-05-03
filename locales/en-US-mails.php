@@ -580,7 +580,7 @@ May all your personal dreams come true.",
  */
   'invoice' => [
 
-    'subject' => 'Invoice',
+    'subject' => 'Invoice: {invoice_number}',
 
     'body' =>
 
