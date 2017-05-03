@@ -518,6 +518,7 @@ class Member extends BaseMember
       foreach ( $reservedEvents as $event) {
         $paidMember = $event->getMemberRelatedByPaidId($con);
         $paidMember->onReceivedMemberFee($event->getCurrency(), $event->getDate('U'), $event->getIsFreeInvitation(), $con);
+        $paidMember->save($con);
         $idsStack[] = $paidMember->getId();
 
         $event->delete($con);
