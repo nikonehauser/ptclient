@@ -24,6 +24,7 @@ class Activity extends BaseActivity
   const ACT_MEMBER_PAYMENT_CANCEL = 6;
   const ACT_MEMBER_PAYMENT_CANCEL_BY_USER = 7;
   const ACT_MEMBER_PAYMENT_CANCEL_UNKNOWN = 8;
+  const ACT_MEMBER_PAYMENT_FINALIZE = 9;
 
   const ARR_RESULT_RETURN_KEY = '__return';
   const ARR_RELATED_RETURN_KEY = '__related';

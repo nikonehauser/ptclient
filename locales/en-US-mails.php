@@ -569,6 +569,72 @@ May all your personal dreams come true.",
   ],
 
 
+
+
+
+/**
+ * #12
+ *
+ * params:
+ *
+ */
+  'invoice' => [
+
+    'subject' => 'Invoice',
+
+    'body' =>
+
+"{fullname}<br>
+{address}<br>
+<br>
+<br>
+<h1>Invoice</h1>
+<br>
+<br>
+<br>
+<strong>Invoice Number:</strong> {invoice_number}<br>
+<strong>Invoice Date:</strong> {invoice_date}<br>
+<strong>Customer Number:</strong> {customer_number}<br>
+<br>
+<table class=\"invoiceTable\" border=1>
+  <tr>
+    <th>Pos</th>
+    <th>Product</th>
+    <th>VAT</th>
+    <th>Single Price</th>
+    <th>Quantity</th>
+    <th>Total Price</th>
+  </tr>
+
+  <tr>
+    <td>1</td>
+    <td>Happiness Guide</td>
+    <td>0 %</td>
+    <td>{membership_fee}</td>
+    <td>1</td>
+    <td>{membership_fee}</td>
+  </tr>
+</table><br>
+The total amount has been paid via PayPal.<br>
+<br>
+<br>
+<br>
+<hr>
+<br>
+<center style=\"font-size: smaller;\">
+Betterliving For Everyone Ltd<br>
+SWQ 3141 Malta, Swieqi - Noel Muscat & Co - Triq L-Imghazel <br>
+Registration number: C 76973 - VAT registrations number: MT23625003<br>
+www.betterliving.social - info@betterliving.social<br>
+</center>
+<br>
+<hr>
+<br>
+",
+
+  ],
+
+
 /*****************************************************************
 ###################################################################
 ###################################################################

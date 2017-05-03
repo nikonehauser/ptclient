@@ -13,6 +13,7 @@ class DebugController extends BaseController {
     'printmail' => true,
     'loadtest' => true,
     'inctest' => true,
+    'invoice' => true,
   ];
 
   public function dispatchAction($action, $params) {
@@ -57,6 +58,10 @@ class DebugController extends BaseController {
     $emailValidation = \EmailValidation::create($now, 'efesus133@gmail.com', [], $con);
     $emailValidation->delete();
 
+    $payment = new \Payment();
+    $payment->setInvoiceNumber('INV_DUMMYNR');
+    $payment->setDate(time());
+
     return [
       'EmailValidation_#1' => ['efesus133@gmail.com', 'efesus133', $emailValidation],
       'SignupConfirm_#2' => [$member102],
@@ -69,6 +74,7 @@ class DebugController extends BaseController {
       'FeeIncomeReferrer_count2_#9' => [$member_paidCount2, $member105],
       'FeeIncomeReferrer_premium_#10' => [$member_paidCount3, $member105, false],
       'HgAvailable_#11' => [$member102],
+      'Invoice_#12' => [$member102, $payment],
 
     ];
   }
@@ -223,6 +229,7 @@ class DebugController extends BaseController {
       \Activity::ACT_MEMBER_PAYMENT_CANCEL => 'payment_cancel',
       \Activity::ACT_MEMBER_PAYMENT_CANCEL_BY_USER => 'payment_cancel_by_user',
       \Activity::ACT_MEMBER_PAYMENT_CANCEL_UNKNOWN => 'payment_cancel_unknown',
+      \Activity::ACT_MEMBER_PAYMENT_FINALIZE => 'payment_finalze',
     ];
 
     $reasons = \Tbmt\Localizer::get('view.account.tabs.invoice.transaction_reasons');
@@ -338,6 +345,11 @@ END;
         throw $e;
     }
 
+  }
+
+  public function action_invoice() {
+    $member102 = \Member::getByNum('1425312');
+    return \Tbmt\view\Factory::buildInvoiceHtml($member102);
   }
 }
 

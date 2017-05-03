@@ -159,6 +159,10 @@ class Localizer {
   static public function dateLong($time) {
     return date(self::get('date_format_php.long'), $time);
   }
+
+  static public function dateDefault($time) {
+    return date(self::get('date_format_php.default'), $time);
+  }
 }
 
 class IncrementalTextTranslation {

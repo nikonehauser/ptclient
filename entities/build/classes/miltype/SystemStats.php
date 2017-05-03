@@ -41,15 +41,24 @@ class SystemStats extends BaseSystemStats {
   }
 
   static public function getIncreasedInvoiceNumber(PropelPDO $con) {
-    $systemStats = self::getStats();
+    // required for atomic concurrent update
+    $con->exec('UPDATE '.\SystemStatsPeer::TABLE_NAME.
+      ' SET '.
+        \SystemStatsPeer::INVOICE_NUMBER.' = '.
+          \SystemStatsPeer::INVOICE_NUMBER.' + 1'
+      .' WHERE '.\SystemStatsPeer::ID.' = 1'
+      .';');
 
-    $inc = (int)$systemStats->getInvoiceNumber();
-    $inc += 1;
+    // required to fix propel object
+    $currentNumber = $con->query(
+        'SELECT '
+          .\SystemStatsPeer::INVOICE_NUMBER
+        .' FROM '.\SystemStatsPeer::TABLE_NAME
+        .' WHERE '.\SystemStatsPeer::ID.' = 1'
+        .';'
+      )->fetch(PDO::FETCH_NUM)[0];
 
-    $systemStats->setInvoiceNumber($inc);
-    $systemStats->save($con);
-
-    return \Tbmt\Config::get('invoice_number_prefix') . (1000000 + $inc) . date('YmdHis');
+    return \Tbmt\Config::get('invoice_number_prefix') . (1000000 + $currentNumber) . date('YmdHis');
   }
 
   static private function getStats() {
