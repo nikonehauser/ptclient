@@ -24,11 +24,11 @@ class MemberPeer extends BaseMemberPeer
 
     $sql = "SELECT * FROM ".MemberPeer::TABLE_NAME." WHERE"
             ." hg_week <= :max_hg_count"
-            ." AND (TIMESTAMPDIFF(SECOND, paid_date, :date_now)) >= (:seconds_per_guide * hg_week)";
+            ." AND (:date_now - EXTRACT(epoch from paid_date)) >= (:seconds_per_guide * CAST(hg_week as integer))";
 
     $stmt = $con->prepare($sql);
     $stmt->execute(array(
-      ':date_now' => date('Y-m-d H:i:s', $now),
+      ':date_now' => $now,
       ':seconds_per_guide' => $secondsPerGuide,
       ':max_hg_count' => $maxHgCount
     ));

@@ -94,15 +94,16 @@ class Masspay {
     */
 
     // if we find none in exeuction -> prepare new one
-    $sql = "UPDATE ".\TransferPeer::TABLE_NAME
-            ." INNER JOIN ".\MemberPeer::TABLE_NAME." on (".\TransferPeer::MEMBER_ID." = ".\MemberPeer::ID.")"
+    $sql = "UPDATE ONLY ".\TransferPeer::TABLE_NAME
             ." SET"
-            ." ".\TransferPeer::STATE." = ".\Transfer::STATE_IN_EXECUTION
+            ." state = ".\Transfer::STATE_IN_EXECUTION
+            ." FROM ".\MemberPeer::TABLE_NAME
             ." WHERE"
-            ." ".\TransferPeer::AMOUNT." >= $minAmountRequired"
-            ." AND ".\TransferPeer::STATE." in (".\Transfer::STATE_COLLECT.", ".\Transfer::STATE_COLLECT.")"
-            ." AND ".\TransferPeer::CREATION_DATE." <= :date_lastmonth"
-            ." AND ".\MemberPeer::TRANSFER_FREEZED." = 0";
+            .' "tbmt_member"."id" = "tbmt_transfer"."member_id"'
+            .' AND "tbmt_transfer"."amount" >= '.$minAmountRequired
+            .' AND "tbmt_transfer"."state" in ('.\Transfer::STATE_COLLECT.', '.\Transfer::STATE_COLLECT.')'
+            .' AND "tbmt_transfer"."creation_date" <= :date_lastmonth'
+            .' AND "tbmt_member"."transfer_freezed" = 0';
     $stmt = $con->prepare($sql);
     $stmt->execute([
       ':date_lastmonth' => date('Y-m-d H:i:s', $whenCondition)

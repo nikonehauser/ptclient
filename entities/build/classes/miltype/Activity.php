@@ -52,9 +52,6 @@ class Activity extends BaseActivity
     if ( !$con->beginTransaction() )
       throw new Exception('Could not begin transaction');
 
-    if ( !$isInTransaction )
-      $con->exec('SET AUTOCOMMIT = 0;');
-
     try {
       $resIsArray = $res = false;
       $res = $return = call_user_func_array($callable, $arrArgs);

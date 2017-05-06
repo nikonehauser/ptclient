@@ -14,6 +14,8 @@ Fragen
 CURRENT - TODOS
 ===============
 
+* validate tbmt_transfer.amount column with sum(transaction.amount) group by transaction query.
+
 * investigate mysql deadlock
 
 * cronjob: clear nonces

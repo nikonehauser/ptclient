@@ -73,6 +73,8 @@ class Invitation extends BaseInvitation
         'promoter_num' => $data['promoter_num'],
         'promoter_id' => $data['promoter_id']
       ]);
+    } else {
+      $invitation->setMeta('');
     }
 
     if ( !self::canInviteWithOptions($login) ) {

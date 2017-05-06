@@ -35,17 +35,13 @@ class Transfer extends BaseTransfer {
   public function addAmount($intAmount, PropelPDO $con) {
     // required for atomic concurrent update
     $con->exec('UPDATE '.\TransferPeer::TABLE_NAME.
-      ' SET '.
-        \TransferPeer::AMOUNT.' = '.
-          \TransferPeer::AMOUNT.' + '.((float)$intAmount)
-      .' WHERE '.\TransferPeer::ID.' = '.$this->getId()
+      ' SET amount = amount + '.((float)$intAmount)
+      .' WHERE id = '.$this->getId()
       .';');
 
     $currentAmount = $con->query(
-      'SELECT '
-        .\TransferPeer::AMOUNT
-      .' FROM '.\TransferPeer::TABLE_NAME
-      .' WHERE '.\TransferPeer::ID.' = '.$this->getId()
+      'SELECT amount FROM '.\TransferPeer::TABLE_NAME
+      .' WHERE id = '.$this->getId()
       .';'
     )->fetch(PDO::FETCH_NUM)[0];
 

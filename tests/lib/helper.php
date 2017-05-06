@@ -37,9 +37,7 @@ class DbEntityHelper {
     if ( !$con )
       $con = self::$con;
 
-    foreach ($tables as $key => $table) {
-      $con->exec('set foreign_key_checks=0; TRUNCATE TABLE '.$table.';');
-    }
+    $con->exec('TRUNCATE TABLE '.implode(',', $tables).' CASCADE;');
   }
 
   static private $memberDefaults = [
@@ -56,6 +54,9 @@ class DbEntityHelper {
     'Password'      => 'demo1234',
     'IsExtended'    => 1,
     'BonusIds'      => '{}',
+    'Hash'           => '{}',
+    'Email'           => '{}',
+    'Street'           => '{}',
   ];
 
   static public $memberSignup = [
@@ -71,6 +72,9 @@ class DbEntityHelper {
     'bic'            => 'unknown',
     'password'       => 'demo1234',
     'BonusIds'      => '{}',
+    'Hash'           => '{}',
+    'Email'           => '{}',
+    'Street'           => '{}',
   ];
 
   static private $memberInvitation = [
@@ -88,8 +92,11 @@ class DbEntityHelper {
     'password2'       => 'demo1234',
     'accept_agbs'          => '1',
     'accept_valid_country' => '1',
-    'IsExtended'    => 1,
-    'BonusIds'      => '{}',
+    'is_extended'    => 1,
+    'bonus_ids'      => '{}',
+    'hash'           => '{}',
+    'email'           => '{}',
+    'street'           => '{}',
   ];
 
   static public function createMember(Member $referralMember = null, array $data = array()) {
@@ -135,7 +142,13 @@ class DbEntityHelper {
     $data = array_merge(self::$memberSignup, $data);
     $data['email'] = self::$emailCounter.uniqid().'@un.de';
 
+    // if ( !self::$con->beginTransaction() )
+    //   throw new \Exception('Could not begin transaction');
+
     $member = Member::createFromSignup($data, $referralMember, null, self::$con);
+
+    // if ( !self::$con->commit() )
+    //   throw new \Exception('Could not commit transaction');
 
     if ( $receivedPaiment ) {
       $member->onReceivedMemberFee(self::$currency, time(), false, self::$con);
@@ -170,8 +183,6 @@ class DbEntityHelper {
 
       if ( !$con->beginTransaction() )
         throw new \Exception('Could not begin transaction');
-
-      $con->exec('SET AUTOCOMMIT = 0;');
 
       $member->onReceivedMemberFee(self::$currency, time(), false, self::$con);
       $member->save(self::$con);

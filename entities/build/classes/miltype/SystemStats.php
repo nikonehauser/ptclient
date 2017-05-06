@@ -43,18 +43,15 @@ class SystemStats extends BaseSystemStats {
   static public function getIncreasedInvoiceNumber(PropelPDO $con) {
     // required for atomic concurrent update
     $con->exec('UPDATE '.\SystemStatsPeer::TABLE_NAME.
-      ' SET '.
-        \SystemStatsPeer::INVOICE_NUMBER.' = '.
-          \SystemStatsPeer::INVOICE_NUMBER.' + 1'
-      .' WHERE '.\SystemStatsPeer::ID.' = 1'
+      ' SET invoice_number = invoice_number + 1'
+      .' WHERE id = 1'
       .';');
 
     // required to fix propel object
     $currentNumber = $con->query(
-        'SELECT '
-          .\SystemStatsPeer::INVOICE_NUMBER
+        'SELECT invoice_number'
         .' FROM '.\SystemStatsPeer::TABLE_NAME
-        .' WHERE '.\SystemStatsPeer::ID.' = 1'
+        .' WHERE id = 1'
         .';'
       )->fetch(PDO::FETCH_NUM)[0];
 

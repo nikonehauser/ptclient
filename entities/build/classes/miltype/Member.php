@@ -302,19 +302,15 @@ class Member extends BaseMember
   public function changeOutstandingAdvertisedCount($val, PropelPDO $con) {
     // required for atomic concurrent update
     $con->exec('UPDATE '.\MemberPeer::TABLE_NAME.
-      ' SET '.
-        \MemberPeer::OUTSTANDING_ADVERTISED_COUNT.' = '.
-          \MemberPeer::OUTSTANDING_ADVERTISED_COUNT.' '.$val
-      .' WHERE '.\MemberPeer::ID.' = '.$this->getId()
+      ' SET outstanding_advertised_count = outstanding_advertised_count '.$val
+      .' WHERE id = '.$this->getId()
       .';');
 
     // required to fix propel object
     $this->setOutstandingAdvertisedCount(
       $con->query(
-        'SELECT '
-          .\MemberPeer::OUTSTANDING_ADVERTISED_COUNT
-        .' FROM '.\MemberPeer::TABLE_NAME
-        .' WHERE '.\MemberPeer::ID.' = '.$this->getId()
+        'SELECT outstanding_advertised_count  FROM '.\MemberPeer::TABLE_NAME
+        .' WHERE id = '.$this->getId()
         .';'
       )->fetch(PDO::FETCH_NUM)[0]
     );
@@ -325,17 +321,13 @@ class Member extends BaseMember
 
     // required for atomic concurrent update
     $con->exec('UPDATE '.\MemberPeer::TABLE_NAME.
-      ' SET '.
-        \MemberPeer::ADVERTISED_COUNT.' = '.
-          \MemberPeer::ADVERTISED_COUNT.' + '.$int
-      .' WHERE '.\MemberPeer::ID.' = '.$this->getId()
+      ' SET advertised_count = advertised_count + '.$int
+      .' WHERE id = '.$this->getId()
       .';');
 
     $newAdvertisedCount = $con->query(
-      'SELECT '
-        .\MemberPeer::ADVERTISED_COUNT
-      .' FROM '.\MemberPeer::TABLE_NAME
-      .' WHERE '.\MemberPeer::ID.' = '.$this->getId()
+      'SELECT advertised_count FROM '.\MemberPeer::TABLE_NAME
+      .' WHERE id = '.$this->getId()
       .';'
     )->fetch(PDO::FETCH_NUM)[0];
 

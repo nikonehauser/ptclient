@@ -136,8 +136,12 @@ class MailQueue {
     $mailer->Body = MailHelper::bodyToHtml($htmlBody);
     $mailer->AltBody = $body;
 
-    if ( !$mailer->send() )
-      return $mailer->ErrorInfo;
+    try {
+      if ( !$mailer->send() )
+        return $mailer->ErrorInfo;
+    } catch (\Exception $e) {
+      return 'ErrorInfo: '.$mailer->ErrorInfo."\n\nException:\n".$e->__toString();
+    }
 
     return true;
   }
