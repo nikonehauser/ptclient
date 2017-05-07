@@ -106,13 +106,12 @@ class SimpleMemberStrategy extends MemberStrategy {
         ->setBankRecipient('')
         ->setIban('')
         ->setBic('')
-        ->setNum(0)
         ->setIsExtended(0)
+        ->setHash('')
         ->save($con);
 
       $member
         ->setHash(\Member::calcHash($member))
-        ->setNum($member->getId() + 1425300)
         ->save($con);
 
     if ( !$con->commit() )
@@ -274,13 +273,10 @@ class ExtendedMemberStrategy extends SimpleMemberStrategy {
         ->setBonusIds('{}')
         ->setPaidDate(null)
         ->setIsExtended(1)
-        ->setNum(null)
-        ->save($con);
+        ->setHash(\Member::calcHash($member));
 
       // $con->query('SELECT id FROM tbmt_member WHERE id = '.$member->getId().' FOR UPDATE;')->fetchAll();
       // $con->query('SELECT id FROM tbmt_member WHERE id = '.$referrerMember->getId().' FOR UPDATE;')->fetchAll();
-
-      $member->setHash(\Member::calcHash($member));
 
       $wasFreeInvitation = false;
 
@@ -310,9 +306,9 @@ class ExtendedMemberStrategy extends SimpleMemberStrategy {
       }
 
       $member->setReferrerMember($referrerMember, $con);
-      $member->setNum($member->getId() + 1425300);
 
       if ( $invitation ) {
+        $member->save($con);
         $invitation->setAcceptedMemberId($member->getId());
         $invitation->save($con);
 

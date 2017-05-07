@@ -18,6 +18,7 @@ class SystemSetup {
     'FirstName'     => 'unknown',
     'Age'           => 99,
     'City'          => 'unknown',
+    'Street'        => 'unknown',
     'Country'       => 'unknown',
     'ZipCode'       => '504231',
     'BankRecipient' => 'unknown',
@@ -27,6 +28,7 @@ class SystemSetup {
     'SignupDate'    => 0,
     'PaidDate'      => 0,
     'IsExtended'    => 1,
+    'BonusIds'      => '{}',
   ];
 
   static public function createMember(\Member $referralMember = null, array $data = array()) {
@@ -168,9 +170,9 @@ class SystemSetup {
 
     /* SET auto increment counter for member numbers
     ---------------------------------------------*/
-    // $sql = "ALTER TABLE tbmt_member AUTO_INCREMENT=1000001";
-    // $stmt = self::$con->prepare($sql);
-    // $stmt->execute();
+    $sql = "ALTER SEQUENCE tbmt_member_num_seq RESTART WITH 1425300";
+    $stmt = self::$con->prepare($sql);
+    $stmt->execute();
 
     /* Setup - SYSTEM STATS
     ---------------------------------------------*/

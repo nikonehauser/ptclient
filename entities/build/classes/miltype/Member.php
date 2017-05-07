@@ -161,7 +161,7 @@ class Member extends BaseMember
   }
 
   static public function calcHash(\Member $member) {
-    return sha1($member->getId().$member->getFirstName().$member->getLastName().$member->getEmail().uniqid().microtime());
+    return sha1($member->getFirstName().$member->getLastName().$member->getEmail().uniqid().microtime());
   }
 
   public function getTransactionReasonByMemberType() {
@@ -302,19 +302,15 @@ class Member extends BaseMember
   public function changeOutstandingAdvertisedCount($val, PropelPDO $con) {
     // required for atomic concurrent update
     $con->exec('UPDATE '.\MemberPeer::TABLE_NAME.
-      ' SET '.
-        \MemberPeer::OUTSTANDING_ADVERTISED_COUNT.' = '.
-          \MemberPeer::OUTSTANDING_ADVERTISED_COUNT.' '.$val
-      .' WHERE '.\MemberPeer::ID.' = '.$this->getId()
+      ' SET outstanding_advertised_count = outstanding_advertised_count '.$val
+      .' WHERE id = '.$this->getId()
       .';');
 
     // required to fix propel object
     $this->setOutstandingAdvertisedCount(
       $con->query(
-        'SELECT '
-          .\MemberPeer::OUTSTANDING_ADVERTISED_COUNT
-        .' FROM '.\MemberPeer::TABLE_NAME
-        .' WHERE '.\MemberPeer::ID.' = '.$this->getId()
+        'SELECT outstanding_advertised_count  FROM '.\MemberPeer::TABLE_NAME
+        .' WHERE id = '.$this->getId()
         .';'
       )->fetch(PDO::FETCH_NUM)[0]
     );
@@ -325,17 +321,13 @@ class Member extends BaseMember
 
     // required for atomic concurrent update
     $con->exec('UPDATE '.\MemberPeer::TABLE_NAME.
-      ' SET '.
-        \MemberPeer::ADVERTISED_COUNT.' = '.
-          \MemberPeer::ADVERTISED_COUNT.' + '.$int
-      .' WHERE '.\MemberPeer::ID.' = '.$this->getId()
+      ' SET advertised_count = advertised_count + '.$int
+      .' WHERE id = '.$this->getId()
       .';');
 
     $newAdvertisedCount = $con->query(
-      'SELECT '
-        .\MemberPeer::ADVERTISED_COUNT
-      .' FROM '.\MemberPeer::TABLE_NAME
-      .' WHERE '.\MemberPeer::ID.' = '.$this->getId()
+      'SELECT advertised_count FROM '.\MemberPeer::TABLE_NAME
+      .' WHERE id = '.$this->getId()
       .';'
     )->fetch(PDO::FETCH_NUM)[0];
 
@@ -402,15 +394,17 @@ class Member extends BaseMember
     if ( $con == null )
       $con = \Propel::getConnection();
 
-    $sql = "SELECT SUM(".TransferPeer::AMOUNT.") as amount, ".TransferPeer::CURRENCY." FROM ".TransferPeer::TABLE_NAME." WHERE"
+    $sql = "SELECT SUM(".TransactionPeer::AMOUNT.") as amount, ".TransferPeer::CURRENCY." FROM ".TransferPeer::TABLE_NAME
+            ." LEFT JOIN tbmt_transaction ON (tbmt_transfer.id = tbmt_transaction.transfer_id)"
+            ." WHERE"
             ." member_id = :member_id"
-            // ." AND state in (:state1, :state2)"
+            ." AND state in (:state1, :state2)"
             ." GROUP BY ".TransferPeer::MEMBER_ID.", ".TransferPeer::CURRENCY;
     $stmt = $con->prepare($sql);
     $stmt->execute(array(
       ':member_id' => $this->getId(),
-      // ':state1' => Transfer::STATE_COLLECT,
-      // ':state2' => Transfer::STATE_RESERVED
+      ':state1' => Transfer::STATE_COLLECT,
+      ':state2' => Transfer::STATE_RESERVED
     ));
 
     $formatter = new PropelStatementFormatter();
@@ -643,6 +637,23 @@ class Member extends BaseMember
 
     return $sum;
   }
+
+
+  /**
+   * Code to be run before persisting the object
+   *
+   * @param PropelPDO $con
+   *
+   * @return boolean
+   */
+  public function preSave(PropelPDO $con = null) {
+    // these columns get updated by plain sql therefore just never
+    // override that value on save
+    $this->resetModified(\MemberPeer::ADVERTISED_COUNT);
+    $this->resetModified(\MemberPeer::OUTSTANDING_ADVERTISED_COUNT);
+    return parent::preSave($con);
+  }
+
 }
 
 class MemberBonusIds {
@@ -674,7 +685,7 @@ class MemberBonusIds {
     return self::toString($arr);
   }
 
-  static public function payBonuses(\Tbmt\MemberFee $memberFee, Member $payingMember, $currency, $when, PropelPDO $con) {
+  static public function payBonuses(Member $payingMember, $currency, $when, PropelPDO $con) {
     $bonusByIds = self::toArray($payingMember->getBonusIds());
     if ( !is_array($bonusByIds) )
       return;
@@ -690,6 +701,8 @@ class MemberBonusIds {
     $bonusMembers = MemberQuery::create()
       ->filterByDeletionDate(null, Criteria::ISNULL)
       ->filterById($bonusIds, Criteria::IN)
+      ->orderBy(MemberPeer::ID, Criteria::ASC)
+      ->orderBy(MemberPeer::TYPE, Criteria::ASC)
       ->find($con);
 
     $spreadBonuses = [];
@@ -702,7 +715,6 @@ class MemberBonusIds {
       if ( $member->getBonusLevel() > 0 ) {
         // Pay the individual bonus set for this member
         $transfer = self::doPay(
-          $memberFee,
           $transfer,
           $member,
           \Transaction::REASON_CUSTOM_BONUS_LEVEL,
@@ -716,7 +728,6 @@ class MemberBonusIds {
       $reasonByType = $member->getTransactionReasonByType($type);
       if ( $reasonByType !== null ) {
         $transfer = self::doPay(
-          $memberFee,
           $transfer,
           $member,
           $reasonByType,
@@ -730,7 +741,6 @@ class MemberBonusIds {
       $reasonByMemberNum = $member->getTransactionReasonByMemberNum();
       if ( $reasonByMemberNum !== null ) {
         $transfer = self::doPay(
-          $memberFee,
           $transfer,
           $member,
           $reasonByMemberNum,
@@ -771,7 +781,6 @@ class MemberBonusIds {
 
         foreach ($collectUnspreadBonusus as $memberType) {
           self::doPay(
-            $memberFee,
             $memberObjects[0], // member {object}
             $memberObjects[1], // member transfer {object}
             \Member::getTransactionReasonByType($memberType), // reason by type {integer}
@@ -791,7 +800,7 @@ class MemberBonusIds {
     }
   }
 
-  static private function doPay(\Tbmt\MemberFee $memberFee, Transfer $transfer = null, Member $member, $reason, $relatedId, $currency, $when, PropelPDO $con) {
+  static private function doPay(Transfer $transfer = null, Member $member, $reason, $relatedId, $currency, $when, PropelPDO $con) {
     if ( $transfer === null )
       $transfer = $member->getCurrentTransferBundle($currency, $con);
 
@@ -802,7 +811,6 @@ class MemberBonusIds {
       $when,
       $con
     );
-    $memberFee->subtract($transaction->getAmount(), $reason);
 
     return $transfer;
   }

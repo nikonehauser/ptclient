@@ -9,7 +9,7 @@ return [
       'subject' => 'Password reset',
       'body' => "You have lost your $brandName password. Sorry about that!
 But don’t worry! You can use the following link within the next day to reset your password:
-{link}
+[link]({link})
 Note: Link expires within 24 hours.",
     ],
 
@@ -193,7 +193,7 @@ That’s why the first part of your Happiness Guide is ready for you to download
 
 This is your client identification number (ID): \"{member_id}\".
 
-Keep your number in a safe place; you will need it to log in on [www.betterliving.social](https://www.betterliving.social).
+Keep your number in a safe place; you will need it to log in on [www.betterliving.social](http://www.betterliving.social).
 
 In order to download the first part of your Happiness Guide, just log in now.
 
