@@ -146,7 +146,6 @@
   CREATE TABLE IF NOT EXISTS  "tbmt_transfer" (
     "id" serial NOT NULL ,
     "member_id" BIGINT NOT NULL ,
-    "amount" float default 0 NOT NULL ,
     "currency" varchar(3) not null ,
     "state" smallint not null default 0 ,
     "state_history" text NULL,

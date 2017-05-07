@@ -9,7 +9,7 @@ return [
       'subject' => 'Password reset',
       'body' => "You have lost your $brandName password. Sorry about that!
 But don’t worry! You can use the following link within the next day to reset your password:
-{link}
+[link]({link})
 Note: Link expires within 24 hours.",
     ],
 

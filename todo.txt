@@ -14,6 +14,10 @@ Fragen
 CURRENT - TODOS
 ===============
 
+* debug modus ausschalten
+
+* invalidate reset password link!
+
 * validate tbmt_transfer.amount column with sum(transaction.amount) group by transaction query.
 
 * investigate mysql deadlock

@@ -47,61 +47,63 @@ class Activity extends BaseActivity
   }
 
   static public function exec($callable, $arrArgs, $action, $creator = null, $related = null, PropelPDO $con) {
-    $isInTransaction = $con->isInTransaction();
+    $resIsArray = $res = false;
+    $exception = null;
+    $type = self::TYPE_SUCCESS;
+    $related = null;
 
     if ( !$con->beginTransaction() )
       throw new Exception('Could not begin transaction');
 
     try {
-      $resIsArray = $res = false;
       $res = $return = call_user_func_array($callable, $arrArgs);
       $resIsArray = is_array($res);
 
-      if ( $resIsArray ) {
-        if ( isset($res[self::ARR_EXCEPTION_RETURN_KEY]) ) {
-          $exception = $res[self::ARR_EXCEPTION_RETURN_KEY];
-          unset($res[self::ARR_EXCEPTION_RETURN_KEY]);
-          throw $exception;
-        }
-
-        if ( isset($res[self::ARR_RESULT_RETURN_KEY]) ) {
-          $return = $res[self::ARR_RESULT_RETURN_KEY];
-          unset($res[self::ARR_RESULT_RETURN_KEY]);
-        }
-
-        if ( !$related && isset($res[self::ARR_RELATED_RETURN_KEY]) ) {
-          $related = $res[self::ARR_RELATED_RETURN_KEY];
-          unset($res[self::ARR_RELATED_RETURN_KEY]);
-        }
+      if ( $resIsArray && isset($res[self::ARR_EXCEPTION_RETURN_KEY]) ) {
+        $exception = $res[self::ARR_EXCEPTION_RETURN_KEY];
+        unset($res[self::ARR_EXCEPTION_RETURN_KEY]);
+        throw $exception;
       }
-
-      self::insert($action, self::TYPE_SUCCESS,
-        $creator,
-        $related,
-        $resIsArray ? $res : [$res],
-        null,
-        $con
-      );
 
       if ( !$con->commit() )
         throw new Exception('Could not commit transaction');
 
-      return $return;
     } catch (Exception $e) {
-        $con->rollBack();
-
-        $activity = self::insert($action, self::TYPE_FAILURE,
-          $creator,
-          $related,
-          $resIsArray ? $res : [$res],
-          $e,
-          $con
-        );
-
-        self::$_ActivityExceptions[] = $activity->toArray();
-
-        throw $e;
+      $con->rollBack();
+      $exception = $e;
+      $type = self::TYPE_FAILURE;
     }
+
+    $resIsArray = is_array($res);
+
+    if ( $resIsArray ) {
+      if ( isset($res[self::ARR_RESULT_RETURN_KEY]) ) {
+        $return = $res[self::ARR_RESULT_RETURN_KEY];
+        unset($res[self::ARR_RESULT_RETURN_KEY]);
+      }
+
+      if ( !$related && isset($res[self::ARR_RELATED_RETURN_KEY]) ) {
+        $related = $res[self::ARR_RELATED_RETURN_KEY];
+        unset($res[self::ARR_RELATED_RETURN_KEY]);
+      }
+    }
+
+    $activity = self::insert(
+      $action,
+      $type,
+      $creator,
+      $related,
+      $resIsArray ? $res : [$res],
+      $exception,
+      $con
+    );
+
+    if ( $exception != null ) {
+      self::$_ActivityExceptions[] = $activity->toArray();
+      throw $exception;
+    }
+
+    return $return;
   }
 
   static public function insert($action, $type, $creator = null, $related = null, array $metaData = array(), Exception $exception = null, PropelPDO $con) {

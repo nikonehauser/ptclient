@@ -28,24 +28,41 @@ class Transfer extends BaseTransfer {
   const STATE_DONE = 3;
   const STATE_FAILED = 4;
 
+  public function getAmountSum(PropelPDO $con = null) {
+    if ( $con == null )
+      $con = \Propel::getConnection();
+
+    $sum = $con->query(
+      'SELECT SUM(amount) FROM '.\TransactionPeer::TABLE_NAME
+      .' WHERE transfer_id = '.$this->getId()
+      .';'
+    )->fetch(PDO::FETCH_NUM)[0];
+
+    if ( !$sum ) {
+      return 0;
+    }
+
+    return $sum;
+  }
+
   /**
    * Adds the given amount to this transfer.
    * @param [type] $intAmount
    */
   public function addAmount($intAmount, PropelPDO $con) {
     // required for atomic concurrent update
-    $con->exec('UPDATE '.\TransferPeer::TABLE_NAME.
-      ' SET amount = amount + '.((float)$intAmount)
-      .' WHERE id = '.$this->getId()
-      .';');
+    // $con->exec('UPDATE '.\TransferPeer::TABLE_NAME.
+    //   ' SET amount = amount + '.((float)$intAmount)
+    //   .' WHERE id = '.$this->getId()
+    //   .';');
 
-    $currentAmount = $con->query(
-      'SELECT amount FROM '.\TransferPeer::TABLE_NAME
-      .' WHERE id = '.$this->getId()
-      .';'
-    )->fetch(PDO::FETCH_NUM)[0];
+    // $currentAmount = $con->query(
+    //   'SELECT amount FROM '.\TransferPeer::TABLE_NAME
+    //   .' WHERE id = '.$this->getId()
+    //   .';'
+    // )->fetch(PDO::FETCH_NUM)[0];
 
-    $this->setAmount($currentAmount);
+    // $this->setAmount($currentAmount);
     $transaction = new Transaction();
     $transaction->setTransfer($this);
     $transaction->setAmount($intAmount);

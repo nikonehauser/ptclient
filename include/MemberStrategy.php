@@ -273,13 +273,10 @@ class ExtendedMemberStrategy extends SimpleMemberStrategy {
         ->setBonusIds('{}')
         ->setPaidDate(null)
         ->setIsExtended(1)
-        ->setHash('')
-        ->save($con);
+        ->setHash(\Member::calcHash($member));
 
       // $con->query('SELECT id FROM tbmt_member WHERE id = '.$member->getId().' FOR UPDATE;')->fetchAll();
       // $con->query('SELECT id FROM tbmt_member WHERE id = '.$referrerMember->getId().' FOR UPDATE;')->fetchAll();
-
-      $member->setHash(\Member::calcHash($member));
 
       $wasFreeInvitation = false;
 
@@ -311,6 +308,7 @@ class ExtendedMemberStrategy extends SimpleMemberStrategy {
       $member->setReferrerMember($referrerMember, $con);
 
       if ( $invitation ) {
+        $member->save($con);
         $invitation->setAcceptedMemberId($member->getId());
         $invitation->save($con);
 

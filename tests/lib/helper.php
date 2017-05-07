@@ -460,7 +460,7 @@ class TransactionTotalsAssertions {
     print_r([
       'memberId' => $this->member->getId(),
       'manual_total' => $this->total,
-      'transfer_total' => $this->transfer->getAmount(),
+      'transfer_total' => $this->transfer->getAmountSum(),
       'member_total' =>  isset($memberTotal[DbEntityHelper::$currency]) ? $memberTotal[DbEntityHelper::$currency] : null,
       'member_transactions' => $this->transferTransactionsToArray($this->transfer)
     ]);
@@ -477,7 +477,7 @@ class TransactionTotalsAssertions {
     foreach ( $transactions as $trans ) {
       $result[] = [
         'id'     => $trans->getId(),
-        'amount' => $trans->getAmount(),
+        'amount' => $trans->getAmountSum(),
         'reason' => $reasons[$trans->getReason()],
         'related_id' => $trans->getRelatedId()
       ];
@@ -489,7 +489,7 @@ class TransactionTotalsAssertions {
   public function assertTotals() {
     $this->transfer->reload(DbEntityHelper::$con);
     $this->member->reload(DbEntityHelper::$con);
-    $this->testCase->assertEquals($this->total, $this->transfer->getAmount(), 'Invalid totals of: '.$this->member->getFirstName().' '.$this->member->getLastName());
+    $this->testCase->assertEquals($this->total, $this->transfer->getAmountSum(), 'Invalid totals of: '.$this->member->getFirstName().' '.$this->member->getLastName());
 
     $amount = $this->member->getOutstandingTotal();
     $this->testCase->assertEquals($this->total, isset($amount[DbEntityHelper::$currency]) ? $amount[DbEntityHelper::$currency] : 0,

@@ -64,7 +64,7 @@ class MasspayExcel {
       $rowNumber = $rowValues[0];
       $amount = $rowValues[1];
 
-      $amount += $transfer->getAmount();
+      $amount += $transfer->getAmountSum();
 
       $this->aTab->setCellValue('H'.$rowNumber, $this->formatPrice($amount));
 
@@ -81,7 +81,7 @@ class MasspayExcel {
 
     $this->transferByMemberVersion[$memberProfileVersion] = [
       $this->currentRow,
-      $transfer->getAmount()
+      $transfer->getAmountSum()
     ];
 
     $columns = [
@@ -92,7 +92,7 @@ class MasspayExcel {
       $member->getBic(), # 'SWIFT/BIC Bank',
       '', # 'Bank address/Country',
       '', # 'Bank address',
-      $this->formatPrice($transfer->getAmount()), # 'Amount',
+      $this->formatPrice($transfer->getAmountSum()), # 'Amount',
       $currency, # 'Currency',
       $memberReference, # 'Reason for payment',
       'SHA', # 'Costs',

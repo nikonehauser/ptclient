@@ -81,27 +81,14 @@ class Masspay {
     $minAmountRequired = Config::get("payout.execute.payouts.min.amount", TYPE_INT);
     $whenCondition = strtotime(Config::get("payout.execute.payouts.after.strtotime"));
 
-    /*
-    $sql = "SELECT count(*) FROM ".\TransferPeer::TABLE_NAME
-            ." INNER JOIN ".\MemberPeer::TABLE_NAME." on (".\TransferPeer::MEMBER_ID." = ".\MemberPeer::ID.")"
-            ." WHERE"
-            ." ".\TransferPeer::AMOUNT." >= $minAmountRequired"
-            ." AND ".\TransferPeer::STATE." = ".\Transfer::STATE_IN_EXECUTION
-            ." AND ".\MemberPeer::TRANSFER_FREEZED." = 0";
-    $stmt = $con->prepare($sql);
-    $stmt->execute([]);
-    $count = $stmt->fetch(\PDO::FETCH_NUM);
-    */
-
     // if we find none in exeuction -> prepare new one
-    $sql = "UPDATE ONLY ".\TransferPeer::TABLE_NAME
-            ." SET"
-            ." state = ".\Transfer::STATE_IN_EXECUTION
+    $sql = "UPDATE ONLY tbmt_transfer"
+            ." SET state = ".\Transfer::STATE_IN_EXECUTION
             ." FROM ".\MemberPeer::TABLE_NAME
             ." WHERE"
             .' "tbmt_member"."id" = "tbmt_transfer"."member_id"'
-            .' AND "tbmt_transfer"."amount" >= '.$minAmountRequired
-            .' AND "tbmt_transfer"."state" in ('.\Transfer::STATE_COLLECT.', '.\Transfer::STATE_COLLECT.')'
+            .' AND (select sum(amount) from tbmt_transaction where transfer_id = tbmt_transfer.id) >= '.$minAmountRequired
+            .' AND "tbmt_transfer"."state" in ('.\Transfer::STATE_COLLECT.')'
             .' AND "tbmt_transfer"."creation_date" <= :date_lastmonth'
             .' AND "tbmt_member"."transfer_freezed" = 0';
     $stmt = $con->prepare($sql);

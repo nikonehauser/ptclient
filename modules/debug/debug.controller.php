@@ -270,6 +270,7 @@ END;
 
   public function action_loadtest() {
     require dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'tests'.DIRECTORY_SEPARATOR.'lib'.DIRECTORY_SEPARATOR.'helper.php';
+    \Tbmt\MailHelper::$MAILS_DISABLED = true;
 
     $count = \MemberQuery::create()
       ->filterByPaidDate(1, \Criteria::GREATER_THAN)

@@ -7,12 +7,10 @@ class WaterfallDistStrategy extends DistributionStrategy {
   const FUNDS_LEVEL_UPDATE_WITH = 2;
 
   public function onReceivedMemberFee(\Member $member, \Member $referrer, $currency, $when, $freeFromInvitation, \PropelPDO $con) {
-    $memberFee = new \Tbmt\MemberFee(\Tbmt\Config::get('member_fee'), $member, $currency);
-
     // @see resources/snowball.txt - processes - P2
 
     if ( !$freeFromInvitation )
-      $this->payAdvertisingFor($referrer, $memberFee, $member, $currency, $when, $con);
+      $this->payAdvertisingFor($referrer, $member, $currency, $when, $con);
 
     $this->updateTreeByFundsLevel($referrer, $member);
 
@@ -21,16 +19,11 @@ class WaterfallDistStrategy extends DistributionStrategy {
     // before raising funds level! but after applying the advertised count
     MailHelper::sendFeeIncomeReferrer($referrer, $member, $freeFromInvitation);
 
-    if ( $newAdvertisedCount == self::FUNDS_LEVEL_UPDATE_WITH ) {
+    if ( $newAdvertisedCount >= self::FUNDS_LEVEL_UPDATE_WITH ) {
       $this->raiseFundsLevel($referrer);
     }
 
     $referrer->save($con);
-
-    if ( !$freeFromInvitation ) {
-      //$memberFee->checkRemainGreaterZero();
-      $memberFee->addRemainingToAccounts($when, $con);
-    }
 
     // It is the callers responsibility to save this member
     // $member->save();
@@ -56,7 +49,7 @@ class WaterfallDistStrategy extends DistributionStrategy {
    * @param  Member    $advertisedMember
    * @param  PropelPDO $con
    */
-  public function payAdvertisingFor(\Member $referrer, \Tbmt\MemberFee $memberFee, \Member $advertisedMember, $currency, $when, \PropelPDO $con) {
+  public function payAdvertisingFor(\Member $referrer, \Member $advertisedMember, $currency, $when, \PropelPDO $con) {
     $advertisedMemberId = $advertisedMember->getId();
     $transfer = $referrer->getCurrentTransferBundle($currency, $con);
     if ( $referrer->getFundsLevel() === \Member::FUNDS_LEVEL1 ) {
@@ -69,7 +62,6 @@ class WaterfallDistStrategy extends DistributionStrategy {
         $when,
         $con
       );
-      $memberFee->subtract($transaction->getAmount(), \Transaction::REASON_ADVERTISED_LVL1);
 
       $parent = $referrer->getMemberRelatedByParentId($con);
       if ( $parent ) {
@@ -82,7 +74,6 @@ class WaterfallDistStrategy extends DistributionStrategy {
           $when,
           $con
         );
-        $memberFee->subtract($parentTransaction->getAmount(), \Transaction::REASON_ADVERTISED_INDIRECT);
 
         $parentTransfer->save($con);
         $parent->save($con);
@@ -99,12 +90,11 @@ class WaterfallDistStrategy extends DistributionStrategy {
         $when,
         $con
       );
-      $memberFee->subtract($transaction->getAmount(), \Transaction::REASON_ADVERTISED_LVL2);
     }
 
     $transfer->save($con);
 
-    \MemberBonusIds::payBonuses($memberFee, $advertisedMember, $currency, $when, $con);
+    \MemberBonusIds::payBonuses($advertisedMember, $currency, $when, $con);
   }
 
   public function updateTreeByFundsLevel(\Member $referrer, \Member $advertisedMember) {
@@ -112,8 +102,7 @@ class WaterfallDistStrategy extends DistributionStrategy {
       // As long as i am level 1 i wont receive more from them than just
       // the 5 euro. All further advertised members etc. will go on to the
       // account of my !parent!
-      $referrerParent = $referrer->getMemberRelatedByParentId();
-      $advertisedMember->setParentId($referrerParent ? $referrerParent->getId() : null);
+      $advertisedMember->setParentId($referrer->getParentId());
 
       // We have transferred the advertised member, therefore adjust the
       // bonus ids of this member either.

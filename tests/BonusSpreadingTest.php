@@ -559,7 +559,7 @@ class BonusSpreadingTest extends Tbmt_Tests_DatabaseTestCase {
 
   private function assertTransferTotal($total, Member $member) {
     $transfer = DbEntityHelper::getCurrentTransferBundle($member);
-    $this->assertEquals($total, $transfer->getAmount(), 'Incorrect transfer total');
+    $this->assertEquals($total, $transfer->getAmountSum(), 'Incorrect transfer total');
     $outTot = $member->getOutstandingTotal();
     $outTot = isset($outTot[DbEntityHelper::$currency]) ? $outTot[DbEntityHelper::$currency] : 0;
     $this->assertEquals($total, $outTot, 'Incorrect outstanding total');
