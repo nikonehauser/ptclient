@@ -131,6 +131,7 @@ class DebugController extends BaseController {
       ->filterByDeletionDate(null, \Criteria::ISNULL)
       ->filterByNum('101', \Criteria::NOT_EQUAL)
       ->orderBy('num')
+      ->limit(150)
       ->find();
 
     $result = '<div class="container"><div class="row sheet">

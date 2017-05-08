@@ -18,10 +18,6 @@ CURRENT - TODOS
 
 * invalidate reset password link!
 
-* validate tbmt_transfer.amount column with sum(transaction.amount) group by transaction query.
-
-* investigate mysql deadlock
-
 * cronjob: clear nonces
 
 * cronjob: logrotation
@@ -31,6 +27,8 @@ CURRENT - TODOS
 * cronjob: new happiness guides
 
 * remove_unpaid zeit entsprechen auf 7 tage setzen
+
+* passwort zurücksetzen für tbmtproduct seite
 
 
 Go LIVE:
