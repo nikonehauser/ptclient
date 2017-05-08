@@ -32,11 +32,16 @@ final class Session {
   }
 
   static public function login($num, $pwd) {
-    $member = \MemberQuery::create()
-      ->filterByDeletionDate(null, \Criteria::ISNULL)
-      ->filterByNum($num)
-      ->findOne();
+    $query = \MemberQuery::create()
+      ->filterByDeletionDate(null, \Criteria::ISNULL);
 
+    if ( is_numeric($num) ) {
+      $query->filterByNum($num);
+    } else {
+      $query->filterByEmail($num);
+    }
+
+    $member = $query->findOne();
     if ( !$member ) {
       $member = \MemberQuery::create()
         ->filterByDeletionDate(null, \Criteria::ISNULL)
