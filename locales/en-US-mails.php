@@ -483,7 +483,7 @@ Secondly, and this is even more interesting, show all your recommended customers
 
 The video [Marketingsystem of Betterliving]({video_link}) shows what will happen when your next recommended Customer finds two friends who also recommend two others at 4:00
 
-After six weeks you will find a total amount of € {after6weeksamount} in your bank account.
+After six weeks you will find a total amount of {after6weeksamount} in your bank account.
 
 In order to make lots of money, all you have to do is:
 1. Make three friends join Betterliving to become a premium customer and receive a passive income
