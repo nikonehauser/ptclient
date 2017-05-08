@@ -420,7 +420,7 @@ From your third recommended customer who signs up and purchases the Happiness Gu
 
 We’re wishing best of luck finding new customers and have fun spending the commissions you will receive.
 
-Please recheck whether your bank account details are correct. You can do so by logging in on {profile_url} with your ID and check your information. By clicking “change profile” you can correct your bank account details.
+Please recheck whether your bank account details are correct. You can do so by logging in to your [profile]({profile_url}) with your ID and check your information. By clicking “change profile” you can correct your bank account details.
 
 
 Please note that we only transfer commissions at a minimum of {min_payout_amount}. For more information, have a look at our terms of use.",
@@ -483,7 +483,7 @@ Secondly, and this is even more interesting, show all your recommended customers
 
 The video [Marketingsystem of Betterliving]({video_link}) shows what will happen when your next recommended Customer finds two friends who also recommend two others at 4:00
 
-After six weeks you will find a total amount of € {after6weeksamount} in your bank account.
+After six weeks you will find a total amount of {after6weeksamount} in your bank account.
 
 In order to make lots of money, all you have to do is:
 1. Make three friends join Betterliving to become a premium customer and receive a passive income
