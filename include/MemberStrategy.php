@@ -107,10 +107,6 @@ class SimpleMemberStrategy extends MemberStrategy {
         ->setIban('')
         ->setBic('')
         ->setIsExtended(0)
-        ->setHash('')
-        ->save($con);
-
-      $member
         ->setHash(\Member::calcHash($member))
         ->save($con);
 
