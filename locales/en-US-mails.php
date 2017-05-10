@@ -69,6 +69,8 @@ In case you do not own a PayPal account, please register on their website [PayPa
 As soon as we have received your payment, you are going to get to know
 helpful secrets about how to make a fortune with $brandName.
 
+This is your client identification number (ID): \"{member_id}\".
+
 If you want to log in into your account at Betterliving in the future you have to visit our website http://www.betterliving.social.
 
 There you have to push the button \"Customer Login\".

@@ -22,12 +22,6 @@ Fragen
 CURRENT - TODOS
 ===============
 
-* remove_send_mails
-
-* send mail for failed activities
-
-* paypal auth cache anschalten und restliche config parameter prüfen
-
 * security - tom macht sich schlau!
 
 * security: split public and source code folders

@@ -133,6 +133,19 @@ class Payments {
       );
     }
 
+    $logsPath = \Tbmt\Config::get('logs.path');
+    $tmpPath = \Tbmt\Config::get('tmp.path');
+    self::$apiContext->setConfig(
+        array(
+            'mode' => \Tbmt\Config::get('paypal.islife', \Tbmt\TYPE_BOOL, FALSE) ? 'LIVE' : 'SANDBOX',
+            'log.LogEnabled' => true,
+            'log.FileName' => $logsPath.'paypal.log',
+            'log.LogLevel' => 'INFO', // PLEASE USE `INFO` LEVEL FOR LOGGING IN LIVE ENVIRONMENTS
+            'cache.enabled' => false,
+            'cache.FileName' => $tmpPath.'paypal.auth.cache',
+        )
+    );
+
     return self::$apiContext;
   }
 
