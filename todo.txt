@@ -7,6 +7,10 @@ update
 * activate failing mail versand
 * activate failing activity versand cron
 * create dir /var/tmp/
+* config
+  "tmp.path" => "C:/xampp/htdocs/ptclient/var/tmp/",
+* config
+  "remove_send_mails" => false,
 
 
 Fragen

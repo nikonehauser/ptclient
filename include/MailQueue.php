@@ -24,7 +24,7 @@ class MailQueue {
   }
 
   static public function run($limit = 100) {
-    $isDebugMode = \Tbmt\Config::get('devmode', \Tbmt\TYPE_BOOL, false);
+    $removeSendMails = \Tbmt\Config::get('remove_send_mails', \Tbmt\TYPE_BOOL, false);
 
     $errors = 0;
     $success = 0;
@@ -54,7 +54,7 @@ class MailQueue {
       if ( $result === true ) {
         $success++;
 
-        if ( $mail->hasIncidents() || $isDebugMode ) {
+        if ( $mail->hasIncidents() || !$removeSendMails ) {
           $mail->setStatus(\Mail::STATUS_SEND);
           $mail->save();
         } else {
