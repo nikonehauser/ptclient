@@ -4,6 +4,10 @@ UPDATE SERVER - TODO
 update
 ======
 
+* activate failing mail versand
+* activate failing activity versand cron
+* create dir /var/tmp/
+
 
 Fragen
 =======
@@ -14,21 +18,34 @@ Fragen
 CURRENT - TODOS
 ===============
 
-* debug modus ausschalten
+* remove_send_mails
 
-* invalidate reset password link!
+* send mail for failed activities
+
+* paypal auth cache anschalten und restliche config parameter prüfen
+
+* security - tom macht sich schlau!
+
+* security: split public and source code folders
 
 * cronjob: clear nonces
 
 * cronjob: logrotation
 
-* cronjob: send failed activites per mail
-
 * cronjob: new happiness guides
 
 * remove_unpaid zeit entsprechen auf 7 tage setzen
 
-* passwort zurücksetzen für tbmtproduct seite
+
+SETUP
+=====
+
+* create database with schema
+* execute /helper/setup.php
+* create directories:
+  /var/logs/
+  /var/payouts/
+  /var/tmp/
 
 
 Go LIVE:
@@ -70,15 +87,6 @@ Bitte beachte, dass wir Dir nur Provisionen überweisen können, wenn alle Felde
 
 - handle mail to invalid/non existing email address
 
-CRONJOBS
-========
-
-* clear nonces
-* emails happy guide
-* remove unpaid
-* email remember unpaid
-* check payouts states
-
 
 Fragen
 ======
@@ -87,22 +95,10 @@ Fragen
 TODOS
 =====
 
-- test for single bonus ids type per member for all types > member
- (throw error if 2 promoter bonus ids would be set for a member )
-
 - verify email address on change profile
-
-- save unknown incommings to extra table for later handling
-
-- try { } catch {} cron jobs, add activity entry for the various actions
-
-- Angabe der Bankverbindung des Vereins.
-
-- write extensive tests 10 000 000 users.
 
 - use and run postgresql analyze
 
-- how to für benutzer: überweisung durchführen mit EIGENER nummer als verwendungszweck
 
 
 Profiling

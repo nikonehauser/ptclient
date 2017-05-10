@@ -40,7 +40,15 @@ class MailHelper {
       $body .= "Session: \n\r".json_encode($_SESSION, JSON_PRETTY_PRINT)."\n\r\n\r";
 
     if ( class_exists('Activity') && count(\Activity::$_ActivityExceptions) > 0 ) {
-      $body .= "ActivityExceptions: \n\r".json_encode(\Activity::$_ActivityExceptions, JSON_PRETTY_PRINT)."\n\r\n\r";
+      $arrActivities = [];
+      foreach ( \Activity::$_ActivityExceptions as $activity ) {
+        $activity->setNotified(1);
+        $activity->save();
+        $arr = $activity->toArray();
+        $arr['Datetime'] = date('Y-m-d H:i:s', $arr['Date']);
+        $arrActivities[] = $arr;
+      }
+      $body .= "ActivityExceptions: \n\r".json_encode($arrActivities, JSON_PRETTY_PRINT)."\n\r\n\r";
     }
 
     if ( $text ) {
@@ -51,6 +59,28 @@ class MailHelper {
       Config::get('error_mail_recipient'),
       null,
       ' - Exception - '.$e->getMessage(),
+      $body
+    );
+  }
+
+  static public function sendFailedActivities($activities) {
+    $count = count($activities);
+    $body = "Send failed activities ($count): \n\r\n\r";
+
+    $arrActivities = [];
+    foreach ( $activities as $activity ) {
+      $activity->setNotified(1);
+      $activity->save();
+      $arr = $activity->toArray();
+      $arr['Datetime'] = date('Y-m-d H:i:s', $arr['Date']);
+      $arrActivities[] = $arr;
+    }
+    $body .= json_encode($arrActivities, JSON_PRETTY_PRINT)."\n\r\n\r";
+
+    return self::send(
+      Config::get('error_mail_recipient'),
+      null,
+      " - $count Failed Activities - ",
       $body
     );
   }

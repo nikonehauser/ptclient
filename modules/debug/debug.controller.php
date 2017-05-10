@@ -18,7 +18,7 @@ class DebugController extends BaseController {
 
   public function dispatchAction($action, $params) {
     if ( !\Tbmt\Config::get('devmode', \Tbmt\TYPE_BOOL, false) )
-      throw new \PageNotFoundException();
+      throw new PageNotFoundException();
 
     if ( $action === 'loadtest' || $action === 'inctest' )
       return parent::dispatchAction($action, $params);
