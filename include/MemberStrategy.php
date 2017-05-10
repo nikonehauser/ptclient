@@ -306,6 +306,8 @@ class ExtendedMemberStrategy extends SimpleMemberStrategy {
       }
 
       $member->setReferrerMember($referrerMember, $con);
+      $member->save($con);
+      $member->reload(false, $con);
 
       if ( $invitation ) {
         $member->save($con);

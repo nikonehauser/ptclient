@@ -4,9 +4,20 @@ namespace Tbmt;
 
 class Cron {
 
+  static private $allowed = [
+    'mailfailedactivities',
+    'mails',
+    'clearnonces',
+    'remove_unpaid',
+    'notify_new_guide'
+  ];
+
   public static function run($job, array $arrParams = []) {
     $start = time();
     $log = '';
+
+    if ( !in_array($job, self::$allowed) )
+      throw new \Exception('Unknown cronjob: '.$job);
 
     $lock = new Flock(Config::get('lock.cron.path').'cron.'.$job.'.lock');
     if ( !$lock->acquire() ) {
@@ -15,6 +26,7 @@ class Cron {
       try {
         $log .= call_user_func_array(['Tbmt\\Cron', "job_$job"], $arrParams);
       } catch (\Exception $e) {
+        MailHelper::sendException($e, "Cron job \"$job\" failed");
         $log .= $e->__toString();
       } finally {
         $lock->release();
@@ -23,10 +35,23 @@ class Cron {
     }
 
     file_put_contents(
-      Config::get('logs.path').'cron.logs',
+      Config::get('logs.path').$job.'.cron.logs',
       (new \DateTime())->format('Y-m-d H-i-s').' :: '.(time() - $start).'s :: ['.$job.'] : '.$log."\n",
       FILE_APPEND
     );
+  }
+
+  private static function job_mailfailedactivities() {
+    $activity = \ActivityQuery::create()
+      ->filterByNotified(0)
+      ->filterByType(\Activity::TYPE_FAILURE)
+      ->find();
+
+    $count = count($activity);
+    if ( $count > 0 )
+      MailHelper::sendFailedActivities($activity);
+
+    return 'Send failed activity: '.$count;
   }
 
   private static function job_mails() {

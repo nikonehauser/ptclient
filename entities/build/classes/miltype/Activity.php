@@ -99,7 +99,7 @@ class Activity extends BaseActivity
     );
 
     if ( $exception != null ) {
-      self::$_ActivityExceptions[] = $activity->toArray();
+      self::$_ActivityExceptions[] = $activity;
       throw $exception;
     }
 

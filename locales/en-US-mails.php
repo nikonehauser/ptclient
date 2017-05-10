@@ -69,6 +69,8 @@ In case you do not own a PayPal account, please register on their website [PayPa
 As soon as we have received your payment, you are going to get to know
 helpful secrets about how to make a fortune with $brandName.
 
+This is your client identification number (ID): \"{member_id}\".
+
 If you want to log in into your account at Betterliving in the future you have to visit our website http://www.betterliving.social.
 
 There you have to push the button \"Customer Login\".
@@ -420,7 +422,7 @@ From your third recommended customer who signs up and purchases the Happiness Gu
 
 We’re wishing best of luck finding new customers and have fun spending the commissions you will receive.
 
-Please recheck whether your bank account details are correct. You can do so by logging in on {profile_url} with your ID and check your information. By clicking “change profile” you can correct your bank account details.
+Please recheck whether your bank account details are correct. You can do so by logging in to your [profile]({profile_url}) with your ID and check your information. By clicking “change profile” you can correct your bank account details.
 
 
 Please note that we only transfer commissions at a minimum of {min_payout_amount}. For more information, have a look at our terms of use.",
