@@ -30,8 +30,8 @@ class DownloadController extends BaseController {
       throw new Tbmt\PermissionDeniedException();
 
     $namePrefix = 'hg_part_';
-    $extension = 'pdf';
-    $contentType = 'application/pdf';
+    $extension = 'zip';
+    $contentType = 'application/zip, application/octet-stream';
     return new ControllerActionDownload([
       'name' => "hg_part$number.$extension",
       'contentType' => $contentType,

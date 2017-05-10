@@ -302,10 +302,12 @@
 
           paypal.Button.render({
 
-              // env: 'sandbox', // Specify 'sandbox' for the test environment
-              // client: {
-              //     sandbox: 'AViDHwZfNbaqBZCRRFaPcOdA6ARynGxeaX_cyIX-eCUPWE_W6aF-AQgvr0L1kGsotnNvZeAtp4WWV5qD',
-              // },
+              <?php
+                if ( \Tbmt\Config::get('paypal.islife', \Tbmt\TYPE_BOOL, false) === false ) {
+                  echo "env: 'sandbox',";
+                  echo "client: {sandbox: 'AViDHwZfNbaqBZCRRFaPcOdA6ARynGxeaX_cyIX-eCUPWE_W6aF-AQgvr0L1kGsotnNvZeAtp4WWV5qD',},";
+                }
+              ?>
 
               payment: function(resolve, reject) {
                   paypalPaymentIdFromCreation = null;
