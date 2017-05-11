@@ -1,198 +1,23 @@
 <?=Tbmt\view\Factory::buildPageTitle($this->i18nView['page_title'])?>
 
 
-<?php if ( !$this->referrerMember ) : ?>
-
     <div class="container top-40 bottom-40">
 
       <div class="sheet">
         <div class="row">
           <div class="col-md-12">
-            <p>You can not sign up</p>
-            <?php echo \Tbmt\view\Factory::buildNotification($this->i18nView['token_missing'], '', 'notice top'); ?>
+
+            <?=\Tbmt\view\Factory::buildHeadingArea('Maintenance', 'bottom-30')?>
+
+            <pre>We are sorry! But some highly trained minions are working on the problem!
+Unfortunately we still estimate a duration of a view hours. Please come back tomorrow!</pre>
+
+            <center>
+              <img src="<?=\Tbmt\Router::toImage('minions_maintenance.jpg')?>" style="max-width: 100%; max-height: 500px; margin: auto;">
+            </center>
 
           </div>
         </div>
       </div>
     </div>
 
-
-<?php else: ?>
-
-
-<form action="<?=\Tbmt\Router::toModule('member', 'signup_submit')?>" method="post">
-
-  <?php
-
-    $this->formLabels['accept_agbs'] = Tbmt\view\Factory::buildPurchaseAgreements();
-
-    $this->formLabels['invitation_code'] = $this->formLabels['invitation_code'].
-      '  <a data-toggle="popover" data-content="'.$this->i18nView['invitation_code_help'].'" style="font-size:larger;"><i class="fa fa-question-circle"></i></a>';
-
-    $formBuilder = new \Tbmt\FormBuilder('signupForm', $this->formLabels, $this->formVal, $this->formErrors);
-
-  ?>
-
-      <!--
-        CONTACT
-        *************************** -->
-    <div class="container top-40">
-
-        <?php if ( count($this->formErrors) > 0 ) {
-          echo \Tbmt\view\Factory::buildNotification($this->i18nView['form_error'], '', 'notice top');
-        } ?>
-
-        <?=\Tbmt\view\Factory::buildHeadingArea($this->formLabels['contact'], 'bottom-30')?>
-
-      <div class="sheet">
-        <div class="row">
-
-          <div class="col-md-6">
-            <div class="field">
-              <label for="signupFormreferral_member_num"><?php echo $this->formLabels['referral_member_num']; ?></label>
-              <p class="help-block">
-                <?php echo \Tbmt\view\Factory::buildMemberFullNameString($this->referrerMember); ?> - (Number: <?php echo $this->referrerMember->getNum(); ?>)
-              </p>
-
-              <?php if ( !empty($this->formErrors['referral_member_num']) ) {
-                echo '<div class="has-error"><p class="help-block text-danger">'.$this->formErrors['referral_member_num'].'</p></div>';
-              } ?>
-            </div>
-
-          </div>
-          <div class="col-md-6">
-            <?php echo $formBuilder->buildFieldGroup('invitation_code'); ?>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-2">
-              <?php echo $formBuilder->buildFieldGroup('title'); ?>
-          </div>
-          <div class="col-md-5">
-              <?php echo $formBuilder->buildFieldGroup('lastName'); ?>
-          </div>
-          <div class="col-md-5">
-              <?php echo $formBuilder->buildFieldGroup('firstName'); ?>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-6">
-              <?php echo $formBuilder->buildFieldGroup('password', 'password'); ?>
-              <p class="help-block"><?=\Tbmt\Localizer::get('error.password_conditions')?></p>
-          </div>
-          <div class="col-md-6">
-              <?php echo $formBuilder->buildFieldGroup('password2', 'password'); ?>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-8">
-              <?php echo $formBuilder->buildFieldGroup('email'); ?>
-              <p class="help-block"><?=$this->formLabels['email_info']?></p>
-              <ul class="list-3 list-horizontal" style="padding:0;margin-top:-10px;">
-                  <li><a href="https://mail.google.com" target="_blank">mail.google.com</a></li>
-                  <!-- <li><a href="https://produkte.web.de/freemail-webmail/" target="_blank">web.de</a></li> -->
-                  <li><a href="https://gmx.net" target="_blank">gmx.net</a></li>
-                  <br class="clearfix" />
-              </ul>
-
-              <div class="clearfix"></div>
-          </div>
-          <div class="col-md-4">
-              <?php echo $formBuilder->buildFieldGroup('age'); ?>
-          </div>
-        </div>
-
-      </div> <!-- /sheet -->
-
-      <!--
-        ADDRESS
-        *************************** -->
-        <?=\Tbmt\view\Factory::buildHeadingArea($this->formLabels['address'])?>
-
-      <div class="sheet">
-        <div class="row">
-
-          <div class="col-md-2">
-              <?php echo $formBuilder->buildFieldGroup('zip_code'); ?>
-          </div>
-          <div class="col-md-5">
-              <?php echo $formBuilder->buildFieldGroup('city'); ?>
-          </div>
-          <div class="col-md-5">
-              <?php echo $formBuilder->buildFieldGroup('country', 'text', null, null, null, ['disabled'=> true]); ?>
-          </div>
-
-        </div>
-      </div>
-
-      <?php if ( EXTEND_MARKTING_SYSTEM ) : ?>
-        <!--
-          BANK ACCOUNT
-          *************************** -->
-            <?=\Tbmt\view\Factory::buildHeadingArea($this->formLabels['bank_account'])?>
-
-        <div class="sheet">
-          <div class="row">
-
-            <div class="col-md-12">
-              <p><?=$this->formLabels['bank_account_info']?></p>
-            </div>
-
-            <div class="col-md-12">
-              <p>Please take good care and double check your your account data. We will not take responsibility for wrong transfers due to wrong account data.</p>
-            </div>
-
-            <div class="col-md-12">
-                <?php echo $formBuilder->buildFieldGroup('bank_recipient'); ?>
-            </div>
-
-            <div class="col-md-6">
-                <?php echo $formBuilder->buildFieldGroup('iban'); ?>
-            </div>
-            <div class="col-md-6">
-                <?php echo $formBuilder->buildFieldGroup('bic'); ?>
-            </div>
-          </div>
-        </div>
-
-      <?php endif; ?>
-
-      <!--
-        CONFIRM
-        *************************** -->
-          <?=\Tbmt\view\Factory::buildHeadingArea($this->formLabels['confirm'])?>
-
-      <div class="sheet bottom-30">
-        <div class="row">
-
-          <div class="col-md-12">
-              <?php echo $formBuilder->buildFieldGroup('accept_agbs', 'checkbox'); ?>
-          </div>
-
-          <div class="col-md-12">
-              <?php echo $formBuilder->buildFieldGroup('accept_valid_country', 'checkbox'); ?>
-          </div>
-
-          <div class="col-md-12">
-            <?=\Tbmt\view\Factory::buildSubmitBtn($this->formLabels['submit'], 'blue top-20')?>
-          </div>
-
-        </div>
-      </div>
-    </div>
-</form>
-
-<script type="text/javascript">
-jQuery(document).ready(function($) {
-  $('[data-toggle="popover"]').popover({
-    'placement': 'right',
-    'trigger': 'hover click',
-    'template': '<div class="popover alert info"><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
-  })
-});
-</script>
-
-<?php endif; ?>

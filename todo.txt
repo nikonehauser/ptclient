@@ -22,6 +22,8 @@ Fragen
 CURRENT - TODOS
 ===============
 
+* investigate the bug, setze mich in der datenbank auf is_extended = 0 und logge mich aber auf der marketing seite an
+
 * security - tom macht sich schlau!
 
 * security: split public and source code folders
