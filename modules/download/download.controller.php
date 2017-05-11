@@ -15,7 +15,7 @@ class DownloadController extends BaseController {
     return new ControllerActionDownload([
       'name' => 'better.live.illustration.pdf',
       'contentType' => 'application/pdf',
-      'path' => Router::toPublicResource('illustration.pdf')
+      'path' => DOWNLOADS_DIR.'illustration.pdf'
     ]);
   }
 
@@ -35,7 +35,7 @@ class DownloadController extends BaseController {
     return new ControllerActionDownload([
       'name' => "hg_part$number.$extension",
       'contentType' => $contentType,
-      'path' => Router::toPublicResource("$namePrefix$number.$extension")
+      'path' => DOWNLOADS_DIR."$namePrefix$number.$extension"
     ]);
   }
 }

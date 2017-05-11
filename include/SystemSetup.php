@@ -19,12 +19,20 @@ class SystemSetup {
     'Age'           => 99,
     'City'          => 'unknown',
     'Street'        => 'unknown',
+    'StreetAdd'     => 'unknown',
     'Country'       => 'unknown',
     'ZipCode'       => '504231',
     'BankRecipient' => 'unknown',
     'Iban'          => '75622010002960', // any india bank for testing [a-zA-Z0-9]{5,20}
     'Bic'           => 'BKID0004062', // any india bank for testing
     'Password'      => 'demo1234',
+
+    'BankName'      => '75622010002960', // any india bank for testing [a-zA-Z0-9]{5,20}
+    'BankCity'      => 'BKID0004062', // any india bank for testing
+    'BankStreet'    => 'demo1234',
+    'BankZipCode'   => '75622010002960', // any india bank for testing [a-zA-Z0-9]{5,20}
+    'BankCountry'   => 'BKID0004062', // any india bank for testing
+
     'SignupDate'    => 0,
     'PaidDate'      => 0,
     'IsExtended'    => 1,

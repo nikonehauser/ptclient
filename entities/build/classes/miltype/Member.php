@@ -398,13 +398,10 @@ class Member extends BaseMember
             ." LEFT JOIN tbmt_transaction ON (tbmt_transfer.id = tbmt_transaction.transfer_id)"
             ." WHERE"
             ." member_id = :member_id"
-            ." AND state in (:state1, :state2)"
             ." GROUP BY ".TransferPeer::MEMBER_ID.", ".TransferPeer::CURRENCY;
     $stmt = $con->prepare($sql);
     $stmt->execute(array(
-      ':member_id' => $this->getId(),
-      ':state1' => Transfer::STATE_COLLECT,
-      ':state2' => Transfer::STATE_RESERVED
+      ':member_id' => $this->getId()
     ));
 
     $formatter = new PropelStatementFormatter();
