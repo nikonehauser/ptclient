@@ -12,8 +12,6 @@ class Router {
   static private $imagesBase;
   static private $jsBase;
   static private $cssBase;
-  static private $publicResourceBase;
-  static private $configsPath;
 
   static public function init($url, $basePath = '') {
     // if ( $basePath[strlen($basePath)-1] !== '/' )
@@ -32,9 +30,6 @@ class Router {
     self::$imagesBase = $basePath.'assets/images/';
     self::$jsBase = $basePath.'assets/js/';
     self::$cssBase = $basePath.'assets/css/';
-
-    self::$publicResourceBase = $basePath.'resources/public/';
-    self::$configsPath = $basePath.'config/';
   }
 
   static public function toBase() {
