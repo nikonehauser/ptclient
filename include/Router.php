@@ -32,6 +32,7 @@ class Router {
     self::$imagesBase = $basePath.'assets/images/';
     self::$jsBase = $basePath.'assets/js/';
     self::$cssBase = $basePath.'assets/css/';
+
     self::$publicResourceBase = $basePath.'resources/public/';
     self::$configsPath = $basePath.'config/';
   }
@@ -75,14 +76,6 @@ class Router {
 
   static public function toCss($path) {
     return self::$cssBase.$path;
-  }
-
-  static public function toPublicResource($path) {
-    return self::$publicResourceBase.$path;
-  }
-
-  static public function toConfig($path) {
-    return self::$configsPath.$path;
   }
 
   static public function toVideo(\Member $member = null) {

@@ -24,6 +24,7 @@ define('PROJECT_NAME', 'miltype');
 define('NS_ROOT_NAME', 'Tbmt');
 define('NS_ROOT_PART', 'Tbmt\\');
 
+define('DOWNLOADS_DIR', BASE_DIR.'resources'.DIRECTORY_SEPARATOR.'downloads'.DIRECTORY_SEPARATOR);
 define('CONFIG_DIR', BASE_DIR.'config'.DIRECTORY_SEPARATOR);
 define('LIB_DIR', BASE_DIR.'lib'.DIRECTORY_SEPARATOR);
 define('ENTITIES_DIR', BASE_DIR.'entities'.DIRECTORY_SEPARATOR);
