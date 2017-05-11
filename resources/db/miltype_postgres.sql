@@ -11,7 +11,8 @@
     "num" SERIAL NOT NULL,
     "email" VARCHAR(80) NOT NULL ,
     "title" VARCHAR(80) NOT NULL ,
-    "street" VARCHAR(180) NULL ,
+    "street" VARCHAR(180) NOT NULL ,
+    "street_add" VARCHAR(180) NOT NULL ,
     "city" VARCHAR(180) NOT NULL ,
     "zip_code" VARCHAR(80) NOT NULL ,
     "country" VARCHAR(180) NOT NULL ,
@@ -25,8 +26,13 @@
     "free_invitation" smallint NOT NULL default 0,
 
     "bank_recipient" VARCHAR(180) NOT NULL ,
-    "iban" VARCHAR(80) NOT NULL ,
-    "bic" VARCHAR(80) NOT NULL ,
+    "iban" VARCHAR(180) NOT NULL ,
+    "bic" VARCHAR(180) NOT NULL ,
+    "bank_name" VARCHAR(180) NOT NULL ,
+    "bank_street" VARCHAR(180) NOT NULL ,
+    "bank_zip_code" VARCHAR(180) NOT NULL ,
+    "bank_city" VARCHAR(180) NOT NULL ,
+    "bank_country" VARCHAR(180) NOT NULL ,
 
     "type" smallint NOT NULL default 0 ,
 

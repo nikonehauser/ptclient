@@ -23,7 +23,9 @@ class MemberController extends BaseController {
   }
 
   public function action_signup_submit() {
-    throw new PermissionDeniedException();
+    if ( \Tbmt\Config::get('set.signup.in.maintenance', \Tbmt\TYPE_BOOL, false) )
+      throw new PermissionDeniedException();
+
     $formErrors = [];
     $data = array_merge($_REQUEST, [
       'referral_member_num' => Session::hasValidToken()
@@ -53,7 +55,9 @@ class MemberController extends BaseController {
   }
 
   public function action_confirm_email_registration() {
-    throw new PermissionDeniedException();
+    if ( \Tbmt\Config::get('set.signup.in.maintenance', \Tbmt\TYPE_BOOL, false) )
+      throw new PermissionDeniedException();
+
     $valid = false;
     if ( empty($_REQUEST['hash']) )
       throw new PageNotFoundException();

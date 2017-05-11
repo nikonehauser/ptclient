@@ -19,26 +19,42 @@ class ManageController extends BaseController {
   ];
 
   static private $CHANGE_PROFILE_FORM_FIELDS = [
-    'title'          => \Tbmt\TYPE_STRING,
-    'lastName'       => \Tbmt\TYPE_STRING,
-    'firstName'      => \Tbmt\TYPE_STRING,
-    'email'          => \Tbmt\TYPE_STRING,
-    'city'           => \Tbmt\TYPE_STRING,
-    'zip_code'       => \Tbmt\TYPE_STRING,
-    'bic'            => \Tbmt\TYPE_STRING,
-    'iban'           => \Tbmt\TYPE_STRING,
-    'bank_recipient' => \Tbmt\TYPE_STRING,
+    'Title'          => \Tbmt\TYPE_STRING,
+    'LastName'       => \Tbmt\TYPE_STRING,
+    'FirstName'      => \Tbmt\TYPE_STRING,
+    'Email'          => \Tbmt\TYPE_STRING,
+    'City'           => \Tbmt\TYPE_STRING,
+    'ZipCode'       => \Tbmt\TYPE_STRING,
+    'Bic'            => \Tbmt\TYPE_STRING,
+    'Iban'           => \Tbmt\TYPE_STRING,
+    'BankRecipient' => \Tbmt\TYPE_STRING,
+
+    'Street'               => \Tbmt\TYPE_STRING,
+    'StreetAdd'           => \Tbmt\TYPE_STRING,
+    'BankName'            => \Tbmt\TYPE_STRING,
+    'BankZipCode'        => \Tbmt\TYPE_STRING,
+    'BankCity'            => \Tbmt\TYPE_STRING,
+    'BankStreet'          => \Tbmt\TYPE_STRING,
+    'BankCountry'         => \Tbmt\TYPE_STRING,
   ];
 
   static private $CHANGE_PROFILE_FORM_FILTERS = [
-    'lastName'       => \Tbmt\Validator::FILTER_NOT_EMPTY,
-    'firstName'      => \Tbmt\Validator::FILTER_NOT_EMPTY,
-    'email'          => \FILTER_VALIDATE_EMAIL,
-    'city'           => \Tbmt\Validator::FILTER_NOT_EMPTY,
-    'zip_code'       => \Tbmt\Validator::FILTER_INDIA_PINCODE,
-    'bic'            => \Tbmt\Validator::FILTER_NOT_EMPTY,
-    'iban'           => \Tbmt\Validator::FILTER_NOT_EMPTY,
-    'bank_recipient' => \Tbmt\Validator::FILTER_NOT_EMPTY,
+    'LastName'       => \Tbmt\Validator::FILTER_NOT_EMPTY,
+    'FirstName'      => \Tbmt\Validator::FILTER_NOT_EMPTY,
+    'Email'          => \FILTER_VALIDATE_EMAIL,
+    'City'           => \Tbmt\Validator::FILTER_NOT_EMPTY,
+    'ZipCode'       => \Tbmt\Validator::FILTER_INDIA_PINCODE,
+    'Bic'            => \Tbmt\Validator::FILTER_NOT_EMPTY,
+    'Iban'           => \Tbmt\Validator::FILTER_NOT_EMPTY,
+    'BankRecipient' => \Tbmt\Validator::FILTER_NOT_EMPTY,
+
+    'Street'       => \Tbmt\Validator::FILTER_NOT_EMPTY,
+    'StreetAdd'       => \Tbmt\Validator::FILTER_NOT_EMPTY,
+    'BankName'       => \Tbmt\Validator::FILTER_NOT_EMPTY,
+    'BankZipCode'       => \Tbmt\Validator::FILTER_NOT_EMPTY,
+    'BankCity'       => \Tbmt\Validator::FILTER_NOT_EMPTY,
+    'BankStreet'       => \Tbmt\Validator::FILTER_NOT_EMPTY,
+    'BankCountry'       => \Tbmt\Validator::FILTER_NOT_EMPTY,
   ];
 
   static public function initChangePasswordForm(array $data = array()) {
@@ -232,17 +248,7 @@ class ManageController extends BaseController {
     return ControllerDispatcher::renderModuleView(
       self::MODULE_NAME,
       CURRENT_MODULE_ACTION,
-      ['formVal' => [
-        'title'          => $login->getTitle(),
-        'lastName'       => $login->getLastName(),
-        'firstName'      => $login->getFirstName(),
-        'email'          => $login->getEmail(),
-        'city'           => $login->getCity(),
-        'zip_code'       => $login->getZipCode(),
-        'bic'            => $login->getBic(),
-        'iban'           => $login->getIban(),
-        'bank_recipient' => $login->getBankRecipient(),
-      ]]
+      ['formVal' => $login->toArray()]
     );
   }
 
@@ -252,6 +258,7 @@ class ManageController extends BaseController {
       throw new PageNotFoundException();
 
     list($valid, $data) = self::validateChangeBankingForm($login, $_REQUEST);
+
     if ( $valid !== true ) {
       return ControllerDispatcher::renderModuleView(
         self::MODULE_NAME,
@@ -265,19 +272,11 @@ class ManageController extends BaseController {
       throw new \Exception('Could not begin transaction');
 
     try {
-      $login->setTitle($data['title']);
-      $login->setLastName($data['lastName']);
-      $login->setFirstName($data['firstName']);
-      $login->setEmail($data['email']);
+
+      $login->fromArray(array_intersect_key($data, self::$CHANGE_PROFILE_FORM_FIELDS));
 
       if ( $login->isExtended() ) {
         $login->setProfileVersion($login->getProfileVersion() + 1);
-
-        $login->setCity($data['city']);
-        $login->setZipCode($data['zip_code']);
-        $login->setBic($data['bic']);
-        $login->setIban($data['iban']);
-        $login->setBankRecipient($data['bank_recipient']);
 
         // Update last rejected/failed transfer state to retrigger transfer upon
         // this profile update.

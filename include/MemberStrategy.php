@@ -99,9 +99,17 @@ class SimpleMemberStrategy extends MemberStrategy {
         ->setBonusIds('{}')
         ->setPaidDate(null)
 
+        ->setStreetAdd('')
+        ->setBankName('')
+        ->setBankStreet('')
+        ->setBankCity('')
+        ->setBankZipCode('')
+        ->setBankCountry('')
+
         // ->setReferrerNum($data['referral_member_num'])
         ->setCity('')
         ->setZipCode('')
+        ->setStreet('')
         ->setCountry('')
         ->setBankRecipient('')
         ->setIban('')
@@ -140,6 +148,8 @@ class ExtendedMemberStrategy extends SimpleMemberStrategy {
     'age'                  => \Tbmt\TYPE_STRING,
     'email'                => \Tbmt\TYPE_STRING,
     'city'                 => \Tbmt\TYPE_STRING,
+    'street'               => \Tbmt\TYPE_STRING,
+    'street_add'           => \Tbmt\TYPE_STRING,
     'zip_code'             => \Tbmt\TYPE_STRING,
     'country'              => [\Tbmt\TYPE_STRING, 'India'],
     'bank_recipient'       => \Tbmt\TYPE_STRING,
@@ -149,6 +159,12 @@ class ExtendedMemberStrategy extends SimpleMemberStrategy {
     'accept_valid_country' => \Tbmt\TYPE_STRING,
     'password'             => \Tbmt\TYPE_STRING,
     'password2'            => \Tbmt\TYPE_STRING,
+    'bank_name'            => \Tbmt\TYPE_STRING,
+    'bank_zip_code'        => \Tbmt\TYPE_STRING,
+    'bank_city'            => \Tbmt\TYPE_STRING,
+    'bank_street'          => \Tbmt\TYPE_STRING,
+    'bank_country'         => \Tbmt\TYPE_STRING,
+    'correct_bank'         => \Tbmt\TYPE_STRING,
   ];
 
   public $SIGNUP_FORM_FILTERS = [
@@ -165,14 +181,21 @@ class ExtendedMemberStrategy extends SimpleMemberStrategy {
       'errorLabel' => 'error.age_of_18'
     ],
     'city'                 => \Tbmt\Validator::FILTER_NOT_EMPTY,
+    'street'               => \Tbmt\Validator::FILTER_NOT_EMPTY,
     'zip_code'             => \Tbmt\Validator::FILTER_INDIA_PINCODE,
-    // 'country'              => \Tbmt\Validator::FILTER_NOT_EMPTY,
+    // 'country'           => \Tbmt\Validator::FILTER_NOT_EMPTY,
     'bank_recipient'       => \Tbmt\Validator::FILTER_NOT_EMPTY,
     'iban'                 => \Tbmt\Validator::FILTER_NOT_EMPTY,
     'bic'                  => \Tbmt\Validator::FILTER_NOT_EMPTY,
+    'bank_name'            => \Tbmt\Validator::FILTER_NOT_EMPTY,
+    'bank_zip_code'        => \Tbmt\Validator::FILTER_NOT_EMPTY,
+    'bank_city'            => \Tbmt\Validator::FILTER_NOT_EMPTY,
+    'bank_street'          => \Tbmt\Validator::FILTER_NOT_EMPTY,
+    'bank_country'         => \Tbmt\Validator::FILTER_NOT_EMPTY,
     'accept_agbs'          => \FILTER_VALIDATE_BOOLEAN,
     'accept_valid_country' => \FILTER_VALIDATE_BOOLEAN,
     'password'             => \Tbmt\Validator::FILTER_PASSWORD,
+    'correct_bank'         => \FILTER_VALIDATE_BOOLEAN,
   ];
 
   public function initSignupForm(array $data = array()) {
@@ -257,9 +280,18 @@ class ExtendedMemberStrategy extends SimpleMemberStrategy {
         ->setEmail($data['email'])
         ->setTitle($data['title'])
         ->setCity($data['city'])
+        ->setStreet($data['street'])
+        ->setStreetAdd($data['street_add'])
         ->setZipCode($data['zip_code'])
         ->setCountry('India')
         ->setAge($data['age'])
+
+        ->setBankName($data['bank_name'])
+        ->setBankStreet($data['bank_street'])
+        ->setBankCity($data['bank_city'])
+        ->setBankZipCode($data['bank_zip_code'])
+        ->setBankCountry($data['bank_country'])
+
         // ->setReferrerNum($data['referral_member_num'])
         ->setBankRecipient($data['bank_recipient'])
         ->setIban($data['iban'])

@@ -389,10 +389,35 @@ END;
 
   static function buildMemberAddress(\Member $member) {
     $zipCode = \Tbmt\Base::encodeHtml($member->getZipCode());
+    $street = \Tbmt\Base::encodeHtml($member->getStreet());
+    $streetadd = \Tbmt\Base::encodeHtml($member->getStreetAdd());
     $city = \Tbmt\Base::encodeHtml($member->getCity());
     $country = \Tbmt\Base::encodeHtml($member->getCountry());
+
+    if ( $streetadd )
+      $streetadd .= '<br>';
+
     return <<<END
 <address>
+    $street<br>
+    $streetadd
+    $zipCode $city<br>
+    $country
+</address>
+END;
+  }
+
+  static function buildBankAddress(\Member $member) {
+    $name = \Tbmt\Base::encodeHtml($member->getBankName());
+    $zipCode = \Tbmt\Base::encodeHtml($member->getBankZipCode());
+    $street = \Tbmt\Base::encodeHtml($member->getBankStreet());
+    $city = \Tbmt\Base::encodeHtml($member->getBankCity());
+    $country = \Tbmt\Base::encodeHtml($member->getBankCountry());
+
+    return <<<END
+<address>
+    $name<br>
+    $street<br>
     $zipCode $city<br>
     $country
 </address>

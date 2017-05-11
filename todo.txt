@@ -4,6 +4,8 @@ UPDATE SERVER - TODO
 update
 ======
 
+* update propel entities
+
 * activate failing mail versand
 * activate failing activity versand cron
 * create dir /var/tmp/

@@ -128,6 +128,12 @@
 
               <dt><?=$this->i18nView['bic']?></dt>
               <dd><?=Base::encodeHtml($this->member->getBic())?></dd>
+
+              <dt><?=$this->i18nView['bank_address']?></dt>
+              <dd>
+                  <?=\Tbmt\view\Factory::buildBankAddress($this->member)?>
+              </dd>
+
           </dl>
 
           <?=\Tbmt\view\Factory::buildButton(

@@ -13,16 +13,32 @@
             ?>
 
                 <form action="<?=\Tbmt\Router::toModule('manage', 'change_profile_signup')?>" method="post">
-                    <?=$formBuilder->buildFieldGroup('title')?>
-                    <?=$formBuilder->buildFieldGroup('firstName')?>
-                    <?=$formBuilder->buildFieldGroup('lastName')?>
-                    <?=$formBuilder->buildFieldGroup('email')?>
-                    <?=$formBuilder->buildFieldGroup('city')?>
-                    <?=$formBuilder->buildFieldGroup('zip_code')?>
 
-                    <?=$formBuilder->buildFieldGroup('bank_recipient')?>
-                    <?=$formBuilder->buildFieldGroup('bic')?>
-                    <?=$formBuilder->buildFieldGroup('iban')?>
+                    <?=$formBuilder->buildFieldGroup('Title')?>
+                    <?=$formBuilder->buildFieldGroup('FirstName')?>
+                    <?=$formBuilder->buildFieldGroup('LastName')?>
+                    <?=$formBuilder->buildFieldGroup('Email')?>
+
+                    <?=\Tbmt\view\Factory::buildHeadingArea($this->formLabels['address_title'])?>
+
+                    <?=$formBuilder->buildFieldGroup('Street')?>
+                    <?=$formBuilder->buildFieldGroup('StreetAdd')?>
+                    <?=$formBuilder->buildFieldGroup('City')?>
+                    <?=$formBuilder->buildFieldGroup('ZipCode')?>
+
+                    <?=\Tbmt\view\Factory::buildHeadingArea($this->formLabels['bank_account_title'])?>
+
+                    <?=$formBuilder->buildFieldGroup('BankRecipient')?>
+                    <?=$formBuilder->buildFieldGroup('Bic')?>
+                    <?=$formBuilder->buildFieldGroup('Iban')?>
+
+                    <?=\Tbmt\view\Factory::buildHeadingArea($this->formLabels['bank_address_title'])?>
+
+                    <?=$formBuilder->buildFieldGroup('BankName')?>
+                    <?=$formBuilder->buildFieldGroup('BankStreet')?>
+                    <?=$formBuilder->buildFieldGroup('BankCity')?>
+                    <?=$formBuilder->buildFieldGroup('BankZipCode')?>
+                    <?=$formBuilder->buildFieldGroup('BankCountry')?>
 
                     <?=\Tbmt\view\Factory::buildSubmitBtn($this->formLabels['submit'],
                         'pull-right blue')?>
