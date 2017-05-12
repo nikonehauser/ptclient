@@ -159,7 +159,7 @@ END;
   exit;
 
 // confirm_email_registration&hash=0da8630becc89eef7c7953257e66dddb1483658024
-} else if ( Session::hasValidToken() && Session::getLogin() ) {
+} else if ( Session::hasValidToken() ) {
   /* =============================================================== */
   /* Valid session with token exists
   ================================================================ */

@@ -13,7 +13,7 @@
 # Look for and purge old sessions every 30 minutes
 
 # jede minute
-*/1 * * * * root php -f /var/www/html/tbmtsystem/cron/mails.php >> /var/log/syslog 2>&1
+*/1 * * * * root php -f /srv/tbmtsystem/cron/mails.php >> /var/log/syslog 2>&1
 
 # einaml täglich 19 uhr
-0 19 * * * root php -f /var/www/html/tbmtsystem/cron/mailfailedactivities.php >> /var/log/syslog 2>&1
+0 19 * * * root php -f /srv/tbmtsystem/cron/mailfailedactivities.php >> /var/log/syslog 2>&1
