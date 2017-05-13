@@ -432,7 +432,7 @@ return [
           'bank_zip_code' => 'Bank Zip Code',
           'bank_city' => 'Bank City',
 
-          'correct_bank' => 'I confirm the correctness of this bank account and bank address. I understand that I am loosing any right of receiving sommissions of '.$brandName.' due to invalid bank data',
+          'correct_bank' => 'I confirm the correctness of this bank account and bank address. I understand that I am loosing any right of receiving commissions of '.$brandName.' due to invalid bank data',
 
           'accept_agbs' => 'I have read and accepted the terms and conditions',
           'accept_valid_country' => 'I confirm that I am resident of India',
