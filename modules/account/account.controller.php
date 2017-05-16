@@ -107,8 +107,9 @@ class AccountController extends BaseController {
   public function action_invitation_create() {
     $login = Session::getLogin();
     $type = Arr::init($_REQUEST, 'type', TYPE_INT);
+
     if ( $login->getType() < $type ||
-      $type < \Member::TYPE_MEMBER ||
+      $type <= \Member::TYPE_MEMBER ||
       $type > $login->getType() ||
       $login->getFundsLevel() != \Member::FUNDS_LEVEL2 )
       throw new PermissionDeniedException();
@@ -141,11 +142,7 @@ class AccountController extends BaseController {
       \Propel::getConnection()
     );
 
-    return ControllerDispatcher::renderModuleView(
-      self::MODULE_NAME,
-      'index',
-      ['member' => $login, 'tab' => 'invitation', 'successmsg' => true, 'formVal' => []]
-    );
+    return new ControllerActionRedirect(Router::toAccountTab('invitation'));
   }
 
   public function action_bonus_payments() {

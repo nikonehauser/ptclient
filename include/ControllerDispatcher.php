@@ -80,7 +80,7 @@ abstract class ControllerActionResult {
 
 class ControllerActionRedirect extends ControllerActionResult {
 
-  private $httpStatus = 302;
+  private $httpStatus = 303;
   public function execute() {
     header('Location: '.$this->getData());
   }
