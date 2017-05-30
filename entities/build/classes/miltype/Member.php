@@ -635,6 +635,10 @@ class Member extends BaseMember
     return $sum;
   }
 
+  public function getFullInvitationLink() {
+    return \Tbmt\Config::get('extended.system.url')."?tkn=".$this->getHash().'#video_explanation';
+  }
+
 
   /**
    * Code to be run before persisting the object

@@ -58,8 +58,64 @@
 
           <h3>Very good decision!</h3>
           <p>This is your exclusive invitation link:</p>
-          <pre class="wordwrap"><?php echo \Tbmt\Config::get('extended.system.url')."?tkn=".$this->member->getHash().'#video_explanation'; ?></pre>
-          <p>Use this link to invite your friends and earn the systems rewards.</p>
+          <pre class="wordwrap"><?php echo $this->member->getFullInvitationLink(); ?></pre>
+          <p>Use this link to invite your friends and earn the systems rewards. You can share it with:</p>
+
+          <a href="whatsapp://send?text=<?php echo $this->member->getFullInvitationLink(); ?>" class="whatsappButton "></a>
+
+          <a class="shareEmailButton button yellow" href="mailto:?subject=look at this website&body=Hey buddy, I signed up here: <?php echo $this->member->getFullInvitationLink(); ?>, just check it out and call me back ;)">
+            <span><i class="pe-7s-mail"></i> Email</span></a>
+
+
+<script type="text/javascript">
+function copyToClipboard(elem) {
+    // create hidden text element, if it doesn't already exist
+    var target;
+    var targetId = "_hiddenCopyText_";
+    var origSelectionStart, origSelectionEnd;
+
+    // must use a temporary form element for the selection and copy
+    target = document.getElementById(targetId);
+    if (!target) {
+        var target = document.createElement("textarea");
+        target.style.position = "absolute";
+        target.style.left = "-9999px";
+        target.style.top = "0";
+        target.id = targetId;
+        document.body.appendChild(target);
+    }
+    target.textContent = 'Hey buddy, I signed up here: <?php echo $this->member->getFullInvitationLink(); ?>, just check it out and call me back ;)';
+
+    // select the content
+    var currentFocus = document.activeElement;
+    target.focus();
+    target.setSelectionRange(0, target.value.length);
+
+    // copy the selection
+    var succeed;
+    try {
+        succeed = document.execCommand("copy");
+    } catch(e) {
+        succeed = false;
+    }
+    // restore original focus
+    if (currentFocus && typeof currentFocus.focus === "function") {
+        currentFocus.focus();
+    }
+
+    if (isInput) {
+        // restore prior selection
+        elem.setSelectionRange(origSelectionStart, origSelectionEnd);
+    } else {
+        // clear temporary content
+        target.textContent = "";
+    }
+    return succeed;
+}
+</script>
+
+          <a class="shareToClipboard button black" onclick="copyToClipboard()">
+            <span>Copy</span></a>
 
         </div>
       </div>
