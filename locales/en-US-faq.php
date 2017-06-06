@@ -10,13 +10,13 @@ return [
 // next
 'Is this a chain system?',
 
-'<p>No! It\'s a network marketing or a multi-level-marketing-system as it is known in several direct marketing systems for products and services in different industries.</p>
+'<p>No! It\'s only a recommendation system for our customers. Such a kind of marketing systems works also worldwide in different industries.</p>
 
 <p>It really is enough if everybody only recruits three new customers in order to earn quite a big amount of money. Even if the average is less than three customers, the marketing system and commission flow will not stand still. You can watch the explanation video several times to fully understand how it works.</p>
 
-<p>The expansions of your commissions are explained in the video in a realistic and understandable way. In case you recruit three customers yourself you can still top your profit by recruiting new customers anytime you want!</p>
+<p>How to increase your commission are explained in the video in a realistic and understandable way. In case you recruit three customers you can still top your profit by recruiting new customers anytime you want!</p>
 
-<p>You will earn much more money than you had paid for your Happiness Guide before. Our Happiness Guide will show you a lot of ways to a happier life. Our marketing system offers a very easy way to be happy.</p>
+<p>You will earn much more money than you had paid for your Happiness Guide. Our Happiness Guide will show you a lot of ways to a happier life. Our marketing system offers a very easy and fast way to be happy.</p>
 
 <p>Don´t worry, just take your chance now and make your life better than ever!</p>',
 

@@ -363,9 +363,8 @@ return [
         ],
 
         'become_member_title' => 'I want to be customer',
-        'become_member_text' => 'If you also want to be a customer, please register on this homepage and purchase the Happiness Guide for {member_fee}. As soon as the payment has been transferred, you are a customer and you will receive the Happiness Guide for your ' . $brandName . '. At this point you can use the fantastic marketing system to achieve a permanent and {passive_income}.',
+        'become_member_text' => 'If you also want to be a customer, please register on this homepage and purchase the Happiness Guide for {member_fee}. As soon as the payment has been transferred, you are a customer and you will receive the Happiness Guide for your Betterliving. At this point you can use the fantastic marketing system to achieve your personal "Pension Plan".',
         'become_member_highlights' => [
-          'passive_income' => 'passive income',
           'member_fee' => '$_member_fee_$',
         ],
 
