@@ -34,7 +34,7 @@ class MemberPeer extends BaseMemberPeer
     ));
 
     $formatter = new PropelObjectFormatter();
-    $formatter->setClass('Transfer');
+    $formatter->setClass('Member');
     return $formatter->format($stmt);
   }
 }

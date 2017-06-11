@@ -107,15 +107,15 @@ class Cron {
     return $result;
   }
 
-  private function job_notify_new_guide() {
+  private static function job_notify_new_guide() {
     $con = \Propel::getConnection();
     $secondsPerGuide = \Tbmt\Config::get('guides_available_period', \Tbmt\TYPE_INT);
     $guidesCount = \Tbmt\Config::get('guides_count', \Tbmt\TYPE_INT);
     $now = time();
 
-    $members = \MemberPeer::getMemberToNotifyNewHappinessGuide($secondsPerGuide, $guidesCount, $now, $cron);
+    $members = \MemberPeer::getMemberToNotifyNewHappinessGuide($secondsPerGuide, $guidesCount, $now, $con);
     foreach ($members as $member) {
-      $member->notifyNewHappinessGuide($secondsPerGuide, $now, $cron);
+      $member->notifyNewHappinessGuide($secondsPerGuide, $now, $con);
     }
   }
 
