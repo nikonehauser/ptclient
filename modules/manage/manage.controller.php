@@ -49,7 +49,6 @@ class ManageController extends BaseController {
     'BankRecipient' => \Tbmt\Validator::FILTER_NOT_EMPTY,
 
     'Street'       => \Tbmt\Validator::FILTER_NOT_EMPTY,
-    'StreetAdd'       => \Tbmt\Validator::FILTER_NOT_EMPTY,
     'BankName'       => \Tbmt\Validator::FILTER_NOT_EMPTY,
     'BankZipCode'       => \Tbmt\Validator::FILTER_NOT_EMPTY,
     'BankCity'       => \Tbmt\Validator::FILTER_NOT_EMPTY,

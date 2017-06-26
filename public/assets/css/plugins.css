@@ -494,10 +494,14 @@ html,body,#sb-site,.sb-slidebar{margin:0;padding:0;-webkit-box-sizing:border-box
 }
 .sb-slidebar ul a {
   color: #919191;
+  color: white;
   padding: 10px 20px;
   border-bottom: 1px solid #292929;
   display: block;
   position: relative;
+}
+.sb-slidebar ul .submenu {
+  color: white;
 }
 .sb-slidebar ul a .icon {
   margin-right: 8px;

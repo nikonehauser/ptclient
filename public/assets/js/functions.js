@@ -64,7 +64,9 @@ jQuery(document).ready(function($){
 
 	/* Responsive Mobile Menu
   ---------------------------------------------*/
-	jQuery('#header .logo-header').append('<div class="visible-xs visible-sm mobile-menu-action pull-right sb-toggle-right navbar-right"><i class="fa fa-bars"></i></div>');
+  jQuery('#header .logo-header').append(
+    '<a href="'+jQuery('#signupHref')[0].innerHTML+'" class="visible-xs visible-sm mobile-menu-action pull-right navbar-right" style="margin-right: 80px;">Signup</a>');
+  jQuery('#header .logo-header').append('<div class="visible-xs visible-sm mobile-menu-action pull-right sb-toggle-right navbar-right">Menu <i class="fa fa-bars"></i></div>');
 
 	var navlist = jQuery('.site-menu-container > nav ul').clone();
 	var submenu = '<span class="submenu"><i class="fa fa-angle-double-down"></i></span>';
