@@ -184,15 +184,15 @@ class GuideController extends BaseController {
         ->setStatus(\Payment::STATUS_USER_CANCELED)
         ->save($con);
 
-      \Activity::insert(
-        \Activity::ACT_MEMBER_PAYMENT_CANCEL_BY_USER,
-        \Activity::TYPE_FAILURE,
-        $login,
-        $payment,
-        $_REQUEST,
-        null,
-        $con
-      );
+      // \Activity::insert(
+      //   \Activity::ACT_MEMBER_PAYMENT_CANCEL_BY_USER,
+      //   \Activity::TYPE_FAILURE,
+      //   $login,
+      //   $payment,
+      //   $_REQUEST,
+      //   null,
+      //   $con
+      // );
 
       return new ControllerActionAjax('Canceled by user');
     }
