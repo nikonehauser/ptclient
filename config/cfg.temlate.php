@@ -65,7 +65,7 @@ return [
   "guides_count" => 8,
 
 
-  "brand.copyright" => "Betterliving for everyone ltd.",
+  "brand.copyright" => "Betterliving Management Private Ltd.",
   "brand.name" => "Betterliving",
   "brand.short" => "BL",
   "brand.mail" => "info@betterliving.social",
