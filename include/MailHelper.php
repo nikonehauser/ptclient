@@ -738,20 +738,11 @@ class MailHelper {
     $now = time();
     $email = $member->getEmail();
 
-    if ( $member->isExtended() ) {
-      $href = RouterToMarketing::toModule('manage', 'do_reset_password', [
-        'num' => $num,
-        'exp' => time(),
-        'hash' => Cryption::getPasswordResetToken($num, $now, $email)
-      ]);
-    } else {
-      $href = RouterToProduct::toModule('manage', 'do_reset_password', [
-        'num' => $num,
-        'exp' => time(),
-        'hash' => Cryption::getPasswordResetToken($num, $now, $email)
-      ]);
-
-    }
+    $href = RouterToMarketing::toModule('manage', 'do_reset_password', [
+      'num' => $num,
+      'exp' => time(),
+      'hash' => Cryption::getPasswordResetToken($num, $now, $email)
+    ]);
 
     return self::send(
       $email,

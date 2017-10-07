@@ -7,9 +7,21 @@ ini_set('max_execution_time', 120);
 define('BASE_DIR', dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR);
 
 require BASE_DIR.'include'.DIRECTORY_SEPARATOR.'bootstrap.php';
-require BASE_DIR.'auth.php';
 
 try {
+  /* =============================================================== */
+  /* If token is given check for its validity
+  /* By INTENTION, this will override any previous valid token
+  ================================================================ */
+  $token = isset($_REQUEST['tkn']) ? $_REQUEST['tkn'] : null;
+  if ( $token ) {
+    $res = \Member::getByHash($token, false);
+    if ( $res && $res instanceof \Member && $res->isExtended() ) {
+      $isAllowed = true;
+      Session::setValidToken($token);
+    }
+  }
+
 
   /* Dispatch controller
   ---------------------------------------------*/

@@ -161,6 +161,7 @@ return [
       'navigation_links' => [
         'exp_videos' => 'Explanation videos',
         'member' => 'The Idea',
+        'guide' => 'Happiness Guide',
         'projects' => 'Home',
         'about' => 'About Us',
         'impressum' => 'Impressum',
@@ -819,12 +820,24 @@ return [
 
       'index' => [
         'page_title' => 'Happiness Guide',
+        'product_title' => 'Happiness Guide',
+        'product_description' => 'Our Happiness Guide series. A digital download about getting happier in life. You will get 8 pieces, each one more step to wealth and health',
+        'purchased_already' => 'You are already owning our Happiness Guide',
+        'purchased_already_link' => 'Follow this link to your account to
+        download our guide',
         'want_purchase' => 'Do you want to purchase our Happiness Guide?',
         'require_login' => 'Dont hesitate, you need to signup and login then',
         'signup_button' => 'Got to signup',
         'login_button' => 'Got to login',
 
+        'paypal_register_text' => 'You don\'t have a PayPal Account?',
+        'paypal_register_button' => 'Register PayPal Account for free',
+
+        'product_tab_video' => 'Video',
+        'product_tab_pdf' => 'PDF',
+
         'popup_purchase_loading_text' => 'Processing your purchase',
+        'popup_purchase_success_text' => 'Purchase completed',
         'popup_purchase_cancel_text' => 'The purchase could not be completed',
 
         'popup_purchase_head' => 'Purchase Happines Guide',
@@ -849,6 +862,8 @@ return [
         'popup_purchase_submit' => 'Complete Purchase Now',
         'popup_purchase_cancel' => 'Cancel Purchase',
         'popup_purchase_close' => 'Close',
+
+        'extended_system_user_note' => 'NOTE: The system recognized your exclusive invitation. By purchasing our Happiness Guide you will get access to the marketing system.',
       ],
     ],
 

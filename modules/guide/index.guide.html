@@ -1,0 +1,40 @@
+<?php
+
+  $this->i18nView['popup_purchase_text8_val'][0] =
+    \Tbmt\Localizer::currencyFormat(\Transaction::$MEMBER_FEE, \Transaction::$BASE_CURRENCY);
+
+?>
+
+<?=Tbmt\view\Factory::buildPageTitle($this->i18nView['page_title'])?>
+
+<div class="container">
+
+  <div class="heading-area text-center bottom-30 top-30">
+    <h4 class="heading large">Buy the Happiness Guide</h4>
+  </div>
+
+  <div class="row bottom-30 top-30 sheet">
+  <div class="col-md-12">
+    <?php
+
+      if ( $this->purchaseFailedMessage ) {
+        echo \Tbmt\view\Factory::buildNotification(
+          $this->i18nView['popup_purchase_cancel_text'],
+          '',
+          'notice top'
+        );
+      }
+    ?>
+
+  <!--
+    *
+    * beautify purchae content
+    *
+    ************************************
+  -->
+
+    <?php include(dirname(__FILE__).DIRECTORY_SEPARATOR.'pdetails.guide.html'); ?>
+
+  </div>
+  </div>
+</div>

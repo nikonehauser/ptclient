@@ -1,0 +1,71 @@
+<div id="product-detail">
+
+  <div class="row">
+
+    <div class="col-md-7 bottom-sm-30">
+      <div class="product-images top-5">
+        <img src="<?php echo \Tbmt\Router::toAsset('images/product.jpg'); ?>" alt="<?php echo $this->i18nView['product_title']; ?>" class="img-responsive">
+      </div>
+    </div><!-- // end column -->
+    <div class="col-md-5">
+      <h2 class="product-title large thin">
+        <?php echo $this->i18nView['product_title']; ?>
+      </h2><!-- // .product-title -->
+
+      <div class="product-price">
+        <?php echo \Tbmt\view\Factory::buildProductPrice(); ?>
+      </div><!-- // .product-price -->
+
+      <p class="top-20 bottom-20">
+        <?php echo $this->i18nView['product_description']; ?>
+      </p>
+
+      <!-- paypal things -->
+      <div class="product-amount clearfix">
+        <?php include(dirname(__FILE__).DIRECTORY_SEPARATOR.'pdetails.purchase.guide.html'); ?>
+      </div>
+
+      <!--
+      <p class="top-20 bottom-20">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint, laboriosam, quo, omnis, voluptatibus excepturi ea velit architecto.</p>
+      <div class="product-amount clearfix">
+        <div class="field a clearfix">
+          <input type="text" value="1">
+          <span class="increase-value"><i class="fa fa-plus"></i></span>
+        </div>
+        <div class="field">
+          <button class="button"><span>Add to cart <i class="fa fa-shopping-cart"></i></span></button>
+        </div>
+      </div>
+      -->
+
+    </div><!-- /// end column -->
+  </div><!-- // .row -->
+
+  <div class="product-content top-40">
+
+    <div class="tabs main bottom-40">
+      <ul class="tabNavigation list-unstyled bottom-0 clearfix">
+        <li class="active"><a data-toggle="tab" href="#tab1dc"><?php echo $this->i18nView['product_tab_video']; ?></a></li>
+        <li class=""><a data-toggle="tab" href="#tab2dc"><?php echo $this->i18nView['product_tab_pdf']; ?></a></li>
+      </ul><!-- // .tabNavigaiton -->
+      <div id="tab1dc" class="tabs-container active">
+        <div class="tabs-content">
+          <p class="text-center">
+            <iframe class="videoFrame" src="https://www.youtube.com/embed/klPM6ZQKKfs" frameborder="0" allowfullscreen></iframe>
+          </p>
+        </div>
+      </div><!-- // .tabs-container -->
+
+      <div id="tab2dc" class="tabs-container">
+        <div class="tabs-content">
+          <p class="text-center">
+            <?php echo \Tbmt\view\Factory::buildProductPdf(); ?>
+          </p>
+        </div>
+      </div> <!-- // .tabs-container -->
+
+    </div><!-- // .tabs -->
+
+  </div><!-- // .product-content -->
+
+</div><!-- // #product-detail -->

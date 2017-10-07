@@ -98,7 +98,6 @@ try {
 Localizer::load(LOCALES_DIR);
 Router::init($baseUrl, '');
 RouterToMarketing::init(Config::get('extended.system.url'), '');
-RouterToProduct::init(Config::get('simple.system.url'), '');
 
 define('BOOTSTRAP_DONE', true);
 define('DEVELOPER_MODE', Config::get('devmode', TYPE_BOOL, false));
