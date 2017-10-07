@@ -44,6 +44,11 @@ class Localizer {
     self::$decPoint = $format['dec_point'];
     self::$thousandsSep = $format['thousands_sep'];
     self::$decimalsCount = $format['decimals_count'];
+
+    self::$arrData['common']['member_fee'] = self::fmtMemberFee();
+
+    self::$arrData['view']['about']['faq']['items'] = include $localesPath.$lang.'-faq.php';
+    self::$arrData['mails'] = include $localesPath.$lang.'-mails.php';
   }
 
   static public function plain($strKey) {
@@ -138,15 +143,49 @@ class Localizer {
     return $currentLang;
   }
 
-  static public function numFormat($num, $decimals = false) {
-    return number_format($num, $decimals !== false ? $decimals : self::$decimalsCount, self::$decPoint, self::$thousandsSep);
+  static public function numFormat($num, $decimals = false, $decPoint = false, $thousandsSep = false) {
+    return number_format(
+      $num,
+      $decimals ? $decimals : self::$decimalsCount,
+      $decPoint ? $decPoint : self::$decPoint,
+      $thousandsSep ? $thousandsSep : self::$thousandsSep
+    );
   }
 
   static public function currencyFormat($num, $currency, $decimals = false, $space = '&nbsp;') {
     if ( is_array($currency) )
       $currency = self::$arrData['currency_symbol'][$currency[0]];
 
-    return $currency.$space.self::numFormat($num, $decimals !== false ? $decimals : self::$decimalsCount, self::$decPoint, self::$thousandsSep);
+    return $currency.$space.self::numFormat(
+      $num,
+      $decimals ? $decimals : self::$decimalsCount,
+      self::$decPoint,
+      self::$thousandsSep
+    );
+  }
+
+  static public function fmtMemberFee() {
+    return self::currencyFormatByCfg(\Transaction::$MEMBER_FEE);
+  }
+
+  static public function fmtMinPayoutAmount() {
+    return self::currencyFormatByCfg(Config::get('payout.execute.payouts.min.amount', TYPE_INT));
+  }
+
+  static public function fmtAdvertisedLvl1Amount() {
+    return self::currencyFormatByCfg(\Transaction::getAmountForReason(\Transaction::REASON_ADVERTISED_LVL1));
+  }
+
+  static public function fmtAdvertisedLvl2Amount() {
+    return self::currencyFormatByCfg(\Transaction::getAmountForReason(\Transaction::REASON_ADVERTISED_LVL2));
+  }
+
+  static public function fmtAdvertisedIndirectAmount() {
+    return self::currencyFormatByCfg(\Transaction::getAmountForReason(\Transaction::REASON_ADVERTISED_INDIRECT));
+  }
+
+  static public function currencyFormatByCfg($num) {
+    return self::currencyFormat($num, self::get('currency_symbol.'.\Transaction::$BASE_CURRENCY));
   }
 
   static public function countInWords($count) {

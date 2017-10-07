@@ -7,7 +7,8 @@ class Base {
   protected $var;
   protected $varsDef = [];
 
-  protected $i18n;
+  protected $i18nCommon;
+  protected $i18nView;
 
   protected $moduleName;
   protected $actionName;
@@ -19,6 +20,7 @@ class Base {
   }
 
   protected function init() {
+    $this->i18nCommon = \Tbmt\Localizer::get('common');
     if ( $this->moduleName && $this->actioName )
       $this->i18nView = \Tbmt\Localizer::get("view.$this->moduleName.$this->actioName");
   }

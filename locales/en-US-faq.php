@@ -28,9 +28,9 @@ return [
 
 <p>Also you can get paid for customers that you  have recruited indirectly - without even knowing them. Of course it does not work by doing nothing. But all there is to do is recruit three customers.</p>
 
-<p>From this point on you get access to the marketing system. New customers will be allocated to you, you don`t know these people and most possibly you won`t ever get to know them. For the first two customers you get € 4.00 each, from the third on you get € 24.00 each and a customer that has been allocated to you makes € 20.00 for you!</p>
+<p>From this point on you get access to the marketing system. New customers will be allocated to you, you don`t know these people and most possibly you won`t ever get to know them. For the first two customers you get '.\Tbmt\Localizer::fmtAdvertisedLvl1Amount().' each, from the third on you get '.\Tbmt\Localizer::fmtAdvertisedLvl2Amount().' each and a customer that has been allocated to you makes '.\Tbmt\Localizer::fmtAdvertisedIndirectAmount().' for you!</p>
 
-<p>Now this does not sound like a lot of money yet. But the the marketing system´s mathematical algorithm lets youreceive many thousand Euros automatically. Just watch the video once again to make it clear.</p>',
+<p>Now this does not sound like a lot of money yet. But the marketing system´s mathematical algorithm lets you receive many million automatically. Just watch the video once again to make it clear.</p>',
 
 
 // next
@@ -40,7 +40,7 @@ return [
 
 <p>For example: If you joined Betterliving today and by doing so you became a customer of Betterliving. You paid the purchase price for the Happiness guide and got your customer number. The same week you´d find three new customers who all became customers of Betterliving as well and stated your customer number. That would be it.</p>
 
-<p>If every future customer acted the way you did, you would receive € 640.00 two weeks later and after eight weeks it could be about € 30,000.00 per week! You will receive all payments on your private bank account weekly. Of course you can get even more than this: Just recruit more customers. It is all in your hands - if you find more customers you will get higher commissions.</p>',
+<p>If every future customer acted the way you did, you would receive '.\Tbmt\Localizer::currencyFormatByCfg(48000).' two weeks later and after eight weeks it could be about '.\Tbmt\Localizer::currencyFormatByCfg(20000000).' per week! You will receive all payments on your private bank account weekly. Of course you can get even more than this: Just recruit more customers. It is all in your hands - if you find more customers you will get higher commissions.</p>',
 
 
 // next
@@ -48,7 +48,9 @@ return [
 
 '<p>We balance your payments and transfer the money to your private bank account weekly. In conclusion: If you are successful, you will receive money every week.</p>
 
-<p>Please note: You will get paid only after we received your complete purchase price for your own Happiness Guide. It is not possible to offset your purchase price against the commissions you get for recruited customers.</p>',
+<p>Please note: You will get paid only after we received your complete purchase price for your own Happiness Guide. It is not possible to offset your purchase price against the commissions you get for recruited customers.</p>
+
+<p>Commission shall be paid out to affiliates after a minimum of '.\Tbmt\Localizer::currencyFormatByCfg(\Tbmt\Config::get('payout.execute.payouts.min.amount')).' commission balance has been reached.</p>',
 
 
 

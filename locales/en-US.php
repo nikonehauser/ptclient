@@ -12,13 +12,12 @@ $copyrightName = \Tbmt\Config::get('brand.copyright');
 $brandName = \Tbmt\Config::get('brand.name');
 $brandNameShort = \Tbmt\Config::get('brand.short');
 
-$faqItems = include $lang.'-faq.php';
-$mails = include $lang.'-mails.php';
-
 return [
   'common' => [
     'brand_name' => $brandName,
     'brand_name_short' => 'BL',
+
+    'member_fee' => '__willBeLoadedinLocalizer__',
 
     'member_types' => [
       0 => 'Customer',
@@ -810,7 +809,7 @@ return [
         'welcome_faq' => 'Frequently {0} Questions',
         'welcome_faqh' => ['Asked'],
 
-        'items' => $faqItems,
+        'items' => '__$faqItems__',
       ],
     ],
 
@@ -865,7 +864,7 @@ return [
 
     /* MAILS
     ---------------------------------------------*/
-  'mail' => $mails
+  'mail' => '__$mails__'
 ];
 
 ?>
