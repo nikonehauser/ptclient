@@ -23,6 +23,7 @@ class ManageController extends BaseController {
     'LastName'       => \Tbmt\TYPE_STRING,
     'FirstName'      => \Tbmt\TYPE_STRING,
     'Email'          => \Tbmt\TYPE_STRING,
+    'Phone'          => \Tbmt\TYPE_STRING,
     'City'           => \Tbmt\TYPE_STRING,
     'ZipCode'       => \Tbmt\TYPE_STRING,
     'Bic'            => \Tbmt\TYPE_STRING,

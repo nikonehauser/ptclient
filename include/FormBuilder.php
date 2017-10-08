@@ -46,11 +46,12 @@ class FormBuilder {
   private $labels;
   private $values;
   private $errors;
-  public function __construct($formName, array $labels = array(), array $values = array(), array $errors = array()) {
+  public function __construct($formName, array $labels = array(), array $values = array(), array $errors = array(), array $placeholders = []) {
     $this->formName = $formName;
     $this->labels = $labels;
     $this->values = $values;
     $this->errors = $errors;
+    $this->placeholders = $placeholders;
   }
 
   public function buildFieldGroup($fieldKey, $type = 'text', $label = null, $value = null, $error = null, array $options = array()) {

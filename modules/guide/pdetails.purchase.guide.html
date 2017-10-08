@@ -67,7 +67,7 @@
 
       <?php if ( $this->member->isExtended() ): ?>
         <?=\Tbmt\view\Factory::testimonial(
-          \Tbmt\Localizer::insert($this->i18nView['extended_system_user_note'])
+          \Tbmt\Localizer::get($this->i18nView['extended_system_user_note'])
         )?>
       <?php endif; ?>
 

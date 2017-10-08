@@ -2,7 +2,7 @@
     use \Tbmt\Base;
 
     if ( $this->signupmsg ) {
-      echo \Tbmt\view\Factory::buildNotification(jj
+      echo \Tbmt\view\Factory::buildNotification(
         \Tbmt\Localizer::insert($this->i18nView['welc_not_1'], ['name' => \Tbmt\view\Factory::buildMemberFullNameString($this->member)]),
         '',
         'success top',
@@ -169,6 +169,13 @@ function copyToClipboard(elem) {
                   <?=$this->member->getEmail() ?
                   Base::encodeHtml($this->member->getEmail()) :
                   '<em class="text-muted">'.$this->i18nView['email_none'].'</em>'?>
+              </dd>
+
+              <dt><?=$this->i18nView['phone']?></dt>
+              <dd>
+                  <?=$this->member->getPhone() ?
+                  Base::encodeHtml($this->member->getPhone()) :
+                  '<em class="text-muted">'.$this->i18nView['phone_none'].'</em>'?>
               </dd>
           </dl>
       </div>

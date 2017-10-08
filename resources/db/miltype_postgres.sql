@@ -10,6 +10,7 @@
     "last_name" VARCHAR(80) NOT NULL ,
     "num" SERIAL NOT NULL,
     "email" VARCHAR(80) NOT NULL ,
+    "phone" VARCHAR(80) NOT NULL DEFAULT '',
     "title" VARCHAR(80) NOT NULL ,
     "street" VARCHAR(180) NOT NULL ,
     "street_add" VARCHAR(180) NOT NULL ,

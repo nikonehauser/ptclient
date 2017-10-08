@@ -4,131 +4,13 @@ namespace Tbmt;
 
 class MemberStrategy {
   static public function get($extended) {
-    return $extended === true
-      ? new ExtendedMemberStrategy()
-      : new SimpleMemberStrategy();
+    return new ExtendedMemberStrategy();
+
+    // deprecated
+    // return $extended === true
+    //   ? new ExtendedMemberStrategy()
+    //   : new SimpleMemberStrategy();
   }
-}
-
-/**
-  *
-  * simple strategy
-  *
-  ************************************
- */
-class SimpleMemberStrategy extends MemberStrategy {
-
-  public $SIGNUP_FORM_FIELDS = [
-    'title'                => \Tbmt\TYPE_STRING,
-    'lastName'             => \Tbmt\TYPE_STRING,
-    'firstName'            => \Tbmt\TYPE_STRING,
-    'age'                  => \Tbmt\TYPE_STRING,
-    'email'                => \Tbmt\TYPE_STRING,
-    'accept_agbs'          => \Tbmt\TYPE_STRING,
-    'password'             => \Tbmt\TYPE_STRING,
-    'password2'            => \Tbmt\TYPE_STRING,
-  ];
-
-  public $SIGNUP_FORM_FILTERS = [
-    'email'                => \FILTER_VALIDATE_EMAIL,
-    'lastName'             => \Tbmt\Validator::FILTER_NOT_EMPTY,
-    'firstName'            => \Tbmt\Validator::FILTER_NOT_EMPTY,
-    'age'                  => [
-      'filter' => \FILTER_VALIDATE_INT,
-      'options' => [
-        'min_range' => 18,
-        'max_range' => 110
-      ],
-      'errorLabel' => 'error.age_of_18'
-    ],
-    'accept_agbs'          => \FILTER_VALIDATE_BOOLEAN,
-    'password'             => \Tbmt\Validator::FILTER_PASSWORD,
-  ];
-
-  public function initSignupForm(array $data = array()) {
-    return \Tbmt\Arr::initMulti($data, $this->SIGNUP_FORM_FIELDS);
-  }
-
-  public function getValidReferrerByHash($hash) {
-    return true;
-  }
-
-  public function validateSignupForm(array $data = array()) {
-    $data = $this->initSignupForm($data);
-
-    if ( $data['password'] !== $data['password2'] )
-      return [false, ['password' => \Tbmt\Localizer::get('error.password_unequal')], null, null];
-
-    $res = \Tbmt\Validator::getErrors($data, $this->SIGNUP_FORM_FILTERS);
-    if ( $res !== false )
-      return [false, $res, null, null];
-
-    // Validate member email does not exist
-    $emailExistsMember = \MemberQuery::create()
-      ->filterByDeletionDate(null, \Criteria::ISNULL)
-      ->findOneByEmail($data['email']);
-    if ( $emailExistsMember ) {
-      return [false, ['email' => \Tbmt\Localizer::get('error.email_exists')], null, null];
-    }
-
-    if ( !isset($data['email']) )
-      $data['email'] = '';
-
-    return [true, $data, null, null];
-  }
-
-  public function createFromSignup($data, $referrerMember, \Invitation $invitation = null, \PropelPDO $con) {
-    // This functions expects this parameter to be valid!
-    // E.g. the result from $this->validateSignupForm()
-
-    $now = time();
-
-    if ( !$con->beginTransaction() )
-      throw new \Exception('Could not begin transaction');
-
-    try {
-      $member = new \Member();
-      $member
-        ->setFirstName($data['firstName'])
-        ->setLastName($data['lastName'])
-        ->setEmail($data['email'])
-        ->setTitle($data['title'])
-        ->setAge($data['age'])
-        ->setPassword($data['password'])
-        ->setSignupDate($now)
-        ->setBonusIds('{}')
-        ->setPaidDate(null)
-
-        ->setStreetAdd('')
-        ->setBankName('')
-        ->setBankStreet('')
-        ->setBankCity('')
-        ->setBankZipCode('')
-        ->setBankCountry('')
-
-        // ->setReferrerNum($data['referral_member_num'])
-        ->setCity('')
-        ->setZipCode('')
-        ->setStreet('')
-        ->setCountry('')
-        ->setBankRecipient('')
-        ->setIban('')
-        ->setBic('')
-        ->setIsExtended(0)
-        ->setHash(\Member::calcHash($member))
-        ->save($con);
-
-    if ( !$con->commit() )
-        throw new \Exception('Could not commit transaction');
-
-    } catch (\Exception $e) {
-        $con->rollBack();
-        throw $e;
-    }
-
-    return $member;
-  }
-
 }
 
 /**
@@ -137,7 +19,7 @@ class SimpleMemberStrategy extends MemberStrategy {
   *
   ************************************
  */
-class ExtendedMemberStrategy extends SimpleMemberStrategy {
+class ExtendedMemberStrategy extends MemberStrategy {
 
   public $SIGNUP_FORM_FIELDS = [
     'referral_member_num'  => \Tbmt\TYPE_STRING,
@@ -146,6 +28,7 @@ class ExtendedMemberStrategy extends SimpleMemberStrategy {
     'lastName'             => \Tbmt\TYPE_STRING,
     'firstName'            => \Tbmt\TYPE_STRING,
     'age'                  => \Tbmt\TYPE_STRING,
+    'phone'                => \Tbmt\TYPE_STRING,
     'email'                => \Tbmt\TYPE_STRING,
     'city'                 => \Tbmt\TYPE_STRING,
     'street'               => \Tbmt\TYPE_STRING,
@@ -172,6 +55,7 @@ class ExtendedMemberStrategy extends SimpleMemberStrategy {
     'email'                => \FILTER_VALIDATE_EMAIL,
     'lastName'             => \Tbmt\Validator::FILTER_NOT_EMPTY,
     'firstName'            => \Tbmt\Validator::FILTER_NOT_EMPTY,
+    // 'phone'                => \Tbmt\Validator::FILTER_NOT_EMPTY,
     'age'                  => [
       'filter' => \FILTER_VALIDATE_INT,
       'options' => [
@@ -285,6 +169,7 @@ class ExtendedMemberStrategy extends SimpleMemberStrategy {
         ->setZipCode($data['zip_code'])
         ->setCountry('India')
         ->setAge($data['age'])
+        ->setPhone($data['phone'])
 
         ->setBankName($data['bank_name'])
         ->setBankStreet($data['bank_street'])

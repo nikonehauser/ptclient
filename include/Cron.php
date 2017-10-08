@@ -26,7 +26,7 @@ class Cron {
       try {
         $log .= call_user_func_array(['Tbmt\\Cron', "job_$job"], $arrParams);
       } catch (\Exception $e) {
-        MailHelper::sendException($e, "Cron job \"$job\" failed");
+        // MailHelper::sendException($e, "Cron job \"$job\" failed");
         $log .= $e->__toString();
       } finally {
         $lock->release();

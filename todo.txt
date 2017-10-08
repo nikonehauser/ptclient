@@ -3,7 +3,7 @@ UPDATE SERVER - TODO
 
 update
 ======
-
+- member.phone column erstellen, propel klassen updaten
 
 
 Fragen
@@ -56,6 +56,8 @@ Offen an Tom:
 
 NICE TO HAVE
 ============
+* log lock.files time - notify if locked above x time because the lock might be wrong due to errors?
+
 * pre compile less
 
 * im account, feature machen damit man seinen einladungs link ganz einfach über email an freunde schicken kann.

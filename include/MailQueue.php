@@ -92,7 +92,7 @@ class MailQueue {
     $mail->SMTPSecure = Config::get('mail.smtp_secure');
     $mail->isSMTP();
 
-    $debugLevel = Config::get('mail.debug_level');
+    $debugLevel = Config::get('mail.debug_level', TYPE_INT);
     if ( $debugLevel != '' )
       $mail->SMTPDebug = $debugLevel;
 
@@ -138,7 +138,7 @@ class MailQueue {
 
     try {
       if ( !$mailer->send() )
-        return $mailer->ErrorInfo;
+        return 'ErrorInfo: '.$mailer->ErrorInfo;
     } catch (\Exception $e) {
       return 'ErrorInfo: '.$mailer->ErrorInfo."\n\nException:\n".$e->__toString();
     }
