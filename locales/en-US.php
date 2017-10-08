@@ -197,6 +197,10 @@ return [
           'system' => 'Our marketing system',
           'signup' => 'Sign up',
         ],
+        'guide' => [
+          'index' => 'The Happiness Guide',
+          'howtopay' => 'How to pay the Happiness Guide',
+        ],
         'account' => [
           'index' => 'Information',
           'invoice' => 'Invoice',
@@ -540,7 +544,7 @@ return [
           'guide_download_explanation' => 'Click on the names to download your guide(s)',
           'guide_name' => 'Happy Guide Nr. {number}',
 
-          'purchase_now' => 'Purchase the Happiness Guide now',
+          'purchase_now' => 'How to pay the Happiness Guide',
         ],
         'invoice' => [
           'stats' => 'Statistics',
@@ -887,6 +891,10 @@ return [
         'popup_purchase_close' => 'Close',
 
         'extended_system_user_note' => 'NOTE: The system recognized your exclusive invitation. By purchasing our Happiness Guide you will get access to the marketing system.',
+      ],
+
+      'howtopay' => [
+        'page_title' => 'How to pay the Happiness Guide',
       ],
     ],
 

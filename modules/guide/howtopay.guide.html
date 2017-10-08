@@ -1,0 +1,42 @@
+<?=Tbmt\view\Factory::buildPageTitle($this->i18nView['page_title'])?>
+
+<div class="container">
+
+  <div class="row bottom-30 top-30 sheet">
+  <div class="col-md-12 " id="printableContainer">
+    <span style="float:right;">
+      <?=\Tbmt\view\Factory::buildButton(
+        'Print',
+        '#',
+        '',
+        '',
+        'onclick="doPrintContainer(\'printableContainer\')"'
+      )?>
+    </span>
+
+    <h1>Dear customer,</h1>
+    <p>
+      we offer you two ways how you can pay your Happiness Guide:
+    </p>
+
+    <ul style="list-style-type: decimal;">
+      <li><strong>Paying via bank transfer into our bank account</strong><br>
+      If you use this payment method we need also your personally ID number at Betterliving. Please fill in your ID number in the document for the bank transfer so that we get with your payment also your ID number.
+      This is very important to attributable correctly your payment!
+      </li>
+
+      <li><strong>Paying cash deposit into our bank account</strong><br>
+      If you use this payment method we need also your personally ID number at Betterliving. Please fill in your ID number in the document for the cash deposit so that we get with your payment also your ID number.
+      This is very important to attributable correctly your payment!</li>
+    </ul>
+
+    <h1>Here is our bank account for your bank transfer or cash deposit:</h1>
+    <address>
+      Betterliving Management Private Limited<br>
+      INDUSIND BANK LTD, JASOLA<br>
+      Bank account: 201001616959<br>
+      IFSC: INDB0000389<br>
+    </address>
+  </div>
+  </div>
+</div>
