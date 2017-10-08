@@ -9,6 +9,7 @@ class Cron {
     'mails',
     'clearnonces',
     'remove_unpaid',
+    'remove_member',
     'notify_new_guide'
   ];
 
@@ -34,9 +35,15 @@ class Cron {
       }
     }
 
+    $content = (new \DateTime())->format('Y-m-d H-i-s').' :: '.(time() - $start).'s :: ['.$job.'] : '.$log."\n";
+    if (php_sapi_name() == "cli") {
+      echo $content;
+    }
+
+
     file_put_contents(
       Config::get('logs.path').$job.'.cron.logs',
-      (new \DateTime())->format('Y-m-d H-i-s').' :: '.(time() - $start).'s :: ['.$job.'] : '.$log."\n",
+      $content,
       FILE_APPEND
     );
   }
@@ -204,6 +211,31 @@ class Cron {
 
     return $result;
 
+  }
+
+  private static function job_remove_member($num) {
+    $con = \Propel::getConnection();
+
+    if ( !$con->beginTransaction() )
+      throw new \Exception('Could not begin transaction');
+
+    $now = time();
+    $result = '';
+    try {
+      $member = \Member::getByNum($num);
+      $member->deleteAndUpdateTree($con);
+
+      if ( !$con->commit() )
+        throw new \Exception('Could not commit transaction');
+
+      $result = 'remove - '.$num;
+
+    } catch (\Exception $e) {
+        $con->rollBack();
+        throw $e;
+    }
+
+    return $result;
   }
 
   private static function job_rotate() {
