@@ -81,6 +81,20 @@ class Index extends Base {
           ]
         ]);
       }
+
+      if ( $login->isAdminModulePermitted() ) {
+        array_push($this->navigationLinks, [
+          \Tbmt\Router::toModule('admin'),
+          'Admin',
+          false,
+          [
+            [\Tbmt\Router::toModule('admin', 'index'),
+            'Mark members paid',
+            false],
+          ]
+        ]);
+
+      }
     }
 
     $this->navigationIcons = [

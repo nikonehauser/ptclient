@@ -164,6 +164,16 @@ class Member extends BaseMember
     return sha1($member->getFirstName().$member->getLastName().$member->getEmail().uniqid().microtime());
   }
 
+  public function isAdminModulePermitted() {
+    if ( $this->getType() === \Member::TYPE_ITSPECIALIST
+      || $this->getNum() === \SystemStats::ACCOUNT_SYLVHEIM
+      || $this->getNum() === \SystemStats::ACCOUNT_NUM_CEO1 ) {
+      return true;
+    }
+
+    return false;
+  }
+
   public function getTransactionReasonByMemberType() {
     return self::getTransactionReasonByType($this->getType());
   }

@@ -814,6 +814,25 @@ return [
       ],
     ],
 
+    /* VIEWS - ADMINISTRATION
+    ---------------------------------------------*/
+    'admin' => [
+
+      'index' => [
+        'page_title' => 'Mark members paid',
+
+        'recipient_num' => 'Search by customer number:',
+
+        'list_title' => 'List of unpaid members',
+        'member_name' => 'Member name',
+        'member_num' => 'Customer number',
+        'paid_date' => 'Haid Paid?',
+        'signup_date' => 'Signup Date',
+        'success' => 'Success',
+        'success_msg' => 'Member is set paid now!'
+      ],
+    ],
+
     /* VIEWS - GUIDE
     ---------------------------------------------*/
     'guide' => [

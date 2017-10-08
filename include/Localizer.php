@@ -48,7 +48,7 @@ class Localizer {
     self::$arrData['common']['member_fee'] = self::fmtMemberFee();
 
     self::$arrData['view']['about']['faq']['items'] = include $localesPath.$lang.'-faq.php';
-    self::$arrData['mails'] = include $localesPath.$lang.'-mails.php';
+    self::$arrData['mail'] = include $localesPath.$lang.'-mails.php';
   }
 
   static public function plain($strKey) {
