@@ -186,11 +186,10 @@ return [
           'backoffice' => 'The Backoffice of Betterliving',
         ],
         'projects' => [
-          '1' => ['index', 'Marketing System Video Explanation', 'video_explanation'],
+          '1' => ['index', 'Amazing Marketing System Video', 'video_explanation'],
           '2' => ['index', 'Marketing System PDF Explanation', 'pdf_explanation'],
           '3' => ['index', 'Happiness Guide Video Explanation', 'hg_video_explanation'],
-          '4' => ['index', 'Happiness Guide PDF Explanation', 'hg_pdf_explanation'],
-          '5' => ['index', 'Marketing System Video Explanation - Extended', 'video_explanation_extended']
+          '4' => ['index', 'Happiness Guide PDF Explanation', 'hg_pdf_explanation']
         ],
         'member' => [
           'index' => 'Customers recruit customers',
