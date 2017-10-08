@@ -571,7 +571,7 @@ class Member extends BaseMember
     $count = ($diff / $secondsPerGuide) + 1;
     $changed = false;
 
-    for ( ; $hgWeek <= $count; $hgWeek++ ) {
+    for ( ; $hgWeek < $count; $hgWeek++ ) {
       $changed = true;
       $this->setHgWeek($hgWeek);
       \Tbmt\MailHelper::sendHgAvailable($this);

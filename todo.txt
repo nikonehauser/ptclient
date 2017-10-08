@@ -3,7 +3,7 @@ UPDATE SERVER - TODO
 
 update
 ======
-- member.phone column erstellen, propel klassen updaten
+
 
 
 Fragen

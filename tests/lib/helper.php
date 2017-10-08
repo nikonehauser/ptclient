@@ -57,6 +57,12 @@ class DbEntityHelper {
     'Hash'           => '{}',
     'Email'           => '{}',
     'Street'           => '{}',
+    'StreetAdd'     => '',
+    'BankName'     => '',
+    'BankCity'      => '',
+    'BankStreet'    => '',
+    'BankZipCode'   => '',
+    'BankCountry'   => '',
   ];
 
   static public $memberSignup = [
@@ -75,6 +81,12 @@ class DbEntityHelper {
     'Hash'           => '{}',
     'Email'           => '{}',
     'Street'           => '{}',
+    'StreetAdd'     => '',
+    'BankName'     => '',
+    'BankCity'      => '',
+    'BankStreet'    => '',
+    'BankZipCode'   => '',
+    'BankCountry'   => '',
   ];
 
   static private $memberInvitation = [
@@ -97,6 +109,12 @@ class DbEntityHelper {
     'hash'           => '{}',
     'email'           => '{}',
     'street'           => '{}',
+    'StreetAdd'     => '',
+    'BankName'     => '',
+    'BankCity'      => '',
+    'BankStreet'    => '',
+    'BankZipCode'   => '',
+    'BankCountry'   => '',
   ];
 
   static public function createMember(Member $referralMember = null, array $data = array()) {
