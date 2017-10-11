@@ -11,7 +11,7 @@ return [
 // next
 'How do I pay for my Happiness Guide?',
 
-'<p>After registering, click the button that says "Buy and pay". This way you are in the purchase process. You will have to make the payment through bank transfer or cash deposit. For all this payment methods you find under the button "How to pay the Happiness Guide" every necessary information’s.</p>',
+'<p>After registering, click the button that says “Buy and pay”. This way you are in the purchase process. You will have to make the payment through bank transfer or cash deposit or PayUmoney. For all this payment methods you find under the button "How to pay the Happiness Guide" every necessary information’s.</p>',
 
 // next
 'When is the first part of my Happiness Guide ready to download?',
@@ -70,7 +70,7 @@ return [
 
 <p>For example: If you joined Betterliving today and by doing so you became a customer of Betterliving. You paid the purchase price for the Happiness guide and got your customer number. The same week you´d find three new customers who all became customers of Betterliving as well and stated your customer number. That would be it.</p>
 
-<p>If every future customer acted the way you did, you would receive '.\Tbmt\Localizer::currencyFormatByCfg(48000).' two weeks later and after eight weeks it could be about '.\Tbmt\Localizer::currencyFormatByCfg(20000000).' per week! You will receive all payments on your private bank account weekly. Of course you can get even more than this: Just recruit more customers. It is all in your hands - if you find more customers you will get higher commissions.</p>',
+<p>If every future customer acted the way you did, you would receive '.\Tbmt\Localizer::currencyFormatByCfg(48000).' two weeks later and after eight weeks it could be about INR 20,00,000 per week! You will receive all payments on your private bank account weekly. Of course you can get even more than this: Just recruit more customers. It is all in your hands - if you find more customers you will get higher commissions.</p>',
 
 
 // next
@@ -78,9 +78,7 @@ return [
 
 '<p>We balance your payments and transfer the money to your private bank account weekly. In conclusion: If you are successful, you will receive money every week.</p>
 
-<p>Please note: You will get paid only after we received your complete purchase price for your own Happiness Guide. It is not possible to offset your purchase price against the commissions you get for recruited customers.</p>
-
-<p>Commission shall be paid out to affiliates after a minimum of '.\Tbmt\Localizer::currencyFormatByCfg(\Tbmt\Config::get('payout.execute.payouts.min.amount')).' commission balance has been reached.</p>',
+<p>Please note: You will get paid only after we received your complete purchase price for your own Happiness Guide. It is not possible to offset your purchase price against the commissions you get for recruited customers.</p>',
 
 
 

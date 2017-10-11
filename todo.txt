@@ -8,6 +8,10 @@ update
 
 Fragen
 =======
+
+* bank account in emails
+* kumulierung der transaction muss wechselnden wechselkurs beachten
+
 * excel: currency is source currency?
 * excel: was ist bei den konten angekommen?
 * fehlerhafte überweisung -> email -> wie sieht die email aus?
@@ -18,10 +22,6 @@ CURRENT - TODOS
 * investigate the bug, setze mich in der datenbank auf is_extended = 0 und logge mich aber auf der marketing seite an
 
 * security - tom macht sich schlau!
-
-* security: split public and source code folders
-
-* cronjob: clear nonces
 
 * cronjob: logrotation
 
@@ -43,9 +43,6 @@ SETUP
 
 Go LIVE:
 ============
-
-* im paypal account die currency receiving optionen einstellen siehe:
-https://developer.paypal.com/docs/classic/api/currency_codes/#payment-receiving-preferences
 
 * zahlung an die head leute? die richtigen Konten müssen eingetragen werden!
 

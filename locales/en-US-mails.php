@@ -339,7 +339,7 @@ Dear {fullname},
 
 {recruited_fullname} has registered at Betterliving because of your recommendation.
 
-Contact {recruited_fullname} and help them get their first 10 people to join Betterliving. If they can do it, you can earn thousands of Euros just by that.
+Contact {recruited_fullname} and help them get their first 10 people to join Betterliving. If they can do it, you can earn millions of Rupies just by that.
 
 As you can see, it is not difficult to recommend Betterliving successfully and earn a lot of money by doing so.
 
@@ -600,20 +600,27 @@ May all your personal dreams come true.",
 <br>
 <table class=\"invoiceTable\" border=1>
   <tr>
-    <th>Pos</th>
-    <th>Product</th>
-    <th>VAT</th>
-    <th>Single Price</th>
-    <th>Quantity</th>
-    <th>Total Price</th>
-  </tr>
-
-  <tr>
-    <td>1</td>
     <td>Happiness Guide</td>
-    <td>0 %</td>
-    <td>{membership_fee}</td>
-    <td>1</td>
+    <td>&nbsp;&nbsp;&nbsp;</td>
+    <td>net purchase price</td>
+    <td>&nbsp;&nbsp;&nbsp;</td>
+    <td>{membership_fee_without_tax}</td>
+  </tr>
+  <tr>
+    <td>18 % GST</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>{membership_fee_tax_amount}</td>
+  </tr>
+  <tr>
+    <td colspan='5'><hr></td>
+  </tr>
+  <tr>
+    <td>Happiness Guide</td>
+    <td>&nbsp;&nbsp;&nbsp;</td>
+    <td>gross purchase price</td>
+    <td></td>
     <td>{membership_fee}</td>
   </tr>
 </table><br>
@@ -624,7 +631,7 @@ The total amount has been paid via PayPal.<br>
 <hr>
 <br>
 <center style=\"font-size: smaller;\">
-Betterliving For Everyone Ltd<br>
+Betterliving Management Private Ltd.<br>
 SWQ 3141 Malta, Swieqi - Noel Muscat & Co - Triq L-Imghazel <br>
 Registration number: C 76973 - VAT registrations number: MT23625003<br>
 www.betterliving.social - info@betterliving.social<br>
@@ -880,7 +887,7 @@ Thank you for the support, we hope you will successfully find new customers for 
 
 CONGRATULATIONS! You made it.
 By recommending your second customer you have become a premium customer of Betterliving.
-You will receive € 4.00 for {recruited_fullname´s}. purchase.
+You will receive ₹ 300.00 for {recruited_fullname´s}. purchase.
 From now on you will receive {adv2amount} Dollar for every future customer.
 So what do you need to know now?
 You know you have received {adv1amount} Dollar for the first two customers.

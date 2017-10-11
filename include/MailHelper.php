@@ -515,6 +515,8 @@ class MailHelper {
     $customerNumber = $member->getNum();
 
     $price = \Tbmt\view\Factory::buildFmtMemberFeeStr();
+    $priceWithoutTax = \Tbmt\view\Factory::buildFmtMemberFeeStrWithoutTax();
+    $priceTaxAmount = \Tbmt\view\Factory::buildFmtMemberFeeStrTaxAmount();
 
     return self::send(
       $email,
@@ -523,6 +525,8 @@ class MailHelper {
       Localizer::insert($body, [
         'fullname' => $fullName,
         'member_id' => $member->getNum(),
+        'membership_fee_without_tax' => $priceWithoutTax,
+        'membership_fee_tax_amount' => $priceTaxAmount,
         'membership_fee' => $price,
         'invoice_number' => $invoiceNumber,
         'invoice_date' => $invoiceDate,

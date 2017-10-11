@@ -21,6 +21,22 @@ class Factory {
     return self::$fmtMemberFeeStr;
   }
 
+  static $fmtMemberFeeStrWithoutTax;
+  static function buildFmtMemberFeeStrWithoutTax() {
+    if ( ! self::$fmtMemberFeeStrWithoutTax )
+      self::$fmtMemberFeeStrWithoutTax = \Tbmt\Localizer::currencyFormat(\Transaction::$MEMBER_FEE * 0.82, \Tbmt\Localizer::get('currency_symbol.'.\Transaction::$BASE_CURRENCY));
+
+    return self::$fmtMemberFeeStrWithoutTax;
+  }
+
+  static $fmtMemberFeeStrTaxAmount;
+  static function buildFmtMemberFeeStrTaxAmount() {
+    if ( ! self::$fmtMemberFeeStrTaxAmount )
+      self::$fmtMemberFeeStrTaxAmount = \Tbmt\Localizer::currencyFormat(\Transaction::$MEMBER_FEE * 0.18, \Tbmt\Localizer::get('currency_symbol.'.\Transaction::$BASE_CURRENCY));
+
+    return self::$fmtMemberFeeStrTaxAmount;
+  }
+
   /**
    *
    * @param  \Member $member
