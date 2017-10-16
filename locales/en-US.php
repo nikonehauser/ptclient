@@ -53,7 +53,10 @@ return [
     'purchase_agreemensts' => 'You agree with our {terms}!',
     'terms' => 'Terms of Use',
     'privacy' => 'Data Privacy Notice',
-    'cancelation_right' => 'Rights of Cancelation'
+    'cancelation_right' => 'Rights of Cancelation',
+
+    'pdf_explanation' => 'There is also an illustrated explanation in an extra document. If you prefer to read a pdf document, ',
+    'pdf_explanation_link' => 'just click here',
   ],
 
   'mails' => [

@@ -479,7 +479,7 @@ END;
    * @return [type]
    */
   static function buildProductPdf() {
-      return \Tbmt\Localizer::get('common.pdf_explanation').'<a href="'.\Tbmt\Router::toModule('download', 'illustration').'" style="color:#EF4A43;">'.
+      return \Tbmt\Localizer::get('common.pdf_explanation').'<a href="'.\Tbmt\Router::toModule('download', 'hgillustration').'" style="color:#EF4A43;">'.
         \Tbmt\Localizer::get('common.pdf_explanation_link').'</a>';
   }
 
