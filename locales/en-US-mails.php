@@ -60,11 +60,10 @@ We’re happy you followed {recruiter}’s recommendation.
 
 In order to make you a part of Betterliving and to offer you all opportunities it is necessary for you to purchase the Happiness Guide.
 
-Please pay the price of {fmt_member_fee} via PayPal now, otherwise we cannot confirm your registration.
+Please pay the price of {fmt_member_fee} now, otherwise we cannot confirm your registration.
 
-To get hold of the Happiness Guide, just click on the button “Purchase your Happiness Guide now”.
-After that, click on “PayPal” and complete the payment of {fmt_member_fee}.
-In case you do not own a PayPal account, please register on their website [PayPal](https://paypal.com).
+To get hold of the Happiness Guide, just visit our explanation page \"How to pay the Happiness Guide\" under the menu entry
+\"Happiness Guide\".
 
 As soon as we have received your payment, you are going to get to know
 helpful secrets about how to make a fortune with $brandName.
@@ -624,7 +623,7 @@ May all your personal dreams come true.",
     <td>{membership_fee}</td>
   </tr>
 </table><br>
-The total amount has been paid via PayPal.<br>
+The total amount has been paid.<br>
 <br>
 <br>
 <br>
