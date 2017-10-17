@@ -9,25 +9,18 @@ update
 Fragen
 =======
 
+* remove unpaid nach wieviel wochen?
+
 * bank account in emails
 * kumulierung der transaction muss wechselnden wechselkurs beachten
 
-* excel: currency is source currency?
-* excel: was ist bei den konten angekommen?
-* fehlerhafte überweisung -> email -> wie sieht die email aus?
+
 
 CURRENT - TODOS
 ===============
 
-* investigate the bug, setze mich in der datenbank auf is_extended = 0 und logge mich aber auf der marketing seite an
-
-* security - tom macht sich schlau!
-
-* cronjob: logrotation
-
-* cronjob: new happiness guides
-
-* remove_unpaid zeit entsprechen auf 7 tage setzen
+cron jobs einrichten:
+* remove_unpaid etc.
 
 
 SETUP

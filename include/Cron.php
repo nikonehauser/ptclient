@@ -78,7 +78,9 @@ class Cron {
     if ( $now === null )
       $now = time();
 
-    // - 2 weeks (3600 * 24 * 14)
+    if ( !$allowedSeconds )
+      $allowedSeconds = \Tbmt\Config::get('remove_unpaid_after_seconds');
+
     $twoWeeksAgo = $now - $allowedSeconds;
 
     $result = '';
