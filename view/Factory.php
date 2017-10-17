@@ -16,7 +16,7 @@ class Factory {
   static $fmtMemberFeeStr;
   static function buildFmtMemberFeeStr() {
     if ( ! self::$fmtMemberFeeStr )
-      self::$fmtMemberFeeStr = \Tbmt\Localizer::currencyFormat(\Transaction::$MEMBER_FEE, \Tbmt\Localizer::get('currency_symbol.'.\Transaction::$BASE_CURRENCY));
+      self::$fmtMemberFeeStr = \Tbmt\Localizer::currencyFormatByCfg(\Transaction::$MEMBER_FEE);
 
     return self::$fmtMemberFeeStr;
   }
@@ -24,7 +24,7 @@ class Factory {
   static $fmtMemberFeeStrWithoutTax;
   static function buildFmtMemberFeeStrWithoutTax() {
     if ( ! self::$fmtMemberFeeStrWithoutTax )
-      self::$fmtMemberFeeStrWithoutTax = \Tbmt\Localizer::currencyFormat(\Transaction::$MEMBER_FEE * 0.82, \Tbmt\Localizer::get('currency_symbol.'.\Transaction::$BASE_CURRENCY));
+      self::$fmtMemberFeeStrWithoutTax = \Tbmt\Localizer::currencyFormatByCfg((\Transaction::$MEMBER_FEE * 100) / 118);
 
     return self::$fmtMemberFeeStrWithoutTax;
   }
@@ -32,7 +32,7 @@ class Factory {
   static $fmtMemberFeeStrTaxAmount;
   static function buildFmtMemberFeeStrTaxAmount() {
     if ( ! self::$fmtMemberFeeStrTaxAmount )
-      self::$fmtMemberFeeStrTaxAmount = \Tbmt\Localizer::currencyFormat(\Transaction::$MEMBER_FEE * 0.18, \Tbmt\Localizer::get('currency_symbol.'.\Transaction::$BASE_CURRENCY));
+      self::$fmtMemberFeeStrTaxAmount = \Tbmt\Localizer::currencyFormatByCfg((\Transaction::$MEMBER_FEE * 18) / 118);
 
     return self::$fmtMemberFeeStrTaxAmount;
   }

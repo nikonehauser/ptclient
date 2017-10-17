@@ -613,7 +613,7 @@ May all your personal dreams come true.",
     <td>{membership_fee_tax_amount}</td>
   </tr>
   <tr>
-    <td colspan='5'><hr></td>
+    <td colspan='5'></td>
   </tr>
   <tr>
     <td>Happiness Guide</td>
@@ -630,9 +630,11 @@ The total amount has been paid.<br>
 <hr>
 <br>
 <center style=\"font-size: smaller;\">
-Betterliving Management Private Ltd.<br>
-SWQ 3141 Malta, Swieqi - Noel Muscat & Co - Triq L-Imghazel <br>
-Registration number: C 76973 - VAT registrations number: MT23625003<br>
+Betterliving Management Private Limited<br>
+J – 306   -   Sarita Vihar   -   New Delhi   -   South Delhi-110076   -   Delhi<br>
+Corporate Identity number: U74999DL2017PTC321705<br>
+Permanent Account Number: AAHCB3790Q<br>
+Phone: +91 70118 98957<br>
 www.betterliving.social - info@betterliving.social<br>
 </center>
 <br>

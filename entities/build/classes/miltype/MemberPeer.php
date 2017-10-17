@@ -23,7 +23,7 @@ class MemberPeer extends BaseMemberPeer
       $con = \Propel::getConnection();
 
     $sql = "SELECT * FROM ".MemberPeer::TABLE_NAME." WHERE"
-            ." hg_week <= :max_hg_count"
+            ." hg_week < :max_hg_count"
             ." AND (:date_now - EXTRACT(epoch from paid_date)) >= (:seconds_per_guide * CAST(hg_week as integer))";
 
     $stmt = $con->prepare($sql);

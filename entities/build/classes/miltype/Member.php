@@ -568,10 +568,10 @@ class Member extends BaseMember
     $paidDate = $this->getPaidDate();
     $diff = $now - $paidDate;
 
-    $count = ($diff / $secondsPerGuide) + 1;
+    $count = min(($diff / $secondsPerGuide) + 1, \Tbmt\Config::get('guides_count', \Tbmt\TYPE_INT));
     $changed = false;
 
-    for ( ; $hgWeek < $count; $hgWeek++ ) {
+    for ( ; $hgWeek <= $count; $hgWeek++ ) {
       $changed = true;
       $this->setHgWeek($hgWeek);
       \Tbmt\MailHelper::sendHgAvailable($this);
