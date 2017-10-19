@@ -349,7 +349,7 @@
     "date" timestamp with time zone  NOT NULL ,
     "member_id" BIGINT NOT NULL ,
     "invoice_number" varchar(128) NOT NULL ,
-    "gateway_payment_id" varchar(255) NOT NULL ,
+    "gateway_payment_id" varchar(255) ,
     "meta" TEXT NULL,
     PRIMARY KEY ("id") ,
     CONSTRAINT "fk_payment_member"

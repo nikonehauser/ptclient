@@ -4,6 +4,8 @@ namespace Tbmt;
 
 class Masspay {
 
+  static private $RESULT_PROCESS_LOCKED = [["this process is locked cause it is already running - there has to be only one process executing this routine"]];
+
   static private function getInstance() {
     return new Masspay();
   }
@@ -35,7 +37,7 @@ class Masspay {
   }
 
   public function run($exec = false) {
-    $createLogFile = true;
+    $createLogFile = false;
     $sendLogAsEmail = false;
     $con = \Propel::getConnection();
 
@@ -44,21 +46,21 @@ class Masspay {
     try {
 
       if ( $exec ) {
-        $resultCounts = $this->executeTransfers($con);
-        $data['results']['wasExecution'] = true;
-        $data['results'] = $resultCounts;
+        $this->prepareTransfers($con);
 
-        $createLogFile = false;
+        $resultCounts = $this->executeTransfers($con);
+        array_unshift($resultCounts, ['was execution', 'yes']);
+        $data['results'] = $resultCounts;
 
       } else {
         // always prepare all available transfers
-        $this->prepareTransfers($con);
+        //$this->prepareTransfers($con);
 
-        $createLogFile = false;
-        $data['results'] = $this->viewPreparedTransfers($con);
+        $data['results'] = $this->viewTransferStats($con);
       }
 
     } catch (\Exception $e) {
+      $createLogFile = true;
       $data['exception'] = $e->__toString();
     }
 
@@ -90,29 +92,57 @@ class Masspay {
             .' AND (select sum(amount) from tbmt_transaction where transfer_id = tbmt_transfer.id) >= '.$minAmountRequired
             .' AND "tbmt_transfer"."state" in ('.\Transfer::STATE_COLLECT.')'
             .' AND "tbmt_transfer"."creation_date" <= :date_lastmonth'
-            .' AND "tbmt_member"."transfer_freezed" = 0';
+            .' AND "tbmt_member"."transfer_freezed" = 0'
+            .' AND "tbmt_member"."deletion_date" IS NULL';
     $stmt = $con->prepare($sql);
     $stmt->execute([
       ':date_lastmonth' => date('Y-m-d H:i:s', $whenCondition)
     ]);
 
+    $stmt->closeCursor();
+
+    $formatter = new \PropelObjectFormatter();
+    $formatter->setClass('Transfer');
+    return $formatter->format($stmt);
   }
 
-  private function viewPreparedTransfers(\PropelPDO $con) {
-    $transfers = $this->getTransferInExecution($con);
+  private function viewTransferStats(\PropelPDO $con) {
+    $sql = 'SELECT count(*)'
+            .' FROM '.\TransferPeer::TABLE_NAME
+            .' WHERE'
+            .' "tbmt_transfer"."state" in ('.\Transfer::STATE_IN_EXECUTION.')';
+    $stmt = $con->prepare($sql);
+    $stmt->execute([]);
 
-    if ( count($transfers) <= 0 )
-      return ["nothing do to"];
+    $open = $this->getTransferInCollectStateCount($con);
+    $waiting = $stmt->fetch()[0];
 
-    $this->log("PREPARED TRANSFERS: ", $transfers);
-
-    foreach ( $transfers as $transfer ) {
-      $member = $transfer->getMember();
-
-      $results[] = [$member, $transfer];
+    if ( $open == 0 && $waiting == 0 ) {
+      return [
+        ['Open member transactions to be transfered', $open],
+        ['Locked waiting transactions to be transfered', $waiting],
+        ['Nothing to do']
+      ];
     }
 
-    return ['transfers' => $results];
+    return [
+      ['Open member transactions to be transfered', $open],
+      ['Locked waiting transactions to be transfered', $waiting],
+      ['<a href="'.\Tbmt\Router::toModule('pay', 'index', ['doexec' => 1]).'" class="button" ><span>CREATE EXCEL</span></a>']
+    ];
+  }
+
+  private function getTransferInCollectStateCount(\PropelPDO $con) {
+    $sql = 'SELECT count(*)'
+            .' FROM '.\TransferPeer::TABLE_NAME
+            .' INNER JOIN '.\MemberPeer::TABLE_NAME.' ON "tbmt_member"."id" = "tbmt_transfer"."member_id"'
+            .' WHERE'
+            .' "tbmt_transfer"."state" in ('.\Transfer::STATE_COLLECT.')'
+            .' AND "tbmt_member"."transfer_freezed" = 0'
+            .' AND "tbmt_member"."deletion_date" IS NULL';
+    $stmt = $con->prepare($sql);
+    $stmt->execute([]);
+    return $stmt->fetch()[0];
   }
 
   private function getTransferInExecution(\PropelPDO $con) {
@@ -140,12 +170,12 @@ class Masspay {
 
     $transfers = $this->getTransferInExecution($con);
     if ( count($transfers) <= 0 )
-      return ["nothing do to"];
+      return [["nothing do to"]];
 
     $lock = new Flock(Config::get('lock.payout.path'));
 
     if ( !$lock->acquire() )
-      return ["locked"];
+      return $this->RESULT_PROCESS_LOCKED;
 
     if ( !$con->beginTransaction() )
       throw new Exception('Could not begin transaction');
@@ -166,12 +196,12 @@ class Masspay {
 
       $successfulPayouts = 0;
 
-      $masspayExcel = new MasspayExcel();
+      $masspayExcels = new MasspayExcels();
 
       foreach ( $transfers as $dbTransfer ) {
         $successfulPayouts++;
 
-        $masspayExcel->addTransfer($dbTransfer, $sourceCurrency, $configReference);
+        $masspayExcels->addTransfer($dbTransfer, $sourceCurrency, $configReference);
 
         $dbTransfer->setExecutionDate(time());
         $dbTransfer->setState(\Transfer::STATE_DONE);
@@ -180,16 +210,16 @@ class Masspay {
         $dbTransfer->save($con);
       }
 
-      $filename = $masspayExcel->save();
+      $filename = $masspayExcels->save();
       $payout->setMasspayFile($filename);
       $payout->save($con);
 
       if ( !$con->commit() )
         throw new Exception('Could not commit transaction');
 
-      return ['executed' => [
-        'successfulPayouts' => $successfulPayouts
-      ]];
+      return [
+        ['success full payouts in excels', $successfulPayouts]
+      ];
     } catch (\Exception $e) {
       $con->rollBack();
       throw $e;

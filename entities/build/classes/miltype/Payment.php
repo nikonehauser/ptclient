@@ -21,6 +21,8 @@ class Payment extends BasePayment
   const STATUS_CANCELED = 3;
   const STATUS_USER_CANCELED = 4;
 
+  const TYPE_SETBYADMIN = 1;
+
   public function setStatus($v) {
     $status = $this->getStatus();
     if ( $status && $status !== self::STATUS_CREATED )

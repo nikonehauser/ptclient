@@ -1,5 +1,3 @@
-<?=Tbmt\view\Factory::buildPageTitle('TransferWise')?>
-
 <div class="container">
 
 <!--
@@ -7,7 +5,7 @@
   <a href="<?php echo \Tbmt\Router::toModule('pay', 'check'); ?>" class="button yellow" style="float:right;"><span>CHECK PAYOUTS</span></a>
 -->
 
-  <?php if ( $this->data['exception'] ) : ?>
+  <?php if ( !empty($this->data['exception']) ) : ?>
     <div class="row bottom-30 top-30">
       <div class="col-md-12">
         <?=\Tbmt\view\Factory::buildHeadingArea('Exception')?>
@@ -19,20 +17,7 @@
 
   <div class="row bottom-30">
     <div class="col-md-12">
-      <?=\Tbmt\view\Factory::buildHeadingArea('Results')?>
-
-      <a href="<?php echo $this->data['exec_payments_url']; ?>" class="button" style="float:right;"><span>CREATE EXCEL</span></a>
-
-      <?php if ( !empty($this->data['results']['executed']) ) : ?>
-        <?php
-        $executed = $this->data['results']['executed'];
-        unset($this->data['results']['executed']);
-        ?>
-
-        <h3>Executed:</h3>
-        <p>executed: <?php echo isset($executed['successfulPayouts']) ? $executed['successfulPayouts'] : 'null';?></p>
-
-      <?php endif; ?>
+      <?=\Tbmt\view\Factory::buildHeadingArea('Do Payouts')?>
 
       <?php if ( !empty($this->data['results']['transfers']) ) : ?>
         <h3>Prepared Transfers:</h3>
@@ -61,16 +46,20 @@
         </table>
 
       <?php endif; ?>
-      <pre><?php echo print_r($this->data['results'], true); ?></pre>
+      <div class="sheet"">
+        <table class="table" style="width: 450px; margin:auto;"><?php \Tbmt\view\Factory::echoTableRows($this->data['results']); ?></table>
+      </div>
     </div>
   </div>
 
 
-  <div class="row bottom-30 top-30">
-    <div class="col-md-12">
-      <?=\Tbmt\view\Factory::buildHeadingArea('LOGS')?>
-      <pre><?php echo print_r($this->data['log'], true); ?></pre>
+  <?php if ( !empty($this->data['exception']) ) : ?>
+    <div class="row bottom-30 top-30">
+      <div class="col-md-12">
+        <?=\Tbmt\view\Factory::buildHeadingArea('LOGS')?>
+        <pre><?php echo print_r($this->data['log'], true); ?></pre>
+      </div>
     </div>
-  </div>
+  <?php endif; ?>
 
 </div>

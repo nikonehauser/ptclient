@@ -557,6 +557,7 @@ class Member extends BaseMember
     }
 
     $this->setDeletionDate(time());
+    $this->setTransferFreezed(1);
     $this->save($con);
   }
 

@@ -43,6 +43,18 @@ class AdminController extends BaseController {
           $con
         );
         $member->save($con);
+
+        $invoiceNumber = \SystemStats::getIncreasedInvoiceNumber($con);
+        $payment = new \Payment();
+        $payment
+          ->setState(\Payment::STATUS_EXECUTED)
+          ->setType(\Payment::TYPE_SETBYADMIN)
+          ->setDate(time())
+          ->setMember($member)
+          ->setInvoiceNumber($invoiceNumber)
+          ->setMeta([])
+          ->save($con);
+
         if ( !$con->commit() )
           throw new Exception('Could not commit transaction');
 

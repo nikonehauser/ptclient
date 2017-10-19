@@ -9,29 +9,23 @@ update
 Fragen
 =======
 
-* remove unpaid nach wieviel wochen?
+* ich muss die euro transactionen entfernen
+* kriegen kostenlose einladungen auch eine invoice? wenn nein was soll im excel sheet stehn?
+* kompletten bank account für emails etc
 
-* bank account in emails
 * kumulierung der transaction muss wechselnden wechselkurs beachten
-
 
 
 CURRENT - TODOS
 ===============
 
-cron jobs einrichten:
-* remove_unpaid etc.
+* eigenen rechnungs lauf für die speziellen konten machen
 
 
-SETUP
-=====
+* vollständigen bank account configurieren
 
-* create database with schema
-* execute /helper/setup.php
-* create directories:
-  /var/logs/
-  /var/payouts/
-  /var/tmp/
+* cron jobs einrichten:
+  * remove_unpaid etc.
 
 
 Go LIVE:
@@ -44,8 +38,25 @@ Offen an Tom:
 ============
 
 
+HOW TO SETUP
+============
+
+* create database with schema
+* execute /helper/setup.php
+* create directories:
+  /var/logs/
+  /var/payouts/
+  /var/tmp/
+
+
 NICE TO HAVE
 ============
+
+- verify email address on change profile
+
+- use and run postgresql analyze
+
+
 * log lock.files time - notify if locked above x time because the lock might be wrong due to errors?
 
 * pre compile less
@@ -73,19 +84,6 @@ Bitte beachte, dass wir Dir nur Provisionen überweisen können, wenn alle Felde
 - handle emails asynchron/multithreaded
 
 - handle mail to invalid/non existing email address
-
-
-Fragen
-======
-
-
-TODOS
-=====
-
-- verify email address on change profile
-
-- use and run postgresql analyze
-
 
 
 Profiling

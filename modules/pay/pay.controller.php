@@ -28,8 +28,6 @@ class PayController extends BaseController {
       $data['doexec']
     );
 
-    $data['exec_payments_url'] = \Tbmt\Router::toModule('pay', 'index', ['doexec' => 1]);
-
     return ControllerDispatcher::renderModuleView(
       self::MODULE_NAME,
       'index',
