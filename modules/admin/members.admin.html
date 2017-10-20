@@ -103,7 +103,7 @@
               <td><?= $member->isMarkedAsPaid() ? '<i class="fa fa-check"></i> '.($member->hadPaid() ? \Tbmt\Localizer::dateLong($member->getPaidDate()) : '') : '' ?></td>
               <td>
                 <?php if ($member->isMarkedAsPaid() and !$member->getFreeInvitation()) : ?>
-                  <a href="<?=\Tbmt\Router::toModule('download', 'memberinvoice', ['id' => $member->getId()])?>" class="button button-xs">Invoice</a>
+                  <a href="<?=\Tbmt\Router::toModule('download', 'memberinvoice', ['id' => $member->getId()])?>" class="button button-xs"><span>Invoice</span></a>
                 <?php endif; ?>
               </td>
 

@@ -42,7 +42,7 @@ class AdminIndex extends Base {
         $member->isMarkedAsPaid() ? '<i class="fa fa-check"></i> '.\Tbmt\Localizer::dateLong($member->getPaidDate()) : '',
         \Tbmt\Localizer::dateLong($member->getSignupDate()),
 
-        $member->isMarkedAsPaid() ? '' : Factory::buildButton('Set paid', $paidUrl, '', 'cart', 'onclick="return confirm(\'Realy mark paid?\');"')
+        $member->isMarkedAsPaid() ? '' : Factory::buildButton('Set paid', $paidUrl, '', 'cart', 'onclick="return confirm(\'Really mark paid?\');"')
       ];
     }
 

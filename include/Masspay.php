@@ -4,6 +4,26 @@ namespace Tbmt;
 
 class Masspay {
 
+  const TYPE_STD = 'standard_accounts';
+  const TYPE_HEAD = 'head_accounts';
+
+  /**
+   *
+   * @var [type]
+   */
+  static private $HEAD_ACC_NUMS = [
+    \SystemStats::ACCOUNT_NUM_SYSTEM,
+    \SystemStats::ACCOUNT_NUM_CEO1,
+    \SystemStats::ACCOUNT_NUM_IT,
+    \SystemStats::ACCOUNT_SYLVHEIM,
+  ];
+
+  /**
+   * Will be build with $HEAD_ACC_NUMS on construct.
+   * @var string
+   */
+  static private $HEAD_ACC_IDS = '';
+
   static private $RESULT_PROCESS_LOCKED = [["this process is locked cause it is already running - there has to be only one process executing this routine"]];
 
   static private function getInstance() {
@@ -16,39 +36,39 @@ class Masspay {
     return $masspay->run(null, true);
   }
 
-  static public function payouts($exec = false) {
+  static public function payouts($exec = false, $type = '') {
     $masspay = self::getInstance();
-    return $masspay->run($exec);
-  }
-
-  static public function listPayouts() {
-    $masspay = self::getInstance();
-    try {
-      $transApi = $masspay->getApiClient();
-      return $transApi->listTransfers();
-
-    } catch (\Exception $e) {
-      return $e->__toString();
-    }
+    return $masspay->run($exec, $type);
   }
 
   public function __construct() {
     $this->logger = new Logger();
+
+    $ids = [];
+    foreach (self::$HEAD_ACC_NUMS as $num ) {
+      $member = \Member::getByNum($num);
+      $ids[] = $member->getId();
+    }
+
+    self::$HEAD_ACC_IDS = implode(',', $ids);
   }
 
-  public function run($exec = false) {
+  public function run($exec = false, $type) {
     $createLogFile = false;
     $sendLogAsEmail = false;
     $con = \Propel::getConnection();
+
+    $isTypeHead = $type == self::TYPE_HEAD;
 
     $data['results'] = [];
     $data['exception'] = false;
     try {
 
       if ( $exec ) {
-        $this->prepareTransfers($con);
+        $this->prepareTransfers($isTypeHead, $con);
 
-        $resultCounts = $this->executeTransfers($con);
+        $resultCounts = $this->executeTransfers($isTypeHead, $con);
+        array_unshift($resultCounts, ['type was', $isTypeHead ? self::TYPE_HEAD : self::TYPE_STD]);
         array_unshift($resultCounts, ['was execution', 'yes']);
         $data['results'] = $resultCounts;
 
@@ -79,9 +99,49 @@ class Masspay {
     return $data;
   }
 
-  private function prepareTransfers(\PropelPDO $con) {
+  private function viewTransferStats(\PropelPDO $con) {
+    $sql = 'SELECT count(*)'
+            .' FROM '.\TransferPeer::TABLE_NAME
+            .' WHERE'
+            .' "tbmt_transfer"."state" in ('.\Transfer::STATE_IN_EXECUTION.')';
+    $stmt = $con->prepare($sql);
+    $stmt->execute([]);
+
+    $open = $this->getTransferInCollectStateCount($con);
+    $waiting = $stmt->fetch()[0];
+
+    if ( $open == 0 && $waiting == 0 ) {
+      return [
+        ['Open member transactions to be transfered', $open],
+        ['Locked waiting transactions to be transfered', $waiting],
+        ['', ''],
+        ['Nothing to do', '']
+      ];
+    }
+
+    return [
+      ['', 'Open member transactions to be transfered', $open, ''],
+      ['', 'Locked waiting transactions to be transfered', $waiting, ''],
+      [
+        '<a href="'.\Tbmt\Router::toModule('pay', 'index', ['doexec' => 1]).'" class="button blue" onclick="return confirm(\'This can\'t be undone! Sure?\');" ><span>Create Standard Accounts Transfer Excel</span></a>',
+        '',
+        '',
+        '<a href="'.\Tbmt\Router::toModule('pay', 'index', ['doexec' => 1, 'type' => self::TYPE_HEAD]).'" class="button" onclick="return confirm(\'This can\'t be undone! Sure?\');" ><span>Create HEAD Accounts Transfer Excel</span></a>'
+      ]
+    ];
+  }
+
+  private function prepareTransfers($isTypeHead, \PropelPDO $con) {
     $minAmountRequired = Config::get("payout.execute.payouts.min.amount", TYPE_INT);
     $whenCondition = strtotime(Config::get("payout.execute.payouts.after.strtotime"));
+
+    if ( $isTypeHead ) {
+      // head accounts only
+      $includeHeadAccounts = 'IN';
+    } else {
+      // exclude head accounts
+      $includeHeadAccounts = 'NOT IN';
+    }
 
     // if we find none in exeuction -> prepare new one
     $sql = "UPDATE ONLY tbmt_transfer"
@@ -89,6 +149,7 @@ class Masspay {
             ." FROM ".\MemberPeer::TABLE_NAME
             ." WHERE"
             .' "tbmt_member"."id" = "tbmt_transfer"."member_id"'
+            .' AND "tbmt_member"."id" '.$includeHeadAccounts.' ('.self::$HEAD_ACC_IDS.')'
             .' AND (select sum(amount) from tbmt_transaction where transfer_id = tbmt_transfer.id) >= '.$minAmountRequired
             .' AND "tbmt_transfer"."state" in ('.\Transfer::STATE_COLLECT.')'
             .' AND "tbmt_transfer"."creation_date" <= :date_lastmonth'
@@ -106,32 +167,6 @@ class Masspay {
     return $formatter->format($stmt);
   }
 
-  private function viewTransferStats(\PropelPDO $con) {
-    $sql = 'SELECT count(*)'
-            .' FROM '.\TransferPeer::TABLE_NAME
-            .' WHERE'
-            .' "tbmt_transfer"."state" in ('.\Transfer::STATE_IN_EXECUTION.')';
-    $stmt = $con->prepare($sql);
-    $stmt->execute([]);
-
-    $open = $this->getTransferInCollectStateCount($con);
-    $waiting = $stmt->fetch()[0];
-
-    if ( $open == 0 && $waiting == 0 ) {
-      return [
-        ['Open member transactions to be transfered', $open],
-        ['Locked waiting transactions to be transfered', $waiting],
-        ['Nothing to do']
-      ];
-    }
-
-    return [
-      ['Open member transactions to be transfered', $open],
-      ['Locked waiting transactions to be transfered', $waiting],
-      ['<a href="'.\Tbmt\Router::toModule('pay', 'index', ['doexec' => 1]).'" class="button" ><span>CREATE EXCEL</span></a>']
-    ];
-  }
-
   private function getTransferInCollectStateCount(\PropelPDO $con) {
     $sql = 'SELECT count(*)'
             .' FROM '.\TransferPeer::TABLE_NAME
@@ -145,13 +180,21 @@ class Masspay {
     return $stmt->fetch()[0];
   }
 
-  private function getTransferInExecution(\PropelPDO $con) {
+  private function getTransferInExecution($isTypeHead, \PropelPDO $con) {
     $limit = Config::get("payout.execute.payouts.limit", TYPE_INT);
-    // SELECT * FROM ... FOR UPDATE
-    // to ensure consistency through table row lock
+
+    if ( $isTypeHead ) {
+      // head accounts only
+      $includeHeadAccounts = 'IN';
+    } else {
+      // exclude head accounts
+      $includeHeadAccounts = 'NOT IN';
+    }
+
     $sql = "SELECT * FROM ".\TransferPeer::TABLE_NAME
             ." WHERE"
             ." ".\TransferPeer::STATE." = ".\Transfer::STATE_IN_EXECUTION
+            ." AND ".\TransferPeer::MEMBER_ID." $includeHeadAccounts (".self::$HEAD_ACC_IDS.")"
             ." ORDER BY ".\TransferPeer::STATE." desc"
             ." LIMIT $limit";
     $stmt = $con->prepare($sql);
@@ -162,15 +205,15 @@ class Masspay {
     return $formatter->format($stmt);
   }
 
-  private function executeTransfers(\PropelPDO $con) {
+  private function executeTransfers($isTypeHead, \PropelPDO $con) {
     $successfulPayouts = 0;
     $failedPayouts = 0;
     $unknownPayouts = 0;
     $customerFailedPayouts = 0;
 
-    $transfers = $this->getTransferInExecution($con);
+    $transfers = $this->getTransferInExecution($isTypeHead, $con);
     if ( count($transfers) <= 0 )
-      return [["nothing do to"]];
+      return [['', ''],['nothing do to', '']];
 
     $lock = new Flock(Config::get('lock.payout.path'));
 
@@ -212,6 +255,7 @@ class Masspay {
 
       $filename = $masspayExcels->save();
       $payout->setMasspayFile($filename);
+      $payout->setType($isTypeHead ? self::TYPE_HEAD : self::TYPE_STD);
       $payout->save($con);
 
       if ( !$con->commit() )

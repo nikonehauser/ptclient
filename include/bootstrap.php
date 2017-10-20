@@ -70,7 +70,7 @@ try {
   \Propel::init(ENTITIES_DIR.'build'.DIRECTORY_SEPARATOR.'conf'.DIRECTORY_SEPARATOR.PROJECT_NAME.'-conf.php');
   \Propel::getDB()->setCharset(\Propel::getConnection(), 'UTF8');
 
-  if ( true ) {
+  if ( false ) {
     require_once 'Log.php';
     \Propel::getConnection()->useDebug(true);
     \Propel::setLogger(

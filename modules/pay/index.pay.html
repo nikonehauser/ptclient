@@ -46,8 +46,10 @@
         </table>
 
       <?php endif; ?>
-      <div class="sheet"">
-        <table class="table" style="width: 450px; margin:auto;"><?php \Tbmt\view\Factory::echoTableRows($this->data['results']); ?></table>
+      <div class="sheet">
+        <div style="max-width: 650px; margin:auto;">
+          <table class="table" style="width: 100%;"><?php \Tbmt\view\Factory::echoTableRows($this->data['results']); ?></table>
+        </div>
       </div>
     </div>
   </div>

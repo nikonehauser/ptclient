@@ -17,6 +17,7 @@ class PayPayouts extends Base {
         <tbody>
             <tr>
               <th>Date</th>
+              <th>Type</th>
               <th>Download Count</th>
               <th>Excel Files (Downloadable)</th>
             </tr>';
@@ -27,6 +28,7 @@ class PayPayouts extends Base {
       $result .= '<tr>';
       # $result .= '<td>'.$member->getNum().' - '.$member->getFirstName().' - '.$member->getLastName().'</td>';
       $result .= '<td>'.date('r', $payout->getCreationDate()).'</td>';
+      $result .= '<td>'.strtoupper($payout->getType()).'</td>';
       $result .= '<td>'.$payout->getDownloadCount().'</td>';
       $result .= '<td><a href="'.\Tbmt\Router::toModule('download', 'payout', ['id' => $payout->getId()]).'">'.$payout->getMasspayFile().'</a></td>';
       $result .= '</tr>';

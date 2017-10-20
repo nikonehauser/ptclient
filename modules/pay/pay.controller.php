@@ -22,10 +22,12 @@ class PayController extends BaseController {
   public function action_index() {
     $data = Arr::initMulti($_REQUEST, [
       'doexec' => \Tbmt\TYPE_BOOL,
+      'type' => \Tbmt\TYPE_STRING,
     ]);
 
     $data = Masspay::payouts(
-      $data['doexec']
+      $data['doexec'],
+      $data['type']
     );
 
     return ControllerDispatcher::renderModuleView(

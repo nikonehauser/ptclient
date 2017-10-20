@@ -3,7 +3,7 @@ UPDATE SERVER - TODO
 
 update
 ======
-cfg updaten - invoice dir
+propel updaten
 
 
 Fragen
@@ -14,7 +14,6 @@ Fragen
 CURRENT - TODOS
 ===============
 
-* script das fehlende payments und rechnung anlegt?
 * eigenen rechnungs lauf für die speziellen konten machen
 
 * cron jobs einrichten:
