@@ -14,8 +14,6 @@ Fragen
 CURRENT - TODOS
 ===============
 
-* eigenen rechnungs lauf für die speziellen konten machen
-
 * cron jobs einrichten:
   * remove_unpaid etc.
 

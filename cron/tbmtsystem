@@ -15,5 +15,11 @@
 # jede minute
 */1 * * * * root php -f /srv/tbmtsystem/cron/mails.php >> /var/log/syslog 2>&1
 
+# notify new happines guides
+0 */2 * * * root php -f /srv/tbmtsystem/cron/notify_new_guide.php >> /var/log/syslog 2>&1
+
 # einaml täglich 19 uhr
 0 19 * * * root php -f /srv/tbmtsystem/cron/mailfailedactivities.php >> /var/log/syslog 2>&1
+
+# einaml täglich 23 uhr
+0 23 * * * root php -f /srv/tbmtsystem/cron/remove_unpaid.php >> /var/log/syslog 2>&1

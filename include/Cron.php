@@ -216,6 +216,8 @@ class Cron {
   }
 
   private static function job_remove_member($num) {
+    // TODO - MOVE TO HELPER this is no cron job
+    return;
     $con = \Propel::getConnection();
 
     if ( !$con->beginTransaction() )
@@ -238,10 +240,6 @@ class Cron {
     }
 
     return $result;
-  }
-
-  private static function job_rotate() {
-    return 'check rotation';
   }
 
 }
