@@ -13,19 +13,18 @@ Fragen
 
 CURRENT - TODOS
 ===============
-* rechnungen als datei ablegen
 
-* invoice: kumulierung der transaction muss wechselnden wechselkurs beachten
-* invoice: group by sollte ausgezahlt / nicht ausgezahlt unterscheiden
-* ich muss die euro transactionen umrechen
+* script das fehlende payments und rechnung anlegt?
 * eigenen rechnungs lauf für die speziellen konten machen
-* vollständigen bank account configurieren
-* kompletten bank account für emails konfigurieren
-
-
 
 * cron jobs einrichten:
   * remove_unpaid etc.
+
+* indusind csv datei einlesen
+* neues payment gateway einrichten
+
+* rework invoice tab - use subselect to order and limit before group by to show most recent transactions frist
+* mark transfer as failed - freeze members transfers!
 
 
 Go LIVE:

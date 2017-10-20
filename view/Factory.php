@@ -334,7 +334,7 @@ END;
 
     $arr = [];
     foreach ($arrCurrencies as $currency => $amount) {
-      $arr[] = \Tbmt\Localizer::currencyFormat($amount, $currency);
+      $arr[] = \Tbmt\Localizer::currencyFormat($amount, [$currency]);
     }
 
     return implode(', ', $arr);

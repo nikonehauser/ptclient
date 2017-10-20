@@ -10,6 +10,10 @@
 
       <dt><?=$this->i18nView['outstanding_total']?></dt>
       <dd><?=\Tbmt\view\Factory::currencyArrToString($this->member->getOutstandingTotal())?></dd>
+
+      <dt><?=$this->i18nView['transferred_total']?></dt>
+      <dd><?=\Tbmt\Localizer::currencyFormatByCfg($this->paidout)?></dd>
+
   </dl>
 
   <?php
@@ -30,18 +34,19 @@
         <tr>
           <th><?=$this->i18nView['quantity']?></th>
           <th><?=$this->i18nView['total']?></th>
-          <th><?=$this->i18nView['currency']?></th>
           <th><?=$this->i18nView['reason']?></th>
+          <th><?=$this->i18nView['state']?></th>
         </tr>
     <?php
     $reasons = $this->i18nView['transaction_reasons'];
+    $states = $this->i18nView['transfer_states'];
     $customText = $this->i18nView['custom'];
     foreach ( $this->transactions as $transaction ) {
       echo '<tr>';
         echo '<td>'.$transaction['Quantity'].'</td>';
-        echo '<td>'.\Tbmt\Localizer::numFormat($transaction['Total']).'</td>';
-        echo '<td>'.$transaction['Transfer.Currency'].'</td>';
+        echo '<td>'.\Tbmt\Localizer::currencyFormat($transaction['Total'], [$transaction['Transfer.Currency']]).'</td>';
         echo '<td>'.$reasons[$transaction['Reason']].'</td>';
+        echo '<td>'.$states[$transaction['Transfer.State']].'</td>';
         // echo '<td>'.date($this->transDateForm, $transaction->getDate()).'</td>';
       echo '</tr>';
     }

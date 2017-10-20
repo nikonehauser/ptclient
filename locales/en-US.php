@@ -556,12 +556,21 @@ return [
           'oustanding_advertised_count' => 'Outstanding advertised customers count',
           'advertised_member_count' => 'Advertised customers count',
           'outstanding_total' => 'Total earned',
-          'transferred_total' => 'Total transferred',
+          'transferred_total' => 'Total transferred of it',
           'custom' => '--custom--',
           'single_amount' => 'Single Amount',
           'quantity' => 'Quantity',
           'currency' => 'Currency',
           'total' => 'Total',
+          'state' => 'State',
+          'transfer_states' => [
+            0 => 'Outstanding',
+            1 => 'Reserved',
+            2 => 'In transfer queue',
+            3 => 'Transferred',
+            4 => 'Failed',
+          ],
+
           'reason' => 'Reason',
           'transaction_reasons' => [
             0 => 'Commission Level 1',
