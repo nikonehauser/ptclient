@@ -13,7 +13,7 @@ class PayController extends BaseController {
 
   public function dispatchAction($action, $params) {
     $login = Session::getLogin();
-    if ( !$login || $login->getType() !== \Member::TYPE_ITSPECIALIST )
+    if ( !$login || !$login->isAdminModulePermitted() )
       throw new PermissionDeniedException();
 
     return parent::dispatchAction($action, $params);

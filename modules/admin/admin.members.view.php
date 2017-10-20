@@ -17,6 +17,7 @@ class AdminMembers extends Base {
 
     // Base query
     $membersQuery = \MemberQuery::create()
+      ->withColumn('Member.PaidDate IS NOT NULL', 'paiddatenotnull')
       ->joinWith('Member.MemberRelatedByReferrerId Referrer', \Criteria::LEFT_JOIN)
       ->limit($this->formVal['limitBy']);
 
@@ -35,7 +36,10 @@ class AdminMembers extends Base {
       break;
 
       case 'paiddate':
+        // $membersQuery->orderBy(\MemberPeer::PAID_DATE.' '.$orderDirection.' NULLS LAST', \Criteria::CUSTOM);
+        $membersQuery->orderBy('paiddatenotnull', \Criteria::DESC); // results in NULLS LAST
         $membersQuery->orderBy(\MemberPeer::PAID_DATE, $orderDirection);
+
         $groupBy = 'getPaidDate';
       break;
 

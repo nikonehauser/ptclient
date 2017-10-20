@@ -3,7 +3,6 @@ UPDATE SERVER - TODO
 
 update
 ======
-propel updaten
 
 
 Fragen
@@ -13,9 +12,6 @@ Fragen
 
 CURRENT - TODOS
 ===============
-
-* cron jobs einrichten:
-  * remove_unpaid etc.
 
 * indusind csv datei einlesen
 * neues payment gateway einrichten
@@ -27,7 +23,6 @@ CURRENT - TODOS
 Go LIVE:
 ============
 
-* zahlung an die head leute? die richtigen Konten müssen eingetragen werden!
 
 
 Offen an Tom:
@@ -44,7 +39,7 @@ HOW TO SETUP
   /var/payouts/
   /var/invoices/
   /var/tmp/
-
+* cronjobs einrichten /cron/tbmtsystem
 
 NICE TO HAVE
 ============
@@ -52,7 +47,6 @@ NICE TO HAVE
 - verify email address on change profile
 
 - use and run postgresql analyze
-
 
 * log lock.files time - notify if locked above x time because the lock might be wrong due to errors?
 
