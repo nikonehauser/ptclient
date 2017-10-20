@@ -39,4 +39,38 @@ class Payment extends BasePayment
     return parent::setMeta(json_encode($v));
   }
 
+
+  /**
+   * Code to be run before persisting the object
+   *
+   * @param PropelPDO $con
+   *
+   * @return boolean
+   */
+  public function preSave(PropelPDO $con = null) {
+    $this->ensureInvoiceFile();
+    return true;
+  }
+
+  public function ensureInvoiceFile() {
+    $filename = $this->buildInvoiceFilename();
+    $file = \Tbmt\Config::get('invoice.files.dir').$filename;
+
+    if ( $this->getStatus() === self::STATUS_EXECUTED ) {
+      if ( !file_exists($file) ) {
+        $this->buildInvoiceFile($file);
+      }
+    }
+
+    return $filename;
+  }
+
+  private function buildInvoiceFilename() {
+    return $this->getMemberId().'-'.$this->getInvoiceNumber().'-'.date('Y-m-d', $this->getDate()).'.txt';
+  }
+
+  private function buildInvoiceFile($file) {
+    $content = \Tbmt\MailHelper::buildInvoiceContent($this->getMember(), $this, false);
+    file_put_contents($file, $content);
+  }
 }

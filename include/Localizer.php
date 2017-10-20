@@ -195,6 +195,10 @@ class Localizer {
     return $count;
   }
 
+  static public function dateVeryLong($time) {
+    return date(self::get('date_format_php.vlong'), $time);
+  }
+
   static public function dateLong($time) {
     return date(self::get('date_format_php.long'), $time);
   }

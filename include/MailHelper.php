@@ -498,9 +498,6 @@ class MailHelper {
     $locale = Localizer::get('mail.invoice');
 
     $fullName = \Tbmt\view\Factory::buildMemberFullNameString($member);
-    $body = $locale['body'];
-
-    $address = \Tbmt\view\Factory::buildMemberAddress($member);
 
     if ( !$payment ) {
       $payment = \PaymentQuery::create()
@@ -511,6 +508,31 @@ class MailHelper {
     }
 
     $invoiceNumber = $payment->getInvoiceNumber();
+
+    return self::send(
+      $email,
+      $fullName,
+      Localizer::insert($locale['subject'], ['invoice_number' => $invoiceNumber]),
+      self::buildInvoiceContent($member, $payment),
+      null,
+      null,
+      $member->getId()
+    );
+  }
+
+  static public function buildInvoiceContent(\Member $member, \Payment $payment, $asHtml = true) {
+    $locale = Localizer::get($asHtml ? 'mail.invoice' : 'mail.invoice-astext');
+
+    $fullName = \Tbmt\view\Factory::buildMemberFullNameString($member);
+    if ( $asHtml ) {
+      $body = $locale['body'];
+      $address = \Tbmt\view\Factory::buildMemberAddress($member);
+    } else {
+      $body = $locale;
+      $address = \Tbmt\view\Factory::buildMemberAddress($member, '\n', false);
+    }
+
+    $invoiceNumber = $payment->getInvoiceNumber();
     $invoiceDate = \Tbmt\Localizer::dateDefault($payment->getDate());
     $customerNumber = $member->getNum();
 
@@ -518,26 +540,17 @@ class MailHelper {
     $priceWithoutTax = \Tbmt\view\Factory::buildFmtMemberFeeStrWithoutTax();
     $priceTaxAmount = \Tbmt\view\Factory::buildFmtMemberFeeStrTaxAmount();
 
-    return self::send(
-      $email,
-      $fullName,
-      Localizer::insert($locale['subject'], ['invoice_number' => $invoiceNumber]),
-      Localizer::insert($body, [
-        'fullname' => $fullName,
-        'member_id' => $member->getNum(),
-        'membership_fee_without_tax' => $priceWithoutTax,
-        'membership_fee_tax_amount' => $priceTaxAmount,
-        'membership_fee' => $price,
-        'invoice_number' => $invoiceNumber,
-        'invoice_date' => $invoiceDate,
-        'customer_number' => $member->getNum(),
-        'address' => $address
-
-      ], false),
-      null,
-      null,
-      $member->getId()
-    );
+    return Localizer::insert($body, [
+      'fullname' => $fullName,
+      'member_id' => $member->getNum(),
+      'membership_fee_without_tax' => $priceWithoutTax,
+      'membership_fee_tax_amount' => $priceTaxAmount,
+      'membership_fee' => $price,
+      'invoice_number' => $invoiceNumber,
+      'invoice_date' => $invoiceDate,
+      'customer_number' => $member->getNum(),
+      'address' => $address
+    ], false);
   }
 
 

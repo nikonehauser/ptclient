@@ -79,6 +79,9 @@ class Index extends Base {
           'Admin',
           false,
           [
+            [\Tbmt\Router::toModule('admin', 'index'),
+            'Mark members paid',
+            false],
             [\Tbmt\Router::toModule('pay', 'index'),
             'Do Payouts',
             false],
@@ -88,8 +91,8 @@ class Index extends Base {
             [\Tbmt\Router::toModule('pay', 'payouts'),
             'List Payouts',
             false],
-            [\Tbmt\Router::toModule('admin', 'index'),
-            'Mark members paid',
+            [\Tbmt\Router::toModule('admin', 'members'),
+            'Report/Manage members',
             false],
           ]
         ]);

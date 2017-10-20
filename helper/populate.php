@@ -9,6 +9,7 @@ define('PM_PER_VL_CREATE_NUM', 10);
 
 define('PM_PER_RUN_SELECT_NUM', 10);
 define('MEMBER_PER_PM_CREATE_NUM', 3);
+define('UNPAID_MEMBER_NUM', 3);
 
 $con = Propel::getConnection();
 DbEntityHelper::setCon($con);
@@ -52,7 +53,7 @@ if ( !$count ) {
 } else {
   // select PM_PER_RUN_SELECT_NUM pms and create MEMBER_PER_PM_CREATE_NUM members for each one
 
-  $totalCount = PM_PER_RUN_SELECT_NUM * MEMBER_PER_PM_CREATE_NUM;
+  $totalCount = PM_PER_RUN_SELECT_NUM * (MEMBER_PER_PM_CREATE_NUM + UNPAID_MEMBER_NUM);
   $currentCount = 0;
   $currentPercent = 0;
   $tempPercent = 0;
@@ -84,20 +85,20 @@ if ( !$count ) {
 
   foreach ( $pms as $pm ) {
     for ( $i = 0; $i < MEMBER_PER_PM_CREATE_NUM; $i++ ) {
-      if ( !$con->beginTransaction() )
-        throw new Exception('Could not begin transaction');
+      DbEntityHelper::createSignupMember($pm);
 
-      try {
-
-        DbEntityHelper::createSignupMember($pm);
-
-        if ( !$con->commit() )
-          throw new Exception('Could not commit transaction');
-
-      } catch (Exception $e) {
-          $con->rollBack();
-          throw $e;
+      $currentCount++;
+      $tempPercent = intval((($currentCount * 100) / $totalCount));
+      if ( $tempPercent != $currentPercent ) {
+        $timeTaken = time() - $now;
+        $minutesTaken = $timeTaken / 60;
+        echo "$currentPercent % - done - $currentCount / $totalCount - $timeTaken seconds - $minutesTaken minutes\n";
+        $currentPercent = $tempPercent;
       }
+    }
+
+    for ( $i = 0; $i < UNPAID_MEMBER_NUM; $i++ ) {
+      DbEntityHelper::createSignupMember($pm, false);
 
       $currentCount++;
       $tempPercent = intval((($currentCount * 100) / $totalCount));

@@ -146,6 +146,37 @@ class FormBuilder {
     $group .= '</select></div>';
     return $group;
   }
+
+  public function buildMemberOrderBySelect($fieldKey) {
+    $label = Arr::init($this->labels, $fieldKey);
+    $value = Arr::init($this->values, $fieldKey);
+    $error = Arr::init($this->errors, $fieldKey);
+
+    return $this->buildSelect($fieldKey, $keyValOptions);
+  }
+
+  public function buildSelect($fieldKey, $keyValOptions) {
+    $label = Arr::init($this->labels, $fieldKey);
+    $value = Arr::init($this->values, $fieldKey);
+    $error = Arr::init($this->errors, $fieldKey);
+
+    $fieldId = $this->formName.$fieldKey;
+
+    $group = '<div class="field">'.
+      '<label for="'.$fieldId.'">'.$label.'</label>'.
+      '<select name="'.$fieldKey.'" id="'.$fieldId.'" >';
+    foreach ( $keyValOptions as $val => $label ) {
+      $selected = '';
+      if ( $value == $val )
+        $selected = 'selected="selected"';
+
+      $group .= '<option value="'.$val.'" '.$selected.'>'.$label.'</option>';
+    }
+
+    $group .= '</select></div>';
+    return $group;
+
+  }
 }
 
 ?>

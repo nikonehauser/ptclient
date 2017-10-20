@@ -36,6 +36,11 @@ class Router {
     return self::$url;
   }
 
+  static public function toModuleAsHiddenInput($moduleName, $action) {
+    return '<input type="hidden" name="'.self::KEY_MODULE.'" value="'.$moduleName.'"/>'.
+      '<input type="hidden" name="'.self::KEY_ACTION.'" value="'.$action.'"/>';
+  }
+
   static public function toModule($moduleName, $action = null, array $arrParams = null) {
     $params = [self::KEY_MODULE => $moduleName];
     if ( $action !== null )

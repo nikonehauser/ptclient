@@ -252,9 +252,18 @@ textarea {
   }
 }
 
+.form-block-labels label {
+  display: block;
+}
+
 select, input {
   font-size: 14px;
   line-height: 19px;
+}
+
+// fix floating issue of input and selects by equal their height
+select {
+  padding-top: 9px;
 }
 
 
@@ -683,4 +692,39 @@ a.highlighted {
   span {
     vertical-align: middle;
   }
+}
+
+/* =============================================================== */
+/* loading indicator
+================================================================ */
+
+.table tr.even, .table tr.even + tr {
+  background-color: #EEE;
+}
+.table tr.even td {
+  border-bottom: 1px solid #FFF !important;
+}
+
+.table tr.groupBy {
+  background-color: #EF4A43;
+  color: #FFF;
+  font-weight: bold;
+  font-size: larger;
+}
+// .table.membersWithReferres >tbody >tr:nth-child(4n) >td, .table.membersWithReferres >tbody >tr:nth-child(4n) + tr >td {
+//   background-color: #EEE;
+// }
+
+// .table.membersWithReferres >tbody >tr:nth-child(4n) >td {
+//   border-top: 1px solid #DDD !important;
+// }
+//
+
+/* =============================================================== */
+/* button variants
+================================================================ */
+
+.button-xs {
+  font-size: 10px;
+  padding: 4px 6px;
 }

@@ -3,26 +3,26 @@ UPDATE SERVER - TODO
 
 update
 ======
-
+cfg updaten - invoice dir
 
 
 Fragen
 =======
 
-* ich muss die euro transactionen entfernen
-* kriegen kostenlose einladungen auch eine invoice? wenn nein was soll im excel sheet stehn?
-* kompletten bank account für emails etc
-
-* kumulierung der transaction muss wechselnden wechselkurs beachten
 
 
 CURRENT - TODOS
 ===============
+* rechnungen als datei ablegen
 
+* invoice: kumulierung der transaction muss wechselnden wechselkurs beachten
+* invoice: group by sollte ausgezahlt / nicht ausgezahlt unterscheiden
+* ich muss die euro transactionen umrechen
 * eigenen rechnungs lauf für die speziellen konten machen
-
-
 * vollständigen bank account configurieren
+* kompletten bank account für emails konfigurieren
+
+
 
 * cron jobs einrichten:
   * remove_unpaid etc.
@@ -46,6 +46,7 @@ HOW TO SETUP
 * create directories:
   /var/logs/
   /var/payouts/
+  /var/invoices/
   /var/tmp/
 
 

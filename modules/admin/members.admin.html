@@ -1,0 +1,157 @@
+  <?php
+
+    $formBuilder = new \Tbmt\FormBuilder('bonusPaymentForm', $this->i18nView, $this->formVal, $this->formErrors);
+
+  ?>
+
+<div class="container">
+<div class="content-inner">
+
+  <!--
+    FORM
+    *************************** -->
+  <?php if ( $this->successmsg ) {
+    echo \Tbmt\view\Factory::buildNotification($this->i18nView['success'], $this->i18nView['success_msg'], 'success top');
+  } ?>
+
+  <div class="row sheet">
+    <form  method="get" class="form-white form-inline form-block-labels">
+        <?=\Tbmt\Router::toModuleAsHiddenInput('admin', 'members');?>
+
+        <?=$formBuilder->buildFieldGroup('search_member')?>
+
+        <?php echo $formBuilder->buildSelect('orderBy', [
+          '-signupdate' => 'Signup Date Descending',
+          '+name' => 'Firstname Ascending',
+          '-paiddate' => 'Paid Date Descending',
+        ]); ?>
+
+        <?php echo $formBuilder->buildSelect('limitBy', [
+          '200' => '200',
+          '500' => '500',
+          '1000' => '1000',
+          '2000' => '2000',
+          '10000' => '10000',
+        ]); ?>
+
+        <?php echo $formBuilder->buildSelect('filterBy', [
+          '' => ' - none - ',
+          '10recruitmentswithoutbonus' => '10 recruitments without bonus',
+        ]); ?>
+
+        <div class="field">
+          <label>&nbsp;</label>
+          <?=\Tbmt\view\Factory::buildSubmitBtn('Search', 'blue' )?>
+        </div>
+
+        <div class="clearfix"></div>
+    </form>
+
+
+    <!--
+      LIST OF BONUS PAYMENTS
+      *************************** -->
+    <div class="top-30">
+        <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['list_title'].' - '.$this->count, 'bottom-30 top-10')?>
+
+        <table class="table membersWithReferres">
+          <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Bank</th>
+                <th>Signup Date</th>
+                <th>Paid Date</th>
+                <th>Actions</th>
+              </tr>
+          </thead>
+          <tbody>
+          <?php
+            $lastGroupByValue = false;
+            $groupByFieldfunc = $this->groupBy;
+          ?>
+
+          <?php foreach ($this->members as $i => $member) : ?>
+
+            <?php  if ( $this->groupBy ) {
+              $groupByValue = \Tbmt\Localizer::dateVeryLong($member->$groupByFieldfunc());
+
+              if ( $lastGroupByValue != $groupByValue ) { ?>
+
+                <tr class="groupBy">
+                  <td colspan="99">
+                    <?= $groupByValue ?>
+                  </td>
+                </tr>
+
+              <?php }
+            } ?>
+
+            <tr class="<?php echo ($i % 2 == 0 ? 'even' : '') ?>">
+              <td><?= $member->getNum() ?></td>
+              <td><?= \Tbmt\view\Factory::buildMemberFullNameString($member) ?></td>
+              <td><?= $member->getEmail() ?></td>
+              <td><?= $member->getPhone() ?></td>
+
+              <td><?= $member->getBankName() ?><br>
+                  Nr.: ' <?= $member->getIban() ?><br>
+                  IFSC: ' <?= $member->getBic() ?><br></td>
+
+              <td><?= \Tbmt\Localizer::dateLong($member->getSignupDate()) ?></td>
+              <td><?= $member->isMarkedAsPaid() ? '<i class="fa fa-check"></i> '.($member->hadPaid() ? \Tbmt\Localizer::dateLong($member->getPaidDate()) : '') : '' ?></td>
+              <td>
+                <?php if ($member->isMarkedAsPaid() and !$member->getFreeInvitation()) : ?>
+                  <a href="<?=\Tbmt\Router::toModule('download', 'memberinvoice', ['id' => $member->getId()])?>" class="button button-xs">Invoice</a>
+                <?php endif; ?>
+              </td>
+
+            </tr>
+
+
+            <?php $referrer = $member->getMemberRelatedByReferrerId(); ?>
+
+            <?php if ( !$referrer ) : ?>
+              <tr class="">
+                <td>no Referrer</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+              </tr>
+
+            <?php else : ?>
+              <tr class="">
+                <td><i class="fa fa-hand-o-up"></i>'s Referrer</td>
+                <td><?= \Tbmt\view\Factory::buildMemberFullNameString($referrer) ?></td>
+                <td><?= $referrer->getEmail() ?></td>
+                <td><?= $referrer->getPhone() ?></td>
+
+                <td></td>
+
+                <td><?= \Tbmt\Localizer::dateLong($referrer->getSignupDate()) ?></td>
+                <td><?= $referrer->isMarkedAsPaid() ? '<i class="fa fa-check"></i> '.($referrer->hadPaid() ? \Tbmt\Localizer::dateLong($referrer->getPaidDate()) : '') : '' ?></td>
+                <td></td>
+
+              </tr>
+            <?php endif; ?>
+
+
+            <?php  if ( $this->groupBy ) {
+              $lastGroupByValue = $groupByValue;
+            } ?>
+
+          <?php endforeach; ?>
+          </tbody>
+        </table>
+    </div>
+
+  </div>
+
+</div>
+</div>

@@ -644,6 +644,38 @@ www.betterliving.social - info@betterliving.social<br>
 
   ],
 
+  'invoice-astext' =>
+"{fullname}
+{address}
+
+
+Invoice
+
+
+
+Invoice Number: {invoice_number}
+Invoice Date: {invoice_date}
+Customer Number: {customer_number}
+
+Items:
+------
+Happiness Guide | net purchase price   | {membership_fee_without_tax}
+18 % GST        |                      | {membership_fee_tax_amount}
+------------------------------------------------------------------
+Happiness Guide | gross purchase price | {membership_fee}
+
+
+The total amount has been paid.
+
+Betterliving Management Private Limited
+J – 306   -   Sarita Vihar   -   New Delhi   -   South Delhi-110076   -   Delhi
+Corporate Identity number: U74999DL2017PTC321705
+Permanent Account Number: AAHCB3790Q
+Phone: +91 70118 98957
+www.betterliving.social - info@betterliving.social
+
+",
+
 
 /*****************************************************************
 ###################################################################

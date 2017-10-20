@@ -425,6 +425,34 @@ class Member extends BaseMember
   }
 
   /**
+   * set member as paid, distributing all provisions, creating payment and
+   * sending invoice mail.
+   */
+  public function setHadPaid($paymentType, \PropelPDO $con) {
+    $this->onReceivedMemberFee(
+      \Transaction::$BASE_CURRENCY,
+      time(),
+      false,
+      $con
+    );
+    $this->save($con);
+
+    $invoiceNumber = \SystemStats::getIncreasedInvoiceNumber($con);
+
+    $payment = new \Payment();
+    $payment
+      ->setStatus(\Payment::STATUS_EXECUTED)
+      ->setType($paymentType)
+      ->setDate(time())
+      ->setMember($this)
+      ->setInvoiceNumber($invoiceNumber)
+      ->setMeta([])
+      ->save($con);
+
+    \Tbmt\MailHelper::sendFeeIncome($this, $payment);
+  }
+
+  /**
    * Set user as paid and spread provisions.
    *
    * Update all current Transfers with state Transfer::STATE_RESERVED to

@@ -89,12 +89,14 @@ return [
     'default' => "m/d/Y",
     'short' => "M. d",
     'long' => "F d, Y",
+    'vlong' => "l jS \of F Y",
   ],
 
   'datetime_format_php' => [
     'default' => "m/d/Y H:i",
     'short' => "M. d H:i",
     'long' => "F d, Y H:i",
+    'vlong' => "l jS \of F Y H:i:s A",
   ],
 
   'time_format_php' => [
@@ -840,6 +842,16 @@ return [
         'signup_date' => 'Signup Date',
         'success' => 'Success',
         'success_msg' => 'Member is set paid now!'
+      ],
+
+      'members' => [
+        'page_title' => 'Manage Members',
+
+        'list_title' => 'Members',
+        'search_member' => 'Search by Name/Num',
+        'orderBy' => 'Order by',
+        'limitBy' => 'Limit',
+        'filterBy' => 'Filter',
       ],
     ],
 

@@ -70,11 +70,11 @@ try {
   \Propel::init(ENTITIES_DIR.'build'.DIRECTORY_SEPARATOR.'conf'.DIRECTORY_SEPARATOR.PROJECT_NAME.'-conf.php');
   \Propel::getDB()->setCharset(\Propel::getConnection(), 'UTF8');
 
-  if ( false ) {
+  if ( true ) {
     require_once 'Log.php';
     \Propel::getConnection()->useDebug(true);
     \Propel::setLogger(
-      \Log::singleton($type = 'file', $name = './propel.log', $ident = 'propel', $conf = array(), $level = PEAR_LOG_DEBUG)
+      \Log::singleton($type = 'file', $name = BASE_DIR.'/propel.log', $ident = 'propel', $conf = array(), $level = PEAR_LOG_DEBUG)
     );
     $config = \Propel::getConfiguration(\PropelConfiguration::TYPE_OBJECT);
     $config->setParameter('debugpdo.logging.details.method.enabled', true);

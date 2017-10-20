@@ -403,7 +403,7 @@ END;
 END;
   }
 
-  static function buildMemberAddress(\Member $member) {
+  static function buildMemberAddress(\Member $member, $newline = '<br>', $enclose = 'address') {
     $zipCode = \Tbmt\Base::encodeHtml($member->getZipCode());
     $street = \Tbmt\Base::encodeHtml($member->getStreet());
     $streetadd = \Tbmt\Base::encodeHtml($member->getStreetAdd());
@@ -411,15 +411,23 @@ END;
     $country = \Tbmt\Base::encodeHtml($member->getCountry());
 
     if ( $streetadd )
-      $streetadd .= '<br>';
+      $streetadd .= $newline;
+
+    if ( $enclose ) {
+      $endEnclose = "</$enclose>";
+      $enclose = "<$enclose>";
+    } else {
+      $endEnclose = '';
+      $enclose = '';
+    }
 
     return <<<END
-<address>
-    $street<br>
+$enclose
+    $street$newline
     $streetadd
-    $zipCode $city<br>
+    $zipCode $city$newline
     $country
-</address>
+$endEnclose
 END;
   }
 

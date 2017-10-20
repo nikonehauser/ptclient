@@ -8,6 +8,7 @@ class AdminController extends BaseController {
 
   protected $actions = [
     'index' => true,
+    'members' => true,
   ];
 
   public function dispatchAction($action, $params) {
@@ -36,24 +37,7 @@ class AdminController extends BaseController {
         throw new Exception('Could not begin transaction');
 
       try {
-        $member->onReceivedMemberFee(
-          \Transaction::$BASE_CURRENCY,
-          time(),
-          false,
-          $con
-        );
-        $member->save($con);
-
-        $invoiceNumber = \SystemStats::getIncreasedInvoiceNumber($con);
-        $payment = new \Payment();
-        $payment
-          ->setState(\Payment::STATUS_EXECUTED)
-          ->setType(\Payment::TYPE_SETBYADMIN)
-          ->setDate(time())
-          ->setMember($member)
-          ->setInvoiceNumber($invoiceNumber)
-          ->setMeta([])
-          ->save($con);
+        $member->setHadPaid(\Payment::TYPE_SETBYADMIN, $con);
 
         if ( !$con->commit() )
           throw new Exception('Could not commit transaction');
@@ -69,6 +53,21 @@ class AdminController extends BaseController {
       self::MODULE_NAME,
       'index',
       ['formVal' => $data, 'setPaidMember' => $setPaidMember]
+    );
+  }
+
+  public function action_members() {
+    $data = \Tbmt\Arr::initMulti($_REQUEST, [
+      'search_member' => [\Tbmt\TYPE_STRING, ''],
+      'orderBy' => [\Tbmt\TYPE_STRING, '-signupdate'],
+      'limitBy' => [\Tbmt\TYPE_INT, 200],
+      'filterBy' => \Tbmt\TYPE_STRING
+    ]);
+
+    return ControllerDispatcher::renderModuleView(
+      self::MODULE_NAME,
+      'members',
+      ['formVal' => $data]
     );
   }
 }
