@@ -367,9 +367,32 @@
     ADD UNIQUE (invoice_number);
 
 
+-- -----------------------------------------------------
+-- Table "payment_import"
+-- -----------------------------------------------------
+  DROP TABLE IF EXISTS "tbmt_payment_import" CASCADE;
+
+  CREATE TABLE IF NOT EXISTS  "tbmt_payment_import" (
+    "id" serial NOT NULL ,
+    "filename" varchar(128) NOT NULL ,
+    "creation_date" timestamp with time zone  NOT NULL ,
+    "member_id" BIGINT NOT NULL ,
+    "meta" TEXT NULL,
+    PRIMARY KEY ("id") ,
+    CONSTRAINT "fk_payment_member"
+      FOREIGN KEY ("member_id")
+      REFERENCES "tbmt_member" ("id")
+      ON DELETE CASCADE
+      ON UPDATE CASCADE
+  );
+
+  ALTER TABLE tbmt_payment_import
+    OWNER to miltype;
+
+
 
 -- -----------------------------------------------------
--- Table "payment"
+-- Table "nonce"
 -- -----------------------------------------------------
   DROP TABLE IF EXISTS "tbmt_nonce" CASCADE;
 

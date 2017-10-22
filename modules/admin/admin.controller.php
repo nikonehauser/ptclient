@@ -9,6 +9,7 @@ class AdminController extends BaseController {
   protected $actions = [
     'index' => true,
     'members' => true,
+    'imptrans' => true,
   ];
 
   public function dispatchAction($action, $params) {
@@ -69,6 +70,30 @@ class AdminController extends BaseController {
       'members',
       ['formVal' => $data]
     );
+  }
+
+  public function action_imptrans() {
+    $data = \Tbmt\Arr::initMulti($_REQUEST, [
+      'formsubmit' => \Tbmt\TYPE_STRING,
+      'execfile' => \Tbmt\TYPE_STRING,
+    ]);
+
+    return ControllerDispatcher::renderModuleView(
+      self::MODULE_NAME,
+      'imptrans',
+      ['formVal' => $data]
+    );
+  }
+
+  static public function activity_importPayments($data, $referrerMember, Invitation $invitation = null, PropelPDO $con) {
+    $member = self::createFromSignup($data, $referrerMember, $invitation, $con);
+    return [
+      'data' => $data,
+      'member' => $member->toArray(),
+      'referer' => $referrerMember ? $referrerMember->toArray() : null,
+      'invitation' => $invitation ? $invitation->toArray() : null,
+      Activity::ACT_ADMIN_IMPORT_PAYMENTS => $member
+    ];
   }
 }
 

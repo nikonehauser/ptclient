@@ -1,0 +1,233 @@
+  <?php
+
+    $formBuilder = new \Tbmt\FormBuilder('bonusPaymentForm', $this->i18nView, $this->formVal, $this->formErrors);
+
+  ?>
+
+<div class="container">
+<div class="content-inner">
+
+  <!--
+    FORM
+    *************************** -->
+
+  <div class="sheet">
+    <div class="row">
+      <form action="<?=\Tbmt\Router::toModule('admin', 'imptrans', ['formsubmit' => 1])?>" method="post" enctype="multipart/form-data" class="form-white form-inline">
+
+          <?=$formBuilder->buildFieldGroup('importfile', 'file')?>
+
+          <div class="field">
+            <?=\Tbmt\view\Factory::buildSubmitBtn('Preview Results', 'blue' )?>
+          </div>
+
+          <div class="clearfix"></div>
+      </form>
+    </div>
+
+    <!--
+      RESULTS
+      *************************** -->
+    <div class="row top-30">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+        <?=\Tbmt\view\Factory::buildHeadingArea((!empty($this->data['didExecImport']) ? 'Execution' : 'Preview').' Results', 'bottom-30 top-10')?>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+    <?php if ( $this->processLocked ) : ?>
+    <div class="row top-30">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+        <?php
+          echo \Tbmt\view\Factory::buildNotification('The process is already running and therefore locked! Please try again later.', 'Stop'); ?>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+    <?php elseif ( !empty($this->data) ) : ?>
+
+      <div class="row top-30">
+        <form action="<?=\Tbmt\Router::toModule('admin', 'imptrans')?>" method="post" enctype="multipart/form-data" class="">
+            <input type="hidden" name="formexec" value="1"/>
+            <input type="hidden" name="execfile" value="<?=$this->data['filename']?>"/>
+
+          <div class="col-md-2"></div>
+          <div class="col-md-8">
+            <table class="table">
+              <tr>
+                <td>Total rows count</td>
+                <td><?=$this->data['totalRows']?></td>
+              </tr>
+              <tr>
+                <td>Found already paid count</td>
+                <td><?=$this->data['alreadyPaidRows']?></td>
+              </tr>
+              <tr>
+                <td>Valid rows to import count</td>
+                <td><?=$this->data['validRows']?></td>
+              </tr>
+
+              <?php if ( !empty($this->data['didExecImport']) ) : ?>
+
+                <tr class="success">
+                  <td>Succesfuly executed rows count</td>
+                  <td><?=$this->data['executedRowsCount']?></td>
+                </tr>
+
+                <tr class="<?=($this->data['exceptionRowsCount'] > 0 ? 'danger' : 'success')?>">
+                  <td>Rows with errors count</td>
+                  <td><?=$this->data['exceptionRowsCount']?></td>
+                </tr>
+
+              <?php elseif ( $this->data['validRows'] > 0 ) : ?>
+
+                <tr>
+                  <td colspan="2">
+                    <input type="submit" class="button text-center" value="Import <?=$this->data['validRows']?> rows" onclick="return confirm('Can not be undone! Sure?');"/>
+
+                  </td>
+                </tr>
+              <?php else : ?>
+                <tr>
+                  <td colspan="2" class="danger">No valid rows for execution</td>
+                </tr>
+              <?php endif; ?>
+
+            </table>
+          </div>
+          <div class="col-md-2"></div>
+
+        </form>
+      </div>
+
+
+      <!--
+        error rows
+        *************************** -->
+      <?php if ( !empty($this->data['exceptionRows']) ) : ?>
+
+        <div class="row top-30">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+              <?=\Tbmt\view\Factory::buildHeadingArea(count($this->data['exceptionRows']).' Error rows (showing max 500 lines)', 'bottom-30 top-10')?>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+              <table style="width: 100%;" class="table membersWithReferres">
+                <tr>
+                  <th>Row</th>
+                  <th>Amount</th>
+                  <th>Reference</th>
+                  <th>Row Errors</th>
+                </tr>
+                <?php foreach( $this->data['exceptionRows'] as $i => $row ) : ?>
+                  <tr class="<?php echo ($i % 2 == 0 ? 'even' : '') ?>">
+                    <td><?=$row['row']?></td>
+                    <td><?=$row['amount']?></td>
+                    <td><?=$row['reference']?></td>
+                    <td><?=implode('<br>',$row['errors'])?></td>
+                  </tr>
+
+                  <?php if ( $i > 500 ) {
+                    echo '<tr><td colspan="3">stopping output ...</td></tr>';
+                    break;
+                  }?>
+
+                <?php endforeach; ?>
+              </table>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+
+      <?php endif; ?>
+
+
+      <!--
+        invalid rows
+        *************************** -->
+      <div class="row top-30">
+          <div class="col-md-2"></div>
+          <div class="col-md-8">
+            <?=\Tbmt\view\Factory::buildHeadingArea(count($this->data['invalidRows']).' Invliad rows (showing max 500 lines)', 'bottom-30 top-10')?>
+          </div>
+          <div class="col-md-2"></div>
+      </div>
+      <div class="row">
+          <div class="col-md-2"></div>
+          <div class="col-md-8">
+            <table style="width: 100%;" class="table membersWithReferres">
+              <tr>
+                <th>Row</th>
+                <th>Amount</th>
+                <th>Reference</th>
+                <th>Row Errors</th>
+              </tr>
+              <?php foreach( $this->data['invalidRows'] as $i => $row ) : ?>
+                <tr class="<?php echo ($i % 2 == 0 ? 'even' : '') ?>">
+                  <td><?=$row['row']?></td>
+                  <td><?=$row['amount']?></td>
+                  <td><?=$row['reference']?></td>
+                  <td><?=implode('<br>',$row['errors'])?></td>
+                </tr>
+
+                <?php if ( $i > 500 ) {
+                  echo '<tr><td colspan="3">stopping output ...</td></tr>';
+                  break;
+                }?>
+
+              <?php endforeach; ?>
+            </table>
+          </div>
+          <div class="col-md-2"></div>
+
+      </div>
+
+    <?php endif; ?> <!-- close !empty($this->data) -->
+
+
+    <!--
+      RESULTS
+      *************************** -->
+    <div class="row top-30">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+          <?=\Tbmt\view\Factory::buildHeadingArea('Payment Imports (showing max 500 lines)', 'bottom-30 top-10')?>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+          <table style="width: 100%;" class="table membersWithReferres">
+            <tr>
+              <th>Creation Date</th>
+              <th>Member</th>
+              <th>File</th>
+            </tr>
+            <?php foreach( $this->paymentImports as $i => $row ) : ?>
+              <tr class="<?php echo ($i % 2 == 0 ? 'even' : '') ?>">
+                <td><?=\Tbmt\Localizer::dateLong($row->getCreationDate())?></td>
+                <td><?=\Tbmt\view\Factory::buildMemberFullNameString($row->getMember())?></td>
+                <td><?=$row->getFilename()?></td>
+              </tr>
+
+              <?php if ( $i > 500 ) {
+                echo '<tr><td colspan="3">stopping output ...</td></tr>';
+                break;
+              }?>
+
+            <?php endforeach; ?>
+          </table>
+        </div>
+        <div class="col-md-2"></div>
+
+    </div>
+
+  </div> <!-- sheet -->
+</div>
+</div>

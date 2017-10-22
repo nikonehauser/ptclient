@@ -26,6 +26,8 @@ class Activity extends BaseActivity
   const ACT_MEMBER_PAYMENT_CANCEL_UNKNOWN = 8;
   const ACT_MEMBER_PAYMENT_FINALIZE = 9;
 
+  const ACT_ADMIN_IMPORT_PAYMENTS = 10;
+
   const ARR_RESULT_RETURN_KEY = '__return';
   const ARR_RELATED_RETURN_KEY = '__related';
   const ARR_EXCEPTION_RETURN_KEY = '__exception';
@@ -46,14 +48,15 @@ class Activity extends BaseActivity
     }
   }
 
-  static public function exec($callable, $arrArgs, $action, $creator = null, $related = null, PropelPDO $con) {
+  static public function exec($callable, $arrArgs, $action, $creator = null, $related = null, PropelPDO $con, $useDbTransaction = true) {
     $resIsArray = $res = false;
     $exception = null;
     $type = self::TYPE_SUCCESS;
     $related = null;
 
-    if ( !$con->beginTransaction() )
-      throw new Exception('Could not begin transaction');
+    if ( $useDbTransaction )
+      if ( !$con->beginTransaction() )
+        throw new Exception('Could not begin transaction');
 
     try {
       $res = $return = call_user_func_array($callable, $arrArgs);
@@ -65,11 +68,14 @@ class Activity extends BaseActivity
         throw $exception;
       }
 
-      if ( !$con->commit() )
-        throw new Exception('Could not commit transaction');
+      if ( $useDbTransaction )
+        if ( !$con->commit() )
+          throw new Exception('Could not commit transaction');
 
     } catch (Exception $e) {
-      $con->rollBack();
+      if ( $useDbTransaction )
+        $con->rollBack();
+
       $exception = $e;
       $type = self::TYPE_FAILURE;
     }

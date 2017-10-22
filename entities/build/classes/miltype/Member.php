@@ -130,12 +130,12 @@ class Member extends BaseMember
 
   }
 
-  static public function getByNum($num) {
+  static public function getByNum($num, $strict = true) {
     $member = MemberQuery::create()
       ->filterByDeletionDate(null, Criteria::ISNULL)
       ->findOneByNum($num);
 
-    if ( !$member )
+    if ( !$member && $strict )
       throw new Exception('Coud not find member: '.$num);
 
     return $member;

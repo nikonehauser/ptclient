@@ -862,6 +862,11 @@ return [
         'limitBy' => 'Limit',
         'filterBy' => 'Filter',
       ],
+
+      'imptrans' => [
+        'page_title' => 'Import IndusInd Transfer Excel export',
+        'importfile' => 'Excel File'
+      ],
     ],
 
     /* VIEWS - GUIDE
