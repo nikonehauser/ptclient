@@ -26,6 +26,8 @@ class AdminController extends BaseController {
       'recipient_num' => [\Tbmt\TYPE_STRING, ''],
     ]);
 
+        throw new \Exception('Member had paid already.');
+
     $setPaidMember = false;
     if ( !empty($data['set_paid_num']) ) {
       $member = \Member::getByNum($data['set_paid_num']);

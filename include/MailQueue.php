@@ -9,7 +9,8 @@ class MailQueue {
       $replyTo,
       $subject,
       $body,
-      $memberId = null
+      $memberId = null,
+      $attachContentAsZip = false
     ) {
 
     $mail = new \Mail();
@@ -20,6 +21,7 @@ class MailQueue {
       ->setSubject($subject)
       ->setBody($body)
       ->setRecipientId($memberId)
+      ->setAttachContentAsZip($attachContentAsZip ? 1 : 0)
       ->save();
   }
 
@@ -126,24 +128,48 @@ class MailQueue {
     $from = $froms[0];
     $recipient = $recipients[0];
 
-    $htmlBody = (new \Parsedown())->text($body);
-
     $mailer->setFrom($from[0], $from[1]);
     $mailer->addReplyTo($replyTo[0], $replyTo[1]);
     $mailer->addAddress($recipient[0], $recipient[1]);
 
     $mailer->Subject = $subject;
-    $mailer->Body = MailHelper::bodyToHtml($htmlBody);
-    $mailer->AltBody = $body;
 
-    try {
-      if ( !$mailer->send() )
-        return 'ErrorInfo: '.$mailer->ErrorInfo;
-    } catch (\Exception $e) {
-      return 'ErrorInfo: '.$mailer->ErrorInfo."\n\nException:\n".$e->__toString();
+    $tmp = null;
+    if ( $mail->getAttachContentAsZip() ) {
+      $mailer->Body = 'content attached';
+      $mailer->AltBody = 'content attached';
+
+      $tmp = Config::get('tmp.path').uniqid();
+      $zip = new \ZipArchive();
+      if ( $zip->open($tmp, \ZipArchive::CREATE) !== TRUE)
+          throw new \Exception("cannot open <$tmp>\n");
+
+      if ( $zip->addFromString('content.txt', $body) === false )
+        throw new \Exception("zip: cannot add string content");
+
+      $zip->setPassword('test1234');
+      if ( $zip->close() === false )
+        throw new \Exception("zip: could not create zip <$tmp>");
+
+      $mailer->addAttachment($tmp, 'content.zip', 'base64', 'application/zip');
+    } else {
+      $htmlBody = (new \Parsedown())->text($body);
+      $mailer->Body = MailHelper::bodyToHtml($htmlBody);
+      $mailer->AltBody = $body;
     }
 
-    return true;
+    $result = true;
+    try {
+      if ( !$mailer->send() )
+        $result = 'ErrorInfo: '.$mailer->ErrorInfo;
+    } catch (\Exception $e) {
+      $result = 'ErrorInfo: '.$mailer->ErrorInfo."\n\nException:\n".$e->__toString();
+    }
+
+    if ( $tmp)
+      unlink($tmp);
+
+    return $result;
   }
 }
 

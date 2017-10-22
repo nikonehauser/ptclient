@@ -3,13 +3,6 @@ UPDATE SERVER - TODO
 
 update
 ======
-* cfg updaten
-  * /var/payment_imports
-  * lock.payment.import.path
-
-* tabelle tbmt_payment_import anlegen
-* check max upload_max_filesize and post_max_size
-* check php memory limit
 
 
 Fragen
@@ -19,8 +12,10 @@ Fragen
 
 CURRENT - TODOS
 ===============
+
 * neues payment gateway einrichten
 * erklärung für whatsapp video einbauen
+
 
 * rework invoice tab - use subselect to order and limit before group by to show most recent transactions frist
 * mark transfer as failed - freeze members transfers!

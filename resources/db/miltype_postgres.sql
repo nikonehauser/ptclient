@@ -429,6 +429,7 @@
     "attempts" int NOT NULL default 0,
     "incidents" text NULL ,
     "has_incidents" int NOT NULL default 0,
+    "attach_content_as_zip" int NOT NULL default 0,
     "recipient_id" BIGINT NULL ,
 
     PRIMARY KEY ("id") ,

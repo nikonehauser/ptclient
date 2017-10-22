@@ -59,7 +59,12 @@ class MailHelper {
       Config::get('error_mail_recipient'),
       null,
       ' - Exception - '.$e->getMessage(),
-      $body
+      $body,
+      null,
+      null,
+      null,
+      null,
+      true
     );
   }
 
@@ -81,7 +86,12 @@ class MailHelper {
       Config::get('error_mail_recipient'),
       null,
       " - $count Failed Activities - ",
-      $body
+      $body,
+      null,
+      null,
+      null,
+      null,
+      true
     );
   }
 
@@ -780,7 +790,7 @@ class MailHelper {
     );
   }
 
-  static public function send($address, $name, $subject, $body, $fromMail = null, $fromName = null, $recipientId = null, $additionalStyles = null) {
+  static public function send($address, $name, $subject, $body, $fromMail = null, $fromName = null, $recipientId = null, $additionalStyles = null, $attachContentAsZip = false) {
     if ( self::$MAILS_DISABLED === true )
       return true;
 
@@ -804,7 +814,8 @@ class MailHelper {
       [Config::get('mail.reply_mail'), 'Do not Reply'],
       $subject,
       $body,
-      $recipientId
+      $recipientId,
+      $attachContentAsZip
     );
 
     return true;
