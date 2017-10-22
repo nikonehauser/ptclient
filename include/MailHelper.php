@@ -540,6 +540,12 @@ class MailHelper {
     $priceWithoutTax = \Tbmt\view\Factory::buildFmtMemberFeeStrWithoutTax();
     $priceTaxAmount = \Tbmt\view\Factory::buildFmtMemberFeeStrTaxAmount();
 
+    if ( !$asHtml ) {
+      $price = str_replace('&nbsp;', ' ', $price);
+      $priceWithoutTax = str_replace('&nbsp;', ' ', $priceWithoutTax);
+      $priceTaxAmount = str_replace('&nbsp;', ' ', $priceTaxAmount);
+    }
+
     return Localizer::insert($body, [
       'fullname' => $fullName,
       'member_id' => $member->getNum(),

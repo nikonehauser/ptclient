@@ -165,7 +165,8 @@ class Member extends BaseMember
   }
 
   public function isAdminModulePermitted() {
-    if ( $this->getType() === \Member::TYPE_ITSPECIALIST
+    $num = $this->getNum();
+    if ( $num === \SystemStats::ACCOUNT_NUM_IT
       || $this->getNum() === \SystemStats::ACCOUNT_SYLVHEIM
       || $this->getNum() === \SystemStats::ACCOUNT_NUM_CEO1 ) {
       return true;
