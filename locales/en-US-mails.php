@@ -421,10 +421,7 @@ From your third recommended customer who signs up and purchases the Happiness Gu
 
 We’re wishing best of luck finding new customers and have fun spending the commissions you will receive.
 
-Please recheck whether your bank account details are correct. You can do so by logging in to your [profile]({profile_url}) with your ID and check your information. By clicking “change profile” you can correct your bank account details.
-
-
-Please note that we only transfer commissions at a minimum of {min_payout_amount}. For more information, have a look at our terms of use.",
+Please recheck whether your bank account details are correct. You can do so by logging in to your [profile]({profile_url}) with your ID and check your information. By clicking “change profile” you can correct your bank account details.",
 
   ],
 
@@ -493,9 +490,7 @@ In order to make lots of money, all you have to do is:
 
 You can multiply your commission with each of your friends when they become a premium customer, too. Your friends will have a great income being premium costumers and you have done well in making a fortune for you and your family.
 
-Good luck!
-
-Please note that we only transfer commissions at a minimum of {min_payout_amount}. For more information, have a look at our terms of use."
+Good luck!"
 
 
   ],
@@ -532,9 +527,7 @@ You will get a commission for {recruited_firstname}’s purchase.
 
 {provision}
 
-We’re wishing best of luck finding new customers and have fun spending the commissions you will receive.
-
-Please note that we only transfer commissions at a minimum of {min_payout_amount}. For more information, have a look at our terms of use.",
+We’re wishing best of luck finding new customers and have fun spending the commissions you will receive.",
 
   ],
 

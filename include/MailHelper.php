@@ -347,7 +347,6 @@ class MailHelper {
         'video_link' => \Tbmt\RouterToMarketing::toVideo($referrer),
         'provision_amount' => $provision,
         'adv2amount' => self::getLocalizedTRACurency(\Transaction::REASON_ADVERTISED_LVL2),
-        'min_payout_amount' => self::getLocalizedAmount(Config::get('payout.execute.payouts.min.amount')),
         'paid_recommendation_count' => \Tbmt\Localizer::countInWords($referrer->getAdvertisedCount()),
         'profile_url' => \Tbmt\Router::toModule('account'),
       ], false),
@@ -401,7 +400,6 @@ class MailHelper {
         'adv1amount' => self::getLocalizedTRACurency(\Transaction::REASON_ADVERTISED_LVL1),
         'advindirectamount' => self::getLocalizedTRACurency(\Transaction::REASON_ADVERTISED_INDIRECT),
         'after6weeksamount' => self::getLocalizedAmount(10000, 0),
-        'min_payout_amount' => self::getLocalizedAmount(Config::get('payout.execute.payouts.min.amount')),
 
       ], false),
       null,
@@ -445,7 +443,6 @@ class MailHelper {
         'recruited_fullname' => $recruited_fullname,
         'recruited_firstname' => $recruited->getFirstName(),
         'video_link' => \Tbmt\RouterToMarketing::toVideo($referrer),
-        'min_payout_amount' => self::getLocalizedAmount(Config::get('payout.execute.payouts.min.amount')),
         'paid_recommendation_count' => \Tbmt\Localizer::countInWords($referrer->getAdvertisedCount()),
         'provision' => \Tbmt\Localizer::insert(
             $wasFreeInvitation
