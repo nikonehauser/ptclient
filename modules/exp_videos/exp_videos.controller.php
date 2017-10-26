@@ -10,6 +10,7 @@ class Exp_videosController extends BaseController {
     'index' => true,
     'backoffice' => true,
     'fromto' => true,
+    'whatsappinvite' => true,
   ];
 }
 

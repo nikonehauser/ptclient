@@ -187,6 +187,7 @@ return [
       'navigation_sublinks' => [
         'exp_videos' => [
           'index' => 'Login and pay',
+          'whatsappinvite' => 'WhatsApp Invitation',
           'fromto' => 'From first mail to premium customer in 3 days',
           'backoffice' => 'The Backoffice of Betterliving',
         ],
@@ -236,6 +237,9 @@ return [
     'exp_videos' => [
       'index' => [
         'page_title' => 'Explanation videos - Login and pay',
+      ],
+      'whatsappinvite' => [
+        'page_title' => 'Explanation videos - WhatsApp Invitation',
       ],
       'fromto' => [
         'page_title' => 'Explanation videos - From first mail to premium customer',
