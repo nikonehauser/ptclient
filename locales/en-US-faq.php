@@ -70,7 +70,7 @@ return [
 
 <p>For example: If you joined Betterliving today and by doing so you became a customer of Betterliving. You paid the purchase price for the Happiness guide and got your customer number. The same week you´d find three new customers who all became customers of Betterliving as well and stated your customer number. That would be it.</p>
 
-<p>If every future customer acted the way you did, you would receive '.\Tbmt\Localizer::currencyFormatByCfg(48000).' two weeks later and after eight weeks it could be about INR 20,00,000 per week! You will receive all payments on your private bank account weekly. Of course you can get even more than this: Just recruit more customers. It is all in your hands - if you find more customers you will get higher commissions.</p>',
+<p>If every future customer acted the way you did, you would receive '.\Tbmt\Localizer::currencyFormatByCfg(48000).' two weeks later and after eight weeks it could be about ₹ 20,00,000 per week! You will receive all payments on your private bank account weekly. Of course you can get even more than this: Just recruit more customers. It is all in your hands - if you find more customers you will get higher commissions.</p>',
 
 
 // next

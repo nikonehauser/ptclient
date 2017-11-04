@@ -14,7 +14,6 @@ CURRENT - TODOS
 ===============
 
 * neues payment gateway einrichten
-* erklärung für whatsapp video einbauen
 
 
 * rework invoice tab - use subselect to order and limit before group by to show most recent transactions frist

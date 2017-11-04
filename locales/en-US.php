@@ -188,18 +188,19 @@ return [
         'exp_videos' => [
           'index' => 'Login and pay',
           'whatsappinvite' => 'WhatsApp Invitation',
+          'stepstosuccess' => 'Steps to Success',
           'fromto' => 'From first mail to premium customer in 3 days',
           'backoffice' => 'The Backoffice of Betterliving',
         ],
         'projects' => [
-          '1' => ['index', 'Amazing Marketing System Video', 'video_explanation'],
-          '2' => ['index', 'Marketing System PDF Explanation', 'pdf_explanation'],
+          '1' => ['index', 'Amazing Recommendation Marketing System Video', 'video_explanation'],
+          '2' => ['index', 'Recommendation Marketing System PDF Explanation', 'pdf_explanation'],
           '3' => ['index', 'Happiness Guide Video Explanation', 'hg_video_explanation'],
           '4' => ['index', 'Happiness Guide PDF Explanation', 'hg_pdf_explanation']
         ],
         'member' => [
-          'index' => 'Customers recruit customers',
-          'system' => 'Our marketing system',
+          'index' => 'Customers recommend customers',
+          'system' => 'Our recommendation marketing system',
           'signup' => 'Sign up',
         ],
         'guide' => [
@@ -241,6 +242,9 @@ return [
       'whatsappinvite' => [
         'page_title' => 'Explanation videos - WhatsApp Invitation',
       ],
+      'stepstosuccess' => [
+        'page_title' => 'Explanation videos - Steps to Success',
+      ],
       'fromto' => [
         'page_title' => 'Explanation videos - From first mail to premium customer',
       ],
@@ -258,16 +262,16 @@ return [
       ],
 
       'system' => [
-        'page_title' => 'Marketing System',
+        'page_title' => 'Recommendation Marketing System',
         'vs1' => 'Position customer',
         'vs2' => 'Position premium customer',
         'notice' => 'Notice',
         'signup_now' => 'Sign up now',
         'etc' => 'etc.',
         'intro1' => 'The meaning of the {0} will be explained in the following.',
-        'intro1h' => ['marketing system'],
+        'intro1h' => ['recommendation marketing system'],
         'intro2' => 'To make it easy we will follow a detailed example',
-        'intro3' => 'For a better understanding of our marketing system (multi-level-marketing-system) you must know that it has only two levels. The first level is the position “customer” and the second level is the position “premium customer”.',
+        'intro3' => 'For a better understanding of our recommendation marketing system you must know that it has only two positions. The first position is the “customer” and the second position is the “premium customer”.',
         'you' => 'You',
         'head_explanation' => 'Explanation',
         'head_part' => 'Step',
@@ -354,7 +358,7 @@ return [
       ],
 
       'index' => [
-        'page_title' => 'Customers recruit customers',
+        'page_title' => 'Customers recommed customers',
 
         'basic_idea' => 'Basic idea',
         'basic_idea_title' => [
@@ -364,7 +368,7 @@ return [
         'basic_idea_text' => [
           'With the Happiness Guide you can change your work life, your health and be happier overall. In a 2-week cycle in eight steps our Happiness Guide makes you happy. Step by step you will learn how you make your life better.',
           'Everybody in India can buy the Happiness Guide. For only {member_fee} you get the instruction on how to become a happier person.',
-          'Every customer can become active easily (and without any fee or costs) within the “customers recruit customers” marketing system and earn a constant and {passive_income}.',
+          'Every customer can become active easily (and without any fee or costs) within the “customers recommend customers” recommendation marketing system and earn a constant and {passive_income}.',
           'Only citizens of India are allowed to become customers of ' . $brandName.'.',
         ],
         'basic_idea_highlights' => [
@@ -386,13 +390,13 @@ return [
           'Happiness Guide',
           'Your additional advantage as a customer',
           'Marketing System',
-          'Immediately start recruiting',
+          'Immediately start recommending',
         ],
         'member_starting_text' => [
           'With the Happiness Guide you can change your work life, your health and be happier overall.',
-          'In our “customers recruit customers” marketing system you are on the level “customer” automatically.',
+          'In our “customers recommend customers” recommendation marketing system you are in the position “customer” automatically.',
           'How the marketing system works will be explained in the following.',
-          'Right after you have finished your registration you can recruit new customers for ' . $brandName . ' via this homepage.',
+          'Right after you have finished your registration you can recommend new customers for ' . $brandName . ' via this homepage.',
         ],
         'member_starting_button' => [
           '',
@@ -401,7 +405,7 @@ return [
           'Yes, I want to sign up!',
         ],
 
-        'pdf_explanation_head' => 'Marketing system illustration',
+        'pdf_explanation_head' => 'Recommendation Marketing System',
         'pdf_explanation' => 'We also prepared an illustrated explanation in an extra document. If you prefer reading a pdf document, ',
         'pdf_explanation_link' => 'just click here',
       ],
