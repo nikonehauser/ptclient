@@ -244,6 +244,10 @@ return [
       ],
       'stepstosuccess' => [
         'page_title' => 'Explanation videos - Steps to Success',
+
+        'pdf_explanation_head' => 'Recommendation Marketing System',
+        'pdf_explanation' => 'We also prepared an illustrated explanation in an extra document. If you prefer reading a pdf document, ',
+        'pdf_explanation_link' => 'just click here',
       ],
       'fromto' => [
         'page_title' => 'Explanation videos - From first mail to premium customer',
@@ -800,7 +804,7 @@ return [
         'video_explanation_head' => 'Marketing system video',
         'video_explanation' => 'We also prepared a video. Explaining our goals in detail.',
 
-        'pdf_explanation_head' => 'Marketing system illustration',
+        'pdf_explanation_head' => 'Recommendation marketing system',
         'pdf_explanation' => 'There is also an illustrated explanation in an extra document. If you prefer reading a pdf document, ',
         'pdf_explanation_link' => 'just click here',
 

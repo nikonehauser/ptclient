@@ -11,7 +11,8 @@ class DownloadController extends BaseController {
     'hgillustration' => true,
     'guide' => true,
     'payout' => true,
-    'memberinvoice' => true
+    'memberinvoice' => true,
+    'stepstosuccess' => true
   ];
 
   public function action_illustration() {
@@ -19,6 +20,14 @@ class DownloadController extends BaseController {
       'name' => 'better.live.illustration.pdf',
       'contentType' => 'application/pdf',
       'path' => DOWNLOADS_DIR.'illustration.pdf'
+    ]);
+  }
+
+  public function action_stepstosuccess() {
+    return new ControllerActionDownload([
+      'name' => 'steps.to.success.pdf',
+      'contentType' => 'application/pdf',
+      'path' => DOWNLOADS_DIR.'steps.to.success.pdf'
     ]);
   }
 

@@ -16,4 +16,31 @@
     )?>
     </div>
   </div>
+
+<!--
+  ILLUSTRATION MARKETING SYSTEM
+  *************************** -->
+  <div class="row bottom-40">
+
+    <div class="heading-area text-center bottom-30 top-40">
+      <h4 class="heading large">PDF Illustration</h4>
+    </div>
+
+    <div class="row nospace service-color-area">
+      <div class="col-md-8" style="padding: 15px;">
+      <?=\Tbmt\view\Factory::buildTakeActionBox(
+        '','', '<image style="margin-left: 50%; width: 450px; max-width: 100%; transform:translateX(-50%);" src="'.\Tbmt\Router::toImage('steps.to.success.preview.png').'"/>'
+      )?>
+      </div>
+
+      <div class="col-md-4" style="padding: 15px;">
+
+      <?=\Tbmt\view\Factory::testimonial(
+        $this->i18nView['pdf_explanation'].'<a href="'.\Tbmt\Router::toModule('download', 'stepstosuccess').'" style="color:#EF4A43;">'.
+          $this->i18nView['pdf_explanation_link'].'</a>'
+      )?>
+      </div>
+    </div>
+  </div>
+
 </div>
