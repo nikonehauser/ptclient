@@ -14,7 +14,8 @@ class AccountLogin extends Base {
       'num' => \Tbmt\TYPE_STRING
     ]);
 
-    $this->formVal['pwd'] = 'demo1234';
+    if( DEVELOPER_MODE )
+      $this->formVal['pwd'] = 'demo1234';
 
     $this->formErrors = [];
     $this->loginError = $loginTry ? \Tbmt\Localizer::get('error.login').'.' : null;
