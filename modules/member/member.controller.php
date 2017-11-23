@@ -21,7 +21,6 @@ class MemberController extends BaseController {
   private $IMAGE_MIMETYPES = [
     'jpg' => 'image/jpeg',
     'png' => 'image/png',
-    'gif' => 'image/gif',
   ];
 
   public function __construct() {

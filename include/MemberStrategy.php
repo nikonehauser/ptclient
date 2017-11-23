@@ -157,10 +157,6 @@ class ExtendedMemberStrategy extends MemberStrategy {
   public function createFromSignup($data, $referrerMember, \Invitation $invitation = null, \PropelPDO $con) {
     // This functions expects this parameter to be valid!
     // E.g. the result from $this->validateSignupForm()
-print_r('<pre>');
-print_r([$data]);
-print_r('</pre>');
-
     $now = time();
 
     if ( !$con->beginTransaction() )
@@ -255,8 +251,11 @@ print_r('</pre>');
 
       if ( !empty($data['passportfile']) ) {
         // to let unit test work ...
-        rename($oldPath.$data['passportfile'], $newPath.$member->getPassportfile());
-        rename($oldPath.$data['panfile'], $newPath.$member->getPanfile());
+        $this->resampleImage($oldPath.$data['passportfile'], $newPath.$member->getPassportfile());
+        $this->resampleImage($oldPath.$data['panfile'], $newPath.$member->getPanfile());
+
+        unlink($oldPath.$data['passportfile']);
+        unlink($oldPath.$data['panfile']);
       }
 
       $referrerMember->save($con);
@@ -277,6 +276,40 @@ print_r('</pre>');
     } catch (\Exception $e) {
         $con->rollBack();
         throw $e;
+    }
+  }
+
+  private function resampleImage($from, $to) {
+    $width = 500;
+    $height = 500;
+
+    // Get new dimensions
+    list($width_orig, $height_orig) = getimagesize($from);
+
+    $ratio_orig = $width_orig/$height_orig;
+
+    if ($width/$height > $ratio_orig) {
+       $width = $height*$ratio_orig;
+    } else {
+       $height = $width/$ratio_orig;
+    }
+
+    // Resample
+    $image_p = imagecreatetruecolor($width, $height);
+    $ext = pathinfo($from, PATHINFO_EXTENSION);
+    if ( $ext == 'jpg' ) {
+      $image = imagecreatefromjpeg($from);
+    } else {
+      $image = imagecreatefrompng($from);
+
+    }
+
+    imagecopyresampled($image_p, $image, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig);
+
+    if ( $ext == 'jpg' ) {
+      imagejpeg($image_p, $to, 80);
+    } else {
+      imagepng($image_p, $to, 4);
     }
   }
 
