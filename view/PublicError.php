@@ -13,7 +13,8 @@ class PublicError extends Base {
   static public function fromPublicException(\Tbmt\PublicException $e) {
     return (new self())->render([
       'name' => $e->getName(),
-      'message' => $e->getMessage()
+      'message' => $e->getMessage(),
+      'stack' => DEVELOPER_MODE ? $e->__toString() : null
     ]);
   }
 }

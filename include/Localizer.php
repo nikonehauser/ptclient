@@ -144,12 +144,48 @@ class Localizer {
   }
 
   static public function numFormat($num, $decimals = false, $decPoint = false, $thousandsSep = false) {
-    return number_format(
+    if ( !$decimals )
+      $decimals = self::$decimalsCount;
+    if ( !$decPoint )
+      $decPoint = self::$decPoint;
+
+    $num = number_format(
       $num,
-      $decimals ? $decimals : self::$decimalsCount,
-      $decPoint ? $decPoint : self::$decPoint,
+      $decimals,
+      $decPoint,
+      ''
+    );
+
+    $split = explode($decPoint, $num);
+
+    $num = self::moneyFormatIndia(
+      $split[0],
       $thousandsSep ? $thousandsSep : self::$thousandsSep
     );
+
+    return $num.$decPoint.$split[1];
+  }
+
+  static public function moneyFormatIndia($num, $thousandsSep) {
+    $explrestunits = "";
+    if(strlen($num)>3) {
+        $lastthree = substr($num, strlen($num)-3, strlen($num));
+        $restunits = substr($num, 0, strlen($num)-3); // extracts the last three digits
+        $restunits = (strlen($restunits)%2 == 1)?"0".$restunits:$restunits; // explodes the remaining digits in 2's formats, adds a zero in the beginning to maintain the 2's grouping.
+        $expunit = str_split($restunits, 2);
+        for($i=0; $i<sizeof($expunit); $i++) {
+            // creates each of the 2's group and adds a comma to the end
+            if($i==0) {
+                $explrestunits .= (int)$expunit[$i].$thousandsSep; // if is first value , convert into integer
+            } else {
+                $explrestunits .= $expunit[$i].$thousandsSep;
+            }
+        }
+        $thecash = $explrestunits.$lastthree;
+    } else {
+        $thecash = $num;
+    }
+    return $thecash; // writes the final format where $currency is the currency symbol.
   }
 
   static public function currencyFormat($num, $currency, $decimals = false, $space = '&nbsp;') {

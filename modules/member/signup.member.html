@@ -42,7 +42,7 @@ Unfortunately we still estimate a duration of a view hours. Please come back tom
 <?php else: ?>
 
 
-<form action="<?=\Tbmt\Router::toModule('member', 'signup_submit')?>" method="post">
+<form action="<?=\Tbmt\Router::toModule('member', 'signup_submit')?>" method="post" enctype="multipart/form-data" >
 
   <?php
 
@@ -136,6 +136,31 @@ Unfortunately we still estimate a duration of a view hours. Please come back tom
         </div>
 
       </div> <!-- /sheet -->
+
+      <!--
+        passport and pan photo
+        *************************** -->
+        <?=\Tbmt\view\Factory::buildHeadingArea($this->formLabels['passportandpan'])?>
+
+      <div class="sheet">
+        <div class="row">
+          <div class="col-md-12">
+            <b style="font-size: larger;"><?=$this->i18nView['note_on_photos']?></b>
+          </div>
+        </div>
+        <div class="row">
+          <form action="<?=\Tbmt\Router::toModule('admin', 'imptrans', ['formsubmit' => 1])?>" method="post" enctype="multipart/form-data" class="form-white form-inline">
+            <div class="col-md-6">
+              <?=$formBuilder->buildFieldGroup('passportfile', 'file', null, null, null, ['accept' => 'image/*'])?>
+              <p class="help-block"><?=$this->i18nView['passport_explanation']?></p>
+            </div>
+            <div class="col-md-6">
+              <?=$formBuilder->buildFieldGroup('panfile', 'file', null, null, null, ['accept' => 'image/*'])?>
+              <p class="help-block"><?=$this->i18nView['pan_explanation']?></p>
+            </div>
+          </form>
+        </div>
+      </div>
 
       <!--
         ADDRESS

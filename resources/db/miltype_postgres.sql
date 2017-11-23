@@ -28,7 +28,7 @@
 
     "bank_recipient" VARCHAR(180) NOT NULL ,
     "iban" VARCHAR(180) NOT NULL ,
-    "bic" VARCHAR(180) NOT NULL ,
+    "bic" VARCHAR(100) NOT NULL ,
     "bank_name" VARCHAR(180) NOT NULL ,
     "bank_street" VARCHAR(180) NOT NULL ,
     "bank_zip_code" VARCHAR(180) NOT NULL ,
@@ -55,6 +55,9 @@
     "transfer_freezed" smallint not null default 0 ,
 
     "hg_week" smallint not null default 1 ,
+
+    "passportfile" VARCHAR(60) NULL ,
+    "panfile" VARCHAR(60) NULL ,
 
     PRIMARY KEY ("id") ,
     CONSTRAINT "fk_member_referrer"

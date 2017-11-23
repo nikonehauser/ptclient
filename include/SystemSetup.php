@@ -37,6 +37,8 @@ class SystemSetup {
     'PaidDate'      => 0,
     'IsExtended'    => 1,
     'BonusIds'      => '{}',
+    'passportfile'  => '',
+    'panfile'       => '',
   ];
 
   static public function createMember(\Member $referralMember = null, array $data = array()) {

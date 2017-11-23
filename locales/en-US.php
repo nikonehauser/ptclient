@@ -339,7 +339,7 @@ return [
         '33' => '<p>Of course this recommendation marketing system will not work endlessly because the number of people is naturally limited. But there were and there still are, however, recommendation marketing systems worldwide and in different economic fields that have created a sheer endless number of prosperous people and are still creating new ones.</p><p>The only question for you is: Will you be one of these happy people or will you be the one who does not believe this could work?</p>Right now it is definitely working - you only need to join!
 ',
         '34' => 'With the customers who have decided to recommend new customers quickly on you will earn lots and lots of money.',
-        '35' => 'Trustworthy mathematical calculations project that customers who became active in the first 12 months after starting the recommendation marketing system and at least recommended three new customers, earned a total of {0} to {1} in the first 12 months.',
+        '35' => 'Trustworthy mathematical calculations project that customers who became active in the first 12 months after starting the recommendation marketing system and at least recommend three new customers, earned a total of {0} to {1} in the first 12 months.',
         '35h' => ['$_lvl1_$', '$_lvl1_$'],
         '36' => '<p>There are no limits:</p> If only one customer recommends e.g. 10, 15 or 20 or even more customers, even higher earnings are possible.',
         '37' => 'However, we will also be customers who will just earn a meager amount caused by mediocre effort, for example {0}',
@@ -420,9 +420,15 @@ return [
         'token_missing' => 'Missing valid exclusive invitation code. Please visit the invitation link you got from your referrer and come back to this signup.',
         'referral_member_num_help' => 'This is the customer number of the person who recommended you. This person will also receive a reward for your purchase. In order to join, you need somebody to invite you with their customer number.',
         'invitation_code_help' => 'This code is NOT required. You may have received a special invitation code from the person who invited you.',
+
+        'note_on_photos' => 'We won\'t use your photos internal. We are forced by law to collect these and send them to our bank when we transfer your provisions. We can not pay your provisions without those photos.',
+        'passport_explanation' => 'This need to be a picture of your passport.',
+        'pan_explanation' => 'This need to be a picture of your pan.',
+
         'form_labels' => [
           'contact' => 'Registration Form',
           'address' => 'Address',
+          'passportandpan' => 'Passport / Pan Photo',
           'bank_account' => 'Bank Account',
           'confirm' => 'Confirm',
 
@@ -443,6 +449,9 @@ return [
           'bank_recipient' => 'Recipient',
           'password' => 'Your password',
           'password2' => 'Repeat password',
+
+          'passportfile' => 'Passport Photo',
+          'panfile' => 'Pan Photo',
 
           'street' => 'Street and house/building number',
           'street_add' => 'Street addition (optional)',

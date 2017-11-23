@@ -48,6 +48,8 @@ class ExtendedMemberStrategy extends MemberStrategy {
     'bank_street'          => \Tbmt\TYPE_STRING,
     'bank_country'         => \Tbmt\TYPE_STRING,
     'correct_bank'         => \Tbmt\TYPE_STRING,
+    'passportfile'         => \Tbmt\TYPE_STRING,
+    'panfile'              => \Tbmt\TYPE_STRING,
   ];
 
   public $SIGNUP_FORM_FILTERS = [
@@ -105,15 +107,16 @@ class ExtendedMemberStrategy extends MemberStrategy {
     if ( $data['password'] !== $data['password2'] )
       return [false, ['password' => \Tbmt\Localizer::get('error.password_unequal')], null, null];
 
+    $errors = [];
     $res = \Tbmt\Validator::getErrors($data, $this->SIGNUP_FORM_FILTERS);
-    if ( $res !== false )
-      return [false, $res, null, null];
+    if ( $res !== false ) {
+      $errors = array_merge($errors, $res);
+    }
 
-    // Validate member number exists
+    // Validate referral member number exists
     $parentMember = $this->getValidReferrerByHash($data['referral_member_num']);
     if ( !$parentMember ) {
-      return [false, ['referral_member_num' => \Tbmt\Localizer::get('error.referral_member_num')], null, null];
-
+      $errors = array_merge($errors, ['referral_member_num' => \Tbmt\Localizer::get('error.referral_member_num')]);
     }
 
     // Validate member email does not exist
@@ -121,7 +124,7 @@ class ExtendedMemberStrategy extends MemberStrategy {
       ->filterByDeletionDate(null, \Criteria::ISNULL)
       ->findOneByEmail($data['email']);
     if ( $emailExistsMember ) {
-      return [false, ['email' => \Tbmt\Localizer::get('error.email_exists')], null, null];
+      $errors = array_merge($errors, ['email' => \Tbmt\Localizer::get('error.email_exists')]);
     }
 
     // else if ( $parentMember->hadPaid() ) {
@@ -132,13 +135,17 @@ class ExtendedMemberStrategy extends MemberStrategy {
     if ( $data['invitation_code'] !== '' ) {
       $invitation = \InvitationQuery::create()->findOneByHash($data['invitation_code']);
       if ( $parentMember == null )
-        return [false, ['invitation_code' => \Tbmt\Localizer::get('error.invitation_code_inexisting')], null, null];
+        $errors = array_merge($errors, ['invitation_code' => \Tbmt\Localizer::get('error.invitation_code_inexisting')]);
 
-      if ( $invitation->getMemberId() != $parentMember->getId() )
-        return [false, ['invitation_code' => \Tbmt\Localizer::get('error.invitation_code_invalid')], null, null];
+      else if ( $invitation->getMemberId() != $parentMember->getId() )
+        $errors = array_merge($errors, ['invitation_code' => \Tbmt\Localizer::get('error.invitation_code_invalid')]);
 
-      if ( $invitation->getAcceptedMemberId() )
-        return [false, ['invitation_code' => \Tbmt\Localizer::get('error.invitation_code_used')], null, null];
+      else if ( $invitation->getAcceptedMemberId() )
+        $errors = array_merge($errors, ['invitation_code' => \Tbmt\Localizer::get('error.invitation_code_used')]);
+    }
+
+    if ( count($errors) > 0 ) {
+      return [false, $errors, null, null];
     }
 
     if ( !isset($data['email']) )
@@ -150,6 +157,9 @@ class ExtendedMemberStrategy extends MemberStrategy {
   public function createFromSignup($data, $referrerMember, \Invitation $invitation = null, \PropelPDO $con) {
     // This functions expects this parameter to be valid!
     // E.g. the result from $this->validateSignupForm()
+print_r('<pre>');
+print_r([$data]);
+print_r('</pre>');
 
     $now = time();
 
@@ -233,6 +243,20 @@ class ExtendedMemberStrategy extends MemberStrategy {
 
       if ( $invitation && $invitation->getLvl2Signup() ) {
         \Tbmt\DistributionStrategy::getInstance()->raiseFundsLevel($member);
+      }
+
+      $oldPath = Config::get('signup.pics.dir');
+      $newPath = Config::get('member.pics.dir');
+
+      $memberid = $member->getId();
+      $member
+        ->setPassportfile($memberid.'-passport.'.pathinfo($data['passportfile'], PATHINFO_EXTENSION))
+        ->setPanfile($memberid.'-pan.'.pathinfo($data['panfile'], PATHINFO_EXTENSION ));
+
+      if ( !empty($data['passportfile']) ) {
+        // to let unit test work ...
+        rename($oldPath.$data['passportfile'], $newPath.$member->getPassportfile());
+        rename($oldPath.$data['panfile'], $newPath.$member->getPanfile());
       }
 
       $referrerMember->save($con);

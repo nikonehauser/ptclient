@@ -46,12 +46,11 @@ class FormBuilder {
   private $labels;
   private $values;
   private $errors;
-  public function __construct($formName, array $labels = array(), array $values = array(), array $errors = array(), array $placeholders = []) {
+  public function __construct($formName, array $labels = array(), array $values = array(), array $errors = array()) {
     $this->formName = $formName;
     $this->labels = $labels;
     $this->values = $values;
     $this->errors = $errors;
-    $this->placeholders = $placeholders;
   }
 
   public function buildFieldGroup($fieldKey, $type = 'text', $label = null, $value = null, $error = null, array $options = array()) {
@@ -71,6 +70,10 @@ class FormBuilder {
     $disabled = '';
     if ( !empty($options['disabled']) )
       $disabled = ' disabled="true"';
+
+    $accept = '';
+    if ( !empty($options['accept']) )
+      $accept = ' accept="'.$options['accept'].'"';
 
     $fieldClassName = 'field';
     if ( $type === 'checkbox' )
@@ -92,7 +95,7 @@ class FormBuilder {
     } else {
       $fieldId = $this->formName.$fieldKey;
       $group .= '<label for="'.$fieldId.'">'.$label.'</label>'.
-        '<input type="'.$type.'" id="'.$fieldId.'" name="'.$fieldKey.'" value="'.$value.'"'.$disabled.'>';
+        '<input type="'.$type.'" id="'.$fieldId.'" name="'.$fieldKey.'" value="'.$value.'"'.$disabled.$accept.'>';
 
     }
 

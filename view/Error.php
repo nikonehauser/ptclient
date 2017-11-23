@@ -15,7 +15,7 @@ class Error extends Base {
       'name' => get_class($e).( $code ? ' - '.$code : '' ),
       'message' => $e->getMessage(),
       'stack' => \Tbmt\Config::get('devmode', \Tbmt\TYPE_BOOL, false) ?
-        $e->getTraceAsString() :
+        $e->__toString() :
         ''
     ]);
   }

@@ -63,6 +63,8 @@ class DbEntityHelper {
     'BankStreet'    => '',
     'BankZipCode'   => '',
     'BankCountry'   => '',
+    'passportfile'   => '',
+    'panfile'        => '',
   ];
 
   static public $memberSignup = [
@@ -86,6 +88,8 @@ class DbEntityHelper {
     'bank_zip_code'   => 'unknown',
     'bank_country'   => 'unknown',
     'phone' => 'unknown',
+    'passportfile'   => '',
+    'panfile'        => '',
   ];
 
   static private $memberInvitation = [
@@ -115,6 +119,8 @@ class DbEntityHelper {
     'bank_zip_code'   => 'unknown',
     'bank_country'   => 'unknown',
     'phone' => 'unknown',
+    'passportfile'   => '',
+    'panfile'        => '',
   ];
 
   static public function createMember(Member $referralMember = null, array $data = array()) {
