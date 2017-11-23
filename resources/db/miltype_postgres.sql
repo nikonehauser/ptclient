@@ -140,7 +140,7 @@
   CREATE TABLE IF NOT EXISTS "tbmt_payout" (
     "id" serial NOT NULL ,
     "creation_date" timestamp with time zone NOT NULL ,
-    "typew" varchar(64) NULL ,
+    "type" varchar(64) NULL ,
     "masspay_file" varchar(200) NULL ,
     "download_count" int NOT NULL default 0 ,
     PRIMARY KEY ("id")
