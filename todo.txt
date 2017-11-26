@@ -48,7 +48,8 @@ HOW TO SETUP
 * cronjobs einrichten /cron/tbmtsystem
 * php extensions
   * ziparchive - php7.0-libzip
-  * finfo installieren
+  * finfo extension checken - meistens schon installiert
+  * gd extension installieren - php7.0-gd
 
 NICE TO HAVE
 ============

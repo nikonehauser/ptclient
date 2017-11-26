@@ -428,7 +428,7 @@ return [
         'form_labels' => [
           'contact' => 'Registration Form',
           'address' => 'Address',
-          'passportandpan' => 'Passport / Pan Photo',
+          'passportandpan' => 'Pass / Pan Photo',
           'bank_account' => 'Bank Account',
           'confirm' => 'Confirm',
 
@@ -450,7 +450,7 @@ return [
           'password' => 'Your password',
           'password2' => 'Repeat password',
 
-          'passportfile' => 'Passport Photo',
+          'passportfile' => 'Pass Photo',
           'panfile' => 'Pan Photo',
 
           'street' => 'Street and house/building number',
