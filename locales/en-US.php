@@ -422,8 +422,8 @@ return [
         'invitation_code_help' => 'This code is NOT required. You may have received a special invitation code from the person who invited you.',
 
         'note_on_photos' => 'We won\'t use your photos internal. We are forced by law to collect these and send them to our bank when we transfer your provisions. We can not pay your provisions without those photos.',
-        'passport_explanation' => 'This need to be a picture of your passport.',
-        'pan_explanation' => 'This need to be a picture of your pan.',
+        'passport_explanation' => 'Our bank needs for the transfer of your commission your pass photo. Please upload here a pass photo of you. Important: In the photo, your face must be clearly visible. Otherwise the bank cannot transfer your commission into your bank account.',
+        'pan_explanation' => 'Our bank needs for the transfer of your commission your PAN card. Please upload here a photo from your PAN card. Important: In In the photo, all information from the PAN card must be clearly legible. Otherwise the bank cannot transfer your commission into your bank account.',
 
         'form_labels' => [
           'contact' => 'Registration Form',
