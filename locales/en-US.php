@@ -421,7 +421,7 @@ return [
         'referral_member_num_help' => 'This is the customer number of the person who recommended you. This person will also receive a reward for your purchase. In order to join, you need somebody to invite you with their customer number.',
         'invitation_code_help' => 'This code is NOT required. You may have received a special invitation code from the person who invited you.',
 
-        'note_on_photos' => 'We won\'t use your photos internal. We are forced by law to collect these and send them to our bank when we transfer your provisions. We can not pay your provisions without those photos.',
+        'note_on_photos' => 'We will only need your image and your PAN Card internally for the payment of your recommendation fee and for the payment of the GST to the government. Since we strictly pay attention to legality, we have to comply with the legal regulations. Please pay attention to a good quality of your photos.',
         'passport_explanation' => 'Our bank needs for the transfer of your commission your pass photo. Please upload here a pass photo of you. Important: In the photo, your face must be clearly visible. Otherwise the bank cannot transfer your commission into your bank account.',
         'pan_explanation' => 'Our bank needs for the transfer of your commission your PAN card. Please upload here a photo from your PAN card. Important: In In the photo, all information from the PAN card must be clearly legible. Otherwise the bank cannot transfer your commission into your bank account.',
 
