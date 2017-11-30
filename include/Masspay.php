@@ -154,6 +154,7 @@ class Masspay {
             .' AND "tbmt_transfer"."state" in ('.\Transfer::STATE_COLLECT.')'
             .' AND "tbmt_transfer"."creation_date" <= :date_lastmonth'
             .' AND "tbmt_member"."transfer_freezed" = 0'
+            .' AND "tbmt_member"."photos_exist" = 1'
             .' AND "tbmt_member"."deletion_date" IS NULL';
     $stmt = $con->prepare($sql);
     $stmt->execute([
@@ -174,6 +175,7 @@ class Masspay {
             .' WHERE'
             .' "tbmt_transfer"."state" in ('.\Transfer::STATE_COLLECT.')'
             .' AND "tbmt_member"."transfer_freezed" = 0'
+            .' AND "tbmt_member"."photos_exist" = 1'
             .' AND "tbmt_member"."deletion_date" IS NULL';
     $stmt = $con->prepare($sql);
     $stmt->execute([]);
