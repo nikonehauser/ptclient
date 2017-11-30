@@ -1,0 +1,8 @@
+
+  <form action="<?=$this->formData['action']?>" method="post" name="payuForm" >
+    <input type="hidden" name="key" value="<?=$this->formData['merchant_key']?>" />
+    <input type="hidden" name="hash" value="<?=$this->formData['merchant_key']?>" />
+    <input type="hidden" name="txnid" value="<?=$this->formData['merchant_key']?>" />
+
+    <input type="hidden" name="surl" value="http://localhost/response.php" />   <!--Please change this parameter value with your success page absolute url like http://mywebsite.com/response.php. -->
+   <input type="hidden" name="furl" value="http://localhost/response.php" />

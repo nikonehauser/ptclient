@@ -56,6 +56,10 @@
 
           <?=\Tbmt\view\Factory::buildNotification($this->i18nView['paid_text'], $this->i18nView['tank_you'], 'info top')?>
 
+          <?php if ( !$this->member->getPhotosExist() ) : ?>
+            <?=\Tbmt\view\Factory::buildNotification($this->i18nView['images_missing'], $this->i18nView['images_missing_attention'], 'notice top')?>
+          <?php endif; ?>
+
           <h3>Very good decision!</h3>
           <p>This is your exclusive invitation link:</p>
           <pre class="wordwrap"><?php echo $this->member->getFullInvitationLink(); ?></pre>
@@ -177,7 +181,32 @@ function copyToClipboard(elem) {
                   Base::encodeHtml($this->member->getPhone()) :
                   '<em class="text-muted">'.$this->i18nView['phone_none'].'</em>'?>
               </dd>
+
+              <dt><?=$this->i18nView['passportphoto']?></dt>
+              <dd>
+                  <?php if ( $this->member->getPassportfile() ) : ?>
+                    <img src="<?=\Tbmt\Router::toModule('account', 'pic', ['which' => 'pass'])?>" style="max-width: 150px;" />
+                  <?php else : ?>
+                    <em class="text-muted"><?=$this->i18nView['no_image']?></em>
+                  <?php endif; ?>
+              </dd>
+
+              <dt><?=$this->i18nView['panphoto']?></dt>
+              <dd>
+                  <?php if ( $this->member->getPanfile() ) : ?>
+                    <img src="<?=\Tbmt\Router::toModule('account', 'pic', ['which' => 'pan'])?>" style="max-width: 150px;"/>
+                  <?php else : ?>
+                    <em class="text-muted"><?=$this->i18nView['no_image']?></em>
+                  <?php endif; ?>
+              </dd>
           </dl>
+
+          <?=\Tbmt\view\Factory::buildButton(
+            $this->i18nView['change_photos'],
+            \Tbmt\Router::toModule('manage', 'change_photos'),
+            ' black pull-right',
+            'lock'
+          )?>
       </div>
       <div class="col-md-6">
           <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['bank_account'], 'bottom-30 top-10')?>

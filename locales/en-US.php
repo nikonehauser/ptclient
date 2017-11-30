@@ -559,6 +559,7 @@ return [
 
           'change_pwd' => 'Change password',
           'change_profile' => 'Change Profile',
+          'change_photos' => 'Change Photos',
 
           'welc_not_1' => 'Welcome {name}',
           'welc_not_2' => 'This is your profile. You can find various information here',
@@ -570,6 +571,13 @@ return [
           'guide_name' => 'Happy Guide Nr. {number}',
 
           'purchase_now' => 'How to pay the Happiness Guide',
+
+          'passportphoto' => 'Pass Photo',
+          'panphoto' => 'Pan Photo',
+          'no_image' => '- no image -',
+
+          'images_missing' => 'We will only need your image and your PAN Card internally for the payment of your recommendation fee and for the payment of the GST to the government. Since we strictly pay attention to legality, we have to comply with the legal regulations. Please pay attention to a good quality of your photos.',
+          'images_missing_attention' => 'ATTENTION - Images are Missing'
         ],
         'invoice' => [
           'stats' => 'Statistics',
@@ -715,11 +723,26 @@ return [
         'success' => 'Success!',
         'success_msg' => 'Your new password is:',
       ],
-      'change_pwd' => [
+      'change_photos' => [
         'page_title' => 'Change your password',
         'error' => 'Error!',
         'success' => 'Success!',
-        'success_msg' => 'We have sent you an email with further instructions.',
+        'success_msg' => 'Your photos has been updated.',
+
+        'note_on_photos' => 'We will only need your image and your PAN Card internally for the payment of your recommendation fee and for the payment of the GST to the government. Since we strictly pay attention to legality, we have to comply with the legal regulations. Please pay attention to a good quality of your photos.',
+        'passport_explanation' => 'Our bank needs for the transfer of your commission your pass photo. Please upload here a pass photo of you. Important: In the photo, your face must be clearly visible. Otherwise the bank cannot transfer your commission into your bank account.',
+        'pan_explanation' => 'Our bank needs for the transfer of your commission your PAN card. Please upload here a photo from your PAN card. Important: In In the photo, all information from the PAN card must be clearly legible. Otherwise the bank cannot transfer your commission into your bank account.',
+
+        'form_labels' => [
+          'passportfile' => 'Pass Photo',
+          'panfile' => 'Pan Photo',
+          'submit' => 'Upload',
+        ],
+      ],
+      'change_pwd' => [
+        'page_title' => 'Change your photos',
+        'error' => 'Error!',
+        'success' => 'Success!',
         'form_labels' => [
           'old_pwd' => 'Current password',
           'new_pwd' => 'New password',

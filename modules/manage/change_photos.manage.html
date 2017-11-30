@@ -1,0 +1,45 @@
+<?=Tbmt\view\Factory::buildPageTitle($this->i18nView['page_title'])?>
+
+<div class="container top-30 bottom-30">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <!--<form action="" method="post">-->
+            <div class="sheet">
+
+            <b style="font-size: larger;"><?=$this->i18nView['note_on_photos']?></b>
+
+            <br>
+            <br>
+
+            <?php
+            $formBuilder = new \Tbmt\FormBuilder('passwordChangeForm', $this->formLabels, [], $this->formErrors);
+
+            if ( !empty($this->successmsg) ) {
+                echo Tbmt\view\Factory::buildNotification($this->successmsg[0], $this->successmsg[1], $this->successmsg[2]);
+
+            } else { ?>
+
+              <form action="<?=\Tbmt\Router::toModule('manage', 'change_photos_signup')?>" method="post" enctype="multipart/form-data">
+
+                  <?=$formBuilder->buildFieldGroup('passportfile', 'file', null, null, null, ['accept' => 'image/*'])?>
+                  <p class="help-block"><?=$this->i18nView['passport_explanation']?></p>
+
+                  <?=$formBuilder->buildFieldGroup('panfile', 'file', null, null, null, ['accept' => 'image/*'])?>
+                  <p class="help-block"><?=$this->i18nView['pan_explanation']?></p>
+
+                <?=\Tbmt\view\Factory::buildSubmitBtn($this->formLabels['submit'])?>
+              </form>
+
+            <?php } ?>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- 960 Container End -->
+
+<script type="text/javascript">
+  jQuery(document).ready(function() {
+    jQuery('#passwordChangeFormold_pwd').focus();
+  });
+</script>

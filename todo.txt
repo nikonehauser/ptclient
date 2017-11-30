@@ -3,6 +3,7 @@ UPDATE SERVER - TODO
 
 update
 ======
+* für die head leute -> photos_exist auf true setzen
 
 
 Fragen
@@ -49,7 +50,7 @@ HOW TO SETUP
 * php extensions
   * ziparchive - php7.0-libzip
   * finfo extension checken - meistens schon installiert
-  * gd extension installieren - php7.0-gd
+  * gd extension installieren - php7.0-gdexi
 
 NICE TO HAVE
 ============

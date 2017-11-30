@@ -146,6 +146,9 @@ class ManageController extends BaseController {
 
     'change_profile' => true,
     'change_profile_signup' => true,
+
+    'change_photos' => true,
+    'change_photos_signup' => true,
   ];
 
   public function action_do_reset_password() {
@@ -312,6 +315,101 @@ class ManageController extends BaseController {
 
         throw $e;
     }
+  }
+
+
+  public function action_change_photos() {
+    $login = Session::getLogin();
+    if ( !$login )
+      throw new PageNotFoundException();
+
+    return ControllerDispatcher::renderModuleView(
+      self::MODULE_NAME,
+      CURRENT_MODULE_ACTION,
+      []
+    );
+  }
+
+  static public $IMAGE_MIMETYPES = [
+    'jpg' => 'image/jpeg',
+    'png' => 'image/png',
+  ];
+
+  public function action_change_photos_signup() {
+    $member = Session::getLogin();
+    if ( !$member )
+      throw new PageNotFoundException();
+
+    $oldPath = Config::get('tmp.path');
+
+    $passportFile = new \Tbmt\HtmlFile('passportfile', [
+      'path' => $oldPath,
+      'mimetypes' => self::$IMAGE_MIMETYPES,
+      'filesize' => 5000000, // 5 mb
+      'required' => false
+    ]);
+
+    $panFile = new \Tbmt\HtmlFile('panfile', [
+      'path' => $oldPath,
+      'mimetypes' => self::$IMAGE_MIMETYPES,
+      'filesize' => 5000000, // 5 mb
+      'required' => false
+    ]);
+
+    $errors = [];
+    $fileResult = $passportFile->validate();
+    if ( $fileResult !== true ) {
+      $errors = array_merge($errors, [$passportFile->getFilekey() => $fileResult]);
+    }
+
+    $fileResult = $panFile->validate();
+    if ( $fileResult !== true ) {
+      $errors = array_merge($errors, [$panFile->getFilekey() => $fileResult]);
+    }
+
+    if ( count($errors) > 0 ) {
+      return ControllerDispatcher::renderModuleView(
+        self::MODULE_NAME,
+        'change_photos',
+        ['formErrors' => $data]
+      );
+    }
+
+    $memberid = $member->getId();
+    $newPath = Config::get('member.pics.dir');
+
+    $passportfileName = $passportFile->save($memberid.'-'.$passportFile->getFilekey());
+    $panfileName = $panFile->save($memberid.'-'-$panFile->getFilekey());
+
+    $passportSet = false;
+    $panSet = false;
+    if ( $passportfileName !== true ) {
+      // to let unit test work ...
+      $member->setPassportfile($memberid.'-passport.'.pathinfo($passportfileName, PATHINFO_EXTENSION));
+      \Member::resampleImage($oldPath.$passportfileName, $newPath.$member->getPassportfile());
+      unlink($oldPath.$passportfileName);
+      $passportSet = true;
+    }
+
+    if ( $panfileName !== true ) {
+      // to let unit test work ...
+      $member->setPanfile($memberid.'-pan.'.pathinfo($panfileName, PATHINFO_EXTENSION ));
+      \Member::resampleImage($oldPath.$panfileName, $newPath.$member->getPanfile());
+      unlink($oldPath.$panfileName);
+      $panSet = true;
+    }
+
+    if ( $member->getPanfile() && $member->getPassportfile() )
+      $member->setPhotosExist(1);
+
+    if ( $panSet || $passportSet )
+      $member->save();
+
+    return ControllerDispatcher::renderModuleView(
+      self::MODULE_NAME,
+      'change_photos',
+      ['successmsg' => ($panSet || $passportSet) ? true : false]
+    );
   }
 }
 

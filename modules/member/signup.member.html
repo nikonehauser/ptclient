@@ -149,7 +149,6 @@ Unfortunately we still estimate a duration of a view hours. Please come back tom
           </div>
         </div>
         <div class="row">
-          <form action="<?=\Tbmt\Router::toModule('admin', 'imptrans', ['formsubmit' => 1])?>" method="post" enctype="multipart/form-data" class="form-white form-inline">
             <div class="col-md-6">
               <?=$formBuilder->buildFieldGroup('passportfile', 'file', null, null, null, ['accept' => 'image/*'])?>
               <p class="help-block"><?=$this->i18nView['passport_explanation']?></p>
@@ -158,7 +157,6 @@ Unfortunately we still estimate a duration of a view hours. Please come back tom
               <?=$formBuilder->buildFieldGroup('panfile', 'file', null, null, null, ['accept' => 'image/*'])?>
               <p class="help-block"><?=$this->i18nView['pan_explanation']?></p>
             </div>
-          </form>
         </div>
       </div>
 

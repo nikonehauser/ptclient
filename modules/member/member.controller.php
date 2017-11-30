@@ -6,36 +6,38 @@ class MemberController extends BaseController {
 
   const MODULE_NAME = 'member';
 
+  static public $IMAGE_MIMETYPES = [
+    'jpg' => 'image/jpeg',
+    'png' => 'image/png',
+  ];
+
   protected $actions = [
     'index' => true,
     'system' => true,
     'signup' => true,
     'signup_submit' => true,
     'signupSuccess' => true,
-    'confirm_email_registration' => true
+    'confirm_email_registration' => true,
   ];
 
   private $passportFile;
   private $panFile;
-
-  private $IMAGE_MIMETYPES = [
-    'jpg' => 'image/jpeg',
-    'png' => 'image/png',
-  ];
 
   public function __construct() {
     $path = Config::get('signup.pics.dir');
 
     $this->passportFile = new \Tbmt\HtmlFile('passportfile', [
       'path' => $path,
-      'mimetypes' => $this->IMAGE_MIMETYPES,
+      'mimetypes' => self::$IMAGE_MIMETYPES,
       'filesize' => 5000000, // 5 mb
+      'required' => false
     ]);
 
     $this->panFile = new \Tbmt\HtmlFile('panfile', [
       'path' => $path,
-      'mimetypes' => $this->  IMAGE_MIMETYPES,
+      'mimetypes' => self::$IMAGE_MIMETYPES,
       'filesize' => 5000000, // 5 mb
+      'required' => false
     ]);
   }
 

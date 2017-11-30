@@ -93,6 +93,10 @@ class Member extends BaseMember
     return self::$strategyImpl->createFromSignup($data, $referrerMember, $invitation, $con);
   }
 
+  static public function resampleImage($from, $to) {
+    return self::$strategyImpl->resampleImage($from, $to);
+  }
+
   static public function activity_createFromSignup($data, $referrerMember, Invitation $invitation = null, PropelPDO $con) {
     $member = self::createFromSignup($data, $referrerMember, $invitation, $con);
     return [

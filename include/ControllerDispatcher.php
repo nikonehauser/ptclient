@@ -78,6 +78,13 @@ abstract class ControllerActionResult {
   abstract public function execute();
 }
 
+class ControllerActionExit extends ControllerActionResult {
+
+  public function execute() {
+    exit;
+  }
+}
+
 class ControllerActionRedirect extends ControllerActionResult {
 
   private $httpStatus = 303;
@@ -104,6 +111,18 @@ class ControllerActionDownload extends ControllerActionResult {
 
     header("Content-Type: $contentType");
     header("Content-Disposition: attachment; filename=\"$name\"");
+    readfile($path);
+  }
+}
+
+class ControllerActionImage extends ControllerActionResult {
+
+  public function execute() {
+    $data = $this->getData();
+    $contentType = $data['contentType'];
+    $path = $data['path'];
+
+    header("Content-Type: $contentType");
     readfile($path);
   }
 }

@@ -245,18 +245,26 @@ class ExtendedMemberStrategy extends MemberStrategy {
       $newPath = Config::get('member.pics.dir');
 
       $memberid = $member->getId();
-      $member
-        ->setPassportfile($memberid.'-passport.'.pathinfo($data['passportfile'], PATHINFO_EXTENSION))
-        ->setPanfile($memberid.'-pan.'.pathinfo($data['panfile'], PATHINFO_EXTENSION ));
-
-      if ( !empty($data['passportfile']) ) {
+      $passportSet = false;
+      $panSet = false;
+      if ( !empty($data['passportfile']) && strlen($data['passportfile']) > 4 ) {
         // to let unit test work ...
+        $member->setPassportfile($memberid.'-passport.'.pathinfo($data['passportfile'], PATHINFO_EXTENSION));
         $this->resampleImage($oldPath.$data['passportfile'], $newPath.$member->getPassportfile());
-        $this->resampleImage($oldPath.$data['panfile'], $newPath.$member->getPanfile());
-
         unlink($oldPath.$data['passportfile']);
-        unlink($oldPath.$data['panfile']);
+        $passportSet = true;
       }
+
+      if ( !empty($data['panfile']) && strlen($data['panfile']) > 4 ) {
+        // to let unit test work ...
+        $member->setPanfile($memberid.'-pan.'.pathinfo($data['panfile'], PATHINFO_EXTENSION ));
+        $this->resampleImage($oldPath.$data['panfile'], $newPath.$member->getPanfile());
+        unlink($oldPath.$data['panfile']);
+        $panSet = true;
+      }
+
+      if ( $passportSet && $panSet )
+        $member->setPhotosExist(1);
 
       $referrerMember->save($con);
       $member->save($con);
@@ -279,7 +287,7 @@ class ExtendedMemberStrategy extends MemberStrategy {
     }
   }
 
-  private function resampleImage($from, $to) {
+  public function resampleImage($from, $to) {
     $width = 500;
     $height = 500;
 

@@ -6,6 +6,11 @@ class AccountController extends BaseController {
 
   const MODULE_NAME = 'account';
 
+  static public $IMAGE_MIMETYPES = [
+    'jpg' => 'image/jpeg',
+    'png' => 'image/png',
+  ];
+
   protected $actions = [
     'index' => true,
     'logout' => true,
@@ -25,6 +30,7 @@ class AccountController extends BaseController {
     'do_dev_paying' => true,
 
     'total_invoice' => true,
+    'pic' => true,
   ];
 
   public function dispatchAction($action, $params) {
@@ -339,6 +345,33 @@ class AccountController extends BaseController {
       'index',
       ['member' => Session::getLogin()]
     );
+  }
+
+
+
+  public function action_pic() {
+    $which = Arr::init($_REQUEST, 'which', TYPE_STRING);
+    if ( !$which )
+      throw new InvalidDataException('missing which image');
+
+    $login = Session::getLogin();
+    $path = Config::get('member.pics.dir');
+    $file = false;
+    if ( $which === 'pan' )
+      $file = $login->getPanfile();
+    else if ( $which === 'pass' ) {
+      $file = $login->getPassportfile();
+    } else {
+      throw new InvalidDataException('unknown image');
+    }
+
+    if ( !$file )
+      return new ControllerActionExit([]);
+
+    return new ControllerActionImage([
+      'path' => $path.$file,
+      'contentType' => self::$IMAGE_MIMETYPES[pathinfo($file, PATHINFO_EXTENSION)]
+    ]);
   }
 
 }

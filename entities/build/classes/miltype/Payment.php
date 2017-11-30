@@ -24,6 +24,23 @@ class Payment extends BasePayment
   const TYPE_SETBYADMIN = 1;
   const TYPE_SETBYADMINIMPORT = 2;
 
+  static public function create(\Member $member, \PropelPDO $con) {
+    $invoiceNumber = \SystemStats::getIncreasedInvoiceNumber($con);
+
+    $payment = new \Payment();
+    $payment
+      ->setStatus(\Payment::STATUS_CREATED)
+      ->setType('payu')
+      ->setDate(time())
+      ->setMember($member)
+      ->setInvoiceNumber($invoiceNumber)
+      ->setGatewayPaymentId()
+      ->setMeta([])
+      ->save($con);
+
+    return $payment;
+  }
+
   public function setStatus($v) {
     $status = $this->getStatus();
     if ( $status && $status !== self::STATUS_CREATED )

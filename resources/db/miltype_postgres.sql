@@ -58,6 +58,7 @@
 
     "passportfile" VARCHAR(60) NULL ,
     "panfile" VARCHAR(60) NULL ,
+    "photos_exist" smallint not null default 0 ,
 
     PRIMARY KEY ("id") ,
     CONSTRAINT "fk_member_referrer"

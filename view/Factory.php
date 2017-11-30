@@ -198,7 +198,8 @@ END;
     'notice' => 'times',
     'info'  => 'info',
     'warning' => 'exclamation',
-    'success' => 'check'
+    'success' => 'check',
+    'error' => 'times',
   ];
   static function buildNotification($text, $strong = '', $type = 'notice', $content = '') {
     if ( !empty($strong) )

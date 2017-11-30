@@ -18,6 +18,11 @@ class GuideIndex extends Base {
       ? ''
       : $this->i18nView['popup_purchase_cancel_text'];
 
+    // $this->formData = null;
+    // if ( $this->member ) {
+    //   $this->formData = \Tbmt\Payu::prepareFormData($this->member, \Propel::getConnection());
+    // }
+
     return $this->renderFile(
       dirname(__FILE__).DIRECTORY_SEPARATOR.'index.guide.html',
       $params
