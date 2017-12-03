@@ -34,7 +34,7 @@ class Payment extends BasePayment
       ->setDate(time())
       ->setMember($member)
       ->setInvoiceNumber($invoiceNumber)
-      ->setGatewayPaymentId()
+      // ->setGatewayPaymentId()
       ->setMeta([])
       ->save($con);
 

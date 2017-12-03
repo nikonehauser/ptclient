@@ -70,6 +70,7 @@ return [
     'item_name' => 'Happiness Guide',
     'item_description' => 'Digital PDF download serie (consists of 8 chapters).',
     'transaction_description' => 'Happiness Guide (digital PDF download)',
+    'payu_product_description' => 'Our Happiness Guide series. A digital download about getting happier in life. You will get 8 pieces, each one more step to wealth and health',
   ],
 
 

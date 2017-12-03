@@ -4,11 +4,12 @@ UPDATE SERVER - TODO
 update
 ======
 * für die head leute -> photos_exist auf true setzen
+* correctly handle failed result from payu
 
 
 Fragen
 =======
-
+* faking phone number
 
 
 CURRENT - TODOS

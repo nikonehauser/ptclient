@@ -1,0 +1,20 @@
+<?=Tbmt\view\Factory::buildPageTitle($this->i18nView['page_title'])?>
+
+<div class="container">
+
+  <div class="row bottom-30 top-30 sheet">
+
+  <div class="heading-area text-center bottom-30 top-30">
+    <h4 class="heading large">$this->var['resultmessage']</h4>
+  </div>
+
+  <div class="col-md-12">
+
+    <p><?=$this->var['resultdesc']?></p>
+    <?php if ( !empty($this->var['resultstack']) ) : ?>
+      <pre><?php echo $this->var['resultstack']; ?></pre>
+    <?php endif; ?>
+
+  </div>
+  </div>
+</div>

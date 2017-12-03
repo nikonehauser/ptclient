@@ -1,8 +1,19 @@
 
-  <form action="<?=$this->formData['action']?>" method="post" name="payuForm" >
+<form action="<?=$this->formData['action']?>" method="post" name="payuForm" >
     <input type="hidden" name="key" value="<?=$this->formData['merchant_key']?>" />
-    <input type="hidden" name="hash" value="<?=$this->formData['merchant_key']?>" />
-    <input type="hidden" name="txnid" value="<?=$this->formData['merchant_key']?>" />
+    <input type="hidden" name="hash" value="<?=$this->formData['hash']?>" />
+    <input type="hidden" name="txnid" value="<?=$this->formData['txnid']?>" />
+    <input type="hidden" name="surl" value="<?=$this->formData['surl']?>" />
+    <input type="hidden" name="furl" value="<?=$this->formData['furl']?>" />
+    
+    <input type="hidden" name="productinfo" value="<?=$this->formData['productinfo']?>" />
 
-    <input type="hidden" name="surl" value="http://localhost/response.php" />   <!--Please change this parameter value with your success page absolute url like http://mywebsite.com/response.php. -->
-   <input type="hidden" name="furl" value="http://localhost/response.php" />
+    <input type="hidden" name="amount" value="<?=$this->formData['amount']?>" />
+    <input type="hidden" name="firstname" value="<?=$this->formData['firstname']?>" />
+    <input type="hidden" name="email" value="<?=$this->formData['email']?>" />
+    <input type="hidden" name="phone" value="<?=$this->formData['phone']?>" />
+
+
+    <?=\Tbmt\view\Factory::buildSubmitBtn('Pay now with PayU')?>
+
+</form>
