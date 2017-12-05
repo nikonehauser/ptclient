@@ -9,10 +9,9 @@ class GuideIndex extends Base {
       ? $params['member']
       : null;
 
-    $this->formData = null;
-    if ( $this->member ) {
-      $this->formData = \Tbmt\Payu::prepareFormData($this->member, \Propel::getConnection());
-    }
+    $this->purchaseFailedMessage = !isset($_REQUEST['purchase_failed']) || $_REQUEST['purchase_failed']
+      ? ''
+      : $this->i18nView['popup_purchase_cancel_text'];
 
     return $this->renderFile(
       dirname(__FILE__).DIRECTORY_SEPARATOR.'index.guide.html',

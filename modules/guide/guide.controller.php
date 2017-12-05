@@ -8,6 +8,7 @@ class GuideController extends BaseController {
 
   protected $actions = [
     'index' => true,
+    'startpurchase' => true,
     'howtopay' => true,
     'shandle' => true,
     'fhandle' => true,
@@ -22,6 +23,14 @@ class GuideController extends BaseController {
         'member' => $login
       ]
     );
+  }
+
+  public function action_startpurchase() {
+    $login = Session::getLogin();
+    if ( !$login )
+      throw new PageNotFoundException();
+
+    return new ControllerActionRedirect(\Tbmt\Payu::prepareFormData($login, \Propel::getConnection()));
   }
 
   public function action_shandle() {

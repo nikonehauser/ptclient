@@ -47,14 +47,10 @@
     <?php elseif ( $this->member && !$this->member->isMarkedAsPaid() ): ?>
 
       <div class="row">
-
         <div class="col-sm-12 top-20" style="text-align: center;">
-          <?php include(dirname(__FILE__).DIRECTORY_SEPARATOR.'payuform.guide.html'); ?>
-
-          <!--
-          <?php echo \Tbmt\view\Factory::buildButton('How to buy the Happiness Guide', \Tbmt\Router::toModule('guide', 'howtopay')) ?>
-          -->
+          <?php echo \Tbmt\view\Factory::buildButton('Pay now with PayU', \Tbmt\Router::toModule('guide', 'startpurchase')) ?>
         </div>
+
       </div>
 
       <?php if ( $this->member->isExtended() ): ?>

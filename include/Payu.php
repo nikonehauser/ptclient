@@ -2,7 +2,22 @@
 
 namespace Tbmt;
 
+use \OpenPayU_Configuration;
+
 class Payu {
+
+  static public getInstance() {
+    //set Sandbox Environment
+    OpenPayU_Configuration::setEnvironment(Config::get('payu_environment'));
+
+    //set POS ID and Second MD5 Key (from merchant admin panel)
+    OpenPayU_Configuration::setMerchantPosId('300046');
+    OpenPayU_Configuration::setSignatureKey('0c017495773278c50c7b35434017b2ca');
+    
+    //set Oauth Client Id and Oauth Client Secret (from merchant admin panel)
+    OpenPayU_Configuration::setOauthClientId('300046');
+    OpenPayU_Configuration::setOauthClientSecret('c8d4b7ac61758704f38ed5564d8c0ae0');
+  }
 
   // test credit card for test server
   // 5123456789012346
@@ -27,8 +42,8 @@ class Payu {
 
   ];
 
-  static public function validateResponse(array $data, \Member $member) {
-    $result = Arr::initMulti($data, self:$RETURN_FIELDS);
+  public function validateResponse(array $data, \Member $member) {
+    $result = Arr::initMulti($data, self::$RETURN_FIELDS);
     $result['SALT'] = Config::get('payu_merchant_salt');
 
     $hash = self::buildPayuHash($result, self::$RETURN_HASH_SEQUENCE);
@@ -60,7 +75,7 @@ class Payu {
     return $result;
   }
 
-  static public function preparePayment(\Member $member, \PropelPDO $con) {
+  public function preparePayment(\Member $member, \PropelPDO $con) {
     $payment = \PaymentQuery::create()
       ->filterByMember($member)
       ->filterByStatus(\Payment::STATUS_CREATED)
@@ -73,7 +88,35 @@ class Payu {
     return $payment;
   }
 
-  static public function prepareFormData(\Member $member, \PropelPDO $con) {
+  public function prepareFormData(\Member $member, \PropelPDO $con) {
+    $order = [];
+    $order['notifyUrl'] = Config::get('payu_merchant_salt'); //customer will be redirected to this page after successfull payment
+    $order['continueUrl'] = \Tbmt\Router::toModule('guide', 'fhandle');
+    $order['customerIp'] = $_SERVER['REMOTE_ADDR'];
+    $order['merchantPosId'] = OpenPayU_Configuration::getMerchantPosId();
+    $order['description'] = 'New order';
+    $order['currencyCode'] = 'PLN';
+    $order['totalAmount'] = 3200;
+    $order['extOrderId'] = '1342'; //must be unique!
+
+    $order['products'][0]['name'] = 'Product1';
+    $order['products'][0]['unitPrice'] = 1000;
+    $order['products'][0]['quantity'] = 1;
+
+    $order['products'][1]['name'] = 'Product2';
+    $order['products'][1]['unitPrice'] = 2200;
+    $order['products'][1]['quantity'] = 1;
+
+    //optional section buyer
+    $order['buyer']['email'] = 'dd@ddd.pl';
+    $order['buyer']['phone'] = '123123123';
+    $order['buyer']['firstName'] = 'Jan';
+    $order['buyer']['lastName'] = 'Kowalski';
+
+    $response = OpenPayU_Order::create($order);
+
+    return $response->getResponse()->redirectUri;
+
     $payment = self::preparePayment($member, $con);
 
     $merchant_key = Config::get('payu_merchant_key');
@@ -97,7 +140,7 @@ class Payu {
     return $data;
   }
 
-  static public function buildPayuHash(array $data, $sequence) {
+  public function buildPayuHash(array $data, $sequence) {
     $hashSequence = explode('|', $sequence);
     $hash = [];
     foreach ($hashSequence as $key) {
@@ -107,7 +150,7 @@ class Payu {
     return strtolower(hash('sha512', implode('|', $hash)));
   }
 
-  static public function getMemberPhone(\Member $member) {
+  public function getMemberPhone(\Member $member) {
     $phone = $member->getPhone();
     if ( empty($phone) )
       return '9123456789';

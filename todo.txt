@@ -5,6 +5,7 @@ update
 ======
 * für die head leute -> photos_exist auf true setzen
 * correctly handle failed result from payu
+* composer install ausführen
 
 
 Fragen
