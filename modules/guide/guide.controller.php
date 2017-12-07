@@ -8,8 +8,6 @@ class GuideController extends BaseController {
 
   protected $actions = [
     'index' => true,
-    'startpurchase' => true,
-    'howtopay' => true,
     'shandle' => true,
     'fhandle' => true,
   ];
@@ -25,14 +23,6 @@ class GuideController extends BaseController {
     );
   }
 
-  public function action_startpurchase() {
-    $login = Session::getLogin();
-    if ( !$login )
-      throw new PageNotFoundException();
-
-    return new ControllerActionRedirect(\Tbmt\Payu::prepareFormData($login, \Propel::getConnection()));
-  }
-
   public function action_shandle() {
     return $this->handlePayuReturn();
   }
@@ -42,15 +32,32 @@ class GuideController extends BaseController {
   }
 
   private function handlePayuReturn() {
-    $resultStack = '';
-    $resultMessage = 'Failure';
-    $resultDesc = '-- no description available --';
     try {
+      $resultStack = '';
+      $resultMessage = 'Failure';
+      $resultDesc = '-- no description available --';
+
       $login = Session::getLogin();
       if ( !$login )
         throw new PageNotFoundException();
 
-      $data = \Tbmt\Payu::validateResponse($_REQUEST);
+      $con = \Propel::getConnection();
+      \Activity::exec(
+        /*callable*/['\\Tbmt\\GuideController', 'activity_validatePayment'],
+        /*func args*/[
+          $_REQUEST,
+          $login,
+          $con
+        ],
+        /*activity.action*/\Activity::ACT_MEMBER_PAYMENT_EXEC,
+        /*activity.member*/$login,
+        /*activity.related*/null,
+        $con,
+        false
+      );
+
+      Session::set(Session::KEY_PAYMENT_MSG, true);
+      return new ControllerActionRedirect(Router::toAccountTab('index'));
     } catch (\Exception $e) {
       $resultMessage = 'Failure';
       $resultDesc = $e->getMessage();
@@ -66,6 +73,14 @@ class GuideController extends BaseController {
         'resultstack' => \Tbmt\Config::get('devmode', \Tbmt\TYPE_BOOL, false) ? $resultStack : '',
       ]
     );
+  }
+
+  static public function activity_validatePayment($data, $login, $con) {
+    $payment = \Tbmt\Payu::processResponse($data, $login, $con);
+    return [
+      'data' => $payment->toArray(),
+      \Activity::ARR_RELATED_RETURN_KEY => $payment
+    ];
   }
 }
 

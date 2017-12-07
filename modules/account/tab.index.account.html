@@ -10,6 +10,15 @@
       );
     }
 
+    if ( $this->paymentmsg ) {
+      echo \Tbmt\view\Factory::buildNotification(
+        $this->i18nView['purchase_not_1'],
+        '',
+        'success top',
+        ''
+      );
+    }
+
     if ( !$this->member->isMarkedAsPaid() ) {
       echo \Tbmt\view\Factory::buildNotification($this->i18nView['unpaid_text'], $this->i18nView['warning'], 'warning top');
 

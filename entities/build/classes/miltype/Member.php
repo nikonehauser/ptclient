@@ -457,6 +457,18 @@ class Member extends BaseMember
     \Tbmt\MailHelper::sendFeeIncome($this, $payment);
   }
 
+  public function setHadPaidWithPayment(\Payment $payment, \PropelPDO $con) {
+    $this->onReceivedMemberFee(
+      \Transaction::$BASE_CURRENCY,
+      time(),
+      false,
+      $con
+    );
+    $this->save($con);
+
+    \Tbmt\MailHelper::sendFeeIncome($this, $payment);
+  }
+
   /**
    * Set user as paid and spread provisions.
    *

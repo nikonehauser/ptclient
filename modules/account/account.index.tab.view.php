@@ -22,6 +22,10 @@ class AccountIndexTab extends Base {
     if ( $this->signupmsg )
       \Tbmt\Session::delete(\Tbmt\Session::KEY_SIGNUP_MSG);
 
+    $this->paymentmsg = \Tbmt\Session::get(\Tbmt\Session::KEY_PAYMENT_MSG);
+    if ( $this->paymentmsg )
+      \Tbmt\Session::delete(\Tbmt\Session::KEY_PAYMENT_MSG);
+
     $this->payoutFailed = false;
     $query = \PayoutQuery::create()
       ->useTransferQuery()

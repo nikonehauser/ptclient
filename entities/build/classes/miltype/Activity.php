@@ -19,7 +19,6 @@ class Activity extends BaseActivity
   const ACT_ACCOUNT_BONUS_PAYMENT = 2;
 
   const ACT_MEMBER_SIGNUP = 3;
-  const ACT_MEMBER_PAYMENT_CREATE = 4;
   const ACT_MEMBER_PAYMENT_EXEC = 5;
   const ACT_MEMBER_PAYMENT_CANCEL = 6;
   const ACT_MEMBER_PAYMENT_CANCEL_BY_USER = 7;

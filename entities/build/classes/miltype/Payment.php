@@ -18,11 +18,11 @@ class Payment extends BasePayment
 
   const STATUS_CREATED = 1;
   const STATUS_EXECUTED = 2;
-  const STATUS_CANCELED = 3;
-  const STATUS_USER_CANCELED = 4;
+  const STATUS_FAILED = 3;
 
   const TYPE_SETBYADMIN = 1;
   const TYPE_SETBYADMINIMPORT = 2;
+  const TYPE_BY_PAYU = 3;
 
   static public function create(\Member $member, \PropelPDO $con) {
     $invoiceNumber = \SystemStats::getIncreasedInvoiceNumber($con);

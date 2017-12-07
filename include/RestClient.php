@@ -239,24 +239,21 @@ class RestResult {
     }
   }
 
-  public function openResult() {
+  public function openResultAsJson() {
     if ( $this->resultStatusCode != 200 ) {
-      throw new \Exception('Invalid response status: '.$this->resultStatusCode.' '.$this->resultStatusText." \n".$this->content);
+      throw new \Exception('Invalid response status: '.$this->resultStatusCode.' '.$this->resultStatusText." \n");
     }
 
     $res = json_decode($this->content, true);
-    if ( json_last_error() !== JSON_ERROR_NONE )
-      throw new \Exception('Invalid result type. Can not parse JSON: '.json_last_error_msg()." \n".$this->content);
+    if ( json_last_error() !== JSON_ERROR_NONE ) {
+      print_r('<pre>');
+      print_r([$this->resultHeaders, htmlentities($this->content)]);
+      print_r('</pre>');
 
-    if ( !is_array($res) )
-      throw new \Exception('Invalid datatype. Array expected: '.$this->content);
-    elseif ( isset($res['error']) )
-      throw new \Exception('Server error: '.$res['error']. "\n".(isset($res['trace']) ? $res['trace'] : ''));
-    elseif ( !isset($res['result']) )
-      throw new \Exception('Server returned no result: '.$this->content);
+      throw new \Exception('Invalid result type. Can not parse JSON: '.json_last_error_msg()." \n");
+    }
 
-    return $res['result'];
-
+    return $res;
   }
 
 }

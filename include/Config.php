@@ -10,9 +10,6 @@ class Config {
       throw new \Exception('InvalidOperationException: You can not load config twice.');
 
     self::$struct = include $path;
-    if ( json_last_error() !== JSON_ERROR_NONE ) {
-      throw new \Exception('Error loading json config: '.json_last_error_msg());
-    }
   }
 
   static public function get($name, $type = TYPE_STRING, $default = false) {

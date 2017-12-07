@@ -563,8 +563,10 @@ return [
           'change_photos' => 'Change Photos',
 
           'welc_not_1' => 'Welcome {name}',
-          'welc_not_2' => 'This is your profile. You can find various information here',
+          'welc_not_2' => 'Thank you for signing up! This is your profile. You will find all neccessary information here!',
           'welc_not_3' => 'IMPORTANT! Always remember your customer number! You will need it to login, recommend others etc.',
+
+          'purchase_not_1' => 'Thank you for your purchase! You are owning the Happiness Guide now!',
 
           'guides' => 'Your Happiness Guides',
           'guides_not_available' => 'You have no guide enabled yet.',
@@ -842,9 +844,6 @@ return [
         'pdf_explanation_link' => 'just click here',
 
       ],
-      'girls_schools' => [
-        'page_title' => 'Grils schools',
-      ],
     ],
 
     /* VIEWS - ABOUT
@@ -964,6 +963,10 @@ return [
         'popup_purchase_close' => 'Close',
 
         'extended_system_user_note' => 'NOTE: The system recognized your exclusive invitation. By purchasing our Happiness Guide you will get access to the recommendation marketing system.',
+      ],
+
+      'handleresult' => [
+        'page_title' => 'Purchase Results',
       ],
 
       'howtopay' => [
