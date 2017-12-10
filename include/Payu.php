@@ -2,8 +2,6 @@
 
 namespace Tbmt;
 
-use \OpenPayU_Configuration;
-
 class Payu {
 
   static private $client;
@@ -64,8 +62,11 @@ class Payu {
   static public function processResponse(array $data, \Member $member, \PropelPDO $con) {
     $result = Arr::initMulti($data, self::$RETURN_FIELDS);
 
-    if ( !empty($result['error']) && $result['error'] != 'E000' )
-      throw new InvalidDataException($result['error'].(!empty($result['error_Message']) ? ' '.$result['error_Message'] : ''));
+    if ( !empty($result['error']) && $result['error'] != 'E000' ) {
+      return [
+        'error' => $result['error'].(!empty($result['error_Message']) ? ' '.$result['error_Message'] : '')
+      ];
+    }
 
     if ( empty($result['key']) || $result['key'] !== Config::get('payu_merchant_key') )
       throw new InvalidDataException('Invalid response data');
@@ -104,7 +105,8 @@ class Payu {
     if ( strtolower($status) === 'success' )
       $member->setHadPaidWithPayment($payment, $con);
 
-    return $payment;
+    $result['payment'] = $payment;
+    return $result;
   }
 
   static public function preparePayment(\Member $member, \PropelPDO $con) {
@@ -116,21 +118,25 @@ class Payu {
     if ( !$payment || $payment->getStatus() == \Payment::STATUS_FAILED ) {
       $payment = \Payment::create($member, $con);
     } else if ( $payment->getStatus() == \Payment::STATUS_EXECUTED ) {
-      throw new InvalidDataException('Member has executed payment');
+      throw new InvalidDataException('Member has executed payment already');
     } else if ( $payment->getStatus() == \Payment::STATUS_CREATED ) {
 
-      $payuOrder = self::getOrderByOrderId($payment->getInvoiceNumber());
+      if ( !empty($payment->getGatewayPaymentId()) )
+        $payuOrder = self::getOrderByMihpayid($payment->getGatewayPaymentId());
+      else
+        $payuOrder = self::getOrderByOrderId($payment->getInvoiceNumber());
+
       if ( $payuOrder && $payuOrder['status'] === 'success' ) {
         \Activity::exec(
           /*callable*/['\\Tbmt\\Payu', 'activity_setMemberPaid'],
           /*func args*/[
-            $login,
+            $member,
             $payuOrder,
             $payment,
             $con
           ],
           /*activity.action*/\Activity::ACT_MEMBER_PAYMENT_EXEC,
-          /*activity.member*/$login,
+          /*activity.member*/$member,
           /*activity.related*/null,
           $con,
           false
@@ -214,7 +220,7 @@ class Payu {
   static public function getOrderByMihpayid($orderId) {
     $result = self::requestPayu([
       'command' => 'check_payment',
-      'var1' => $orderId
+      'var1' => $orderId,
     ]);
 
     if ( !isset($result['status']) || $result['status'] != 1 || empty($result['transaction_details']) ) {

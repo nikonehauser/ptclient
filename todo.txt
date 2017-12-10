@@ -10,6 +10,8 @@ update
 
 Fragen
 =======
+* brauchen wir eine lückenlos fortlaufende rechnungs nummer ?
+* was soll mit den 5% provisionabzug passiern? (tax deducted at source)
 * faking phone number
 
 

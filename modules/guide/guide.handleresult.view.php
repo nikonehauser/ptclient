@@ -9,6 +9,7 @@ class GuideHandleresult extends Base {
     'resultmessage' => \Tbmt\TYPE_STRING,
     'resultdesc' => \Tbmt\TYPE_STRING,
     'resultstack' => \Tbmt\TYPE_STRING,
+    'resultcolor' => \Tbmt\TYPE_STRING,
   ];
 
   public function render(array $params = array()) {

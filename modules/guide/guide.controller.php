@@ -15,10 +15,21 @@ class GuideController extends BaseController {
   public function action_index() {
     $login = Session::getLogin();
 
+    $formData = null;
+    if ( $login && !$login->isMarkedAsPaid() ) {
+      $formData = \Tbmt\Payu::prepareFormData($login, \Propel::getConnection());
+
+      if ( $formData && $formData instanceof \Payment && $formData->getStatus() === \Payment::STATUS_EXECUTED ) {
+        Session::set(Session::KEY_PAYMENT_MSG, true);
+        return new ControllerActionRedirect(Router::toAccountTab('index'));
+      }
+    }
+
     return ControllerDispatcher::renderModuleView(
       self::MODULE_NAME,
       'index', [
-        'member' => $login
+        'member' => $login,
+        'formData' => $formData,
       ]
     );
   }
@@ -34,6 +45,7 @@ class GuideController extends BaseController {
   private function handlePayuReturn() {
     try {
       $resultStack = '';
+      $reseultColor = 'notice';
       $resultMessage = 'Failure';
       $resultDesc = '-- no description available --';
 
@@ -42,7 +54,7 @@ class GuideController extends BaseController {
         throw new PageNotFoundException();
 
       $con = \Propel::getConnection();
-      \Activity::exec(
+      $data = \Activity::exec(
         /*callable*/['\\Tbmt\\GuideController', 'activity_validatePayment'],
         /*func args*/[
           $_REQUEST,
@@ -56,9 +68,16 @@ class GuideController extends BaseController {
         false
       );
 
-      Session::set(Session::KEY_PAYMENT_MSG, true);
-      return new ControllerActionRedirect(Router::toAccountTab('index'));
+      if ( !empty($data['error']) && $data['error'] != 'E000' ) {
+        $reseultColor = 'notice';
+        $resultMessage = 'Failure';
+        $resultDesc = $data['error'];
+      } else {
+        Session::set(Session::KEY_PAYMENT_MSG, true);
+        return new ControllerActionRedirect(Router::toAccountTab('index'));
+      }
     } catch (\Exception $e) {
+      $reseultColor = 'notice';
       $resultMessage = 'Failure';
       $resultDesc = $e->getMessage();
       $resultStack = $e->__toString();
@@ -69,6 +88,7 @@ class GuideController extends BaseController {
       'handleresult', [
         'member' => $login,
         'resultmessage' => $resultMessage,
+        'resultcolor' => $reseultColor,
         'resultdesc' => $resultDesc,
         'resultstack' => \Tbmt\Config::get('devmode', \Tbmt\TYPE_BOOL, false) ? $resultStack : '',
       ]
@@ -76,11 +96,12 @@ class GuideController extends BaseController {
   }
 
   static public function activity_validatePayment($data, $login, $con) {
-    $payment = \Tbmt\Payu::processResponse($data, $login, $con);
-    return [
-      'data' => $payment->toArray(),
-      \Activity::ARR_RELATED_RETURN_KEY => $payment
-    ];
+    $data = \Tbmt\Payu::processResponse($data, $login, $con);
+    $payment = isset($data['payment']) ? $data['payment'] : null;
+    if ( $payment )
+      $data[\Activity::ARR_RELATED_RETURN_KEY] = $payment;
+
+    return $data;
   }
 }
 

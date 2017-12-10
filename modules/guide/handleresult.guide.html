@@ -5,12 +5,18 @@
   <div class="row bottom-30 top-30 sheet">
 
   <div class="heading-area text-center bottom-30 top-30">
-    <h4 class="heading large"><?=$this->var['resultmessage']?></h4>
+    <h4 class="heading large"></h4>
   </div>
 
   <div class="col-md-12">
 
-    <p><?=$this->var['resultdesc']?></p>
+    <?php echo \Tbmt\view\Factory::buildNotification(
+      $this->var['resultdesc'],
+      $this->var['resultmessage'],
+      $this->var['resultcolor']
+    );
+    ?>
+
     <?php if ( !empty($this->var['resultstack']) ) : ?>
       <pre><?php echo $this->var['resultstack']; ?></pre>
     <?php endif; ?>
