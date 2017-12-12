@@ -8,6 +8,7 @@ class GuideController extends BaseController {
 
   protected $actions = [
     'index' => true,
+    'howtopay' => true,
     'shandle' => true,
     'fhandle' => true,
   ];
@@ -16,7 +17,7 @@ class GuideController extends BaseController {
     $login = Session::getLogin();
 
     $formData = null;
-    if ( $login && !$login->isMarkedAsPaid() ) {
+    if ( false && $login && !$login->isMarkedAsPaid() ) {
       $formData = \Tbmt\Payu::prepareFormData($login, \Propel::getConnection());
 
       if ( $formData && $formData instanceof \Payment && $formData->getStatus() === \Payment::STATUS_EXECUTED ) {
