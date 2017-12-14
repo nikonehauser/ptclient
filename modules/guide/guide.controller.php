@@ -17,7 +17,7 @@ class GuideController extends BaseController {
     $login = Session::getLogin();
 
     $formData = null;
-    if ( false && $login && !$login->isMarkedAsPaid() ) {
+    if ( $login && !$login->isMarkedAsPaid() ) {
       $formData = \Tbmt\Payu::prepareFormData($login, \Propel::getConnection());
 
       if ( $formData && $formData instanceof \Payment && $formData->getStatus() === \Payment::STATUS_EXECUTED ) {

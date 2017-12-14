@@ -206,7 +206,7 @@ class Payu {
 
   static public function getOrderByOrderId($orderId) {
     $result = self::requestPayu([
-      'command' => 'check_payment',
+      'command' => 'verify_payment',
       'var1' => $orderId
     ]);
 
@@ -238,6 +238,7 @@ class Payu {
 
     $params['hash'] = self::buildPayuHash($params, self::$API_HASH_SEQUENCE);
 
+    $url = Config::get('payu_ws_base_url').'/merchant/postservice.php?form=2';
     // $c = curl_init();
     // curl_setopt($c, CURLOPT_URL, $wsUrl);
     // curl_setopt($c, CURLOPT_POST, 1);
@@ -247,10 +248,11 @@ class Payu {
     // curl_setopt($c, CURLOPT_SSL_VERIFYHOST, 0);
     // curl_setopt($c, CURLOPT_SSL_VERIFYPEER, 0);
     // return curl_exec($c);
+    //
 
     return self::getClient()->post(
       $params,
-      Config::get('payu_base_url').'/merchant/postservice.php?form=2'
+      $url
     )->openResultAsJson();
   }
 }
