@@ -43,6 +43,7 @@ class MailQueue {
       ->orderBy(\MailPeer::STATUS, \Criteria::ASC)
       ->limit($limit);
 
+    $incidents = [];
     foreach ( $query->find() as $mail ) {
       $result = 'Unknown Incident';
       try {
@@ -66,6 +67,7 @@ class MailQueue {
       } else {
         $errors++;
 
+        $incidents[] = $result;
         $mail
           ->setAttempts($mail->getAttempts() + 1)
           ->addIncident($result)
@@ -81,7 +83,8 @@ class MailQueue {
 
     return implode(', ', [
       "success: $success",
-      "errors: $errors",
+      "errors_count: $errors",
+      "errors:\n". implode("\n", $incidents)
     ]);
   }
 

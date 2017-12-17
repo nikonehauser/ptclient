@@ -434,14 +434,6 @@ class Member extends BaseMember
    * sending invoice mail.
    */
   public function setHadPaid($paymentType, \PropelPDO $con) {
-    $this->onReceivedMemberFee(
-      \Transaction::$BASE_CURRENCY,
-      time(),
-      false,
-      $con
-    );
-    $this->save($con);
-
     $invoiceNumber = \SystemStats::getIncreasedInvoiceNumber($con);
 
     $payment = new \Payment();
@@ -454,7 +446,7 @@ class Member extends BaseMember
       ->setMeta([])
       ->save($con);
 
-    \Tbmt\MailHelper::sendFeeIncome($this, $payment);
+    $this->setHadPaidWithPayment($payment, $con);
   }
 
   public function setHadPaidWithPayment(\Payment $payment, \PropelPDO $con) {
@@ -466,7 +458,12 @@ class Member extends BaseMember
     );
     $this->save($con);
 
-    \Tbmt\MailHelper::sendFeeIncome($this, $payment);
+    if ($this->getType() > self::TYPE_MEMBER )
+      \Tbmt\MailHelper::sendInvitationFeeIncome($this, $freeFromInvitation);
+    else
+      \Tbmt\MailHelper::sendFeeIncome($this);
+
+    \Tbmt\MailHelper::sendInvoice($this, $payment);
   }
 
   /**
@@ -482,13 +479,6 @@ class Member extends BaseMember
     if ( $this->hadPaid() )
       throw new \Exception('Paid member receiving fee again!');
 
-    if ( !$this->isExtended() ) {
-      $this->setPaidDate($when);
-      \Tbmt\MailHelper::sendFeeIncome($this);
-
-      return;
-    }
-
     $referrer = $this->getReferrerMember();
     if ( !$referrer ) {
       throw new Exception('Member ('.$this->getId().') has no referrer!');
@@ -503,6 +493,8 @@ class Member extends BaseMember
           \Tbmt\MailHelper::sendInvitationFeeIncome($this, $freeFromInvitation);
         else
           \Tbmt\MailHelper::sendFeeIncome($this);
+
+
       }
     }
 
