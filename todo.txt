@@ -4,22 +4,16 @@ UPDATE SERVER - TODO
 update
 ======
 * für die head leute -> photos_exist auf true setzen
-* correctly handle failed result from payu
-* composer install ausführen
 
 
 Fragen
 =======
-* brauchen wir eine lückenlos fortlaufende rechnungs nummer ?
 * was soll mit den 5% provisionabzug passiern? (tax deducted at source)
 * faking phone number
 
 
 CURRENT - TODOS
 ===============
-
-* neues payment gateway einrichten
-
 
 * rework invoice tab - use subselect to order and limit before group by to show most recent transactions frist
 * mark transfer as failed - freeze members transfers!
@@ -39,7 +33,6 @@ HOW TO SETUP
 
 * create database with schema
 * execute composer
-* execute /helper/setup.php
 * create directories:
   /var/logs/
   /var/payouts/
@@ -55,6 +48,8 @@ HOW TO SETUP
   * ziparchive - php7.0-libzip
   * finfo extension checken - meistens schon installiert
   * gd extension installieren - php7.0-gdexi
+
+* execute /helper/setup.php
 
 NICE TO HAVE
 ============
