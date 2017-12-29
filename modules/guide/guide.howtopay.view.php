@@ -12,7 +12,7 @@ class GuideHowtopay extends Base {
     $this->formData = $params['formData'];
     
     return $this->renderFile(
-      dirname(__FILE__).DIRECTORY_SEPARATOR.'Howtopay.guide.html',
+      dirname(__FILE__).DIRECTORY_SEPARATOR.'howtopay.guide.html',
       $params
     );
   }
