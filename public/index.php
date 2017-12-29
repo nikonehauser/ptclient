@@ -7,8 +7,7 @@ define('BASE_DIR', dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATO
 require BASE_DIR.'include'.DIRECTORY_SEPARATOR.'bootstrap.php';
 
 try {
-  Session::start();
-
+  
   /* =============================================================== */
   /* If token is given check for its validity
   /* By INTENTION, this will override any previous valid token

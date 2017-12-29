@@ -90,8 +90,8 @@ use \Tbmt\Router as R;
 
 						<div class="social-info pull-right hidden-xs hidden-sm">
 							<ul class="social textcolor list-unstyled">
-								<li class="facebook active"><a href="<?php echo R::toModule('member', 'signup'); ?>">Signup</a></li>
-								<li class="mail active"><a href="mailto:<?=$this->textBrandMail?>"><i class="fa fa-envelope"></i><span><?=$this->textBrandMail?></span></a></li>
+								<li class="facebook active"><a href="<?php echo R::toModule('member', 'signup'); ?>"><i class="fa fa-check"></i>Signup</a></li>
+								<li class="mail active"><a href="mailto:<?=$this->textBrandMail?>" title="<?=$this->textBrandMail?>"><i class="fa fa-envelope"></i><span>Mail</span></a></li>
 								<li class="facebook active"><a href="<?=\Tbmt\Router::toModule('about', 'faq')?>"><i class="fa fa-question-circle"></i><span>FAQ</span></a></li>
 							</ul><!-- // .social -->
 						</div><!-- // .social-info -->
@@ -133,6 +133,14 @@ use \Tbmt\Router as R;
 						echo '</li>';
 					}
 					?>
+									<li>
+										<a style="vertical-align: top;"><div class="flag flag-<?php echo \Tbmt\Localizer::currentLang(); ?>"></div></a>
+										<ul class="nav navbar-nav navbar-right">
+											<li class="facebook active"><a href="<?php echo R::toModule('projects', null, ['lang' => 'en']); ?>"><div class="flag flag-en" style="margin-right: 8px;"></div></a></li>
+											<li class="facebook active"><a href="<?php echo R::toModule('projects', null, ['lang' => 'hi']); ?>"><div class="flag flag-hi" style="margin-right: 8px;"></div></a></li>
+										</ul>
+									</li>
+
 								</ul><!-- // .clearfix -->
 							</nav><!-- // nav -->
 						</div><!-- // .site-menu-container -->
@@ -195,7 +203,7 @@ use \Tbmt\Router as R;
 										<div class="post-icon"><i class="fa fa-building-o"></i></div>
 										<div class="post-content">
 											<h4 class="bottom-0"><a href="<?=\Tbmt\Router::toModule('about', 'index')?>"><?=$this->i18nView['useful_link_about_us']?></a></h4>
-											<h4 class="bottom-0"><a href="<?=\Tbmt\Router::toModule('impressum', 'index')?>"><?=$this->i18nView['useful_link_impressum']?></a></h4>
+											<h4 class="bottom-0"><a href="<?=\Tbmt\Router::toModule('about', 'impressum')?>"><?=$this->i18nView['useful_link_impressum']?></a></h4>
 										</div>
 									</li>
 								</ul>

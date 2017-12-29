@@ -12,7 +12,7 @@ class Index extends Base {
     $linkNames = $this->i18nView['navigation_links'];
     $subLinkNames = $this->i18nView['navigation_sublinks'];
     $this->navigationLinks = [];
-    foreach (['projects', 'exp_videos', 'guide', 'member', 'about', 'impressum', 'account'] as $linkName) {
+    foreach (['projects', 'exp_videos', 'guide', 'member', 'about', 'account'] as $linkName) {
       $locale = $linkNames[$linkName];
 
       $sublinks = null;
@@ -114,6 +114,7 @@ class Index extends Base {
 
     $this->baseUrl = \Tbmt\Router::toBase();
     $this->i18nView = $this->i18nView;
+    $this->arrAccepted = \Tbmt\Localizer::getAcceptedLanguage();
   }
 
   protected $varsDef = [

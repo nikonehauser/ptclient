@@ -40,6 +40,7 @@ class AboutController extends BaseController {
     'contact' => true,
     'faq' => true,
     'terms' => true,
+    'impressum' => true,
     'contact_submit' => true
   ];
 

@@ -13,7 +13,8 @@ class Localizer {
   static private $arrData = array();
 
   static private $arrAccepted = [
-    'en' => 'US'
+    'en' => 'US',
+    'hi' => 'Hindi'
   ];
 
   static private $loadedLang;
@@ -24,6 +25,10 @@ class Localizer {
 
   private function __construct() {}
 
+  static public function getAcceptedLanguage() {
+    return self::$arrAccepted;
+  }
+
   static public function encodeHtml($string) {
     return \str_replace(
       ["\r\n", "\r", "\n", "\t", '  ', '  '],
@@ -32,11 +37,25 @@ class Localizer {
     );
   }
 
-  static public function load($localesPath, $lang = null) {
-    if ( $lang === null || !isset(self::$arrAccepted[$lang]) )
-      $lang = self::askBrowser(self::$arrAccepted);
+  static public function currentLang() {
+    return self::$loadedLang;
+  }
 
-    $lang = self::$loadedLang = $lang ? $lang[0] : self::FALLBACK;
+  static public function load($localesPath, $lang = null) {
+    if ( $lang === null || !isset(self::$arrAccepted[$lang]) ) {
+      $lang = Session::get(Session::KEY_LANG);
+      if ( !$lang )
+        $lang = self::askBrowser(self::$arrAccepted);
+    }
+
+    Session::set(Session::KEY_LANG, $lang);
+
+    if ( !$lang )
+      $lang = self::$loadedLang = self::FALLBACK;
+    else if ( is_array($lang) )
+      $lang = self::$loadedLang = $lang[0];
+    else 
+      self::$loadedLang = $lang;
 
     self::$arrData = include $localesPath.$lang.'-'.self::$arrAccepted[$lang].'.php';
 

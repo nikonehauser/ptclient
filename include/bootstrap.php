@@ -95,7 +95,9 @@ try {
   exit();
 }
 
-Localizer::load(LOCALES_DIR);
+Session::start();
+
+Localizer::load(LOCALES_DIR, !empty($_REQUEST['lang']) ? $_REQUEST['lang'] : null);
 Router::init($baseUrl, '');
 RouterToMarketing::init(Config::get('extended.system.url'), '');
 

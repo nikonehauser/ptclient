@@ -8,6 +8,7 @@ final class Session {
   const KEY_USER_ID = 'user_id';
   const KEY_SIGNUP_MSG = 'show_signup_msg';
   const KEY_PAYMENT_MSG = 'show_payment_msg';
+  const KEY_LANG = 'lang';
 
   static private $user;
 

@@ -731,3 +731,34 @@ a.highlighted {
   font-size: 10px;
   padding: 4px 6px;
 }
+
+/* =============================================================== */
+/* flags 
+================================================================ */
+
+.flag {
+  display: inline-block;
+  height: 12px;
+  width: 27px;
+  margin: 0px;
+  padding: 0px;
+  position: relative;
+}
+
+.flag:after {
+  content: "";
+  position: absolute;
+  height: 18px;
+  width: 27px;
+  left: 0;
+  top: 0;
+  background: url("../images/flags.png");
+}
+
+.flag-en:after {
+  
+}
+
+.flag-hi:after {
+  background-position: 27px 0px;
+}
