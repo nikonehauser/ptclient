@@ -4,47 +4,24 @@
 
   <div class="row bottom-30 top-30 sheet">
   <div class="col-md-12 " id="printableContainer">
-    <span style="float:right;">
-      <?=\Tbmt\view\Factory::buildButton(
-        'Print',
-        '#',
-        '',
-        '',
-        'onclick="doPrintContainer(\'printableContainer\')"'
-      )?>
-    </span>
 
     <h1>Dear customer,</h1>
     <p>
-      we offer following option to pay the Happiness Guide:
+      Do you want purchase the Happiness Guide? Fine, you can purchase the Happiness Guid with <img src="<?=Tbmt\Router::toImage('payumoney.jpg')?>" title="PayU money"/>. It is very easy and comfortable.
     </p>
-
-    <ul style="list-style-type: decimal;">
-      <li>Paying with our Payment Partner<img src="<?=Tbmt\Router::toImage('payubiz.jpg')?>" title="PayU biz"/> offers several options:<br>
-        <ul>
-          <li>Credit Card</li>
-          <li>Debit Card</li>
-          <li>Net Banking</li>
-          <li><img src="<?=Tbmt\Router::toImage('payumoney.jpg')?>" title="PayU money"/></li>
-        </ul>
-      </li>
-
-      <li>You wish there would be another payment option? Sure, just <a href="<?=\Tbmt\Router::toModule('about', 'contact')?>">contact us!</a></li>
-
-    </ul>
-
-    <h1>So how to pay?</h1>
     <p>
-      Just follow <a href="<?=\Tbmt\Router::toModule('guide')?>">this link</a> and click "Pay now with PayU". You will be redirected to the checkout process where you can select your prevered payment method.
+      PayU money allows you to pay with <span class="highlight">Credit Card</span>, <span class="highlight blue">Debit Card</span>, <span class="highlight yellow">Net Banking</span>.
+    </p>
+    <p>
+      Just click the following "go to PayU money" button. You will be redirected to the checkout process where you can select your preferred payment method.
     </p>
 
-    <h1>Here is our bank account for your bank transfer or cash deposit:</h1>
-    <address>
-      Betterliving Management Private Limited<br>
-      INDUSIND BANK LTD, JASOLA<br>
-      Bank account: 201001616959<br>
-      IFSC: INDB0000389<br>
-    </address>
+
+    <?php include(dirname(__FILE__).DIRECTORY_SEPARATOR.'pdetails.purchase.guide.html'); ?>
+
+    <p style="margin-top: 10px;">
+      You have any question, or you wish there would be another payment option? Sure, just <a href="<?=\Tbmt\Router::toModule('about', 'contact')?>">contact us!</a>
+    </p>
   </div>
   </div>
 </div>

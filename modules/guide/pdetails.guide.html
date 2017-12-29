@@ -22,7 +22,7 @@
 
       <!-- paypal things -->
       <div class="product-amount clearfix">
-        <?php include(dirname(__FILE__).DIRECTORY_SEPARATOR.'pdetails.purchase.guide.html'); ?>
+        <?php echo \Tbmt\view\Factory::buildButton('How to purchase', \Tbmt\Router::toModule('guide', 'howtopay')) ?>
       </div>
 
       <!--

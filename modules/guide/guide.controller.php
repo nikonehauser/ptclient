@@ -14,6 +14,15 @@ class GuideController extends BaseController {
   ];
 
   public function action_index() {
+    return ControllerDispatcher::renderModuleView(
+      self::MODULE_NAME,
+      'index', [
+        'member' => Session::getLogin(),
+      ]
+    );
+  }
+
+  public function action_howtopay() {
     $login = Session::getLogin();
 
     $formData = null;
@@ -28,7 +37,7 @@ class GuideController extends BaseController {
 
     return ControllerDispatcher::renderModuleView(
       self::MODULE_NAME,
-      'index', [
+      'howtopay', [
         'member' => $login,
         'formData' => $formData,
       ]

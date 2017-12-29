@@ -3,12 +3,7 @@ UPDATE SERVER - TODO
 
 update
 ======
-* für die head leute -> photos_exist auf true setzen
-<<<<<<< .mine
-
-=======
-* composer install ausführen
->>>>>>> .theirs
+* für die head leute -> photos_exist auf true setzen  
 
 
 Fragen
