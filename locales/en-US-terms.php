@@ -118,6 +118,10 @@ Betterliving will do further payouts if and only after the customer updated his 
 For the avoidance of doubt, it is the sole responsibility of the Customer to declare and pay any taxes on any affiliate commission received.
 </p>',
 
+'<p>
+Due to legal requirements Betterliving has to transfer 5% from the affiliate commission as TDS to the tax authorities. The amount of the affiliate commission to be paid will be reduced accordingly by 5%.
+</p>',
+
 '<h3>INTELLECTUAL PROPERTY</h3>',
 
 '<p>

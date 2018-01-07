@@ -1020,7 +1020,9 @@ return [
 
     /* MAILS
     ---------------------------------------------*/
-  'mail' => '__$mails__'
+  'mail' => '__$mails__',
+
+  'terms_tax' => 'Due to legal requirements Betterliving has to transfer 5% from the affiliate commission as TDS to the tax authorities. The amount of the affiliate commission to be paid will be reduced accordingly by 5%.',
 ];
 
 ?>
