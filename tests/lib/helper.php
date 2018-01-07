@@ -63,8 +63,8 @@ class DbEntityHelper {
     'BankStreet'    => '',
     'BankZipCode'   => '',
     'BankCountry'   => '',
-    'passportfile'   => '',
-    'panfile'        => '',
+    'Passportfile'   => '',
+    'Panfile'        => '',
   ];
 
   static public $memberSignup = [
@@ -176,6 +176,7 @@ class DbEntityHelper {
 
     if ( $receivedPaiment ) {
       $member->onReceivedMemberFee(self::$currency, time(), false, self::$con);
+      $member->setPhotosExist(1);
       $member->save(self::$con);
     }
 

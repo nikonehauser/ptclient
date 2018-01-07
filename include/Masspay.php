@@ -65,8 +65,6 @@ class Masspay {
     try {
 
       if ( $exec ) {
-        $this->prepareTransfers($isTypeHead, $con);
-
         $resultCounts = $this->executeTransfers($isTypeHead, $con);
         array_unshift($resultCounts, ['type was', $isTypeHead ? self::TYPE_HEAD : self::TYPE_STD]);
         array_unshift($resultCounts, ['was execution', 'yes']);
@@ -74,7 +72,8 @@ class Masspay {
 
       } else {
         // always prepare all available transfers
-        //$this->prepareTransfers($con);
+        $this->prepareTransfers(true, $con);
+        $this->prepareTransfers(false, $con);
 
         $data['results'] = $this->viewTransferStats($con);
       }

@@ -19,6 +19,9 @@ class MasspayExcels {
 
     $this->ourCustomerId = Config::get('bank_customer_id');
     $this->ourBankAccountNumber = Config::get('bank_account_number');
+
+    $taxPercent = \Tbmt\Config::get('tds_tax_percent', \Tbmt\TYPE_INT, 0);
+    $this->taxPercent = $taxPercent / 100;
   }
 
   private function createSheet() {
@@ -139,6 +142,8 @@ class MasspayExcels {
       return;
     }
 
+    $taxedSummedAmount = $this->handleAmountsTax($summedAmount);
+
     $this->transferByMemberVersion[$memberProfileVersion] = [
       $this->currentRow,
       $summedAmount
@@ -152,7 +157,7 @@ class MasspayExcels {
       $otherAccNo = $member->getIban();
     }
 
-    list($columnNeft, $columnRtgs, $paymentMode) = $this->getColumnsContentByAmount($summedAmount);
+    list($columnNeft, $columnRtgs, $paymentMode) = $this->getColumnsContentByAmount($taxedSummedAmount);
 
     // sheet 1 columns
     $this->addRow($this->aTab1, [
@@ -189,7 +194,7 @@ class MasspayExcels {
       $paymentMode, // A
       $member->getFirstName().' '.$member->getLastName(), // B
       '', // C
-      $summedAmount, // D
+      $taxedSummedAmount, // D
       '', // E
       '', // F
       '', // G
@@ -259,9 +264,11 @@ class MasspayExcels {
 
     $amount += $additionalAmount;
 
-    $this->aTab2->setCellValue($this->amountColumnNameSheet2.$rowNumber, $this->formatPrice($amount));
+    $taxedAmount = $this->handleAmountsTax($amount);
 
-    list($columnNeft, $columnRtgs, $paymentMode) = $this->getColumnsContentByAmount($amount);
+    $this->aTab2->setCellValue($this->amountColumnNameSheet2.$rowNumber, $this->formatPrice($taxedAmount));
+
+    list($columnNeft, $columnRtgs, $paymentMode) = $this->getColumnsContentByAmount($taxedAmount);
 
     $this->aTab1->setCellValue($this->neftColumnNameSheet1.$rowNumber, $columnNeft);
     $this->aTab1->setCellValue($this->rtgsColumnNameSheet1.$rowNumber, $columnRtgs);
@@ -273,6 +280,11 @@ class MasspayExcels {
       $rowNumber,
       $amount
     ];
+  }
+
+  private function handleAmountsTax($amount) {
+    $taxAmount = round($amount * $this->taxPercent, 0, \PHP_ROUND_HALF_UP);
+    return $amount - $taxAmount;
   }
 
   private function mightBeIndusDirectBank($member) {

@@ -614,6 +614,8 @@ return [
           'oustanding_advertised_count' => 'Outstanding advertised customers count',
           'advertised_member_count' => 'Advertised customers count',
           'outstanding_total' => 'Total earned',
+          'outstanding_total_tax_withheld' => 'Tax withheld of total (TDS)',
+          'outstanding_total_gross_amount' => 'Total earned gross amount',
           'transferred_total' => 'Total transferred of it',
           'custom' => '--custom--',
           'single_amount' => 'Single Amount',

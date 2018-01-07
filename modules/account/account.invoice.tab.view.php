@@ -45,6 +45,19 @@ class AccountInvoiceTab extends Base {
 
     $this->paidout = $this->paidout['Total'];
 
+    $this->totalEarned = $this->member->getOutstandingTotal();
+    $this->totalTaxWithheld = [];
+    $this->totalEarnedGrossAmount = [];
+
+    $taxPercent = \Tbmt\Config::get('tds_tax_percent', \Tbmt\TYPE_INT, 0);
+    $taxPercent /= 100;
+    foreach ( $this->totalEarned as $currency => $amount) {
+      $this->totalEarnedGrossAmount[$currency] = $amount;
+      $taxAmount = round($amount * $taxPercent, 0, \PHP_ROUND_HALF_UP);
+      $this->totalEarned[$currency] = $amount - $taxAmount;
+      $this->totalTaxWithheld[$currency] = $taxAmount;
+    }
+
     $this->transDateForm = \Tbmt\Localizer::get('datetime_format_php.long');
     $this->allowTotalInvoice = $this->member->getType() >= \Member::TYPE_SALES_MANAGER;
 

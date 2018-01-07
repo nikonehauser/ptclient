@@ -615,6 +615,8 @@ return [
           'advertised_member_count' => 'विज्ञापित ग्राहक गिनती',
           'outstanding_total' => 'कुल कमाई',
           'transferred_total' => 'इसके कुल हस्तांतरण',
+          'outstanding_total_tax_withheld' => 'Tax withheld of total (TDS)',
+          'outstanding_total_gross_amount' => 'Total earned gross amount',
           'custom' => '--custom--',
           'single_amount' => 'Single Amount',
           'quantity' => 'मात्रा',

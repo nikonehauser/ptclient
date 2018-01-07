@@ -9,7 +9,13 @@
       <dd><?=$this->member->getAdvertisedCount()?></dd>
 
       <dt><?=$this->i18nView['outstanding_total']?></dt>
-      <dd><?=\Tbmt\view\Factory::currencyArrToString($this->member->getOutstandingTotal())?></dd>
+      <dd><?=\Tbmt\view\Factory::currencyArrToString($this->totalEarned)?></dd>
+
+      <dt><?=$this->i18nView['outstanding_total_tax_withheld']?></dt>
+      <dd><?=\Tbmt\view\Factory::currencyArrToString($this->totalTaxWithheld)?></dd>
+
+      <dt><?=$this->i18nView['outstanding_total_gross_amount']?></dt>
+      <dd><?=\Tbmt\view\Factory::currencyArrToString($this->totalEarnedGrossAmount)?></dd>
 
       <dt><?=$this->i18nView['transferred_total']?></dt>
       <dd><?=\Tbmt\Localizer::currencyFormatByCfg($this->paidout)?></dd>
