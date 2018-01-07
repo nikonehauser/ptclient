@@ -346,7 +346,6 @@ return [
         '30' => 'इसलिए, इस उदाहरण में 10 से 14 दिन लग सकते हैं।',
         '31' => 'यदि हर भविष्य का ग्राहक केवल दो नए ग्राहकों की सिफारिश करता है और इसमें औसतन एक हफ्ते लगता हैं, तो आपकी कमाई इस तरह से होगी:',
         '31_week' => 'सप्ताह',
-        '32' => '{0} you therefore already earned {1} {2}',
         '32' => 'लगभग दस हफ्तों के बाद आप ने पहले ही {2} कमा लिए',
         '32h' => ['After approximately ten weeks', 'round about', '$_after_10_weeks_$'],
         '33' => '<p>बेशक यह सिफारिश विपणन प्रणाली बेहिसाब काम नहीं करेगा क्योंकि लोगों की संख्या स्वाभाविक रूप से सीमित है। लेकिन वहां भी थे और अभी भी हैं, हालांकि, दुनिया भर में सिफारिश विपणन प्रणाली ने दुनिया भर में और विभिन्न आर्थिक क्षेत्रों में समृद्ध लोगों की एक बेहद अनगिनत संख्या बनाई है और अब भी नए लोगों का निर्माण कर रही है। </p><p>आपके लिए एकमात्र सवाल यह है कि: क्या आप इन खुशहाल लोगों में से एक हो सकते हैं या आप ऐसे व्यक्ति कहलना चाहेंगे जो इस बात पर विश्वास नहीं करता कि यह काम कर सकता है?</p>अभी यह निश्चित रूप से काम कर रहा है - आपको केवल शामिल होने की आवश्यकता है!',
@@ -895,6 +894,7 @@ return [
         'long_video_head' => 'Betterliving India की आश्चर्यजनक सिफारिश विपणन प्रणाली',
         'guide_video_head' => 'Happiness Guide वीडियो',
         'guide_illustration_head' => 'Happiness Guide इलस्ट्रेशन',
+
       ],
     ],
 
@@ -989,48 +989,13 @@ return [
         'page_title' => 'Happiness Guide',
         'product_title' => 'Happiness Guide',
         'product_description' => 'Our Happiness Guide series. A digital download about getting happier in life. You will get 8 pieces, each one more step to wealth and health',
-        'purchased_already' => 'You are already owning our Happiness Guide',
-        'purchased_already_link' => 'Follow this link to your account to
-        download our guide',
-        'want_purchase' => 'Do you want to purchase our Happiness Guide?',
-        'require_login' => 'Dont hesitate, you need to signup and login then',
-        'signup_button' => 'Got to signup',
-        'login_button' => 'Got to login',
+
 
         'paypal_register_text' => 'You don\'t have a PayPal Account?',
         'paypal_register_button' => 'Register PayPal Account for free',
 
         'product_tab_video' => 'Video',
         'product_tab_pdf' => 'PDF',
-
-        'popup_purchase_loading_text' => 'Processing your purchase',
-        'popup_purchase_success_text' => 'Purchase completed',
-        'popup_purchase_cancel_text' => 'The purchase could not be completed',
-
-        'popup_purchase_head' => 'Purchase Happines Guide',
-        'popup_purchase_text1' => 'We are happy that you are following us to a better live!',
-        'popup_purchase_text2' => 'Please read following notes carefully',
-        'popup_purchase_text3' => 'You are about to purchase a {0}! You wont receive any physical objects!',
-        'popup_purchase_text3_val' => ['digital download'],
-        'popup_purchase_text4' => 'The format of our Happines Guide is PDF. You can find a free to use {0}.',
-        'popup_purchase_text4_val' => ['pdf reader here'],
-        'popup_purchase_text5' => 'You will regularly receive our Happines Guide per Email (PDF file attached).',
-        'popup_purchase_text6' => 'You can download the PDF from within your login area as often as you like.',
-        'popup_purchase_text7' => 'We guarantee an available {0}. But much likely longer. This is just a safety clause for us if we might close this service. So we can not guarantee lifetime download service.',
-        'popup_purchase_text7_val' => ['download for at least 2 months'],
-        'popup_purchase_text8' => 'The costs are {0}. Please refer to PayPal for eventual {1}. PayPal will charge this extra effort from you!',
-        'popup_purchase_text8_val' => ['__', 'currency exchange rates'],
-        'popup_purchase_text9' => 'You can find all these notes and many more in our {0}.',
-        'popup_purchase_text9_val' => ['FAQ section'],
-        'popup_purchase_text10' => 'If you have more questions, don\'t hesitate {0}',
-        'popup_purchase_text10_val' => ['to contact us'],
-
-        'popup_purchase_text11' => 'Since you are purchasing a digital download there is NO RIGHT OF CANCELATION',
-        'popup_purchase_submit' => 'Complete Purchase Now',
-        'popup_purchase_cancel' => 'Cancel Purchase',
-        'popup_purchase_close' => 'Close',
-
-        'extended_system_user_note' => 'NOTE: The system recognized your exclusive invitation. By purchasing our Happiness Guide you will get access to the recommendation marketing system.',
       ],
 
       'handleresult' => [
@@ -1039,6 +1004,14 @@ return [
 
       'howtopay' => [
         'page_title' => 'How to pay the Happiness Guide',
+
+        'purchased_already' => 'You are already owning our Happiness Guide',
+        'purchased_already_link' => 'Follow this link to your account to download our guide',
+        'want_purchase' => 'Do you want to purchase our Happiness Guide?',
+        'require_login' => 'Dont hesitate, you need to signup and login then',
+        'signup_button' => 'Got to signup',
+        'login_button' => 'Got to login',
+
       ],
     ],
   ],
