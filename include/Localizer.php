@@ -54,7 +54,7 @@ class Localizer {
       $lang = self::$loadedLang = self::FALLBACK;
     else if ( is_array($lang) )
       $lang = self::$loadedLang = $lang[0];
-    else 
+    else
       self::$loadedLang = $lang;
 
     self::$arrData = include $localesPath.$lang.'-'.self::$arrAccepted[$lang].'.php';
@@ -68,6 +68,7 @@ class Localizer {
 
     self::$arrData['view']['about']['faq']['items'] = include $localesPath.$lang.'-faq.php';
     self::$arrData['mail'] = include $localesPath.$lang.'-mails.php';
+    self::$arrData['view']['about']['terms']['texts'] = include $localesPath.$lang.'-terms.php';
   }
 
   static public function plain($strKey) {

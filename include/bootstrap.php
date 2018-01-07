@@ -97,9 +97,9 @@ try {
 
 Session::start();
 
-Localizer::load(LOCALES_DIR, !empty($_REQUEST['lang']) ? $_REQUEST['lang'] : null);
-Router::init($baseUrl, '');
+Router::init($baseUrl, ''); // LOAD router BEFORE locales
 RouterToMarketing::init(Config::get('extended.system.url'), '');
+Localizer::load(LOCALES_DIR, !empty($_REQUEST['lang']) ? $_REQUEST['lang'] : null);
 
 define('BOOTSTRAP_DONE', true);
 define('DEVELOPER_MODE', Config::get('devmode', TYPE_BOOL, false));

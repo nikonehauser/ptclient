@@ -4,12 +4,9 @@ namespace Tbmt;
 
 class MemberStrategy {
   static public function get($extended) {
-    return new ExtendedMemberStrategy();
-
-    // deprecated
-    // return $extended === true
-    //   ? new ExtendedMemberStrategy()
-    //   : new SimpleMemberStrategy();
+    $inst = new ExtendedMemberStrategy();
+    $inst->SIGNUP_FORM_FIELDS['country'][1] = \Tbmt\Localizer::get('common.country.india');
+    return $inst;
   }
 }
 

@@ -30,6 +30,10 @@ return [
       7 => 'IT Speciallist',
     ],
 
+    'country' => [
+      'india' => 'India',
+    ],
+
     'forbidden_countries' => [
       'Norway',
       'Sweden',
@@ -241,12 +245,15 @@ return [
     'exp_videos' => [
       'index' => [
         'page_title' => 'Explanation videos - Login and pay',
+        'head' => 'Login and pay',
       ],
       'whatsappinvite' => [
         'page_title' => 'Explanation videos - WhatsApp Invitation',
+        'head' => 'WhatsApp Invitation',
       ],
       'stepstosuccess' => [
         'page_title' => 'Explanation videos - Steps to Success',
+        'head' => 'Steps to Success',
 
         'pdf_explanation_head' => 'Recommendation Marketing System',
         'pdf_explanation' => 'We also prepared an illustrated explanation in an extra document. If you prefer reading a pdf document, ',
@@ -254,9 +261,11 @@ return [
       ],
       'fromto' => [
         'page_title' => 'Explanation videos - From first mail to premium customer',
+        'head' => 'Login and pay',
       ],
       'backoffice' => [
         'page_title' => 'Explanation videos - The backoffice of Betterliving',
+        'head' => 'The backoffice of Betterliving',
       ],
     ],
 
@@ -284,12 +293,14 @@ return [
         'head_part' => 'Step',
         'head_illustration' => 'Illustration',
 
-
+        'names_yourself' => 'Yourself',
 
         'pdf_explanation' => 'There is also an illustrated explanation in an extra document. If you prefer to read a pdf document, ',
         'pdf_explanation_link' => 'just click here',
         'video_explanation' => 'Otherwise we have prepared a video. Just follow this ',
         'video_explanation_link' => 'link',
+
+        '',
 
         '1' => 'As you are a customer of '.$brandName.' you will automatically be in a "customer" position in our recommendation marketing system.',
         '1h' => ['$_member_fee_$'],
@@ -337,8 +348,7 @@ return [
         '31_week' => 'Week',
         '32' => '{0} you therefore already earned {1} {2}',
         '32h' => ['After approximately ten weeks', 'round about', '$_after_10_weeks_$'],
-        '33' => '<p>Of course this recommendation marketing system will not work endlessly because the number of people is naturally limited. But there were and there still are, however, recommendation marketing systems worldwide and in different economic fields that have created a sheer endless number of prosperous people and are still creating new ones.</p><p>The only question for you is: Will you be one of these happy people or will you be the one who does not believe this could work?</p>Right now it is definitely working - you only need to join!
-',
+        '33' => '<p>Of course this recommendation marketing system will not work endlessly because the number of people is naturally limited. But there were and there still are, however, recommendation marketing systems worldwide and in different economic fields that have created a sheer endless number of prosperous people and are still creating new ones.</p><p>The only question for you is: Will you be one of these happy people or will you be the one who does not believe this could work?</p>Right now it is definitely working - you only need to join!',
         '34' => 'With the customers who have decided to recommend new customers quickly on you will earn lots and lots of money.',
         '35' => 'Trustworthy mathematical calculations project that customers who became active in the first 12 months after starting the recommendation marketing system and at least recommend three new customers, earned a total of {0} to {1} in the first 12 months.',
         '35h' => ['$_lvl1_$', '$_lvl1_$'],
@@ -418,6 +428,7 @@ return [
       'signup' => [
         'page_title' => 'Sign up to be a customer',
         'form_error' => 'Form has invalid fields.',
+        'token_missing_head' => 'You can not sign up',
         'token_missing' => 'Missing valid exclusive invitation code. Please visit the invitation link you got from your referrer and come back to this signup.',
         'referral_member_num_help' => 'This is the customer number of the person who recommended you. This person will also receive a reward for your purchase. In order to join, you need somebody to invite you with their customer number.',
         'invitation_code_help' => 'This code is NOT required. You may have received a special invitation code from the person who invited you.',
@@ -426,13 +437,17 @@ return [
         'passport_explanation' => 'Our bank needs for the transfer of your commission your pass photo. Please upload here a pass photo of you. Important: In the photo, your face must be clearly visible. Otherwise the bank cannot transfer your commission into your bank account.',
         'pan_explanation' => 'Our bank needs for the transfer of your commission your PAN card. Please upload here a photo from your PAN card. Important: In In the photo, all information from the PAN card must be clearly legible. Otherwise the bank cannot transfer your commission into your bank account.',
 
+        'error_signup_maintenance' => 'We are sorry! Signup is in maintenance. Please come back later!',
+
         'form_labels' => [
           'contact' => 'Registration Form',
           'address' => 'Address',
           'passportandpan' => 'Pass / Pan Photo',
           'bank_account' => 'Bank Account',
+          'bank_address' => 'Bank Address',
           'confirm' => 'Confirm',
 
+          'referral_member_num_num_head' => 'संख्या:',
           'referral_member_num' => 'Congratulations, you were invited by:',
           'invitation_code' => 'Invitation code (optional)',
           'firstName' => 'First name',
@@ -470,7 +485,10 @@ return [
 
           'submit' => 'Submit',
 
+          'find_ifsc_code_how_to' => 'How can I find my IFSC Code',
+
           'bank_account_info' => 'We will never charge your bank account. Only the payments for your referrals will be paid into this account.',
+          'bank_account_info_2' => 'Please take good care and double check your your account data. We will not take responsibility for wrong transfers due to wrong account data.',
           'email_info' => 'You will never receive any spam from us. We need your e-mail address to contact you in case there are problems with transferring money. If you do not have an e-mail address you can register here for free: ',
         ],
       ],
@@ -811,6 +829,14 @@ return [
         'slide_2_3' => 'and change immediately your and other\'s lives into a better',
         'slide_2_4' => 'and happier direction',
 
+        'slide_3_1' => 'Say hello to your future with much more',
+        'slide_3_2' => 'happiness and a passive income',
+
+        'slide_4_1' => 'Our marketing system works for your happy life.',
+        'slide_4_2' => 'It`s based on trustworthy mathematical calculations.',
+        'slide_4_3' => 'Take action now and sign up for a better',
+        'slide_4_4' => 'life for you and everybody who you love.',
+
         'message_head' => 'India, the largest democracy of 1.32 billion people',
         'message_text' => 'is also the biggest center of poverty in the world',
 
@@ -913,6 +939,11 @@ return [
 
       'impressum' => [
         'page_title' => 'Impressum',
+      ],
+
+      'terms' => [
+        'page_title' => 'Terms of Use',
+        'texts' => '__$terms__'
       ],
     ],
 

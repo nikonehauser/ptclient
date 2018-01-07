@@ -10,8 +10,7 @@
 
             <?=\Tbmt\view\Factory::buildHeadingArea('Maintenance', 'bottom-30')?>
 
-            <pre>We are sorry! But some highly trained minions are working on the problem!
-Unfortunately we still estimate a duration of a view hours. Please come back tomorrow!</pre>
+            <pre><?=$this->i18nView['error_signup_maintenance']?></pre>
 
             <center>
               <img src="<?=\Tbmt\Router::toImage('minions_maintenance.jpg')?>" style="max-width: 100%; max-height: 500px; margin: auto;">
@@ -30,7 +29,7 @@ Unfortunately we still estimate a duration of a view hours. Please come back tom
       <div class="sheet">
         <div class="row">
           <div class="col-md-12">
-            <p>You can not sign up</p>
+            <p><?=$this->i18nView['token_missing_head']?></p>
             <?php echo \Tbmt\view\Factory::buildNotification($this->i18nView['token_missing'], '', 'notice top'); ?>
 
           </div>
@@ -73,8 +72,10 @@ Unfortunately we still estimate a duration of a view hours. Please come back tom
             <div class="field">
               <label for="signupFormreferral_member_num"><?php echo $this->formLabels['referral_member_num']; ?></label>
               <p class="help-block">
-                <?php echo \Tbmt\view\Factory::buildMemberFullNameString($this->referrerMember); ?> - (Number: <?php echo $this->referrerMember->getNum(); ?>)
+                <?php echo \Tbmt\view\Factory::buildMemberFullNameString($this->referrerMember); ?> - (<?=$this->formLabels['referral_member_num_num_head']?> <?php echo $this->referrerMember->getNum(); ?>)
               </p>
+
+
 
               <?php if ( !empty($this->formErrors['referral_member_num']) ) {
                 echo '<div class="has-error"><p class="help-block text-danger">'.$this->formErrors['referral_member_num'].'</p></div>';
@@ -202,7 +203,7 @@ Unfortunately we still estimate a duration of a view hours. Please come back tom
             </div>
 
             <div class="col-md-12">
-              <p>Please take good care and double check your your account data. We will not take responsibility for wrong transfers due to wrong account data.</p>
+              <p><?=$this->formLabels['bank_account_info_2']?></p>
             </div>
 
             <div class="col-md-12">
@@ -214,7 +215,7 @@ Unfortunately we still estimate a duration of a view hours. Please come back tom
             </div>
             <div class="col-md-6">
                 <?php echo $formBuilder->buildFieldGroup('bic'); ?>
-                <a href="https://www.bankifsccode.com" target="_blank">How can I find my IFSC Code</a>
+                <a href="https://www.bankifsccode.com" target="_blank"><?=$this->formLabels['find_ifsc_code_how_to']?></a>
             </div>
           </div>
         </div>
@@ -222,7 +223,7 @@ Unfortunately we still estimate a duration of a view hours. Please come back tom
         <!--
           BANK ADDRESS
           *************************** -->
-            <?=\Tbmt\view\Factory::buildHeadingArea('Bank Address')?>
+            <?=\Tbmt\view\Factory::buildHeadingArea($this->formLabels['bank_address'])?>
 
         <div class="sheet">
           <div class="row">
