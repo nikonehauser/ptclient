@@ -227,6 +227,8 @@ return [
 
       'copyright_text' => '© Copyright 2016 by '.$copyrightName.' All Rights Reserved.',
 
+      'useful_link_1' => 'Useful',
+      'useful_link_2' => 'Links',
       'useful_link_contact' => 'Any questions? Just contact us!',
       'useful_link_faq' => 'Frequently asked questions',
       'useful_link_terms' => 'Terms of use',
@@ -288,8 +290,6 @@ return [
         'pdf_explanation_link' => 'just click here',
         'video_explanation' => 'Otherwise we have prepared a video. Just follow this ',
         'video_explanation_link' => 'link',
-
-        '',
 
         '1' => 'As you are a customer of '.$brandName.' you will automatically be in a "customer" position in our recommendation marketing system.',
         '1h' => ['$_member_fee_$'],
@@ -580,7 +580,15 @@ return [
           'no_image' => '- no image -',
 
           'images_missing' => 'We will only need your image and your PAN Card internally for the payment of your recommendation fee and for the payment of the GST to the government. Since we strictly pay attention to legality, we have to comply with the legal regulations. Please pay attention to a good quality of your photos.',
-          'images_missing_attention' => 'ATTENTION - Images are Missing'
+          'images_missing_attention' => 'ATTENTION - Images are Missing',
+          'good_decision' => 'बहुत अच्छा निर्णय!',
+          'invitation_link_comment' => 'This is your exclusive invitation link:',
+          'additional_invitation_options' => 'Use this link to invite your friends and earn the systems rewards. You can share it with:',
+          'additional_invitation_option_copy' => 'Copy',
+          'additional_invitation_option_email' => 'Email',
+          'important_header' => 'IMPORTANT',
+          'this_is_customers_num' => 'This number {num} is your member number!',
+          'this_is_customers_num_remember' => 'Remember it! You need this number to login!',
         ],
         'invoice' => [
           'stats' => 'Statistics',
@@ -602,6 +610,8 @@ return [
             3 => 'Transferred',
             4 => 'Failed',
           ],
+
+          'button_total_invoice' => 'Show total invoice',
 
           'reason' => 'Reason',
           'transaction_reasons' => [
@@ -794,6 +804,25 @@ return [
     'projects' => [
       'index' => [
         'page_title' => 'Projects',
+
+        'slide_1' => 'Help yourself and other to a better and happier life',
+        'slide_2_1' => 'Signup and become a customer of '.$brandName,
+        'slide_2_2' => 'and get our Happiness Guide for a moderate purchase price',
+        'slide_2_3' => 'and change immediately your and other\'s lives into a better',
+        'slide_2_4' => 'and happier direction',
+
+        'message_head' => 'India, the largest democracy of 1.32 billion people',
+        'message_text' => 'is also the biggest center of poverty in the world',
+
+        'poor_teaser_1' => 'Top most reasons why india is so poor',
+        'poor_teaser_2' => 'India has 363 million (or 29.5 percent) people under the poverty line based on a survey of 2011-12',
+        'poor_teaser_3' => 'Unequal Distribution of Wealth',
+        'poor_teaser_4' => 'Unfortunately, since departure of the colonial British in 1947 all economic development has taken place in the cities, while the majority of the population lives in the countryside.',
+        'poor_teaser_5' => 'Illiteracy',
+        'poor_teaser_6' => 'High level of illiteracy, particularly in the rural areas and among women, has been a crucial factor not only in perpetuating economic backwardness but also for high population growth',
+        'poor_teaser_7' => 'Population',
+        'poor_teaser_8' => 'India\'s population is currently growing annually at the rate of about 1.4 percent',
+
         'about_us_title' => 'About us and our idea',
         'about_us_title2' => 'Help yourself AND others',
         'planed_projects_title' => 'Our planned projects for the future',
@@ -832,16 +861,13 @@ return [
         'service_contact_desc' => 'That is still no problem! Just contact us and we will answer any question!',
         'service_contact_btn' => 'Contact us',
 
-        'service_signup_title' => 'I want to join',
-        'service_signup_desc' => 'Great! Just follow this link and fill in the registration form to get started!',
-        'service_signup_btn' => 'Go to registration',
-
-        'video_explanation_head' => 'Recommendation marketing system video',
-        'video_explanation' => 'We also prepared a video. Explaining our goals in detail.',
-
         'pdf_explanation_head' => 'Recommendation marketing system',
         'pdf_explanation' => 'There is also an illustrated explanation in an extra document. If you prefer reading a pdf document, ',
         'pdf_explanation_link' => 'just click here',
+
+        'long_video_head' => 'The amazing recommendation marketing system of Betterliving India',
+        'guide_video_head' => 'Happines Guide Video',
+        'guide_illustration_head' => 'Happiness Guide ILLUSTRATION',
 
       ],
     ],
@@ -852,6 +878,13 @@ return [
 
       'index' => [
         'page_title' => 'About Us',
+        'texts' => [
+          '1' => 'We are proud to offer you this fantastic project in cooperation with Betterliving Management Private Ltd./Malta. This project is managed and produced by Betterliving Management Private Ltd./Malta.',
+          '2' => 'The idea of Betterliving was created in 2015 by a circle of successful business people in the areas of health, marketing, sales and personal training in Germany and India.',
+          '3' => 'In 2016 we decided that the idea – help the people in India with a professional Happiness Guide – starts in 2017.',
+          '4' => 'Betterliving is not only a part of the names of our companies. Betterliving is our concept in the real sense of this word. We offer everybody a very simple way to a better life.',
+          '5' => 'Become customer of Betterliving and use all your advantages from us and get also your personally and simple way to a much better life.',
+        ]
       ],
 
       'contact' => [

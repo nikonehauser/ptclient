@@ -22,7 +22,7 @@ use \Tbmt\Router as R;
 
                             <!-- LAYER NR. 2 -->
                             <div class="tp-caption small_title sfr tp-resizeme" data-x="445" data-y="80"  data-speed="600" data-start="500" data-easing="Power3.easeInOut" data-splitin="none" data-splitout="none" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" style="z-index: 3; max-width: auto; max-height: auto; white-space: nowrap;">
-                                Help yourself and other to a better and happier life
+                                <?=$this->i18nView['slide_1']?>
                             </div>
 
                             <!-- LAYER NR. 3 -->
@@ -33,10 +33,10 @@ use \Tbmt\Router as R;
 
                             <!-- LAYER NR. 4 -->
                             <div class="tp-caption hidden-sm hidden-xs black_p right sfb tp-resizeme" data-x="605" data-y="170"  data-speed="600" data-start="500" data-easing="Power3.easeInOut" data-splitin="none" data-splitout="none" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="600" style="z-index: 5; max-width: auto; max-height: auto;">
-                                Signup and become a customer of <?=Tbmt\Config::get('brand.name')?><br>
-                                and get our Happiness Guide for a moderate purchase price<br>
-                                and change immediately your and other's lives into a better<br>
-                                and happier direction.
+                                <?=$this->i18nView['slide_2_1']?><br>
+                                <?=$this->i18nView['slide_2_2']?><br>
+                                <?=$this->i18nView['slide_2_3']?><br>
+                                <?=$this->i18nView['slide_2_4']?>
                             </div>
                         </li>
 
@@ -187,8 +187,8 @@ use \Tbmt\Router as R;
   <div class="row">
 
       <div class="heading-area text-center bottom-30 top-40 wow slideInUp animated" data-wow-duration="0.6s" data-wow-delay="0.3s" style="visibility: visible; animation-duration: 0.6s; animation-delay: 0.3s; animation-name: slideInUp;">
-        <h4 class="heading large">India, the largest democracy of 1.32 billion people</h4>
-        <span class="sub-heading">is also the biggest center of poverty in the world</span>
+        <h4 class="heading large"><?=$this->i18nView['message_head']?></h4>
+        <span class="sub-heading"><?=$this->i18nView['message_text']?></span>
       </div>
   </div>
 </div>
@@ -203,8 +203,8 @@ use \Tbmt\Router as R;
             <div class="col-md-6">
 
               <div class="heading-area white top-40 text-left bottom-30 wow fadeInUp animated" data-wow-duration="0.6s" data-wow-delay="0.3s" style="visibility: visible; animation-duration: 0.6s; animation-delay: 0.3s; animation-name: fadeInUp;">
-                <h4 class="heading white large">Top most reasons why india is so poor</h4>
-                <span class="sub-heading">India has 363 million (or 29.5 percent) people under the poverty line based on a survey of 2011-12</span>
+                <h4 class="heading white large"><?=$this->i18nView['poor_teaser_1']?></h4>
+                <span class="sub-heading"><?=$this->i18nView['poor_teaser_2']?></span>
               </div><!-- // .heading-area -->
 
               <div class="stepbox clearfix bottom-20 wow fadeInDown animated" data-wow-duration="0.6s" data-wow-delay="0.6s" style="visibility: visible; animation-duration: 0.6s; animation-delay: 0.6s; animation-name: fadeInDown;">
@@ -212,8 +212,8 @@ use \Tbmt\Router as R;
                   1
                 </div><!-- // .step -->
                 <div class="stepcontent">
-                  <h3 class="bottom-10">Unequal Distribution of Wealth</h3>
-                  <span>Unfortunately, since departure of the colonial British in 1947 all economic development has taken place in the cities, while the majority of the population lives in the countryside.</span>
+                  <h3 class="bottom-10"><?=$this->i18nView['poor_teaser_3']?></h3>
+                  <span><?=$this->i18nView['poor_teaser_4']?></span>
                 </div><!-- // .stepcontent -->
               </div><!-- // .stepbox -->
 
@@ -222,8 +222,8 @@ use \Tbmt\Router as R;
                   2
                 </div><!-- // .step -->
                 <div class="stepcontent">
-                  <h3 class="bottom-10">Illiteracy</h3>
-                  <span>High level of illiteracy, particularly in the rural areas and among women, has been a crucial factor not only in perpetuating economic backwardness but also for high population growth</span>
+                  <h3 class="bottom-10"><?=$this->i18nView['poor_teaser_5']?></h3>
+                  <span><?=$this->i18nView['poor_teaser_6']?></span>
                 </div><!-- // .stepcontent -->
               </div><!-- // .stepbox -->
 
@@ -232,8 +232,8 @@ use \Tbmt\Router as R;
                   3
                 </div><!-- // .step -->
                 <div class="stepcontent">
-                  <h3 class="bottom-10">Population</h3>
-                  <span>India's population is currently growing annually at the rate of about 1.4 percent</span>
+                  <h3 class="bottom-10"><?=$this->i18nView['poor_teaser_7']?></h3>
+                  <span><?=$this->i18nView['poor_teaser_8']?></span>
                 </div><!-- // .stepcontent -->
               </div><!-- // .stepbox -->
 
@@ -319,7 +319,7 @@ use \Tbmt\Router as R;
 <div class="container bottom-40" id="video_explanation">
 
   <div class="heading-area text-center bottom-30 top-40">
-    <h4 class="heading large">The amazing recommendation marketing system of Betterliving India</h4>
+    <h4 class="heading large"><?=$this->i18nView['long_video_head']?></h4>
   </div>
 
   <div class="row">
@@ -365,7 +365,7 @@ use \Tbmt\Router as R;
 <div class="container bottom-40" id="hg_video_explanation">
 
   <div class="heading-area text-center bottom-30 top-40">
-    <h4 class="heading large">Happines Guide Video</h4>
+    <h4 class="heading large"><?=$this->i18nView['guide_video_head']?></h4>
   </div>
 
   <div class="row">
@@ -385,7 +385,7 @@ use \Tbmt\Router as R;
 <div class="container bottom-40" id="hg_pdf_explanation">
 
   <div class="heading-area text-center bottom-30 top-40">
-    <h4 class="heading large">Happines Guide ILLUSTRATION</h4>
+    <h4 class="heading large"><?=$this->i18nView['guide_illustration_head']?></h4>
   </div>
 
   <div class="row nospace service-color-area">

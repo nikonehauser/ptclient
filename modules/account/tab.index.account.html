@@ -69,16 +69,15 @@
             <?=\Tbmt\view\Factory::buildNotification($this->i18nView['images_missing'], $this->i18nView['images_missing_attention'], 'notice top')?>
           <?php endif; ?>
 
-          <h3>Very good decision!</h3>
-          <p>This is your exclusive invitation link:</p>
+          <h3><?=$this->i18nView['good_decision']?></h3>
+          <p><?=$this->i18nView['invitation_link_comment']?></p>
           <pre class="wordwrap"><?php echo $this->member->getFullInvitationLink(); ?></pre>
-          <p>Use this link to invite your friends and earn the systems rewards. You can share it with:</p>
+          <p><?=$this->i18nView['additional_invitation_options']?></p>
 
           <a href="whatsapp://send?text=<?php echo $this->member->getFullInvitationLink(); ?>" class="whatsappButton "></a>
 
           <a class="shareEmailButton button yellow" href="mailto:?subject=look at this website&body=Hey buddy, I signed up here: <?php echo $this->member->getFullInvitationLink(); ?>, just check it out and call me back ;)">
-            <span><i class="pe-7s-mail"></i> Email</span></a>
-
+            <span><i class="pe-7s-mail"></i> <?=$this->i18nView['additional_invitation_option_email']?></span></a>
 
 <script type="text/javascript">
 function copyToClipboard(elem) {
@@ -128,7 +127,7 @@ function copyToClipboard(elem) {
 </script>
 
           <a class="shareToClipboard button black" onclick="copyToClipboard()">
-            <span>Copy</span></a>
+            <span><?=$this->i18nView['additional_invitation_option_copy']?></span></a>
 
         </div>
       </div>
@@ -139,9 +138,11 @@ function copyToClipboard(elem) {
 
     <div class="row top-40">
       <div class="col-md-12">
-        <?=\Tbmt\view\Factory::buildHeadingArea('IMPORTANT', 'bottom-30')?>
-        <p>This number <span class="highlight blue"><?php echo $this->member->getNum(); ?></span> is your member number!</p>
-        <p>Remember it! You need this number to login!</p>
+        <?=\Tbmt\view\Factory::buildHeadingArea($this->i18nView['important_header'], 'bottom-30')?>
+        <p><?=\Tbmt\Localizer::insert($this->i18nView['this_is_customers_num'], [
+            'num' => '<span class="highlight blue">'.$this->member->getNum().'</span>'
+          ], false)?></p>
+        <p><?=$this->i18nView['this_is_customers_num_remember']?></p>
 
       </div>
     </div>

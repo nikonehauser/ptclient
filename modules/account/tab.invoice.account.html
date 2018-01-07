@@ -19,7 +19,7 @@
   <?php
   if ( $this->allowTotalInvoice ) {
     echo \Tbmt\view\Factory::buildButton(
-      'Show total invoice',
+      $this->i18nView['button_total_invoice'],
       \Tbmt\Router::toModule('account', 'total_invoice'),
       ' yellow pull-right',
       'file-o'

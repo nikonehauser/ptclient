@@ -270,6 +270,10 @@ class IncrementalTextTranslation {
     $this->texts = $texts;
   }
   public function next() {
+    if ( !isset($this->texts[''.$this->i]) ) {
+      return null;
+    }
+
     $text = $this->texts[''.$this->i];
     if ( isset($this->texts[''.$this->i.'h']) ) {
       $text = \Tbmt\Localizer::insert(

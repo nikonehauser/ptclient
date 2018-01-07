@@ -136,8 +136,8 @@ use \Tbmt\Router as R;
 									<li>
 										<a style="vertical-align: top;"><div class="flag flag-<?php echo \Tbmt\Localizer::currentLang(); ?>"></div></a>
 										<ul class="nav navbar-nav navbar-right">
-											<li class="facebook active"><a href="<?php echo R::toModule('projects', null, ['lang' => 'en']); ?>"><div class="flag flag-en" style="margin-right: 8px;"></div></a></li>
-											<li class="facebook active"><a href="<?php echo R::toModule('projects', null, ['lang' => 'hi']); ?>"><div class="flag flag-hi" style="margin-right: 8px;"></div></a></li>
+											<li class="facebook active"><a href="<?php echo R::toModule('projects', null, ['lang' => 'en']); ?>"><div class="flag flag-en" style="margin-right: 8px;"></div> Translation</a></li>
+											<li class="facebook active"><a href="<?php echo R::toModule('projects', null, ['lang' => 'hi']); ?>"><div class="flag flag-hi" style="margin-right: 8px;"></div> Translation</a></li>
 										</ul>
 									</li>
 
@@ -183,7 +183,7 @@ use \Tbmt\Router as R;
 					<div class="col-md-6">
 						<div class="widget">
 							<h4 class="top-20 bottom-10 widget-title text-center">
-								Useful <span>Links</span>
+								<?=$this->i18nView['useful_link_1']?> <span><?=$this->i18nView['useful_link_2']?></span>
 							</h4>
 							<div class="widget posts">
 								<ul>

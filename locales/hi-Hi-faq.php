@@ -9,80 +9,81 @@ return [
 
 
 // next
-'How do I pay for my Happiness Guide?',
+'मैं अपने Happiness Guide के लिए कैसे भुगतान करूं?',
 
-'<p>After registering, click the button that says “Buy and pay”. This way you are in the purchase process. You will have to make the payment through bank transfer or cash deposit or PayUmoney. For all this payment methods you find under the button "How to pay the Happiness Guide" every necessary information’s.</p>',
-
-// next
-'When is the first part of my Happiness Guide ready to download?',
-
-'<p>Right after we have received your payment, we will make sure you can download the first part of your Happiness Guide (usually within 24 hours). When you are logged in you can find the link in your personal download section.</p>',
+'<p>पंजीकरण करने के बाद, "खरीदें और भुगतान करें" बटन क्लिक करें। इस तरह आप खरीद प्रक्रिया में हैं। आपको बैंक हस्तांतरण या नकद जमा अथवा PayUmoney के माध्यम से भुगतान करना होगा। इन सभी भुगतान विधियों के लिए आपको " Happiness Guide कैसे भुगतान करें" बटन के नीचे हर जरूरी सूचना मिलती है।.</p>',
 
 // next
-'When do I receive the other parts to complete my Happiness Guide?',
+'मेरी Happiness Guide का पहला भाग डाउनलोड करने के लिए कब तैयार होगा?',
 
-'<p>After receiving the first part, you will be able to download the following ones every two weeks. There are eight parts in total. We will let you know when there is a new part ready to download via email.</p>',
-
+'<p>आपके भुगतान को प्राप्त करने के ठीक बाद, हम यह सुनिश्चित करेंगे कि आप अपनी Happiness Guide का पहला भाग डाउनलोड कर सकते हैं (आमतौर पर 24 घंटों के भीतर)। जब आप लॉग इन होते हैं तो आप अपने व्यक्तिगत डाउनलोड अनुभाग में लिंक पा सकते हैं।</p>',
 
 // next
-'Where can I find my personal download section?',
+'मैं अपनी Happiness Guide को पूरा करने के लिए अन्य भागों कब प्राप्त कर सकता हूं?',
 
-'<p>After purchasing the Happiness Guide you will receive an email which includes your personal client identification number (ID). You will need this number to log into your account in order to get to the download section. This is where you can find the links to download the Happiness Guide parts.</p>',
+'<p>पहला भाग प्राप्त करने के बाद, आप प्रत्येक शेष भाग को दो सप्ताह में डाउनलोड कर सकेंगे। इसमें कुल में आठ भाग हैं। जैसे ही एक नया भाग तैयार होगा हम आपको ईमेल द्वारा डाउनलोड करने की जानकारी देंगे।</p>',
 
 
 // next
-'I need help!',
+'मुझे अपना व्यक्तिगत डाउनलोड अनुभाग कहां मिल सकता है?',
 
-'<p>In case there is any problem you need help with, just contact us at info@betterliving.social anytime.</p>',
+'<p>Happiness Guide खरीदने के बाद आपको एक ईमेल प्राप्त होगा जिसमें आपकी व्यक्तिगत ग्राहक पहचान संख्या (आईडी) शामिल है। डाउनलोड अनुभाग पर पहुंचने के लिए आपको अपने खाते में प्रवेश करने के लिए इस नंबर की आवश्यकता होगी। यह वह जगह है जहां आप Happiness Guide के भागों को डाउनलोड करने के लिए लिंक पा सकते हैं।</p>',
+
+
+// next
+'मुझे मदद की ज़रूरत है!',
+
+'<p>अगर आपको कोई समस्या है, तो आपको सहायता की आवश्यकता है, बस किसी भी समय info@betterliving.social पर हमसे संपर्क करें।</p>',
 
 
 
 // next
-'Is this a chain system?',
+'क्या यह एक श्रृंखला प्रणाली है?',
 
-'<p>No! It\'s only a recommendation system for our customers. Such a kind of marketing systems works also worldwide in different industries.</p>
+'<p>नहीं! यह हमारे ग्राहकों के लिए केवल एक सिफारिश प्रणाली है। इस एक तरह की विपणन प्रणाली दुनिया भर में विभिन्न उद्योगों में भी काम करती है।</p>
 
-<p>It really is enough if everybody only recommends three new customers in order to earn quite a big amount of money. Even if the average is less than three customers, the marketing system and commission flow will not stand still. You can watch the explanation video several times to fully understand how it works.</p>
+<p>यह वास्तव में पर्याप्त है अगर सबको केवल तीन नए ग्राहकों की सिफारिश की जाती है ताकि वह पर्याप्त पैसे कमा सकें। यहां तक कि अगर औसत तीन से कम ग्राहक हैं, तो विपणन प्रणाली और कमीशन प्रवाह कोई भी ठहराव खड़ा नहीं होगा। आप इसकी कार्यप्रणाली को समझने के लिए स्पष्टीकरण वीडियो को कई बार पूरी तरह से देख सकते हैं। </p>
 
-<p>How to increase your commission are explained in the video in a realistic and understandable way. In case you recommend three customers you can still top your profit by recommending new customers anytime you want!</p>
+<p>अपने कमीशन को कैसे बढ़ाएं, वीडियो में यथार्थवादी और समझदार तरीके से समझाया गया है। यदि आप तीन ग्राहकों को सलाह देते हैं तो आप चाहें तो कभी भी नए ग्राहकों की सिफारिश करके अपने लाभ को ऊपर उठा सकते हैं!</p>
 
-<p>You will earn much more money than you had paid for your Happiness Guide. Our Happiness Guide will show you a lot of ways to a happier life. Our marketing system offers a very easy and fast way to be happy.</p>
+<p>आप अपनी Happiness Guide के लिए भुगतान की तुलना में अधिक पैसा कमाएंगे। हमारी Happiness Guide आपको एक खुशहाल जीवन के लिए बहुत सी तरीके दिखाएगी। हमारी मार्केटिंग प्रणाली में खुश होने का एक बहुत आसान और तेज़ तरीका है।</p>
 
-<p>Don´t worry, just take your chance now and make your life better than ever!</p>',
-
-
-// next
-'How can I make money without constantly being active?',
-
-'<p>What makes this recommendation marketing system so unique is that you become a well-paid recommendation giver. As soon as you find customers, we will directly transfer your commissions to your privat bank account.</p>
-
-<p>Also you can get paid for customers that you  have recommended indirectly - without even knowing them. Of course it does not work by doing nothing. But all there is to do is recommended three customers.</p>
-
-<p>From this point on you get access to the recommendation marketing system. New customers will be allocated to you, you don`t know these people and most possibly you won`t ever get to know them. For the first two customers you get '.\Tbmt\Localizer::fmtAdvertisedLvl1Amount().' each, from the third on you get '.\Tbmt\Localizer::fmtAdvertisedLvl2Amount().' each and a customer that has been allocated to you makes '.\Tbmt\Localizer::fmtAdvertisedIndirectAmount().' for you!</p>
-
-<p>Now this does not sound like a lot of money yet. But the recommendation marketing system´s mathematical algorithm lets you receive many million automatically. Just watch the video once again to make it clear.</p>',
+<p>चिंता मत कीजिये, बस अब अपना अवसर पाएँ और अपना जीवन पहले से बेहतर बनाएं!</p>',
 
 
 // next
-'Do I have to find all possible customers immediately?',
+'बिना लगातार सक्रिय हुये मैं कैसे पैसे कमा सकता हूं?',
 
-'<p>You are the one who decides when and how many customers you recommend. If you are a customer of Betterliving you are authorized to recommend new customers and get paid for finding them. So it is your choice whether your payments roll in fast or slowly.</p>
+'<p>इस विपणन प्रणाली को अनूठा बनाने का कारण यह है कि आप एक अच्छी तरह से सशुल्क सिफ़ारिश करने वाले सलाहदाता बनें। जैसे ही आपको ग्राहक मिलते हैं, हम सीधे आपके कमीशन को आपके निजी बैंक खाते में स्थानांतरित कर देंगे।</p>
 
-<p>For example: If you joined Betterliving today and by doing so you became a customer of Betterliving. You paid the purchase price for the Happiness guide and got your customer number. The same week you´d find three new customers who all became customers of Betterliving as well and stated your customer number. That would be it.</p>
+<p>इसके अलावा आप उन ग्राहकों के लिए भुगतान प्राप्त कर सकते हैं जिन्हें आपने अप्रत्यक्ष रूप से सुझाया है - उन्हें जाने बिना भी। बेशक यह बिना कुछ किए भी काम करता है। लेकिन सभी को तीन ग्राहकों की सिफारिश करनी है।</p>
 
-<p>If every future customer acted the way you did, you would receive '.\Tbmt\Localizer::currencyFormatByCfg(24000).' two weeks later and after eight weeks it could be about '.\Tbmt\Localizer::currencyFormatByCfg(1000000).' per week! You will receive all payments on your private bank account weekly. Of course you can get even more than this: Just recommend more customers. It is all in your hands - if you find more customers you will get higher commissions.</p>',
+<p>आप इस बिंदु पर सिफारिश करके विपणन प्रणाली तक पहुंच प्राप्त कर सकते हैं। नए ग्राहकों को आप के लिए आवंटित किया जाएगा, आप इन लोगों को नहीं जानते हैं और संभवतः आप उन्हें कभी नहीं जान पाएंगे हैं। पहले दो ग्राहकों के लिए आपको प्रत्येक के लिए '.\Tbmt\Localizer::fmtAdvertisedLvl1Amount().', आपको तीसरे नंबर पर '.\Tbmt\Localizer::fmtAdvertisedLvl2Amount().' प्राप्त होता है और आपके लिए आवंटित किया गया ग्राहक आपके लिए '.\Tbmt\Localizer::fmtAdvertisedIndirectAmount().' बनाता है!</p>
+
+<p>यह अब तक बहुत पैसे की खनक नहीं करता है। लेकिन सिफारिश विपणन प्रणाली की गणितीय एल्गोरिथ्म से आपको स्वचालित रूप से कई लाख मिलते है। बस इसे स्पष्ट करने के लिए एक बार फिर वीडियो देखें।</p>',
 
 
 // next
-'When will I receive my commissions?',
+'क्या मुझे सभी संभावित ग्राहकों को तुरंत खोजना होगा?',
 
-'<p>We balance your payments and transfer the money to your private bank account weekly. In conclusion: If you are successful, you will receive money every week.</p>
+'<p>वह आप ही हैं जो तय करते हैं कि कब और कितने ग्राहक आप सुझाएंगे। यदि आप Betterliving के ग्राहक हैं तो आप नए ग्राहकों की सिफारिश करने और उन्हें खोजने के लिए भुगतान करने के लिए अधिकृत हैं। इसलिए यह आपकी पसंद है कि आपके भुगतान तेजी से या धीरे-धीरे चलें।</p>
 
-<p>Please note:
+<p>उदाहरण के लिए: यदि आप आज Betterliving में शामिल हो गए हैं और ऐसा करके आप Betterliving के एक ग्राहक बन गए। आपने Happiness Guide के लिए खरीद मूल्य का भुगतान किया और आपको अपना ग्राहक नंबर मिला। उसी हफ्ते आप तीन नए ग्राहकों को खोज लिया, जो Betterliving के ग्राहक बन गए और उन्होनें आपकी ग्राहक संख्या बताई। यह इस प्रकार से होगा।</p>
+
+<p>जिस तरह आपने काम किया है यदि उसी प्रकार भविष्य के प्रत्येक ग्राहक ने काम किया, तो आपको दो हफ्ते बाद मिलेगा '.\Tbmt\Localizer::currencyFormatByCfg(24000).' और आठ सप्ताह बाद यह प्रति सप्ताह '.\Tbmt\Localizer::currencyFormatByCfg(1000000).' रुपये हो सकता है!
+आपको अपने निजी बैंक खाते पर सभी भुगतान साप्ताहिक रूप से प्राप्त होंगे। बेशक आप इस से भी अधिक प्राप्त कर सकते हैं: बस अधिक ग्राहकों को सलाह देते रहें। यह सब आपके हाथों में है - यदि आप अधिक ग्राहक तलाश पाते हैं तो आपको उच्च कमीशन मिलेगा।</p>',
+
+
+// next
+'मुझे अपना कमीशन कब मिलेगा?',
+
+'<p>हम आपके भुगतानों को जोड़ करते हैं और साप्ताहिक रूप से आपके निजी बैंक खाते में भुगतान कर देते हैं। अंत में: यदि आप सफल होते हैं, तो आपको हर हफ्ते पैसे मिलेंगे।</p>
+
+<p>कृपया ध्यान दें:
 <ul>
-  <li>You will get paid only after we received your complete purchase price for your own Happiness Guide</li>
-  <li>It is not possible to offset your purchase price against the commissions you get for recommended customers.</li>
-  <li>The bank needs for the transfer of your commission your pass photo and a photo of your PAN card. Please upload these two pictures on our website at the signup. Otherwise the bank cannot transfer your commission into your bank account</li>
+  <li>आपको अपनी स्वयं की Happiness Guide के लिए पूरी खरीद मूल्य प्राप्त करने के बाद ही आपको भुगतान किया जाएगा</li>
+  <li>•	आपके द्वारा सिफारिश किए गए ग्राहकों के मिलने वाले कमीशन के विपरीत आपकी खरीद मूल्य को पूरा करना संभव नहीं है।</li>
+  <li>•	बैंक को आपके कमीशन के हस्तांतरण के लिए आपकी पासपोर्ट आकार की फोटो और आपके पैन कार्ड की तस्वीर की आवश्यकता होगी। कृपया साइनअप करते समय  हमारी वेबसाइट पर ये दो तस्वीरें अपलोड करें। अन्यथा बैंक आपके कमीशन को आपके बैंक खाते में स्थानांतरित नहीं कर सकता है।</li>
 </ul>
 </p>',
 
