@@ -56,25 +56,25 @@ return [
 
     'purchase_agreemensts' => '{terms}',
     'terms' => 'आप हमारी उपयोग की शर्तों से सहमत हैं!',
-    'privacy' => 'Data Privacy Notice',
-    'cancelation_right' => 'Rights of Cancelation',
+    'privacy' => 'डाटा प्राइवेसी नोटिस',
+    'cancelation_right' => 'रद्दीकरण के अधिकार',
 
-    'pdf_explanation' => 'There is also an illustrated explanation in an extra document. If you prefer to read a pdf document, ',
-    'pdf_explanation_link' => 'just click here',
+    'pdf_explanation' => 'अतिरिक्त दस्तावेज में एक सचित्र व्याख्या भी है। यदि आप एक पीडीएफ दस्तावेज़ पढ़ना पसंद करते हैं, ',
+    'pdf_explanation_link' => 'यहाँ क्लिक करें',
   ],
 
   'mails' => [
-    'lvl2invitation' => 'Because of the special invitation you’re a “Premium Customer” already. That means you will earn {lvl2bonus} instead of {lvl1bonus} for each new client from the start.',
-    'standardinvitation' => 'Plus, you only need three people to register and buy the Guide in order to have a passive income.',
-    'free_invitation' => 'You will receive the Happiness Guide for free. Also: '
+    'lvl2invitation' => 'क्योंकि विशेष निमंत्रण के कारण आप पहले ही “Premium Customer” रहे हैं। इसका अर्थ है कि आपको शुरू से प्रत्येक नए ग्राहक के लिए {lvl1bonus} के बजाय {lvl2bonus} मिलेगा।.',
+    'standardinvitation' => 'इसके अलावा, आपको निष्क्रिय आय प्राप्त करने के लिए, केवल तीन लोगों को ही पंजीकृत करना और Happiness Guide खरीदना ज़रूरी है।.',
+    'free_invitation' => 'आपको Happiness Guide निःशुल्क प्राप्त होगी। इसके अलावा: '
   ],
 
 
   'payment' => [
     'item_name' => 'Happiness Guide',
-    'item_description' => 'Digital PDF download serie (consists of 8 chapters).',
+    'item_description' => 'डिजिटल PDF डाउनलोड श्रृंखला (इसमें 8 अध्याय शामिल हैं)।.',
     'transaction_description' => 'Happiness Guide (digital PDF download)',
-    'payu_product_description' => 'Our Happiness Guide series. A digital download about getting happier in life. You will get 8 pieces, each one more step to wealth and health',
+    'payu_product_description' => 'हमारी Happiness Guide श्रृंखला। जीवन में खुश रहने के बारे में एक डिजिटल डाउनलोड। आप इसे 8 भागों में प्राप्त करेंगे, धन और स्वास्थ्य की तरफ हर एक कदम',
   ],
 
 
@@ -131,32 +131,32 @@ return [
     /* ERRORS
     ---------------------------------------------*/
   'error' => [
-    'greater_zero' => 'Must be greater zero',
-    'money_numeric' => 'Must be numeric greater or equal zero',
-    'empty' => 'Can not be empty',
-    'email' => 'Invalid email address',
-    'email_exists' => 'Email address exists',
-    'int' => 'Invalid integer',
-    'accept' => 'Must be accepted',
-    'password' => 'Invalid password',
+    'greater_zero' => 'अधिक से अधिक शून्य होना चाहिए',
+    'money_numeric' => 'संख्या शून्य से अधिक या बराबर होना चाहिए',
+    'empty' => 'खाली नहीं किया जा सकता',
+    'email' => 'अमान्य ईमेल पता',
+    'email_exists' => 'ईमेल पता मौजूद है',
+    'int' => 'अमान्य पूर्णांक',
+    'accept' => 'अवश्य स्वीकार किया जाना चाहिए',
+    'password' => 'अवैध पासवर्ड',
     'password_conditions' => '5 अक्षर या अधिक, कम से कम एक छोटा अक्षर और एक अंक',
-    'password_unequal' => 'Passwords were not equal',
+    'password_unequal' => 'पासवर्ड समान नहीं थे',
 
-    'referral_member_num' => 'Referrer number does not exist',
-    'member_num' => 'Customer number does not exist',
-    'member_email' => 'Email does not exist',
-    'member_num_unpaid' => 'Customer has not paid yet',
-    'age_of_18' => 'Must be 18 or older',
-    'referrer_paiment_outstanding' => 'The customer exists but we didn´t receive the donation yet. Unfortunately you have to wait for this customer’s donation',
-    'invitation_code_inexisting' => 'Invitation Code does not exist',
-    'invitation_code_invalid' => 'Invalid invitation code',
-    'invitation_code_used' => 'Invitation code already used',
+    'referral_member_num' => 'रेफेरर संख्या मौजूद नहीं है',
+    'member_num' => 'Customer संख्या मौजूद नहीं है',
+    'member_email' => 'ईमेल मौजूद नहीं है',
+    'member_num_unpaid' => 'Customer ने अभी तक भुगतान नहीं किया है',
+    'age_of_18' => '18 या अधिक उम्र के होने चाहिए',
+    'referrer_paiment_outstanding' => 'यह customer  है, लेकिन उसने अभी तक खरीद नहीं की है। आपको इस customer के भुगतान के लिए इंतजार करना होगा।',
+    'invitation_code_inexisting' => 'निमंत्रण कोड मौजूद नहीं है',
+    'invitation_code_invalid' => 'अमान्य निमंत्रण कोड',
+    'invitation_code_used' => 'निमंत्रण कोड पहले ही उपयोग किया जा चुका है',
 
-    'sub_promoter_to_promoter' => 'Customer is no promoter',
+    'sub_promoter_to_promoter' => 'Customer कोई प्रमोटर नहीं है',
 
-    'login' => 'Invalid login credentials',
+    'login' => 'अमान्य प्रवेश प्रत्यायक',
 
-    'india_pincode' => 'This is no valid zip code from India.',
+    'india_pincode' => 'यह भारत से कोई मान्य ज़िप कोड नहीं है.',
   ],
 
     /* VIEWS
@@ -260,7 +260,7 @@ return [
         'pdf_explanation_link' => 'तो यहां क्लिक करें',
       ],
       'fromto' => [
-        'page_title' => 'स्पष्टीकरण वीडियो - पहली मेल से प्रीमियम ग्राहक को 3 दिनों में',
+        'page_title' => 'स्पष्टीकरण वीडियो - पहले मेल से premium customer तक',
         'head' => 'पहले मेल से premium customer तक',
       ],
       'backoffice' => [
@@ -274,22 +274,22 @@ return [
         'signup' => 'अभी साइन-अप करें',
       ],
       'text' => [
-        'Customer advertises customers',
+        'Customer ही Customer  को प्रचार करता है',
       ],
 
       'system' => [
         'page_title' => 'सिफारिश विपणन प्रणाली',
         'vs1' => 'Position customer',
         'vs2' => 'Position premium customer',
-        'notice' => 'Notice',
+        'notice' => 'नोटिस',
         'signup_now' => 'अभी साइन-अप करें',
-        'etc' => 'etc.',
+        'etc' => 'आदि',
         'intro1' => 'विपणन प्रणाली सिफारिश का अर्थ निम्नलिखित में समझाया जाएगा।',
         'intro1h' => ['सिफारिश विपणन प्रणाली'],
         'intro2' => 'इसे आसान बनाने के लिए हम एक विस्तृत उदाहरण का पालन करेंगे',
         'intro3' => 'हमारी सिफारिश विपणन प्रणाली की बेहतर समझ के लिए आपको पता होना चाहिए कि इसमें केवल दो स्थान हैं पहली स्थिति "customer" है और दूसरा स्थान "premium customer" है।',
         'you' => 'आप',
-        'head_explanation' => 'Explanation',
+        'head_explanation' => 'व्याख्या',
         'head_part' => 'चरण',
         'head_illustration' => 'चित्रण',
 
@@ -304,7 +304,7 @@ return [
 
         '1' => 'जैसा कि आप '.$brandName.' के ग्राहक हैं, आप हमारी सिफारिश मार्केटिंग सिस्टम में स्वचालित रूप से "customer" स्थिति में होंगे।',
         '1h' => ['$_member_fee_$'],
-        '1_1' => 'You = Customer',
+        '1_1' => 'आप = Customer',
 
         '2' => 'अब आप अपने पहले दो नए ग्राहकों Durga और Kamal को सलाह देते हैं।',
         '3' => 'जिससे आप "customer" की स्थिति में प्रत्येक से {0} अर्जित करेंगे, इसलिए आप कुल {1} अर्जित करेंगे।',
@@ -325,7 +325,7 @@ return [
         '13' => '{0}',
         '13h' => ['इस बिंदु पर आप पहले से ही स्वयं सक्रिय हुये बिना पैसा कमाते हैं!', ],
         '14' => '{0} – आपने पहले से ही {1} अर्जित किए हैं और आपके योगदान को लगभग पूरी तरह संतुलित कर दिया है!',
-        '14h' => ['सिर्फ एक हफ्ते के बाद', '$_after_one_week_$', 'and almost entirely balanced your contribution!', ],
+        '14h' => ['सिर्फ एक हफ्ते के बाद', '$_after_one_week_$', 'और लगभग पूरी तरह से आपके संतुलित योगदान!', ],
         '15' => 'Jivan अपनी पहली दो सफल अनुशंसाओं के साथ स्वतः "premium customer" होगा',
         '16' => 'जैसे ही आप और Jivan एक ही स्थिति में हैं, आपको Jivan के नए ग्राहकों के लिए और अधिक भुगतान नहीं किया जाएगा।',
         '17' => 'हालांकि, अब Rati और Lila को आपके ट्री में रखा गया है।',
@@ -383,8 +383,8 @@ return [
         'basic_idea_text' => [
           'Happiness Guide के साथ आप अपने कामकाजी जीवन, अपने स्वास्थ्य को बदल सकते हैं और सम्पूर्ण रूप से खुश रह सकते हैं। 2-सप्ताह के आठ चरणों के चक्र में हमारी Happiness Guide आपको खुश कर देगी। प्रत्येक चरण के बाद आप सीखेंगे कि अपने जीवन को बेहतर कैसे बनाते हैं।',
           'भारत में हर कोई Happiness Guide खरीद सकता है। केवल {member_fee} के लिए आपको एक सुखी व्यक्ति बनने का निर्देश मिलता है।',
-          'Every customer can become active easily (and without any fee or costs) within the “customers recommend customers” recommendation marketing system and earn a constant and {passive_income}.',
-          'Only citizens of India are allowed to become customers of ' . $brandName.'.',
+          'प्रत्येक customer आसानी से (और बिना किसी शुल्क या लागत के) सक्रिय हो सकते हैं" customers की सलाह देते हैं" customer विपणन प्रणाली की सिफारिश करते हुये एक स्थिर और {passive_income} कमाते हैं.',
+          'केवल भारत के नागरिकों को ही ग्राहक बनने की अनुमति है' . $brandName.'.',
         ],
         'basic_idea_highlights' => [
           null,
@@ -420,24 +420,24 @@ return [
           'हां, मैं साइन-अप करना चाहता हूं!',
         ],
 
-        'pdf_explanation_head' => 'Recommendation Marketing System',
-        'pdf_explanation' => 'We also prepared an illustrated explanation in an extra document. If you prefer reading a pdf document, ',
-        'pdf_explanation_link' => 'just click here',
+        'pdf_explanation_head' => 'सिफारिश विपणन प्रणाली',
+        'pdf_explanation' => 'यदि आप एक PDF दस्तावेज़ पढ़ना पसंद करते हैं, तो हमने एक अतिरिक्त दस्तावेज़ में एक सचित्र व्याख्या भी तैयार की है।',
+        'pdf_explanation_link' => 'यहां क्लिक करें',
       ],
 
       'signup' => [
-        'page_title' => 'Sign up to be a customer',
-        'form_error' => 'Form has invalid fields.',
+        'page_title' => 'Customer बनने के लिए साइन अप करें',
+        'form_error' => 'फॉर्म में अवैध फ़ील्ड हैंI.',
         'token_missing_head' => 'आप साइन अप नहीं कर सकते',
         'token_missing' => 'वैध अनन्य आमंत्रण कोड अनुपलब्ध है। कृपया अपने संदर्भ से प्राप्त आमंत्रण लिंक पर जाएं और इस साइनअप पर वापस आएं।',
-        'referral_member_num_help' => 'This is the customer number of the person who recommended you. This person will also receive a reward for your purchase. In order to join, you need somebody to invite you with their customer number.',
-        'invitation_code_help' => 'This code is NOT required. You may have received a special invitation code from the person who invited you.',
+        'referral_member_num_help' => 'यह उस व्यक्ति की customer संख्या है जिसने आपकी सिफारिश की थी। इस व्यक्ति को आपकी खरीदारी के लिए इनाम भी मिलेगा। आपको शामिल होने के लिए, किसी अन्य customer द्वारा उसके नंबर से आमंत्रित करने की आवश्यकता है।.',
+        'invitation_code_help' => 'यह कोड आवश्यक नहीं है। आपको उस व्यक्ति से विशेष निमंत्रण कोड प्राप्त हुआ होगा जिसने आपको आमंत्रित किया था।.',
 
         'note_on_photos' => 'हम आपकी तस्वीरों का आंतरिक उपयोग नहीं करेंगे। हम कानूनन इनको एकत्र करना पड़ा है और जब हम अपने प्रावधानों का हस्तांतरण करते हैं तो उन्हें हमारे बैंक को भेजते हैं। हम उन तस्वीरों के बिना आपके प्रावधानों का भुगतान नहीं कर सकते।',
-        'passport_explanation' => 'Our bank needs for the transfer of your commission your pass photo. Please upload here a pass photo of you. Important: In the photo, your face must be clearly visible. Otherwise the bank cannot transfer your commission into your bank account.',
-        'pan_explanation' => 'Our bank needs for the transfer of your commission your PAN card. Please upload here a photo from your PAN card. Important: In In the photo, all information from the PAN card must be clearly legible. Otherwise the bank cannot transfer your commission into your bank account.',
+        'passport_explanation' => 'हमारे बैंक को आपके पासपोर्ट आकार के फोटो की स्थानांतरण के लिए आवश्यक है। कृपया अपना पासपोर्ट आकार का फोटो अपलोड करें। महत्वपूर्ण: तस्वीर में, आपका चेहरा स्पष्ट रूप से दिखाई देना चाहिए। अन्यथा बैंक आपके कमीशन को आपके बैंक खाते में स्थानांतरित नहीं कर सकता है।.',
+        'pan_explanation' => 'हमारे बैंक को आपके कमीशन के हस्तांतरण के लिए पैन कार्ड की आवश्यकता है। कृपया अपने पैन कार्ड से एक फोटो यहाँ अपलोड करें। महत्वपूर्ण: तस्वीर में, पैन कार्ड से सभी जानकारी स्पष्ट रूप से पठनीय होनी चाहिए। अन्यथा बैंक आपके कमीशन को आपके बैंक खाते में स्थानांतरित नहीं कर सकता है।.',
 
-        'error_signup_maintenance' => 'We are sorry! Signup is in maintenance. Please come back later!',
+        'error_signup_maintenance' => 'हमें खेद है! साइनअप का रखरखाव हो रहा है कृपया बाद में आइये!',
 
         'form_labels' => [
           'contact' => 'पंजीकरण फॉर्म',
@@ -456,7 +456,7 @@ return [
           'phone' => 'मोबाइल/घर का फोन नंबर (उचित लेकिन वैकल्पिक)',
           'email' => 'ईमेल',
           'age' => 'आयु',
-          'country' => 'Country',
+          'country' => 'देश',
           'zip_code' => 'पिन कोड',
           'city' => 'शहर',
           'country' => 'देश',
@@ -479,7 +479,7 @@ return [
 
           'correct_bank' => 'मैं इस बैंक खाते की शुद्धता और बैंक पते की पुष्टि करता हूँ। मैं समझता हूँ कि मैं अमान्य बैंक डेटा के कारण Betterliving के कमीशन प्राप्त करने का कोई अधिकार खो रहा हूँ।',
 
-          'accept_agbs' => 'I have read and accepted the terms and conditions',
+          'accept_agbs' => 'मैंने नियम और शर्तों को पढ़ लिया है और स्वीकार कर लिया है',
           'accept_valid_country' => 'मैं पुष्टि करता हूं कि मैं भारत के निवासी हूँ',
           'not_accepted_countries' => '',
 
@@ -494,11 +494,11 @@ return [
       ],
 
       'signupSuccess' => [
-        'page_title' => 'Successfully signed up',
-        'hello' => "Welcome to $brandName",
-        'signup_text1' => "Thank you for signing up. You are one step away from becomming member of $brandName!",
-        'signup_text2' => 'We have sent a confirmation link to your email address. You need to verify your email address by clicking on the link in the registration email. This is required to complete the registration.',
-        'signup_text3' => 'This process guarantees valid email addresses for you and us. Because this is the only way how we can contact you if we run into problems transferring your bonus!'
+        'page_title' => 'सफलतापूर्वक साइन अप किया',
+        'hello' => "में/पर स्वागत है $brandName",
+        'signup_text1' => "साइनअप करने के लिए आभार। आप $brandName के सदस्य बनने से एक कदम दूर हैं!",
+        'signup_text2' => 'हमने आपके ईमेल पते पर एक पुष्टिकरण लिंक भेजा है। पंजीकरण ईमेल में लिंक पर क्लिक करके आपको अपना ईमेल पता सत्यापित करना होगा। यह पंजीकरण पूरा करने के लिए आवश्यक है।.',
+        'signup_text3' => 'यह प्रक्रिया आपके और हमारे लिए मान्य ईमेल पते की गारंटी देती है। क्योंकि यह एकमात्र तरीका है जिससे कि हम आपसे संपर्क कर सकते हैं यदि हमें आपके बोनस को स्थानांतरित करने में समस्याएं आती है!'
       ],
     ],
 
@@ -507,7 +507,7 @@ return [
     'account' => [
       'login' => [
         'page_title' => 'ग्राहक लॉगिन',
-        'error' => 'Error',
+        'error' => 'त्रुटि',
         'password_reset' => 'क्या आप पासवर्ड भूल गए हैं?',
         'link_to_signup' => 'कोई खाता नहीं? बस इस लिंक का पालन करें',
         'form_labels' => [
@@ -521,7 +521,7 @@ return [
       ],
       'index' => [
         'page_title' => 'Profile',
-        'welcome' => 'Welcome {name}',
+        'welcome' => 'स्वागतम {name}',
         'navigation_links' => [
           'index' => 'सूचना',
           'invoice' => 'चालान',
@@ -532,26 +532,26 @@ return [
           'bonus_payments' => 'बोनस भुगतान',
           'bonus_levels' => 'बोनस स्तर',
           'dev_paying' => 'DevTest Paying',
-          'total_invoice' => 'Total Invoice'
+          'total_invoice' => 'कुल इन्वॉइस'
         ],
       ],
       'tabs' => [
         'index' => [
           'account' => 'लेखा',
-          'payoutfailed' => 'The credit transfer failed!',
-          'payoutfailed_reason' => 'The credit transfer failed for the following reason:',
-          'payoutfailed_text1' => 'Please check your bank account information before contacting us. In most cases it is just a wrong character.',
-          'payoutfailed_text2' => 'The following bank account was used:',
-          'payoutfailed_text3' => 'Either way don\'t worry. Your reward is not lost. We will retry to transfer after you updated your bank account information!',
-          'transfer_state_pending' => 'Your credit transfer state is pending. Your bank account information need to be checked.',
-          'transfer_state_restored' => 'Your credit transfer state is back in active state. Your transfer will be done within the next period.',
-          'gettingstarted' => 'Getting started',
+          'payoutfailed' => 'क्रेडिट स्थानांतरण विफल हुआ!',
+          'payoutfailed_reason' => 'निम्नलिखित कारणों से क्रेडिट स्थानांतरण विफल हुआ:',
+          'payoutfailed_text1' => 'कृपया हमसे संपर्क करने से पहले अपनी बैंक खाता जानकारी जांचें। ज्यादातर मामलों में यह सिर्फ एक गलत कैरक्टर है.',
+          'payoutfailed_text2' => 'निम्न बैंक खाते का उपयोग किया गया था:',
+          'payoutfailed_text3' => 'किसी भी तरह से चिंता मत करो। आपका इनाम गुम नही हुआ है। आपके बैंक खाते की जानकारी को अपडेट करने के बाद हम स्थानांतरण का पुनः प्रयास करेंगे!',
+          'transfer_state_pending' => 'आपका क्रेडिट स्थानांतरण स्थिति लंबित है। आपकी बैंक खाता जानकारी की जांच की जानी चाहिए।.',
+          'transfer_state_restored' => 'आपका क्रेडिट ट्रांसफर सक्रिय स्थिति में वापस आ गया है। आपका स्थानांतरण अगली अवधि के भीतर किया जाएगा।.',
+          'gettingstarted' => 'शुरू करना',
           'purchasedtitle' => 'बोर्ड में आपका स्वागत है',
           'your_num' => 'आपका ग्राहक संख्या',
-          'attention' => 'Attention!',
-          'warning' => 'Warning!',
+          'attention' => 'सावधान!',
+          'warning' => 'चेतावनी!',
           'tank_you' => 'धन्यवाद!',
-          'unpaid_text' => 'You have not purchase our Happiness Guide yet!',
+          'unpaid_text' => 'आपने अभी तक हमारी Happiness Guide कि खरीदारी नहीं की है!',
           'paid_text' => 'अपने हमारी Happiness Guide को सफलतापूर्वक खरीद लिया है।',
           'address' => 'पता',
           'email' => 'ईमेल',
@@ -578,27 +578,27 @@ return [
 
           'change_pwd' => 'पासवर्ड बदलें',
           'change_profile' => 'विवरणिका बदले',
-          'change_photos' => 'Change Photos',
+          'change_photos' => 'फोटो बदलें',
 
-          'welc_not_1' => 'Welcome {name}',
-          'welc_not_2' => 'Thank you for signing up! This is your profile. You will find all neccessary information here!',
-          'welc_not_3' => 'IMPORTANT! Always remember your customer number! You will need it to login, recommend others etc.',
+          'welc_not_1' => 'स्वागतम {name}',
+          'welc_not_2' => 'साइन अप करने के लिए आभार! यह आपकी प्रोफ़ाइल है। आपको यहां सभी आवश्यक जानकारी मिलेगी!',
+          'welc_not_3' => 'जरूरी! हमेशा अपने ग्राहक नंबर को याद रखें! आपको लॉगिन करने के लिए, दूसरों की सिफ़ारिशों आदि कि आवश्यकता होगी.',
 
-          'purchase_not_1' => 'Thank you for your purchase! You are owning the Happiness Guide now!',
+          'purchase_not_1' => 'आपकी खरीदारी के लिए धन्यवाद! अब आपके पास Happiness Guide है!',
 
           'guides' => 'आपकी Happiness Guides',
-          'guides_not_available' => 'You have no guide enabled yet.',
-          'guide_download_explanation' => 'Click on the names to download your guide(s)',
+          'guides_not_available' => 'आपके पास अभी तक कोई सक्षम मार्गदर्शिका नहीं है.',
+          'guide_download_explanation' => 'अपनी गाइड डाउनलोड करने के लिए नाम पर क्लिक करें',
           'guide_name' => 'Happy Guide Nr. {number}',
 
-          'purchase_now' => 'How to pay the Happiness Guide',
+          'purchase_now' => 'Happiness Guide के लिए कैसे भुगतान करें',
 
           'passportphoto' => 'Pass Photo',
           'panphoto' => 'Pan Photo',
           'no_image' => '- no image -',
 
-          'images_missing' => 'We will only need your image and your PAN Card internally for the payment of your recommendation fee and for the payment of the GST to the government. Since we strictly pay attention to legality, we have to comply with the legal regulations. Please pay attention to a good quality of your photos.',
-          'images_missing_attention' => 'ATTENTION - Images are Missing',
+          'images_missing' => 'हमें आपकी सिफारिश शुल्क के भुगतान के लिए और सरकार को जीएसटी के भुगतान के लिए आंतरिक रूप से आपकी फोटो और अपने पैन कार्ड की ज़रूरत होगी। चूंकि हम कड़ाई से कानून पर ध्यान देते हैं, इसलिए हमें कानूनी नियमों का पालन करना होगा। कृपया अपनी तस्वीरों की अच्छी गुणवत्ता पर ध्यान दें।.',
+          'images_missing_attention' => 'सावधान – फोटो गायब हैं',
           'good_decision' => 'बहुत अच्छा निर्णय!',
           'invitation_link_comment' => 'यह आपका अनन्य आमंत्रण लिंक है:',
           'additional_invitation_options' => 'अपने मित्रों को आमंत्रित करने के लिए इस लिंक का उपयोग करें और सिस्टम पुरस्कार कमाएं आप इसके साथ साझा कर सकते हैं:',
@@ -615,20 +615,20 @@ return [
           'advertised_member_count' => 'विज्ञापित ग्राहक गिनती',
           'outstanding_total' => 'कुल कमाई',
           'transferred_total' => 'इसके कुल हस्तांतरण',
-          'outstanding_total_tax_withheld' => 'Tax withheld of total (TDS)',
-          'outstanding_total_gross_amount' => 'Total earned gross amount',
+          'outstanding_total_tax_withheld' => 'कुल के टैक्स पर रोक लगाई (TDS)',
+          'outstanding_total_gross_amount' => 'कुल अर्जित कुल राशि',
           'custom' => '--custom--',
-          'single_amount' => 'Single Amount',
+          'single_amount' => 'एकल धनराशि',
           'quantity' => 'मात्रा',
-          'currency' => 'Currency',
+          'currency' => 'मुद्रा',
           'total' => 'कुल',
           'state' => 'राज्य',
           'transfer_states' => [
             0 => 'बकाया',
-            1 => 'Reserved',
-            2 => 'In transfer queue',
-            3 => 'Transferred',
-            4 => 'Failed',
+            1 => 'आरक्षित',
+            2 => 'हस्तांतरण की कतार में',
+            3 => 'हस्तांतरित',
+            4 => 'असफल',
           ],
 
           'button_total_invoice' => 'कुल चालान दिखाएं',
@@ -669,21 +669,21 @@ return [
           'lvl2_signup' => 'Lvl 2 को अग्रिम आमंत्रण',
           'promoter_num' => 'On the recommendation of promoter (Num)',
           'submit' => 'Submit',
-          'restricted_to_lvl2' => 'You need to invite two customers to unlock invitations',
+          'restricted_to_lvl2' => 'निमंत्रणों को अनलॉक करने के लिए आपको दो ग्राहकों को आमंत्रित करना होगा',
 
           'list_title' => 'निमंत्रण',
           'hash' => 'कोड',
           'creation_date' => 'बनाया था',
           'accepted_date' => 'स्वीकृत',
-          'signup_success' => 'Successfully created invitation code.',
-          'success' => 'Success!',
+          'signup_success' => 'सफलतापूर्वक निमंत्रण कोड बनाया गया.',
+          'success' => 'सफल!',
 
-          'recipient_details' => 'Recipient details',
+          'recipient_details' => 'प्राप्तकर्ता विवरण',
           'member_type' => 'ग्राहक प्रकार',
           'member_num' => 'ग्राहक संख्या',
           'address' => 'पता',
           'email' => 'Email',
-          'email_none' => '-none-',
+          'email_none' => '-कोई नहीं -',
         ],
         'bonus_payments' => [
           'form_title' => 'ग्राहक को बोनस भुगतान करें',
@@ -691,40 +691,40 @@ return [
           'amount' => 'राशि ',
           'amount_in_currency' => 'राशि {symbol} ({name}) में ',
           'purpose' => 'उद्देश्य',
-          'validate_form' => 'Validate form',
+          'validate_form' => 'वेलीडेट फॉर्म',
           'submit' => 'Submit',
 
-          'recipient_details' => 'Recipient details',
+          'recipient_details' => 'प्राप्तकर्ता के विवरण',
           'member_type' => 'ग्राहक प्रकार',
           'member_num' => 'ग्राहक संख्या',
           'address' => 'पता',
           'email' => 'Email',
-          'email_none' => '-none-',
+          'email_none' => '-कोई नहीं-',
 
           'list_title' => 'बोनस भुगतान',
-          'recipient_num_th' => 'Recipient customer number',
+          'recipient_num_th' => 'प्राप्तकर्ता customer संख्या',
           'creation_date' => 'बनाया था',
-          'accepted_date' => 'Accepted',
+          'accepted_date' => 'स्वीकृत',
 
-          'signup_success' => 'Successfully created bonus payment.',
-          'success' => 'Success!',
+          'signup_success' => 'सफलतापूर्वक बोनस भुगतान बनाया।.',
+          'success' => 'सफल!',
         ],
         'bonus_levels' => [
           'form_title' => 'ग्राहक के लिए बोनस का स्तर बदलें',
           'recipient_num' => 'इस बोनस स्तर को प्राप्त करने वाले की ग्राहक संख्या',
           'amount_in_currency' => 'राशि {symbol} ({name}) में ',
-          'validate_form' => 'Validate form',
+          'validate_form' => 'वेलीडेट फॉर्म',
           'submit' => 'Submit',
 
-          'recipient_details' => 'Recipient details',
+          'recipient_details' => 'प्राप्तकर्ता के विवरण',
           'member_type' => 'ग्राहक प्रकार',
           'bonus_level' => 'बोनस स्तर',
           'member_num' => 'ग्राहक संख्या',
           'address' => 'पता',
           'email' => 'Email',
-          'email_none' => '-none-',
-          'signup_success' => 'Successfully changed bonus level.',
-          'success' => 'Success!',
+          'email_none' => '-कोई नहीं-',
+          'signup_success' => 'सफलतापूर्वक बोनस स्तर बदल दिया।.',
+          'success' => 'सफल!',
 
           'list_title' => 'बोनस ग्राहक',
           'member_num' => 'ग्राहक संख्या',
@@ -740,31 +740,31 @@ return [
     ---------------------------------------------*/
     'manage' => [
       'password_reset' => [
-        'page_title' => 'Password reset',
-        'error' => 'Error!',
-        'success' => 'Success!',
-        'success_msg' => 'We have sent you an email with further instructions.',
+        'page_title' => 'पासवर्ड रीसेट',
+        'error' => 'त्रुटि!',
+        'success' => 'सफल!',
+        'success_msg' => 'हमने आपको आगे के निर्देशों के साथ एक ईमेल भेजा है.',
         'form_labels' => [
-          'num' => 'Your email address',
-          'submit' => 'Reset password',
+          'num' => 'आपका ईमेल पता',
+          'submit' => 'रीसेट पासवर्ड',
         ],
       ],
       'do_reset_password' => [
-        'page_title' => 'Password reset',
-        'error' => 'Error!',
-        'error_msg' => 'Invalid reset token',
-        'success' => 'Success!',
-        'success_msg' => 'Your new password is:',
+        'page_title' => 'पासवर्ड रीसेट',
+        'error' => 'त्रुटि!',
+        'error_msg' => 'अमान्य रीसेट टोकन',
+        'success' => 'सफल!',
+        'success_msg' => 'आपका नया पासवर्ड है:',
       ],
       'change_photos' => [
-        'page_title' => 'Change your password',
-        'error' => 'Error!',
-        'success' => 'Success!',
-        'success_msg' => 'Your photos has been updated.',
+        'page_title' => 'अपना पासवर्ड बदलें',
+        'error' => 'त्रुटि!',
+        'success' => 'सफल!',
+        'success_msg' => 'आपकी फ़ोटो अपडेट की गई हैं।.',
 
-        'note_on_photos' => 'We will only need your image and your PAN Card internally for the payment of your recommendation fee and for the payment of the GST to the government. Since we strictly pay attention to legality, we have to comply with the legal regulations. Please pay attention to a good quality of your photos.',
-        'passport_explanation' => 'Our bank needs for the transfer of your commission your pass photo. Please upload here a pass photo of you. Important: In the photo, your face must be clearly visible. Otherwise the bank cannot transfer your commission into your bank account.',
-        'pan_explanation' => 'Our bank needs for the transfer of your commission your PAN card. Please upload here a photo from your PAN card. Important: In In the photo, all information from the PAN card must be clearly legible. Otherwise the bank cannot transfer your commission into your bank account.',
+        'note_on_photos' => 'हमें आपकी सिफारिश शुल्क के भुगतान के लिए और सरकार को जीएसटी के भुगतान के लिए आंतरिक रूप से आपकी फोटो और अपने पैन कार्ड की ज़रूरत होगी। चूंकि हम कड़ाई से कानून पर ध्यान देते हैं, इसलिए हमें कानूनी नियमों का पालन करना होगा। कृपया अपनी तस्वीरों की अच्छी गुणवत्ता पर ध्यान दें।.',
+        'passport_explanation' => 'हमारे बैंक को फोटो स्थानांतरण के लिए आपके पासपोर्ट आकार के फोटो की आवश्यकता है। कृपया अपना पासपोर्ट आकार के फोटो अपलोड करें। महत्वपूर्ण: तस्वीर में, आपका चेहरा स्पष्ट रूप से दिखाई देना चाहिए। अन्यथा बैंक आपके कमीशन को आपके बैंक खाते में स्थानांतरित नहीं कर सकता है।.',
+        'pan_explanation' => 'हमारे बैंक को आपके कमीशन के हस्तांतरण के लिए पैन कार्ड की आवश्यकता है। कृपया अपने पैन कार्ड से एक फोटो अपलोड करें। महत्वपूर्ण: तस्वीर में, पैन कार्ड से सभी जानकारी स्पष्ट रूप से पठनीय होनी चाहिए। अन्यथा बैंक आपके कमीशन को आपके बैंक खाते में स्थानांतरित नहीं कर सकता है।.',
 
         'form_labels' => [
           'passportfile' => 'Pass Photo',
@@ -773,21 +773,21 @@ return [
         ],
       ],
       'change_pwd' => [
-        'page_title' => 'Change your photos',
-        'error' => 'Error!',
-        'success' => 'Success!',
+        'page_title' => 'अपनी तस्वीरों को बदलें',
+        'error' => 'त्रुटि!',
+        'success' => 'सफल!',
         'form_labels' => [
-          'old_pwd' => 'Current password',
-          'new_pwd' => 'New password',
-          'new_repeat' => 'Repeat new password',
-          'submit' => 'Change password',
+          'old_pwd' => 'वर्तमान पासवर्ड',
+          'new_pwd' => 'नया पासवर्ड',
+          'new_repeat' => 'नया पासवर्ड दोहराएँ',
+          'submit' => 'पासवर्ड बदलें',
         ],
       ],
       'change_profile' => [
-        'page_title' => 'Change your profile',
-        'error' => 'Error!',
-        'success' => 'Success!',
-        'success_msg' => 'Your profile information has been changed.',
+        'page_title' => 'अपना प्रोफ़ाइल बदलें',
+        'error' => 'त्रुटि!',
+        'success' => 'सफल!',
+        'success_msg' => 'आपकी प्रोफ़ाइल की जानकारी बदल दी गई है.',
         'form_labels' => [
           'FirstName' => 'First name',
           'LastName' => 'Last name',
@@ -831,13 +831,13 @@ return [
         'slide_2_3' => 'लिए हमारी Happiness Guide प्राप्त करें और तुरंत ',
         'slide_2_4' => 'और आपके जीवन को बेहतर और खुश दिशा में बदल दें।',
 
-        'slide_3_1' => 'Say hello to your future with much more',
-        'slide_3_2' => 'happiness and a passive income',
+        'slide_3_1' => 'अपने भविष्य को एक नई नमस्ते करो',
+        'slide_3_2' => 'प्रसन्नता और एक निष्क्रिय आय',
 
-        'slide_4_1' => 'Our marketing system works for your happy life.',
-        'slide_4_2' => 'It`s based on trustworthy mathematical calculations.',
-        'slide_4_3' => 'Take action now and sign up for a better',
-        'slide_4_4' => 'life for you and everybody who you love.',
+        'slide_4_1' => 'हमारी विपणन प्रणाली आपके सुखी जीवन के लिए शानदार काम करती है.',
+        'slide_4_2' => 'यह भरोसेमंद गणितीय गणनाओं पर आधारित है।.',
+        'slide_4_3' => 'अब कार्रवाई करें और बेहतरी के लिए साइन अप करें',
+        'slide_4_4' => 'अपने और जो लोग आपसे प्यार करते हैं, उनके लिए जीवन के लिए।.',
 
         'message_head' => 'भारत, 1.32 अरब लोगों का सबसे बड़ा लोकतंत्र',
         'message_text' => 'दुनिया में गरीबी का सबसे बड़ा केंद्र भी है',
@@ -851,15 +851,15 @@ return [
         'poor_teaser_7' => 'जनसंख्या',
         'poor_teaser_8' => 'भारत की जनसंख्या वर्तमान में 1.4 प्रतिशत की दर से बढ़ रही है।',
 
-        'about_us_title' => 'About us and our idea',
-        'about_us_title2' => 'Help yourself AND others',
-        'planed_projects_title' => 'Our planned projects for the future',
-        'affected_countries_title' => 'Countries we want to help',
+        'about_us_title' => 'हमारे बारे में और हमारे विचार',
+        'about_us_title2' => 'अपनी और दूसरों की सहायता करें',
+        'planed_projects_title' => 'भविष्य के लिए हमारी योजनाबद्ध परियोजनाएं',
+        'affected_countries_title' => 'देश जिनकी हम सहायता करना चाहते हैं',
 
         'why_poor_head' => 'क्या कभी हैरानी हुई है कि भारत क्यों इतना गरीब बन गया?',
         'why_poor_quote' => 'यह एक तथ्य है कि भारत के कुछ हिस्सों को लंबे समय से ब्रिटिश नियंत्रण में रखा गया है, वे आज भी कम अमीर हैं।',
         'why_poor_quote_author' => 'Jawaharlal Nehru',
-        'why_poor_quote_author_org' => 'First Prime Minister of India',
+        'why_poor_quote_author_org' => 'भारत के प्रथम प्रधानमंत्री',
 
         'against_poverty_head' => 'हम गरीबी के खिलाफ हैं',
         'against_poverty_sub' => 'हमने जीवन को बेहतर बनाने के लिए Happiness Guide और इस सिफारिश विपणन प्रणाली को विकसित किया है।',
@@ -879,15 +879,15 @@ return [
 
         'service_ms_title' => 'सिफारिश विपणन प्रणाली',
         'service_ms_desc' => 'बहुत अच्छा लगता है! इस सिफारिश विपणन प्रणाली के बारे में मुझे अधिक जानकारी कहां मिल सकती है?',
-        'service_ms_btn' => 'Click here!',
+        'service_ms_btn' => 'यहां क्लिक करें!',
 
         'service_faq_title' => 'मेरे कुछ सवाल हैं',
         'service_faq_desc' => 'कोई समस्या नहीं, बस FAQ अनुभाग पर जाएं आपको वहां उत्तर मिलेंगे',
-        'service_faq_btn' => 'Go to FAQ',
+        'service_faq_btn' => 'एफ़एक्यू पर जाएँ',
 
         'service_contact_title' => 'मेरे पास अब भी सवाल हैं',
         'service_contact_desc' => 'यह अभी भी कोई समस्या नहीं है! बस हमसे संपर्क करें और हम किसी भी सवाल का जवाब देंगे!',
-        'service_contact_btn' => 'Contact us',
+        'service_contact_btn' => 'हमसे संपर्क करें',
 
         'pdf_explanation_head' => 'सिफारिश विपणन प्रणाली',
         'pdf_explanation' => 'अतिरिक्त दस्तावेज में एक सचित्र व्याख्या भी है। यदि आप एक पीडीएफ दस्तावेज़ पढ़ना पसंद करते हैं, ',
@@ -927,13 +927,13 @@ return [
 
           'submit' => 'Submit',
         ],
-        'signup_success' => 'Successfully transferred message. Your request is being processed',
-        'success' => 'Success!',
+        'signup_success' => 'संदेश को सफलतापूर्वक स्थानांतरित किया गया। आपके अनुरोध पर कार्यवाही की जा रही है',
+        'success' => 'सफल!',
       ],
 
       'faq' => [
         'page_title' => 'FAQ',
-        'welcome_faq' => 'सामान्य प्रश्न',
+        'welcome_faq' => 'Frequently {0} Questions',
         'welcome_faqh' => ['Asked'],
 
         'items' => '__$faqItems__',
@@ -963,7 +963,7 @@ return [
         'member_num' => 'ग्राहक संख्या',
         'paid_date' => 'Haid Paid?',
         'signup_date' => 'Signup Date',
-        'success' => 'Success',
+        'success' => 'सफल',
         'success_msg' => 'Member is set paid now!'
       ],
 
@@ -990,29 +990,29 @@ return [
       'index' => [
         'page_title' => 'Happiness Guide',
         'product_title' => 'Happiness Guide',
-        'product_description' => 'Our Happiness Guide series. A digital download about getting happier in life. You will get 8 pieces, each one more step to wealth and health',
+        'product_description' => 'हमारी Happiness Guide श्रृंखला। जीवन में खुश रहने के बारे में एक डिजिटल डाउनलोड। आप इसे 8 भागों में प्राप्त करेंगे, धन और स्वास्थ्य की तरफ हर एक कदम',
 
 
-        'paypal_register_text' => 'You don\'t have a PayPal Account?',
-        'paypal_register_button' => 'Register PayPal Account for free',
+        'paypal_register_text' => 'क्या आपका PayUmoney खाता नहीं है?',
+        'paypal_register_button' => 'PayUmoney  अकाउंट के लिए फ्री में रजिस्टर करें',
 
         'product_tab_video' => 'Video',
         'product_tab_pdf' => 'PDF',
       ],
 
       'handleresult' => [
-        'page_title' => 'Purchase Results',
+        'page_title' => 'खरीद के परिणाम',
       ],
 
       'howtopay' => [
-        'page_title' => 'How to pay the Happiness Guide',
+        'page_title' => 'Happiness Guide का भुगतान कैसे करें',
 
-        'purchased_already' => 'You are already owning our Happiness Guide',
-        'purchased_already_link' => 'Follow this link to your account to download our guide',
-        'want_purchase' => 'Do you want to purchase our Happiness Guide?',
-        'require_login' => 'Dont hesitate, you need to signup and login then',
-        'signup_button' => 'Got to signup',
-        'login_button' => 'Got to login',
+        'purchased_already' => 'आप पहले से ही हमारी Happiness Guide मालिक हैं',
+        'purchased_already_link' => 'हमारी गाइड डाउनलोड करने के लिए अपने खाते में इस लिंक का पालन करें',
+        'want_purchase' => 'क्या आप हमारी Happiness Guide खरीदना चाहते हैं?',
+        'require_login' => 'संकोच न करें, आपको साइन अप करने और फिर लॉगिन करने की आवश्यकता है',
+        'signup_button' => 'साइन अप पर जाएँ',
+        'login_button' => 'लॉगिन पर जाएँ',
 
       ],
     ],
@@ -1022,7 +1022,5 @@ return [
     ---------------------------------------------*/
   'mail' => '__$mails__',
 
-  'terms_tax' => 'Due to legal requirements Betterliving has to transfer 5% from the affiliate commission as TDS to the tax authorities. The amount of the affiliate commission to be paid will be reduced accordingly by 5%.',
+  'terms_tax' => 'कानूनी आवश्यकताओं के कारण Betterliving को संबद्ध कमीशन से 5% टैक्स अधिकारियों को टीडीएस के रूप में स्थानांतरित करना होगा। इसी प्रकार संबद्ध कमीशन की राशि का भुगतान 5% तक कम हो जाएगा।.',
 ];
-
-?>
