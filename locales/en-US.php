@@ -34,6 +34,11 @@ return [
       'india' => 'India',
     ],
 
+    'videos' => [
+      'amazing_marketing_system' => 'W_4anr-fRSc',
+      'loginandpay' => 'YTw2Lb5nsVo',
+    ],
+
     'forbidden_countries' => [
       'Norway',
       'Sweden',
@@ -1013,6 +1018,14 @@ return [
         'require_login' => 'Dont hesitate, you need to signup and login then',
         'signup_button' => 'Got to signup',
         'login_button' => 'Got to login',
+
+        'text1' => 'Dear customer,',
+        'text2_1' => 'Do you want purchase the Happiness Guide? Fine, you can purchase the Happiness Guid with ',
+        'text2_2' => '. It is very easy and comfortable.',
+        'text3' => 'PayU money allows you to pay with Credit Card, Debit Card, Net Banking.',
+        'text4' => 'Just click the following "go to PayU money" button. You will be redirected to the checkout process where you can select your preferred payment method.',
+        'text5_1' => 'You have any question, or you wish there would be another payment option?',
+        'text5_2' => 'Sure, just contact us!',
 
       ],
     ],

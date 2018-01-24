@@ -3,7 +3,7 @@ UPDATE SERVER - TODO
 
 update
 ======
-* für die head leute -> photos_exist auf true setzen  
+* für die head leute -> photos_exist auf true setzen
 
 
 Fragen
@@ -14,6 +14,8 @@ Fragen
 
 CURRENT - TODOS
 ===============
+
+* Ist es möglich die Flagge, also das wechseln der Sprache, auf dem Handy in den Startbildschirm mit darzustellen. Es wäre leichter zu finden und auszuwählen falls man die Sprache nicht beherrscht.
 
 * rework invoice tab - use subselect to order and limit before group by to show most recent transactions frist
 * mark transfer as failed - freeze members transfers!

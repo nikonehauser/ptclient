@@ -5,22 +5,22 @@
   <div class="row bottom-30 top-30 sheet">
   <div class="col-md-12 " id="printableContainer">
 
-    <h1>Dear customer,</h1>
+    <h1><?=$this->i18nView['text1']?></h1>
     <p>
-      Do you want purchase the Happiness Guide? Fine, you can purchase the Happiness Guid with <img src="<?=Tbmt\Router::toImage('payumoney.jpg')?>" title="PayU money"/>. It is very easy and comfortable.
+      <?=$this->i18nView['text2_1']?> <img src="<?=Tbmt\Router::toImage('payumoney.jpg')?>" title="PayU money"/> <?=$this->i18nView['text2_2']?>
     </p>
     <p>
-      PayU money allows you to pay with <span class="highlight">Credit Card</span>, <span class="highlight blue">Debit Card</span>, <span class="highlight yellow">Net Banking</span>.
+      <?=$this->i18nView['text3']?>
     </p>
     <p>
-      Just click the following "go to PayU money" button. You will be redirected to the checkout process where you can select your preferred payment method.
+      <?=$this->i18nView['text4']?>
     </p>
 
 
     <?php include(dirname(__FILE__).DIRECTORY_SEPARATOR.'pdetails.purchase.guide.html'); ?>
 
     <p style="margin-top: 10px;">
-      You have any question, or you wish there would be another payment option? Sure, just <a href="<?=\Tbmt\Router::toModule('about', 'contact')?>">contact us!</a>
+      <?=$this->i18nView['text5_1']?><a href="<?=\Tbmt\Router::toModule('about', 'contact')?>"><?=$this->i18nView['text5_2']?></a>
     </p>
   </div>
   </div>
