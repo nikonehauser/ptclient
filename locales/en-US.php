@@ -192,9 +192,9 @@ return [
         'exp_videos' => [
           'index' => 'Login and pay',
           'whatsappinvite' => 'WhatsApp Invitation',
-          'stepstosuccess' => 'Steps to Success',
-          'fromto' => 'From first mail to premium customer in 3 days',
-          'backoffice' => 'The Backoffice of Betterliving',
+          // 'stepstosuccess' => 'Steps to Success',
+          // 'fromto' => 'From first mail to premium customer in 3 days',
+          // 'backoffice' => 'The Backoffice of Betterliving',
         ],
         'projects' => [
           '1' => ['index', 'Amazing Recommendation Marketing System Video', 'video_explanation'],
@@ -260,7 +260,7 @@ return [
         'pdf_explanation_link' => 'just click here',
       ],
       'fromto' => [
-        'page_title' => 'Explanation videos - From first mail to premium customer',
+        'page_title' => 'Explanation videos - From first mail to premium customer in 3 days',
         'head' => 'Login and pay',
       ],
       'backoffice' => [

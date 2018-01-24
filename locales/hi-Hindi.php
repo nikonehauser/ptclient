@@ -192,9 +192,9 @@ return [
         'exp_videos' => [
           'index' => 'प्रवेश करें और भुगतान करें',
           'whatsappinvite' => 'WhatsApp आमंत्रण',
-          'stepstosuccess' => 'सफलता के लिए कदम',
-          'fromto' => 'पहली मेल से प्रीमियम ग्राहक को 3 दिनों में',
-          'backoffice' => 'Betterliving का बैक ऑफिस ',
+          // 'stepstosuccess' => 'सफलता के लिए कदम',
+          // 'fromto' => 'पहली मेल से प्रीमियम ग्राहक को 3 दिनों में',
+          // 'backoffice' => 'Betterliving का बैक ऑफिस ',
         ],
         'projects' => [
           '1' => ['index', 'गज़ब का सिफारिश विपणन प्रणाली वीडियो', 'video_explanation'],
@@ -260,7 +260,7 @@ return [
         'pdf_explanation_link' => 'तो यहां क्लिक करें',
       ],
       'fromto' => [
-        'page_title' => 'स्पष्टीकरण वीडियो - पहले मेल से premium customer तक',
+        'page_title' => 'स्पष्टीकरण वीडियो - पहली मेल से प्रीमियम ग्राहक को 3 दिनों में',
         'head' => 'पहले मेल से premium customer तक',
       ],
       'backoffice' => [
@@ -933,7 +933,7 @@ return [
 
       'faq' => [
         'page_title' => 'FAQ',
-        'welcome_faq' => 'Frequently {0} Questions',
+        'welcome_faq' => 'सामान्य प्रश्न',
         'welcome_faqh' => ['Asked'],
 
         'items' => '__$faqItems__',
@@ -944,7 +944,7 @@ return [
       ],
 
       'terms' => [
-        'page_title' => 'Terms of Use',
+        'page_title' => 'उपयोग की शर्तें',
         'texts' => '__$terms__'
       ],
     ],

@@ -4,7 +4,7 @@ namespace Tbmt;
 
 class Localizer {
 
-  const FALLBACK = 'en';
+  const FALLBACK = 'hi';
 
   const PARSE_ACCEPT_LANGUAGE = '/^([a-z]{1,8}(?:-[a-z]{1,8})*)(?:;\s*q=(0(?:\.[0-9]{1,3})?|1(?:\.0{1,3})?))?$/i';
 
