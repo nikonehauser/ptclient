@@ -37,6 +37,7 @@ return [
     'videos' => [
       'amazing_marketing_system' => 'BevsWNkch8c',
       'loginandpay' => 'Qvz_zNlrVB4',
+      'whatsapp' => 'sNS4_QTkexg',
     ],
 
     'forbidden_countries' => [
