@@ -15,6 +15,9 @@ final class Session {
   static public function start() {
     \session_cache_limiter('nocache');
     \session_name(PROJECT_NAME);
+    \session_set_cookie_params(
+      0 // lifetime
+    );
     \session_start();
 
     \session_regenerate_id(true);
