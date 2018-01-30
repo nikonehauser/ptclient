@@ -13,7 +13,7 @@ final class Session {
   static private $user;
 
   static public function start() {
-    \session_cache_limiter('');
+    \session_cache_limiter('nocache');
     \session_name(PROJECT_NAME);
     \session_start();
 
