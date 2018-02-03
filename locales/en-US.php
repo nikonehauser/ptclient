@@ -605,7 +605,7 @@ return [
 
           'images_missing' => 'We will only need your image and your PAN Card internally for the payment of your recommendation fee and for the payment of the GST to the government. Since we strictly pay attention to legality, we have to comply with the legal regulations. Please pay attention to a good quality of your photos.',
           'images_missing_attention' => 'ATTENTION - Images are Missing',
-          'good_decision' => 'बहुत अच्छा निर्णय!',
+          'good_decision' => 'Good decision!',
           'invitation_link_comment' => 'This is your exclusive invitation link:',
           'additional_invitation_options' => 'Use this link to invite your friends and earn the systems rewards. You can share it with:',
           'additional_invitation_option_copy' => 'Copy',

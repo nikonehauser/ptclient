@@ -20,7 +20,9 @@ final class Session {
     );
     \session_start();
 
-    \session_regenerate_id(true);
+    if ( \session_regenerate_id(false) === false ) {
+      throw new \Exception('session_regenerate_id failed');
+    }
   }
 
   static public function commit() {
