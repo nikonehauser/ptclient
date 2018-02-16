@@ -459,7 +459,7 @@ class Member extends BaseMember
     $this->save($con);
 
     if ($this->getType() > self::TYPE_MEMBER )
-      \Tbmt\MailHelper::sendInvitationFeeIncome($this, $freeFromInvitation);
+      \Tbmt\MailHelper::sendInvitationFeeIncome($this, $this->getFreeInvitation());
     else
       \Tbmt\MailHelper::sendFeeIncome($this);
 
